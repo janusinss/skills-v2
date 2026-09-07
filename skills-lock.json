@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "skills": {
+    "build-with-exa": {
+      "source": "exa-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/build-with-exa/SKILL.md",
+      "computedHash": "d85b278a33c5d97738ee8eabd885e346ab9daf97bddf7025736f0d803559f88a"
+    },
+    "company-research": {
+      "source": "exa-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/company-research/SKILL.md",
+      "computedHash": "45a271854a4a5d58e7fc2359171262eb5e99af0b9087daaea6c9938aa2533444"
+    },
+    "design-taste-frontend": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/taste-skill/SKILL.md",
+      "computedHash": "899b84384f74f540ea5284d9b2e9234e050998b42eacc805410b518d4226c0b3"
+    },
+    "exa-contents": {
+      "source": "exa-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/exa-contents/SKILL.md",
+      "computedHash": "175bf0b235af79c49c185b1e2ffd84f7f9bf124ec4ec2f1ada3ddb0515c8924b"
+    },
+    "exa-search": {
+      "source": "exa-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/exa-search/SKILL.md",
+      "computedHash": "1b019d28b521bc5b6774da3d73751ac13ea7d5b8fa59815c717fda513e7c291c"
+    },
+    "lead-generation": {
+      "source": "exa-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/lead-generation/SKILL.md",
+      "computedHash": "f95c6172ceb7d3171bcfd8f2d2663b2167ccc59c712537531f69b420121dd208"
+    },
+    "playwright-skill": {
+      "source": "lackeyjb/playwright-skill",
+      "sourceType": "github",
+      "skillPath": "skills/playwright-skill/SKILL.md",
+      "computedHash": "cee6138f1a7ae2b52e9a600edaf456cc0c8c701ca267a00f0f116d6f99764d13"
+    }
+  }
+}
