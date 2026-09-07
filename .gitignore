@@ -109,3 +109,12 @@ scratch/
 .gemini/
 .antigravity/
 .system_generated/
+
+# Agent Client Auto-Generated Symlink Directories (e.g. from skills CLI)
+.claude/
+.cursor/
+.cline/
+
+# Ephemeral Skill Runtime & Review Artifacts
+.impeccable/
+
