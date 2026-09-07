@@ -85,14 +85,6 @@ If you are working directly in a clone of this repository:
 git pull origin main
 ```
 
-> [!TIP]
-> If you have local uncommitted changes that conflict with the incoming pull:
-> ```bash
-> git stash            # Stash your uncommitted work
-> git pull origin main # Pull the latest changes
-> git stash pop        # Reapply your local work
-> ```
-
 ---
 
 ### 2. Updating in an Existing Project
