@@ -17,19 +17,7 @@ A curated collection of production-grade AI agent skills, rules, and automated w
 
 ---
 
-## 🚀 How to Install & Use in Your Project
-
-### 1. Clone the Repository
-
-To clone this repository directly:
-
-```bash
-git clone https://github.com/janusinss/skills-v2.git
-```
-
----
-
-### 2. Add to an Existing Project
+### 1. Add to an Existing Project
 
 Choose one of the following methods to integrate these skills into your project:
 
@@ -47,6 +35,18 @@ Copy-Item -Path "temp-skills\skills-lock.json" -Destination "C:\path\to\your-pro
 
 # 3. Clean up the temporary folder
 Remove-Item -Recurse -Force "temp-skills"
+```
+
+---
+
+## 🚀 How to Install & Use in Your Project
+
+### 2. Clone the Repository
+
+To clone this repository directly:
+
+```bash
+git clone https://github.com/janusinss/skills-v2.git
 ```
 
 ---
