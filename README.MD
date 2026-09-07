@@ -102,12 +102,6 @@ Copy-Item -Recurse -Force -Path ".\.agents" -Destination "C:\path\to\your-projec
 Copy-Item -Force -Path ".\skills-lock.json" -Destination "C:\path\to\your-project\"
 ```
 
-#### Method B: Submodule Update (If using Git Submodules)
-If your project added this repository as a git submodule:
-```bash
-git submodule update --remote --merge
-```
-
 ---
 
 ### 3. Updating Skills via CLI
