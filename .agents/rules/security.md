@@ -1,0 +1,38 @@
+---
+trigger: manual
+---
+
+# Application Security & Vulnerability Standards
+
+## Phase 0: Threat Posture & Zero-Trust Verification
+- Apply `@ethical-hacking-methodology` during planning to construct an attack tree and identify entry vectors.
+- Assume all client headers, query parameters, bodies, and webhook signatures are untrusted.
+- Verify that no secrets, service tokens, or private keys are committed to Git.
+
+---
+
+## Active Pipeline (Run on Auth, API, & Endpoint Reviews)
+
+### Stage 1: Input Boundary & Injection Defense
+- Validate all incoming request payloads at the edge using strict schema parsers (e.g., Zod, Joi).
+- Invoke `@sql-injection-testing`:
+  - Enforce 100% prepared statements or parameterized queries.
+  - Ban dynamic SQL string interpolation, raw query concatenations, and unescaped table/column names.
+
+### Stage 2: Identity & Access Control (AuthN / AuthZ)
+- Apply `@api-security-best-practices`:
+  - Enforce authentication on all protected endpoints.
+  - Enforce Object-Level Authorization (BOLA/IDOR prevention): confirm the authenticated session identity matches the record owner before mutating or returning data.
+  - Implement IP/User rate limiting on sensitive routes (login, registration, password reset, search, webhooks).
+
+### Stage 3: Automated Vulnerability Audit
+- Run `@vulnerability-scanner` on modified files:
+  - Audit against OWASP Top 10 vectors (Broken Access Control, SSRF, Injection, Security Misconfiguration).
+  - Verify error handlers suppress stack traces, system paths, and internal database details in production responses.
+  - Enforce secure headers (CORS restriction, CSP, `X-Content-Type-Options: nosniff`).
+
+### Stage 4: Security Verification & TDD
+- Apply `@test-driven-development` to write automated negative security tests:
+  - Missing or forged tokens must strictly return `401 Unauthorized`.
+  - Attempts to access other users' resource IDs must return `403 Forbidden` or `404 Not Found`.
+  - Boundary fuzzing payloads (e.g., `' OR '1'='1`, `<script>`, large payloads) must return `400 Bad Request` or `422 Unprocessable Entity`.
