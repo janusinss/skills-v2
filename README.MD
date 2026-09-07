@@ -135,16 +135,6 @@ To update all installed upstream skills to their latest versions while keeping y
 npx skills update -y; if (Test-Path .claude) { Remove-Item -Recurse -Force .claude }
 ```
 
-To update or re-fetch a specific skill targeting `.agents/` directly:
-
-```powershell
-# Examples:
-npx skills add lackeyjb/playwright-skill --agent antigravity -y
-npx skills add Leonxlnx/taste-skill --agent antigravity -y
-npx skills add pbakaus/impeccable --agent antigravity -y
-npx skills add nextlevelbuilder/ui-ux-pro-max-skill --agent antigravity -y
-```
-
 ---
 
 ## ⚙️ Automated Lifecycle Hooks
