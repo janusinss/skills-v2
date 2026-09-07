@@ -53,7 +53,7 @@ Remove-Item -Recurse -Force "temp-skills"
 
 Depending on your team workflow, decide whether the agent configuration should be committed to your project's Git repository or kept local-only.
 
-Refer to **lines 107 and 108** in [.gitignore](file:///c:/xampp/htdocs/YEAR%203/SE/Skills/.gitignore):
+Refer to **lines 107 and 108** in .gitignore:
 
 ```gitignore
 # .agents/                    #Uncomment this if the agent is installed and you don't want to push the .agents directory
