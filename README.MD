@@ -17,29 +17,61 @@ A curated collection of production-grade AI agent skills, rules, and automated w
 
 ---
 
-## 🚀 How to Install into Your Project
+## 🚀 How to Install & Use in Your Project
 
-Follow these steps to bring these skills and automated agent workflows into any project:
+### 1. Clone the Repository
 
-### Step 1: Copy Files to Your Project Root
-
-Copy the `.agents/` directory and `skills-lock.json` into the root directory of your target project:
+To clone this repository directly:
 
 ```bash
-# Example: Copying from this directory to your target project
-cp -r .agents /path/to/your-project/
-cp skills-lock.json /path/to/your-project/
-```
-
-On Windows (PowerShell):
-```powershell
-Copy-Item -Recurse -Path ".agents" -Destination "C:\path\to\your-project\"
-Copy-Item -Path "skills-lock.json" -Destination "C:\path\to\your-project\"
+git clone https://github.com/janusinss/skills-v2.git
 ```
 
 ---
 
-### Step 2: Configure `.gitignore` (Tracking vs. Ignoring)
+### 2. Add to an Existing Project
+
+Choose one of the following methods to integrate these skills into your project:
+
+#### Method A: Clone & Copy (Recommended)
+Clone the repository temporarily, copy the `.agents/` directory and `skills-lock.json` into your project's root, and clean up:
+
+**Linux / macOS (Bash):**
+```bash
+# 1. Clone to a temporary folder
+git clone https://github.com/janusinss/skills-v2.git temp-skills
+
+# 2. Copy the .agents folder and skills lockfile to your project root
+cp -r temp-skills/.agents /path/to/your-project/
+cp temp-skills/skills-lock.json /path/to/your-project/
+
+# 3. Clean up the temporary clone
+rm -rf temp-skills
+```
+
+**Windows (PowerShell):**
+```powershell
+# 1. Clone to a temporary folder
+git clone https://github.com/janusinss/skills-v2.git temp-skills
+
+# 2. Copy into your project root
+Copy-Item -Recurse -Path "temp-skills\.agents" -Destination "C:\path\to\your-project\"
+Copy-Item -Path "temp-skills\skills-lock.json" -Destination "C:\path\to\your-project\"
+
+# 3. Clean up the temporary folder
+Remove-Item -Recurse -Force "temp-skills"
+```
+
+#### Method B: Git Submodule (Keep Up-to-Date)
+If your project is a Git repository and you want to pull updates in the future, add this repo as a submodule:
+
+```bash
+git submodule add https://github.com/janusinss/skills-v2.git .skills-v2
+```
+
+---
+
+### 3. Configure `.gitignore` (Tracking vs. Ignoring)
 
 Depending on your team workflow, decide whether the agent configuration should be committed to your project's Git repository or kept local-only.
 
@@ -50,7 +82,7 @@ Refer to **lines 107 and 108** in [.gitignore](file:///c:/xampp/htdocs/YEAR%203/
 # skills-lock.json           #Uncomment this if the agent is installed and you don't want to push the skills-lock.json file
 ```
 
-#### Option A: Local-Only Installation (Recommended if you don't want agent files in your repo)
+#### Option A: Local-Only Installation (Recommended if you don't want agent files in your project repo)
 If you want to use the agent skills locally without polluting your repository's commit history or git remote:
 1. Open your project's `.gitignore`.
 2. Add or uncomment the following lines:
@@ -58,7 +90,7 @@ If you want to use the agent skills locally without polluting your repository's 
    .agents/
    skills-lock.json
    ```
-This ensures your AI assistant can access the skills locally while keeping your Git repository clean.
+This ensures your AI assistant has access to the skills locally while keeping your Git repository clean.
 
 #### Option B: Team-Wide Shared Skills (Tracked in Git)
 If you want all team members and CI/CD agents to share the exact same skills, rules, and hook definitions:
