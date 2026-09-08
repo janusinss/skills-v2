@@ -3,11 +3,12 @@ trigger: manual
 ---
 
 # Backend Connection & Data Layer Standards
-# Bundle Reference: Architecture & Data Engine (docs/BUNDLES.md)
+
+Execute this pipeline when designing, implementing, or refactoring data access layers and database connections:
 
 ## Phase 0: System Contract & Infrastructure Scope
-- Before coding, invoke `@c4-context` and `@concise-planning` to document connection topologies and service boundaries.
-- Keep all database credentials and connection strings strictly isolated within `.env.example`.
+- Before coding, invoke `@architecture-patterns`, `@backend-dev-guidelines`, and `@concise-planning` to document connection topologies and service boundaries.
+- **Environment & Secrets:** Keep real connection strings and secrets strictly inside `.env` (ensuring `.env` is in `.gitignore`). Maintain non-sensitive template keys inside `.env.example`.
 - Track all schema updates in sequential migration files rather than ad-hoc SQL executions.
 
 ---
@@ -15,12 +16,12 @@ trigger: manual
 ## Active Pipeline (Run on Data & Persistence Tasks)
 
 ### Stage 1: System Topology & Infrastructure Design
-- Apply `@architecture` and `@senior-architect` guidelines to define service layers, repository patterns, and ORM/query boundaries.
-- Mandate connection pooling; never open raw, unpooled connections per HTTP request.
-- Enforce strict lifecycle cleanup: idle connections must terminate cleanly and pooled connections must release upon function exit.
+- Apply `@senior-architect` and `@backend-dev-guidelines` to define service layers, repository patterns, and ORM/query boundaries.
+- **Connection Pooling:** Mandate connection pooling; never open raw, unpooled connections per HTTP request.
+- **Lifecycle Cleanup:** Enforce strict lifecycle cleanup: idle connections must terminate cleanly and pooled connections must release upon function exit.
 
 ### Stage 2: Schema Integrity & Relational Design
-- Follow `@supabase` (Postgres / Relational Best Practices):
+- Follow `@postgres-best-practices` and `@database-design`:
   - Define column nullability, unique keys, and explicit foreign key constraints with safe deletion cascades (`ON DELETE RESTRICT` or `CASCADE`).
   - Add targeted or composite indexes for columns frequently evaluated in `WHERE`, `JOIN`, or `ORDER BY` clauses.
   - Disallow polymorphic relations that bypass database-level foreign key enforcement.
@@ -30,6 +31,7 @@ trigger: manual
 - Guard against race conditions using row-level locking (`SELECT ... FOR UPDATE`) or optimistic concurrency tokens where applicable.
 
 ### Stage 4: Resilience & Integration Testing
-- Apply `@testing-patterns` to verify database health checks.
-- Test connection recovery logic to ensure graceful reconnection after transient network drops.
-- Log slow queries and verify that connection pool exhaustion thresholds fail gracefully without crashing the server process.
+- Apply `@test-driven-development` and `@backend-dev-guidelines`:
+  - Verify database health check endpoints (`/health`, `SELECT 1`).
+  - Test connection recovery logic to ensure graceful reconnection after transient network drops.
+  - Log slow queries and verify that connection pool exhaustion thresholds fail gracefully (returning 503 Service Unavailable) without crashing the server process.
