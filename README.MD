@@ -9,7 +9,7 @@ A curated collection of production-grade AI agent skills, rules, and automated w
 ```text
 ├── .agents/
 │   ├── hooks.json         # Automated lifecycle hooks (e.g., UI checks & design deep passes)
-│   ├── rules/             # 5 architectural guidelines (frontend, backend, security, project setup)
+│   ├── rules/             # 6 architectural guidelines & proactive rules (UI, backend, security, setup)
 │   └── skills/            # 150+ specialized agent skills (UI/UX, Backend, Security, DevOps, etc.)
 ├── skills-lock.json       # Skill dependency manifest and integrity hash lockfile
 └── .gitignore             # Git ignore configuration for development and agent environments
@@ -87,25 +87,60 @@ This ensures your AI assistant has access to the skills locally while keeping yo
 
 ### 📋 Using Workspace Rules (`.agents/rules/`)
 
-Rules provide foundational instructions that modern AI assistants (like Google Antigravity, Cursor, and Claude Code) load automatically when planning and writing code.
+Rules provide foundational instructions and safety guardrails that modern AI assistants (like Google Antigravity, Cursor, and Claude Code) load when planning, writing, and reviewing code.
 
-The repository includes 5 core rules:
+The repository includes **6 core rules**:
 
-1. **`frontend.md`** — **Active UI Development Pipeline**
-   - Enforces a 4-stage UI delivery workflow: Token & System Alignment, Composition & Asset Standards (anti-pattern checks), Two-Phase Quality Review (Impeccable critique & audit), and Real Browser Verification.
-2. **`backend.md`** — **Production-Grade Backend Architecture**
-   - Defines strict service boundaries, controller/service/repository layer separation, error-handling conventions, and reliability standards.
-3. **`security.md`** — **Security & Defenses**
-   - Enforces input validation, authentication/authorization requirements, parameterized queries, secret protection, and OWASP mitigation.
-4. **`starting-brandnew.md`** — **Greenfield Project Scaffolding**
-   - Step-by-step guidance for bootstrapping a brand new project, setting up design systems, project structure, and dependencies.
-5. **`starting-existing.md`** — **Refactoring & Modernizing Existing Projects**
-   - Best practices for safely auditing and upgrading an existing codebase without regressions or breaking changes.
+1. **`always.md`** — **Proactive Frontend Self-Correction (`trigger: model_decision`)**
+   - Autonomous, progressive guardrails that self-correct ubiquitous UI defects on sight without manual prompting:
+     - Eliminates unwanted horizontal scrollbars (`overflow-x`) and flex child blowouts (`min-width: 0`).
+     - Enforces interactive affordances (`cursor: pointer` on clickables, minimum `44×44px` touch targets).
+     - Prevents iOS Safari auto-zoom by enforcing `≥16px` font on form inputs.
+     - Mandates accessible focus rings (`:focus-visible`), WCAG AA contrast (≥ 4.5:1), and line length limits (`max-width: 65ch`).
+     - Bans raw, untinted grays (`#808080`, `#000000`), unicode emojis as icons, and placeholder links.
+   - *Intelligent Activation:* Employs `model_decision` so it remains dormant during general or model-training questions to save tokens, and activates automatically whenever touching UI, HTML, or CSS.
 
-#### How to Trigger Rules:
-- **Automatic:** Coding assistants automatically inspect `.agents/rules/` within your workspace and adhere to them during code generation.
-- **Explicit in Prompt:** You can direct the agent to follow a specific rule:
-  > *"Refactor the user profile page following the standards in `.agents/rules/frontend.md`."*
+2. **`frontend.md`** — **Active UI Development Pipeline (`trigger: auto`)**
+   - 4-stage UI delivery workflow executed on frontend features and refactors:
+     - **Stage 1 (Aesthetic Alignment):** Adheres to `DESIGN.md` tokens via `taste-skill` and replaces legacy styles.
+     - **Stage 2 (Anti-Slop Standards):** Enforces composition dials (`DESIGN_VARIANCE`, `VISUAL_DENSITY`, `MOTION_INTENSITY`), bans nested cards, purple-blue gradients, and gradient text.
+     - **Stage 3 (Bounded Quality Review):** Batched technical & visual audit via `@impeccable` guidelines with single-pass remediation.
+     - **Stage 4 (Browser Verification):** Real browser inspection across mobile (375px), tablet (768px), and desktop (1280px+) via `playwright-skill`.
+
+3. **`starting-brandnew.md`** — **Greenfield Project Scaffolding (`trigger: manual`)**
+   - Phase 0 bootstrapping for brand-new projects:
+     - Scaffolds package manifest (`package.json`) and verifies Playwright browser automation runtimes.
+     - Captures durable product truth, audience, and workflows into `PRODUCT.md` via `@impeccable`.
+     - Establishes visual archetype, core dials, and design tokens into `DESIGN.md` via `design-taste-frontend`.
+     - Initializes Git hygiene (`.gitignore`) to isolate dependencies, test dumps, and ephemeral review assets.
+
+4. **`starting-existing.md`** — **Legacy Codebase Redesign & Modernization (`trigger: manual`)**
+   - Phase 0 baseline extraction for existing applications:
+     - Non-destructively inspects existing environment and dependencies.
+     - Reverse-engineers legacy font usage, palettes, and components into `DESIGN.md`.
+     - Establishes a `## Target Redesign Specification` section in `DESIGN.md` to define the upgraded aesthetic direction before mutating code.
+     - Supports per-view density overrides (e.g., `Compact` for data tables vs. `Spacious` for landing heroes).
+
+5. **`backend.md`** — **Backend Connection & Data Layer Standards (`trigger: manual`)**
+   - Production-grade data layer architecture:
+     - Enforces service/repository boundaries (`@architecture-patterns`, `@backend-dev-guidelines`).
+     - Mandates strict connection pooling and lifecycle cleanup to prevent resource leaks.
+     - Enforces schema integrity, explicit foreign key constraints, and targeted indexing (`@postgres-best-practices`).
+     - Requires atomic mutations in explicit transactions (`BEGIN`/`COMMIT`/`ROLLBACK`) with race condition defenses (`SELECT ... FOR UPDATE`).
+     - Enforces health check endpoints and graceful connection recovery.
+
+6. **`security.md`** — **Application Security & Vulnerability Standards (`trigger: manual`)**
+   - Zero-trust DevSecOps pipeline:
+     - Phase 0 threat modeling and attack tree formulation (`@ethical-hacking-methodology`).
+     - Strict edge input validation (Zod, Joi, Pydantic) and 100% parameterized SQL queries (`@backend-security-coder`).
+     - Context-aware output encoding to prevent Reflected and DOM XSS (`@frontend-security-coder`).
+     - Identity verification and Object-Level Authorization to prevent BOLA/IDOR (`@api-security-best-practices`).
+     - OWASP Top 10 audits, secure headers (CORS, CSP, nosniff), and automated negative TDD (asserting 401, 403, and 422 responses).
+
+#### Rule Trigger Modes:
+- **`model_decision`:** Progressive disclosure. The assistant checks the rule's summary and autonomously activates it when relevant to the task (e.g., `always.md` activates for UI tasks but stays idle during theoretical ML questions).
+- **`auto`:** Automatically loaded during relevant file edits or feature implementations (e.g., `frontend.md`).
+- **`manual`:** Invoked explicitly in prompts when initiating specific architectural phases (e.g., `starting-brandnew.md`, `starting-existing.md`).
 
 ---
 
