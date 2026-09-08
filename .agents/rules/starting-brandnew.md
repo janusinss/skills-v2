@@ -17,5 +17,10 @@ Establish the project environment and design baseline before writing any UI code
 - **Design System Token Generation:**
   - Generate the design system via `ui-ux-pro-max` based on the product category and persist it to `design-system/MASTER.md`.
 
-- **Repository Hygiene:** 
-  - Confirm `.gitignore` includes ephemeral Impeccable review artifacts (`.impeccable/*.png`, `.impeccable/live/`) and Playwright test traces.
+- **Repository Hygiene & Version Control:**
+  - **Shared Design Assets (MUST BE TRACKED IN GIT):**
+    - Always commit and track project manifests and persistent sources of truth: `package.json`, `PRODUCT.md`, `DESIGN.md`, and `design-system/MASTER.md`.
+  - **Ignored Artifacts (CONFIRM IN .gitignore):**
+    - Ensure ephemeral Impeccable runtime captures and machine-local files are ignored (`.impeccable/*.png`, `.impeccable/live/`, `.impeccable/config.local.json`).
+    - Ensure browser test traces and visual dumps are ignored (`tests/screenshots/`, `test-results/`).
+    - Ensure local dependencies are ignored (`node_modules/`).
