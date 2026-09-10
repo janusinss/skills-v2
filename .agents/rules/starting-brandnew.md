@@ -18,7 +18,7 @@ Establish the project environment, testing runtimes, and design baseline before 
   - This installs local dependencies and downloads the Chromium browser binary required for responsive visual verification.
 
 - **Brand & Product Initialization (via Impeccable):** 
-  - Consult `@impeccable` init guidelines to establish target audience, product purpose, voice, and user workflow.
+  - Consult `impeccable` init guidelines to establish target audience, product purpose, voice, and user workflow.
   - Generate `PRODUCT.md` in the project root as the persistent source of truth for product facts.
 
 - **Aesthetic Direction & Token Setup (via `taste-skill`):**

@@ -78,14 +78,7 @@ Apply these rules automatically whenever viewing, writing, or refactoring fronte
 - **Anti-Nesting Rule:**
   - Never nest a card inside another card with identical backgrounds and borders.
 
-## 7: Real Browser & Responsive Verification
-- Verify the local web server is running and accessible prior to launching browser tests.
-- Invoke `playwright-skill` to inspect the rendered page across standard breakpoints:
-   - Mobile: 375px
-   - Tablet: 768px
-   - Desktop: 1280px+
-- Validate runtime behavior:
-   - Verify zero console errors or broken asset/image links (`page.on('console')`).
-   - Confirm essential text containers reflow naturally without clipping or horizontal overflow.
-   - Ensure interactive touch/click targets meet minimum dimensions (≥ 44×44px).
-- Capture clean viewport screenshots across breakpoints as proof of task completion.
+## 7. Responsive Verification (Scope-Bounded)
+- **Minor / 1-Line Fixes (text, colors, padding):** Skip browser automation. Verify CSS rules statically in code.
+- **Structural / Layout Changes (grids, navigation, full pages):** Launch `playwright-skill` or `browser_subagent` to inspect across breakpoints (375px, 768px, 1280px) and confirm 0 console errors.
+

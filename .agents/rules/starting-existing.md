@@ -18,7 +18,7 @@ Establish the redesign baseline and target aesthetic specifications before modif
   - This installs local dependencies and downloads the Chromium browser binary required for Stage 4 visual verification.
 
 - **Legacy Pattern & Context Extraction:** 
-  - Follow `@impeccable` document guidelines or run `.agents/skills/impeccable/scripts/impeccable.cmd document` to scan existing templates and stylesheets.
+  - Follow `impeccable` document guidelines or run `.agents/skills/impeccable/scripts/impeccable.cmd document` to scan existing templates and stylesheets.
   - Reverse-engineer current font usage, palettes, and components directly into `DESIGN.md`.
   - If `PRODUCT.md` is absent, extract product intent, target audience, and key workflows from existing documentation/codebase into a concise `PRODUCT.md`.
 
