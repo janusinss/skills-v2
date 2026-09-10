@@ -78,14 +78,14 @@ Apply these rules automatically whenever viewing, writing, or refactoring fronte
 - **Anti-Nesting Rule:**
   - Never nest a card inside another card with identical backgrounds and borders.
 
-## Stage 7: Real Browser & Responsive Verification
-1. Verify the local web server is running and accessible prior to launching browser tests.
-2. Invoke `playwright-skill` to inspect the rendered page across standard breakpoints:
+## 7: Real Browser & Responsive Verification
+- Verify the local web server is running and accessible prior to launching browser tests.
+- Invoke `playwright-skill` to inspect the rendered page across standard breakpoints:
    - Mobile: 375px
    - Tablet: 768px
    - Desktop: 1280px+
-3. Validate runtime behavior:
+- Validate runtime behavior:
    - Verify zero console errors or broken asset/image links (`page.on('console')`).
    - Confirm essential text containers reflow naturally without clipping or horizontal overflow.
    - Ensure interactive touch/click targets meet minimum dimensions (≥ 44×44px).
-4. Capture clean viewport screenshots across breakpoints as proof of task completion.
+- Capture clean viewport screenshots across breakpoints as proof of task completion.
