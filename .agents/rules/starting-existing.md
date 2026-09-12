@@ -21,6 +21,9 @@ Establish the redesign baseline and target aesthetic specifications before modif
   - Follow `impeccable` document guidelines or run `.agents/skills/impeccable/scripts/impeccable.cmd document` to scan existing templates and stylesheets.
   - Reverse-engineer current font usage, palettes, and components directly into `DESIGN.md`.
   - If `PRODUCT.md` is absent, extract product intent, target audience, and key workflows from existing documentation/codebase into a concise `PRODUCT.md`.
+- **System Topology Baseline (via Archify):**
+  - Scan directory structure and routes to generate an interactive `ARCHITECTURE.html` map using `archify architecture` to establish the codebase baseline before refactoring.
+
 
 - **Target Aesthetic & Direction Setup (via `taste-skill`):**
   - Invoke `design-taste-frontend` (`taste-skill`) to define the target aesthetic archetype (e.g., Editorial, Minimalist, Technical, or Brutalist).
@@ -35,7 +38,7 @@ Establish the redesign baseline and target aesthetic specifications before modif
 
 - **Repository Hygiene & Version Control:**
   - **Shared Design Assets (MUST BE TRACKED IN GIT):**
-    - Always commit and track project manifests and persistent sources of truth: `package.json`, `PRODUCT.md`, and `DESIGN.md`.
+    - Always commit and track project manifests and persistent sources of truth: `package.json`, `PRODUCT.md`, `DESIGN.md`, and `ARCHITECTURE.html`.
   - **Ignored Artifacts (Ensure present in .gitignore):**
     - If `.gitignore` is absent, create it immediately.
     - Ensure ephemeral Impeccable runtime captures and machine-local files are ignored (`.impeccable/*.png`, `.impeccable/live/`, `.impeccable/config.local.json`).

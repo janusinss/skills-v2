@@ -17,6 +17,8 @@ Execute this pipeline when designing, implementing, or refactoring data access l
 
 ### Stage 1: System Topology & Infrastructure Design
 - Apply `senior-architect` and `backend-dev-guidelines` to define service layers, repository patterns, and ORM/query boundaries.
+- **Interactive Architecture Mapping (via Archify):**
+  - When defining multi-service or complex data topologies, invoke `archify` to generate an interactive HTML map (`archify architecture` for service/DB boundaries, `archify sequence` for request-response chains, or `archify dataflow` for ETL/data pipelines).
 - **Connection Pooling:** Mandate connection pooling; never open raw, unpooled connections per HTTP request.
 - **Lifecycle Cleanup:** Enforce strict lifecycle cleanup: idle connections must terminate cleanly and pooled connections must release upon function exit.
 

@@ -8,6 +8,8 @@ Execute this pipeline when designing, implementing, or auditing authentication, 
 
 ## Phase 0: Threat Posture & Zero-Trust Verification
 - Apply `security-auditor` or `cc-skill-security-review` during planning to identify trust boundaries and entry vectors.
+- **Trust Boundary Visualization (via Archify):**
+  - Map untrusted edge boundaries and protected internal zones using `archify architecture`. For auth handshakes (OAuth, JWT, 2FA), generate an `archify sequence` diagram.
 - Assume all client headers, query parameters, bodies, and webhook signatures are untrusted.
 - Verify that no secrets, service tokens, `.env` files, or private keys are committed to Git.
 

@@ -20,6 +20,8 @@ Establish the project environment, testing runtimes, and design baseline before 
 - **Brand & Product Initialization (via Impeccable):** 
   - Consult `impeccable` init guidelines to establish target audience, product purpose, voice, and user workflow.
   - Generate `PRODUCT.md` in the project root as the persistent source of truth for product facts.
+- **System Architecture Scoping (via Archify):**
+  - Model planned service boundaries, component hierarchies, and data stores into an interactive `ARCHITECTURE.html` map using `archify architecture` to establish the architectural baseline before building.
 
 - **Aesthetic Direction & Token Setup (via `taste-skill`):**
   - Invoke `design-taste-frontend` (`taste-skill`) to select the visual archetype (e.g., Editorial, Minimalist, Technical, Brutalist, or Soft).
@@ -31,7 +33,7 @@ Establish the project environment, testing runtimes, and design baseline before 
 
 - **Repository Hygiene & Version Control:**
   - **Shared Design Assets (MUST BE TRACKED IN GIT):**
-    - Always commit and track project manifests and persistent sources of truth: `package.json`, `PRODUCT.md`, and `DESIGN.md`.
+    - Always commit and track project manifests and persistent sources of truth: `package.json`, `PRODUCT.md`, `DESIGN.md`, and `ARCHITECTURE.html`.
   - **Ignored Artifacts (Ensure present in .gitignore):**
     - If `.gitignore` is absent, create it immediately.
     - Ensure dependencies are ignored (`node_modules/` and `**/node_modules/`).

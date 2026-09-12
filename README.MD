@@ -89,53 +89,56 @@ This ensures your AI assistant has access to the skills locally while keeping yo
 
 Rules provide foundational instructions and safety guardrails that modern AI assistants (like Google Antigravity, Cursor, and Claude Code) load when planning, writing, and reviewing code.
 
-The repository includes **6 core rules**:
+The repository includes **7 core rules**:
 
-1. **`always.md`** — **Proactive Frontend Self-Correction (`trigger: model_decision`)**
+1. **`ADHD_MODE.md`** — **Action-First & Low Cognitive Friction Execution (`trigger: always`)**
+   - Direct, low-friction responses: lead with command/file path, numbered bounded steps, visible wins, maximum 5-item lists, and zero conversational filler.
+
+2. **`UI_Always.md`** — **Proactive Frontend Self-Correction (`trigger: model_decision`)**
    - Autonomous, progressive guardrails that self-correct ubiquitous UI defects on sight without manual prompting:
      - Eliminates unwanted horizontal scrollbars (`overflow-x`) and flex child blowouts (`min-width: 0`).
      - Enforces interactive affordances (`cursor: pointer` on clickables, minimum `44×44px` touch targets).
      - Prevents iOS Safari auto-zoom by enforcing `≥16px` font on form inputs.
      - Mandates accessible focus rings (`:focus-visible`), WCAG AA contrast (≥ 4.5:1), and line length limits (`max-width: 65ch`).
      - Bans raw, untinted grays (`#808080`, `#000000`), unicode emojis as icons, and placeholder links.
-   - *Intelligent Activation:* Employs `model_decision` so it remains dormant during general or model-training questions to save tokens, and activates automatically whenever touching UI, HTML, or CSS.
 
-2. **`frontend.md`** — **Active UI Development Pipeline (`trigger: auto`)**
+3. **`frontend.md`** — **Active UI Development Pipeline (`trigger: auto`)**
    - 4-stage UI delivery workflow executed on frontend features and refactors:
-     - **Stage 1 (Aesthetic Alignment):** Adheres to `DESIGN.md` tokens via `taste-skill` and replaces legacy styles.
-     - **Stage 2 (Anti-Slop Standards):** Enforces composition dials (`DESIGN_VARIANCE`, `VISUAL_DENSITY`, `MOTION_INTENSITY`), bans nested cards, purple-blue gradients, and gradient text.
-     - **Stage 3 (Bounded Quality Review):** Batched technical & visual audit via `@impeccable` guidelines with single-pass remediation.
+     - **Stage 1 (Aesthetic Alignment):** Adheres to `DESIGN.md` tokens via `design-taste-frontend` and replaces legacy styles.
+     - **Stage 2 (Anti-Slop Standards):** Enforces composition dials (`DESIGN_VARIANCE`, `VISUAL_DENSITY`, `MOTION_INTENSITY`), maps complex state with `archify workflow`/`lifecycle`, and bans nested cards or purple-blue gradients.
+     - **Stage 3 (Bounded Quality Audit):** Batched technical & visual audit via `impeccable` with single-pass remediation.
      - **Stage 4 (Browser Verification):** Real browser inspection across mobile (375px), tablet (768px), and desktop (1280px+) via `playwright-skill`.
 
-3. **`starting-brandnew.md`** — **Greenfield Project Scaffolding (`trigger: manual`)**
+4. **`starting-brandnew.md`** — **Greenfield Project Scaffolding (`trigger: manual`)**
    - Phase 0 bootstrapping for brand-new projects:
      - Scaffolds package manifest (`package.json`) and verifies Playwright browser automation runtimes.
-     - Captures durable product truth, audience, and workflows into `PRODUCT.md` via `@impeccable`.
+     - Scopes system boundaries into interactive `ARCHITECTURE.html` via `archify architecture`.
+     - Captures durable product truth, audience, and workflows into `PRODUCT.md` via `impeccable`.
      - Establishes visual archetype, core dials, and design tokens into `DESIGN.md` via `design-taste-frontend`.
-     - Initializes Git hygiene (`.gitignore`) to isolate dependencies, test dumps, and ephemeral review assets.
+     - Tracks `package.json`, `PRODUCT.md`, `DESIGN.md`, and `ARCHITECTURE.html` as persistent Git assets.
 
-4. **`starting-existing.md`** — **Legacy Codebase Redesign & Modernization (`trigger: manual`)**
+5. **`starting-existing.md`** — **Legacy Codebase Redesign & Modernization (`trigger: manual`)**
    - Phase 0 baseline extraction for existing applications:
-     - Non-destructively inspects existing environment and dependencies.
+     - Scans directory and route topology into interactive `ARCHITECTURE.html` via `archify architecture`.
      - Reverse-engineers legacy font usage, palettes, and components into `DESIGN.md`.
-     - Establishes a `## Target Redesign Specification` section in `DESIGN.md` to define the upgraded aesthetic direction before mutating code.
+     - Establishes a `## Target Redesign Specification` section in `DESIGN.md` before mutating code.
      - Supports per-view density overrides (e.g., `Compact` for data tables vs. `Spacious` for landing heroes).
 
-5. **`backend.md`** — **Backend Connection & Data Layer Standards (`trigger: manual`)**
+6. **`backend.md`** — **Backend Connection & Data Layer Standards (`trigger: manual`)**
    - Production-grade data layer architecture:
-     - Enforces service/repository boundaries (`@architecture-patterns`, `@backend-dev-guidelines`).
+     - Enforces service/repository boundaries (`architecture-patterns`, `backend-dev-guidelines`).
+     - Generates interactive maps (`archify architecture` for service/DB boundaries, `archify sequence` for request flows, `archify dataflow` for pipelines).
      - Mandates strict connection pooling and lifecycle cleanup to prevent resource leaks.
-     - Enforces schema integrity, explicit foreign key constraints, and targeted indexing (`@postgres-best-practices`).
-     - Requires atomic mutations in explicit transactions (`BEGIN`/`COMMIT`/`ROLLBACK`) with race condition defenses (`SELECT ... FOR UPDATE`).
-     - Enforces health check endpoints and graceful connection recovery.
+     - Enforces schema integrity, explicit foreign key constraints, and targeted indexing (`postgres-best-practices`).
+     - Requires atomic mutations in explicit transactions (`BEGIN`/`COMMIT`/`ROLLBACK`) with race condition defenses.
 
-6. **`security.md`** — **Application Security & Vulnerability Standards (`trigger: manual`)**
+7. **`security.md`** — **Application Security & Vulnerability Standards (`trigger: manual`)**
    - Zero-trust DevSecOps pipeline:
-     - Phase 0 threat modeling and attack tree formulation (`@ethical-hacking-methodology`).
-     - Strict edge input validation (Zod, Joi, Pydantic) and 100% parameterized SQL queries (`@backend-security-coder`).
-     - Context-aware output encoding to prevent Reflected and DOM XSS (`@frontend-security-coder`).
-     - Identity verification and Object-Level Authorization to prevent BOLA/IDOR (`@api-security-best-practices`).
-     - OWASP Top 10 audits, secure headers (CORS, CSP, nosniff), and automated negative TDD (asserting 401, 403, and 422 responses).
+     - Phase 0 threat modeling (`security-auditor`) and trust boundary mapping (`archify architecture` / `archify sequence`).
+     - Strict edge input validation (Zod, Joi, Pydantic) and 100% parameterized SQL queries (`backend-security-coder`).
+     - Context-aware output encoding to prevent Reflected and DOM XSS (`frontend-security-coder`).
+     - Identity verification and Object-Level Authorization to prevent BOLA/IDOR (`api-security-best-practices`).
+     - OWASP Top 10 audits, secure headers (CORS, CSP, nosniff), and automated negative TDD.
 
 #### Rule Trigger Modes:
 - **`model_decision`:** Progressive disclosure. The assistant checks the rule's summary and autonomously activates it when relevant to the task (e.g., `always.md` activates for UI tasks but stays idle during theoretical ML questions).
@@ -183,7 +186,7 @@ npx skills update -y; if (Test-Path .claude) { Remove-Item -Recurse -Force .clau
 
 ## 🛠️ Included Skill Categories (150+ Skills)
 
-All 151 skills are organized into 12 domain categories:
+All 152 skills are organized into 12 domain categories:
 
 ### 1. 🎨 Frontend, UI/UX & Visual Design (27 Skills)
 - `3d-web-experience` — Three.js, React Three Fiber, Spline, WebGL, and interactive 3D web scenes
@@ -223,9 +226,10 @@ All 151 skills are organized into 12 domain categories:
 - `mobile-developer` — Cross-platform mobile apps with React Native, Flutter, and native integrations
 - `react-native-architecture` — Production-ready React Native patterns with Expo, offline sync, and navigation
 
-### 3. ⚙️ Backend, Microservices & API Architecture (22 Skills)
+### 3. ⚙️ Backend, Microservices & API Architecture (23 Skills)
 - `api-patterns` — REST vs GraphQL vs tRPC decision-making, API versioning, and pagination
 - `architecture-patterns` — Clean Architecture, Hexagonal Architecture, and Domain-Driven Design (DDD)
+- `archify` — Interactive system maps, service boundaries, workflows, sequence diagrams, and dataflows
 - `async-python-patterns` — High-performance concurrent Python with `asyncio` and async/await
 - `backend-dev-guidelines` — Production-grade backend engineering under strict reliability constraints
 - `cpp-pro` — Modern idiomatic C++ (RAII, smart pointers, move semantics, and templates)
