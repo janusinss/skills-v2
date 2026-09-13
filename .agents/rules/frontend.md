@@ -30,6 +30,6 @@ Follow this pipeline whenever designing, building, or refactoring UI. Enforce [.
 
 ## Stage 4: Real Browser & Responsive Verification
 - **Server Detection**: Check `package.json` for `dev` script; verify active port before navigating.
-- **Viewport Check**: Test at 375px, 768px, and 1280px using `browser_subagent` or `playwright-skill`.
+- **Viewport Check**: Test at 375px, 768px, and 1280px using `playwright-skill`.
 - **Runtime Zero-Defect**: Verify 0 console errors and 0 broken assets (`page.on('console')`).
 - **Visual Proof**: Capture clean viewport screenshots into session artifacts.

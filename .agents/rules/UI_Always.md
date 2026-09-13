@@ -80,5 +80,4 @@ Apply these rules automatically whenever viewing, writing, or refactoring fronte
 
 ## 7. Responsive Verification (Scope-Bounded)
 - **Minor / 1-Line Fixes (text, colors, padding):** Skip browser automation. Verify CSS rules statically in code.
-- **Structural / Layout Changes (grids, navigation, full pages):** Launch `playwright-skill` or `browser_subagent` to inspect across breakpoints (375px, 768px, 1280px) and confirm 0 console errors.
-
+- **Structural / Layout Changes (grids, navigation, full pages):** Launch `playwright-skill` to inspect across breakpoints (375px, 768px, 1280px) and confirm 0 console errors.
