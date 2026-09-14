@@ -29,7 +29,8 @@ Follow this pipeline whenever designing, building, or refactoring UI. Enforce [.
 - **Extraction**: Extract repeated UI blocks into reusable components.
 
 ## Stage 4: Real Browser & Responsive Verification
-- **Server Detection**: Check `package.json` for `dev` script; verify active port before navigating.
-- **Viewport Check**: Test at 375px, 768px, and 1280px using `playwright-skill`.
-- **Runtime Zero-Defect**: Verify 0 console errors and 0 broken assets (`page.on('console')`).
-- **Visual Proof**: Capture clean viewport screenshots into session artifacts.
+- **Engine Mandate:** Strictly use `playwright-skill` (`node .agents/skills/playwright-skill/run.js`) for all browser inspections and DOM verifications. Never use the built-in website viewer, IDE browser preview, or `browser_subagent`. All test scripts and visual captures auto-target the ignored `scratch/` directory.
+- **Server Detection:** Check `package.json` for `dev` script; verify active port before navigating.
+- **Viewport Check:** Test across mobile (375px), tablet (768px), and desktop (1280px) via `playwright-skill`.
+- **Runtime Zero-Defect:** Verify 0 console errors and 0 broken assets (`page.on('console')`).
+- **Visual Proof:** Capture clean viewport screenshots into `scratch/` via Playwright.

@@ -11,6 +11,7 @@ Establish the redesign baseline and target aesthetic specifications before modif
   - Verify if `package.json` exists in the project root. If absent, execute `npm init -y` to initialize the project manifest so scripts, tools, and dependencies are properly tracked. If already present, preserve existing scripts.
 
 - **Playwright Automation Runtime Setup:**
+  - Strictly use `playwright-skill` for all browser verification and audits. Built-in website viewers, IDE browser tabs, and `browser_subagent` are banned.
   - Ensure the browser automation engine is available. If uninitialized, execute:
     ```bash
     npm --prefix .agents/skills/playwright-skill run setup

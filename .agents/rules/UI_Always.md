@@ -79,5 +79,6 @@ Apply these rules automatically whenever viewing, writing, or refactoring fronte
   - Never nest a card inside another card with identical backgrounds and borders.
 
 ## 7. Responsive Verification (Scope-Bounded)
+- **Engine Mandate:** Strictly use `playwright-skill` (`node .agents/skills/playwright-skill/run.js`) for all browser inspections, responsive checks, and visual tests. Never use the built-in website viewer, IDE preview windows, or `browser_subagent`. Test scripts and screenshot captures auto-generate inside the git-ignored `scratch/` directory.
 - **Minor / 1-Line Fixes (text, colors, padding):** Skip browser automation. Verify CSS rules statically in code.
 - **Structural / Layout Changes (grids, navigation, full pages):** Launch `playwright-skill` to inspect across breakpoints (375px, 768px, 1280px) and confirm 0 console errors.
