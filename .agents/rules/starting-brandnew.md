@@ -4,66 +4,88 @@ trigger: manual
 
 # Greenfield Design & Development Pipeline
 
-Transform an empty directory into a validated, production-grade web application by executing these 5 bounded phases sequentially.
+Transform an empty workspace into a validated, production-grade web application by executing these 6 bounded phases sequentially.
 
 ---
 
-## Phase 1: Product Truth & Tech Stack (`impeccable init`)
-Establish factual requirements and tech stack before proposing visual design or writing code:
-1. **Playwright Runtime Check**: Verify `.agents/skills/playwright-skill` dependencies exist; run setup if absent.
-2. **Product & Stack Discovery Interview**: Prompt the user via `ask_question` for:
-   - Target audience and their exact job-to-be-done.
-   - Core mechanism, key workflows, and constraints.
-   - **Framework & Architecture**: Next.js (App Router), React with TypeScript, Vite, or Static HTML5/CSS3.
-   - **Creative & Motion Stack**: Three.js with custom GLSL shaders (day, night, atmosphere), Lenis smooth scroll, and GSAP ScrollTrigger animations.
-3. **Commit Product Manifest**: Write confirmed facts and stack decisions to `PRODUCT.md`. Never ask for visual styles or CSS values in this phase.
+## Phase 0: Pre-Flight Guard & Workspace Check
+Prevent accidental destruction of existing work:
+1. **Existing Artifact Check**: Check if `./DESIGN.md` or `./PRODUCT.md` already exists in the project root.
+2. **Conflict Resolution (`ask_question`)**: If artifacts exist, confirm whether the user wishes to overwrite them, reuse existing specifications, or abort before modifying files.
+3. **Skip Logic**: If the user chooses to reuse an existing `DESIGN.md`, skip Phase 1 entirely. If reusing an existing `PRODUCT.md`, skip Phase 2 entirely. Proceed to the next applicable phase.
 
 ---
 
-## Phase 2: Design Choice & Architecture (`impeccable shape` + `archify`)
-Lock the visual world and system topology with the user:
-1. **Visual Direction Workshop**: Run `impeccable shape` with `concept-seed --scope direction` to generate 3 distinct aesthetic directions (typography, palette, density, materials).
-2. **Interactive Decision Gate**: Present the directions via `ask_question` or decision board for user selection.
-3. **Direction Contract**: Record the chosen visual world and first-viewport layout into the surface brief.
-4. **Architecture Blueprint**: Invoke `archify` to generate `ARCHITECTURE.html` showing component hierarchy, trust boundaries, and data flow.
+## Phase 1: Visual Foundation & DESIGN.md Selection (`awesome-design-md`)
+Establish the visual ground truth before gathering product requirements or writing code:
+1. **Analyze User Intent**: Evaluate the user's initial prompt against the 74 production brand design systems in `.agents/skills/awesome-design-md/design-md/`.
+2. **Interactive Selection Gate (`ask_question`)**: Present at least 6 choices to the user:
+   - 5 curated `DESIGN.md` recommendations closely matching the user's prompt (e.g., `linear.app`, `stripe`, `apple`, `vercel`, `supabase`, `raycast`).
+   - 1 option to choose manually (allowing the user to specify any other brand from the 74 available).
+3. **Install Ground Truth**: Copy the selected specification directly to the project root:
+   ```bash
+   cp .agents/skills/awesome-design-md/design-md/<brand>/DESIGN.md ./DESIGN.md
+   ```
 
 ---
 
-## Phase 3: Slop-Free Implementation & Creative Engineering
-Build components while enforcing strict anti-AI-slop rules in memory and activating specialized creative skills:
-1. **Creative Tech Routing**:
-   - **3D & Shaders**: Route Three.js, WebGL canvas, and custom GLSL shader pipelines through `3d-web-experience`.
-   - **Kinetic Motion & Scroll**: Route smooth scroll (Lenis) and pinned/scrubbed scroll animations through `scroll-experience` and `gpt-taste`.
-2. **Enforce Taste Dials (`design-taste-frontend`)**:
-   - `DESIGN_VARIANCE > 4`: Ban centered H1 heroes; mandate asymmetric 50/50 splits or left-aligned layouts.
-   - `VISUAL_DENSITY`: Enforce intentional spacing; ban floaty, low-information cards.
-   - `MOTION_INTENSITY`: Restrict transitions to purposeful, hardware-accelerated micro-interactions.
-3. **Ban Generic AI Clichés**: Zero purple/blue neon gradients, zero nested cards-inside-cards, zero default system serifs without intent.
-4. **Assemble UI Components**: Implement responsive layout using semantic HTML5, clean CSS/Tailwind, and verified components.
+## Phase 2: Product Truth & Architecture Expansion (`prompt-enhancer`)
+Transform brief user concepts into an exhaustive, stack-agnostic specification:
+1. **Capture Raw Product Intent**: Prompt the user via `ask_question` for their product concept, target audience, and primary problem solved (keep stack-agnostic).
+2. **Execute `prompt-enhancer` Pipeline**:
+   - **Disambiguate**: If ambiguous across 2+ paradigms, ask 1 targeted clarifying question.
+   - **Deconstruct**: Map Strategic Scope, P0–P3 Feature Matrix, Core Data Entities, User Journeys, and NFRs.
+3. **Commit Exhaustive `PRODUCT.md`**: Write the generated domain analysis artifact (Sections 1–5) directly to `./PRODUCT.md`.
+4. **Retain Master Specification**: Use the Section 6 Master Prompt as the primary execution contract for downstream phases.
 
 ---
 
-## Phase 4: Automated Verification (`playwright-skill`)
+## Phase 3: Prompt Synthesis for `design-taste-frontend`
+Synthesize `PRODUCT.md` and `DESIGN.md` into the formal configuration required by the `design-taste-frontend` skill:
+1. **Formulate Skill Input Specification**:
+   ```text
+   Skill: design-taste-frontend
+   Page: [Landing | Portfolio | Redesign | Editorial | Dashboard]
+   Audience: [Target user group extracted from PRODUCT.md]
+   Vibe & Aesthetic: [Visual world & tone from the chosen DESIGN.md]
+   References: [The chosen brand from awesome-design-md + competitor inspirations]
+   Dials (inferred): Variance [1-10], Motion [1-10], Density [1-10]
+   Key Assets / Constraints: [Color tokens from DESIGN.md, accessibility, dark/light mode]
+   ```
+2. **Declare Design Read**: Emit the mandatory one-line summary before generating code:
+   `"Reading this as: <page kind> for <audience>, with a <vibe> language, leaning toward <design system>."`
+
+---
+
+## Phase 4: Implementation & Creative Engineering
+Build components strictly adhering to `DESIGN.md` tokens, `PRODUCT.md` P0 features, and chosen architecture:
+1. **Confirm Tech Stack**: Confirm implementation framework before generating code. Examples include Next.js App Router, Vite/React, Astro, SvelteKit, or Static HTML5/CSS3 — any framework the user selects is valid.
+2. **Select Creative Archetype**:
+   - **Archetype A: High-Conversion SaaS & Product Dashboard**:
+     - CSS Grid / Flexbox data tables with sticky headers and sortable columns.
+     - `prefers-color-scheme` media query for system dark/light modes.
+     - ≥16px body text, ≥44px interactive targets, subtle hover micro-interactions (opacity/translate, ≤200ms).
+   - **Archetype B: Immersive 3D & Scroll Storytelling** (when requested):
+     - *Lenis Smooth Scroll*: Initialize momentum physics (`duration: 1.2`, `smoothWheel: true`).
+     - *ScrollTrigger Bridge*: Hook `lenis.raf` into GSAP ticker; lock `gsap.ticker.lagSmoothing(0)`.
+     - *Unified Three.js Loop*: Render WebGL inside GSAP ticker; scrub camera orbits via ScrollTrigger.
+     - *Source References*: Reference `.agents/resources/creative-libraries/` (`gsap/`, `lenis/`, `three.js/`).
+   - **Archetype C: Editorial & Content Platform**:
+     - Asymmetrical CSS Grid layouts (e.g., `2fr 1fr` or `1fr 3fr`) with generous `clamp()`-based spacing.
+     - Typographic rhythm: distinct heading scale (1.333+ ratio), styled pull-quotes, and ≥1.6 line-height body.
+     - Image curation with `object-fit: cover`, art-directed `<picture>` sources, and lazy loading.
+3. **Ban Generic AI Clichés**: Zero unstyled browser fonts, zero nested cards-in-cards, zero uncalibrated purple/blue gradients.
+4. **Scope: P0 Delivery Only**: Build UI modules implementing the **P0 roadmap** from `PRODUCT.md`. P1–P3 features are cataloged in `PRODUCT.md` but deferred to iterative development cycles after this pipeline completes.
+
+---
+
+## Phase 5: Automated Verification & Handoff (`playwright-skill` + `impeccable`)
 Validate the running application inside real Chromium viewports:
-1. **Launch Dev Server & Test Engine**: Run local dev server and connect `playwright-skill`.
-2. **Multi-Viewport Visual Audit**: Capture screenshots to `./scratch/`:
+1. **Playwright Multi-Viewport Audit**: Run headless Chromium visual checks to `./scratch/`:
    - Mobile: 375 × 667
    - Tablet: 768 × 1024
    - Desktop: 1280 × 800
-3. **Automated Accessibility & Layout Check**: Inspect DOM overflow, tap targets (min 44px), contrast ratios, and console errors. Auto-remediate any defects found.
-
----
-
-## Phase 5: System Documentation & Git Lock (`impeccable document`)
-Extract durable tokens and the complete design system from the working code into `DESIGN.md`:
-1. **Reverse-Document Tokens (Google Stitch Spec)**: Run `impeccable document` on the finished codebase to extract confirmed tokens and populate the 8 canonical sections in `DESIGN.md`:
-   - `## Overview`: Atmosphere, emotional register, and design rationale.
-   - `## Colors`: Machine-readable YAML token ramp, semantic roles, and dark/light contrast rules.
-   - `## Typography`: Curated font pairings, type scales, tracking, and clamp formulas.
-   - `## Layout`: Grid geometry, spacing scales, breakpoints, and responsive topology.
-   - `## Elevation & Depth`: Shadow tokens, backdrop blur filters, and z-index layers.
-   - `## Shapes`: Corner radii and border treatments.
-   - `## Components`: Variants, hover/active states, and reusable markup snippets.
-   - `## Do's and Don'ts`: Strict anti-drift guardrails.
-2. **Generate Sidecar**: Extract `.impeccable/design.json` containing live rendered component snippets.
-3. **Git Hygiene & Lock**: Verify ephemeral artifacts (`scratch/`, `.impeccable/`, `node_modules/`) are in `.gitignore`. Commit `package.json`, `PRODUCT.md`, `DESIGN.md`, and `ARCHITECTURE.html`.
+2. **Quality & Token Compliance Check**:
+   - Verify 0 horizontal scroll overflows, 0 console errors, >=44px tap targets.
+   - Run `impeccable detect` to verify compliance against `DESIGN.md` tokens.
+3. **Git Hygiene & Lock**: Verify ephemeral artifacts (`scratch/`, `.impeccable/`, `node_modules/`) are in `.gitignore`. Commit `package.json`, `PRODUCT.md`, and `DESIGN.md`.

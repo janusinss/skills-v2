@@ -17,10 +17,7 @@ Follow this pipeline whenever designing, building, or refactoring UI. Enforce [.
   - No card-inside-card nesting or repetitive identical card grids.
   - No generic centered hero sections or default purple-to-blue gradients.
   - No decorative side-stripe borders (`border-left` / `border-right` accents).
-  - No `background-clip: text` gradient text (use solid, high-contrast type).
-- **Iconography & Assets:** Never use Unicode emojis as UI icons. Use SVG icons (Lucide or Phosphor) with proper accessibility attributes (`aria-hidden="true"` or descriptive `aria-label`). Never use placeholder URLs.
-- **Complex UI State & Flow Mapping (via Archify):**
-  - For multi-step user workflows (onboarding, checkout, wizard) or complex state machines, model interaction flows with `archify workflow` or `archify lifecycle` before implementing client state.
+  - **Iconography & Assets:** Never use Unicode emojis as UI icons. Use SVG icons (Lucide or Phosphor) with proper accessibility attributes (`aria-hidden="true"` or descriptive `aria-label`). Never use placeholder URLs.
 - Ensure all interactive elements feature visible `:focus-visible` rings and `cursor: pointer`.
 
 ## Stage 3: Bounded Quality Audit (via Impeccable)
