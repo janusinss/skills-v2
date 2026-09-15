@@ -7,6 +7,12 @@
       "skillPath": "archify/SKILL.md",
       "computedHash": "111f1c0ba9680a3cb43f47044540a784a4feda02408edf56a1f3132d795ac5c1"
     },
+    "awesome-design-md": {
+      "source": "VoltAgent/awesome-design-md",
+      "sourceType": "github",
+      "skillPath": "awesome-design-md/SKILL.md",
+      "computedHash": "cc476c5f5a598d7fd416b2797a01ab0d5845cd634a579f444ba32128ebae3a5a"
+    },
     "brandkit": {
       "source": "Leonxlnx/taste-skill",
       "sourceType": "github",
