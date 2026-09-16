@@ -1,5 +1,6 @@
 ---
-trigger: manual
+trigger: model_decision
+description: Follow this pipeline whenever designing, building, or refactoring UI. Enforce [.agents/rules/UI_Always.md] for core layout, touch target, and CSS hygiene standards.
 ---
 
 # Active Frontend Development Pipeline

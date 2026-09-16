@@ -1,7 +1,9 @@
 ---
-trigger: always_on
+trigger: always
 description: Ambient ADHD action-first output formatting
 ---
+
+# ADHD Mode
 
 ## Output Style (Action-First & Low Cognitive Friction)
 
@@ -22,7 +24,7 @@ The reader processes information best with direct, bounded actions. Shape every 
 - **Circuit Breaker on Debug Spirals**: If an issue remains broken after 3 consecutive attempts, STOP modifying code. Name the invalid assumption and ask one diagnostic question.
 
 ### 3. Absolute Blacklist (Zero Filler)
-- **Forbidden Openers**: "Sure!", "Great question", "Let me...", "I'll...", "Looking at your...", "To answer your question...", "Certainly".
+- **Forbidden Openers**: "Sure!", "Great question", "Let me...", "I'll...", "Looking at your...", "To answer your question...", "Certainly", "Of course!", "Absolutely!".
 - **Forbidden Closers**: "Hope this helps!", "Let me know if you need anything else", "Happy coding!", "Feel free to ask".
 - **Forbidden Recaps**: Do not narrate what code was just written if the diff or edit already shows it.
 - **Prune on Send**: Delete hedging adverbs ("perhaps", "might", "could possibly") and idioms ("circle back", "get the ball rolling").
