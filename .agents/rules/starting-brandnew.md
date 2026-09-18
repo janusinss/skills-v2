@@ -1,5 +1,6 @@
 ---
-trigger: manual
+trigger: model_decision
+description: Greenfield design and development pipeline. Activate when starting a new web app, greenfield project, or building an application from scratch.
 ---
 
 # Greenfield Design & Development Pipeline
@@ -24,7 +25,10 @@ Establish the visual ground truth before gathering product requirements or writi
    - 1 option to choose manually (allowing the user to specify any other brand from the 74 available).
 3. **Install Ground Truth**: Copy the selected specification directly to the project root:
    ```bash
+   # Unix / PowerShell:
    cp .agents/skills/awesome-design-md/design-md/<brand>/DESIGN.md ./DESIGN.md
+   # Windows CMD:
+   copy ".agents\skills\awesome-design-md\design-md\<brand>\DESIGN.md" .\DESIGN.md
    ```
 
 ---
@@ -81,11 +85,11 @@ Build components strictly adhering to `DESIGN.md` tokens, `PRODUCT.md` P0 featur
 
 ## Phase 5: Automated Verification & Handoff (`playwright-skill` + `impeccable`)
 Validate the running application inside real Chromium viewports:
-1. **Playwright Multi-Viewport Audit**: Run headless Chromium visual checks to `./scratch/`:
+1. **Playwright Multi-Viewport Audit**: Run headless Chromium checks via `node .agents/skills/playwright-skill/run.js` writing to `./scratch/`:
    - Mobile: 375 × 667
    - Tablet: 768 × 1024
    - Desktop: 1280 × 800
 2. **Quality & Token Compliance Check**:
    - Verify 0 horizontal scroll overflows, 0 console errors, >=44px tap targets.
-   - Run `impeccable detect` to verify compliance against `DESIGN.md` tokens.
+   - Run `.agents/skills/impeccable/scripts/impeccable.cmd detect .` (or Unix `.agents/skills/impeccable/scripts/impeccable detect .`) to verify compliance against `DESIGN.md` tokens.
 3. **Git Hygiene & Lock**: Verify ephemeral artifacts (`scratch/`, `.impeccable/`, `node_modules/`) are in `.gitignore`. Commit `package.json`, `PRODUCT.md`, and `DESIGN.md`.

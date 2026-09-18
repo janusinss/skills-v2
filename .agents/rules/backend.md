@@ -5,7 +5,7 @@ description: Backend architecture, data layer, and persistence standards. Activa
 
 # Backend Architecture & Data Layer Standards
 
-Execute this pipeline when designing, implementing, or refactoring server-side architecture, data access layers, and database connections. Defer to `security.md` for input validation, authentication, authorization, and API endpoint hardening.
+Execute this pipeline when designing, implementing, or refactoring server-side architecture, data access layers, and database connections. Defer to [security.md](file:///C:/xampp/htdocs/YEAR%204/Skills/.agents/rules/security.md) for input validation, authentication, authorization, and API endpoint hardening.
 
 ## Phase 0: System Contract & Infrastructure Scope
 - Before coding, invoke `architecture-patterns`, `backend-dev-guidelines`, and `concise-planning` to document connection topologies and service boundaries.

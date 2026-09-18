@@ -1,11 +1,11 @@
 ---
 trigger: model_decision
-description: Follow this pipeline whenever designing, building, or refactoring UI. Enforce [.agents/rules/UI_Always.md] for core layout, touch target, and CSS hygiene standards.
+description: Follow this pipeline whenever designing, building, or refactoring UI. Enforce UI_Always.md for core layout, touch target, and CSS hygiene standards.
 ---
 
 # Active Frontend Development Pipeline
 
-Follow this pipeline whenever designing, building, or refactoring UI. Enforce [.agents/rules/UI_Always.md] for core layout, touch target, and CSS hygiene standards.
+Follow this pipeline whenever designing, building, or refactoring UI. Enforce [UI_Always.md](file:///C:/xampp/htdocs/YEAR%204/Skills/.agents/rules/UI_Always.md) for core layout, touch target, and CSS hygiene standards.
 
 ## Stage 1: Target Aesthetic & System Alignment
 - **Aesthetic Precedence:** The specification established via `design-taste-frontend` in `DESIGN.md` is the **authoritative target** for typography pairings, tinted palettes, spacing, and radius scales.
@@ -22,7 +22,7 @@ Follow this pipeline whenever designing, building, or refactoring UI. Enforce [.
 - Ensure all interactive elements feature visible `:focus-visible` rings and `cursor: pointer`.
 
 ## Stage 3: Bounded Quality Audit (via Impeccable)
-- **Audit**: Run `.agents\skills\impeccable\scripts\impeccable.cmd audit --target <file>`.
+- **Audit**: Run `.agents/skills/impeccable/scripts/impeccable.cmd detect <file-or-dir>` (or Unix `.agents/skills/impeccable/scripts/impeccable detect <file-or-dir>`).
 - **Single-Pass Remediation**: Resolve all detected contrast, rhythm, and token violations in **one single edit**. No iterative multi-turn patching.
 - **Extraction**: Extract repeated UI blocks into reusable components.
 

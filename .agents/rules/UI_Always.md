@@ -65,7 +65,7 @@ Apply these rules automatically whenever viewing, writing, or refactoring fronte
 ---
 
 ## 7. Browser Verification Policy
-- **Engine Mandate:** Use `playwright-skill` exclusively for all browser inspections, responsive checks, and visual tests. Built-in website viewers, IDE preview windows, and `browser_subagent` are banned for verification.
+- **Engine Mandate:** Use `playwright-skill` (`node .agents/skills/playwright-skill/run.js`) exclusively for all browser inspections, responsive checks, and visual tests. Built-in website viewers, IDE preview windows, and `browser_subagent` are banned for verification.
 - **Minor / 1-Line Fixes** (text, colors, padding): Skip browser automation. Verify CSS rules statically in code.
-- **Structural / Layout Changes** (grids, navigation, full pages): Launch `playwright-skill` across breakpoints (375px, 768px, 1280px). Confirm 0 console errors, 0 broken assets.
+- **Structural / Layout Changes** (grids, navigation, full pages): Launch `playwright-skill` (`node .agents/skills/playwright-skill/run.js`) across breakpoints (375px, 768px, 1280px). Confirm 0 console errors, 0 broken assets.
 - **Output Location:** All test scripts and screenshot captures go to the git-ignored `scratch/` directory.

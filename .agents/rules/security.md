@@ -10,7 +10,7 @@ Execute this pipeline when designing, implementing, or auditing authentication, 
 ## Phase 0: Threat Posture & Zero-Trust Verification
 - Apply `security-auditor` or `cc-skill-security-review` during planning to identify trust boundaries and entry vectors.
 - **Trust Boundary Visualization (via Archify):**
-  - Map untrusted edge boundaries and protected internal zones using `archify architecture`. For auth handshakes (OAuth, JWT, 2FA), generate an `archify sequence` diagram.
+  - Map untrusted edge boundaries and protected internal zones using `node .agents/skills/archify/bin/archify.mjs render architecture <spec.json>` (or `deliver`). For auth handshakes (OAuth, JWT, 2FA), generate a sequence diagram via `archify sequence`.
 - Assume all client headers, query parameters, bodies, and webhook signatures are untrusted.
 - **Secrets Hygiene:**
   - Verify that no secrets, service tokens, `.env` files, or private keys are committed to Git.
@@ -41,7 +41,7 @@ Execute this pipeline when designing, implementing, or auditing authentication, 
   - Verify error handlers suppress stack traces, system paths, and internal database details in production responses.
   - Enforce secure headers (strict CORS restrictions, CSP, `X-Content-Type-Options: nosniff`, HSTS).
 - **Dependency & Supply-Chain Security:**
-  - Run `npm audit` (or language-equivalent: `pip audit`, `cargo audit`) to check dependencies for known CVEs.
+  - Run `npm audit` (or language-equivalent: `pip audit`, `cargo audit`) when dependencies and a lockfile exist to check for known CVEs.
   - Flag any critical or high severity findings. Do not proceed to Stage 4 with unresolved critical CVEs.
 
 ### Stage 4: Security Verification & Negative TDD

@@ -1,5 +1,6 @@
 ---
-trigger: manual
+trigger: model_decision
+description: Existing codebase design and remediation pipeline. Activate when auditing, refactoring, or redesigning an existing web application or frontend codebase.
 ---
 
 # Existing Codebase Design & Remediation Pipeline
@@ -24,7 +25,7 @@ Establish tooling before modifying any source files:
 
 ## Phase 1: Codebase Audit & Legacy Pattern Extraction
 Analyze existing code to establish the current design baseline:
-1. **Run `impeccable document`**: Execute `.agents/skills/impeccable/scripts/impeccable.cmd document` to scan existing templates, stylesheets, and components.
+1. **Extract Patterns via `impeccable:document` Workflow**: Follow [.agents/skills/impeccable/reference/document.md](file:///C:/xampp/htdocs/YEAR%204/Skills/.agents/skills/impeccable/reference/document.md) to inspect templates, stylesheets, and components (run `.agents/skills/impeccable/scripts/impeccable.cmd detect .` for automated anti-pattern discovery).
 2. **Extract Current Design Tokens**: Reverse-engineer from the codebase:
    - Font families, sizes, weights, and line-heights in active use.
    - Color palette (hex/HSL values from CSS variables, inline styles, and class definitions).
@@ -101,7 +102,7 @@ Apply the redesign strictly adhering to target `DESIGN.md` tokens and `PRODUCT.m
 
 ## Phase 6: Automated Verification & Handoff (`playwright-skill` + `impeccable`)
 Validate the running application inside real Chromium viewports:
-1. **Playwright Multi-Viewport Audit**: Run headless Chromium visual checks to `./scratch/`:
+1. **Playwright Multi-Viewport Audit**: Run headless Chromium checks via `node .agents/skills/playwright-skill/run.js` writing to `./scratch/`:
    - Mobile: 375 × 667
    - Tablet: 768 × 1024
    - Desktop: 1280 × 800
