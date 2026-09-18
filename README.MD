@@ -180,7 +180,11 @@ To update all installed upstream skills to their latest versions while keeping y
 
 ```powershell
 npx skills update -y; if (Test-Path .claude) { Remove-Item -Recurse -Force .claude }
+npm --prefix ".agents/skills/playwright-skill" run setup
 ```
+
+> **Note:** Updating skills pulls clean upstream checkouts, which removes untracked `node_modules`. Running `npm --prefix ".agents/skills/playwright-skill" run setup` ensures Playwright and Chromium binaries are restored.
+
 
 ---
 
