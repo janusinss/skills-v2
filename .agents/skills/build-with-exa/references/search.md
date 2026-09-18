@@ -9,6 +9,7 @@ Primary semantic retrieval surface for new Exa integrations via `POST /search`.
 - Search coding-agent reference: `/reference/search-api-guide-for-coding-agents`
 - Search best practices: `/reference/search-best-practices`
 - Content freshness: `/reference/livecrawling-contents`
+- Exa Snapshot: `/search/snapshot`
 
 ## Contents
 
@@ -111,6 +112,7 @@ On the search endpoint, all content-extraction controls live inside `contents`. 
 | `contents.text` | boolean or object | Downstream logic truly needs broad page context. Object form supports `maxCharacters`, `includeHtmlTags`, `verbosity`, `includeSections`, `excludeSections`. |
 | `contents.summary` | boolean or object | The user explicitly requests Exa-side per-result synthesis. Each result adds its own LLM call. A summarized final product is not sufficient justification; use highlights and synthesize downstream. |
 | `contents.maxAgeHours` | integer | The task states a content-freshness requirement. Caps cached page content age before live crawl. `0` forces live crawl, `-1` is cache only. |
+| `contents.snapshotAsOf` | string (ISO 8601 date-time) | The task needs page content as it was at a past datetime (Exa Snapshot). Exa discovers candidate URLs with current retrieval signals, then keeps only pages with a stored version at or before the cutoff and serves that version. Bounds the content, not the ranking. Not with `maxAgeHours`. See `references/snapshot.md`. |
 | `contents.livecrawlTimeout` | integer | Live crawling is in use and slow pages must not block the request. Milliseconds. |
 | `contents.subpages` | integer | The task requires crawling linked subpages per result. |
 | `contents.subpageTarget` | string or string[] | `subpages` is in use and needs focusing. |
@@ -169,7 +171,29 @@ Keep `contents: {"highlights": true}` on the request so the fields are filled fr
 
 A compact schema (the author and URL above) stays on `auto`. When the schema is wide, or its fields take more than one search to fill (several facts per entity, values that live on different pages), set `type: "deep"`: it runs several searches instead of one, so more of the fields come back filled.
 
-Keep schemas small and explicit. Exa's structured output guidance favors compact, bounded schemas over deeply nested shapes. Use deeper search variants when the retrieval task itself needs more reasoning or synthesis depth.
+Keep schemas small and explicit. A handful of named fields, one nested object at most, arrays that declare `items`. This is about as far as `/search` wants you to go:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "matches": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "site": { "type": "string" },
+          "url": { "type": "string" },
+          "quote": { "type": "string" }
+        }
+      }
+    },
+    "verdict": { "type": "string" }
+  }
+}
+```
+
+If the ask needs more columns than that, drop the least important ones or send the job to `/agent`. Do not fatten or deepen the schema and hope. Compact schemas also synthesize better. Use a deeper search `type` when the retrieval itself needs more reasoning, not because the output is JSON.
 
 ## Category
 

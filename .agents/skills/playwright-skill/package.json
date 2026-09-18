@@ -18,8 +18,7 @@
     "general-purpose"
   ],
   "dependencies": {
-    "playwright": "^1.62.0",
-    "playwright-skill": "file:"
+    "playwright": "^1.62.0"
   },
   "engines": {
     "node": ">=20.0.0"

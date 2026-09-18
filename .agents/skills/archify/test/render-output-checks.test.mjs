@@ -434,6 +434,19 @@ test('render output check: endpoint stubs from 8px pass while cramped interior t
 
 process.on('exit', () => fs.rmSync(tmp, { recursive: true, force: true }));
 
+for (const position of ['before', 'after']) {
+  test(`render output check: finite_svg ignores HTML numeric attributes ${position} SVG`, () => {
+    const htmlPath = path.join(tmp, `finite-html-${position}.html`);
+    const html = '<div x="NaN" width="Infinity"><input width="NaN"><br></div>';
+    const svg = '<svg viewBox="0 0 240 160"><rect x="10" y="10" width="20" height="20"/></svg>';
+    fs.writeFileSync(htmlPath, `<!doctype html><html><body>${position === 'before' ? html + svg : svg + html}</body></html>`);
+    const result = JSON.parse(execFileSync('node', [checker, htmlPath], { encoding: 'utf8' }));
+    const check = result.checks.find(item => item.name === 'finite_svg');
+    assert.equal(check.ok, true);
+    assert.deepEqual(check.details, []);
+  });
+}
+
 test('render output check: finite_svg ignores comments and CDATA but still checks real elements', () => {
   const { result } = checkHtml('finite-non-elements', `
     <!-- <rect x="NaN"/> -->

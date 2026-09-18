@@ -5,7 +5,7 @@
       "source": "tt-a1i/archify",
       "sourceType": "github",
       "skillPath": "archify/SKILL.md",
-      "computedHash": "111f1c0ba9680a3cb43f47044540a784a4feda02408edf56a1f3132d795ac5c1"
+      "computedHash": "f52b30468fcccabb55357ae19d531059ca460fbbca77727946287413cc5cc027"
     },
     "awesome-design-md": {
       "source": "VoltAgent/awesome-design-md",
@@ -23,7 +23,7 @@
       "source": "exa-labs/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/build-with-exa/SKILL.md",
-      "computedHash": "8611b58d4565cce80d65089a2da23d38428943bbd405cc920e6d533a62e3b88e"
+      "computedHash": "827eb52ab6ffb547145cc1f156bf2613d0eb595aa8472f806c4ecea3bbf83a7c"
     },
     "company-research": {
       "source": "exa-labs/agent-skills",
@@ -53,7 +53,7 @@
       "source": "exa-labs/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/exa-search/SKILL.md",
-      "computedHash": "1b019d28b521bc5b6774da3d73751ac13ea7d5b8fa59815c717fda513e7c291c"
+      "computedHash": "c133e169c124f1f0c511c1b953c4631f1bfc0a7421c2a2c848dca0385e91c084"
     },
     "full-output-enforcement": {
       "source": "Leonxlnx/taste-skill",

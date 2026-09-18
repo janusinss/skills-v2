@@ -855,8 +855,8 @@ function collectNonFiniteAttrs(svg) {
       continue;
     }
     const parent = stack[stack.length - 1];
-    const inSvg = element === 'svg' || !parent
-      || (parent.inSvg && !SVG_HTML_INTEGRATION_POINTS.has(parent.element));
+    const inSvg = element === 'svg'
+      || Boolean(parent?.inSvg && !SVG_HTML_INTEGRATION_POINTS.has(parent.element));
     if (inSvg) {
       for (const [name, value] of attrEntries(match[0])) {
         if (!isNumericAttr(element, name) || !NON_FINITE_TOKEN.test(decodeNumericReferences(value))) continue;
