@@ -1,6 +1,6 @@
 ---
 trigger: model_decision
-description: Proactive self-correction for frontend layout, UI, mobile responsiveness, styling bugs, and common CSS issues. Activate whenever inspecting, writing, or refactoring web interfaces, components, or styles.
+description: ACTIVATE WHEN DESIGNING, Proactive self-correction for frontend layout, UI, mobile responsiveness, styling bugs, and common CSS issues. Activate whenever inspecting, writing, or refactoring web interfaces, components, or styles.
 ---
 
 # Always-On Frontend Quality Floor
