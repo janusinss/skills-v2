@@ -8,7 +8,7 @@ description: Backend architecture, data layer, and persistence standards. Activa
 Execute this pipeline when designing, implementing, or refactoring server-side architecture, data access layers, and database connections. Defer to [security.md](file:///C:/xampp/htdocs/YEAR%204/Skills/.agents/rules/security.md) for input validation, authentication, authorization, and API endpoint hardening.
 
 ## Phase 0: System Contract & Infrastructure Scope
-- Before coding, invoke `architecture-patterns`, `backend-dev-guidelines`, and `concise-planning` to document connection topologies and service boundaries.
+- Before coding, invoke `prompt-enhancer-backend` alongside `architecture-patterns`, `backend-dev-guidelines`, and `concise-planning` to document connection topologies, P0–P3 API matrices, database schemas, and service boundaries.
 - **Environment & Secrets:** Keep real connection strings and secrets strictly inside `.env` (ensuring `.env` is in `.gitignore`). Maintain non-sensitive template keys inside `.env.example`.
 - Track all schema updates in sequential migration files rather than ad-hoc SQL executions.
 

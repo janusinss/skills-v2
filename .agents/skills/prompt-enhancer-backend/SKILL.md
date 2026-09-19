@@ -38,15 +38,15 @@ Catalog every backend capability and assign execution priority:
 ### Phase 3: Database Schema, Entity Relationships & State Machines
 - **Entity-Relationship Model**: Every table/collection, primary keys, foreign keys, indexes, and cardinality (1:1, 1:N, N:M with junction tables).
 - **Attribute Specifications**: Column types, nullable constraints, default values, unique constraints, and computed/virtual fields.
-- **Lifecycle State Machines**: Status enums with valid transitions, transition triggers, and guard conditions (e.g., `Draft` → `Published` requires `content.length > 0`).
-- **Migration Strategy**: Schema versioning approach, seed data requirements, and rollback procedures.
+- **Lifecycle State Machines & Concurrency**: Status enums with valid transitions, transition triggers, and guard conditions. Mandate explicit transaction blocks (`BEGIN` / `COMMIT` / `ROLLBACK`) and race-condition defenses (`SELECT ... FOR UPDATE` or optimistic concurrency tokens).
+- **Migration Strategy**: Schema versioning approach, sequential migration files, seed data requirements, and rollback procedures.
 
-### Phase 4: Auth Architecture, NFRs & Edge Cases
+### Phase 4: Auth Architecture, NFRs & Connection Infrastructure
 - **Authentication Flow**: Session-based, JWT, OAuth2/OIDC, API keys, or multi-factor — with token lifecycle (issuance, refresh, revocation).
 - **Authorization Model**: RBAC, ABAC, or row-level security — with permission matrices per role per resource.
-- **Security Requirements**: Input sanitization, SQL injection prevention, CSRF/XSS protection, rate limiting, and secret management.
-- **Performance & Scalability**: Expected request throughput, database query latency targets, connection pooling, horizontal scaling strategy.
-- **Error Handling & Resilience**: Standardized error response format, retry policies, circuit breakers, dead-letter queues, and graceful degradation.
+- **Security & Query Integrity**: 100% parameterized queries / prepared statements (ban dynamic SQL string concatenation), input sanitization, CSRF/XSS protection, rate limiting, and secret management (.env with .env.example).
+- **Infrastructure & Connection Pooling**: Mandate database connection pooling (min/max connections, idle timeouts, release on function exit); zero raw unpooled connections per request.
+- **Error Handling & Resilience**: Standardized error response format (suppress internal stack traces in production), retry policies, circuit breakers, dead-letter queues, and graceful degradation.
 
 ### Phase 5: AI-Feedable Backend Master Prompt Synthesis
 Generate a self-contained prompt formatted for immediate execution by a backend coding agent.
@@ -148,17 +148,20 @@ Design and build a complete, production-ready backend system for [Product Name /
 ### Auth & Security Architecture
 - Authentication: [Mechanism, token format, refresh/revocation flow]
 - Authorization: [RBAC matrix per role per resource]
+- Query Integrity: 100% parameterized queries/prepared statements (zero dynamic string concatenation)
 - Input validation: [Sanitization rules, max lengths, type coercion]
 - Rate limiting: [Requests per minute per tier]
 
-### Non-Functional Requirements
+### Infrastructure & Non-Functional Requirements
+- Connection Pooling: Mandate connection pool (pool size, idle timeouts, release on function return)
+- Atomic Mutations: Multi-step mutations wrapped in explicit `BEGIN`/`COMMIT`/`ROLLBACK` transactions
 - Performance: [Target p95 latency, max concurrent connections]
 - Resilience: [Retry policies, circuit breakers, dead-letter queues]
-- Observability: [Structured logging, health checks, metrics endpoints]
+- Observability: [Structured JSON logging, health checks (/health, SELECT 1), suppressed stack traces in prod]
 
-### Business Rules & Edge Cases
+### Business Rules & Concurrency Edge Cases
 - [Critical validation / calculation rule 1]
-- [Concurrency handling / optimistic locking rule 2]
+- [Concurrency handling / optimistic locking or SELECT FOR UPDATE rule 2]
 - [Handling of orphaned records, cascading deletes, and data integrity constraints]
 ```
 ````

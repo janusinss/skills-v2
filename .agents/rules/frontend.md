@@ -8,6 +8,7 @@ description: Follow this pipeline whenever designing, building, or refactoring U
 Follow this pipeline whenever designing, building, or refactoring UI. Enforce [UI_Always.md](file:///C:/xampp/htdocs/YEAR%204/Skills/.agents/rules/UI_Always.md) for core layout, touch target, and CSS hygiene standards.
 
 ## Stage 1: Target Aesthetic & System Alignment
+- **UI Scoping & Component Architecture:** When building new views or complex interfaces, invoke `prompt-enhancer-frontend` to deconstruct the concept into an exhaustive P0–P3 component matrix, state variants, and responsive journeys before generating code.
 - **Aesthetic Precedence:** The specification established via `design-taste-frontend` in `DESIGN.md` is the **authoritative target** for typography pairings, tinted palettes, spacing, and radius scales.
 - Replace legacy CSS variables, inline styles, and unapproved fonts in the codebase with the `DESIGN.md` tokens.
 - Never use unapproved fonts, hardcoded hex values, or untinted neutrals (tint all darks and grays toward the brand hue; no raw `#000000` or `#808080`). All colors must be declared as CSS tokens in `:root`.
@@ -15,9 +16,11 @@ Follow this pipeline whenever designing, building, or refactoring UI. Enforce [U
 ## Stage 2: Composition & Anti-Slop Standards
 - Apply `design-taste-frontend` layout principles (`DESIGN_VARIANCE`, `VISUAL_DENSITY`, `MOTION_INTENSITY`): prioritize intentional whitespace, asymmetric layout balance, and disciplined visual rhythm.
 - **Strict Anti-Pattern Checks (Unless explicitly overridden in the user brief):**
-  - No card-inside-card nesting or repetitive identical card grids.
-  - No generic centered hero sections or default purple-to-blue gradients.
-  - No decorative side-stripe borders (`border-left` / `border-right` accents).
+  - **No Floating Eyebrow Pill Badges:** Never place floating rounded pill badges or pastel chip capsules (`rounded-full` with colored backgrounds/borders) above headings. Lead directly with the headline, or use clean unboxed typographic kickers (plain text with tracking, zero borders or background bubbles).
+  - **No Ghost Cards & Fake Side Tabs:** No 1px hairline borders paired with 30px diffused drop shadows; no decorative `border-left` stripes.
+  - **No Icon-Tile Stacks:** No rounded square icon containers stacked directly above card headings.
+  - **No Card Nesting & Identical Grids:** Limit container depth to 1 level; replace uniform 3-card grids with asymmetric bento layouts.
+  - **No Decorative Gridlines or Radial Halo Glows:** No graph-paper linear gradients or neon dark-mode glow orbs.
   - **Iconography & Assets:** Never use Unicode emojis as UI icons. Use SVG icons (Lucide or Phosphor) with proper accessibility attributes (`aria-hidden="true"` or descriptive `aria-label`). Never use placeholder URLs.
 - Ensure all interactive elements feature visible `:focus-visible` rings and `cursor: pointer`.
 

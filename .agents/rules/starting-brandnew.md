@@ -36,9 +36,10 @@ Establish the visual ground truth before gathering product requirements or writi
 ## Phase 2: Product Truth & Architecture Expansion (`prompt-enhancer`)
 Transform brief user concepts into an exhaustive, stack-agnostic specification:
 1. **Capture Raw Product Intent**: Prompt the user via `ask_question` for their product concept, target audience, and primary problem solved (keep stack-agnostic).
-2. **Execute `prompt-enhancer` Pipeline**:
-   - **Disambiguate**: If ambiguous across 2+ paradigms, ask 1 targeted clarifying question.
-   - **Deconstruct**: Map Strategic Scope, P0–P3 Feature Matrix, Core Data Entities, User Journeys, and NFRs.
+2. **Execute Domain-Specific Enhancer**:
+   - **Frontend / Client UI**: Apply `prompt-enhancer-frontend` (Page/Component Matrix, responsive breakpoints, state variants).
+   - **Backend / Data API**: Apply `prompt-enhancer-backend` (API endpoints, DB schemas, state machines, RBAC tables).
+   - **Fullstack System**: Apply general `prompt-enhancer` (End-to-end scope, core loop, and full domain analysis).
 3. **Commit Exhaustive `PRODUCT.md`**: Write the generated domain analysis artifact (Sections 1–5) directly to `./PRODUCT.md`.
 4. **Retain Master Specification**: Use the Section 6 Master Prompt as the primary execution contract for downstream phases.
 

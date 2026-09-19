@@ -53,9 +53,11 @@ Define where the redesign is heading. Two paths:
 
 ## Phase 3: Product Truth & Scope (`prompt-enhancer`)
 Establish or confirm the product specification:
-1. **If `PRODUCT.md` Exists**: Review and confirm with the user — reuse as-is, or refine via `prompt-enhancer`.
-2. **If `PRODUCT.md` is Absent**: Extract product intent, target audience, and key workflows from existing documentation/codebase. Run `prompt-enhancer` to expand into:
-   - Strategic Scope, P0–P3 Feature Matrix, Core Data Entities, User Journeys, and NFRs.
+1. **If `PRODUCT.md` Exists**: Review and confirm with the user — reuse as-is, or refine via domain enhancer (`prompt-enhancer-frontend`, `prompt-enhancer-backend`, or `prompt-enhancer`).
+2. **If `PRODUCT.md` is Absent**: Extract product intent, target audience, and key workflows from existing documentation/codebase. Run the appropriate domain enhancer to expand into:
+   - **Frontend / Client UI**: `prompt-enhancer-frontend` (Component matrix, responsive transitions, state models).
+   - **Backend / Data API**: `prompt-enhancer-backend` (Endpoints, DB schema migrations, state machines, RBAC).
+   - **Fullstack System**: General `prompt-enhancer` (Strategic Scope, P0–P3 Feature Matrix, Core Data Entities, User Journeys, and NFRs).
 3. **Commit `PRODUCT.md`**: Write the domain analysis artifact (Sections 1–5) to `./PRODUCT.md`.
 4. **Retain Master Specification**: Use the Section 6 Master Prompt as the execution contract for downstream phases.
 

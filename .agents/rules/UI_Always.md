@@ -57,10 +57,15 @@ Apply these rules automatically whenever viewing, writing, or refactoring fronte
 
 ---
 
-## 6. Color & Aesthetic Floor
+## 6. Color & Aesthetic Floor (Structural Anti-Slop)
+- **No Floating Eyebrow Pill Badges:** Never place floating rounded pill badges or pastel chip capsules (`rounded-full` with colored backgrounds/borders) above headings. Lead directly with the headline, or use clean unboxed typographic kickers (plain text with tracking, zero borders or background bubbles).
+- **No Ghost Cards:** Never combine a 1px hairline border with a wide, diffused drop shadow (`box-shadow: 0 20px 25px`). Choose either a crisp border OR a subtle directional elevation shadow, never both.
+- **No Side-Tab Accent Stripes:** Never put decorative `border-left: 4px solid <color>` on cards unless it communicates a genuine functional warning or status.
+- **No Icon-Tile Stacks:** Never center an icon inside a rounded square directly stacked on top of a card heading (`rule-icon-tile-stack`). Place icons inline with headings or let the text lead.
+- **No Decorative Grid Backgrounds:** Never apply faux-developer gridline backgrounds (`background-size: 18px 18px` linear-gradient grid) unless building an actual interactive canvas or mapping tool.
+- **No Container Over-Nesting (Cardocalypse):** Limit container depth to 1 level. Use whitespace, typography, and light divider borders rather than nesting cards inside cards.
 - **Tinted Neutrals:** Never use raw `#000000` or untinted `#808080`. Tint darks toward the brand palette (slate, zinc, deep navy, warm charcoal).
-- **Anti-Nesting:** Never nest a card inside another card with identical backgrounds and borders.
-- **No Default AI Gradients:** No uncalibrated purple-to-blue gradients unless explicitly part of the brand palette.
+- **No Default AI Gradients:** No uncalibrated purple-to-blue gradients or glowing dark radial halos unless explicitly requested.
 
 ---
 
