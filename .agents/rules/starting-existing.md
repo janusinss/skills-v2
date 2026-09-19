@@ -80,35 +80,35 @@ Synthesize `PRODUCT.md` and the target `DESIGN.md` into the formal configuration
 
 ---
 
-## Phase 5: Implementation & Creative Engineering
+## Phase 5: Implementation & Code Assembly
 Apply the redesign strictly adhering to target `DESIGN.md` tokens and `PRODUCT.md` P0 features:
 1. **Confirm Tech Stack**: Confirm implementation framework before generating code. Examples include Next.js App Router, Vite/React, Astro, SvelteKit, or Static HTML5/CSS3 — any framework the user selects is valid. For existing codebases, default to the stack already in use unless the user requests a migration.
-2. **Select Creative Archetype**:
+2. **Standard Layout Archetypes**:
    - **Archetype A: High-Conversion SaaS & Product Dashboard**:
      - CSS Grid / Flexbox data tables with sticky headers and sortable columns.
      - `prefers-color-scheme` media query for system dark/light modes.
      - ≥16px body text, ≥44px interactive targets, subtle hover micro-interactions (opacity/translate, ≤200ms).
-   - **Archetype B: Immersive 3D & Scroll Storytelling** (when requested):
-     - *Lenis Smooth Scroll*: Initialize momentum physics (`duration: 1.2`, `smoothWheel: true`).
-     - *ScrollTrigger Bridge*: Hook `lenis.raf` into GSAP ticker; lock `gsap.ticker.lagSmoothing(0)`.
-     - *Unified Three.js Loop*: Render WebGL inside GSAP ticker; scrub camera orbits via ScrollTrigger.
-     - *Source References*: Reference `.agents/resources/creative-libraries/` (`gsap/`, `lenis/`, `three.js/`).
-   - **Archetype C: Editorial & Content Platform**:
+   - **Archetype B: Clean Editorial & Content Platform**:
      - Asymmetrical CSS Grid layouts (e.g., `2fr 1fr` or `1fr 3fr`) with generous `clamp()`-based spacing.
      - Typographic rhythm: distinct heading scale (1.333+ ratio), styled pull-quotes, and ≥1.6 line-height body.
      - Image curation with `object-fit: cover`, art-directed `<picture>` sources, and lazy loading.
-3. **Ban Generic AI Clichés**: Zero unstyled browser fonts, zero nested cards-in-cards, zero uncalibrated purple/blue gradients.
+   - **Tighter Hero Spacing Standard**: Set hero top padding strictly to `calc(var(--header-height) + var(--space-lg))` (24px inset below fixed header) to eliminate dead vertical whitespace and seat the hero headline and bento showcase immediately below the navigation bar.
+   - **Real Photography Sourcing (Strict: No AI Generation)**: Populate all hero showcase cards and product catalog cards with real, authentic photography sourced from the internet or scraped from template assets (e.g. Unsplash, Pexels, or CDN assets). **Never use AI generation** for showcase or product imagery. Pair images with `object-fit: cover` and semi-transparent scrim overlays (e.g. `linear-gradient(to top, rgba(0,0,0,0.7), transparent)`) to guarantee WCAG AA contrast for text labels and badges.
+   - **Overdrive Mode**: When Overdrive mode is requested, activate [.agents/rules/overdrive.md](file:///c:/xampp/htdocs/YEAR%204/Skills/.agents/rules/overdrive.md).
+3. **Ban Generic AI Clichés (Visual Slop & AI Writing)**:
+   - **Visual Slop**: Zero floating pastel pills, zero icon-tile stacks, zero ghost cards, zero side-tab stripes, zero cards-in-cards nesting, zero unstyled browser fonts, zero uncalibrated purple/blue gradients.
+   - **Textual Slop (`avoid-ai-writing`)**: Zero Tier 1A machine words (`delve`, `tapestry`, `realm`, `paradigm`, `embark`, `testament to`, `robust`, `comprehensive`, `cutting-edge`, `leverage`, `meticulous`, `seamless`, `game-changer`, `vibrant`, `thriving`, `deep dive`, `unpack`, `intricacies`, `ever-evolving`, `actionable`, `impactful`, `synergy`, `at its core`). Zero em dashes (`—` or `--`) in headings, hero slogans, or buttons. Zero "It's not X — it's Y" tropes or multi-sentence countdown reveals. Zero emojis in section headings. All copy must be direct, human, and grounded in concrete features.
 4. **Scope: P0 Delivery Only**: Build/refactor UI modules implementing the **P0 roadmap** from `PRODUCT.md`. P1–P3 features are cataloged in `PRODUCT.md` but deferred to iterative development cycles after this pipeline completes.
 
 ---
 
 ## Phase 6: Automated Verification & Handoff (`playwright-skill` + `impeccable`)
 Validate the running application inside real Chromium viewports:
-1. **Playwright Multi-Viewport Audit**: Run headless Chromium checks via `node .agents/skills/playwright-skill/run.js` writing to `./scratch/`:
+1. **Playwright Multi-Viewport Audit**: Run headless Chromium checks via `node .agents/skills/playwright-skill/run.js -e "<audit script>"` writing to `./scratch/`:
    - Mobile: 375 × 667
    - Tablet: 768 × 1024
    - Desktop: 1280 × 800
 2. **Quality & Token Compliance Check**:
    - Verify 0 horizontal scroll overflows, 0 console errors, >=44px tap targets.
-   - Run `impeccable detect` to verify compliance against target `DESIGN.md` tokens.
+   - Run `.agents/skills/impeccable/scripts/impeccable.cmd detect .` (or Unix `.agents/skills/impeccable/scripts/impeccable detect .`) to verify compliance against target `DESIGN.md` tokens.
 3. **Git Commit**: Verify ephemeral artifacts (`scratch/`, `.impeccable/`, `node_modules/`, `test-results/`) are in `.gitignore`. Commit `package.json`, `PRODUCT.md`, and `DESIGN.md`.

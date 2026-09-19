@@ -22,6 +22,13 @@ Follow this pipeline whenever designing, building, or refactoring UI. Enforce [U
   - **No Card Nesting & Identical Grids:** Limit container depth to 1 level; replace uniform 3-card grids with asymmetric bento layouts.
   - **No Decorative Gridlines or Radial Halo Glows:** No graph-paper linear gradients or neon dark-mode glow orbs.
   - **Iconography & Assets:** Never use Unicode emojis as UI icons. Use SVG icons (Lucide or Phosphor) with proper accessibility attributes (`aria-hidden="true"` or descriptive `aria-label`). Never use placeholder URLs.
+  - **Real Photography Sourcing (Strict: No AI Generation):** Populate showcase, hero, and product cards with real, authentic photography sourced from the internet or scraped from template assets (e.g. Unsplash, Pexels, or CDN assets). **Never use AI generation** for showcase or product imagery. Pair images with `object-fit: cover` and semi-transparent scrim overlays (e.g. `linear-gradient(to top, rgba(0,0,0,0.7), transparent)`) to guarantee WCAG AA contrast for text labels and badges.
+  - **Anti-AI Writing & Natural Voice Standards (`avoid-ai-writing`):** Ground all UI copy, headlines, microcopy, and empty states in natural, human voice:
+    - **Zero Tier 1A Buzzwords:** Ban `delve`, `tapestry`, `realm`, `paradigm`, `embark`, `testament to`, `robust`, `comprehensive`, `cutting-edge`, `leverage`, `meticulous`, `seamless`, `game-changer`, `vibrant`, `thriving`, `deep dive`, `unpack`, `intricacies`, `ever-evolving`, `actionable`, `impactful`, `synergy`, `at its core`.
+    - **Zero Hollow Intensifiers:** Cut `truly`, `genuinely`, `quite frankly`, `worth noting`, `worth your time`, `actually` (unless marking factual contrast).
+    - **Zero Formulaic Rhetoric:** Ban "It's not X — it's Y", split-sentence reveals, and em dashes (`—` or `--`) in titles/headers/slogans.
+    - **Zero Header Emojis:** Ban decorative emojis in section titles (`## 🚀 Features` is strictly prohibited).
+- **Overdrive Mode:** When Overdrive mode is requested, activate [.agents/rules/overdrive.md](file:///c:/xampp/htdocs/YEAR%204/Skills/.agents/rules/overdrive.md). Standard builds follow baseline responsive layouts and token fidelity.
 - Ensure all interactive elements feature visible `:focus-visible` rings and `cursor: pointer`.
 
 ## Stage 3: Bounded Quality Audit (via Impeccable)
@@ -30,7 +37,7 @@ Follow this pipeline whenever designing, building, or refactoring UI. Enforce [U
 - **Extraction**: Extract repeated UI blocks into reusable components.
 
 ## Stage 4: Real Browser & Responsive Verification
-- **Engine Mandate:** Strictly use `playwright-skill` (`node .agents/skills/playwright-skill/run.js`) for all browser inspections and DOM verifications. Never use the built-in website viewer, IDE browser preview, or `browser_subagent`. All test scripts and visual captures auto-target the ignored `scratch/` directory.
+- **Engine Mandate:** Strictly use `playwright-skill` (`node .agents/skills/playwright-skill/run.js -e "<audit script>"`) for all browser inspections and DOM verifications. Never use the built-in website viewer, IDE browser preview, or `browser_subagent`. All test scripts and visual captures auto-target the ignored `scratch/` directory.
 - **Server Detection:** Check `package.json` for `dev` script; verify active port before navigating.
 - **Viewport Check:** Test across mobile (375px), tablet (768px), and desktop (1280px) via `playwright-skill`.
 - **Runtime Zero-Defect:** Verify 0 console errors and 0 broken assets (`page.on('console')`).

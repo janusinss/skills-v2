@@ -9,8 +9,8 @@ A curated collection of production-grade AI agent skills, rules, and automated w
 ```text
 ├── .agents/
 │   ├── hooks.json         # Automated lifecycle hooks (e.g., UI checks & design deep passes)
-│   ├── rules/             # 6 architectural guidelines & proactive rules (UI, backend, security, setup)
-│   └── skills/            # 150+ specialized agent skills (UI/UX, Backend, Security, DevOps, etc.)
+│   ├── rules/             # 8 architectural guidelines & proactive rules (UI, backend, security, setup, overdrive)
+│   └── skills/            # 160+ specialized agent skills (UI/UX, Backend, Security, DevOps, etc.)
 ├── skills-lock.json       # Skill dependency manifest and integrity hash lockfile
 └── .gitignore             # Git ignore configuration for development and agent environments
 ```
@@ -89,7 +89,7 @@ This ensures your AI assistant has access to the skills locally while keeping yo
 
 Rules provide foundational instructions and safety guardrails that modern AI assistants (like Google Antigravity, Cursor, and Claude Code) load when planning, writing, and reviewing code.
 
-The repository includes **7 core rules**:
+The repository includes **8 core rules**:
 
 1. **`ADHD_MODE.md`** — **Action-First & Low Cognitive Friction Execution (`trigger: always`)**
    - Direct, low-friction responses: lead with command/file path, numbered bounded steps, visible wins, maximum 5-item lists, and zero conversational filler.
@@ -99,32 +99,42 @@ The repository includes **7 core rules**:
      - Eliminates unwanted horizontal scrollbars (`overflow-x`) and flex child blowouts (`min-width: 0`).
      - Enforces interactive affordances (`cursor: pointer` on clickables, minimum `44×44px` touch targets).
      - Prevents iOS Safari auto-zoom by enforcing `≥16px` font on form inputs.
-     - Mandates accessible focus rings (`:focus-visible`), WCAG AA contrast (≥ 4.5:1), and line length limits (`max-width: 65ch`).
+     - Mandates hero fixed-header top clearance `calc(var(--header-height) + var(--space-lg))` (24px inset) to prevent dead vertical whitespace.
+     - Enforces authentic photography sourcing (strict no AI generation) with semi-transparent contrast scrims.
      - Bans raw, untinted grays (`#808080`, `#000000`), unicode emojis as icons, and placeholder links.
 
 3. **`frontend.md`** — **Active UI Development Pipeline (`trigger: auto`)**
    - 4-stage UI delivery workflow executed on frontend features and refactors:
      - **Stage 1 (Aesthetic Alignment):** Adheres to `DESIGN.md` tokens via `design-taste-frontend` and replaces legacy styles.
-     - **Stage 2 (Anti-Slop Standards):** Enforces composition dials (`DESIGN_VARIANCE`, `VISUAL_DENSITY`, `MOTION_INTENSITY`), maps complex state with `archify workflow`/`lifecycle`, and bans nested cards or purple-blue gradients.
+     - **Stage 2 (Anti-Slop Standards):** Enforces composition dials (`DESIGN_VARIANCE`, `VISUAL_DENSITY`, `MOTION_INTENSITY`), authentic photography standards, anti-AI writing floor (`avoid-ai-writing`), and delegates to Overdrive when requested.
      - **Stage 3 (Bounded Quality Audit):** Batched technical & visual audit via `impeccable` with single-pass remediation.
      - **Stage 4 (Browser Verification):** Real browser inspection across mobile (375px), tablet (768px), and desktop (1280px+) via `playwright-skill`.
 
 4. **`starting-brandnew.md`** — **Greenfield Project Scaffolding (`trigger: manual`)**
-   - Phase 0 bootstrapping for brand-new projects:
-     - Scaffolds package manifest (`package.json`) and verifies Playwright browser automation runtimes.
-     - Scopes system boundaries into interactive `ARCHITECTURE.html` via `archify architecture`.
-     - Captures durable product truth, audience, and workflows into `PRODUCT.md` via `impeccable`.
-     - Establishes visual archetype, core dials, and design tokens into `DESIGN.md` via `design-taste-frontend`.
-     - Tracks `package.json`, `PRODUCT.md`, `DESIGN.md`, and `ARCHITECTURE.html` as persistent Git assets.
+   - 6-phase bootstrapping for brand-new projects:
+     - **Phase 0 (Pre-Flight Guard):** Verifies workspace state to prevent accidental artifact destruction.
+     - **Phase 1 (Visual Foundation):** Interactive selection from 74 curated brand design systems in `awesome-design-md`.
+     - **Phase 2 (Product Architecture):** Deconstructs product brief into exhaustive `PRODUCT.md` via `prompt-enhancer`.
+     - **Phase 3 (Taste Synthesis):** Synthesizes product intent and design tokens into a one-line Design Read.
+     - **Phase 4 (Component Architecture):** Default blueprints (Standard Website via TailGrids NexStudio vs. Website with Hero via Md Adul E-commerce + Spectrum UI footer), 21st.dev link-pulling engine, authentic photography sourcing, and hero clearance.
+     - **Phase 5 & 6 (Assembly & Verification):** Strict P0 delivery, visual slop bans, and automated Playwright + Impeccable audits.
 
 5. **`starting-existing.md`** — **Legacy Codebase Redesign & Modernization (`trigger: manual`)**
-   - Phase 0 baseline extraction for existing applications:
-     - Scans directory and route topology into interactive `ARCHITECTURE.html` via `archify architecture`.
-     - Reverse-engineers legacy font usage, palettes, and components into `DESIGN.md`.
-     - Establishes a `## Target Redesign Specification` section in `DESIGN.md` before mutating code.
-     - Supports per-view density overrides (e.g., `Compact` for data tables vs. `Spacious` for landing heroes).
+   - 7-phase baseline extraction and remediation for existing applications:
+     - **Phase 0 & 1 (Setup & Audit):** Extracts legacy color, typography, and component patterns into `./DESIGN.md` baseline via `impeccable:document`.
+     - **Phase 2 (Target Aesthetic):** Dual paths: full visual overhaul via `awesome-design-md` or incremental baseline refinement with taste dials.
+     - **Phase 3 & 4 (Scope & Synthesis):** Evaluates `PRODUCT.md` and generates design read configuration.
+     - **Phase 5 (Implementation):** Refactors legacy views to target tokens, tighter hero spacing, authentic photography, and Overdrive delegation.
+     - **Phase 6 (Verification):** Multi-viewport Playwright audits and Impeccable compliance checks.
 
-6. **`backend.md`** — **Backend Connection & Data Layer Standards (`trigger: manual`)**
+6. **`overdrive.md`** — **Overdrive Creative Engineering Pipeline (`trigger: model_decision`)**
+   - High-craft, high-performance creative engineering pipeline:
+     - Synthesizes ThreeUI 3D shaders, 21st.dev components (CLI + headless link-pulling engine), and GSAP + Lenis scroll physics.
+     - WebGL lifecycle safety: device pixel ratio clamping, intersection pausing, context loss recovery (`webglcontextlost`), and static CSS fallbacks.
+     - Hero fixed-header clearance and WCAG AA contrast scrims over luminous particle canvases.
+     - Multi-viewport Playwright verification and zero-leak enforcement.
+
+7. **`backend.md`** — **Backend Connection & Data Layer Standards (`trigger: manual`)**
    - Production-grade data layer architecture:
      - Enforces service/repository boundaries (`architecture-patterns`, `backend-dev-guidelines`).
      - Generates interactive maps (`archify architecture` for service/DB boundaries, `archify sequence` for request flows, `archify dataflow` for pipelines).
@@ -132,7 +142,7 @@ The repository includes **7 core rules**:
      - Enforces schema integrity, explicit foreign key constraints, and targeted indexing (`postgres-best-practices`).
      - Requires atomic mutations in explicit transactions (`BEGIN`/`COMMIT`/`ROLLBACK`) with race condition defenses.
 
-7. **`security.md`** — **Application Security & Vulnerability Standards (`trigger: manual`)**
+8. **`security.md`** — **Application Security & Vulnerability Standards (`trigger: manual`)**
    - Zero-trust DevSecOps pipeline:
      - Phase 0 threat modeling (`security-auditor`) and trust boundary mapping (`archify architecture` / `archify sequence`).
      - Strict edge input validation (Zod, Joi, Pydantic) and 100% parameterized SQL queries (`backend-security-coder`).
@@ -188,12 +198,20 @@ npm --prefix ".agents/skills/playwright-skill" run setup
 
 ---
 
-## 🛠️ Included Skill Categories (150+ Skills)
+## 🛠️ Included Skill Categories (160+ Skills)
 
-All 152 skills are organized into 12 domain categories:
+All 164 skills are organized into 12 domain categories:
 
-### 1. 🎨 Frontend, UI/UX & Visual Design (27 Skills)
+### 1. 🎨 Frontend, UI/UX & Visual Design (35 Skills)
+- `21st-ai` — Generate and iterate on UI components with 21st AI via CLI
+- `21st-cli-use` — Search, pull, and install React/shadcn components and themes from 21st.dev
+- `21st-design-sync` — Sync project design tokens into shareable 21st.dev themes
+- `21st-registry` — Publish and manage components, themes, and bento boards to 21st.dev
+- `21st-ui-build` — Build production UI using project design context and grounded 21st inspiration
+- `21st-ui-explore` — Explore multiple grounded UI directions and variants
+- `21st-ui-review` — Design QA, accessibility audit, and interaction review
 - `3d-web-experience` — Three.js, React Three Fiber, Spline, WebGL, and interactive 3D web scenes
+- `awesome-design-md` — Curated library of 74+ production-grade DESIGN.md specifications
 - `banner-design` — Multi-platform banners, social ads, and hero visual generation
 - `canvas-design` — Visual design philosophy, canvas generation, and vector aesthetics
 - `claude-d3js-skill` — Sophisticated, interactive data visualizations with D3.js
@@ -336,9 +354,10 @@ All 152 skills are organized into 12 domain categories:
 - `godot-gdscript-patterns` — Godot 4 GDScript patterns, scene architecture, and state machines
 - `unity-developer` — Unity 6 LTS C# scripting, URP/HDRP pipelines, and cross-platform game builds
 
-### 11. 📈 Product Management, Growth & Marketing (22 Skills)
+### 11. 📈 Product Management, Growth & Marketing (26 Skills)
 - `ab-test-setup` — Hypothesis formulation, statistical gating, and experiment execution
 - `analytics-tracking` — Tracking plans, event taxonomies, and analytics data integrity
+- `avoid-ai-writing` — Audit and rewrite copy to eliminate AI-isms, buzzwords, and formulaic rhetoric
 - `brand` — Brand voice, visual identity consistency, and messaging frameworks
 - `brandkit` — Visual identity boards, logo systems, and art-directed brand deck generation
 - `business-analyst` — Business analytics, KPI dashboards, and data-driven strategic models
@@ -356,6 +375,9 @@ All 152 skills are organized into 12 domain categories:
 - `market-sizing-analysis` — TAM, SAM, and SOM calculation methodologies for startups
 - `product-manager-toolkit` — Discovery, PRDs, prioritization, and roadmapping frameworks
 - `programmatic-seo` — Programmatic SEO strategy, template design, and structured data
+- `prompt-enhancer` — Universal prompt enhancement engine deconstructing concepts into P0-P3 specifications
+- `prompt-enhancer-backend` — Backend prompt enhancer for API architecture, database schemas, and state machines
+- `prompt-enhancer-frontend` — Frontend & UX prompt enhancement engine for component taxonomies
 - `seo-audit` — Crawlability, indexation, speed, and technical SEO diagnostic audits
 - `startup-financial-modeling` — 3-5 year startup financial models, cash runway, and scenario forecasting
 - `startup-metrics-framework` — SaaS metric tracking (CAC, LTV, churn, NDR) from seed through Series A

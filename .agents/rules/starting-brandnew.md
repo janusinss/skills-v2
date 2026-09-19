@@ -35,7 +35,11 @@ Establish the visual ground truth before gathering product requirements or writi
 
 ## Phase 2: Product Truth & Architecture Expansion (`prompt-enhancer`)
 Transform brief user concepts into an exhaustive, stack-agnostic specification:
-1. **Capture Raw Product Intent**: Prompt the user via `ask_question` for their product concept, target audience, and primary problem solved (keep stack-agnostic).
+1. **Capture Raw Product Intent & Archetype Selection (`ask_question`)**:
+   - Prompt the user for their product concept, target audience, and primary problem solved (keep stack-agnostic).
+   - **Website Archetype Gate**: Explicitly ask the user if they want a **Standard Website** or a **Website with Hero**:
+     - *Standard Website*: TailGrids NexStudio blueprint + Spectrum UI footer.
+     - *Website with Hero*: Md Adul E-commerce Marketplace blueprint + Spectrum UI footer.
 2. **Execute Domain-Specific Enhancer**:
    - **Frontend / Client UI**: Apply `prompt-enhancer-frontend` (Page/Component Matrix, responsive breakpoints, state variants).
    - **Backend / Data API**: Apply `prompt-enhancer-backend` (API endpoints, DB schemas, state machines, RBAC tables).
@@ -62,29 +66,49 @@ Synthesize `PRODUCT.md` and `DESIGN.md` into the formal configuration required b
 
 ---
 
-## Phase 4: Implementation & Creative Engineering
-Build components strictly adhering to `DESIGN.md` tokens, `PRODUCT.md` P0 features, and chosen architecture:
-1. **Confirm Tech Stack**: Confirm implementation framework before generating code. Examples include Next.js App Router, Vite/React, Astro, SvelteKit, or Static HTML5/CSS3 — any framework the user selects is valid.
-2. **Select Creative Archetype**:
+## Phase 4: Component Architecture & Token Theming
+Prepare components adhering strictly to `DESIGN.md` tokens and `PRODUCT.md` P0 features:
+1. **Default Component Blueprints & Link-Pulling Engine (21st.dev Catalog)**:
+   - **Link-Pulling Engine**: Pull components directly from 21st.dev links via headless browser automation (`playwright-skill`). The engine inspects 21st.dev preview links directly, extracts bundled preview iframes (`cdn.21st.dev/bundled/...`) or live demo domains (e.g. `nexstudio.demos.tailgrids.com`, `v0-ecommerce-hero-section-myp89k.vercel.app`), extracts the exact rendered DOM, classes, and SVG assets, and transpiles them into the selected `DESIGN.md` token system.
+   - **Option A: Standard Website (Default)**:
+     - **Main Page Architecture**: **TailGrids NexStudio** (`https://21st.dev/community/templates/free?preview=%2F%40tailgrids%2Ftemplates%2Ftailgrids-nexstudio`): sticky header, hero with interactive preview, metrics telemetry bar, asymmetric bento capabilities grid, interactive developer sandbox, and conversion CTA.
+     - **Footer Architecture**: **Spectrum UI Footer Section** by Arihant Jain (`https://21st.dev/community/components?q=footer&qs=downloads&preview=%2F%40arihantcodes_1f7b8c4d%2Fcomponents%2Ffooter-section`): integrated newsletter/inquiry subscription bar, multi-column directory, prominent brand wordmark, live system status pill, and compliance/social links.
+   - **Option B: Website with Hero (Default)**:
+     - **Main Page Architecture**: **E-commerce Marketplace Template** by Md Adul (`https://21st.dev/community/templates/free?preview=%2F%40mdadul%2Ftemplates%2Fe-commerce-marketplace-template`, preview `https://v0-ecommerce-hero-section-myp89k.vercel.app/?pv=1`): prominent hero banner with curated product showcases, integrated marketplace search bar, quick artisan/product CTAs, asymmetric image bento showcase, and platform statistics bar.
+     - **Footer Architecture**: The same **Spectrum UI Footer Section** by Arihant Jain (`https://21st.dev/community/components?q=footer&qs=downloads&preview=%2F%40arihantcodes_1f7b8c4d%2Fcomponents%2Ffooter-section`).
+     - **Tighter Hero Spacing Standard**: Set hero top padding strictly to `calc(var(--header-height) + var(--space-lg))` (24px inset below fixed header) to eliminate dead vertical whitespace and seat the hero headline and bento showcase immediately below the navigation bar.
+     - **Real Photography Sourcing (Strict: No AI Generation)**: When Website with Hero is selected, populate all hero bento showcase cards and product catalog cards with real, authentic photography sourced from the internet or scraped from template assets (e.g. Unsplash, Pexels, or CDN assets). **Never use AI generation** for showcase or product imagery. Pair images with `object-fit: cover` and semi-transparent scrim overlays (e.g. `linear-gradient(to top, rgba(0,0,0,0.7), transparent)`) to guarantee WCAG AA contrast for text labels and badges.
+2. **Universal DESIGN.md Theming**:
+   - Both default blueprints **must dynamically inherit and map all styles** (backgrounds, surfaces, borders, text, typography, border radius, and spacing) to the chosen `DESIGN.md` tokens.
+   - Never use raw uncalibrated defaults or untinted grays; all color tokens and type scales must strictly resolve to `DESIGN.md` CSS variables.
+3. **Copy Sanitization (`avoid-ai-writing`)**:
+   - Audit all headline, button, and body copy.
+   - Ban Tier 1A machine words (`delve`, `tapestry`, `seamless`, `robust`, `cutting-edge`, `leverage`, `game-changer`, `synergy`).
+   - Remove em dashes (`—` or `--`) from titles/slogans. Ground all copy in concrete functionality and numbers.
+4. **Overdrive Delegation**: When Overdrive mode is requested, activate [.agents/rules/overdrive.md](file:///c:/xampp/htdocs/YEAR%204/Skills/.agents/rules/overdrive.md).
+
+---
+
+## Phase 5: Implementation & Code Assembly
+Build components strictly adhering to `DESIGN.md` tokens and `PRODUCT.md` P0 features:
+1. **Confirm Tech Stack**: Confirm implementation framework before generating code (Next.js App Router, Vite/React, Astro, SvelteKit, or Static HTML5/CSS3).
+2. **Standard Layout Archetypes**:
    - **Archetype A: High-Conversion SaaS & Product Dashboard**:
      - CSS Grid / Flexbox data tables with sticky headers and sortable columns.
      - `prefers-color-scheme` media query for system dark/light modes.
      - ≥16px body text, ≥44px interactive targets, subtle hover micro-interactions (opacity/translate, ≤200ms).
-   - **Archetype B: Immersive 3D & Scroll Storytelling** (when requested):
-     - *Lenis Smooth Scroll*: Initialize momentum physics (`duration: 1.2`, `smoothWheel: true`).
-     - *ScrollTrigger Bridge*: Hook `lenis.raf` into GSAP ticker; lock `gsap.ticker.lagSmoothing(0)`.
-     - *Unified Three.js Loop*: Render WebGL inside GSAP ticker; scrub camera orbits via ScrollTrigger.
-     - *Source References*: Reference `.agents/resources/creative-libraries/` (`gsap/`, `lenis/`, `three.js/`).
-   - **Archetype C: Editorial & Content Platform**:
+   - **Archetype B: Clean Editorial & Content Platform**:
      - Asymmetrical CSS Grid layouts (e.g., `2fr 1fr` or `1fr 3fr`) with generous `clamp()`-based spacing.
      - Typographic rhythm: distinct heading scale (1.333+ ratio), styled pull-quotes, and ≥1.6 line-height body.
      - Image curation with `object-fit: cover`, art-directed `<picture>` sources, and lazy loading.
-3. **Ban Generic AI Clichés**: Zero unstyled browser fonts, zero nested cards-in-cards, zero uncalibrated purple/blue gradients.
+3. **Ban Generic AI Clichés (Visual Slop & AI Writing)**:
+   - **Visual Slop**: Zero floating pastel pills, zero icon-tile stacks, zero ghost cards, zero side-tab stripes, zero cards-in-cards nesting, zero unstyled browser fonts, zero uncalibrated purple/blue gradients.
+   - **Textual Slop (`avoid-ai-writing`)**: Zero Tier 1A machine words, zero em dashes in headings, zero "It's not X — it's Y" tropes.
 4. **Scope: P0 Delivery Only**: Build UI modules implementing the **P0 roadmap** from `PRODUCT.md`. P1–P3 features are cataloged in `PRODUCT.md` but deferred to iterative development cycles after this pipeline completes.
 
 ---
 
-## Phase 5: Automated Verification & Handoff (`playwright-skill` + `impeccable`)
+## Phase 6: Automated Verification & Handoff (`playwright-skill` + `impeccable`)
 Validate the running application inside real Chromium viewports:
 1. **Playwright Multi-Viewport Audit**: Run headless Chromium checks via `node .agents/skills/playwright-skill/run.js` writing to `./scratch/`:
    - Mobile: 375 × 667

@@ -1,0 +1,4 @@
+interface:
+  display_name: "21st UI Review"
+  short_description: "Review UI against project design context"
+  default_prompt: "Use st-ui-review to review this UI and safely fix deterministic issues."

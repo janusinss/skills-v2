@@ -1,0 +1,4 @@
+interface:
+  display_name: "21st UI Build"
+  short_description: "Build project-aware UI with 21st"
+  default_prompt: "Use st-ui-build to build this interface from existing project components and 21st inspiration."

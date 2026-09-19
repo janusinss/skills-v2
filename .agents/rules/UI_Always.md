@@ -19,6 +19,8 @@ Apply these rules automatically whenever viewing, writing, or refactoring fronte
   - Full-page shells must use `min-height: 100dvh` (or `100vh`) with flex column layout so footers never float mid-screen on sparse content.
 - **Scrollbar Gutter:**
   - Add `scrollbar-gutter: stable;` on root/body to avoid layout jumping when scrollbars appear/disappear.
+- **Hero Fixed-Header Clearance:**
+  - Set hero section top padding strictly to `calc(var(--header-height) + var(--space-lg))` (24px inset below fixed header) to eliminate dead vertical whitespace between fixed navigation and hero headlines/bento showcases.
 
 ---
 
@@ -47,6 +49,7 @@ Apply these rules automatically whenever viewing, writing, or refactoring fronte
 - **Image Distortion:** Responsive images must use `object-fit: cover` and `display: block` to prevent distortion and inline baseline gaps.
 - **No Raw Emojis as Icons:** Never use Unicode emojis as UI icons. Use SVG icons (Lucide or Phosphor) with `aria-hidden="true"` or descriptive `aria-label`.
 - **No Placeholder Domains:** Never link to `via.placeholder.com` or similar. Use inline SVG, themed skeleton boxes, or actual assets.
+- **Authentic Photography (Strict: No AI Generation):** Populate showcase, hero, and product cards with real photography from the web (Unsplash, Pexels, CDN). Never generate AI images for UI showcases or product cards. Always apply semi-transparent scrim overlays (e.g. `linear-gradient(to top, rgba(0,0,0,0.7), transparent)`) to guarantee WCAG AA text contrast.
 
 ---
 
@@ -69,8 +72,18 @@ Apply these rules automatically whenever viewing, writing, or refactoring fronte
 
 ---
 
-## 7. Browser Verification Policy
-- **Engine Mandate:** Use `playwright-skill` (`node .agents/skills/playwright-skill/run.js`) exclusively for all browser inspections, responsive checks, and visual tests. Built-in website viewers, IDE preview windows, and `browser_subagent` are banned for verification.
+## 7. Copy & Natural Voice Floor (`avoid-ai-writing`)
+- **No Tier 1A Machine Vocabulary:** Zero `delve`, `tapestry`, `realm`, `paradigm`, `embark`, `testament to`, `robust`, `comprehensive`, `cutting-edge`, `leverage`, `meticulous`, `seamless`, `game-changer`, `vibrant`, `thriving`, `deep dive`, `unpack`, `intricacies`, `ever-evolving`, `actionable`, `impactful`, `synergy`, `at its core`.
+- **No Hollow Intensifiers:** Eliminate `truly`, `genuinely`, `quite frankly`, `worth noting`, `worth your time`, `actually` (unless contrasting factual errors).
+- **No Em Dashes in Headings/Buttons:** Replace `—` and `--` with periods, commas, or direct declarative sentence structure.
+- **No AI Rhetorical Tropes:** Zero "It's not X — it's Y" or multi-sentence countdown reveals.
+- **No Section Title Emojis:** Ban emojis in headings (e.g. `## 🚀 Our Features`).
+- **Factual & User-Grounded:** State concrete capabilities, actual metrics, and direct human verbs.
+
+---
+
+## 8. Browser Verification Policy
+- **Engine Mandate:** Use `playwright-skill` (`node .agents/skills/playwright-skill/run.js -e "<audit script>"`) exclusively for all browser inspections, responsive checks, and visual tests. Built-in website viewers, IDE preview windows, and `browser_subagent` are banned for verification.
 - **Minor / 1-Line Fixes** (text, colors, padding): Skip browser automation. Verify CSS rules statically in code.
-- **Structural / Layout Changes** (grids, navigation, full pages): Launch `playwright-skill` (`node .agents/skills/playwright-skill/run.js`) across breakpoints (375px, 768px, 1280px). Confirm 0 console errors, 0 broken assets.
+- **Structural / Layout Changes** (grids, navigation, full pages): Launch `playwright-skill` (`node .agents/skills/playwright-skill/run.js -e "<audit script>"`) across breakpoints (375px, 768px, 1280px). Confirm 0 console errors, 0 broken assets.
 - **Output Location:** All test scripts and screenshot captures go to the git-ignored `scratch/` directory.

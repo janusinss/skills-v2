@@ -1,0 +1,4 @@
+interface:
+  display_name: "21st UI Explore"
+  short_description: "Explore distinct project-aware UI directions"
+  default_prompt: "Use st-ui-explore to create and compare three grounded interface directions."

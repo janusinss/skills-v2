@@ -28,6 +28,13 @@ Transforms any product concept into an exhaustive frontend architecture specific
    - 🚫 **No raw Unicode emojis as icons**: Strictly mandate SVG icons (Lucide or Phosphor).
    - 🚫 **No unstyled/overused fonts or flat hierarchy**: Avoid default uncalibrated Inter/Geist with flat sizing; specify distinct display/body pairings with high visual tension.
    - 🚫 **No untinted pure black/gray**: Tint all darks and grays into the brand hue.
+8. **Strict Anti-AI-Writing Law (`avoid-ai-writing`)**: Every generated UI prompt, headline, microcopy string, empty state, and button label must eliminate synthetic machine writing patterns:
+   - 🚫 **Ban Tier 1A Machine Vocabulary**: Never use `delve`, `tapestry`, `realm`, `paradigm`, `embark`, `testament to`, `robust`, `comprehensive`, `cutting-edge`, `leverage`, `meticulous`, `seamless`, `game-changer`, `vibrant`, `thriving`, `deep dive`, `unpack`, `intricacies`, `ever-evolving`, `actionable`, `impactful`, `synergy`, `at its core`.
+   - 🚫 **Ban Hollow Intensifiers & Fake Endorsements**: Cut `truly`, `genuinely`, `quite frankly`, `worth noting`, `worth your time`, `actually` (unless marking factual contrast).
+   - 🚫 **Ban Formulaic Sentence Formulas**: No "It's not X — it's Y" / "This isn't about X, it's about Y". No split-sentence reveal countdowns ("It's not speed. It's not price. It's trust.").
+   - 🚫 **Ban Em Dashes in Headings & Slogans**: Zero em dashes (`—` or `--`) in titles, hero headers, or slogans. Replace with periods, commas, or direct declarative syntax.
+   - 🚫 **Ban Emojis in Headers**: Zero emojis in section headings (no `## 🚀 Features`).
+   - ✅ **Mandate Concrete Factual Copy**: Ground all microcopy and headlines in tangible functionality, precise measurements, active human verbs, and user problems.
 
 ---
 
@@ -139,6 +146,13 @@ Design and build a complete, production-ready frontend for [Product Name / Type]
 - **Card Architecture**: Zero cards nested inside cards with identical borders/backgrounds. Use surface elevation, contrast shifts, or borderless grouping.
 - **Iconography**: Never use Unicode emojis as UI icons. Use SVG icons (Lucide or Phosphor) with `aria-hidden="true"`.
 - **Interactive Affordance**: All clickable elements must have `cursor: pointer` and visible `:focus-visible` rings. Hover/active micro-interactions capped at ≤200ms.
+
+### Anti-AI Copy & Natural Voice Directives (avoid-ai-writing)
+- **Zero Tier 1A Buzzwords**: Never use `delve`, `tapestry`, `realm`, `paradigm`, `embark`, `testament to`, `robust`, `comprehensive`, `cutting-edge`, `leverage`, `meticulous`, `seamless`, `game-changer`, `vibrant`, `thriving`, `deep dive`, `unpack`, `intricacies`, `ever-evolving`, `actionable`, `impactful`, `synergy`, `at its core`.
+- **Zero Em Dashes in Headings/Slogans**: Never use `—` or `--` in titles, heroes, or taglines. Use simple declarative punctuation.
+- **Zero AI Sentence Tropes**: Never use "It's not X — it's Y" or multi-sentence countdown reveals.
+- **Zero Emoji in Titles**: Strip all emojis from section headings (`## 🚀 Features` is strictly banned).
+- **Concrete & Direct**: Use active verbs, precise features, real quantities, and authentic human voice.
 
 ### Design Tokens & Aesthetic Dials
 - Aesthetic Dials: `DESIGN_VARIANCE: [1-10]`, `MOTION_INTENSITY: [1-10]`, `VISUAL_DENSITY: [1-10]`
