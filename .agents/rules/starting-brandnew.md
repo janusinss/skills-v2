@@ -1,5 +1,5 @@
 ---
-trigger: model_decision
+trigger: manual
 description: Greenfield design and development pipeline. Activate when starting a new web app, greenfield project, or building an application from scratch.
 ---
 

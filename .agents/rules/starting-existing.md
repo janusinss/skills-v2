@@ -1,5 +1,5 @@
 ---
-trigger: model_decision
+trigger: manual
 description: Existing codebase design and remediation pipeline. Activate when auditing, refactoring, or redesigning an existing web application or frontend codebase.
 ---
 
