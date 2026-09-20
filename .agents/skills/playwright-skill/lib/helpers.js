@@ -88,7 +88,7 @@ async function handleCookieBanner(page, timeout = 3000) {
 }
 
 async function detectDevServers(customPorts = []) {
-  const ports = [...new Set([3000, 3001, 3002, 5173, 8080, 8000, 4200, 5000, 9000, 1234, ...customPorts])];
+  const ports = [...new Set([3000, 3001, 3002, 5173, 8080, 8000, 4200, 5000, 9000, 1234, 80, ...customPorts])];
   const servers = [];
   await Promise.all(ports.map(async port => {
     await new Promise(resolve => {
@@ -105,11 +105,58 @@ async function detectDevServers(customPorts = []) {
   return servers.sort((a, b) => a - b).map(port => `http://localhost:${port}`);
 }
 
+async function resolveTargetUrl(options = {}) {
+  if (process.env.URL) return process.env.URL;
+  if (options.url) return options.url;
+
+  const cwd = process.cwd();
+  const activeServers = await detectDevServers(options.ports || []);
+
+  if (activeServers.length) {
+    const webRoots = ['htdocs', 'www', 'public_html', 'html'];
+    const lowerCwd = cwd.toLowerCase();
+
+    for (const root of webRoots) {
+      const idx = lowerCwd.lastIndexOf(root);
+      if (idx !== -1) {
+        const sub = cwd.slice(idx + root.length).split(/[\\/]/).filter(Boolean).map(encodeURIComponent).join('/');
+        let entry = '';
+        for (const file of ['index.php', 'index.html', 'default.html']) {
+          if (fs.existsSync(path.join(cwd, file))) {
+            entry = file;
+            break;
+          }
+        }
+        const apacheServer = activeServers.find(s => s.endsWith(':80')) || activeServers.find(s => s.endsWith(':8080'));
+        if (apacheServer) {
+          const base = apacheServer.replace(/:80$/, '');
+          const pathPart = sub ? `/${sub}` : '';
+          const filePart = entry ? `/${entry}` : '/';
+          return `${base}${pathPart}${filePart}`.replace(/\/+/g, '/').replace(':/', '://');
+        }
+      }
+    }
+
+    return activeServers[0];
+  }
+
+  for (const file of ['index.html', 'index.htm']) {
+    const localFile = path.join(cwd, file);
+    if (fs.existsSync(localFile)) {
+      return `file://${path.resolve(localFile).replace(/\\/g, '/')}`;
+    }
+  }
+
+  return null;
+}
+
 module.exports = {
   createContext,
   detectDevServers,
   getExtraHeadersFromEnv,
   handleCookieBanner,
   launchBrowser,
+  resolveTargetUrl,
   takeScreenshot,
 };
+

@@ -110,10 +110,10 @@ Build components strictly adhering to `DESIGN.md` tokens and `PRODUCT.md` P0 fea
 
 ## Phase 6: Automated Verification & Handoff (`playwright-skill` + `impeccable`)
 Validate the running application inside real Chromium viewports:
-1. **Playwright Multi-Viewport Audit**: Run headless Chromium checks via `node .agents/skills/playwright-skill/run.js` writing to `./scratch/`:
-   - Mobile: 375 × 667
-   - Tablet: 768 × 1024
-   - Desktop: 1280 × 800
+1. **Playwright Multi-Viewport Audit**: Run headless Chromium checks via inline Node execution (fast in-memory execution, zero disk I/O, no scratch script files) across 375px, 768px, and 1280px viewports via universal target resolution:
+   ```powershell
+   node .agents/skills/playwright-skill/run.js -e "const url = await helpers.resolveTargetUrl(); if (!url) { console.error('No target URL or active server found. Start server or set URL env.'); process.exit(1); } const b = await chromium.launch(); try { const p = await b.newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message)); p.on('console', m => { if (m.type() === 'error') errs.push(m.text()); }); await p.goto(url, { waitUntil: 'domcontentloaded' }); let failed = false; for (const { w, h } of [{ w: 375, h: 667 }, { w: 768, h: 1024 }, { w: 1280, h: 800 }]) { await p.setViewportSize({ width: w, height: h }); const leak = await p.evaluate(() => document.documentElement.scrollWidth > window.innerWidth); if (leak) failed = true; console.log('Viewport ' + w + 'x' + h + ': ' + (leak ? 'OVERFLOW' : 'OK')); } if (errs.length) { failed = true; console.log('Console errors:', errs); } else { console.log('Console errors: 0'); } if (failed) process.exitCode = 1; } catch (e) { console.error('Audit failed: ' + e.message.split('\n')[0]); process.exitCode = 1; } finally { await b.close(); }"
+   ```
 2. **Quality & Token Compliance Check**:
    - Verify 0 horizontal scroll overflows, 0 console errors, >=44px tap targets.
    - Run `.agents/skills/impeccable/scripts/impeccable.cmd detect .` (or Unix `.agents/skills/impeccable/scripts/impeccable detect .`) to verify compliance against `DESIGN.md` tokens.

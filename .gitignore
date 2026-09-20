@@ -104,8 +104,6 @@ temp/
 scratch/
 
 # Agent / Antigravity Local Runtime Data
-# .agents/                    #Uncomment this if the agent is installed and you don't want to push the .agents directory
-# skills-lock.json           #Uncomment this if the agent is installed and you don't want to push the skills-lock.json file
 .gemini/
 .antigravity/
 .system_generated/
@@ -117,6 +115,3 @@ scratch/
 
 # Ephemeral Skill Runtime & Review Artifacts
 .impeccable/
-.agents/resources/
-
-

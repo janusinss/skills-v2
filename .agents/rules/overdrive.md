@@ -110,6 +110,9 @@ Ensure all ThreeUI and 21st.dev components feel custom-crafted rather than gener
 ---
 
 ### Stage 6: Automated Verification (`playwright-skill` + `impeccable`)
-1. **Multi-Viewport Audit**: Inspect at 375px (Mobile), 768px (Tablet), and 1280px (Desktop) via `node .agents/skills/playwright-skill/run.js -e "<audit script>"`.
+1. **Multi-Viewport Audit**: Inspect at 375px (Mobile), 768px (Tablet), and 1280px (Desktop) via inline Node execution (fast in-memory execution, zero disk I/O, no scratch script files) auditing horizontal overflow and console errors via universal target resolution:
+   ```powershell
+   node .agents/skills/playwright-skill/run.js -e "const url = await helpers.resolveTargetUrl(); if (!url) { console.error('No target URL or active server found. Start server or set URL env.'); process.exit(1); } const b = await chromium.launch(); try { const p = await b.newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message)); p.on('console', m => { if (m.type() === 'error') errs.push(m.text()); }); await p.goto(url, { waitUntil: 'domcontentloaded' }); let failed = false; for (const { w, h } of [{ w: 375, h: 667 }, { w: 768, h: 1024 }, { w: 1280, h: 800 }]) { await p.setViewportSize({ width: w, height: h }); const leak = await p.evaluate(() => document.documentElement.scrollWidth > window.innerWidth); if (leak) failed = true; console.log('Viewport ' + w + 'x' + h + ': ' + (leak ? 'OVERFLOW' : 'OK')); } if (errs.length) { failed = true; console.log('Console errors:', errs); } else { console.log('Console errors: 0'); } if (failed) process.exitCode = 1; } catch (e) { console.error('Audit failed: ' + e.message.split('\n')[0]); process.exitCode = 1; } finally { await b.close(); }"
+   ```
 2. **Zero Leaks**: Verify 0 horizontal scroll leaks (`scrollWidth === clientWidth`) and 0 console errors.
 3. **Impeccable Audit**: Run `.agents/skills/impeccable/scripts/impeccable.cmd detect .` confirming 0 anti-patterns in source code.

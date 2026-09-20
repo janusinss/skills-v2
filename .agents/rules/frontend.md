@@ -37,8 +37,10 @@ Follow this pipeline whenever designing, building, or refactoring UI. Enforce [U
 - **Extraction**: Extract repeated UI blocks into reusable components.
 
 ## Stage 4: Real Browser & Responsive Verification
-- **Engine Mandate:** Strictly use `playwright-skill` (`node .agents/skills/playwright-skill/run.js -e "<audit script>"`) for all browser inspections and DOM verifications. Never use the built-in website viewer, IDE browser preview, or `browser_subagent`. All test scripts and visual captures auto-target the ignored `scratch/` directory.
-- **Server Detection:** Check `package.json` for `dev` script; verify active port before navigating.
-- **Viewport Check:** Test across mobile (375px), tablet (768px), and desktop (1280px) via `playwright-skill`.
-- **Runtime Zero-Defect:** Verify 0 console errors and 0 broken assets (`page.on('console')`).
-- **Visual Proof:** Capture clean viewport screenshots into `scratch/` via Playwright.
+- **Engine Mandate:** Strictly use `playwright-skill` via inline Node execution (fast in-memory execution, zero disk I/O, no scratch script files). Never use the built-in website viewer, IDE browser preview, or `browser_subagent`.
+- **Server Detection:** Check `package.json` for `dev` script; verify active port (e.g. `3000`, `5173`) before navigating.
+- **Audit Execution:** Run multi-viewport evaluation (375px, 768px, 1280px) verifying zero horizontal overflow (`scrollWidth > innerWidth`) and zero console errors via universal target resolution:
+  ```powershell
+  node .agents/skills/playwright-skill/run.js -e "const url = await helpers.resolveTargetUrl(); if (!url) { console.error('No target URL or active server found. Start server or set URL env.'); process.exit(1); } const b = await chromium.launch(); try { const p = await b.newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message)); p.on('console', m => { if (m.type() === 'error') errs.push(m.text()); }); await p.goto(url, { waitUntil: 'domcontentloaded' }); let failed = false; for (const { w, h } of [{ w: 375, h: 667 }, { w: 768, h: 1024 }, { w: 1280, h: 800 }]) { await p.setViewportSize({ width: w, height: h }); const leak = await p.evaluate(() => document.documentElement.scrollWidth > window.innerWidth); if (leak) failed = true; console.log('Viewport ' + w + 'x' + h + ': ' + (leak ? 'OVERFLOW' : 'OK')); } if (errs.length) { failed = true; console.log('Console errors:', errs); } else { console.log('Console errors: 0'); } if (failed) process.exitCode = 1; } catch (e) { console.error('Audit failed: ' + e.message.split('\n')[0]); process.exitCode = 1; } finally { await b.close(); }"
+  ```
+- **Visual Proof:** Capture clean viewport screenshots into `scratch/` when needed. Do not create scratch `.js` files on disk.

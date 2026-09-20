@@ -109,12 +109,6 @@
       "skillPath": "skills/minimalist-skill/SKILL.md",
       "computedHash": "7e88897e0371184e97a82b8d9ef080323c13f21eb067b58ef71eb05173a08ac2"
     },
-    "playwright-skill": {
-      "source": "lackeyjb/playwright-skill",
-      "sourceType": "github",
-      "skillPath": "skills/playwright-skill/SKILL.md",
-      "computedHash": "cee6138f1a7ae2b52e9a600edaf456cc0c8c701ca267a00f0f116d6f99764d13"
-    },
     "redesign-existing-projects": {
       "source": "Leonxlnx/taste-skill",
       "sourceType": "github",

@@ -1,6 +1,6 @@
 # Agent Skills & Workspace Configurations
 
-A curated collection of production-grade AI agent skills, rules, and automated workflow hooks designed for modern AI coding assistants (such as Google Antigravity, Gemini, Claude Code, and Cursor).
+A curated collection of **164 production-grade AI agent skills**, architectural rules, and automated workflow hooks for modern AI coding assistants (Google Antigravity, Claude Code, Cursor, and Gemini).
 
 ---
 
@@ -8,384 +8,111 @@ A curated collection of production-grade AI agent skills, rules, and automated w
 
 ```text
 ├── .agents/
-│   ├── hooks.json         # Automated lifecycle hooks (e.g., UI checks & design deep passes)
-│   ├── rules/             # 8 architectural guidelines & proactive rules (UI, backend, security, setup, overdrive)
-│   └── skills/            # 160+ specialized agent skills (UI/UX, Backend, Security, DevOps, etc.)
-├── skills-lock.json       # Skill dependency manifest and integrity hash lockfile
-└── .gitignore             # Git ignore configuration for development and agent environments
+│   ├── hooks.json         # Automated lifecycle hooks (UI checks & design deep passes)
+│   ├── rules/             # 7 architectural guidelines & proactive rules (UI, backend, security, overdrive)
+│   ├── skills/            # 164 specialized agent skills across 12 engineering domains
+│   └── resources/         # Creative libraries, shader utilities, and ambient types
+├── GEMINI.MD              # Universal agent policy: design delegation, dispatch matrix & ADHD protocol
+├── skills-lock.json       # Skill dependency manifest and integrity lockfile
+└── .gitignore             # Environment and ephemeral file ignore rules
 ```
 
 ---
 
-### 1. Add to an Existing Project
+## 🚀 Quick Install & Setup
 
-Choose one of the following methods to integrate these skills into your project:
+### Option 1: AI Agent Mode (Prompt-Based)
+Inside your AI coding assistant, run:
+> *"Install the skills from https://github.com/janusinss/skills-v2 into this project."*
 
-#### Method A: Clone & Copy (Recommended)
-Clone the repository temporarily, copy the `.agents/` directory and `skills-lock.json` into your project's root, and clean up:
+The agent will copy `.agents/`, `GEMINI.MD`, and `skills-lock.json` into your project root and automatically add them to your target project's `.gitignore` if you prefer a local-only setup.
+
+### Option 2: Clone & Copy (Manual)
 
 **Windows (PowerShell):**
 ```powershell
-# 1. Clone to a temporary folder
 git clone https://github.com/janusinss/skills-v2.git temp-skills
-
-# 2. Copy into your project root
-Copy-Item -Recurse -Path "temp-skills\.agents" -Destination "C:\path\to\your-project\"
-Copy-Item -Path "temp-skills\skills-lock.json" -Destination "C:\path\to\your-project\"
-
-# 3. Clean up the temporary folder
+Copy-Item -Recurse -Path "temp-skills\.agents" -Destination ".\.agents"
+Copy-Item -Path "temp-skills\GEMINI.MD", "temp-skills\skills-lock.json" -Destination ".\"
 Remove-Item -Recurse -Force "temp-skills"
 ```
 
----
-
-## 🚀 How to Install & Use in Your Project
-
-### 2. Clone the Repository
-
-To clone this repository directly:
-
+**macOS / Linux (Bash):**
 ```bash
-git clone https://github.com/janusinss/skills-v2.git
+git clone https://github.com/janusinss/skills-v2.git temp-skills
+cp -r temp-skills/.agents ./
+cp temp-skills/GEMINI.MD temp-skills/skills-lock.json ./
+rm -rf temp-skills
 ```
 
 ---
 
-### 3. Configure `.gitignore` (Tracking vs. Ignoring)
+## 🔄 Updating Skills
 
-Depending on your team workflow, decide whether the agent configuration should be committed to your project's Git repository or kept local-only.
+To update all installed upstream skills to their latest versions while cleaning any CLI-generated symlinks (`playwright-skill` is decoupled from `skills-lock.json` to permanently protect `lib/helpers.js` and local dependencies from being overwritten):
 
-Refer to **lines 107 and 108** in .gitignore:
-
-```gitignore
-# .agents/                    # Uncomment this if the agent is installed and you don't want to push the .agents directory
-# skills-lock.json           # Uncomment this if the agent is installed and you don't want to push the skills-lock.json file
-```
-
-#### Option A: Local-Only Installation (Recommended if you don't want agent files in your project repo)
-If you want to use the agent skills locally without polluting your repository's commit history or git remote:
-1. Open your project's `.gitignore`.
-2. Add or uncomment the following lines:
-   ```gitignore
-   .agents/
-   skills-lock.json
-   ```
-This ensures your AI assistant has access to the skills locally while keeping your Git repository clean.
-
----
-
-## 🧠 How to Use Rules and Skills
-
-### Understanding Rules vs. Skills
-
-| Concept | Location | Activation | Purpose |
-| :--- | :--- | :--- | :--- |
-| **Rules** | `.agents/rules/*.md` | **Persistent & Ambient** | Architectural guidelines, coding standards, and safety guardrails enforced across all interactions. |
-| **Skills** | `.agents/skills/*/SKILL.md` | **On-Demand & Modular** | Deep, domain-specific instruction sets, battle-tested workflows, CLI tooling, and component patterns. |
-
----
-
-### 📋 Using Workspace Rules (`.agents/rules/`)
-
-Rules provide foundational instructions and safety guardrails that modern AI assistants (like Google Antigravity, Cursor, and Claude Code) load when planning, writing, and reviewing code.
-
-The repository includes **8 core rules**:
-
-1. **`ADHD_MODE.md`** — **Action-First & Low Cognitive Friction Execution (`trigger: always`)**
-   - Direct, low-friction responses: lead with command/file path, numbered bounded steps, visible wins, maximum 5-item lists, and zero conversational filler.
-
-2. **`UI_Always.md`** — **Proactive Frontend Self-Correction (`trigger: model_decision`)**
-   - Autonomous, progressive guardrails that self-correct ubiquitous UI defects on sight without manual prompting:
-     - Eliminates unwanted horizontal scrollbars (`overflow-x`) and flex child blowouts (`min-width: 0`).
-     - Enforces interactive affordances (`cursor: pointer` on clickables, minimum `44×44px` touch targets).
-     - Prevents iOS Safari auto-zoom by enforcing `≥16px` font on form inputs.
-     - Mandates hero fixed-header top clearance `calc(var(--header-height) + var(--space-lg))` (24px inset) to prevent dead vertical whitespace.
-     - Enforces authentic photography sourcing (strict no AI generation) with semi-transparent contrast scrims.
-     - Bans raw, untinted grays (`#808080`, `#000000`), unicode emojis as icons, and placeholder links.
-
-3. **`frontend.md`** — **Active UI Development Pipeline (`trigger: auto`)**
-   - 4-stage UI delivery workflow executed on frontend features and refactors:
-     - **Stage 1 (Aesthetic Alignment):** Adheres to `DESIGN.md` tokens via `design-taste-frontend` and replaces legacy styles.
-     - **Stage 2 (Anti-Slop Standards):** Enforces composition dials (`DESIGN_VARIANCE`, `VISUAL_DENSITY`, `MOTION_INTENSITY`), authentic photography standards, anti-AI writing floor (`avoid-ai-writing`), and delegates to Overdrive when requested.
-     - **Stage 3 (Bounded Quality Audit):** Batched technical & visual audit via `impeccable` with single-pass remediation.
-     - **Stage 4 (Browser Verification):** Real browser inspection across mobile (375px), tablet (768px), and desktop (1280px+) via `playwright-skill`.
-
-4. **`starting-brandnew.md`** — **Greenfield Project Scaffolding (`trigger: manual`)**
-   - 6-phase bootstrapping for brand-new projects:
-     - **Phase 0 (Pre-Flight Guard):** Verifies workspace state to prevent accidental artifact destruction.
-     - **Phase 1 (Visual Foundation):** Interactive selection from 74 curated brand design systems in `awesome-design-md`.
-     - **Phase 2 (Product Architecture):** Deconstructs product brief into exhaustive `PRODUCT.md` via `prompt-enhancer`.
-     - **Phase 3 (Taste Synthesis):** Synthesizes product intent and design tokens into a one-line Design Read.
-     - **Phase 4 (Component Architecture):** Default blueprints (Standard Website via TailGrids NexStudio vs. Website with Hero via Md Adul E-commerce + Spectrum UI footer), 21st.dev link-pulling engine, authentic photography sourcing, and hero clearance.
-     - **Phase 5 & 6 (Assembly & Verification):** Strict P0 delivery, visual slop bans, and automated Playwright + Impeccable audits.
-
-5. **`starting-existing.md`** — **Legacy Codebase Redesign & Modernization (`trigger: manual`)**
-   - 7-phase baseline extraction and remediation for existing applications:
-     - **Phase 0 & 1 (Setup & Audit):** Extracts legacy color, typography, and component patterns into `./DESIGN.md` baseline via `impeccable:document`.
-     - **Phase 2 (Target Aesthetic):** Dual paths: full visual overhaul via `awesome-design-md` or incremental baseline refinement with taste dials.
-     - **Phase 3 & 4 (Scope & Synthesis):** Evaluates `PRODUCT.md` and generates design read configuration.
-     - **Phase 5 (Implementation):** Refactors legacy views to target tokens, tighter hero spacing, authentic photography, and Overdrive delegation.
-     - **Phase 6 (Verification):** Multi-viewport Playwright audits and Impeccable compliance checks.
-
-6. **`overdrive.md`** — **Overdrive Creative Engineering Pipeline (`trigger: model_decision`)**
-   - High-craft, high-performance creative engineering pipeline:
-     - Synthesizes ThreeUI 3D shaders, 21st.dev components (CLI + headless link-pulling engine), and GSAP + Lenis scroll physics.
-     - WebGL lifecycle safety: device pixel ratio clamping, intersection pausing, context loss recovery (`webglcontextlost`), and static CSS fallbacks.
-     - Hero fixed-header clearance and WCAG AA contrast scrims over luminous particle canvases.
-     - Multi-viewport Playwright verification and zero-leak enforcement.
-
-7. **`backend.md`** — **Backend Connection & Data Layer Standards (`trigger: manual`)**
-   - Production-grade data layer architecture:
-     - Enforces service/repository boundaries (`architecture-patterns`, `backend-dev-guidelines`).
-     - Generates interactive maps (`archify architecture` for service/DB boundaries, `archify sequence` for request flows, `archify dataflow` for pipelines).
-     - Mandates strict connection pooling and lifecycle cleanup to prevent resource leaks.
-     - Enforces schema integrity, explicit foreign key constraints, and targeted indexing (`postgres-best-practices`).
-     - Requires atomic mutations in explicit transactions (`BEGIN`/`COMMIT`/`ROLLBACK`) with race condition defenses.
-
-8. **`security.md`** — **Application Security & Vulnerability Standards (`trigger: manual`)**
-   - Zero-trust DevSecOps pipeline:
-     - Phase 0 threat modeling (`security-auditor`) and trust boundary mapping (`archify architecture` / `archify sequence`).
-     - Strict edge input validation (Zod, Joi, Pydantic) and 100% parameterized SQL queries (`backend-security-coder`).
-     - Context-aware output encoding to prevent Reflected and DOM XSS (`frontend-security-coder`).
-     - Identity verification and Object-Level Authorization to prevent BOLA/IDOR (`api-security-best-practices`).
-     - OWASP Top 10 audits, secure headers (CORS, CSP, nosniff), and automated negative TDD.
-
-#### Rule Trigger Modes:
-- **`model_decision`:** Progressive disclosure. The assistant checks the rule's summary and autonomously activates it when relevant to the task (e.g., `always.md` activates for UI tasks but stays idle during theoretical ML questions).
-- **`auto`:** Automatically loaded during relevant file edits or feature implementations (e.g., `frontend.md`).
-- **`manual`:** Invoked explicitly in prompts when initiating specific architectural phases (e.g., `starting-brandnew.md`, `starting-existing.md`).
-
----
-
-### ⚡ Using Agent Skills (`.agents/skills/`)
-
-Skills are specialized runbooks that give your AI assistant expert capabilities in specific domains, frameworks, or tools.
-
-#### How Skills Are Activated:
-
-1. **Automatic Detection (Context-Aware):**
-   Modern coding assistants automatically read the matching `SKILL.md` when your prompt or task calls for it (e.g., asking to write Playwright tests automatically activates `playwright-skill`).
-
-2. **Explicit Invocation (Recommended for Best Results):**
-   Explicitly reference one or more skills in your prompt to enforce specific design systems, architectural patterns, or security audits:
-
-   - **Frontend & UI/UX:**
-     > *"Build a responsive pricing section using `ui-ux-pro-max`, `impeccable`, and `tailwind-patterns`."*
-   - **Fullstack & Backend:**
-     > *"Create a REST API with FastAPI and PostgreSQL using `fastapi-pro`, `database-architect`, and `api-patterns`."*
-   - **Security Review:**
-     > *"Review our authentication routes for vulnerabilities using `backend-security-coder` and `top-web-vulnerabilities`."*
-   - **Testing & QA:**
-     > *"Write automated end-to-end browser tests for the checkout flow using `playwright-skill` and `e2e-testing-patterns`."*
-   - **DevOps & Cloud:**
-     > *"Write production-ready multi-stage Dockerfiles and compose setups following `docker-expert`."*
-   - **AI & Agent Architecture:**
-     > *"Design a multi-agent retrieval system using `ai-agents-architect`, `rag-engineer`, and `langgraph`."*
-
----
-
-### 🔄 Updating Skills via CLI
-
-To update all installed upstream skills to their latest versions while keeping your workspace clean (updating `.agents/` and automatically removing any `.claude` symlinks generated by the CLI):
-
+**Windows (PowerShell):**
 ```powershell
 npx skills update -y; if (Test-Path .claude) { Remove-Item -Recurse -Force .claude }
-npm --prefix ".agents/skills/playwright-skill" run setup
 ```
 
-> **Note:** Updating skills pulls clean upstream checkouts, which removes untracked `node_modules`. Running `npm --prefix ".agents/skills/playwright-skill" run setup` ensures Playwright and Chromium binaries are restored.
-
+**macOS / Linux (Bash):**
+```bash
+npx skills update -y && rm -rf .claude
+```
 
 ---
 
-## 🛠️ Included Skill Categories (160+ Skills)
+## 🌐 Universal Agent Policy (`GEMINI.MD`)
 
-All 164 skills are organized into 12 domain categories:
+Loadable at workspace root or globally at `~/.gemini/GEMINI.md`:
+- **Workspace Design Delegation**: Automatically delegates all frontend, UI/UX, and motion requests to local workspace rules (`starting-brandnew.md`, `starting-existing.md`, `frontend.md`, `UI_Always.md`, `overdrive.md`).
+- **Indirect-Intent Dispatch Matrix**: Maps fuzzy user intents across 11 non-design domains directly to target skills (Backend, Security, DevOps, Testing, AI Agents, Growth, etc.).
+- **Global ADHD Mode**: Enforces action-first formatting (Line 1 action, bounded numbered steps, max 5-item lists, zero conversational filler, and sub-2-minute next steps).
 
-### 1. 🎨 Frontend, UI/UX & Visual Design (35 Skills)
-- `21st-ai` — Generate and iterate on UI components with 21st AI via CLI
-- `21st-cli-use` — Search, pull, and install React/shadcn components and themes from 21st.dev
-- `21st-design-sync` — Sync project design tokens into shareable 21st.dev themes
-- `21st-registry` — Publish and manage components, themes, and bento boards to 21st.dev
-- `21st-ui-build` — Build production UI using project design context and grounded 21st inspiration
-- `21st-ui-explore` — Explore multiple grounded UI directions and variants
-- `21st-ui-review` — Design QA, accessibility audit, and interaction review
-- `3d-web-experience` — Three.js, React Three Fiber, Spline, WebGL, and interactive 3D web scenes
-- `awesome-design-md` — Curated library of 74+ production-grade DESIGN.md specifications
-- `banner-design` — Multi-platform banners, social ads, and hero visual generation
-- `canvas-design` — Visual design philosophy, canvas generation, and vector aesthetics
-- `claude-d3js-skill` — Sophisticated, interactive data visualizations with D3.js
-- `design` — Comprehensive brand identity, design tokens, and UI design systems
-- `design-system` — Token architecture (primitive → semantic → component) and CSS variable specs
-- `design-taste-frontend` — Anti-generic, opinionated design direction for web applications and landing pages
-- `design-taste-frontend-v1` — Backward-compatible v1 frontend taste skill
-- `frontend-design` — Thoughtful frontend design and component aesthetics
-- `frontend-developer` — React 19, Next.js 15, responsive layouts, and modern frontend architecture
-- `gpt-taste` — Elite UX/UI with advanced GSAP motion, bento grids, and editorial typography
-- `high-end-visual-design` — High-end agency visual standards, bespoke typography, and luxury aesthetics
-- `image-to-code` — High-fidelity website implementation matching generated visual concepts
-- `imagegen-frontend-web` — Conversion-aware website and landing page visual reference generation
-- `impeccable` — Comprehensive UI critique, accessibility audit, visual polish, and layout refinement
-- `industrial-brutalist-ui` — Swiss typography, mechanical grids, and utilitarian industrial aesthetics
-- `interactive-portfolio` — High-converting developer and designer portfolio experiences
-- `minimalist-ui` — Warm monochrome editorial layouts, typographic contrast, and minimalist interfaces
-- `react-best-practices` — Vercel-curated React and Next.js performance and code optimization patterns
-- `react-patterns` — Modern React hooks, state patterns, composition, and TypeScript standards
-- `redesign-existing-projects` — Upgrades existing websites to premium quality without breaking functionality
-- `scroll-experience` — Immersive scroll-driven storytelling, parallax effects, and interactive narratives
-- `slides` — Strategic HTML presentations with Chart.js, design tokens, and contextual slides
-- `stitch-design-taste` — Semantic design systems, strict typography, and micro-interactions
-- `tailwind-patterns` — Tailwind CSS v4 principles, container queries, and token architecture
-- `ui-styling` — Accessible UI development with shadcn/ui, Radix, and Tailwind CSS
-- `ui-ux-pro-max` — UI/UX design intelligence with 79 styles, 192 palettes, and 74 font pairings
+---
 
-### 2. 📱 Mobile App Development (7 Skills)
-- `app-store-optimization` — App Store Optimization (ASO) for Apple App Store and Google Play Store
-- `flutter-expert` — Cross-platform mobile development with Dart 3 and advanced widgets
-- `imagegen-frontend-mobile` — Premium, app-native mobile UI screen concepts and mockups
-- `ios-developer` — Native iOS development with Swift, SwiftUI, UIKit, and Core Data
-- `mobile-design` — Mobile-first, touch-friendly, platform-respectful interface design
-- `mobile-developer` — Cross-platform mobile apps with React Native, Flutter, and native integrations
-- `react-native-architecture` — Production-ready React Native patterns with Expo, offline sync, and navigation
+## 📋 Workspace Rules (`.agents/rules/`)
 
-### 3. ⚙️ Backend, Microservices & API Architecture (23 Skills)
-- `api-patterns` — REST vs GraphQL vs tRPC decision-making, API versioning, and pagination
-- `architecture-patterns` — Clean Architecture, Hexagonal Architecture, and Domain-Driven Design (DDD)
-- `archify` — Interactive system maps, service boundaries, workflows, sequence diagrams, and dataflows
-- `async-python-patterns` — High-performance concurrent Python with `asyncio` and async/await
-- `backend-dev-guidelines` — Production-grade backend engineering under strict reliability constraints
-- `cpp-pro` — Modern idiomatic C++ (RAII, smart pointers, move semantics, and templates)
-- `django-pro` — Scalable Django 5.x with async views, DRF, Celery, and Django Channels
-- `event-sourcing-architect` — Event sourcing, CQRS, projection building, and saga orchestration
-- `fastapi-pro` — High-performance async APIs with FastAPI, SQLAlchemy 2.0, and Pydantic V2
-- `fastapi-templates` — Production-ready FastAPI blueprints with dependency injection
-- `go-concurrency-patterns` — Goroutines, channels, sync primitives, worker pools, and race-free Go
-- `golang-pro` — Idiomatic Go 1.21+ patterns, microservices, and performance optimization
-- `javascript-pro` — Modern ES6+, async patterns, promises, event loop, and Node.js APIs
-- `microservices-patterns` — Distributed systems, service boundaries, event-driven communications, and resilience
-- `nextjs-app-router-patterns` — Next.js 14+ App Router, Server Components, and full-stack React
-- `nextjs-best-practices` — Server Components, data fetching, caching, and routing best practices
-- `nodejs-best-practices` — Production Node.js architecture, error handling, and security patterns
-- `python-patterns` — Python architecture, type hints, async patterns, and package structure
-- `python-pro` — Master Python 3.12+, `uv`, `ruff`, `pydantic`, and modern async frameworks
-- `rust-pro` — Systems programming with Rust 1.75+, advanced type system, and concurrency
-- `senior-architect` — Senior technical architecture toolkit and decision-making frameworks
-- `senior-fullstack` — Full-stack system design, frontend-backend coordination, and modern tooling
-- `typescript-expert` — Type-level programming, monorepo management, performance, and tooling
+Foundational architectural guidelines and proactive guardrails:
 
-### 4. 🛡️ Security, Penetration Testing & Compliance (13 Skills)
-- `api-security-best-practices` — API authentication, authorization, rate limiting, and vulnerability defense
-- `backend-security-coder` — Secure backend implementation, input sanitization, and auth hardening
-- `burp-suite-testing` — Web application security testing, traffic interception, and vulnerability scanning
-- `cc-skill-security-review` — Proactive security review for auth flows, file uploads, and endpoints
-- `cloud-penetration-testing` — Infrastructure security assessments across AWS, Azure, and GCP
-- `ethical-hacking-methodology` — 5-stage penetration testing lifecycle from reconnaissance to reporting
-- `frontend-security-coder` — Client-side security, XSS prevention, and output sanitization
-- `linux-privilege-escalation` — Systematic Linux security assessments and privilege escalation checks
-- `memory-safety-patterns` — Cross-language memory safety, RAII, ownership, and resource cleanup
-- `pci-compliance` — PCI DSS compliance guidelines for secure payment processing
-- `security-auditor` — Comprehensive cybersecurity, DevSecOps, and compliance audits
-- `top-web-vulnerabilities` — Structured reference for the 100 most critical web vulnerabilities
-- `vulnerability-scanner` — OWASP 2025 analysis, supply chain security, and attack surface mapping
+| Rule | Trigger | Purpose & Core Guardrails |
+| :--- | :--- | :--- |
+| [`UI_Always.md`](.agents/rules/UI_Always.md) | `model_decision` | Proactive UI defect self-correction: fixed-header clearance (`calc(var(--header-height) + 24px)`), authentic photography sourcing (strict no AI images), `overflow-x` defense, and touch targets. |
+| [`frontend.md`](.agents/rules/frontend.md) | `auto` | 4-stage UI delivery workflow: token alignment, anti-slop dials, batched visual audits, and real browser verification across viewports. |
+| [`starting-brandnew.md`](.agents/rules/starting-brandnew.md) | `manual` | Greenfield scaffolding: pre-flight checks, 74 curated brand systems in `awesome-design-md`, component blueprints, and Playwright verification. |
+| [`starting-existing.md`](.agents/rules/starting-existing.md) | `manual` | Legacy codebase redesign: baseline token extraction, visual overhaul paths, and scoped incremental refactoring. |
+| [`overdrive.md`](.agents/rules/overdrive.md) | `model_decision` | High-craft creative engineering: ThreeUI 3D shaders, 21st.dev components, GSAP + Lenis scroll physics, and WebGL lifecycle safety. |
+| [`backend.md`](.agents/rules/backend.md) | `manual` | Production data layer: service/repository boundaries, connection pooling, schema integrity, and atomic transaction guarantees. |
+| [`security.md`](.agents/rules/security.md) | `manual` | Zero-trust DevSecOps: threat modeling, 100% parameterized SQL, context-aware output encoding, BOLA/IDOR defense, and OWASP audits. |
 
-### 5. 🔌 Third-Party Integrations, Auth & FinTech (9 Skills)
-- `algolia-search` — Algolia search implementation, indexing strategies, and React InstantSearch
-- `auth-implementation-patterns` — OAuth2, JWT, sessions, multi-tenant RBAC, and modern authentication
-- `build-with-exa` — Exa API integration for semantic search, web extraction, and agent monitors
-- `exa-contents` — Raw HTTP crawling, text extraction, highlights, and web content retrieval
-- `exa-search` — Semantic web retrieval, ranked results, domain filtering, and real-time search
-- `hubspot-integration` — HubSpot CRM objects, associations, webhooks, and SDK integration
-- `plaid-fintech` — Plaid API integration (Link tokens, transactions sync, ACH auth, and balance checks)
-- `stripe-integration` — PCI-compliant checkout flows, subscriptions, webhooks, and refunds
-- `twilio-communications` — SMS messaging, voice calls, WhatsApp Business API, and 2FA verification
+---
 
-### 6. 🗄️ Databases, Data Engineering & Pipelines (8 Skills)
-- `airflow-dag-patterns` — Production Apache Airflow DAGs, custom operators, sensors, and batch workflows
-- `data-engineer` — Scalable data pipelines, data warehouses, streaming, and Spark/dbt architectures
-- `database-architect` — Database schema modeling, engine selection, and scalable data layers
-- `database-design` — Schema design, indexing strategies, ORM selection, and query optimization
-- `dbt-transformation-patterns` — dbt model organization, testing strategies, documentation, and incremental models
-- `postgres-best-practices` — Supabase-backed Postgres performance tuning, indexing, and schema design
-- `sql-pro` — Advanced SQL query techniques, OLTP/OLAP optimization, and performance tuning
-- `vector-database-engineer` — Pinecone, Weaviate, Qdrant, Milvus, and pgvector for semantic search & RAG
+## 🛠️ Included Skill Domains (164 Skills)
 
-### 7. 🤖 AI Agents, LLMs & Vector Search (12 Skills)
-- `agent-evaluation` — Testing, capability assessment, and reliability benchmarking for LLM agents
-- `ai-agents-architect` — Multi-agent orchestration, tool use, memory systems, and planning strategies
-- `context-window-management` — Context window optimization, summarization, routing, and avoiding context rot
-- `embedding-strategies` — Model selection and dimensionality optimization for vector search
-- `langfuse` — LLM observability platform: tracing, prompt management, and production datasets
-- `langgraph` — Stateful multi-actor AI graph construction, checkpointers, and ReAct loops
-- `llm-app-patterns` — Production-grade patterns for building robust LLM-powered applications
-- `mcp-builder` — Model Context Protocol (MCP) server creation for exposing external tools to LLMs
-- `prompt-caching` — Anthropic prompt caching, response caching, and Cache Augmented Generation (CAG)
-- `prompt-engineering` — Advanced prompt engineering patterns, few-shot techniques, and optimization
-- `rag-engineer` — End-to-end Retrieval-Augmented Generation: chunking, retrieval, and reranking
-- `rag-implementation` — Practical RAG implementation workflow covering vector databases and embeddings
+| Domain | Count | Key Skills |
+| :--- | :---: | :--- |
+| **🎨 Frontend & UI/UX** | 35 | `ui-ux-pro-max`, `impeccable`, `21st-ui-build`, `tailwind-patterns`, `react-best-practices`, `design-taste-frontend`, `awesome-design-md`, `minimalist-ui` |
+| **📱 Mobile Development** | 7 | `flutter-expert`, `ios-developer`, `react-native-architecture`, `mobile-design`, `app-store-optimization` |
+| **⚙️ Backend & APIs** | 23 | `fastapi-pro`, `database-architect`, `backend-dev-guidelines`, `postgres-best-practices`, `api-patterns`, `golang-pro`, `django-pro`, `sql-pro` |
+| **🔒 Security & Auth** | 14 | `backend-security-coder`, `top-web-vulnerabilities`, `security-auditor`, `auth-implementation-patterns`, `api-security-best-practices` |
+| **🧪 Testing & QA** | 8 | `playwright-skill`, `e2e-testing-patterns`, `systematic-debugging`, `test-driven-development`, `test-fixing` |
+| **☁️ DevOps, Cloud & SRE** | 12 | `docker-expert`, `kubernetes-architect`, `aws-serverless`, `terraform-specialist`, `observability-engineer`, `incident-responder` |
+| **🤖 AI & LLM Systems** | 11 | `ai-agents-architect`, `langgraph`, `rag-engineer`, `langfuse`, `prompt-engineering`, `context-window-management` |
+| **💳 FinTech & Integrations** | 6 | `stripe-integration`, `plaid-fintech`, `twilio-communications`, `hubspot-integration` |
+| **🔍 Data & Search** | 11 | `data-engineer`, `dbt-transformation-patterns`, `airflow-dag-patterns`, `algolia-search`, `vector-database-engineer` |
+| **🎮 Creative, 3D & Games** | 5 | `3d-web-experience`, `game-development`, `godot-gdscript-patterns`, `unity-developer`, `algorithmic-art` |
+| **📈 Product & Growth** | 26 | `prompt-enhancer`, `copywriting`, `avoid-ai-writing`, `seo-audit`, `analytics-tracking`, `launch-strategy`, `competitor-alternatives` |
+| **🛠️ Engineering Workflow** | 6 | `architecture-decision-records`, `concise-planning`, `full-output-enforcement`, `git-pushing`, `kaizen` |
 
-### 8. ☁️ DevOps, Cloud Infrastructure & SRE (12 Skills)
-- `aws-serverless` — AWS Lambda, API Gateway, DynamoDB, SQS/SNS event patterns, and SAM/CDK
-- `bash-linux` — Advanced Linux terminal commands, piping, scripting, and automation
-- `deployment-procedures` — Zero-downtime deployment workflows, rollback strategies, and verification
-- `distributed-tracing` — Jaeger and Tempo distributed tracing across microservices
-- `docker-expert` — Multi-stage container builds, security hardening, and production containerization
-- `incident-responder` — SRE incident response, root cause triage, and post-incident restoration
-- `kubernetes-architect` — Kubernetes cluster architecture, GitOps workflows (ArgoCD/Flux), and Helm
-- `observability-engineer` — Monitoring, structured logging, distributed tracing, and Prometheus/Grafana
-- `performance-engineer` — Web and backend performance profiling, flame graphs, and latency reduction
-- `postmortem-writing` — Blameless postmortem authoring to prevent incident recurrence
-- `slo-implementation` — Framework for SLIs, SLOs, and error budget implementation
-- `terraform-specialist` — Infrastructure as Code (IaC) automation, state management, and Terraform modules
+---
 
-### 9. 🧪 Testing, QA & Debugging (9 Skills)
-- `browser-automation` — Resilient browser automation, selectors, waiting strategies, and anti-detection
-- `code-review-checklist` — Rigorous code review for functionality, security, performance, and style
-- `e2e-testing-patterns` — Flake-free end-to-end test suites for fast and confident releases
-- `lint-and-validate` — Validation and lint enforcement after code changes
-- `playwright-skill` — Complete browser testing with Playwright, responsive checks, and screenshots
-- `python-testing-patterns` — Comprehensive testing with pytest, fixtures, and mocking
-- `systematic-debugging` — Root-cause debugging methodologies before attempting fixes
-- `test-driven-development` — Strict TDD (Red-Green-Refactor) implementation workflows
-- `test-fixing` — Systematic identification and resolution of failing test suites
+## ⚙️ Target Project `.gitignore` Configuration
 
-### 10. 🎮 Game & Creative Development (4 Skills)
-- `algorithmic-art` — Computational art generation producing interactive viewers and algorithmic JS
-- `game-development` — Game development routing across 2D/3D engines (Phaser, Godot, Three.js, Unity)
-- `godot-gdscript-patterns` — Godot 4 GDScript patterns, scene architecture, and state machines
-- `unity-developer` — Unity 6 LTS C# scripting, URP/HDRP pipelines, and cross-platform game builds
+If you want agent skills to remain local to your machine without being committed to your application's remote repository, ensure your target project's `.gitignore` includes:
 
-### 11. 📈 Product Management, Growth & Marketing (26 Skills)
-- `ab-test-setup` — Hypothesis formulation, statistical gating, and experiment execution
-- `analytics-tracking` — Tracking plans, event taxonomies, and analytics data integrity
-- `avoid-ai-writing` — Audit and rewrite copy to eliminate AI-isms, buzzwords, and formulaic rhetoric
-- `brand` — Brand voice, visual identity consistency, and messaging frameworks
-- `brandkit` — Visual identity boards, logo systems, and art-directed brand deck generation
-- `business-analyst` — Business analytics, KPI dashboards, and data-driven strategic models
-- `company-research` — In-depth company, competitor, financial, and market intelligence via Exa
-- `competitive-landscape` — Competitive positioning, moat analysis, and differentiation strategy
-- `competitor-alternatives` — SEO-ranking competitor comparison and alternatives landing pages
-- `content-creator` — Brand-aligned content frameworks, multi-platform publishing, and SEO
-- `copy-editing` — Conversion-focused editing passes to sharpen clarity and tone
-- `copywriting` — High-converting marketing copy for landing pages, emails, and ads
-- `email-sequence` — Multi-stage email marketing sequences for onboarding and conversion
-- `form-cro` — Conversion rate optimization for lead, contact, demo, and checkout forms
-- `kpi-dashboard-design` — Executive and operational KPI dashboard design principles
-- `launch-strategy` — SaaS product launch playbooks, feature announcements, and momentum building
-- `lead-generation` — ICP company discovery, enrichment, and prospect list generation
-- `market-sizing-analysis` — TAM, SAM, and SOM calculation methodologies for startups
-- `product-manager-toolkit` — Discovery, PRDs, prioritization, and roadmapping frameworks
-- `programmatic-seo` — Programmatic SEO strategy, template design, and structured data
-- `prompt-enhancer` — Universal prompt enhancement engine deconstructing concepts into P0-P3 specifications
-- `prompt-enhancer-backend` — Backend prompt enhancer for API architecture, database schemas, and state machines
-- `prompt-enhancer-frontend` — Frontend & UX prompt enhancement engine for component taxonomies
-- `seo-audit` — Crawlability, indexation, speed, and technical SEO diagnostic audits
-- `startup-financial-modeling` — 3-5 year startup financial models, cash runway, and scenario forecasting
-- `startup-metrics-framework` — SaaS metric tracking (CAC, LTV, churn, NDR) from seed through Series A
-
-### 12. 🛠️ Engineering Workflow & Codebase Governance (6 Skills)
-- `architecture-decision-records` — ADR patterns to document context and rationale for architectural decisions
-- `concise-planning` — Actionable, atomic checklists and plans for complex coding tasks
-- `environment-setup-guide` — Step-by-step developer machine and workspace onboarding
-- `full-output-enforcement` — Overrides LLM truncation to ensure complete, unabridged code generation
-- `git-pushing` — Safe git staging, conventional commits, and clean push procedures
-- `kaizen` — Continuous code quality improvement, refactoring, and error-proofing
+```gitignore
+.agents/
+skills-lock.json
+GEMINI.MD
+```
