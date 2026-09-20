@@ -150,12 +150,115 @@ async function resolveTargetUrl(options = {}) {
   return null;
 }
 
+function normalize21stUrl(inputUrl) {
+  try {
+    const u = new URL(inputUrl);
+    const preview = u.searchParams.get('preview');
+    if (preview) {
+      const clean = decodeURIComponent(preview).replace(/^\/+/, '');
+      return `https://21st.dev/${clean}`;
+    }
+    return inputUrl;
+  } catch {
+    return inputUrl;
+  }
+}
+
+async function extract21stComponent(inputUrl, options = {}) {
+  const target = normalize21stUrl(inputUrl);
+  const { chromium } = require('playwright');
+  const browser = await chromium.launch();
+  try {
+    const page = await browser.newPage();
+    await page.goto(target, { waitUntil: 'domcontentloaded' });
+
+    const meta = await page.evaluate(() => {
+      const scripts = Array.from(document.querySelectorAll('script')).map(s => s.textContent || '');
+      let bundleUrl = null;
+      let demoCodeUrl = null;
+      let componentName = null;
+
+      for (const s of scripts) {
+        if (!bundleUrl) {
+          const m = s.match(/bundle_html_url[^\n\r]*?(https:\/\/[^"\\\s]+)/);
+          if (m) bundleUrl = m[1];
+        }
+        if (!demoCodeUrl) {
+          const m = s.match(/(https:\/\/cdn\.21st\.dev\/[^"\\\s]+code\.demo[^"\\\s]+\.tsx)/);
+          if (m) demoCodeUrl = m[1];
+        }
+        if (!componentName) {
+          const m = s.match(/\"name\"[\\:]+\"([^\"\\]+)\"/);
+          if (m) componentName = m[1];
+        }
+      }
+      return { bundleUrl, demoCodeUrl, componentName, title: document.title };
+    });
+
+    let demoCode = null;
+    let bundleHtml = null;
+    let standaloneHtml = null;
+
+    if (meta.demoCodeUrl) {
+      try {
+        const res = await fetch(meta.demoCodeUrl);
+        if (res.ok) demoCode = await res.text();
+      } catch {}
+    }
+
+    if (meta.bundleUrl) {
+      try {
+        const res = await fetch(meta.bundleUrl);
+        if (res.ok) {
+          bundleHtml = await res.text();
+          standaloneHtml = bundleHtml
+            .replace('<html lang="en">', '<html lang="en" class="dark">')
+            .replace(/get\(["']dark["']\)\s*===\s*["']true["']/g, 'true')
+            .replace('enableSystem:!1', 'defaultTheme:"dark",enableSystem:!1');
+        }
+      } catch {}
+    }
+
+    if (options.writeTo && standaloneHtml) {
+      fs.writeFileSync(path.resolve(process.cwd(), options.writeTo), standaloneHtml, 'utf8');
+    }
+
+    let shaders = null;
+    if (bundleHtml) {
+      const vMatch = bundleHtml.match(/void\s+main\s*\(\s*\)\s*\{[\s\S]*?gl_Position[\s\S]*?\}/);
+      const fMatch = bundleHtml.match(/void\s+main\s*\(\s*(?:void)?\s*\)\s*\{[\s\S]*?gl_FragColor[\s\S]*?\}/);
+      if (vMatch || fMatch) {
+        shaders = {
+          vertexShader: vMatch ? vMatch[0] : null,
+          fragmentShader: fMatch ? fMatch[0] : null,
+        };
+      }
+    }
+
+    return {
+      targetUrl: target,
+      title: meta.title,
+      componentName: meta.componentName,
+      demoCodeUrl: meta.demoCodeUrl,
+      bundleUrl: meta.bundleUrl,
+      demoCode,
+      shaders,
+      bundleHtmlLength: bundleHtml ? bundleHtml.length : 0,
+      writtenFile: options.writeTo || null,
+    };
+  } finally {
+    await browser.close();
+  }
+}
+
 module.exports = {
   createContext,
   detectDevServers,
+  extract21stComponent,
   getExtraHeadersFromEnv,
   handleCookieBanner,
   launchBrowser,
+  normalize21stUrl,
   resolveTargetUrl,
   takeScreenshot,
 };

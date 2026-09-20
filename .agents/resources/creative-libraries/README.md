@@ -2,7 +2,7 @@
 
 Production-grade libraries and components for high-end, immersive web scrolling experiences powered by **GSAP (Full Suite)** and **Lenis Smooth Scroll**.
 
-> **Rule Precedence**: All interactive options, motion selection questions, and WebGL/scroll integrations are strictly quarantined to [.agents/rules/overdrive.md](file:///c:/xampp/htdocs/YEAR%204/Skills/.agents/rules/overdrive.md). Standard web development pipelines do not ask the user for creative choices or inject scroll animations.
+> **Integration**: Interactive motion, WebGL shaders, and scroll animations are integrated on-demand via [.agents/rules/frontend.md](file:///c:/xampp/htdocs/YEAR%204/Skills/.agents/rules/frontend.md). Standard web development pipelines focus on clean, accessible, responsive design.
 
 ---
 

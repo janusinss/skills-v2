@@ -66,26 +66,22 @@ Synthesize `PRODUCT.md` and `DESIGN.md` into the formal configuration required b
 
 ---
 
-## Phase 4: Component Architecture & Token Theming
+## Phase 4: Component Architecture & Blueprint Extraction
 Prepare components adhering strictly to `DESIGN.md` tokens and `PRODUCT.md` P0 features:
-1. **Default Component Blueprints & Link-Pulling Engine (21st.dev Catalog)**:
-   - **Link-Pulling Engine**: Pull components directly from 21st.dev links via headless browser automation (`playwright-skill`). The engine inspects 21st.dev preview links directly, extracts bundled preview iframes (`cdn.21st.dev/bundled/...`) or live demo domains (e.g. `nexstudio.demos.tailgrids.com`, `v0-ecommerce-hero-section-myp89k.vercel.app`), extracts the exact rendered DOM, classes, and SVG assets, and transpiles them into the selected `DESIGN.md` token system.
+1. **Default Component Blueprints (21st.dev Extraction)**:
+   - **Extraction Mandate**: Pull the selected archetype components (from Phase 2 Website Archetype Gate) strictly via Stage 1 of [.agents/rules/frontend.md](.agents/rules/frontend.md) using `helpers.extract21stComponent('<url>', { writeTo: '<target-file>' })`.
    - **Option A: Standard Website (Default)**:
-     - **Main Page Architecture**: **TailGrids NexStudio** (`https://21st.dev/community/templates/free?preview=%2F%40tailgrids%2Ftemplates%2Ftailgrids-nexstudio`): sticky header, hero with interactive preview, metrics telemetry bar, asymmetric bento capabilities grid, interactive developer sandbox, and conversion CTA.
-     - **Footer Architecture**: **Spectrum UI Footer Section** by Arihant Jain (`https://21st.dev/community/components?q=footer&qs=downloads&preview=%2F%40arihantcodes_1f7b8c4d%2Fcomponents%2Ffooter-section`): integrated newsletter/inquiry subscription bar, multi-column directory, prominent brand wordmark, live system status pill, and compliance/social links.
+     - **Main Page**: **TailGrids NexStudio** (`https://21st.dev/community/templates/free?preview=%2F%40tailgrids%2Ftemplates%2Ftailgrids-nexstudio`): sticky header, hero with interactive preview, metrics telemetry bar, asymmetric bento capabilities grid, interactive developer sandbox, and conversion CTA.
+     - **Footer**: **Spectrum UI Footer Section** by Arihant Jain (`https://21st.dev/community/components?q=footer&qs=downloads&preview=%2F%40arihantcodes_1f7b8c4d%2Fcomponents%2Ffooter-section`): integrated newsletter/inquiry subscription bar, multi-column directory, prominent brand wordmark, live system status pill, and compliance/social links.
    - **Option B: Website with Hero (Default)**:
-     - **Main Page Architecture**: **E-commerce Marketplace Template** by Md Adul (`https://21st.dev/community/templates/free?preview=%2F%40mdadul%2Ftemplates%2Fe-commerce-marketplace-template`, preview `https://v0-ecommerce-hero-section-myp89k.vercel.app/?pv=1`): prominent hero banner with curated product showcases, integrated marketplace search bar, quick artisan/product CTAs, asymmetric image bento showcase, and platform statistics bar.
-     - **Footer Architecture**: The same **Spectrum UI Footer Section** by Arihant Jain (`https://21st.dev/community/components?q=footer&qs=downloads&preview=%2F%40arihantcodes_1f7b8c4d%2Fcomponents%2Ffooter-section`).
-     - **Tighter Hero Spacing Standard**: Set hero top padding strictly to `calc(var(--header-height) + var(--space-lg))` (24px inset below fixed header) to eliminate dead vertical whitespace and seat the hero headline and bento showcase immediately below the navigation bar.
-     - **Real Photography Sourcing (Strict: No AI Generation)**: When Website with Hero is selected, populate all hero bento showcase cards and product catalog cards with real, authentic photography sourced from the internet or scraped from template assets (e.g. Unsplash, Pexels, or CDN assets). **Never use AI generation** for showcase or product imagery. Pair images with `object-fit: cover` and semi-transparent scrim overlays (e.g. `linear-gradient(to top, rgba(0,0,0,0.7), transparent)`) to guarantee WCAG AA contrast for text labels and badges.
+     - **Main Page**: **E-commerce Marketplace Template** by Md Adul (`https://21st.dev/community/templates/free?preview=%2F%40mdadul%2Ftemplates%2Fe-commerce-marketplace-template`): prominent hero banner with curated product showcases, integrated marketplace search bar, quick artisan/product CTAs, asymmetric image bento showcase, and platform statistics bar.
+     - **Footer**: The same **Spectrum UI Footer Section** by Arihant Jain (`https://21st.dev/community/components?q=footer&qs=downloads&preview=%2F%40arihantcodes_1f7b8c4d%2Fcomponents%2Ffooter-section`).
 2. **Universal DESIGN.md Theming**:
    - Both default blueprints **must dynamically inherit and map all styles** (backgrounds, surfaces, borders, text, typography, border radius, and spacing) to the chosen `DESIGN.md` tokens.
    - Never use raw uncalibrated defaults or untinted grays; all color tokens and type scales must strictly resolve to `DESIGN.md` CSS variables.
-3. **Copy Sanitization (`avoid-ai-writing`)**:
-   - Audit all headline, button, and body copy.
-   - Ban Tier 1A machine words (`delve`, `tapestry`, `seamless`, `robust`, `cutting-edge`, `leverage`, `game-changer`, `synergy`).
-   - Remove em dashes (`—` or `--`) from titles/slogans. Ground all copy in concrete functionality and numbers.
-4. **Overdrive Delegation**: When Overdrive mode is requested, activate [.agents/rules/overdrive.md](file:///c:/xampp/htdocs/YEAR%204/Skills/.agents/rules/overdrive.md).
+3. **Execution & Hygiene Delegation**:
+   - Spacing, responsive layout, and photography standards delegate strictly to [.agents/rules/UI_Always.md](.agents/rules/UI_Always.md).
+   - Component intake, shader physics, anti-slop rules, and writing sanitization delegate strictly to [.agents/rules/frontend.md](.agents/rules/frontend.md).
 
 ---
 
@@ -108,12 +104,9 @@ Build components strictly adhering to `DESIGN.md` tokens and `PRODUCT.md` P0 fea
 
 ---
 
-## Phase 6: Automated Verification & Handoff (`playwright-skill` + `impeccable`)
+## Phase 6: Automated Verification & Handoff
 Validate the running application inside real Chromium viewports:
-1. **Playwright Multi-Viewport Audit**: Run headless Chromium checks via inline Node execution (fast in-memory execution, zero disk I/O, no scratch script files) across 375px, 768px, and 1280px viewports via universal target resolution:
-   ```powershell
-   node .agents/skills/playwright-skill/run.js -e "const url = await helpers.resolveTargetUrl(); if (!url) { console.error('No target URL or active server found. Start server or set URL env.'); process.exit(1); } const b = await chromium.launch(); try { const p = await b.newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message)); p.on('console', m => { if (m.type() === 'error') errs.push(m.text()); }); await p.goto(url, { waitUntil: 'domcontentloaded' }); let failed = false; for (const { w, h } of [{ w: 375, h: 667 }, { w: 768, h: 1024 }, { w: 1280, h: 800 }]) { await p.setViewportSize({ width: w, height: h }); const leak = await p.evaluate(() => document.documentElement.scrollWidth > window.innerWidth); if (leak) failed = true; console.log('Viewport ' + w + 'x' + h + ': ' + (leak ? 'OVERFLOW' : 'OK')); } if (errs.length) { failed = true; console.log('Console errors:', errs); } else { console.log('Console errors: 0'); } if (failed) process.exitCode = 1; } catch (e) { console.error('Audit failed: ' + e.message.split('\n')[0]); process.exitCode = 1; } finally { await b.close(); }"
-   ```
+1. **Browser Verification Mandate**: Execute browser inspection and multi-viewport responsive verification strictly following Section 8 of [.agents/rules/UI_Always.md](.agents/rules/UI_Always.md).
 2. **Quality & Token Compliance Check**:
    - Verify 0 horizontal scroll overflows, 0 console errors, >=44px tap targets.
    - Run `.agents/skills/impeccable/scripts/impeccable.cmd detect .` (or Unix `.agents/skills/impeccable/scripts/impeccable detect .`) to verify compliance against `DESIGN.md` tokens.
