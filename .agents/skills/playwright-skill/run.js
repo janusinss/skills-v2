@@ -2,16 +2,65 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
-const { spawn } = require('node:child_process');
+const os = require('node:os');
+const { spawn, execSync } = require('node:child_process');
 
 const skillDir = __dirname;
-const nodeModules = path.join(skillDir, 'node_modules');
+
+function getCandidatePaths() {
+  const candidates = [
+    path.join(skillDir, 'node_modules'),
+    path.join(process.cwd(), 'node_modules'),
+  ];
+
+  // Windows global npm
+  if (process.env.APPDATA) {
+    candidates.push(path.join(process.env.APPDATA, 'npm', 'node_modules'));
+  }
+  // Linux / macOS global npm
+  candidates.push('/usr/local/lib/node_modules', '/usr/lib/node_modules');
+
+  // Central skills repository on this machine
+  const centralSkills = path.resolve('c:/xampp/htdocs/YEAR 4/Skills/.agents/skills/playwright-skill/node_modules');
+  candidates.push(centralSkills);
+
+  // User home directory (.agents, .claude)
+  const home = os.homedir();
+  candidates.push(
+    path.join(home, '.agents', 'skills', 'playwright-skill', 'node_modules'),
+    path.join(home, '.claude', 'skills', 'playwright-skill', 'node_modules')
+  );
+
+  return [...new Set(candidates.filter(Boolean))];
+}
+
+let activeNodeModules = path.join(skillDir, 'node_modules');
 
 function ensurePlaywright() {
+  const candidatePaths = getCandidatePaths();
+
+  for (const candidate of candidatePaths) {
+    try {
+      if (fs.existsSync(candidate)) {
+        require.resolve('playwright', { paths: [candidate] });
+        activeNodeModules = candidate;
+        return;
+      }
+    } catch {
+      // try next candidate
+    }
+  }
+
+  // If not found in any candidate path, attempt automatic setup
   try {
-    require.resolve('playwright', { paths: [skillDir] });
-  } catch {
-    console.error('Playwright is not installed. Run `npm run setup` in the skill directory.');
+    console.log('[playwright-skill] Installing Playwright dependencies...');
+    execSync('npm install --no-audit --prefer-offline', { cwd: skillDir, stdio: 'inherit' });
+    const localMod = path.join(skillDir, 'node_modules');
+    require.resolve('playwright', { paths: [localMod] });
+    activeNodeModules = localMod;
+    return;
+  } catch (err) {
+    console.error('Playwright is not installed. Run `npm install -g playwright && npx playwright install chromium` or `npm run setup` in the skill directory.');
     process.exit(1);
   }
 }
@@ -34,17 +83,23 @@ function saveScript(file) {
 }
 
 function run(args) {
+  const nodePathList = [
+    activeNodeModules,
+    path.join(skillDir, 'node_modules'),
+    path.join(process.cwd(), 'node_modules'),
+    process.env.NODE_PATH,
+  ].filter(Boolean);
+
+  const combinedNodePath = [...new Set(nodePathList)].join(path.delimiter);
+
   const child = spawn(process.execPath, args, {
-    // ponytail: keep the caller's cwd so relative paths in scripts and in
-    // PW_ARTIFACT_DIR resolve against the user's project, not the skill install.
     cwd: process.cwd(),
-    env: { ...process.env, NODE_PATH: nodeModules, PW_SKILL_DIR: skillDir },
+    env: { ...process.env, NODE_PATH: combinedNodePath, PW_SKILL_DIR: skillDir },
     stdio: 'inherit',
   });
   const handlers = new Map();
   child.on('exit', (code, signal) => {
     if (!signal) process.exit(code ?? 1);
-    // Re-raise so callers and shells see an interrupt rather than a plain failure.
     for (const [name, handler] of handlers) process.off(name, handler);
     process.kill(process.pid, signal);
   });
@@ -55,7 +110,6 @@ function run(args) {
   for (const signal of ['SIGINT', 'SIGTERM']) {
     const handler = () => {
       child.kill(signal);
-      // ponytail: child traps or ignores the signal? escalate so the parent cannot hang
       setTimeout(() => child.kill('SIGKILL'), 2000).unref();
     };
     handlers.set(signal, handler);
@@ -74,8 +128,6 @@ if (args[0] === '-e' || args[0] === '--eval') {
   }
   const helpersPath = JSON.stringify(path.join(skillDir, 'lib/helpers'));
   const prefix = `const { chromium, firefox, webkit, devices } = require('playwright');\nconst helpers = require(${helpersPath});\n`;
-  // ponytail: exit once the snippet settles so a snippet that leaves the browser open
-  // cannot hang; the empty writes flush queued output first (pipe writes are async).
   const exit = "async () => { for (const s of [process.stdout, process.stderr]) await new Promise(r => s.write('', r)); process.exit(process.exitCode ?? 0); }";
   run(['-e', `${prefix}\n(async () => {\n  try {\n    ${source}\n  } catch (error) {\n    console.error(error.stack || error.message);\n    process.exitCode = 1;\n  }\n})().finally(${exit});`]);
 } else if (args[0]) {

@@ -9,7 +9,7 @@ A curated collection of **164 production-grade AI agent skills**, architectural 
 ```text
 ├── .agents/
 │   ├── hooks.json         # Automated lifecycle hooks (UI checks & design deep passes)
-│   ├── rules/             # 6 architectural guidelines & proactive rules (UI, backend, security)
+│   ├── rules/             # 7 architectural guidelines & proactive rules (UI, backend, security, install)
 │   ├── skills/            # 164 specialized agent skills across 12 engineering domains
 │   └── resources/         # Creative libraries, shader utilities, and ambient types
 ├── GEMINI.MD              # Universal agent policy: design delegation, dispatch matrix & ADHD protocol
@@ -21,13 +21,13 @@ A curated collection of **164 production-grade AI agent skills**, architectural 
 
 ## 🚀 Quick Install & Setup
 
-### Option 1: AI Agent Mode (Prompt-Based)
-Inside your AI coding assistant, run:
-> *"Install the skills from https://github.com/janusinss/skills-v2 into this project."*
+### Option 1: AI Agent Mode (Prompt-Based & Self-Cleaning)
+Inside your AI coding assistant (Google Antigravity, Claude Code, Cursor), tell the agent:
+> *"Install the skills from https://github.com/janusinss/skills-v2 and run `@.agents/rules/install.md` to configure the workspace."*
 
-The agent will copy `.agents/`, `GEMINI.MD`, and `skills-lock.json` into your project root and automatically add them to your target project's `.gitignore` if you prefer a local-only setup.
+The agent copies `.agents/` and `GEMINI.MD`, runs global Playwright/Chromium setup, verifies in-memory execution, and deletes `install.md` upon completion.
 
-### Option 2: Clone & Copy (Manual)
+### Option 2: Clone & Setup (Manual)
 
 **Windows (PowerShell):**
 ```powershell
@@ -35,6 +35,7 @@ git clone https://github.com/janusinss/skills-v2.git temp-skills
 Copy-Item -Recurse -Path "temp-skills\.agents" -Destination ".\.agents"
 Copy-Item -Path "temp-skills\GEMINI.MD", "temp-skills\skills-lock.json" -Destination ".\"
 Remove-Item -Recurse -Force "temp-skills"
+npm install -g playwright; npx playwright install chromium
 ```
 
 **macOS / Linux (Bash):**
@@ -43,6 +44,7 @@ git clone https://github.com/janusinss/skills-v2.git temp-skills
 cp -r temp-skills/.agents ./
 cp temp-skills/GEMINI.MD temp-skills/skills-lock.json ./
 rm -rf temp-skills
+npm install -g playwright && npx playwright install chromium
 ```
 
 ---
@@ -84,6 +86,7 @@ Foundational architectural guidelines and proactive guardrails:
 | [`starting-existing.md`](.agents/rules/starting-existing.md) | `manual` | Legacy codebase redesign: baseline token extraction, visual overhaul paths, and scoped incremental refactoring. |
 | [`backend.md`](.agents/rules/backend.md) | `manual` | Production data layer: service/repository boundaries, connection pooling, schema integrity, and atomic transaction guarantees. |
 | [`security.md`](.agents/rules/security.md) | `manual` | Zero-trust DevSecOps: threat modeling, 100% parameterized SQL, context-aware output encoding, BOLA/IDOR defense, and OWASP audits. |
+| [`install.md`](.agents/rules/install.md) | `manual` | One-time workspace bootstrapper: installs global Playwright, downloads Chromium, verifies zero-scratch execution, and self-deletes upon completion. |
 
 ---
 
