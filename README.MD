@@ -9,7 +9,7 @@ A curated collection of **164 production-grade AI agent skills**, architectural 
 ```text
 ├── .agents/
 │   ├── hooks.json         # Automated lifecycle hooks (UI checks & design deep passes)
-│   ├── rules/             # 7 architectural guidelines & proactive rules (UI, backend, security, overdrive)
+│   ├── rules/             # 6 architectural guidelines & proactive rules (UI, backend, security)
 │   ├── skills/            # 164 specialized agent skills across 12 engineering domains
 │   └── resources/         # Creative libraries, shader utilities, and ambient types
 ├── GEMINI.MD              # Universal agent policy: design delegation, dispatch matrix & ADHD protocol
@@ -66,7 +66,7 @@ npx skills update -y && rm -rf .claude
 ## 🌐 Universal Agent Policy (`GEMINI.MD`)
 
 Loadable at workspace root or globally at `~/.gemini/GEMINI.md`:
-- **Workspace Design Delegation**: Automatically delegates all frontend, UI/UX, and motion requests to local workspace rules (`starting-brandnew.md`, `starting-existing.md`, `frontend.md`, `UI_Always.md`, `overdrive.md`).
+- **Workspace Design Delegation**: Automatically delegates all frontend, UI/UX, and motion requests to local workspace rules (`starting-brandnew.md`, `starting-existing.md`, `frontend.md`, `UI_Always.md`).
 - **Indirect-Intent Dispatch Matrix**: Maps fuzzy user intents across 11 non-design domains directly to target skills (Backend, Security, DevOps, Testing, AI Agents, Growth, etc.).
 - **Global ADHD Mode**: Enforces action-first formatting (Line 1 action, bounded numbered steps, max 5-item lists, zero conversational filler, and sub-2-minute next steps).
 
@@ -82,7 +82,6 @@ Foundational architectural guidelines and proactive guardrails:
 | [`frontend.md`](.agents/rules/frontend.md) | `auto` | 4-stage UI delivery workflow: token alignment, anti-slop dials, batched visual audits, and real browser verification across viewports. |
 | [`starting-brandnew.md`](.agents/rules/starting-brandnew.md) | `manual` | Greenfield scaffolding: pre-flight checks, 74 curated brand systems in `awesome-design-md`, component blueprints, and Playwright verification. |
 | [`starting-existing.md`](.agents/rules/starting-existing.md) | `manual` | Legacy codebase redesign: baseline token extraction, visual overhaul paths, and scoped incremental refactoring. |
-| [`overdrive.md`](.agents/rules/overdrive.md) | `model_decision` | High-craft creative engineering: ThreeUI 3D shaders, 21st.dev components, GSAP + Lenis scroll physics, and WebGL lifecycle safety. |
 | [`backend.md`](.agents/rules/backend.md) | `manual` | Production data layer: service/repository boundaries, connection pooling, schema integrity, and atomic transaction guarantees. |
 | [`security.md`](.agents/rules/security.md) | `manual` | Zero-trust DevSecOps: threat modeling, 100% parameterized SQL, context-aware output encoding, BOLA/IDOR defense, and OWASP audits. |
 

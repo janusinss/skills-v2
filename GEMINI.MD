@@ -6,7 +6,7 @@ For all requests involving frontend, UI/UX, visual styling, web builds, redesign
 - **Existing App / Redesign / Refactor**: Read and follow [starting-existing.md](.agents/rules/starting-existing.md)
 - **Active UI Implementation**: Read and follow [frontend.md](.agents/rules/frontend.md)
 - **Always-On Layout & CSS Hygiene**: Read and follow [UI_Always.md](.agents/rules/UI_Always.md)
-- **High-End 3D, WebGL Shaders & Motion**: Read and follow [overdrive.md](.agents/rules/overdrive.md)
+- **High-End 3D, WebGL Shaders & Motion**: Read and follow [3d-web-experience](.agents/skills/3d-web-experience/SKILL.md)
 
 *Fallback*: If the active workspace lacks local rules, fallback to [design-taste-frontend](.agents/skills/design-taste-frontend/SKILL.md), [21st-ui-build](.agents/skills/21st-ui-build/SKILL.md), [impeccable](.agents/skills/impeccable/SKILL.md), or [3d-web-experience](.agents/skills/3d-web-experience/SKILL.md).
 
@@ -44,7 +44,7 @@ For all other domains, inspect the target skill link directly before writing cod
 - "penetration test / security audit / vulnerability scan" -> [security-auditor](.agents/skills/security-auditor/SKILL.md), [vulnerability-scanner](.agents/skills/vulnerability-scanner/SKILL.md), [burp-suite-testing](.agents/skills/burp-suite-testing/SKILL.md), [ethical-hacking-methodology](.agents/skills/ethical-hacking-methodology/SKILL.md), [cloud-penetration-testing](.agents/skills/cloud-penetration-testing/SKILL.md)
 
 ### Domain 6: Testing, QA & Verification
-- "test in browser / screenshot / responsive audit" -> [playwright-skill](.agents/skills/playwright-skill/SKILL.md), [browser-automation](.agents/skills/browser-automation/SKILL.md)
+- "test in browser / screenshot / responsive audit" -> [playwright-skill](.agents/skills/playwright-skill/SKILL.md) (Zero scratch files: run inline via `node run.js -e` or `node -e`), [browser-automation](.agents/skills/browser-automation/SKILL.md)
 - "E2E testing / unit tests / TDD" -> [e2e-testing-patterns](.agents/skills/e2e-testing-patterns/SKILL.md), [test-driven-development](.agents/skills/test-driven-development/SKILL.md), [python-testing-patterns](.agents/skills/python-testing-patterns/SKILL.md)
 - "fix broken test / debug failure" -> [test-fixing](.agents/skills/test-fixing/SKILL.md), [systematic-debugging](.agents/skills/systematic-debugging/SKILL.md)
 - "code review / validate code" -> [code-review-checklist](.agents/skills/code-review-checklist/SKILL.md), [lint-and-validate](.agents/skills/lint-and-validate/SKILL.md), [kaizen](.agents/skills/kaizen/SKILL.md)
