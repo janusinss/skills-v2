@@ -76,18 +76,30 @@ Loadable at workspace root or globally at `~/.gemini/GEMINI.md`:
 
 ## 📋 Workspace Rules (`.agents/rules/`)
 
-Foundational architectural guidelines and proactive guardrails:
+Foundational architectural guidelines, proactive quality floors, and execution pipelines:
 
-| Rule | Trigger | Purpose & Core Guardrails |
-| :--- | :--- | :--- |
-| [`UI_Always.md`](.agents/rules/UI_Always.md) | `model_decision` | Proactive UI defect self-correction: fixed-header clearance (`calc(var(--header-height) + 24px)`), authentic photography sourcing (strict no AI images), `overflow-x` defense, and touch targets. |
-| [`frontend.md`](.agents/rules/frontend.md) | `auto` | 4-stage UI delivery workflow: token alignment, anti-slop dials, batched visual audits, and real browser verification across viewports. |
-| [`starting-brandnew.md`](.agents/rules/starting-brandnew.md) | `manual` | Greenfield scaffolding: pre-flight checks, 74 curated brand systems in `awesome-design-md`, component blueprints, and Playwright verification. |
-| [`starting-existing.md`](.agents/rules/starting-existing.md) | `manual` | Legacy codebase redesign: baseline token extraction, visual overhaul paths, and scoped incremental refactoring. |
-| [`backend.md`](.agents/rules/backend.md) | `manual` | Production data layer: service/repository boundaries, connection pooling, schema integrity, and atomic transaction guarantees. |
-| [`security.md`](.agents/rules/security.md) | `manual` | Zero-trust DevSecOps: threat modeling, 100% parameterized SQL, context-aware output encoding, BOLA/IDOR defense, and OWASP audits. |
-| [`penetrating-and-testing.md`](.agents/rules/penetrating-and-testing.md) | `manual` | Dual-surface validation: Strix autonomous pentesting with verified PoCs and end-to-end functional web-flow QA across 5 UI states. |
-| [`install.md`](.agents/rules/install.md) | `manual` | One-time workspace bootstrapper: installs global Playwright, downloads Chromium, verifies zero-scratch execution, and self-deletes upon completion. |
+| Rule | Trigger | Activation Criteria | Core Guardrails & Skills Integrated |
+| :--- | :---: | :--- | :--- |
+| [`UI_Always.md`](.agents/rules/UI_Always.md) | `model_decision` | Always-on when inspecting, writing, or refactoring UI | Proactive CSS floor: fixed-header clearance (`calc(var(--header-height) + 24px)`), zero horizontal overflow (`min-width: 0`), authentic photography (strict no AI slop), 48px touch targets, and inline Node Playwright audits. |
+| [`frontend.md`](.agents/rules/frontend.md) | `model_decision` | Designing, building, or refactoring UI components | 4-stage delivery pipeline: `prompt-enhancer-frontend` scoping, 21st.dev/ThreeUI instant bundle extraction via inline Node, design token adherence from `DESIGN.md`, and multi-viewport responsive QA. |
+| [`starting-brandnew.md`](.agents/rules/starting-brandnew.md) | `manual` | Greenfield project or building web app from scratch | 6-phase scaffolding: pre-flight conflict check, 74 curated brand systems in `awesome-design-md`, component blueprints, responsive layout implementation, and Playwright verification. |
+| [`starting-existing.md`](.agents/rules/starting-existing.md) | `manual` | Auditing, refactoring, or redesigning an existing app | 7-phase redesign: baseline design token extraction, selective visual overhauls, scoped non-breaking refactors, and browser verification against legacy regression. |
+| [`backend.md`](.agents/rules/backend.md) | `model_decision` | Database schemas, ORMs, API routes, or data layers | Production persistence standards: service/repository separation, connection pooling, schema integrity, atomic transaction boundaries, and backend skill dispatching. |
+| [`security.md`](.agents/rules/security.md) | `model_decision` | Server routing, configs, auth, APIs, or data intake | Zero-trust DevSecOps: 7 defensive hardening phases, plaintext secret eradication, Argon2id/bcrypt auth, anti-CSRF architecture, strict CORS, error suppression, and negative TDD. |
+| [`penetrating-and-testing.md`](.agents/rules/penetrating-and-testing.md) | `manual` | Dynamic pentesting, exploit auditing, or full-surface QA | Dual-surface validation: Strix autonomous exploit validation with working PoCs, machine-readable `vulnerabilities.json` generation, and Playwright functional QA across 5 UI states (Empty, Loading, Error, Partial, Ideal). |
+| [`install.md`](.agents/rules/install.md) | `manual` | Initial workspace setup or onboarding (`@install.md`) | One-time bootstrapper: installs global Playwright, downloads Chromium, verifies zero-scratch browser execution, cleans symlinks, and self-deletes upon completion. |
+
+### Rule Lifecycle & Interaction Map
+
+```text
+  [ Greenfield ] ──► starting-brandnew.md ┐
+                                          ├──► frontend.md ◄──► UI_Always.md (Always-On CSS Floor)
+  [ Existing ]   ──► starting-existing.md ┘        ▲
+                                                   │
+  [ Data Layer ] ──► backend.md ───────────────────┼──► security.md (Defensive Hardening)
+                                                   │          ▲
+  [ Pentest/QA ] ──► penetrating-and-testing.md ───┴──────────┘ (Fixes via vulnerabilities.json)
+```
 
 ---
 
