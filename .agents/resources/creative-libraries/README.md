@@ -2,7 +2,7 @@
 
 Production-grade libraries and components for high-end, immersive web scrolling experiences powered by **GSAP (Full Suite)** and **Lenis Smooth Scroll**.
 
-> **Integration**: Interactive motion, WebGL shaders, and scroll animations are integrated on-demand via [.agents/rules/frontend.md](file:///c:/xampp/htdocs/YEAR%204/Skills/.agents/rules/frontend.md). Standard web development pipelines focus on clean, accessible, responsive design.
+> **Integration**: Interactive motion, WebGL shaders, and scroll animations are integrated on-demand via [.agents/rules/frontend.md](.agents/rules/frontend.md). Standard web development pipelines focus on clean, accessible, responsive design.
 
 ---
 

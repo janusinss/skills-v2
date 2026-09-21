@@ -1,6 +1,6 @@
 # Agent Skills & Workspace Configurations
 
-A curated collection of **164 production-grade AI agent skills**, architectural rules, and automated workflow hooks for modern AI coding assistants (Google Antigravity, Claude Code, Cursor, and Gemini).
+A curated collection of **173 production-grade AI agent skills**, architectural rules, and automated workflow hooks for modern AI coding assistants (Google Antigravity, Claude Code, Cursor, and Gemini).
 
 ---
 
@@ -9,8 +9,8 @@ A curated collection of **164 production-grade AI agent skills**, architectural 
 ```text
 ├── .agents/
 │   ├── hooks.json         # Automated lifecycle hooks (UI checks & design deep passes)
-│   ├── rules/             # 7 architectural guidelines & proactive rules (UI, backend, security, install)
-│   ├── skills/            # 164 specialized agent skills across 12 engineering domains
+│   ├── rules/             # 8 architectural guidelines & proactive rules (UI, backend, security, testing, install)
+│   ├── skills/            # 173 specialized agent skills across 12 engineering domains
 │   └── resources/         # Creative libraries, shader utilities, and ambient types
 ├── GEMINI.MD              # Universal agent policy: design delegation, dispatch matrix & ADHD protocol
 ├── skills-lock.json       # Skill dependency manifest and integrity lockfile
@@ -86,18 +86,19 @@ Foundational architectural guidelines and proactive guardrails:
 | [`starting-existing.md`](.agents/rules/starting-existing.md) | `manual` | Legacy codebase redesign: baseline token extraction, visual overhaul paths, and scoped incremental refactoring. |
 | [`backend.md`](.agents/rules/backend.md) | `manual` | Production data layer: service/repository boundaries, connection pooling, schema integrity, and atomic transaction guarantees. |
 | [`security.md`](.agents/rules/security.md) | `manual` | Zero-trust DevSecOps: threat modeling, 100% parameterized SQL, context-aware output encoding, BOLA/IDOR defense, and OWASP audits. |
+| [`penetrating-and-testing.md`](.agents/rules/penetrating-and-testing.md) | `manual` | Dual-surface validation: Strix autonomous pentesting with verified PoCs and end-to-end functional web-flow QA across 5 UI states. |
 | [`install.md`](.agents/rules/install.md) | `manual` | One-time workspace bootstrapper: installs global Playwright, downloads Chromium, verifies zero-scratch execution, and self-deletes upon completion. |
 
 ---
 
-## 🛠️ Included Skill Domains (164 Skills)
+## 🛠️ Included Skill Domains (173 Skills)
 
 | Domain | Count | Key Skills |
 | :--- | :---: | :--- |
 | **🎨 Frontend & UI/UX** | 35 | `ui-ux-pro-max`, `impeccable`, `21st-ui-build`, `tailwind-patterns`, `react-best-practices`, `design-taste-frontend`, `awesome-design-md`, `minimalist-ui` |
 | **📱 Mobile Development** | 7 | `flutter-expert`, `ios-developer`, `react-native-architecture`, `mobile-design`, `app-store-optimization` |
 | **⚙️ Backend & APIs** | 23 | `fastapi-pro`, `database-architect`, `backend-dev-guidelines`, `postgres-best-practices`, `api-patterns`, `golang-pro`, `django-pro`, `sql-pro` |
-| **🔒 Security & Auth** | 14 | `backend-security-coder`, `top-web-vulnerabilities`, `security-auditor`, `auth-implementation-patterns`, `api-security-best-practices` |
+| **🔒 Security & Auth** | 23 | `penetration-testing-with-strix`, `backend-security-coder`, `top-web-vulnerabilities`, `security-auditor`, `auth-implementation-patterns`, `fix-security-vulnerabilities-with-strix` |
 | **🧪 Testing & QA** | 8 | `playwright-skill`, `e2e-testing-patterns`, `systematic-debugging`, `test-driven-development`, `test-fixing` |
 | **☁️ DevOps, Cloud & SRE** | 12 | `docker-expert`, `kubernetes-architect`, `aws-serverless`, `terraform-specialist`, `observability-engineer`, `incident-responder` |
 | **🤖 AI & LLM Systems** | 11 | `ai-agents-architect`, `langgraph`, `rag-engineer`, `langfuse`, `prompt-engineering`, `context-window-management` |
