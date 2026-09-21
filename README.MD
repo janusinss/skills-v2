@@ -91,6 +91,53 @@ Foundational architectural guidelines and proactive guardrails:
 
 ---
 
+## 🛡️ Penetration Testing & Security Workflow (`penetrating-and-testing.md`)
+
+The workspace includes a dual-engine security pipeline linking offensive adversarial penetration testing with defensive root-cause remediation:
+
+### The 3-Step Security Cycle
+
+```text
+┌────────────────────────────────────────┐
+│ 1. OFFENSIVE PENTEST                   │  Run: "Run penetrating-and-testing on <path>"
+│    (penetrating-and-testing.md)        │  Outputs: strix_runs/<run>/vulnerabilities.json
+└───────────────────┬────────────────────┘
+                    │
+                    ▼
+┌────────────────────────────────────────┐
+│ 2. DEFENSIVE REMEDIATION               │  Run: "Apply fixes from vulnerabilities.json using security.md"
+│    (security.md + Strix fix skill)     │  Applies root-cause patches (CSRF, SQL params, headers, etc.)
+└───────────────────┬────────────────────┘
+                    │
+                    ▼
+┌────────────────────────────────────────┐
+│ 3. REGRESSION RE-TEST                  │  Run: "Re-test the fixes from vulnerabilities.json"
+│    (PoC & Negative TDD test suite)     │  Executes automated test scripts to prove attack vectors closed
+└────────────────────────────────────────┘
+```
+
+### Common Prompts to Trigger the Workflow
+
+- **Adversarial Pentest & QA**:
+  > *"Run penetrating-and-testing on `<path_or_url>`"*
+  > 
+  > Probes live endpoints and source code for OWASP Top 10 vulnerabilities, validates exploitability with working PoCs, audits functional web-flow states via Playwright, and writes structured findings to `strix_runs/<run-name>/vulnerabilities.json`.
+
+- **Defensive Remediation**:
+  > *"Apply fixes from vulnerabilities.json according to security.md"*
+  > 
+  > Invokes [`fix-security-vulnerabilities-with-strix`](.agents/skills/fix-security-vulnerabilities-with-strix/SKILL.md) and [`security.md`](.agents/rules/security.md) to patch root causes by severity order (Critical → High → Medium → Low).
+
+- **Regression Verification**:
+  > *"Verify and re-test the applied security patches"*
+  > 
+  > Runs negative TDD test scripts and replays the original PoCs to verify that the vulnerabilities are completely closed without breaking application functionality.
+
+> [!TIP]
+> **Proactive Rule of Thumb**: Reference [`security.md`](.agents/rules/security.md) while writing new features so code is hardened from day one. Run [`penetrating-and-testing.md`](.agents/rules/penetrating-and-testing.md) before merges or deployments as the adversarial QA gate.
+
+---
+
 ## 🛠️ Included Skill Domains (173 Skills)
 
 | Domain | Count | Key Skills |

@@ -115,3 +115,12 @@ scratch/
 
 # Ephemeral Skill Runtime & Review Artifacts
 .impeccable/
+
+# Security Scans, Pentest Targets & Audit Artifacts
+targets/
+strix_runs/
+*.sql
+*.sqlite
+*.db
+sec_test_cookies*.txt
+verify_cookie*.txt
