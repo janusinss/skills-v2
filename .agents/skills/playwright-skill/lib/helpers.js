@@ -172,7 +172,7 @@ async function extract21stComponent(inputUrl, options = {}) {
     const page = await browser.newPage();
     await page.goto(target, { waitUntil: 'domcontentloaded' });
 
-    const meta = await page.evaluate(() => {
+    let meta = await page.evaluate(() => {
       const scripts = Array.from(document.querySelectorAll('script')).map(s => s.textContent || '');
       let bundleUrl = null;
       let demoCodeUrl = null;
@@ -192,31 +192,57 @@ async function extract21stComponent(inputUrl, options = {}) {
           if (m) componentName = m[1];
         }
       }
-      return { bundleUrl, demoCodeUrl, componentName, title: document.title };
+      const iframes = Array.from(document.querySelectorAll('iframe'))
+        .map(f => f.src)
+        .filter(s => s && !s.startsWith('about:'));
+      return { bundleUrl, demoCodeUrl, componentName, title: document.title, iframes };
     });
 
     let demoCode = null;
     let bundleHtml = null;
     let standaloneHtml = null;
+    let templateDemoUrl = null;
 
-    if (meta.demoCodeUrl) {
-      try {
-        const res = await fetch(meta.demoCodeUrl);
-        if (res.ok) demoCode = await res.text();
-      } catch {}
+    if (!meta.bundleUrl && inputUrl !== target) {
+      await page.goto(inputUrl, { waitUntil: 'domcontentloaded' });
+      const origIframes = await page.evaluate(() =>
+        Array.from(document.querySelectorAll('iframe'))
+          .map(f => f.src)
+          .filter(s => s && !s.startsWith('about:'))
+      );
+      if (origIframes.length) {
+        meta.iframes = origIframes;
+      }
     }
 
-    if (meta.bundleUrl) {
-      try {
-        const res = await fetch(meta.bundleUrl);
-        if (res.ok) {
-          bundleHtml = await res.text();
-          standaloneHtml = bundleHtml
-            .replace('<html lang="en">', '<html lang="en" class="dark">')
-            .replace(/get\(["']dark["']\)\s*===\s*["']true["']/g, 'true')
-            .replace('enableSystem:!1', 'defaultTheme:"dark",enableSystem:!1');
-        }
-      } catch {}
+    if (!meta.bundleUrl && meta.iframes && meta.iframes.length > 0) {
+      templateDemoUrl = meta.iframes[0];
+      const templatePage = await browser.newPage();
+      await templatePage.goto(templateDemoUrl, { waitUntil: 'networkidle' });
+      standaloneHtml = await templatePage.content();
+      meta.title = await templatePage.title() || meta.title;
+      bundleHtml = standaloneHtml;
+      await templatePage.close();
+    } else {
+      if (meta.demoCodeUrl) {
+        try {
+          const res = await fetch(meta.demoCodeUrl);
+          if (res.ok) demoCode = await res.text();
+        } catch {}
+      }
+
+      if (meta.bundleUrl) {
+        try {
+          const res = await fetch(meta.bundleUrl);
+          if (res.ok) {
+            bundleHtml = await res.text();
+            standaloneHtml = bundleHtml
+              .replace('<html lang="en">', '<html lang="en" class="dark">')
+              .replace(/get\(["']dark["']\)\s*===\s*["']true["']/g, 'true')
+              .replace('enableSystem:!1', 'defaultTheme:"dark",enableSystem:!1');
+          }
+        } catch {}
+      }
     }
 
     if (options.writeTo && standaloneHtml) {
@@ -237,6 +263,7 @@ async function extract21stComponent(inputUrl, options = {}) {
 
     return {
       targetUrl: target,
+      templateUrl: templateDemoUrl,
       title: meta.title,
       componentName: meta.componentName,
       demoCodeUrl: meta.demoCodeUrl,
