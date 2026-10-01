@@ -58,7 +58,7 @@ This installs the committed bundle directly into `.codex/` with root `AGENTS.md`
 
 ### Active Codex Edition in This Repository
 
-The local Codex loader discovers all 190 converted skills under `.codex/skills/`. Root `AGENTS.md` contains the Codex policy with ADHD Mode, local rule selection, and inline browser checks. The builder copies this policy into `.codex/AGENTS.md` for installation as the target project's root instructions. Both editions can appear in this collection's skill catalog; root instructions prefer the converted copy when names match. The `.agents/` payload remains available to AGY / Gemini. Restart Codex to reload project instructions. Exported Codex targets use the same `.codex/` structure and contain only the selected edition.
+The local Codex loader discovers all 190 converted skills under `.codex/skills/`. Root `AGENTS.md` contains the user's three-section policy with ADHD Mode, local rule selection, and inline browser checks. The builder generates `.codex/AGENTS.md` from those sections for installation as the target project's root instructions. Source-only routing and maintenance notes below `<!-- source-repository-only -->` stay in this collection. Both editions can appear in this collection's skill catalog; root instructions prefer the converted copy when names match. The `.agents/` payload remains available to AGY / Gemini. Restart Codex to reload project instructions. Exported Codex targets use the same `.codex/` structure and contain only the selected edition.
 
 ### Codex Global Instructions
 

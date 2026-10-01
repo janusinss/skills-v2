@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-10-01",
   "originalSnapshot": {
-    "digest": "8749b8d936c901742c039430ab01764fbc18588906bcac8e587cde6967417593",
+    "digest": "8a2f4b69cd5066bb605fc5013c15b4dae716db8b06f8be259ae25b8f8eb530ca",
     "files": {
       ".agents/hooks.json": "b7a28b6ef3f4f6284c9c40d49fa72107c6b6dd3a9f8ebce1e70473cab7f5ff6f",
       ".agents/resources/creative-libraries/README.md": "3a771a19ff9d37c9c2f147bd678f8d4ebc6a1cb0d0e51f74b9e58124678b2248",
@@ -1831,7 +1831,7 @@
       ".agents/skills/web-app-penetration-testing/SKILL.md": "2e8df0b9233971c496d0c0c7660808fc717c08d4165455a0423229045389608a",
       ".gitignore": "ab5b1bfacf8dfa2edb0399b5a59477cc832ea09c4c5302458f402853b3a2831d",
       "GEMINI.MD": "3552b9a4fc699f80543b8f08361b80223e5a9f9fb035112d6bf87f6e544f2e0a",
-      "README.MD": "f7d2aa42ce837eafdb2e44eff5f616a7edad7d72f653c3605f584ad33270fc4f",
+      "README.MD": "0de341eb143235f18ad84ae93ee0894caf87f36f81625383f861164e877ab945",
       "skills-lock.json": "6306802d53b815d85580efb318d8d78dc74f08621b855fcdbdc325ffcccde19d"
     }
   },
@@ -11855,8 +11855,8 @@
     },
     "AGENTS.md": {
       "source": "AGENTS.md",
-      "sourceHash": "b3ee66b254e1d2be90aa1c320b222990b8fcaf0e86a407f82a05ffcc2a3e0274",
-      "outputHash": "b3ee66b254e1d2be90aa1c320b222990b8fcaf0e86a407f82a05ffcc2a3e0274"
+      "sourceHash": "fa7d735f8260e6426cb250239a9c36886f1924ea86b7d67dde49f62b3ac5ed07",
+      "outputHash": "5a101e4a101d83ea551736faf78a0889ed363f228ded15b0126e31d48c98a18a"
     },
     "project.gitignore": {
       "source": ".gitignore",
