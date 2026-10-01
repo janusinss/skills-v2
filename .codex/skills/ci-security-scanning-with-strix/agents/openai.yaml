@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ci Security Scanning With Strix"
+  short_description: "Configure Strix security scanning in CI when the user..."
+  default_prompt: "Use $ci-security-scanning-with-strix for the relevant part of this task."

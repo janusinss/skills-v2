@@ -1,0 +1,122 @@
+name: Pattern proposal
+description: Propose a new AI-writing pattern for the catalog or the detector
+title: "Pattern proposal: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing a pattern. Two questions decide what happens to it:
+        whether a regex can find it, and who gets flagged by mistake if it ships.
+        This form asks both up front so the proposal can be evaluated on its
+        evidence rather than on a round of follow-up questions.
+
+        `CONTRIBUTING.md` has the full picture of where a rule lands once it is
+        accepted. You do not need to have read it to file this.
+
+        Please do not paste anything you would mind seeing in a public repo.
+
+  - type: input
+    id: name
+    attributes:
+      label: Pattern name
+      description: A short handle for the thing itself, not a description of it.
+      placeholder: Synonym cycling
+    validations:
+      required: true
+
+  - type: textarea
+    id: should-fire
+    attributes:
+      label: Text that should be flagged
+      description: The shortest example that shows the pattern. A sentence or two is usually enough.
+      placeholder: Paste the exact text here.
+    validations:
+      required: true
+
+  - type: textarea
+    id: must-not-fire
+    attributes:
+      label: Nearby text that must stay clean
+      description: Writing that looks close to the example above but is ordinary human prose. This is the harder half of the proposal, and a rule without one tends to fire on everything.
+      placeholder: Paste the exact text here.
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why this is a tell
+      description: What makes the first example machine-shaped and the second one not?
+    validations:
+      required: true
+
+  - type: textarea
+    id: false-positives
+    attributes:
+      label: Who gets flagged by mistake
+      description: Legitimate uses you know of, registers where the rule would misfire, carve-outs it would need. Write "none I could find" if you looked and came up empty; that is an answer.
+      placeholder: Fiction uses this deliberately in dialogue.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: detectability
+    attributes:
+      label: Can a regex find it?
+      description: Regex-detectable rules go to the engine with a fixture. Judgment-only rules stay in the catalog for the model to apply. Unsure is a fine answer and gets sorted during triage.
+      options:
+        - Regex-detectable (a phrase, a character, or a structural shape)
+        - Judgment-only (needs reading for meaning)
+        - Unsure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: fixture
+    attributes:
+      label: May we use these examples as public test fixtures?
+      description: The issue is public. Choose whether the examples may also be copied into files that run in CI.
+      options:
+        - "Yes, use them as public fixtures"
+        - "No, do not copy them into committed fixtures"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: register
+    attributes:
+      label: Register
+      description: Where you have seen the pattern. Rules that hold in a blog post often misfire in a changelog, so this scopes the proposal.
+      options:
+        - Blog or essay
+        - Technical documentation or README
+        - Technical blog or architecture writeup
+        - Academic or research writing
+        - Social post (LinkedIn, X)
+        - Email or DM
+        - Issue, PR, or code comment
+        - Changelog or release notes
+        - Fiction or creative
+        - Across several registers
+        - Other
+    validations:
+      required: false
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: Link anything that backs a factual claim about how models or people write. Skip this if the proposal rests on your own examples rather than on a claim about frequency.
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        **What happens next.** Triage decides which of the two homes the rule
+        gets, or records why it stays out. A rule that cannot survive its
+        must-not-fire example does not ship, and the reasoning gets written
+        down either way.
+
+        First-time contributors are welcome to ask for a review in the issue.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Full Output Enforcement"
+  short_description: "Overrides default LLM truncation behavior. Enforces complete..."
+  default_prompt: "Use $full-output-enforcement for the relevant part of this task."

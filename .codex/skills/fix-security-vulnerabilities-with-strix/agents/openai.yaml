@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fix Security Vulnerabilities With Strix"
+  short_description: "Fix verified security findings from Strix by addressing..."
+  default_prompt: "Use $fix-security-vulnerabilities-with-strix for the relevant part of this task."

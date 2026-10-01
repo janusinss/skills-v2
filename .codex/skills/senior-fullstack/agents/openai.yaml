@@ -1,0 +1,4 @@
+interface:
+  display_name: "Senior Fullstack"
+  short_description: "Complete toolkit for senior fullstack with modern tools and..."
+  default_prompt: "Use $senior-fullstack for the relevant part of this task."

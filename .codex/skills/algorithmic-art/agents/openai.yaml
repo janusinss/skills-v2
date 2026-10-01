@@ -1,0 +1,4 @@
+interface:
+  display_name: "Algorithmic Art"
+  short_description: "Algorithmic philosophies are computational aesthetic..."
+  default_prompt: "Use $algorithmic-art for the relevant part of this task."

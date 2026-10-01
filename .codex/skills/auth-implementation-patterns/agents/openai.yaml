@@ -1,0 +1,4 @@
+interface:
+  display_name: "Auth Implementation Patterns"
+  short_description: "Build secure, scalable authentication and authorization..."
+  default_prompt: "Use $auth-implementation-patterns for the relevant part of this task."

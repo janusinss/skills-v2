@@ -1,0 +1,4 @@
+interface:
+  display_name: "Llm App Patterns"
+  short_description: "Production-ready patterns for building LLM applications,..."
+  default_prompt: "Use $llm-app-patterns for the relevant part of this task."

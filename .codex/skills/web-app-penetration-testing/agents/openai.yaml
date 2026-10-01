@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web App Penetration Testing"
+  short_description: "Penetration-test an authorized web application with Strix..."
+  default_prompt: "Use $web-app-penetration-testing for the relevant part of this task."

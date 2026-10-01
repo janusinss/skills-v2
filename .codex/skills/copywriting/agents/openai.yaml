@@ -1,0 +1,4 @@
+interface:
+  display_name: "Copywriting"
+  short_description: "Write rigorous, conversion-focused marketing copy for..."
+  default_prompt: "Use $copywriting for the relevant part of this task."

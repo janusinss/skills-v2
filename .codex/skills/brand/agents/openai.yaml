@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brand"
+  short_description: "Brand voice, visual identity, messaging frameworks, asset..."
+  default_prompt: "Use $brand for the relevant part of this task."

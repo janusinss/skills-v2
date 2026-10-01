@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design System"
+  short_description: "Token architecture, component specifications, and slide..."
+  default_prompt: "Use $design-system for the relevant part of this task."

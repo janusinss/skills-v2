@@ -1,0 +1,4 @@
+interface:
+  display_name: "High End Visual Design"
+  short_description: "Teaches the AI to design like a high-end agency. Defines the..."
+  default_prompt: "Use $high-end-visual-design for the relevant part of this task."

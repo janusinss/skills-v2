@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mcp Builder"
+  short_description: "Create MCP (Model Context Protocol) servers that enable LLMs..."
+  default_prompt: "Use $mcp-builder for the relevant part of this task."

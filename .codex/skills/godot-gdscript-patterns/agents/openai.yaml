@@ -1,0 +1,4 @@
+interface:
+  display_name: "Godot Gdscript Patterns"
+  short_description: "Master Godot 4 GDScript patterns including signals, scenes,..."
+  default_prompt: "Use $godot-gdscript-patterns for the relevant part of this task."

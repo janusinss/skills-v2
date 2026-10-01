@@ -1,0 +1,4 @@
+interface:
+  display_name: "Archify"
+  short_description: "Create polished, validated architecture, workflow, sequence,..."
+  default_prompt: "Use $archify for the relevant part of this task."

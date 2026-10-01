@@ -1,0 +1,4 @@
+interface:
+  display_name: "Application Security Testing"
+  short_description: "Assess application security across code, web apps, APIs, and..."
+  default_prompt: "Use $application-security-testing for the relevant part of this task."

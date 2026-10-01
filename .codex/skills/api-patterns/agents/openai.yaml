@@ -1,0 +1,4 @@
+interface:
+  display_name: "Api Patterns"
+  short_description: "API design principles and decision-making. REST vs GraphQL..."
+  default_prompt: "Use $api-patterns for the relevant part of this task."

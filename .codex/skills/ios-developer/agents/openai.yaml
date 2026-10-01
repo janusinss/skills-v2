@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ios Developer"
+  short_description: "Develop native iOS applications with Swift/SwiftUI. Masters..."
+  default_prompt: "Use $ios-developer for the relevant part of this task."

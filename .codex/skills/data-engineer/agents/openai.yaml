@@ -1,0 +1,4 @@
+interface:
+  display_name: "Data Engineer"
+  short_description: "Build scalable data pipelines, modern data warehouses, and..."
+  default_prompt: "Use $data-engineer for the relevant part of this task."

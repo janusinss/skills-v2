@@ -1,0 +1,4 @@
+interface:
+  display_name: "Python Pro"
+  short_description: "Master Python 3.12+ with modern features, async programming,..."
+  default_prompt: "Use $python-pro for the relevant part of this task."

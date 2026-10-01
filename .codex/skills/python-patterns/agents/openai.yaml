@@ -1,0 +1,4 @@
+interface:
+  display_name: "Python Patterns"
+  short_description: "Python development principles and decision-making. Framework..."
+  default_prompt: "Use $python-patterns for the relevant part of this task."

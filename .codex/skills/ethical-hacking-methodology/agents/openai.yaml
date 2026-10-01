@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ethical Hacking Methodology"
+  short_description: "Master the complete penetration testing lifecycle from..."
+  default_prompt: "Use $ethical-hacking-methodology for the relevant part of this task."

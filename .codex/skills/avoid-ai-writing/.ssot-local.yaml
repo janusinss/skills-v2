@@ -1,0 +1,24 @@
+# Repository-local compatibility claims. Cross-repo counts remain in .ssot.yaml.
+# Historical releases, example corpora and generated bundles are not current prose.
+ignore_paths:
+  - "CHANGELOG.md"
+  - "corpus/**"
+  - "examples/**"
+  - "plugins/**"
+  - "skills/**"
+  - "cursor-rules/**"
+  - "SKILL.full.md"
+  - ".ssot-tool/**"
+facts:
+  - name: minimum-node-major
+    type: integer
+    canonical:
+      file: package.json
+      pattern: '"node": ">=(\d+)"'
+    copies:
+      - file: README.md
+        pattern: 'It works in Node \(`>=(\d+)`\)'
+      - file: CONTRIBUTING.md
+        pattern: 'dependencies to install; Node (\d+)\+ only\.'
+      - file: detector/README.md
+        pattern: 'It runs identically in Node \(`>=(\d+)`\)'

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pci Compliance"
+  short_description: "Master PCI DSS (Payment Card Industry Data Security..."
+  default_prompt: "Use $pci-compliance for the relevant part of this task."

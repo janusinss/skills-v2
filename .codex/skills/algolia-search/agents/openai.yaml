@@ -1,0 +1,4 @@
+interface:
+  display_name: "Algolia Search"
+  short_description: "Expert patterns for Algolia search implementation, indexing..."
+  default_prompt: "Use $algolia-search for the relevant part of this task."

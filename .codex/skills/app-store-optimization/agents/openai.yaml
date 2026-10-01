@@ -1,0 +1,4 @@
+interface:
+  display_name: "App Store Optimization"
+  short_description: "Complete App Store Optimization (ASO) toolkit for..."
+  default_prompt: "Use $app-store-optimization for the relevant part of this task."

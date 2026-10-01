@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product Manager Toolkit"
+  short_description: "Essential tools and frameworks for modern product..."
+  default_prompt: "Use $product-manager-toolkit for the relevant part of this task."

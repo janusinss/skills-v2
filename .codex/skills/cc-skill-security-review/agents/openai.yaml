@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cc Skill Security Review"
+  short_description: "This skill ensures all code follows security best practices..."
+  default_prompt: "Use $cc-skill-security-review for the relevant part of this task."

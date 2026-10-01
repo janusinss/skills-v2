@@ -1,0 +1,17 @@
+# Preserve generated source payload despite the parent's runtime ignore rules.
+!skills/
+!skills/**
+!rules/
+!rules/**
+!resources/
+!resources/**
+
+# Exclude local dependencies and execution artifacts.
+**/node_modules/
+**/__pycache__/
+**/.venv/
+**/venv/
+**/.git
+**/.env
+**/.env.*
+**/*.log

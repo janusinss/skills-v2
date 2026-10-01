@@ -1,0 +1,4 @@
+interface:
+  display_name: "Content Creator"
+  short_description: "Professional-grade brand voice analysis, SEO optimization,..."
+  default_prompt: "Use $content-creator for the relevant part of this task."

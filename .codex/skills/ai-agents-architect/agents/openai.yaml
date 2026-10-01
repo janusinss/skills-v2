@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ai Agents Architect"
+  short_description: "Expert in designing and building autonomous AI agents...."
+  default_prompt: "Use $ai-agents-architect for the relevant part of this task."

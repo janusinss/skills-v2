@@ -1,0 +1,4 @@
+interface:
+  display_name: "Industrial Brutalist Ui"
+  short_description: "Raw mechanical interfaces fusing Swiss typographic print..."
+  default_prompt: "Use $industrial-brutalist-ui for the relevant part of this task."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cloud Penetration Testing"
+  short_description: "Conduct comprehensive security assessments of cloud..."
+  default_prompt: "Use $cloud-penetration-testing for the relevant part of this task."

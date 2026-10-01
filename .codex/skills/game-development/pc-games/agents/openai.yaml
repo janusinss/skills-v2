@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pc Games"
+  short_description: "PC and console game development principles. Engine..."
+  default_prompt: "Use $pc-games for the relevant part of this task."

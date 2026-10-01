@@ -1,0 +1,4 @@
+interface:
+  display_name: "Context Window Management"
+  short_description: "Strategies for managing LLM context windows including..."
+  default_prompt: "Use $context-window-management for the relevant part of this task."

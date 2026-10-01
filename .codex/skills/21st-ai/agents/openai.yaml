@@ -1,0 +1,4 @@
+interface:
+  display_name: "21st Ai"
+  short_description: "Generate, preview, and iterate UI drafts with the 21st AI..."
+  default_prompt: "Use $21st-ai for the relevant part of this task."

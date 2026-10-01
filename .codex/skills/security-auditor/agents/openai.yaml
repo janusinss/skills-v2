@@ -1,0 +1,4 @@
+interface:
+  display_name: "Security Auditor"
+  short_description: "Expert security auditor specializing in DevSecOps,..."
+  default_prompt: "Use $security-auditor for the relevant part of this task."

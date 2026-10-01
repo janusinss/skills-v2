@@ -1,0 +1,4 @@
+interface:
+  display_name: "Redesign Existing Projects"
+  short_description: "Upgrades existing websites and apps to premium quality...."
+  default_prompt: "Use $redesign-existing-projects for the relevant part of this task."

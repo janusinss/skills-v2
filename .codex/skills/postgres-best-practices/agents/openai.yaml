@@ -1,0 +1,4 @@
+interface:
+  display_name: "Postgres Best Practices"
+  short_description: "Postgres performance optimization and best practices from..."
+  default_prompt: "Use $postgres-best-practices for the relevant part of this task."

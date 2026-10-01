@@ -1,0 +1,4 @@
+interface:
+  display_name: "Owasp Top 10 Testing"
+  short_description: "Test an application against the OWASP Top 10 with Strix —..."
+  default_prompt: "Use $owasp-top-10-testing for the relevant part of this task."

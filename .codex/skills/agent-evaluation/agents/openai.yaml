@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Evaluation"
+  short_description: "Testing and benchmarking LLM agents including behavioral..."
+  default_prompt: "Use $agent-evaluation for the relevant part of this task."

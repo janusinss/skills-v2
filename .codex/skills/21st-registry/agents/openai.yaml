@@ -1,0 +1,4 @@
+interface:
+  display_name: "21st Registry"
+  short_description: "Find and install UI components from a 21st or compatible..."
+  default_prompt: "Use $21st-registry for the relevant part of this task."

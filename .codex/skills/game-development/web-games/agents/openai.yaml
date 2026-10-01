@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web Games"
+  short_description: "Web browser game development. Framework selection (Phaser,..."
+  default_prompt: "Use $web-games for the relevant part of this task."

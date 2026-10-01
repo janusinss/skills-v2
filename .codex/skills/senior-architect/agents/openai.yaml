@@ -1,0 +1,4 @@
+interface:
+  display_name: "Senior Architect"
+  short_description: "Complete toolkit for senior architect with modern tools and..."
+  default_prompt: "Use $senior-architect for the relevant part of this task."

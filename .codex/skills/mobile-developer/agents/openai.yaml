@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mobile Developer"
+  short_description: "Develop React Native, Flutter, or native mobile apps with..."
+  default_prompt: "Use $mobile-developer for the relevant part of this task."

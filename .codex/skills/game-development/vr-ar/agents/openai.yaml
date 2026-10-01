@@ -1,0 +1,4 @@
+interface:
+  display_name: "Vr Ar"
+  short_description: "VR/AR development principles. Comfort, interaction,..."
+  default_prompt: "Use $vr-ar for the relevant part of this task."

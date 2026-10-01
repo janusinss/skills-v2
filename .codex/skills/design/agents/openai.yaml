@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design"
+  short_description: "Create brand assets, logos, icons, and identity collateral..."
+  default_prompt: "Use $design for the relevant part of this task."

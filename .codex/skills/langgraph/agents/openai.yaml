@@ -1,0 +1,4 @@
+interface:
+  display_name: "Langgraph"
+  short_description: "Expert in LangGraph - the production-grade framework for..."
+  default_prompt: "Use $langgraph for the relevant part of this task."

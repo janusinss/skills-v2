@@ -1,0 +1,4 @@
+interface:
+  display_name: "Canvas Design"
+  short_description: "These are instructions for creating design philosophies -..."
+  default_prompt: "Use $canvas-design for the relevant part of this task."

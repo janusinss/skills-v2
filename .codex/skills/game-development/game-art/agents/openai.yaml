@@ -1,0 +1,4 @@
+interface:
+  display_name: "Game Art"
+  short_description: "Game art principles. Visual style selection, asset pipeline,..."
+  default_prompt: "Use $game-art for the relevant part of this task."

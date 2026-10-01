@@ -1,0 +1,4 @@
+interface:
+  display_name: "Kaizen"
+  short_description: "Guide for continuous improvement, error proofing, and..."
+  default_prompt: "Use $kaizen for the relevant part of this task."

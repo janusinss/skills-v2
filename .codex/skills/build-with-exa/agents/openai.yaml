@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build With Exa"
+  short_description: "Build applications and agents with Exa's API: search,..."
+  default_prompt: "Use $build-with-exa for the relevant part of this task."

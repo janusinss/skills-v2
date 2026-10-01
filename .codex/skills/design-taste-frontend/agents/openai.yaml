@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Taste Frontend"
+  short_description: "Anti-slop frontend skill for landing pages, portfolios, and..."
+  default_prompt: "Use $design-taste-frontend for the relevant part of this task."

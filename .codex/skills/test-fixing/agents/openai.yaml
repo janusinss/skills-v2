@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Fixing"
+  short_description: "Systematically identify and fix all failing tests using..."
+  default_prompt: "Use $test-fixing for the relevant part of this task."

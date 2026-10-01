@@ -1,0 +1,4 @@
+interface:
+  display_name: "Stripe Integration"
+  short_description: "Master Stripe payment processing integration for robust,..."
+  default_prompt: "Use $stripe-integration for the relevant part of this task."

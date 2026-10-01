@@ -1,0 +1,4 @@
+interface:
+  display_name: "Memory Safety Patterns"
+  short_description: "Cross-language patterns for memory-safe programming..."
+  default_prompt: "Use $memory-safety-patterns for the relevant part of this task."

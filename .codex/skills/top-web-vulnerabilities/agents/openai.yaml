@@ -1,0 +1,4 @@
+interface:
+  display_name: "Top Web Vulnerabilities"
+  short_description: "Provide a comprehensive, structured reference for the 100..."
+  default_prompt: "Use $top-web-vulnerabilities for the relevant part of this task."

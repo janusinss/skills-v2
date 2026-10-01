@@ -1,0 +1,4 @@
+interface:
+  display_name: "Go Concurrency Patterns"
+  short_description: "Master Go concurrency with goroutines, channels, sync..."
+  default_prompt: "Use $go-concurrency-patterns for the relevant part of this task."

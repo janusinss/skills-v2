@@ -1,0 +1,4 @@
+interface:
+  display_name: "Multiplayer"
+  short_description: "Multiplayer game development principles. Architecture,..."
+  default_prompt: "Use $multiplayer for the relevant part of this task."

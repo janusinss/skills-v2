@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Driven Development"
+  short_description: "Use when implementing any feature or bugfix, before writing..."
+  default_prompt: "Use $test-driven-development for the relevant part of this task."

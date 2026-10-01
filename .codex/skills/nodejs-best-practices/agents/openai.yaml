@@ -1,0 +1,4 @@
+interface:
+  display_name: "Nodejs Best Practices"
+  short_description: "Node.js development principles and decision-making...."
+  default_prompt: "Use $nodejs-best-practices for the relevant part of this task."

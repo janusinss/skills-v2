@@ -1,0 +1,4 @@
+interface:
+  display_name: "Copy Editing"
+  short_description: "You are an expert copy editor specializing in marketing and..."
+  default_prompt: "Use $copy-editing for the relevant part of this task."

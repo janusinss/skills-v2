@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fastapi Templates"
+  short_description: "Create production-ready FastAPI projects with async..."
+  default_prompt: "Use $fastapi-templates for the relevant part of this task."

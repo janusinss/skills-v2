@@ -1,0 +1,14 @@
+{
+  "name": "skills-codex-conversion-tools",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Audit and export a separate Codex edition of this skills collection.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "audit": "node audit.mjs",
+    "build": "node build.mjs",
+    "validate": "node validate.mjs"
+  },
+  "dependencies": { "yaml": "2.9.0" }
+}

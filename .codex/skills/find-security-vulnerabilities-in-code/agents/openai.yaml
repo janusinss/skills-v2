@@ -1,0 +1,4 @@
+interface:
+  display_name: "Find Security Vulnerabilities In Code"
+  short_description: "Review source code with Strix for security vulnerabilities..."
+  default_prompt: "Use $find-security-vulnerabilities-in-code for the relevant part of this task."

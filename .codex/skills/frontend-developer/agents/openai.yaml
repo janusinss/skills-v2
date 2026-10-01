@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Developer"
+  short_description: "Build React components, implement responsive layouts, and..."
+  default_prompt: "Use $frontend-developer for the relevant part of this task."

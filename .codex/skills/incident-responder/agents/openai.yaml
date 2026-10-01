@@ -1,0 +1,4 @@
+interface:
+  display_name: "Incident Responder"
+  short_description: "Expert SRE incident responder specializing in rapid problem..."
+  default_prompt: "Use $incident-responder for the relevant part of this task."

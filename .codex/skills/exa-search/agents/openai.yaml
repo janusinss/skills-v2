@@ -1,0 +1,4 @@
+interface:
+  display_name: "Exa Search"
+  short_description: "Call Exa Search directly with cURL or raw HTTP. Use when an..."
+  default_prompt: "Use $exa-search for the relevant part of this task."

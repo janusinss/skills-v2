@@ -1,0 +1,4 @@
+interface:
+  display_name: "Nextjs Best Practices"
+  short_description: "Next.js App Router principles. Server Components, data..."
+  default_prompt: "Use $nextjs-best-practices for the relevant part of this task."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prompt Enhancer"
+  short_description: "Clarify a task prompt when the user requests prompt..."
+  default_prompt: "Use $prompt-enhancer for the relevant part of this task."

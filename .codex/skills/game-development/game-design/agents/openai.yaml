@@ -1,0 +1,4 @@
+interface:
+  display_name: "Game Design"
+  short_description: "Game design principles. GDD structure, balancing, player..."
+  default_prompt: "Use $game-design for the relevant part of this task."

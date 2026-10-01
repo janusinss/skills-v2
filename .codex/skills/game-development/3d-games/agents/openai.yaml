@@ -1,0 +1,4 @@
+interface:
+  display_name: "3d Games"
+  short_description: "3D game development principles. Rendering, shaders, physics,..."
+  default_prompt: "Use $3d-games for the relevant part of this task."

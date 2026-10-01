@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ui Ux Pro Max"
+  short_description: "UI/UX design intelligence for web, mobile, and desktop. This..."
+  default_prompt: "Use $ui-ux-pro-max for the relevant part of this task."

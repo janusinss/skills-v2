@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lead Generation"
+  short_description: "Generate enriched lead lists using Exa Agent. Finds..."
+  default_prompt: "Use $lead-generation for the relevant part of this task."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Engine Selection"
+  short_description: "Selects game engines and frameworks by platform, genre, and..."
+  default_prompt: "Use $engine-selection for the relevant part of this task."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Game Audio"
+  short_description: "Game audio principles. Sound design, music integration,..."
+  default_prompt: "Use $game-audio for the relevant part of this task."

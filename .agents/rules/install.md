@@ -1,11 +1,22 @@
 ---
 trigger: manual
-description: One-time workspace bootstrapper. Installs global Playwright, downloads Chromium, verifies zero-scratch execution, cleans setup scripts, and self-deletes upon completion.
+description: Ask GPT / CODEX or AGY / GEMINI before installing this collection. The AGY branch bootstraps Playwright and verifies the installed runner.
 ---
 
 # One-Time Workspace Setup & Self-Destruct Installation Rule
 
-When this rule is referenced (`@install.md` or user asks to "install", "run setup", "configure workspace"), execute this sequence **immediately and autonomously**:
+## Edition Selection Before Setup
+
+This is the original AGY / GEMINI bootstrapper. Referencing `@install.md` or asking to install this skills repository does not select an edition. If the user has not already made an explicit choice for this installation, ask:
+
+> Which version would you like to install: GPT / CODEX or AGY / GEMINI?
+
+Wait for the answer before copying files or running setup. Do not infer the edition from the current assistant. If the user already specified the edition, reuse their choice. Routine dependency setup in an existing installation does not require selecting the edition again.
+
+- **GPT / CODEX:** Read the source checkout's root `INSTALL.md` and use `tools/codex/export.mjs` from that checkout. Install the converted payload and its `AGENTS.md` template. Do not run the AGY phases below.
+- **AGY / GEMINI:** Follow the original payload branch in the source checkout's `INSTALL.md`. After copying the original `.agents/`, `GEMINI.MD`, and `skills-lock.json` into the intended target, run the phases below from that target.
+
+Keep the source checkout and target paths distinct. Do not run self-cleanup in the source repository. Preserve existing user configuration and unrelated setup files.
 
 ---
 
@@ -55,45 +66,48 @@ Verify that the output contains `PLAYWRIGHT_VERIFIED_OK`.
 
 ## Phase 3: Global Policy Sync (Optional)
 
-If `~/.gemini` exists on the user's system, sync `GEMINI.MD` to `~/.gemini/GEMINI.md` to ensure design delegation and the ADHD protocol apply globally:
+Only if the user requests global Gemini instructions, sync `GEMINI.MD` to `~/.gemini/GEMINI.md` to apply this policy across projects. Preserve an existing global policy and review any merge rather than overwriting it automatically. The existence of `~/.gemini` alone does not authorize global synchronization.
+
+For a requested sync where the destination file is absent:
 
 **Windows (PowerShell):**
 ```powershell
-if (Test-Path "$env:USERPROFILE\.gemini") { Copy-Item "GEMINI.MD" "$env:USERPROFILE\.gemini\GEMINI.md" -Force }
+$globalGeminiPolicy = Join-Path $env:USERPROFILE '.gemini/GEMINI.md'
+if ((Test-Path -LiteralPath (Split-Path -Parent $globalGeminiPolicy)) -and -not (Test-Path -LiteralPath $globalGeminiPolicy)) { Copy-Item -LiteralPath 'GEMINI.MD' -Destination $globalGeminiPolicy }
 ```
 
 **macOS / Linux (Bash):**
 ```bash
-[ -d "$HOME/.gemini" ] && cp GEMINI.MD "$HOME/.gemini/GEMINI.md"
+if [ -d "$HOME/.gemini" ] && [ ! -e "$HOME/.gemini/GEMINI.md" ]; then cp -n GEMINI.MD "$HOME/.gemini/GEMINI.md"; fi
 ```
 
 ---
 
 ## Phase 4: Self-Destruct & Ephemeral Cleanup
 
-Once Phase 1, Phase 2, and Phase 3 are complete and verified, **immediately delete all temporary setup artifacts and this rule file itself** so the target workspace stays 100% clean:
+Once required setup is verified, delete only temporary setup artifacts created for this installation in the target. This installed rule may self-delete in the target; retain the source checkout's copy. Skip Phase 3 unless requested. Do not delete unrelated existing files merely because their names match the examples below.
 
-### Files to delete:
-1. `install.ps1` (if present in root)
-2. `install.sh` (if present in root)
-3. `install.md` (if present in root)
-4. `.agents/rules/install.md` (this rule file itself)
+### Eligible cleanup files:
+1. `install.ps1`, `install.sh`, or root `install.md`, only if created as temporary setup artifacts for this installation
+2. The `.agents/rules/install.md` copy installed into this target during this installation
+
+Populate the cleanup list from the files actually created for this operation. The commands below remove only the installed rule; add other verified temporary paths individually if needed.
 
 **Windows (PowerShell):**
 ```powershell
-@("install.ps1", "install.sh", "install.md", ".agents\rules\install.md") | ForEach-Object { if (Test-Path $_) { Remove-Item -Force $_ } }
+Remove-Item -LiteralPath '.agents/rules/install.md'
 ```
 
 **macOS / Linux (Bash):**
 ```bash
-rm -f install.ps1 install.sh install.md .agents/rules/install.md
+rm -f .agents/rules/install.md
 ```
 
 ---
 
 ## Phase 5: Final Report to User
 Report to the user:
-1. Global Playwright and Chromium are verified and ready.
-2. In-memory zero-scratch browser execution passed.
-3. All temporary setup scripts and `.agents/rules/install.md` have self-deleted.
-4. Target workspace is clean and fully configured.
+1. AGY / GEMINI was selected, with the absolute target path.
+2. Playwright and Chromium setup and in-memory verification results that actually ran.
+3. The setup files removed, and whether optional global policy sync was requested.
+4. Any remaining dependency or host-discovery checks.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Api Security Best Practices"
+  short_description: "Implement secure API design patterns including..."
+  default_prompt: "Use $api-security-best-practices for the relevant part of this task."

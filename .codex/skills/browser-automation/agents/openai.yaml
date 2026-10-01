@@ -1,0 +1,4 @@
+interface:
+  display_name: "Browser Automation"
+  short_description: "Browser automation powers web testing, scraping, and AI..."
+  default_prompt: "Use $browser-automation for the relevant part of this task."

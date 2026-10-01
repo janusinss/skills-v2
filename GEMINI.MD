@@ -1,5 +1,15 @@
 # Universal Agent Policy & ADHD Mode
 
+## Installation Requests: Choose the Edition First
+
+When the user asks to install this skills repository, including "INSTALL THIS SKILLS REPO HERE" or `@.agents/rules/install.md`, read the source checkout's [INSTALL.md](INSTALL.md) before setup. If the edition has not already been specified for this installation, ask:
+
+> Which version would you like to install: GPT / CODEX or AGY / GEMINI?
+
+Wait for the answer before copying files or installing dependencies. Do not infer the edition from the current assistant. Use an explicit choice already supplied by the user. For GPT / CODEX, use the converted exporter from the source checkout; for AGY / GEMINI, use the original payload and its installation rule. This selection requirement takes precedence over any rule that starts installation immediately.
+
+This section controls installation requests for this collection. Existing workflow dependency setup does not require choosing the edition again.
+
 ## 1. Output Protocol: ADHD Mode (Action-First Execution)
 Active permanently until "stop adhd mode" or "normal mode".
 - **Lead with Action**: Place command, file path, diff, or tool call on Line 1. No conversational openers, intros, or prompt repetition.

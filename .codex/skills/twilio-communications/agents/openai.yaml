@@ -1,0 +1,4 @@
+interface:
+  display_name: "Twilio Communications"
+  short_description: "Build communication features with Twilio: SMS messaging,..."
+  default_prompt: "Use $twilio-communications for the relevant part of this task."

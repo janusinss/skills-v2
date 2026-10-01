@@ -1,6 +1,6 @@
 # Agent Skills & Workspace Configurations
 
-A curated collection of **173 production-grade AI agent skills**, architectural rules, and automated workflow hooks for modern AI coding assistants (Google Antigravity, Claude Code, Cursor, and Gemini).
+A collection of **173 top-level AI agent skills**, architectural rules, and workflow resources, with separate **AGY / Gemini** and **GPT / Codex** editions.
 
 ---
 
@@ -12,7 +12,11 @@ A curated collection of **173 production-grade AI agent skills**, architectural 
 │   ├── rules/             # 8 architectural guidelines & proactive rules (UI, backend, security, testing, install)
 │   ├── skills/            # 173 specialized agent skills across 12 engineering domains
 │   └── resources/         # Creative libraries, shader utilities, and ambient types
-├── GEMINI.MD              # Universal agent policy: design delegation, dispatch matrix & ADHD protocol
+├── .codex/                # Active GPT / Codex skills, rules, and resources
+├── tools/codex/           # Conversion, validation, and Codex export tools
+├── AGENTS.md              # Activates converted Codex guidance and routes installation
+├── INSTALL.md             # Shared installer: ask GPT / CODEX or AGY / GEMINI
+├── GEMINI.MD              # Original AGY / Gemini workspace policy and installer routing
 ├── skills-lock.json       # Skill dependency manifest and integrity lockfile
 └── .gitignore             # Environment and ephemeral file ignore rules
 ```
@@ -21,37 +25,42 @@ A curated collection of **173 production-grade AI agent skills**, architectural 
 
 ## 🚀 Quick Install & Setup
 
-### Option 1: AI Agent Mode (Prompt-Based & Self-Cleaning)
-Inside your AI coding assistant (Google Antigravity, Claude Code, Cursor), tell the agent:
-> *"Install the skills from https://github.com/janusinss/skills-v2 and run `@.agents/rules/install.md` to configure the workspace."*
+### AI Agent Mode
 
-The agent copies `.agents/` and `GEMINI.MD`, runs global Playwright/Chromium setup, verifies in-memory execution, and deletes `install.md` upon completion.
+Inside your coding assistant, say:
 
-### Option 2: Clone & Setup (Manual)
+> "Install this skills repo here: https://github.com/janusinss/skills-v2. Read its INSTALL.md first."
 
-**Windows (PowerShell):**
-```powershell
-git clone https://github.com/janusinss/skills-v2.git temp-skills
-Copy-Item -Recurse -Path "temp-skills\.agents" -Destination ".\.agents"
-Copy-Item -Path "temp-skills\GEMINI.MD", "temp-skills\skills-lock.json" -Destination ".\"
-Remove-Item -Recurse -Force "temp-skills"
-npm install -g playwright; npx playwright install chromium
-```
+The agent follows [INSTALL.md](INSTALL.md) and asks:
 
-**macOS / Linux (Bash):**
-```bash
-git clone https://github.com/janusinss/skills-v2.git temp-skills
-cp -r temp-skills/.agents ./
-cp temp-skills/GEMINI.MD temp-skills/skills-lock.json ./
-rm -rf temp-skills
-npm install -g playwright && npx playwright install chromium
-```
+> **Which version would you like to install: GPT / CODEX or AGY / GEMINI?**
+
+It waits for your choice, then installs that edition into the current target project. You can still use "INSTALL THIS SKILLS REPO HERE" when the agent already has this checkout. To skip the choice, specify the edition in your request, such as "Install the Codex edition here."
+
+| Choice | Payload | Target instruction file |
+| --- | --- | --- |
+| GPT / CODEX | Converted `.codex/` edition, exported to `.agents/` in target projects | `AGENTS.md` |
+| AGY / GEMINI | Original `.agents/` tree and `skills-lock.json` | `GEMINI.MD` |
+
+The root `AGENTS.md` and `GEMINI.MD` route installation requests through the same choice. The original `@.agents/rules/install.md` entry point also checks the edition before setup.
+
+### Manual Setup
+
+Clone this repository separately from the target project, then follow the selected branch in [INSTALL.md](INSTALL.md). Codex export commands, profiles, and optional hooks are documented in [.codex/README.md](.codex/README.md).
+
+### Active Codex Edition in This Repository
+
+The local Codex loader discovers all 190 converted skills under `.codex/skills/`. Root `AGENTS.md` loads the converted guidance and selects `.codex/` paths when working here. Both editions can appear in this collection's skill catalog; root instructions prefer the converted copy when names match. The `.agents/` payload remains available to AGY / Gemini. Restart Codex to reload project instructions. Exported target projects use the documented `.agents/skills/` layout and contain only the selected edition.
+
+### Codex Global Instructions
+
+Use `~/.codex/AGENTS.md` for general instructions across projects. On Windows, this is `%USERPROFILE%\.codex\AGENTS.md`. `CODEX_HOME` can change that directory, and a nonempty `AGENTS.override.md` takes precedence. Each target project can also have its own root `AGENTS.md`. See [OpenAI's instruction guide](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
 
 ---
 
 ## 🔄 Updating Skills
 
-To update all installed upstream skills to their latest versions while cleaning any CLI-generated symlinks (`playwright-skill` is decoupled from `skills-lock.json` to permanently protect `lib/helpers.js` and local dependencies from being overwritten):
+For the original AGY / Gemini edition, update upstream skills while cleaning CLI-generated symlinks (`playwright-skill` is decoupled from `skills-lock.json` to protect `lib/helpers.js` and local dependencies from being overwritten):
 
 **Windows (PowerShell):**
 ```powershell
@@ -62,6 +71,8 @@ npx skills update -y; if (Test-Path .claude) { Remove-Item -Recurse -Force .clau
 ```bash
 npx skills update -y && rm -rf .claude
 ```
+
+For the Codex edition, update the source collection, rebuild and validate it with `tools/codex/`, then review and merge the converted updates into the target. Its exporter refuses existing files; the original updater lockfile does not describe converted skill hashes.
 
 ---
 
@@ -87,7 +98,7 @@ Foundational architectural guidelines, proactive quality floors, and execution p
 | [`backend.md`](.agents/rules/backend.md) | `model_decision` | Database schemas, ORMs, API routes, or data layers | Production persistence standards: service/repository separation, connection pooling, schema integrity, atomic transaction boundaries, and backend skill dispatching. |
 | [`security.md`](.agents/rules/security.md) | `model_decision` | Server routing, configs, auth, APIs, or data intake | Zero-trust DevSecOps: 7 defensive hardening phases, plaintext secret eradication, Argon2id/bcrypt auth, anti-CSRF architecture, strict CORS, error suppression, and negative TDD. |
 | [`penetrating-and-testing.md`](.agents/rules/penetrating-and-testing.md) | `manual` | Dynamic pentesting, exploit auditing, or full-surface QA | Dual-surface validation: Strix autonomous exploit validation with working PoCs, machine-readable `vulnerabilities.json` generation, and Playwright functional QA across 5 UI states (Empty, Loading, Error, Partial, Ideal). |
-| [`install.md`](.agents/rules/install.md) | `manual` | Initial workspace setup or onboarding (`@install.md`) | One-time bootstrapper: installs global Playwright, downloads Chromium, verifies zero-scratch browser execution, cleans symlinks, and self-deletes upon completion. |
+| [`install.md`](.agents/rules/install.md) | `manual` | Initial workspace setup or onboarding (`@install.md`) | Checks GPT / CODEX or AGY / GEMINI first; the AGY branch runs the legacy Playwright bootstrapper and target-only setup cleanup. |
 
 ### Rule Lifecycle & Interaction Map
 

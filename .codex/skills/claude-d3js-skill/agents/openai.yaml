@@ -1,0 +1,4 @@
+interface:
+  display_name: "Claude D3js Skill"
+  short_description: "This skill provides guidance for creating sophisticated,..."
+  default_prompt: "Use $claude-d3js-skill for the relevant part of this task."

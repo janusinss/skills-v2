@@ -1,0 +1,4 @@
+interface:
+  display_name: "Langfuse"
+  short_description: "Expert in Langfuse - the open-source LLM observability..."
+  default_prompt: "Use $langfuse for the relevant part of this task."

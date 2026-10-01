@@ -1,0 +1,4 @@
+interface:
+  display_name: "Nextjs App Router Patterns"
+  short_description: "Comprehensive patterns for Next.js 14+ App Router..."
+  default_prompt: "Use $nextjs-app-router-patterns for the relevant part of this task."

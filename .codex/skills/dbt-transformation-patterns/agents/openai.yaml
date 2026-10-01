@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dbt Transformation Patterns"
+  short_description: "Production-ready patterns for dbt (data build tool)..."
+  default_prompt: "Use $dbt-transformation-patterns for the relevant part of this task."

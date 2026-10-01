@@ -1,0 +1,4 @@
+interface:
+  display_name: "Startup Metrics Framework"
+  short_description: "Comprehensive guide to tracking, calculating, and optimizing..."
+  default_prompt: "Use $startup-metrics-framework for the relevant part of this task."

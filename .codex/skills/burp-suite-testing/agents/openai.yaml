@@ -1,0 +1,4 @@
+interface:
+  display_name: "Burp Suite Testing"
+  short_description: "Execute comprehensive web application security testing using..."
+  default_prompt: "Use $burp-suite-testing for the relevant part of this task."

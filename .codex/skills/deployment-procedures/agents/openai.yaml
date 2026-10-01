@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deployment Procedures"
+  short_description: "Production deployment principles and decision-making. Safe..."
+  default_prompt: "Use $deployment-procedures for the relevant part of this task."

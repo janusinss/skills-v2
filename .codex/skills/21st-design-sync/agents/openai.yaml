@@ -1,0 +1,4 @@
+interface:
+  display_name: "21st Design Sync"
+  short_description: "Synchronize a project design system with 21st design context..."
+  default_prompt: "Use $21st-design-sync for the relevant part of this task."

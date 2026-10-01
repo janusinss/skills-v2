@@ -1,0 +1,4 @@
+interface:
+  display_name: "Concise Planning"
+  short_description: "Use when a user asks for a plan for a coding task, to..."
+  default_prompt: "Use $concise-planning for the relevant part of this task."

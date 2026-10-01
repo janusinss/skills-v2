@@ -1,0 +1,4 @@
+interface:
+  display_name: "Market Sizing Analysis"
+  short_description: "Comprehensive market sizing methodologies for calculating..."
+  default_prompt: "Use $market-sizing-analysis for the relevant part of this task."

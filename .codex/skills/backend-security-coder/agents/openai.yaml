@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backend Security Coder"
+  short_description: "Expert in secure backend coding practices specializing in..."
+  default_prompt: "Use $backend-security-coder for the relevant part of this task."

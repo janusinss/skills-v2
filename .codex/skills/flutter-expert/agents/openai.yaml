@@ -1,0 +1,4 @@
+interface:
+  display_name: "Flutter Expert"
+  short_description: "Master Flutter development with Dart 3, advanced widgets,..."
+  default_prompt: "Use $flutter-expert for the relevant part of this task."

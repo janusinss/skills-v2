@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mobile Games"
+  short_description: "Mobile game development principles. Touch input, battery,..."
+  default_prompt: "Use $mobile-games for the relevant part of this task."

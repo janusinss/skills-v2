@@ -1,0 +1,4 @@
+interface:
+  display_name: "Startup Financial Modeling"
+  short_description: "Build comprehensive 3-5 year financial models with revenue..."
+  default_prompt: "Use $startup-financial-modeling for the relevant part of this task."

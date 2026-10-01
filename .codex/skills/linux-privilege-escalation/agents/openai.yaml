@@ -1,0 +1,4 @@
+interface:
+  display_name: "Linux Privilege Escalation"
+  short_description: "Execute systematic privilege escalation assessments on Linux..."
+  default_prompt: "Use $linux-privilege-escalation for the relevant part of this task."

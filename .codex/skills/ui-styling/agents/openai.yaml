@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ui Styling"
+  short_description: "Create beautiful, accessible user interfaces with shadcn/ui..."
+  default_prompt: "Use $ui-styling for the relevant part of this task."

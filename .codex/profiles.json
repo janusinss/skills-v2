@@ -1,0 +1,31 @@
+{
+  "minimal": [
+    "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
+    "frontend-design", "backend-dev-guidelines", "api-security-best-practices", "playwright-skill"
+  ],
+  "frontend": [
+    "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
+    "21st-ai", "21st-cli-use", "21st-design-sync", "21st-registry", "21st-ui-build", "21st-ui-explore", "21st-ui-review",
+    "frontend-design", "frontend-developer", "frontend-security-coder", "impeccable", "ui-ux-pro-max", "ui-styling",
+    "design-taste-frontend", "design-system", "awesome-design-md", "brandkit", "tailwind-patterns", "react-best-practices",
+    "react-patterns", "nextjs-best-practices", "nextjs-app-router-patterns", "javascript-pro", "typescript-expert",
+    "redesign-existing-projects", "image-to-code", "imagegen-frontend-web", "avoid-ai-writing", "playwright-skill", "e2e-testing-patterns"
+  ],
+  "backend": [
+    "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
+    "prompt-enhancer-backend", "backend-dev-guidelines", "backend-security-coder", "api-patterns", "api-security-best-practices",
+    "architecture-patterns", "senior-architect", "architecture-decision-records", "database-architect", "database-design",
+    "postgres-best-practices", "sql-pro", "auth-implementation-patterns", "nodejs-best-practices", "typescript-expert",
+    "javascript-pro", "python-patterns", "python-pro", "python-testing-patterns", "async-python-patterns", "fastapi-pro",
+    "fastapi-templates", "django-pro", "golang-pro", "go-concurrency-patterns", "observability-engineer", "test-driven-development",
+    "test-fixing", "docker-expert"
+  ],
+  "security": [
+    "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
+    "security-auditor", "backend-security-coder", "frontend-security-coder", "api-security-best-practices",
+    "auth-implementation-patterns", "ethical-hacking-methodology", "top-web-vulnerabilities", "vulnerability-scanner",
+    "penetration-testing-with-strix", "managed-pentesting-with-strix", "find-security-vulnerabilities-in-code",
+    "api-security-testing", "application-security-testing", "web-app-penetration-testing", "owasp-top-10-testing",
+    "fix-security-vulnerabilities-with-strix", "ci-security-scanning-with-strix", "cc-skill-security-review", "playwright-skill"
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Playwright Skill"
+  short_description: "Automate and verify websites with Playwright. Use for..."
+  default_prompt: "Use $playwright-skill for the relevant part of this task."

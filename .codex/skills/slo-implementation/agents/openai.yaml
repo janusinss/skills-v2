@@ -1,0 +1,4 @@
+interface:
+  display_name: "Slo Implementation"
+  short_description: "Framework for defining and implementing Service Level..."
+  default_prompt: "Use $slo-implementation for the relevant part of this task."

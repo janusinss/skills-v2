@@ -1,0 +1,4 @@
+interface:
+  display_name: "Observability Engineer"
+  short_description: "Build production-ready monitoring, logging, and tracing..."
+  default_prompt: "Use $observability-engineer for the relevant part of this task."

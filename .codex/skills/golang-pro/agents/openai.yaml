@@ -1,0 +1,4 @@
+interface:
+  display_name: "Golang Pro"
+  short_description: "Master Go 1.21+ with modern patterns, advanced concurrency,..."
+  default_prompt: "Use $golang-pro for the relevant part of this task."

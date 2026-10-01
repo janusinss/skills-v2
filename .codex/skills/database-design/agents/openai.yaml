@@ -1,0 +1,4 @@
+interface:
+  display_name: "Database Design"
+  short_description: "Database design principles and decision-making. Schema..."
+  default_prompt: "Use $database-design for the relevant part of this task."

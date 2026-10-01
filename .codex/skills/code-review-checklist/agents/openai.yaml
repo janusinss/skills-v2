@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Review Checklist"
+  short_description: "Comprehensive checklist for conducting thorough code reviews..."
+  default_prompt: "Use $code-review-checklist for the relevant part of this task."

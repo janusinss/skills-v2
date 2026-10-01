@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Taste Frontend V1"
+  short_description: "The original v1 taste-skill, preserved for projects..."
+  default_prompt: "Use $design-taste-frontend-v1 for the relevant part of this task."

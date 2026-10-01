@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scroll Experience"
+  short_description: "Expert in building immersive scroll-driven experiences -..."
+  default_prompt: "Use $scroll-experience for the relevant part of this task."

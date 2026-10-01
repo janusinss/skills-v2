@@ -1,0 +1,4 @@
+interface:
+  display_name: "Environment Setup Guide"
+  short_description: "Guide developers through setting up development environments..."
+  default_prompt: "Use $environment-setup-guide for the relevant part of this task."

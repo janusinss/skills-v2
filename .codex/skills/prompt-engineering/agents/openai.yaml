@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prompt Engineering"
+  short_description: "Expert guide on prompt engineering patterns, best practices,..."
+  default_prompt: "Use $prompt-engineering for the relevant part of this task."

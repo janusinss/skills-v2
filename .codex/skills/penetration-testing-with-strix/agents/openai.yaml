@@ -1,0 +1,4 @@
+interface:
+  display_name: "Penetration Testing With Strix"
+  short_description: "Run an authorized penetration test with Strix and report..."
+  default_prompt: "Use $penetration-testing-with-strix for the relevant part of this task."

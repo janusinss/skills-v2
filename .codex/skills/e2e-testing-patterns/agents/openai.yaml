@@ -1,0 +1,4 @@
+interface:
+  display_name: "E2e Testing Patterns"
+  short_description: "Build reliable, fast, and maintainable end-to-end test..."
+  default_prompt: "Use $e2e-testing-patterns for the relevant part of this task."

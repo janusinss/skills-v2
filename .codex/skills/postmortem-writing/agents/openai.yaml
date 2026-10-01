@@ -1,0 +1,4 @@
+interface:
+  display_name: "Postmortem Writing"
+  short_description: "Comprehensive guide to writing effective, blameless..."
+  default_prompt: "Use $postmortem-writing for the relevant part of this task."

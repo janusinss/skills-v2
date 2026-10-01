@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cpp Pro"
+  short_description: "Write idiomatic C++ code with modern features, RAII, smart..."
+  default_prompt: "Use $cpp-pro for the relevant part of this task."

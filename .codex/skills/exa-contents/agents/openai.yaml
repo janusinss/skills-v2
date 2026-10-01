@@ -1,0 +1,4 @@
+interface:
+  display_name: "Exa Contents"
+  short_description: "Call Exa Contents directly with cURL or raw HTTP. Use when..."
+  default_prompt: "Use $exa-contents for the relevant part of this task."

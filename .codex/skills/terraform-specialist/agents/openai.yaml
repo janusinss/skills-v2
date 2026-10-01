@@ -1,0 +1,4 @@
+interface:
+  display_name: "Terraform Specialist"
+  short_description: "Expert Terraform/OpenTofu specialist mastering advanced IaC..."
+  default_prompt: "Use $terraform-specialist for the relevant part of this task."

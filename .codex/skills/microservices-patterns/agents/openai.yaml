@@ -1,0 +1,4 @@
+interface:
+  display_name: "Microservices Patterns"
+  short_description: "Master microservices architecture patterns including service..."
+  default_prompt: "Use $microservices-patterns for the relevant part of this task."

@@ -1,0 +1,14 @@
+# Install the Codex edition
+
+Use this guidance after the GPT / CODEX edition has been selected. For a generic request to install this skills repository without an explicit edition choice, first ask: "Which version would you like to install: GPT / CODEX or AGY / GEMINI?" Wait for the answer before installation. Reuse an explicit choice already given for this installation. If AGY / GEMINI is selected, follow the original payload branch in the source checkout's `INSTALL.md` instead of this rule. Routine dependency setup in an existing Codex installation does not require selecting the edition again.
+
+Repository-local installation is the default.
+
+1. From the source collection, run `node tools/codex/export.mjs --target <absolute-project-path> --profile all`. Preview the operation with `--dry-run`. Choose a smaller named profile when the user wants a domain-specific set. The exporter refuses to overwrite existing destination files or follow symlink destinations.
+2. Open the target project in Codex or launch Codex from that project root. Confirm that `AGENTS.md` is present and that `/skills` lists the expected skills in the CLI/IDE. Restart the client if changes do not appear. Host discovery and trust must be checked in that client.
+3. Install external dependencies only for a workflow that needs them. For the bundled Playwright runner, Node.js and Playwright are required. From `.agents/skills/playwright-skill`, `npm run setup` installs its local dependencies and Chromium. Use an existing browser capability when appropriate. Do not automatically install global npm packages.
+4. Optional Impeccable lifecycle hooks are supplied as `hooks.example.json` in the distribution. The exporter installs them only with `--include-hooks`, at `.codex/hooks.json`. Codex requires review and trust of hook definitions; the installed launcher may download its engine on first use. Check this dependency before enabling hooks.
+
+Keep setup instructions for future repairs. Do not delete this rule after installation, overwrite existing user configuration, or copy repository-specific instructions into `~/.codex/AGENTS.md` automatically. Installing this collection does not configure external MCP servers, hosted providers, or accounts.
+
+Local filesystem discovery covers the supported Codex/local desktop workflow. ChatGPT on the web needs a supported skill or plugin installation mechanism; merely uploading these files is not an installation procedure. See the distribution README for verified sources and client-specific invocation.

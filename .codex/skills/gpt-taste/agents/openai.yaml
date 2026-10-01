@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gpt Taste"
+  short_description: "Elite UX/UI & Advanced GSAP Motion Engineer. Enforces..."
+  default_prompt: "Use $gpt-taste for the relevant part of this task."

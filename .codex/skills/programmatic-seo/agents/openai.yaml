@@ -1,0 +1,4 @@
+interface:
+  display_name: "Programmatic Seo"
+  short_description: "Design and evaluate programmatic SEO strategies for creating..."
+  default_prompt: "Use $programmatic-seo for the relevant part of this task."

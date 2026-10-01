@@ -1,0 +1,4 @@
+interface:
+  display_name: "Kpi Dashboard Design"
+  short_description: "Comprehensive patterns for designing effective Key..."
+  default_prompt: "Use $kpi-dashboard-design for the relevant part of this task."

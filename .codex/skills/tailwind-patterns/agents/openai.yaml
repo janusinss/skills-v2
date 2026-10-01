@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tailwind Patterns"
+  short_description: "Tailwind CSS v4 principles. CSS-first configuration,..."
+  default_prompt: "Use $tailwind-patterns for the relevant part of this task."

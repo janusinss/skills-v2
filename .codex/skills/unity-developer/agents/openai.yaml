@@ -1,0 +1,4 @@
+interface:
+  display_name: "Unity Developer"
+  short_description: "Build Unity games with optimized C# scripts, efficient..."
+  default_prompt: "Use $unity-developer for the relevant part of this task."

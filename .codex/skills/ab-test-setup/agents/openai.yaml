@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ab Test Setup"
+  short_description: "Structured guide for setting up A/B tests with mandatory..."
+  default_prompt: "Use $ab-test-setup for the relevant part of this task."

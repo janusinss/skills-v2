@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prompt Enhancer Frontend"
+  short_description: "Clarify frontend requirements, components, and interaction..."
+  default_prompt: "Use $prompt-enhancer-frontend for the relevant part of this task."

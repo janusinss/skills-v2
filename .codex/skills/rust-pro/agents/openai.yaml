@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rust Pro"
+  short_description: "Master Rust 1.75+ with modern async patterns, advanced type..."
+  default_prompt: "Use $rust-pro for the relevant part of this task."

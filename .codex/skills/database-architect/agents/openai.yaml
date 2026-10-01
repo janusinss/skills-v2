@@ -1,0 +1,4 @@
+interface:
+  display_name: "Database Architect"
+  short_description: "Expert database architect specializing in data layer design..."
+  default_prompt: "Use $database-architect for the relevant part of this task."

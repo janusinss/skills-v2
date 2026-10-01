@@ -1,0 +1,4 @@
+interface:
+  display_name: "Systematic Debugging"
+  short_description: "Use when encountering any bug, test failure, or unexpected..."
+  default_prompt: "Use $systematic-debugging for the relevant part of this task."

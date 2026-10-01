@@ -1,0 +1,4 @@
+interface:
+  display_name: "React Best Practices"
+  short_description: "Comprehensive performance optimization guide for React and..."
+  default_prompt: "Use $react-best-practices for the relevant part of this task."

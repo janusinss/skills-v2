@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fastapi Pro"
+  short_description: "Build high-performance async APIs with FastAPI, SQLAlchemy..."
+  default_prompt: "Use $fastapi-pro for the relevant part of this task."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architecture Decision Records"
+  short_description: "Comprehensive patterns for creating, maintaining, and..."
+  default_prompt: "Use $architecture-decision-records for the relevant part of this task."

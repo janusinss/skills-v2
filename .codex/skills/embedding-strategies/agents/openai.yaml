@@ -1,0 +1,4 @@
+interface:
+  display_name: "Embedding Strategies"
+  short_description: "Guide to selecting and optimizing embedding models for..."
+  default_prompt: "Use $embedding-strategies for the relevant part of this task."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backend Dev Guidelines"
+  short_description: "You are a senior backend engineer operating production-grade..."
+  default_prompt: "Use $backend-dev-guidelines for the relevant part of this task."

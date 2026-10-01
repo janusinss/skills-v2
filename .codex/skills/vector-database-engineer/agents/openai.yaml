@@ -1,0 +1,4 @@
+interface:
+  display_name: "Vector Database Engineer"
+  short_description: "Expert in vector databases, embedding strategies, and..."
+  default_prompt: "Use $vector-database-engineer for the relevant part of this task."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Distributed Tracing"
+  short_description: "Implement distributed tracing with Jaeger and Tempo for..."
+  default_prompt: "Use $distributed-tracing for the relevant part of this task."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Imagegen Frontend Web"
+  short_description: "Elite frontend image-direction skill for generating premium,..."
+  default_prompt: "Use $imagegen-frontend-web for the relevant part of this task."
