@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-10-01",
   "originalSnapshot": {
-    "digest": "493d6e87a7f0c144d2fc83850c55d44b71ff22dad4bc1e76ccf486753aa2d992",
+    "digest": "4f0c5b7133a6695992b2ce7873b44f1046f80cc53aa32da07a04ab18f8966be1",
     "files": {
       ".agents/hooks.json": "b7a28b6ef3f4f6284c9c40d49fa72107c6b6dd3a9f8ebce1e70473cab7f5ff6f",
       ".agents/resources/creative-libraries/README.md": "3a771a19ff9d37c9c2f147bd678f8d4ebc6a1cb0d0e51f74b9e58124678b2248",
@@ -302,7 +302,7 @@
       ".agents/rules/UI_Always.md": "76fc33464e945d657843a1023403ee53be9f3da3e9ccbfcb981f3dfbd186ce03",
       ".agents/rules/backend.md": "caaef934a5ea22007ec9bf420d93b7b83ad40bb684ea235c59d0e3271c91838f",
       ".agents/rules/frontend.md": "c644ed43103b1fa519890fa3adb549c9ea827189e4dde4e35ea03cf465039870",
-      ".agents/rules/install.md": "9c476e70d4c5fcf7807781909653f658217ceb36abef021eb1b34ad7060c6f8b",
+      ".agents/rules/install.md": "33291998d1142fe36ab9687491940eaf51475d73feb6a45f7696291e7ab85143",
       ".agents/rules/penetrating-and-testing.md": "2ef6a0eb5219a64a904ccb964b6381cf28097c2dae3c7cc36f48cefe7f54a145",
       ".agents/rules/security.md": "bdd2a70af5f84c4300ebcda55cda72758c11fed96ccc148909a8462178dbd02a",
       ".agents/rules/starting-brandnew.md": "d52710dd919e64016ac1ca020b0936b39d942e5564c337fd085ffaa88bc1b32e",
@@ -1830,8 +1830,8 @@
       ".agents/skills/vulnerability-scanner/scripts/security_scan.py": "5a066b5ffeb57b29187aaa83f570279cb3b05f39521169a4ae407d19d37dc482",
       ".agents/skills/web-app-penetration-testing/SKILL.md": "2e8df0b9233971c496d0c0c7660808fc717c08d4165455a0423229045389608a",
       ".gitignore": "ab5b1bfacf8dfa2edb0399b5a59477cc832ea09c4c5302458f402853b3a2831d",
-      "GEMINI.MD": "37f1b40baff2588353cd2c08cd175c3fb586e7f31bc7e32edc604a412a74998a",
-      "README.MD": "254bc62ee1e1672c21459e4b29b0c13dbac6d8155e585a281da51eb806d42c87",
+      "GEMINI.MD": "3552b9a4fc699f80543b8f08361b80223e5a9f9fb035112d6bf87f6e544f2e0a",
+      "README.MD": "1f45291fc989ecac783094ad000676210356d5148d18015fc8c56692046f3fc0",
       "skills-lock.json": "6306802d53b815d85580efb318d8d78dc74f08621b855fcdbdc325ffcccde19d"
     }
   },
@@ -11825,8 +11825,8 @@
     },
     "rules/install.md": {
       "source": "tools/codex/templates/rules/install.md",
-      "sourceHash": "e72fe161db1392a72c3c9ccbe80db00db6e8ad46d0717f5504abe9ea1af4081a",
-      "outputHash": "e72fe161db1392a72c3c9ccbe80db00db6e8ad46d0717f5504abe9ea1af4081a"
+      "sourceHash": "3e73e3ed1aa9235d0d2eaac20764b72f990bc58745f3967e8d44a40ce05de196",
+      "outputHash": "3e73e3ed1aa9235d0d2eaac20764b72f990bc58745f3967e8d44a40ce05de196"
     },
     "rules/penetrating-and-testing.md": {
       "source": ".agents/rules/penetrating-and-testing.md",
@@ -11850,13 +11850,13 @@
     },
     "rules/UI_Always.md": {
       "source": "tools/codex/templates/rules/UI_Always.md",
-      "sourceHash": "abf34ef7553e678a0cc4878a9591791bef3d2152996a31c4a89b3a8ac2fbb751",
-      "outputHash": "ce66a15785efd2efed98ad8b7c806f1dff793426dab8ebbc62d6fd315a7eded4"
+      "sourceHash": "eb9b1e7a5cde30e1068d381d6c323b93faf6151c128429017893cebd0c846444",
+      "outputHash": "eb9b1e7a5cde30e1068d381d6c323b93faf6151c128429017893cebd0c846444"
     },
-    "AGENTS.template.md": {
-      "source": "tools/codex/templates/AGENTS.template.md",
-      "sourceHash": "3f3f809e5fb9adecc672db1365bc8e7dc3ea21db698708f398eba942a8f03a2c",
-      "outputHash": "3f3f809e5fb9adecc672db1365bc8e7dc3ea21db698708f398eba942a8f03a2c"
+    "AGENTS.md": {
+      "source": "AGENTS.md",
+      "sourceHash": "fa306ea7f7a2d7883ea6e1fcb43ba64f3147975799727db67fac74116d1d02f8",
+      "outputHash": "fa306ea7f7a2d7883ea6e1fcb43ba64f3147975799727db67fac74116d1d02f8"
     },
     "hooks.example.json": {
       "source": ".agents/hooks.json",

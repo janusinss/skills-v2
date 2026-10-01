@@ -1,14 +1,36 @@
-# Install the Codex edition
+# One-time Codex installation and cleanup
 
 Use this guidance after the GPT / CODEX edition has been selected. For a generic request to install this skills repository without an explicit edition choice, first ask: "Which version would you like to install: GPT / CODEX or AGY / GEMINI?" Wait for the answer before installation. Reuse an explicit choice already given for this installation. If AGY / GEMINI is selected, follow the original payload branch in the source checkout's `INSTALL.md` instead of this rule. Routine dependency setup in an existing Codex installation does not require selecting the edition again.
 
-Repository-local installation is the default.
+After GPT / CODEX is selected, read and execute this rule automatically as part of the same installation request. The selected edition authorizes the local setup below; do not ask the user to invoke `install.md` separately. Host permissions and network approvals still apply. Keep the source checkout separate from the recorded absolute target project.
 
-1. From the source collection, run `node tools/codex/export.mjs --target <absolute-project-path> --profile all`. Node.js 20 or newer is the only installation prerequisite. The committed bundle is prebuilt: do not run `npm ci`, the converter, source validation, submodule initialization, or the AGY bootstrapper for a normal Codex installation. The exporter verifies the bundle and installs `.codex/` plus root `AGENTS.md` directly. Preview with `--dry-run` when needed. Choose a smaller named profile only when requested. Existing destination files and symlink destinations are refused. If integrity fails, report the error and use a fresh complete checkout; do not rebuild to bypass it.
-2. Open the target project in Codex or launch Codex from that project root. Confirm that `AGENTS.md` is present and that `/skills` lists the expected skills in the CLI/IDE. Restart the client if changes do not appear. Host discovery and trust must be checked in that client.
-3. Install external dependencies only for a workflow that needs them. For the bundled Playwright runner, Node.js and Playwright are required. From `.codex/skills/playwright-skill`, `npm run setup` installs its local dependencies and Chromium. Use an existing browser capability when appropriate. Do not automatically install global npm packages.
-4. Optional Impeccable lifecycle hooks are supplied as `hooks.example.json` in the distribution. The exporter installs them only with `--include-hooks`, at `.codex/hooks.json`. Codex requires review and trust of hook definitions; the installed launcher may download its engine on first use. Check this dependency before enabling hooks.
+## Run the one-time installer
 
-Keep setup instructions for future repairs. Do not delete this rule after installation, overwrite existing user configuration, or copy repository-specific instructions into `~/.codex/AGENTS.md` automatically. Installing this collection does not configure external MCP servers, hosted providers, or accounts.
+From the source checkout, run the following command with the actual target path:
+
+```powershell
+node tools/codex/install.mjs --target "C:/Projects/my-project" --profile all
+```
+
+Node.js 20 or newer and npm are required. The installer carries out these phases in order:
+
+1. Verify and copy the committed, prebuilt bundle directly into the target's `.codex/`, with root `AGENTS.md` and `.codex/codex-install.json`. Existing destination files and symlink destinations are refused. Use a smaller named profile only when requested. `--dry-run` previews without copying, installing dependencies, or deleting files.
+2. From the target's `.codex/skills/playwright-skill`, run `npm ci --no-audit --no-fund --prefer-offline`, then `node node_modules/playwright/cli.js install chromium`. This installs the local Playwright version pinned by the included lockfile and Chromium, reusing cached packages and browsers when available. Browser downloads use Playwright's normal cache. A profile without `playwright-skill` skips this phase and records that fact. Do not install global npm packages.
+3. Run the installed Playwright runner inline. Launch headless Chromium, create a page, verify its title, and require `PLAYWRIGHT_VERIFIED_OK` before completing setup. No permanent test files are created.
+4. After successful setup, delete only the target's `.codex/rules/install.md` copy created by this installation. Remove that path from `.codex/codex-install.json` and record setup completion there. Keep the source checkout's rule and other project files. Installed `AGENTS.md` handles the rule's absence and retains the seven ongoing workspace rules.
+
+If setup or verification fails, retain the target's installation rule and report the failure. Retry the existing installation from the source checkout without copying over its files:
+
+```powershell
+node tools/codex/install.mjs --target "C:/Projects/my-project" --resume
+```
+
+If a bundle integrity check fails before copying, use a fresh complete checkout. Do not run `npm ci` for conversion tooling, the converter, source validation, submodule initialization, or the AGY bootstrapper during normal installation. Do not rename installed folders or change hashes to bypass failures. The copy-only `export.mjs` is for staging; it does not perform these setup and cleanup phases.
+
+## Finish the installation request
+
+Report the selected edition, absolute target, dependency and browser verification results, and the installed rule removed. When the target Codex client is available, confirm that it reads `AGENTS.md` and lists the expected skills. Otherwise report that discovery remains to be checked in that client; the CLI/IDE support `/skills`. AGY / Gemini may run this installer for a Codex target.
+
+Optional Impeccable lifecycle hooks are installed only with `--include-hooks` when requested and reviewed in the target host. Set up other external services when their workflows need them. Preserve existing user configuration and global policy; this local installer does not create global Codex instructions, configure accounts, or enable hooks by default.
 
 Local filesystem discovery covers the supported Codex/local desktop workflow. ChatGPT on the web needs a supported skill or plugin installation mechanism; merely uploading these files is not an installation procedure. See the distribution README for verified sources and client-specific invocation.

@@ -13,7 +13,7 @@ This is the original AGY / GEMINI bootstrapper. Referencing `@install.md` or ask
 
 Wait for the answer before copying files or running setup. Do not infer the edition from the current assistant. If the user already specified the edition, reuse their choice. Routine dependency setup in an existing installation does not require selecting the edition again.
 
-- **GPT / CODEX:** Read the source checkout's root `INSTALL.md` and use `tools/codex/export.mjs` from that checkout. Install the converted payload and its `AGENTS.md` template. Do not run the AGY phases below.
+- **GPT / CODEX:** Read the source checkout's root `INSTALL.md`, then automatically read and execute its `.codex/rules/install.md` in the same request. Run `node tools/codex/install.mjs --target <absolute-project-path> --profile all` from that checkout. This installs the converted payload and root `AGENTS.md`, sets up local Playwright and Chromium, verifies the runner, and removes only the target's one-time Codex installation rule after success. Keep the source rule and do not run the AGY phases below.
 - **AGY / GEMINI:** Follow the original payload branch in the source checkout's `INSTALL.md`. After copying the original `.agents/`, `GEMINI.MD`, and `skills-lock.json` into the intended target, run the phases below from that target.
 
 Keep the source checkout and target paths distinct. Do not run self-cleanup in the source repository. Preserve existing user configuration and unrelated setup files.

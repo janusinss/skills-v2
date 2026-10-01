@@ -66,13 +66,14 @@ export function buildBundle() {
     }
     add(`rules/${name}`, adaptMarkdown(text, original, duplicates), input);
   }
-  const agentsTemplate = path.join(templates, 'AGENTS.template.md');
-  add('AGENTS.template.md', fs.readFileSync(agentsTemplate), agentsTemplate);
+  const agentsPolicy = path.join(repoRoot, 'AGENTS.md');
+  add('AGENTS.md', fs.readFileSync(agentsPolicy), agentsPolicy);
   const hooks = JSON.parse(fs.readFileSync(path.join(sourceRoot, 'hooks.json'), 'utf8'));
   add('hooks.example.json', json({ description: 'Optional Impeccable hooks. Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks }).replaceAll('.agents/skills/', '.codex/skills/'), path.join(sourceRoot, 'hooks.json'));
 
   // Preflight every generated destination before writing any files. Refuse to
-  // overwrite manually edited generated files, and never delete stale files.
+  // overwrite manually edited generated files. The retired instruction
+  // template is the sole reviewed exception to stale-file removal.
   for (const [relative, data] of outputs) {
     const absolute = path.join(bundleRoot, relative);
     assertNoSymlinkAncestors(absolute);
@@ -82,8 +83,21 @@ export function buildBundle() {
       if (currentHash !== sha256(data) && currentHash !== previous.files?.[relative]?.outputHash) throw new Error(`Edited or unowned generated file: ${relative}. Preserve it before rebuilding.`);
     }
   }
-  for (const old of Object.keys(previous.files || {})) if (!outputs.has(old)) throw new Error(`Stale generated file ${old}; review it before rebuilding. No files were removed.`);
+  const retired = [];
+  for (const old of Object.keys(previous.files || {})) {
+    if (outputs.has(old)) continue;
+    if (old !== 'AGENTS.template.md' || previous.files[old].source !== 'tools/codex/templates/AGENTS.template.md') throw new Error(`Stale generated file ${old}; review it before rebuilding. No files were removed.`);
+    const absolute = path.join(bundleRoot, old);
+    assertNoSymlinkAncestors(absolute);
+    if (fs.existsSync(absolute)) {
+      const data = fs.readFileSync(absolute);
+      const hash = previous.formatVersion === 2 ? payloadHash(data) : sha256(data);
+      if (hash !== previous.files[old].outputHash) throw new Error(`Edited retired instruction file: ${old}. Preserve it before rebuilding.`);
+      retired.push(absolute);
+    }
+  }
   for (const [relative, data] of outputs) writeIfChanged(path.join(bundleRoot, relative), data);
+  for (const file of retired) fs.unlinkSync(file);
   const after = snapshotSource();
   if (before.digest !== after.digest) throw new Error('Original source changed during conversion');
   const manifest = {

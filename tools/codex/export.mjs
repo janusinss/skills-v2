@@ -3,11 +3,16 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { bundleRoot, sourceRoot, repoRoot, filesIn, assertNoSymlinkAncestors, within, sha256, slash, json, verifyBundleFiles } from './lib.mjs';
 
-export function planExport({ target, profile = 'all', includeHooks = false }, root = bundleRoot) {
+export function resolveTarget(target, root = bundleRoot) {
   if (!target || !path.isAbsolute(target)) throw new Error('--target must be an absolute project directory');
   const destination = path.resolve(target);
   assertNoSymlinkAncestors(destination);
   if (destination === repoRoot || within(sourceRoot, destination) || within(root, destination) || within(path.join(repoRoot, 'tools'), destination) || within(destination, repoRoot)) throw new Error('Choose a target project separate from the original source and distribution directories');
+  return destination;
+}
+
+export function planExport({ target, profile = 'all', includeHooks = false }, root = bundleRoot) {
+  const destination = resolveTarget(target, root);
   const profiles = JSON.parse(fs.readFileSync(path.join(root, 'profiles.json'), 'utf8'));
   const all = fs.readdirSync(path.join(root, 'skills'), { withFileTypes: true }).filter(entry => entry.isDirectory() && fs.existsSync(path.join(root, 'skills', entry.name, 'SKILL.md'))).map(entry => entry.name);
   let selected;
@@ -24,7 +29,7 @@ export function planExport({ target, profile = 'all', includeHooks = false }, ro
     if (fs.existsSync(output)) throw new Error(`Destination already exists: ${output}. Export to a new directory or review and merge manually.`);
     entries.push({ source, destination: output, relative });
   };
-  add(path.join(root, 'AGENTS.template.md'), 'AGENTS.md');
+  add(path.join(root, 'AGENTS.md'), 'AGENTS.md');
   for (const area of ['rules', 'resources']) for (const source of filesIn(path.join(root, area))) add(source, slash(path.join('.codex', area, path.relative(path.join(root, area), source))));
   for (const skill of selected) {
     if (!all.includes(skill)) throw new Error(`Missing skill ${skill} in profile ${profile}`);

@@ -20,19 +20,21 @@ Inspect existing `.agents/`, `AGENTS.md`, and `GEMINI.MD` files before writing. 
 
 ## GPT / CODEX
 
-Install the committed, prebuilt `.codex/` bundle from the source checkout. Node.js 20 or newer is the only installation prerequisite. Use the recorded absolute target path instead of this example:
+After GPT / CODEX is selected, automatically read and execute the source checkout's [.codex/rules/install.md](.codex/rules/install.md) within the same request. Do not wait for a separate `@install.md` prompt. Node.js 20 or newer and npm are required. Use the recorded absolute target path instead of this example:
 
 ```powershell
-node tools/codex/export.mjs --target "C:/Projects/my-project" --profile all
+node tools/codex/install.mjs --target "C:/Projects/my-project" --profile all
 ```
 
-The exporter verifies the committed bundle, then creates `.codex/skills/`, `.codex/rules/`, `.codex/resources/`, and root `AGENTS.md`, with hashes of the installed files at `.codex/codex-install.json`. Paths are already correct; do not rename folders or rewrite files or hashes afterward. Existing destination files and symlink destinations are refused. Add `--dry-run` only when a preview is needed. Use a smaller named profile only when requested. Keep the source checkout available for later updates.
+The installer verifies and copies the committed bundle, creating `.codex/skills/`, `.codex/rules/`, `.codex/resources/`, and root `AGENTS.md`. It then runs local Playwright and Chromium setup and verifies the installed runner with a real headless browser. On success, it deletes only the target's `.codex/rules/install.md` and updates `.codex/codex-install.json` to describe the remaining files and completed setup. The source rule stays in the repository. Profiles without `playwright-skill` skip browser setup and record that fact. The final target keeps seven ongoing rules.
 
-Normal installation does not need `npm ci`, `build.mjs`, source auditing, source-snapshot validation, submodule initialization, or the AGY bootstrapper. The converted `avoid-ai-writing` files are committed directly in `.codex/`; an empty AGY source submodule does not block their export. These maintenance steps add downloads and can fail on a normal clone. If bundle integrity fails, report the error and use a fresh complete checkout rather than rebuilding or changing the manifest to bypass it.
+Paths are already correct; do not rename folders or rewrite files or hashes afterward. Existing destination files and symlink destinations are refused. Add `--dry-run` only when a preview is needed; it performs no setup or deletion. Use a smaller named profile only when requested. Keep the source checkout available for later updates. If dependency setup or verification fails, retain the target's rule and retry with `node tools/codex/install.mjs --target <absolute-project-path> --resume`; this checks the existing installation and resumes setup without overwriting its files.
+
+Normal installation does not need conversion-tool dependencies (`npm ci` in `tools/codex`), `build.mjs`, source auditing, source-snapshot validation, submodule initialization, or the AGY bootstrapper. Playwright setup installs dependencies inside the target skill and can download Chromium into its standard browser cache. The converted `avoid-ai-writing` files are committed directly in `.codex/`; an empty AGY source submodule does not block their export. If bundle integrity fails, report the error and use a fresh complete checkout rather than rebuilding or changing the manifest to bypass it. `tools/codex/export.mjs` remains available for copy-only staging; use `install.mjs` to complete an installation request.
 
 AGY / Gemini can perform this installation for a Codex target. The selected edition determines the payload; the assistant running the install does not change it. Open Codex afterward to check discovery. Do not try to activate Codex skills in the AGY host as part of the copy operation.
 
-Open the target in Codex and confirm the installed skills are available in that client; the CLI and IDE support `/skills`. Install workflow dependencies when needed. Add `--include-hooks` only when the user wants the optional Impeccable hooks and the host's review requirements have been satisfied. See [.codex/README.md](.codex/README.md) for profiles, dependencies, and hooks.
+Open the target in Codex and confirm the installed skills are available in that client; the CLI and IDE support `/skills`. Report an unavailable target client as a remaining discovery check. Install other workflow dependencies when needed. Add `--include-hooks` only when the user wants the optional Impeccable hooks and the host's review requirements have been satisfied. See [.codex/README.md](.codex/README.md) for profiles, dependencies, and hooks.
 
 ## AGY / GEMINI
 

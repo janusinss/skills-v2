@@ -36,7 +36,7 @@ export function validateBundle(root = bundleRoot, { checkSource = false, checkMa
   }
   for (const name of new Set(skills.map(skill => skill.name))) if (skills.filter(skill => skill.name === name).length > 1) errors.push(`Duplicate discoverable skill name: ${name}`);
   if (!manifests.length) errors.push('No skill manifests found');
-  const instruction = path.join(root, dataRoot === root ? 'AGENTS.template.md' : 'AGENTS.md');
+  const instruction = path.join(root, 'AGENTS.md');
   for (const file of [...filesIn(path.join(dataRoot, 'rules')).filter(file => file.endsWith('.md')), instruction]) {
     if (!fs.existsSync(file)) { errors.push(`Missing instructions: ${file}`); continue; }
     for (const target of missingLinks(fs.readFileSync(file, 'utf8'), file, dataRoot)) errors.push(`${slash(path.relative(root, file))}: missing instruction link ${target}`);

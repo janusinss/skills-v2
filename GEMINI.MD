@@ -6,7 +6,7 @@ When the user asks to install this skills repository, including "INSTALL THIS SK
 
 > Which version would you like to install: GPT / CODEX or AGY / GEMINI?
 
-Wait for the answer before copying files or installing dependencies. Do not infer the edition from the current assistant. Use an explicit choice already supplied by the user. For GPT / CODEX, use the converted exporter from the source checkout; for AGY / GEMINI, use the original payload and its installation rule. This selection requirement takes precedence over any rule that starts installation immediately.
+Wait for the answer before copying files or installing dependencies. Do not infer the edition from the current assistant. Use an explicit choice already supplied by the user. For GPT / CODEX, automatically read and execute the source checkout's [.codex/rules/install.md](.codex/rules/install.md) in the same request: run `node tools/codex/install.mjs --target <absolute-project-path> --profile all` to copy the converted payload, set up local Playwright and Chromium, verify the runner, and remove only the installed target's one-time rule after success. Keep the source rule. For AGY / GEMINI, use the original payload and its installation rule. This selection requirement takes precedence over any rule that starts installation immediately.
 
 This section controls installation requests for this collection. Existing workflow dependency setup does not require choosing the edition again.
 

@@ -14,7 +14,7 @@ A collection of **173 top-level AI agent skills**, architectural rules, and work
 │   └── resources/         # Creative libraries, shader utilities, and ambient types
 ├── .codex/                # Active GPT / Codex skills, rules, and resources
 ├── tools/codex/           # Conversion, validation, and Codex export tools
-├── AGENTS.md              # Activates converted Codex guidance and routes installation
+├── AGENTS.md              # Codex policy: ADHD Mode, local rules, browser checks & installation
 ├── INSTALL.md             # Shared installer: ask GPT / CODEX or AGY / GEMINI
 ├── GEMINI.MD              # Original AGY / Gemini workspace policy and installer routing
 ├── skills-lock.json       # Skill dependency manifest and integrity lockfile
@@ -35,7 +35,7 @@ The agent follows [INSTALL.md](INSTALL.md) and asks:
 
 > **Which version would you like to install: GPT / CODEX or AGY / GEMINI?**
 
-It waits for your choice, then installs that edition into the current target project. You can still use "INSTALL THIS SKILLS REPO HERE" when the agent already has this checkout. To skip the choice, specify the edition in your request, such as "Install the Codex edition here."
+It waits for your choice, then installs that edition into the current target project. Choosing GPT / CODEX automatically executes the converted `install.md`: copy the bundle, install local Playwright and Chromium, verify the runner, and delete the target's one-time rule after success. The source copy stays available. You can still use "INSTALL THIS SKILLS REPO HERE" when the agent already has this checkout. To skip the choice, specify the edition in your request, such as "Install the Codex edition here."
 
 | Choice | Payload | Target instruction file |
 | --- | --- | --- |
@@ -48,17 +48,17 @@ The root `AGENTS.md` and `GEMINI.MD` route installation requests through the sam
 
 Clone this repository separately from the target project, then follow the selected branch in [INSTALL.md](INSTALL.md). Codex export commands, profiles, and optional hooks are documented in [.codex/README.md](.codex/README.md).
 
-For GPT / CODEX, Node.js 20 or newer is the only copy/install prerequisite:
+For GPT / CODEX, use Node.js 20 or newer and npm:
 
 ```powershell
-node tools/codex/export.mjs --target "C:/Projects/my-project" --profile all
+node tools/codex/install.mjs --target "C:/Projects/my-project" --profile all
 ```
 
-This installs the committed bundle directly into `.codex/` with root `AGENTS.md`. No conversion build, npm dependency installation, AGY submodule download, or path rewriting is needed. An AGY / Gemini assistant can run the same command when the selected target is Codex.
+This installs the committed bundle directly into `.codex/` with root `AGENTS.md`, sets up and verifies Playwright, then removes only the installed `.codex/rules/install.md`. Failed setup keeps the rule; retry with the same target and `--resume`. No conversion build, conversion-tool npm dependencies, AGY submodule download, or path rewriting is needed. An AGY / Gemini assistant can run the same command when the selected target is Codex. `export.mjs` remains available for copy-only staging.
 
 ### Active Codex Edition in This Repository
 
-The local Codex loader discovers all 190 converted skills under `.codex/skills/`. Root `AGENTS.md` loads the converted guidance and selects `.codex/` paths when working here. Both editions can appear in this collection's skill catalog; root instructions prefer the converted copy when names match. The `.agents/` payload remains available to AGY / Gemini. Restart Codex to reload project instructions. Exported Codex targets use the same `.codex/` structure and contain only the selected edition.
+The local Codex loader discovers all 190 converted skills under `.codex/skills/`. Root `AGENTS.md` contains the Codex policy with ADHD Mode, local rule selection, and inline browser checks. The builder copies this policy into `.codex/AGENTS.md` for installation as the target project's root instructions. Both editions can appear in this collection's skill catalog; root instructions prefer the converted copy when names match. The `.agents/` payload remains available to AGY / Gemini. Restart Codex to reload project instructions. Exported Codex targets use the same `.codex/` structure and contain only the selected edition.
 
 ### Codex Global Instructions
 
