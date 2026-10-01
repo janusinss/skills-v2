@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { bundleRoot, sourceRoot, repoRoot, filesIn, parseSkill, snapshotSource, slash, json, sha256, payloadData, payloadHash, writeIfChanged, assertNoSymlinkAncestors } from './lib.mjs';
 import { convertSkill, openaiMetadata, yamlText, readOriginalMetadata, adaptMarkdown, adaptPlaywrightRunner } from './convert.mjs';
+import { localCodexIgnoreEntries } from './gitignore.mjs';
 
 export function buildBundle() {
   assertNoSymlinkAncestors(bundleRoot);
@@ -68,6 +69,8 @@ export function buildBundle() {
   }
   const agentsPolicy = path.join(repoRoot, 'AGENTS.md');
   add('AGENTS.md', fs.readFileSync(agentsPolicy), agentsPolicy);
+  const projectIgnore = path.join(repoRoot, '.gitignore');
+  add('project.gitignore', '# Local Codex skills, instructions, and workflow artifacts\n' + localCodexIgnoreEntries.join('\n') + '\n\n' + fs.readFileSync(projectIgnore, 'utf8'), projectIgnore);
   const hooks = JSON.parse(fs.readFileSync(path.join(sourceRoot, 'hooks.json'), 'utf8'));
   add('hooks.example.json', json({ description: 'Optional Impeccable hooks. Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks }).replaceAll('.agents/skills/', '.codex/skills/'), path.join(sourceRoot, 'hooks.json'));
 

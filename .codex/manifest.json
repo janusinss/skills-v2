@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-10-01",
   "originalSnapshot": {
-    "digest": "e866574f6473fb07263963d5aa747081f46ce862622ecc8ff1a31ef9587d5510",
+    "digest": "8749b8d936c901742c039430ab01764fbc18588906bcac8e587cde6967417593",
     "files": {
       ".agents/hooks.json": "b7a28b6ef3f4f6284c9c40d49fa72107c6b6dd3a9f8ebce1e70473cab7f5ff6f",
       ".agents/resources/creative-libraries/README.md": "3a771a19ff9d37c9c2f147bd678f8d4ebc6a1cb0d0e51f74b9e58124678b2248",
@@ -1831,7 +1831,7 @@
       ".agents/skills/web-app-penetration-testing/SKILL.md": "2e8df0b9233971c496d0c0c7660808fc717c08d4165455a0423229045389608a",
       ".gitignore": "ab5b1bfacf8dfa2edb0399b5a59477cc832ea09c4c5302458f402853b3a2831d",
       "GEMINI.MD": "3552b9a4fc699f80543b8f08361b80223e5a9f9fb035112d6bf87f6e544f2e0a",
-      "README.MD": "f9f0b2b8649cb1f0f25b4f2b51fbecd391fb91645260c8aa179034ee0365bf12",
+      "README.MD": "f7d2aa42ce837eafdb2e44eff5f616a7edad7d72f653c3605f584ad33270fc4f",
       "skills-lock.json": "6306802d53b815d85580efb318d8d78dc74f08621b855fcdbdc325ffcccde19d"
     }
   },
@@ -1841,7 +1841,7 @@
     "discoverableSkills": 190,
     "duplicatesPreservedAsReferences": 2,
     "rules": 8,
-    "generatedFiles": 2003
+    "generatedFiles": 2004
   },
   "duplicateReferences": {
     "skills/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "skills/avoid-ai-writing/skills/avoid-ai-writing/REFERENCE.md",
@@ -11825,8 +11825,8 @@
     },
     "rules/install.md": {
       "source": "tools/codex/templates/rules/install.md",
-      "sourceHash": "cea2ba8f1b72b891273f1d1d73ddce7e17eeaabe7592c98a4a68e099ccda6aeb",
-      "outputHash": "cea2ba8f1b72b891273f1d1d73ddce7e17eeaabe7592c98a4a68e099ccda6aeb"
+      "sourceHash": "a99929488ad59798c74083664c73ef86a2e0311f079e8fbbf50d8fe6d6ed6962",
+      "outputHash": "a99929488ad59798c74083664c73ef86a2e0311f079e8fbbf50d8fe6d6ed6962"
     },
     "rules/penetrating-and-testing.md": {
       "source": ".agents/rules/penetrating-and-testing.md",
@@ -11855,8 +11855,13 @@
     },
     "AGENTS.md": {
       "source": "AGENTS.md",
-      "sourceHash": "e3016d128fe916f7b32971b493967c495fef3bc2eff6a34307d6481e5819a754",
-      "outputHash": "e3016d128fe916f7b32971b493967c495fef3bc2eff6a34307d6481e5819a754"
+      "sourceHash": "b3ee66b254e1d2be90aa1c320b222990b8fcaf0e86a407f82a05ffcc2a3e0274",
+      "outputHash": "b3ee66b254e1d2be90aa1c320b222990b8fcaf0e86a407f82a05ffcc2a3e0274"
+    },
+    "project.gitignore": {
+      "source": ".gitignore",
+      "sourceHash": "ab5b1bfacf8dfa2edb0399b5a59477cc832ea09c4c5302458f402853b3a2831d",
+      "outputHash": "23a7981c8024a74e9f74ac50cfb406d356d9b1aadc1c1906c2d42b6c9a52c41e"
     },
     "hooks.example.json": {
       "source": ".agents/hooks.json",

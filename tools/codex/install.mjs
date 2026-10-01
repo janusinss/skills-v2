@@ -4,7 +4,7 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { exportBundle, parseArgs as parseExportArgs, resolveTarget } from './export.mjs';
 import { bundleRoot, assertNoSymlinkAncestors, within, payloadHash, json, isRecord } from './lib.mjs';
-import { planGitignore, applyGitignore, gitignoreRecord } from './gitignore.mjs';
+import { planGitignore, applyGitignore } from './gitignore.mjs';
 
 const installRule = '.codex/rules/install.md';
 const playwrightRunner = '.codex/skills/playwright-skill/run.js';
@@ -69,12 +69,13 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
   if (options.resume && ((options.profile && options.profile !== manifest.profile) || (options.includeHooks && !manifest.hooksIncluded))) throw new Error('--resume uses the installed profile and hook selection');
   let gitignore = exported?.gitignore;
   if (!gitignore) {
-    const ignorePlan = planGitignore(target);
-    gitignore = options.dryRun ? { ...gitignoreRecord(), action: ignorePlan.action } : applyGitignore(ignorePlan);
+    const ignorePlan = planGitignore(target, root);
+    gitignore = options.dryRun ? { ...ignorePlan.record, action: ignorePlan.action } : applyGitignore(ignorePlan);
   }
-  if (!options.dryRun && json(manifest.gitignore) !== json(gitignoreRecord())) {
+  const ignoreRecord = { path: gitignore.path, entries: gitignore.entries };
+  if (!options.dryRun && json(manifest.gitignore) !== json(ignoreRecord)) {
     if (json(JSON.parse(fs.readFileSync(manifestPath, 'utf8'))) !== json(manifest)) throw new Error('Installation record changed during .gitignore setup');
-    const updated = { ...manifest, gitignore: gitignoreRecord() };
+    const updated = { ...manifest, gitignore: ignoreRecord };
     const temporary = `${manifestPath}.gitignore.tmp`;
     assertNoSymlinkAncestors(temporary);
     fs.writeFileSync(temporary, json(updated), { flag: 'wx' });
