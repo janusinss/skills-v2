@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-10-01",
   "originalSnapshot": {
-    "digest": "4f0c5b7133a6695992b2ce7873b44f1046f80cc53aa32da07a04ab18f8966be1",
+    "digest": "e866574f6473fb07263963d5aa747081f46ce862622ecc8ff1a31ef9587d5510",
     "files": {
       ".agents/hooks.json": "b7a28b6ef3f4f6284c9c40d49fa72107c6b6dd3a9f8ebce1e70473cab7f5ff6f",
       ".agents/resources/creative-libraries/README.md": "3a771a19ff9d37c9c2f147bd678f8d4ebc6a1cb0d0e51f74b9e58124678b2248",
@@ -1831,7 +1831,7 @@
       ".agents/skills/web-app-penetration-testing/SKILL.md": "2e8df0b9233971c496d0c0c7660808fc717c08d4165455a0423229045389608a",
       ".gitignore": "ab5b1bfacf8dfa2edb0399b5a59477cc832ea09c4c5302458f402853b3a2831d",
       "GEMINI.MD": "3552b9a4fc699f80543b8f08361b80223e5a9f9fb035112d6bf87f6e544f2e0a",
-      "README.MD": "1f45291fc989ecac783094ad000676210356d5148d18015fc8c56692046f3fc0",
+      "README.MD": "f9f0b2b8649cb1f0f25b4f2b51fbecd391fb91645260c8aa179034ee0365bf12",
       "skills-lock.json": "6306802d53b815d85580efb318d8d78dc74f08621b855fcdbdc325ffcccde19d"
     }
   },
@@ -11825,8 +11825,8 @@
     },
     "rules/install.md": {
       "source": "tools/codex/templates/rules/install.md",
-      "sourceHash": "3e73e3ed1aa9235d0d2eaac20764b72f990bc58745f3967e8d44a40ce05de196",
-      "outputHash": "3e73e3ed1aa9235d0d2eaac20764b72f990bc58745f3967e8d44a40ce05de196"
+      "sourceHash": "cea2ba8f1b72b891273f1d1d73ddce7e17eeaabe7592c98a4a68e099ccda6aeb",
+      "outputHash": "cea2ba8f1b72b891273f1d1d73ddce7e17eeaabe7592c98a4a68e099ccda6aeb"
     },
     "rules/penetrating-and-testing.md": {
       "source": ".agents/rules/penetrating-and-testing.md",
@@ -11855,8 +11855,8 @@
     },
     "AGENTS.md": {
       "source": "AGENTS.md",
-      "sourceHash": "fa306ea7f7a2d7883ea6e1fcb43ba64f3147975799727db67fac74116d1d02f8",
-      "outputHash": "fa306ea7f7a2d7883ea6e1fcb43ba64f3147975799727db67fac74116d1d02f8"
+      "sourceHash": "e3016d128fe916f7b32971b493967c495fef3bc2eff6a34307d6481e5819a754",
+      "outputHash": "e3016d128fe916f7b32971b493967c495fef3bc2eff6a34307d6481e5819a754"
     },
     "hooks.example.json": {
       "source": ".agents/hooks.json",

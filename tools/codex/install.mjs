@@ -4,6 +4,7 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { exportBundle, parseArgs as parseExportArgs, resolveTarget } from './export.mjs';
 import { bundleRoot, assertNoSymlinkAncestors, within, payloadHash, json, isRecord } from './lib.mjs';
+import { planGitignore, applyGitignore, gitignoreRecord } from './gitignore.mjs';
 
 const installRule = '.codex/rules/install.md';
 const playwrightRunner = '.codex/skills/playwright-skill/run.js';
@@ -57,13 +58,31 @@ function finishSetup(target, manifestPath, manifest, playwright) {
 
 export function installBundle(options, root = bundleRoot, execute = spawnSync) {
   const target = resolveTarget(options.target, root);
+  let exported;
   if (!options.resume) {
-    const exported = exportBundle(options, root);
+    exported = exportBundle(options, root);
     if (options.dryRun) return { ...exported, setup: 'Playwright and Chromium when the profile includes playwright-skill', removesAfterSuccess: [installRule] };
   }
-  const { manifestPath, manifest } = readInstallation(target);
+  const installation = readInstallation(target);
+  const manifestPath = installation.manifestPath;
+  let manifest = installation.manifest;
   if (options.resume && ((options.profile && options.profile !== manifest.profile) || (options.includeHooks && !manifest.hooksIncluded))) throw new Error('--resume uses the installed profile and hook selection');
-  if (options.dryRun || manifest.setup?.status === 'complete') return { target, profile: manifest.profile, topLevelSkills: manifest.topLevelSkills, files: Object.keys(manifest.files).length + 1, dryRun: Boolean(options.dryRun), setup: manifest.setup?.status || 'pending' };
+  let gitignore = exported?.gitignore;
+  if (!gitignore) {
+    const ignorePlan = planGitignore(target);
+    gitignore = options.dryRun ? { ...gitignoreRecord(), action: ignorePlan.action } : applyGitignore(ignorePlan);
+  }
+  if (!options.dryRun && json(manifest.gitignore) !== json(gitignoreRecord())) {
+    if (json(JSON.parse(fs.readFileSync(manifestPath, 'utf8'))) !== json(manifest)) throw new Error('Installation record changed during .gitignore setup');
+    const updated = { ...manifest, gitignore: gitignoreRecord() };
+    const temporary = `${manifestPath}.gitignore.tmp`;
+    assertNoSymlinkAncestors(temporary);
+    fs.writeFileSync(temporary, json(updated), { flag: 'wx' });
+    try { fs.renameSync(temporary, manifestPath); }
+    finally { if (fs.existsSync(temporary)) fs.unlinkSync(temporary); }
+    manifest = updated;
+  }
+  if (options.dryRun || manifest.setup?.status === 'complete') return { target, profile: manifest.profile, topLevelSkills: manifest.topLevelSkills, files: Object.keys(manifest.files).length + 2, gitignore, dryRun: Boolean(options.dryRun), setup: manifest.setup?.status || 'pending' };
   let playwright = 'not included in selected profile';
   try {
     if (manifest.files[playwrightRunner]) {
@@ -79,7 +98,7 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
       playwright = 'verified';
     }
     const completed = finishSetup(target, manifestPath, manifest, playwright);
-    return { target, profile: completed.profile, topLevelSkills: completed.topLevelSkills, files: Object.keys(completed.files).length + 1, dryRun: false, setup: completed.setup };
+    return { target, profile: completed.profile, topLevelSkills: completed.topLevelSkills, files: Object.keys(completed.files).length + 2, gitignore, dryRun: false, setup: completed.setup };
   } catch (error) {
     throw new Error(`${error.message}\nSetup is incomplete; the installed ${installRule} is retained. Retry from the source checkout with node tools/codex/install.mjs --target ${JSON.stringify(target)} --resume.`, { cause: error });
   }

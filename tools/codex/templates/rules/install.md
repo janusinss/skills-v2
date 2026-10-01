@@ -14,12 +14,12 @@ node tools/codex/install.mjs --target "C:/Projects/my-project" --profile all
 
 Node.js 20 or newer and npm are required. The installer carries out these phases in order:
 
-1. Verify and copy the committed, prebuilt bundle directly into the target's `.codex/`, with root `AGENTS.md` and `.codex/codex-install.json`. Existing destination files and symlink destinations are refused. Use a smaller named profile only when requested. `--dry-run` previews without copying, installing dependencies, or deleting files.
+1. Verify and copy the committed, prebuilt bundle directly into the target's `.codex/`, with root `AGENTS.md` and `.codex/codex-install.json`. Create a root `.gitignore` if missing, or append only missing entries for `/.codex/`, `/AGENTS.md`, `/scratch/`, and `/.impeccable/`. Preserve existing project ignore rules and record these shared-file entries separately from payload hashes. Existing payload files and symlink destinations are refused. Use a smaller named profile only when requested. `--dry-run` previews without copying, modifying `.gitignore`, installing dependencies, or deleting files.
 2. From the target's `.codex/skills/playwright-skill`, run `npm ci --no-audit --no-fund --prefer-offline`, then `node node_modules/playwright/cli.js install chromium`. This installs the local Playwright version pinned by the included lockfile and Chromium, reusing cached packages and browsers when available. Browser downloads use Playwright's normal cache. A profile without `playwright-skill` skips this phase and records that fact. Do not install global npm packages.
 3. Run the installed Playwright runner inline. Launch headless Chromium, create a page, verify its title, and require `PLAYWRIGHT_VERIFIED_OK` before completing setup. No permanent test files are created.
 4. After successful setup, delete only the target's `.codex/rules/install.md` copy created by this installation. Remove that path from `.codex/codex-install.json` and record setup completion there. Keep the source checkout's rule and other project files. Installed `AGENTS.md` handles the rule's absence and retains the seven ongoing workspace rules.
 
-If setup or verification fails, retain the target's installation rule and report the failure. Retry the existing installation from the source checkout without copying over its files:
+If setup or verification fails, retain the target's installation rule and report the failure. Retry the existing installation from the source checkout without copying over its files. This command also creates or repairs `.gitignore` in an already completed installation without reinstalling dependencies or rerunning browser setup:
 
 ```powershell
 node tools/codex/install.mjs --target "C:/Projects/my-project" --resume

@@ -190,7 +190,18 @@ The workspace includes a dual-engine security pipeline linking offensive adversa
 
 ## ⚙️ Target Project `.gitignore` Configuration
 
-If you want agent skills to remain local to your machine without being committed to your application's remote repository, ensure your target project's `.gitignore` includes:
+The GPT / CODEX installer automatically creates the target's root `.gitignore`, or appends missing entries while preserving existing project rules:
+
+```gitignore
+/.codex/
+/AGENTS.md
+/scratch/
+/.impeccable/
+```
+
+For an already completed Codex installation missing this file, run `node tools/codex/install.mjs --target <absolute-project-path> --resume` from the source checkout. This repairs the ignore file without reinstalling dependencies or rerunning browser setup.
+
+For the original AGY / GEMINI edition, if you want agent skills to remain local to your machine without being committed to your application's remote repository, ensure your target project's `.gitignore` includes:
 
 ```gitignore
 .agents/

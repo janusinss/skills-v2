@@ -62,6 +62,10 @@ export function validateBundle(root = bundleRoot, { checkSource = false, checkMa
   const installationPath = path.join(dataRoot, 'codex-install.json');
   if (checkManifest && fs.existsSync(installationPath)) {
     const installed = JSON.parse(fs.readFileSync(installationPath, 'utf8'));
+    if (installed.gitignore !== undefined) {
+      if (!isRecord(installed.gitignore) || installed.gitignore.path !== '.gitignore' || !Array.isArray(installed.gitignore.entries) || installed.gitignore.entries.some(entry => typeof entry !== 'string')) errors.push('Invalid project .gitignore record');
+      else if (!fs.existsSync(path.join(root, '.gitignore')) || !fs.statSync(path.join(root, '.gitignore')).isFile()) errors.push('Missing project .gitignore');
+    }
     for (const [relative, hash] of Object.entries(installed.files || {})) {
       const absolute = path.join(root, relative);
       if (!fs.existsSync(absolute) || payloadHash(fs.readFileSync(absolute)) !== hash) errors.push(`Installed file differs from manifest: ${relative}`);

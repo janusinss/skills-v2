@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { bundleRoot, sourceRoot, repoRoot, filesIn, assertNoSymlinkAncestors, within, sha256, slash, json, verifyBundleFiles } from './lib.mjs';
+import { planGitignore, applyGitignore, gitignoreRecord } from './gitignore.mjs';
 
 export function resolveTarget(target, root = bundleRoot) {
   if (!target || !path.isAbsolute(target)) throw new Error('--target must be an absolute project directory');
@@ -40,7 +41,7 @@ export function planExport({ target, profile = 'all', includeHooks = false }, ro
   const installManifest = path.join(destination, '.codex/codex-install.json');
   assertNoSymlinkAncestors(installManifest);
   if (fs.existsSync(installManifest)) throw new Error(`Destination already exists: ${installManifest}`);
-  return { target: destination, profile, topLevelSkills: selected.length, includeHooks, entries, installManifest };
+  return { target: destination, profile, topLevelSkills: selected.length, includeHooks, entries, installManifest, gitignore: planGitignore(destination) };
 }
 
 export function exportBundle(options, root = bundleRoot) {
@@ -49,7 +50,7 @@ export function exportBundle(options, root = bundleRoot) {
   for (const entry of plan.entries) {
     if (!files.has(slash(path.relative(root, entry.source)))) throw new Error(`Unverified bundle file: ${entry.source}`);
   }
-  if (options.dryRun) return { target: plan.target, profile: plan.profile, topLevelSkills: plan.topLevelSkills, files: plan.entries.length + 1, dryRun: true };
+  if (options.dryRun) return { target: plan.target, profile: plan.profile, topLevelSkills: plan.topLevelSkills, files: plan.entries.length + 2, gitignore: { ...gitignoreRecord(), action: plan.gitignore.action }, dryRun: true };
   const hashes = {};
   for (const entry of plan.entries) {
     const data = files.get(slash(path.relative(root, entry.source)));
@@ -58,8 +59,11 @@ export function exportBundle(options, root = bundleRoot) {
     fs.writeFileSync(entry.destination, data, { flag: 'wx' });
     hashes[entry.relative] = sha256(data);
   }
-  fs.writeFileSync(plan.installManifest, json({ source: 'skills-v2 Codex edition', formatVersion: 2, hashing: 'sha256-lf-text', profile: plan.profile, topLevelSkills: plan.topLevelSkills, hooksIncluded: plan.includeHooks, files: hashes }), { flag: 'wx' });
-  return { target: plan.target, profile: plan.profile, topLevelSkills: plan.topLevelSkills, files: plan.entries.length + 1, dryRun: false };
+  const gitignore = applyGitignore(plan.gitignore);
+  // .gitignore is shared project configuration. Record our entries separately
+  // from immutable payload hashes so later project edits remain valid.
+  fs.writeFileSync(plan.installManifest, json({ source: 'skills-v2 Codex edition', formatVersion: 2, hashing: 'sha256-lf-text', profile: plan.profile, topLevelSkills: plan.topLevelSkills, hooksIncluded: plan.includeHooks, gitignore: gitignoreRecord(), files: hashes }), { flag: 'wx' });
+  return { target: plan.target, profile: plan.profile, topLevelSkills: plan.topLevelSkills, files: plan.entries.length + 2, gitignore, dryRun: false };
 }
 
 export function parseArgs(args) {
