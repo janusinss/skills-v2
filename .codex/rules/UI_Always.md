@@ -16,7 +16,7 @@ For substantial layout or interaction changes, use the available browser capabil
 From an installed project, the helper runner supports:
 
 ```text
-node .agents/skills/playwright-skill/run.js -e "const url = await helpers.resolveTargetUrl(); if (!url) throw new Error('Start the target server or specify its URL'); const b = await chromium.launch(); try { const p = await b.newPage(); await p.goto(url); console.log(await p.title()); } finally { await b.close(); }"
+node .codex/skills/playwright-skill/run.js -e "const url = await helpers.resolveTargetUrl(); if (!url) throw new Error('Start the target server or specify its URL'); const b = await chromium.launch(); try { const p = await b.newPage(); await p.goto(url); console.log(await p.title()); } finally { await b.close(); }"
 ```
 
 Inline code is convenient for small checks. Use reusable test files when they improve verification. Save temporary artifacts in `scratch/` or the project's artifact directory. Do not run a browser suite for every small edit or claim that this smoke check validates the complete UI.

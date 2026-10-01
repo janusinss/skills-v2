@@ -1,0 +1,8 @@
+# The committed Codex bundle is ready to install on every platform.
+# Keep generated text and installer code at LF even with core.autocrlf=true.
+/.codex/** text=auto eol=lf
+/tools/codex/** text=auto eol=lf
+/AGENTS.md text eol=lf
+/INSTALL.md text eol=lf
+/README.MD text eol=lf
+/.gitattributes text eol=lf

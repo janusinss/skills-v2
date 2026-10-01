@@ -64,12 +64,12 @@ export function adaptMarkdown(text, sourceFile, duplicatePaths = new Map()) {
   result = result.replaceAll('(`ask_question`)', '(when the existing user instructions leave a material choice unresolved)');
   result = result.replaceAll('AskUserQuestion', 'the available user-input tool');
   // Repair repository-root links into relative links that work in both the
-  // staged bundle (skills/) and the installed edition (.agents/skills/).
+  // staged bundle (skills/) and the installed edition (.codex/skills/).
   result = result.replace(/(\[[^\]\n]*\]\()([^\s)]+)(\))/g, (whole, prefix, target, suffix) => {
     if (/^(?:[a-z][a-z0-9+.-]*:|#)/i.test(target)) return whole;
     const [bare, anchor] = target.split('#', 2);
     const rootRelative = bare.replace(/^\.\//, '');
-    let resolved = rootRelative.startsWith('.agents/') ? path.resolve(sourceRoot, rootRelative.slice(8)) : path.resolve(path.dirname(sourceFile), bare);
+    let resolved = /^(?:\.agents|\.codex)\//.test(rootRelative) ? path.resolve(sourceRoot, rootRelative.replace(/^(?:\.agents|\.codex)\//, '')) : path.resolve(path.dirname(sourceFile), bare);
     resolved = duplicatePaths.get(resolved) || resolved;
     if (!fs.existsSync(resolved) && ![...duplicatePaths.values()].includes(resolved)) return whole;
     const relative = slash(path.relative(path.dirname(sourceFile), resolved)) || '.';
@@ -80,7 +80,10 @@ export function adaptMarkdown(text, sourceFile, duplicatePaths = new Map()) {
     if (!relative.startsWith('../')) result = result.replaceAll(relative, slash(path.relative(path.dirname(sourceFile), to)));
     result = result.replaceAll(slash(path.relative(path.dirname(sourceRoot), from)), slash(path.relative(path.dirname(sourceRoot), to)));
   }
-  return result;
+  // Rewrite project-root command examples after rebasing local links. Preserve
+  // user-scoped ~/.agents paths and unrelated upstream discovery examples.
+  return result.replace(/(^|[\s"'`(=:]|\.\/)\.agents\/(skills|rules|resources)\//gm, '$1.codex/$2/')
+    .replace(/(^|[\s"'`(=:])\.agents\\(skills|rules|resources)\\/gm, '$1.codex\\$2\\');
 }
 
 export function convertSkill(text, sourceFile, duplicates) {

@@ -186,7 +186,7 @@ cp -r app-store-optimization /path/to/your/project/.agents/skills/
 #### User-Level Installation (Available in All Projects)
 ```bash
 # Copy skill folder to user-level skills
-cp -r app-store-optimization .agents/skills/
+cp -r app-store-optimization .codex/skills/
 
 # Claude will load this skill in all your projects
 ```
@@ -201,7 +201,7 @@ cp -r app-store-optimization .agents/skills/
 To verify installation:
 ```bash
 # Check if skill folder exists
-ls .agents/skills/app-store-optimization/
+ls .codex/skills/app-store-optimization/
 
 # You should see:
 # SKILL.md

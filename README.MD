@@ -39,7 +39,7 @@ It waits for your choice, then installs that edition into the current target pro
 
 | Choice | Payload | Target instruction file |
 | --- | --- | --- |
-| GPT / CODEX | Converted `.codex/` edition, exported to `.agents/` in target projects | `AGENTS.md` |
+| GPT / CODEX | Prebuilt converted `.codex/` edition, installed directly as `.codex/` | `AGENTS.md` |
 | AGY / GEMINI | Original `.agents/` tree and `skills-lock.json` | `GEMINI.MD` |
 
 The root `AGENTS.md` and `GEMINI.MD` route installation requests through the same choice. The original `@.agents/rules/install.md` entry point also checks the edition before setup.
@@ -48,9 +48,17 @@ The root `AGENTS.md` and `GEMINI.MD` route installation requests through the sam
 
 Clone this repository separately from the target project, then follow the selected branch in [INSTALL.md](INSTALL.md). Codex export commands, profiles, and optional hooks are documented in [.codex/README.md](.codex/README.md).
 
+For GPT / CODEX, Node.js 20 or newer is the only copy/install prerequisite:
+
+```powershell
+node tools/codex/export.mjs --target "C:/Projects/my-project" --profile all
+```
+
+This installs the committed bundle directly into `.codex/` with root `AGENTS.md`. No conversion build, npm dependency installation, AGY submodule download, or path rewriting is needed. An AGY / Gemini assistant can run the same command when the selected target is Codex.
+
 ### Active Codex Edition in This Repository
 
-The local Codex loader discovers all 190 converted skills under `.codex/skills/`. Root `AGENTS.md` loads the converted guidance and selects `.codex/` paths when working here. Both editions can appear in this collection's skill catalog; root instructions prefer the converted copy when names match. The `.agents/` payload remains available to AGY / Gemini. Restart Codex to reload project instructions. Exported target projects use the documented `.agents/skills/` layout and contain only the selected edition.
+The local Codex loader discovers all 190 converted skills under `.codex/skills/`. Root `AGENTS.md` loads the converted guidance and selects `.codex/` paths when working here. Both editions can appear in this collection's skill catalog; root instructions prefer the converted copy when names match. The `.agents/` payload remains available to AGY / Gemini. Restart Codex to reload project instructions. Exported Codex targets use the same `.codex/` structure and contain only the selected edition.
 
 ### Codex Global Instructions
 
@@ -72,7 +80,7 @@ npx skills update -y; if (Test-Path .claude) { Remove-Item -Recurse -Force .clau
 npx skills update -y && rm -rf .claude
 ```
 
-For the Codex edition, update the source collection, rebuild and validate it with `tools/codex/`, then review and merge the converted updates into the target. Its exporter refuses existing files; the original updater lockfile does not describe converted skill hashes.
+For the Codex edition, maintain the source collection and publish a rebuilt, validated bundle. Installers consume that prebuilt release; they do not rebuild during setup. Review and merge converted updates into an existing target, since the exporter refuses existing files. The original updater lockfile does not describe converted skill hashes.
 
 ---
 

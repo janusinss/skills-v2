@@ -17,16 +17,16 @@ Prevent accidental destruction of existing work:
 
 ## Phase 1: Visual Foundation & DESIGN.md Selection (`awesome-design-md`)
 Establish the visual ground truth before gathering product requirements or writing code:
-1. **Analyze User Intent**: Evaluate the user's initial prompt against the 74 production brand design systems in `.agents/skills/awesome-design-md/design-md/`.
+1. **Analyze User Intent**: Evaluate the user's initial prompt against the 74 production brand design systems in `.codex/skills/awesome-design-md/design-md/`.
 2. **Interactive Selection Gate (when the existing user instructions leave a material choice unresolved)**: Present at least 6 choices to the user:
    - 5 curated `DESIGN.md` recommendations closely matching the user's prompt (e.g., `linear.app`, `stripe`, `apple`, `vercel`, `supabase`, `raycast`).
    - 1 option to choose manually (allowing the user to specify any other brand from the 74 available).
 3. **Install Ground Truth**: Copy the selected specification directly to the project root:
    ```bash
    # Unix / PowerShell:
-   cp .agents/skills/awesome-design-md/design-md/<brand>/DESIGN.md ./DESIGN.md
+   cp .codex/skills/awesome-design-md/design-md/<brand>/DESIGN.md ./DESIGN.md
    # Windows CMD:
-   copy ".agents\skills\awesome-design-md\design-md\<brand>\DESIGN.md" .\DESIGN.md
+   copy ".codex\skills\awesome-design-md\design-md\<brand>\DESIGN.md" .\DESIGN.md
    ```
 
 ---
@@ -107,5 +107,5 @@ Validate the running application inside real Chromium viewports:
 1. **Browser Verification Mandate**: Execute browser inspection and multi-viewport responsive verification strictly following Section 8 of [.agents/rules/UI_Always.md](UI_Always.md).
 2. **Quality & Token Compliance Check**:
    - Verify 0 horizontal scroll overflows, 0 console errors, >=44px tap targets.
-   - Run `.agents/skills/impeccable/scripts/impeccable.cmd detect .` (or Unix `.agents/skills/impeccable/scripts/impeccable detect .`) to verify compliance against `DESIGN.md` tokens.
+   - Run `.codex/skills/impeccable/scripts/impeccable.cmd detect .` (or Unix `.codex/skills/impeccable/scripts/impeccable detect .`) to verify compliance against `DESIGN.md` tokens.
 3. **Git Hygiene & Lock**: Verify ephemeral artifacts (`scratch/`, `.impeccable/`, `node_modules/`) are in `.gitignore`. Commit `package.json`, `PRODUCT.md`, and `DESIGN.md`.

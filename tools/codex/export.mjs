@@ -1,8 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { bundleRoot, sourceRoot, repoRoot, filesIn, assertNoSymlinkAncestors, within, sha256, slash, json } from './lib.mjs';
-import { validateBundle } from './validate.mjs';
+import { bundleRoot, sourceRoot, repoRoot, filesIn, assertNoSymlinkAncestors, within, sha256, slash, json, verifyBundleFiles } from './lib.mjs';
 
 export function planExport({ target, profile = 'all', includeHooks = false }, root = bundleRoot) {
   if (!target || !path.isAbsolute(target)) throw new Error('--target must be an absolute project directory');
@@ -26,33 +25,35 @@ export function planExport({ target, profile = 'all', includeHooks = false }, ro
     entries.push({ source, destination: output, relative });
   };
   add(path.join(root, 'AGENTS.template.md'), 'AGENTS.md');
-  for (const area of ['rules', 'resources']) for (const source of filesIn(path.join(root, area))) add(source, slash(path.join('.agents', area, path.relative(path.join(root, area), source))));
+  for (const area of ['rules', 'resources']) for (const source of filesIn(path.join(root, area))) add(source, slash(path.join('.codex', area, path.relative(path.join(root, area), source))));
   for (const skill of selected) {
     if (!all.includes(skill)) throw new Error(`Missing skill ${skill} in profile ${profile}`);
     const directory = path.join(root, 'skills', skill);
-    for (const source of filesIn(directory)) add(source, slash(path.join('.agents/skills', skill, path.relative(directory, source))));
+    for (const source of filesIn(directory)) add(source, slash(path.join('.codex/skills', skill, path.relative(directory, source))));
   }
   if (includeHooks) add(path.join(root, 'hooks.example.json'), '.codex/hooks.json');
-  const installManifest = path.join(destination, '.agents/codex-install.json');
+  const installManifest = path.join(destination, '.codex/codex-install.json');
   assertNoSymlinkAncestors(installManifest);
   if (fs.existsSync(installManifest)) throw new Error(`Destination already exists: ${installManifest}`);
   return { target: destination, profile, topLevelSkills: selected.length, includeHooks, entries, installManifest };
 }
 
 export function exportBundle(options, root = bundleRoot) {
-  const validation = validateBundle(root, { checkSource: false });
-  if (validation.errors.length) throw new Error(`Bundle validation failed: ${validation.errors.join('; ')}`);
   const plan = planExport(options, root);
+  const { files } = verifyBundleFiles(root);
+  for (const entry of plan.entries) {
+    if (!files.has(slash(path.relative(root, entry.source)))) throw new Error(`Unverified bundle file: ${entry.source}`);
+  }
   if (options.dryRun) return { target: plan.target, profile: plan.profile, topLevelSkills: plan.topLevelSkills, files: plan.entries.length + 1, dryRun: true };
   const hashes = {};
   for (const entry of plan.entries) {
-    const data = fs.readFileSync(entry.source);
+    const data = files.get(slash(path.relative(root, entry.source)));
     fs.mkdirSync(path.dirname(entry.destination), { recursive: true });
     // Exclusive creation also prevents overwriting a file created after preflight.
     fs.writeFileSync(entry.destination, data, { flag: 'wx' });
     hashes[entry.relative] = sha256(data);
   }
-  fs.writeFileSync(plan.installManifest, json({ source: 'skills-v2 Codex edition', profile: plan.profile, topLevelSkills: plan.topLevelSkills, hooksIncluded: plan.includeHooks, files: hashes }), { flag: 'wx' });
+  fs.writeFileSync(plan.installManifest, json({ source: 'skills-v2 Codex edition', formatVersion: 2, hashing: 'sha256-lf-text', profile: plan.profile, topLevelSkills: plan.topLevelSkills, hooksIncluded: plan.includeHooks, files: hashes }), { flag: 'wx' });
   return { target: plan.target, profile: plan.profile, topLevelSkills: plan.topLevelSkills, files: plan.entries.length + 1, dryRun: false };
 }
 

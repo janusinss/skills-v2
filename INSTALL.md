@@ -20,20 +20,17 @@ Inspect existing `.agents/`, `AGENTS.md`, and `GEMINI.MD` files before writing. 
 
 ## GPT / CODEX
 
-From the source checkout, with Node.js 20 or newer, install the exporter dependency if needed:
+Install the committed, prebuilt `.codex/` bundle from the source checkout. Node.js 20 or newer is the only installation prerequisite. Use the recorded absolute target path instead of this example:
 
 ```powershell
-npm ci --prefix tools/codex --ignore-scripts --no-audit --no-fund
-```
-
-Use the recorded absolute target path instead of this example:
-
-```powershell
-node tools/codex/export.mjs --target "C:/Projects/my-project" --profile all --dry-run
 node tools/codex/export.mjs --target "C:/Projects/my-project" --profile all
 ```
 
-The exporter installs the converted payload as `.agents/skills/`, `.agents/rules/`, `.agents/resources/`, and root `AGENTS.md`, with an installation manifest at `.agents/codex-install.json`. It refuses existing destination files and symlink destinations. Use a smaller named profile only when requested. Keep the source checkout available for later updates.
+The exporter verifies the committed bundle, then creates `.codex/skills/`, `.codex/rules/`, `.codex/resources/`, and root `AGENTS.md`, with hashes of the installed files at `.codex/codex-install.json`. Paths are already correct; do not rename folders or rewrite files or hashes afterward. Existing destination files and symlink destinations are refused. Add `--dry-run` only when a preview is needed. Use a smaller named profile only when requested. Keep the source checkout available for later updates.
+
+Normal installation does not need `npm ci`, `build.mjs`, source auditing, source-snapshot validation, submodule initialization, or the AGY bootstrapper. The converted `avoid-ai-writing` files are committed directly in `.codex/`; an empty AGY source submodule does not block their export. These maintenance steps add downloads and can fail on a normal clone. If bundle integrity fails, report the error and use a fresh complete checkout rather than rebuilding or changing the manifest to bypass it.
+
+AGY / Gemini can perform this installation for a Codex target. The selected edition determines the payload; the assistant running the install does not change it. Open Codex afterward to check discovery. Do not try to activate Codex skills in the AGY host as part of the copy operation.
 
 Open the target in Codex and confirm the installed skills are available in that client; the CLI and IDE support `/skills`. Install workflow dependencies when needed. Add `--include-hooks` only when the user wants the optional Impeccable hooks and the host's review requirements have been satisfied. See [.codex/README.md](.codex/README.md) for profiles, dependencies, and hooks.
 

@@ -28,5 +28,5 @@ Locate the matching brand directory under `design-md/<brand-name>/DESIGN.md`:
 ### 2. Install as Project Ground Truth
 Copy the desired specification directly into the project root:
 ```bash
-cp .agents/skills/awesome-design-md/design-md/<brand>/DESIGN.md ./DESIGN.md
+cp .codex/skills/awesome-design-md/design-md/<brand>/DESIGN.md ./DESIGN.md
 ```

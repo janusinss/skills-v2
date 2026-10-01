@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { bundleRoot, sourceRoot, repoRoot, filesIn, parseSkill, snapshotSource, slash, json, sha256, writeIfChanged, assertNoSymlinkAncestors } from './lib.mjs';
+import { bundleRoot, sourceRoot, repoRoot, filesIn, parseSkill, snapshotSource, slash, json, sha256, payloadData, payloadHash, writeIfChanged, assertNoSymlinkAncestors } from './lib.mjs';
 import { convertSkill, openaiMetadata, yamlText, readOriginalMetadata, adaptMarkdown, adaptPlaywrightRunner } from './convert.mjs';
 
 export function buildBundle() {
@@ -27,9 +27,9 @@ export function buildBundle() {
 
   function add(relative, content, source) {
     if (outputs.has(relative)) throw new Error(`Output collision: ${relative}`);
-    const data = Buffer.isBuffer(content) ? content : Buffer.from(content);
+    const data = payloadData(content);
     outputs.set(relative, data);
-    records[relative] = { source: slash(path.relative(repoRoot, source)), sourceHash: sha256(fs.readFileSync(source)), outputHash: sha256(data) };
+    records[relative] = { source: slash(path.relative(repoRoot, source)), sourceHash: payloadHash(fs.readFileSync(source)), outputHash: sha256(data) };
   }
 
   for (const source of sourceFiles) {
@@ -69,7 +69,7 @@ export function buildBundle() {
   const agentsTemplate = path.join(templates, 'AGENTS.template.md');
   add('AGENTS.template.md', fs.readFileSync(agentsTemplate), agentsTemplate);
   const hooks = JSON.parse(fs.readFileSync(path.join(sourceRoot, 'hooks.json'), 'utf8'));
-  add('hooks.example.json', json({ description: 'Optional Impeccable hooks. Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks }), path.join(sourceRoot, 'hooks.json'));
+  add('hooks.example.json', json({ description: 'Optional Impeccable hooks. Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks }).replaceAll('.agents/skills/', '.codex/skills/'), path.join(sourceRoot, 'hooks.json'));
 
   // Preflight every generated destination before writing any files. Refuse to
   // overwrite manually edited generated files, and never delete stale files.
@@ -77,7 +77,8 @@ export function buildBundle() {
     const absolute = path.join(bundleRoot, relative);
     assertNoSymlinkAncestors(absolute);
     if (fs.existsSync(absolute)) {
-      const currentHash = sha256(fs.readFileSync(absolute));
+      const currentData = fs.readFileSync(absolute);
+      const currentHash = previous.formatVersion === 2 ? payloadHash(currentData) : sha256(currentData);
       if (currentHash !== sha256(data) && currentHash !== previous.files?.[relative]?.outputHash) throw new Error(`Edited or unowned generated file: ${relative}. Preserve it before rebuilding.`);
     }
   }
@@ -86,7 +87,7 @@ export function buildBundle() {
   const after = snapshotSource();
   if (before.digest !== after.digest) throw new Error('Original source changed during conversion');
   const manifest = {
-    generatedBy: 'tools/codex/build.mjs', formatVersion: 1, checkedOn: '2026-10-01',
+    generatedBy: 'tools/codex/build.mjs', formatVersion: 2, hashing: 'sha256-lf-text', checkedOn: '2026-10-01',
     originalSnapshot: before, originalPreserved: true,
     summary: { topLevelSkills, discoverableSkills, duplicatesPreservedAsReferences: duplicates.size, rules: 8, generatedFiles: outputs.size },
     duplicateReferences: Object.fromEntries([...duplicates].map(([from, to]) => [slash(path.relative(sourceRoot, from)), slash(path.relative(sourceRoot, to))])),

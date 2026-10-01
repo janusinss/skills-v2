@@ -19,7 +19,7 @@ Establish tooling before modifying any source files:
 
 ## Phase 1: Codebase Audit & Legacy Pattern Extraction
 Analyze existing code to establish the current design baseline:
-1. **Extract Patterns via `impeccable:document` Workflow**: Follow [.agents/skills/impeccable/reference/document.md](../skills/impeccable/reference/document.md) to inspect templates, stylesheets, and components (run `.agents/skills/impeccable/scripts/impeccable.cmd detect .` for automated anti-pattern discovery).
+1. **Extract Patterns via `impeccable:document` Workflow**: Follow [.agents/skills/impeccable/reference/document.md](../skills/impeccable/reference/document.md) to inspect templates, stylesheets, and components (run `.codex/skills/impeccable/scripts/impeccable.cmd detect .` for automated anti-pattern discovery).
 2. **Extract Current Design Tokens**: Reverse-engineer from the codebase:
    - Font families, sizes, weights, and line-heights in active use.
    - Color palette (hex/HSL values from CSS variables, inline styles, and class definitions).
@@ -32,7 +32,7 @@ Analyze existing code to establish the current design baseline:
 ## Phase 2: Target Aesthetic Direction
 Define where the redesign is heading. Two paths:
 1. **Path A — Select from `awesome-design-md` Library** (full visual overhaul):
-   - Present 5+ curated brand design systems from `.agents/skills/awesome-design-md/design-md/` via `ask_question`.
+   - Present 5+ curated brand design systems from `.codex/skills/awesome-design-md/design-md/` via `ask_question`.
    - Copy the selected spec to `./DESIGN.md`, replacing the baseline while preserving the `## Current State (Extracted)` section as a reference appendix.
 2. **Path B — Refine Extracted Baseline** (incremental polish):
    - Keep the extracted `DESIGN.md` as the foundation.
@@ -101,5 +101,5 @@ Validate the running application inside real Chromium viewports:
 1. **Browser Verification Mandate**: Execute browser inspection and multi-viewport responsive verification strictly following Section 8 of [.agents/rules/UI_Always.md](UI_Always.md).
 2. **Quality & Token Compliance Check**:
    - Verify 0 horizontal scroll overflows, 0 console errors, >=44px tap targets.
-   - Run `.agents/skills/impeccable/scripts/impeccable.cmd detect .` (or Unix `.agents/skills/impeccable/scripts/impeccable detect .`) to verify compliance against target `DESIGN.md` tokens.
+   - Run `.codex/skills/impeccable/scripts/impeccable.cmd detect .` (or Unix `.codex/skills/impeccable/scripts/impeccable detect .`) to verify compliance against target `DESIGN.md` tokens.
 3. **Git Commit**: Verify ephemeral artifacts (`scratch/`, `.impeccable/`, `node_modules/`, `test-results/`) are in `.gitignore`. Commit `package.json`, `PRODUCT.md`, and `DESIGN.md`.

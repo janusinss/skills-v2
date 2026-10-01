@@ -9,7 +9,7 @@ Production-grade libraries and components for high-end, immersive web scrolling 
 ## 1. Directory Structure
 
 ```text
-.agents/resources/creative-libraries/
+.codex/resources/creative-libraries/
 ├── gsap/                       # GSAP Core & Full Club Suite (ScrollTrigger, Flip, Observer, SplitText, etc.)
 │   ├── dist/                   # Production minified bundles (.min.js)
 │   └── src/                    # Source ES modules (all.js)
@@ -90,7 +90,7 @@ Marketplace of design-engineer React/Tailwind components:
 - **Animated Borders**: `npx shadcn@latest add "https://21st.dev/r/<author>/glowing-border"`
 - **Hero Sections**: `npx shadcn@latest add "https://21st.dev/r/<author>/hero-section"`
 - **Interactive Containers**: `npx shadcn@latest add "https://21st.dev/r/<author>/bento-grid"`
-- **Agent Discovery**: Query via `npx @21st-dev/cli search "<component>"` or use the installed `.agents/skills/21st-*` skills.
+- **Agent Discovery**: Query via `npx @21st-dev/cli search "<component>"` or use the installed `.codex/skills/21st-*` skills.
 
 ### B. ThreeUI (`@designcodeio/threeui`)
 DesignCode's curated 3D Three.js React library:

@@ -102,7 +102,7 @@ For a single-file rules field, use [`dist/avoid-ai-writing.md`](dist/avoid-ai-wr
 **Option 1: Clone into skills directory**
 
 ```bash
-git clone https://github.com/conorbronsdon/avoid-ai-writing .agents/skills/avoid-ai-writing
+git clone https://github.com/conorbronsdon/avoid-ai-writing .codex/skills/avoid-ai-writing
 ```
 
 **Option 2: Copy a self-contained file**
@@ -124,14 +124,14 @@ description: Audit and rewrite content to remove AI writing patterns
 
 $ARGUMENTS
 
-Read and follow the instructions in .agents/skills/avoid-ai-writing/REFERENCE.md
+Read and follow the instructions in .codex/skills/avoid-ai-writing/REFERENCE.md
 ```
 
 Then use `/clean-ai-writing <your text>` in Claude Code.
 
 ### Claude Cowork — install as a plugin
 
-[Cowork](https://claude.com/product/cowork) loads skills only from **installed plugins** — it doesn't scan `.agents/skills/`, so a bare clone (the Claude Code steps above) won't be discovered there. This repo doubles as a single-plugin [marketplace](https://code.claude.com/docs/en/plugin-marketplaces), so install it as a plugin instead:
+[Cowork](https://claude.com/product/cowork) loads skills only from **installed plugins** — it doesn't scan `.codex/skills/`, so a bare clone (the Claude Code steps above) won't be discovered there. This repo doubles as a single-plugin [marketplace](https://code.claude.com/docs/en/plugin-marketplaces), so install it as a plugin instead:
 
 ```bash
 /plugin marketplace add conorbronsdon/avoid-ai-writing
@@ -181,10 +181,10 @@ git clone https://github.com/conorbronsdon/avoid-ai-writing ~/.hermes/skills/wri
 
 ### OpenAI Codex
 
-Codex reads [Agent Skills](https://developers.openai.com/codex/skills) in the same `SKILL.md` format. Put it in `.agents/skills/` at the repo root, or `~/.agents/skills/` to use it across all your projects:
+Codex reads [Agent Skills](https://developers.openai.com/codex/skills) in the same `SKILL.md` format. Put it in `.codex/skills/` at the repo root, or `~/.agents/skills/` to use it across all your projects:
 
 ```bash
-git clone https://github.com/conorbronsdon/avoid-ai-writing .agents/skills/avoid-ai-writing
+git clone https://github.com/conorbronsdon/avoid-ai-writing .codex/skills/avoid-ai-writing
 ```
 
 ### Native ChatGPT and Codex plugin package

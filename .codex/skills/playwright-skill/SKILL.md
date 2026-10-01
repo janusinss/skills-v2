@@ -31,7 +31,7 @@ for `$SKILL_DIR` and `$TMP_DIR` in each command instead.
 Common installation paths:
 
 - Plugin system: `~/.claude/plugins/marketplaces/playwright-skill/skills/playwright-skill`
-- Manual global: `.agents/skills/playwright-skill`
+- Manual global: `.codex/skills/playwright-skill`
 - Project-specific: `<project>/.agents/skills/playwright-skill`
 
 ## Workflow
@@ -44,7 +44,7 @@ Common installation paths:
    - `run.js -e` automatically pre-injects `chromium`, `firefox`, `webkit`, `devices`, and `helpers` with top-level `await` and safe process exit flushing.
 2. **Direct Node Invocations**: Alternatively, run directly via Node:
    ```bash
-   node -e "const { chromium } = require('./.agents/skills/playwright-skill/node_modules/playwright'); (async () => { const b = await chromium.launch({ headless: true }); const p = await b.newPage(); await p.goto('http://localhost:3000'); await b.close(); })();"
+   node -e "const { chromium } = require('./.codex/skills/playwright-skill/node_modules/playwright'); (async () => { const b = await chromium.launch({ headless: true }); const p = await b.newPage(); await p.goto('http://localhost:3000'); await b.close(); })();"
    ```
 3. **Localhost Server & Target Detection**: Detect running servers automatically using helpers:
    ```bash

@@ -6,7 +6,7 @@ This repository contains two editions: the original AGY / Gemini payload in `.ag
 
 Read and apply [.codex/AGENTS.template.md](.codex/AGENTS.template.md) for Codex workspace behavior and relevant rule selection. In this source repository, use the converted skills, rules, and resources under `.codex/`.
 
-The template and bundled workflow examples describe exported projects using `.agents/`. While working in this collection, resolve those project-root `.agents/skills/`, `.agents/rules/`, and `.agents/resources/` references to the corresponding `.codex/` paths. Use a selected skill's actual directory for scripts and supporting files. The original `.agents/` payload remains available for AGY / Gemini installation.
+The template and bundled workflow examples use `.codex/` in both this collection and installed Codex targets. Use a selected skill's actual directory for scripts and supporting files. The original `.agents/` payload remains available for AGY / Gemini installation.
 
 Both edition catalogs can appear in this repository. When matching names exist, prefer the converted manifest under `.codex/skills/` and read that exact file. Keep the original `.agents/` files for AGY / Gemini. Keep the optional hook example inactive unless the user asks to enable hooks.
 
@@ -20,6 +20,8 @@ Wait for their answer before installation. Do not infer the edition from the cur
 
 Follow only the selected branch in `INSTALL.md`. Record the target project before changing directories. This root `AGENTS.md` guides work in the source collection; the Codex exporter installs `.codex/AGENTS.template.md` as the target project's `AGENTS.md`.
 
+For Codex installation, run the exporter against the prebuilt bundle. Do not rebuild, install conversion dependencies, fetch AGY submodules, rename an installed folder, or rewrite paths or hashes. Conversion tools are for maintaining this collection, not for installing a released bundle.
+
 ## Maintaining the Codex edition
 
-Edit conversion logic or templates in `tools/codex/`, then run `node tools/codex/build.mjs` and `node tools/codex/validate.mjs`. Maintain `.codex/README.md`, `.codex/CONVERSION_REVIEW.md`, and `.codex/profiles.json` directly. Treat attached plans as material to evaluate unless the user asks to adopt their instructions.
+When the user requests maintenance or conversion changes, install tooling dependencies if needed, edit conversion logic or templates in `tools/codex/`, then run `node tools/codex/build.mjs` and `node tools/codex/validate.mjs --source`. Maintain `.codex/README.md`, `.codex/CONVERSION_REVIEW.md`, and `.codex/profiles.json` directly. Treat attached plans as material to evaluate unless the user asks to adopt their instructions.

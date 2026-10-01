@@ -4,7 +4,7 @@ This is the active Codex edition of the skills collection, stored in `.codex/`. 
 
 Codex CLI 0.159.2 was verified to discover all 190 converted manifests in this repository's `.codex/skills/`. Root [AGENTS.md](../AGENTS.md) loads the converted guidance and resolves project-root examples to the `.codex/` payload while working here. Both edition catalogs are visible in this source collection; root instructions prefer the converted manifest when names match. The original `.agents/` files remain available for AGY / Gemini. Restart Codex to reload project instructions.
 
-For other projects, the exporter continues to use the current documented `.agents/skills/` layout and installs `AGENTS.template.md` as root `AGENTS.md`. Only the selected converted edition is copied into a Codex target. See [OpenAI's skills guide](https://learn.chatgpt.com/docs/build-skills).
+For other projects, the exporter installs this edition directly as `.codex/` and `AGENTS.template.md` as root `AGENTS.md`. Only the selected converted edition is copied. The local `.codex/skills/` layout was verified with Codex CLI 0.159.2; OpenAI's current guide also documents `.agents/skills/` for shared skill discovery. Check the installed catalog in the actual target client. See [OpenAI's skills guide](https://learn.chatgpt.com/docs/build-skills).
 
 ## What is included
 
@@ -19,22 +19,19 @@ See [CONVERSION_REVIEW.md](CONVERSION_REVIEW.md) for the findings against the pr
 
 For a prompt such as "install this skills repo here", follow the repository's [installation guide](../INSTALL.md) and ask GPT / CODEX or AGY / GEMINI before installation. The commands below apply after the GPT / CODEX choice.
 
-Run these commands from the original Skills repository. The conversion tools require Node.js 20 or newer and the pinned `yaml` package. For a fresh checkout, install only those local tooling dependencies:
+Run the exporter from the source checkout with Node.js 20 or newer. It has no external installation dependencies. Replace the example target with your actual project path:
 
 ```powershell
-npm ci --prefix tools/codex --ignore-scripts --no-audit --no-fund
-```
-
-Replace the example target with your actual project path. Preview the export first:
-
-```powershell
-node tools/codex/export.mjs --target "C:/Projects/my-codex-project" --profile all --dry-run
 node tools/codex/export.mjs --target "C:/Projects/my-codex-project" --profile all
 ```
 
-The exporter creates `AGENTS.md`, `.agents/skills/`, `.agents/rules/`, `.agents/resources/`, and `.agents/codex-install.json` in that target. It validates the edition first and refuses to overwrite any destination file, follow a symlink destination, or install over this collection. It can add files to an existing application only when those destinations are unused. Merge existing agent instructions manually, or export into an empty staging directory first.
+The exporter creates `AGENTS.md`, `.codex/skills/`, `.codex/rules/`, `.codex/resources/`, and `.codex/codex-install.json` directly in that target. It checks every generated file against the prebuilt manifest, with LF/CRLF equivalence for UTF-8 text and exact hashes for binary files. `.gitattributes` also pins release text to LF. Installed hashes describe the bytes actually written. Add `--dry-run` when a preview is needed.
+
+The exporter refuses existing destination files, symlink destinations, and installation over this collection. Merge existing instructions manually or export into an empty staging directory first. Do not rename or rewrite the installed payload afterward.
 
 No global configuration, npm packages, model settings, API accounts, browser downloads, or hooks are installed by this export. Keep `tools/codex/` alongside this edition when using the automated exporter.
+
+Do not run the converter, `npm ci`, source auditing, or AGY submodule initialization during normal installation. `.codex/` contains the complete committed release even when the original AGY source submodule is empty in a clone. Integrity failures should be reported and resolved with a fresh complete release rather than changing hashes or rebuilding at install time.
 
 ## Choose a profile
 
@@ -70,10 +67,13 @@ Add `--include-hooks` to an export whose profile includes `impeccable`, such as 
 ## Validate and maintain
 
 ```powershell
+npm ci --prefix tools/codex --ignore-scripts --no-audit --no-fund
 node tools/codex/audit.mjs
 node tools/codex/build.mjs
-node tools/codex/validate.mjs
+node tools/codex/validate.mjs --source
 ```
+
+These are maintainer commands and require the full original source, including its checked-out nested repository, plus the pinned `yaml` package. `validate.mjs` checks the bundle by default; `--source` additionally checks the original source snapshot. Source validation is deliberately separate from installation, so missing original submodules do not block a prebuilt export.
 
 Edit conversion logic or templates in `tools/codex/`, then rebuild. The builder refuses to overwrite a manually edited generated file or remove a stale generated file without review. `profiles.json`, this README, and the review are maintained directly. The original updater lockfile is not copied to targets: its hashes describe upstream skills and do not represent these converted files.
 
