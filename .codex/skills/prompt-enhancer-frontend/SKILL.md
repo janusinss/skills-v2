@@ -12,13 +12,13 @@ Transforms any product concept into an exhaustive frontend architecture specific
 ## Core Directives
 
 1. **Zero Roleplay Fluff**: Lead directly with the UI specification. No persona prefixes.
-2. **Stack-Agnostic**: Do not dictate React, Vue, Svelte, or any specific framework unless already chosen by the user. Focus on what the interface must do, not how to implement it.
+2. **Modern Frontend Tech Stack Default (Never Vanilla HTML/CSS/JS)**: When starting a new project and the user has not already locked a framework, **always default to and specify a modern component frontend stack** — **Next.js App Router (React 19 + TypeScript + Tailwind CSS + shadcn/ui + Motion / `@bsmnt/scrollytelling` + GSAP)** by default, or **Vite + React + TypeScript + Tailwind CSS**, **Astro**, or **SvelteKit**. **Never default to or output vanilla HTML/CSS/JS** for a new project unless explicitly requested by the user.
 3. **Exhaustive UI Surface Coverage**: Catalog every page, view, modal, drawer, toast, empty state, loading skeleton, error boundary, and permission-denied (`403`) screen. Never abbreviate with "etc." or cap to 3 examples.
 4. **Priority Tiers (P0–P3)**: Organize all UI features into strict execution phases so the frontend agent builds the P0 core loop first while structuring component boundaries cleanly for P1–P3.
 5. **Pipeline-Aware Disambiguation Gate & Connected Skill Dispatch**:
    - **Skip When Resolved**: When invoked inside [starting-brandnew.md](../../rules/starting-brandnew.md), [starting-existing.md](../../rules/starting-existing.md), or [frontend.md](../../rules/frontend.md) after the batched discovery gate or codebase audit, or when the user's brief already defines the core UI workflow, proceed directly without asking follow-up questions.
    - **Single-Question Cap**: Only when invoked standalone on an ambiguous prompt that maps to 2+ fundamentally different UI paradigms (e.g., *"dashboard"* → analytics vs. admin panel vs. IoT monitor), ask **at most one** targeted question (when the existing user instructions leave a material choice unresolved) with up to 5 concise options before proceeding.
-   - **Sibling Enhancer & Companion Skill Routing**: For fullstack systems or non-web surfaces, delegate to [prompt-enhancer](../prompt-enhancer/SKILL.md); for server/API/database tasks, delegate to [prompt-enhancer-backend](../prompt-enhancer-backend/SKILL.md). When moving to UI implementation, inspect only the 1–2 companion skills matching the active surface using the available file-reading tool or shell: [impeccable](../impeccable/SKILL.md) (primary Stage 2 visual craft, spatial composition, visitor modes & Stage 3 `impeccable detect` single-pass audit), [awesome-design-md](../awesome-design-md/SKILL.md) (`./DESIGN.md` ground truth), [design-taste-frontend](../design-taste-frontend/SKILL.md) (taste dials & `Design Read`), [avoid-ai-writing](../avoid-ai-writing/SKILL.md) (human copy), [playwright-skill](../playwright-skill/SKILL.md) (`helpers.extract21stComponent` & `helpers.resolveTargetUrl`), [3d-web-experience](../3d-web-experience/SKILL.md) / [scroll-world](../scroll-world/SKILL.md) (WebGL/ThreeUI shaders & scroll-scrubbed 3D camera flights), and [frontend-security-coder](../frontend-security-coder/SKILL.md) (XSS/CSP).
+   - **Sibling Enhancer & Companion Skill Routing**: For fullstack systems or non-web surfaces, delegate to [prompt-enhancer](../prompt-enhancer/SKILL.md); for server/API/database tasks, delegate to [prompt-enhancer-backend](../prompt-enhancer-backend/SKILL.md). When moving to UI implementation, inspect only the 1–2 companion skills matching the active surface using the available file-reading tool or shell: [impeccable](../impeccable/SKILL.md) (primary Stage 2 visual craft, spatial composition, visitor modes & Stage 3 `impeccable detect` single-pass audit), [awesome-design-md](../awesome-design-md/SKILL.md) (`./DESIGN.md` ground truth), [design-taste-frontend](../design-taste-frontend/SKILL.md) (taste dials & `Design Read`), [avoid-ai-writing](../avoid-ai-writing/SKILL.md) (human copy), [playwright-skill](../playwright-skill/SKILL.md) (`helpers.extract21stComponent` & `helpers.resolveTargetUrl`), [3d-web-experience](../3d-web-experience/SKILL.md) / [scrollytelling](../scrollytelling/SKILL.md) (WebGL/ThreeUI shaders & `@bsmnt/scrollytelling` React + GSAP scroll timelines, pinned stages, and 3D/canvas scrubbing), and [frontend-security-coder](../frontend-security-coder/SKILL.md) (XSS/CSP).
 6. **Clean Unicode Formatting**: Use `→` or `->` for flows. Never use LaTeX.
 7. **Strict Anti-AI-Slop & Authentic Media Law ([UI_Always.md](../../rules/UI_Always.md) Sections 1, 3, 4, 5, 6 & [impeccable/reference/craft-floor.md](../impeccable/reference/craft-floor.md))**: Every generated specification and Master Prompt must enforce:
    - 🚫 **No floating eyebrow pills, pastel chips, or kickers above headings**: No `rounded-full` pastel bubbles, fake `NEW`/`AI` badges, pulsing green `LIVE` dots on static pages, or eyebrow/kicker labels hovering over titles. Delete the label and lead directly with the headline (`H1 ≤ 2 lines`, hero subtext `≤ 20 words`, top header `< 80px`).
@@ -106,6 +106,7 @@ Generate a self-contained prompt formatted for immediate execution by a frontend
 
 ## 1. UI Domain, Visual Direction & Information Architecture
 - **Product Surface**: [Landing | SPA | Dashboard | Storefront | Admin Console | PWA]
+- **Modern Frontend Stack (Never Vanilla HTML/CSS/JS)**: [Next.js App Router (React 19 + TypeScript + Tailwind CSS + shadcn/ui + Motion / `@bsmnt/scrollytelling` + GSAP) | Vite + React + TypeScript + Tailwind CSS | Astro | SvelteKit]
 - **Target User Personas**: [Primary users and their core tasks]
 - **Visual Direction & Blueprint**:
   - **Primary Craft Engine & Visitor Mode (`impeccable`)**: `[Persuade | Operate | Read | Experience]` (enforcing `craft-floor.md` & `layout.md` spatial hierarchy)
@@ -160,7 +161,8 @@ Generate a self-contained prompt formatted for immediate execution by a frontend
 ```markdown
 Design and build a complete, production-ready frontend for [Product Name / Type].
 
-### Design Read & Visitor Mode (impeccable Stage 2)
+### Modern Frontend Stack, Design Read & Visitor Mode (impeccable Stage 2)
+- **Modern Frontend Stack (Never Vanilla HTML/CSS/JS)**: [Default to Next.js App Router + React 19 + TypeScript + Tailwind CSS + shadcn/ui + Motion / `@bsmnt/scrollytelling` + GSAP, or Vite + React + TypeScript + Tailwind CSS; never output vanilla HTML/CSS/JS unless explicitly requested]
 - **Visitor Mode (`impeccable`)**: `[Persuade | Operate | Read | Experience]`
 - **Design Read**: "Reading this as: [page kind] for [target audience], with a [vibe/tone] language, leaning toward [design system/archetype]."
 

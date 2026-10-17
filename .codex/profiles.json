@@ -10,16 +10,16 @@
     "frontend-design", "frontend-developer", "frontend-security-coder", "impeccable", "ui-ux-pro-max", "ui-styling",
     "design-taste-frontend", "design-system", "awesome-design-md", "brandkit", "tailwind-patterns", "react-best-practices",
     "react-patterns", "nextjs-best-practices", "nextjs-app-router-patterns", "javascript-pro", "typescript-expert",
-    "redesign-existing-projects", "scroll-world", "image-to-code", "imagegen-frontend-web", "avoid-ai-writing", "playwright-skill", "e2e-testing-patterns"
+    "redesign-existing-projects", "scroll-experience", "scrollytelling", "image-to-code", "imagegen-frontend-web", "avoid-ai-writing", "playwright-skill", "e2e-testing-patterns"
   ],
   "backend": [
     "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
-    "prompt-enhancer-backend", "backend-dev-guidelines", "backend-security-coder", "api-patterns", "api-security-best-practices",
+    "prompt-enhancer", "prompt-enhancer-backend", "backend-dev-guidelines", "backend-security-coder", "api-patterns", "api-security-best-practices",
     "architecture-patterns", "senior-architect", "architecture-decision-records", "database-architect", "database-design",
     "postgres-best-practices", "sql-pro", "auth-implementation-patterns", "nodejs-best-practices", "typescript-expert",
     "javascript-pro", "python-patterns", "python-pro", "python-testing-patterns", "async-python-patterns", "fastapi-pro",
     "fastapi-templates", "django-pro", "golang-pro", "go-concurrency-patterns", "observability-engineer", "test-driven-development",
-    "test-fixing", "docker-expert"
+    "test-fixing", "docker-expert", "playwright-skill"
   ],
   "security": [
     "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",

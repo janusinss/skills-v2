@@ -26,7 +26,7 @@ const descriptions = {
   'prompt-enhancer': 'Deconstruct concepts into domain-adaptive P0-P3 product architecture, data models, PRODUCT.md specs, and execution-ready Master Prompts.',
   'prompt-enhancer-frontend': 'Expand UI concepts into exhaustive P0-P3 page/component matrices, interaction states, responsive journeys, and frontend Master Prompts.',
   'prompt-enhancer-backend': 'Expand backend concepts into exhaustive P0-P3 API contracts, database schemas, state machines, auth/security rules, and backend Master Prompts.',
-  'scroll-world': 'Build scroll-scrubbed 3D diorama world landing pages with frame-locked camera clips and a portable vanilla-JS scrub engine.',
+  'scrollytelling': 'Build declarative scroll-driven animations, pinned sections, parallax, waypoints, canvas sequences, and R3F 3D scroll scenes with @bsmnt/scrollytelling and GSAP.',
 };
 
 export function normalizeFrontmatter(original) {
@@ -67,7 +67,6 @@ export function adaptMarkdown(text, sourceFile, duplicatePaths = new Map()) {
   result = result.replaceAll('via `view_file`', 'using the available file-reading tool or shell');
   result = result.replaceAll('(`ask_question`)', '(when the existing user instructions leave a material choice unresolved)');
   result = result.replaceAll('AskUserQuestion', 'the available user-input tool');
-  result = result.replaceAll('(#step-5--the-seamless-chain-the-critical-part)', '(#step-5--connectors-architecture-b-only)');
   // Repair repository-root links into relative links that work in both the
   // staged bundle (skills/) and the installed edition (.codex/skills/).
   result = result.replace(/(\[[^\]\n]*\]\()([^\s)]+)(\))/g, (whole, prefix, target, suffix) => {

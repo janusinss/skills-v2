@@ -12,7 +12,7 @@ Transforms any product concept into an exhaustive backend architecture specifica
 ## Core Directives
 
 1. **Zero Roleplay Fluff**: Lead directly with the system specification. No persona prefixes.
-2. **Stack-Agnostic**: Do not dictate Express, FastAPI, Django, or any specific framework unless already chosen by the user. Focus on what the backend must do, not how to implement it.
+2. **Modern Typed Backend Stack Default**: When starting a new project and the user has not already locked a backend runtime, **always default to a modern, strongly-typed backend stack** — e.g., **Node.js/TypeScript (Next.js App Router Route Handlers / Hono / Fastify + Prisma/Drizzle + Zod)**, **FastAPI (Python 3.12+ + SQLAlchemy 2.0 + Pydantic v2)**, or **Go (1.22+ + sqlc/pgx) + PostgreSQL**. Preserve an existing project's stack when refactoring.
 3. **Exhaustive API & Data Surface Coverage**: Catalog every endpoint, entity, relationship, migration, queue, cron job, webhook, and middleware. Never abbreviate with "etc." or cap to 3 examples.
 4. **Priority Tiers (P0–P3)**: Organize all backend capabilities into strict execution phases so the backend agent builds the P0 core data layer and APIs first while structuring service/schema boundaries cleanly for P1–P3.
 5. **Pipeline-Aware Disambiguation Gate & Connected Skill Dispatch**:
@@ -72,6 +72,7 @@ Generate a self-contained prompt formatted for immediate execution by a backend 
 
 ## 1. System Domain & Service Architecture
 - **Architecture Pattern**: [Monolith | Modular Monolith | Microservices | Serverless | Event-Driven]
+- **Modern Typed Backend Stack**: [Node.js / TypeScript (Next.js Route Handlers / Hono / Fastify + Prisma/Drizzle + Zod) | FastAPI (Python 3.12+ + SQLAlchemy 2.0 + Pydantic v2) | Go (1.22+ + sqlc/pgx) + PostgreSQL]
 - **Primary Actors & Access Tiers**: [End-users, Org Admins, Super-Admins, Service Accounts, External Consumers]
 - **Service Map & Bounded Contexts**:
   | Service / Module | Responsibility | Communication Pattern |
@@ -125,8 +126,9 @@ Generate a self-contained prompt formatted for immediate execution by a backend 
 ```markdown
 Design and build a complete, production-ready backend system for [Product Name / Type].
 
-### System Vision & Objective
-[Detailed description of the backend system, data flows, and primary operational outcome]
+### System Vision, Objective & Modern Typed Backend Stack
+- **Vision & Objective**: [Detailed description of the backend system, data flows, and primary operational outcome]
+- **Modern Typed Backend Stack**: [Default to Node.js / TypeScript (Next.js App Router Route Handlers / Hono / Fastify + Prisma/Drizzle + Zod), FastAPI (Python 3.12+ + SQLAlchemy 2.0 + Pydantic v2), or Go (1.22+ + sqlc/pgx) + PostgreSQL]
 
 ### Priority Execution Roadmap
 > **Execution Rule**: Implement **Phase 1 (P0)** end-to-end for the initial production release unless full P0–P3 implementation is explicitly requested. Catalog P1–P3 in `PRODUCT.md` and structure service/schema boundaries cleanly to support iterative expansion.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scrollytelling"
+  short_description: "Build declarative scroll-driven animations, pinned sections,..."
+  default_prompt: "Use $scrollytelling for the relevant part of this task."

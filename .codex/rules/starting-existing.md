@@ -78,7 +78,7 @@ Synthesize `PRODUCT.md` and the target `DESIGN.md` into the formal configuration
 ## Phase 5: Implementation & Code Assembly (via [impeccable](../skills/impeccable/SKILL.md) & [frontend.md](frontend.md))
 Apply the redesign strictly adhering to target `DESIGN.md` tokens, `PRODUCT.md` P0 features, and Stage 2 of [frontend.md](frontend.md) ([impeccable](../skills/impeccable/SKILL.md) visitor-mode composition and [craft-floor.md](../skills/impeccable/reference/craft-floor.md)):
 1. **Component Extraction & Visual Craft**: When pulling components, templates, or shaders from 21st.dev or ThreeUI, or authoring UI layouts, execute strictly following Stages 1–2 of [frontend.md](frontend.md).
-2. **Confirm Tech Stack**: Confirm implementation framework before generating code. Examples include Next.js App Router, Vite/React, Astro, SvelteKit, or Static HTML5/CSS3 — any framework the user selects is valid. For existing codebases, default to the stack already in use unless the user requests a migration.
+2. **Confirm Tech Stack**: For existing codebases, preserve the stack already in use unless the user requests a migration. When migrating or scaffolding new application modules, default to a modern tech stack (Next.js App Router + React 19 + TypeScript + Tailwind CSS + shadcn/ui + `@bsmnt/scrollytelling`, Vite + React + TypeScript + Tailwind CSS, Astro, or SvelteKit) — never migrate to or default to vanilla HTML/CSS/JS unless explicitly requested.
 3. **Standard Layout Archetypes**:
    - **Archetype A: High-Conversion SaaS & Product Dashboard**:
      - CSS Grid / Flexbox data tables with sticky headers and sortable columns.

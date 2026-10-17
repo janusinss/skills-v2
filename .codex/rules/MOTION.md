@@ -91,7 +91,7 @@ Scale motion behavior, travel distances, and hardware load to the viewport and i
 ### C. Laptop & Desktop (1280px+)
 - **Input**: Precision cursor hover, mouse wheel, trackpad inertia.
 - **Affordance**: Subtle cursor magnetic attraction on interactive buttons (max 4px pull).
-- **Scroll Storytelling**: Use scrubbed timelines (e.g. GSAP ScrollTrigger via [scroll-experience](../skills/scroll-experience/SKILL.md) or frame-locked 3D camera flights via [scroll-world](../skills/scroll-world/SKILL.md)) pinned to viewport heights for deep product tours.
+- **Scroll Storytelling**: Use scrubbed timelines (e.g. declarative React + GSAP ScrollTrigger timelines via [scrollytelling](../skills/scrollytelling/SKILL.md) or [scroll-experience](../skills/scroll-experience/SKILL.md)) pinned to viewport heights for deep product tours and 3D/canvas sequences.
 - **Containment**: Clamp max travel distances inside centered container wrappers so ultrawide monitors (2560px+) do not create jarring long-distance motion.
 
 ---

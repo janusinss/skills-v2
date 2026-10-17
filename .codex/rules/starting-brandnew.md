@@ -31,16 +31,16 @@ Establish the visual ground truth before gathering product requirements or writi
 ---
 
 ## Phase 2: Product Truth & Architecture Expansion ([prompt-enhancer](../skills/prompt-enhancer/SKILL.md))
-Transform brief user concepts into an exhaustive, stack-agnostic specification:
+Transform brief user concepts into an exhaustive, modern-stack-grounded specification:
 1. **Capture Raw Product Intent & Archetype Selection (when the existing user instructions leave a material choice unresolved)**:
-   - Batched into the Phase 1.2 discovery prompt when unspecified: capture the user's product concept, target audience, and primary problem solved (keep stack-agnostic).
+   - Batched into the Phase 1.2 discovery prompt when unspecified: capture the user's product concept, target audience, primary problem solved, and modern tech stack selection (defaulting to **Next.js App Router + React 19 + TypeScript + Tailwind CSS + shadcn/ui + `@bsmnt/scrollytelling` / Motion**; never defaulting to or offering vanilla HTML/CSS/JS unless explicitly requested by the user).
    - **Website Archetype Gate (Default Landing / Marketing Builds)**: When building a landing page, marketing site, or storefront and no custom layout is requested, ask if the user wants a **Standard Website** or a **Website with Hero** (skip for pure dashboards, internal tools, or custom-specified layouts):
      - *Standard Website*: TailGrids NexStudio blueprint + Spectrum UI footer.
      - *Website with Hero*: Md Adul E-commerce Marketplace blueprint + Spectrum UI footer.
 2. **Execute Domain-Specific Enhancer**:
-   - **Frontend / Client UI**: Apply [prompt-enhancer-frontend](../skills/prompt-enhancer-frontend/SKILL.md) (Page/Component Matrix, responsive breakpoints, state variants).
-   - **Backend / Data API**: Apply [prompt-enhancer-backend](../skills/prompt-enhancer-backend/SKILL.md) (API endpoints, DB schemas, state machines, RBAC tables).
-   - **Fullstack System**: Apply general [prompt-enhancer](../skills/prompt-enhancer/SKILL.md) (End-to-end scope, core loop, and full domain analysis).
+   - **Frontend / Client UI**: Apply [prompt-enhancer-frontend](../skills/prompt-enhancer-frontend/SKILL.md) (Page/Component Matrix, modern React/Next.js/Tailwind stack, responsive breakpoints, state variants).
+   - **Backend / Data API**: Apply [prompt-enhancer-backend](../skills/prompt-enhancer-backend/SKILL.md) (API endpoints, DB schemas, modern typed backend stack, state machines, RBAC tables).
+   - **Fullstack System**: Apply general [prompt-enhancer](../skills/prompt-enhancer/SKILL.md) (End-to-end scope, modern fullstack architecture, core loop, and full domain analysis).
 3. **Commit Exhaustive `PRODUCT.md`**: Write the generated domain analysis artifact (Sections 1–5) directly to `./PRODUCT.md`.
 4. **Retain Master Specification**: Use the Section 6 Master Prompt as the primary execution contract for downstream phases.
 
@@ -80,13 +80,13 @@ Prepare components adhering strictly to `DESIGN.md` tokens and `PRODUCT.md` P0 f
 3. **Execution & Hygiene Delegation**:
    - Spacing, responsive layout, and photography standards delegate strictly to [UI_Always.md](UI_Always.md).
    - Component intake, [impeccable](../skills/impeccable/SKILL.md) Stage 2 visual craft, shader physics, anti-slop rules, and writing sanitization delegate strictly to [frontend.md](frontend.md).
-   - Animations, spring physics, and interactive micro-interactions delegate strictly to [MOTION.md](MOTION.md).
+   - Animations, spring physics, and interactive micro-interactions delegate strictly to [MOTION.md](MOTION.md) (and [scrollytelling](../skills/scrollytelling/SKILL.md) via `@bsmnt/scrollytelling` + GSAP for scroll-driven timelines, pinned stages, and 3D/canvas scrubbing).
 
 ---
 
 ## Phase 5: Implementation & Code Assembly (via [impeccable](../skills/impeccable/SKILL.md) & [frontend.md](frontend.md))
 Build components strictly adhering to `DESIGN.md` tokens, `PRODUCT.md` P0 features, and Stage 2 of [frontend.md](frontend.md) ([impeccable](../skills/impeccable/SKILL.md) visitor-mode composition and [craft-floor.md](../skills/impeccable/reference/craft-floor.md)):
-1. **Confirm Tech Stack (when the existing user instructions leave a material choice unresolved)**: Confirm implementation framework before generating code (Next.js App Router, Vite/React, Astro, SvelteKit, or Static HTML5/CSS3), batched into the Phase 1.2 discovery prompt when not already specified.
+1. **Modern Tech Stack Mandate (when the existing user instructions leave a material choice unresolved)**: Always default to and scaffold new projects with a modern production tech stack — **Next.js App Router (React 19 + TypeScript + Tailwind CSS + shadcn/ui + Motion / `@bsmnt/scrollytelling` + GSAP)** by default, or **Vite + React + TypeScript + Tailwind CSS**, **Astro**, or **SvelteKit** (paired with modern typed backend stacks such as Next.js Route Handlers/Server Actions, FastAPI + SQLAlchemy 2.0, or Go + PostgreSQL/Prisma/Drizzle when backend persistence is required). **Never default to, recommend, or output vanilla HTML/CSS/JS (`Static HTML5/CSS3`)** when starting a new project unless the user explicitly asks for vanilla. Confirm the modern stack in the Phase 1.2 batched discovery prompt when not already specified.
 2. **Standard Layout Archetypes**:
    - **Archetype A: High-Conversion SaaS & Product Dashboard**:
      - CSS Grid / Flexbox data tables with sticky headers and sortable columns.

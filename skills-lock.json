@@ -163,11 +163,11 @@
       "skillPath": "skills/redesign-skill/SKILL.md",
       "computedHash": "47eced3e960a2c961d3cbee11fa1216264f589344b586a5cbd03967cd6b9c54b"
     },
-    "scroll-world": {
-      "source": "oso95/scroll-world",
+    "scrollytelling": {
+      "source": "basementstudio/scrollytelling",
       "sourceType": "github",
-      "skillPath": "skills/scroll-world/SKILL.md",
-      "computedHash": "0d5b050802417ca73c0870abaf5575ca427f57a97e9745b2761d098eb36d13d3"
+      "skillPath": "skills/scrollytelling/SKILL.md",
+      "computedHash": "4c382877a5e91e104b1aef483222e8ec2f4d2505816be3f781b7705c6406fff9"
     },
     "stitch-design-taste": {
       "source": "Leonxlnx/taste-skill",

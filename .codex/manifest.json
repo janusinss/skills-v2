@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-10-01",
   "originalSnapshot": {
-    "digest": "836142fd1c430a389a80d31c7411eb8d8dfc9342f00f1648ddb460acf237bf84",
+    "digest": "b3f1f9181f238ac62bd5db63d0f3416b4d0d0b86483fd95900dfdb89c2869674",
     "files": {
       ".agents/hooks.json": "b7a28b6ef3f4f6284c9c40d49fa72107c6b6dd3a9f8ebce1e70473cab7f5ff6f",
       ".agents/resources/creative-libraries/README.md": "3a771a19ff9d37c9c2f147bd678f8d4ebc6a1cb0d0e51f74b9e58124678b2248",
@@ -299,15 +299,15 @@
       ".agents/resources/creative-libraries/lenis/tsdown.config.ts": "2d3ea315b14f3b3f46577168b12254c3e4a4a37476bdd7ba42e46dbe7389c16d",
       ".agents/resources/creative-libraries/tsconfig.json": "ff331833ca0f95a77afd8b7fd134bd65f2340b8e0e79de7ab8d64910aef7af80",
       ".agents/resources/creative-libraries/types/ambient.d.ts": "b05fa40bf9480db9fb90530b833eaca137c6373313af1440d531b61d9cb48b6a",
-      ".agents/rules/MOTION.md": "96b829b38513a75edb1a8fe70ab95d67b94b3dc151e5f20259601bd84b15bd58",
+      ".agents/rules/MOTION.md": "d5d324e8393fc06f4c61a44cb4c7e802284d09248ef0b56f9841b45529112d49",
       ".agents/rules/UI_Always.md": "8c5aa87c670617f5b4ab49aae8c9559f0997df20fde3735de1e0db50676358d7",
       ".agents/rules/backend.md": "2ee0d34ebeb2740e1248133a7cdd262f67ccdbef3049505695cb1fa70c57ef2c",
-      ".agents/rules/frontend.md": "e0f1a7ce473d7e2f4bf62b3410a7e5940b6429a40e90657b2a9641fe6d1ae467",
+      ".agents/rules/frontend.md": "91f33b015665ca94383c93018b7962a77e70f2959b60c1f5f8ee9dbe76318e84",
       ".agents/rules/install.md": "33291998d1142fe36ab9687491940eaf51475d73feb6a45f7696291e7ab85143",
       ".agents/rules/penetrating-and-testing.md": "da661ab8b6fb12f7b5b592f0fb5e8d383563a48ea8fd376450ece038a9553b85",
       ".agents/rules/security.md": "941277f49e5032b022fbb7246682c1720908574d83fafa1c85a9514e8bc2c2f6",
-      ".agents/rules/starting-brandnew.md": "3a363d1d37af83326968cb9b6628bf9e2b7a8c20ebb93567bfdb29bef5f219d1",
-      ".agents/rules/starting-existing.md": "a46dc22e5dd5c439d6c60e74a011948890c24d89438268e148cd91b50e67c9bc",
+      ".agents/rules/starting-brandnew.md": "12cb50c7255127cf514881f2e4db062df3fc5ff6531e76de036f712e2dce6f9a",
+      ".agents/rules/starting-existing.md": "ab1fddb1ce071d19b13eaef8d9a170d0c8d9f9dfadd4ee402f8f4c6f64716725",
       ".agents/skills/21st-ai/SKILL.md": "229119802d835ec000e860186ffab60dac272b7aeb2ef2fd90d5f9780c786012",
       ".agents/skills/21st-cli-use/SKILL.md": "88ff054abb4334a5095462dd20b5c4ec214c9b99f3256eae60dadb384d136bca",
       ".agents/skills/21st-design-sync/SKILL.md": "65cc94c842e066f69d8914af3dd94923545418b28e1fb23059473bff52bd0fe4",
@@ -318,7 +318,7 @@
       ".agents/skills/21st-ui-explore/agents/openai.yaml": "cb3b9f9c0f015e640d8b1b32a524ef5fdf481225d60a8aa0fd008b4abcbd808d",
       ".agents/skills/21st-ui-review/SKILL.md": "78939e830bceb64b8e2d32f831b80472008d5d2e50b31c8a8f38af5e5a015088",
       ".agents/skills/21st-ui-review/agents/openai.yaml": "cea5cbb0e5a8d4fe02f030c0315f483973661e8e416143c7c28775d8d8dba58c",
-      ".agents/skills/3d-web-experience/SKILL.md": "e54c427183228db79ea669dc8b86c22373a36883f7c34bd7618ffe9d5690015f",
+      ".agents/skills/3d-web-experience/SKILL.md": "7498d4a3cf8e52c9f71665b769d0e2b486d11858fdc4282c794d91de92ae244f",
       ".agents/skills/ab-test-setup/SKILL.md": "73b7018f269a4fcd9af44302ef02bf327bdf7f89ba825dcef32c991c4f669f52",
       ".agents/skills/agent-evaluation/SKILL.md": "c7a2bca261edc021d0d3a264b3ab1cba7b567f9084f6ddea5af448077afc3843",
       ".agents/skills/ai-agents-architect/SKILL.md": "93201997db7ee7b31986d26d6c67e7e98f712bd3a85369bc04225d0297d00ef4",
@@ -1619,9 +1619,9 @@
       ".agents/skills/programmatic-seo/SKILL.md": "d25952fd66889ba417fc6a49d60eb4b5fb190f1e4cade7477c0d8d89621d1cdd",
       ".agents/skills/prompt-caching/SKILL.md": "a66441b2c4538facfa2def501ed16b14dbd0a97a4ef5e771fffadb520caff3b6",
       ".agents/skills/prompt-engineering/SKILL.md": "d8be59f756c28532cff71d9401b414a5423ebf94c00959ecdf85015aff380d56",
-      ".agents/skills/prompt-enhancer-backend/SKILL.md": "f1bfc297fe85ba3ff3ab6e6c54827579f8b4b9f5227a790b62fd31853a6323c6",
-      ".agents/skills/prompt-enhancer-frontend/SKILL.md": "e5c6f60bd297c7de491f5cf35303b19e0130920eb42ef357c6132e0a31374a6e",
-      ".agents/skills/prompt-enhancer/SKILL.md": "57767b2e87d38e762b1e5c9f81b312f45af1cd2090e92764fd3d6389e714c0ca",
+      ".agents/skills/prompt-enhancer-backend/SKILL.md": "0b32cad92b4a2f747c2204cda55d6a1c43220191f3a555b06620b753779e3100",
+      ".agents/skills/prompt-enhancer-frontend/SKILL.md": "4091eef3937a9c8455fa0cd057b64c1d8552ffa8d26a6ad778818d1ce74371ae",
+      ".agents/skills/prompt-enhancer/SKILL.md": "8e73d2d4022600dafee173364044e7c2820088d15f26c4ada92edb285bfd60bf",
       ".agents/skills/python-patterns/SKILL.md": "feba490b666581bf07b7b673e5de4cd3260827b78aae35a6ae80cc0c0334ce06",
       ".agents/skills/python-pro/SKILL.md": "bcc90cf5bdd67342925c2a041f54821116270001a2944d8242af7f8426595326",
       ".agents/skills/python-testing-patterns/SKILL.md": "467fdbc399027e09da7df551c2088dad0e2fa7cba590be3059b40bfcbc63794a",
@@ -1684,13 +1684,10 @@
       ".agents/skills/react-patterns/SKILL.md": "faf194b1a81ee8fb7693c85479f271ed9de2dfb82f57bdd49af35c9ef7cafdcf",
       ".agents/skills/redesign-existing-projects/SKILL.md": "98ad3e5b051bfb71b2795f7e8a6aa0d32b51ee095606c098a4b2822ac07926c9",
       ".agents/skills/rust-pro/SKILL.md": "e15691bdc6ce9cf1326728e665ad2bcf035b0e104b669fdada6d0ca308ef9aef",
-      ".agents/skills/scroll-experience/SKILL.md": "4f32befc173fb89d8d20364fe096023667306a57b088857bc25b11ff033cf3d2",
-      ".agents/skills/scroll-world/SKILL.md": "e56fe396c1fa258278289cfa9cbf17253519f11f4856535f7709dd2368e3e65e",
-      ".agents/skills/scroll-world/references/index-template.html": "b59814abbe21bff1f39321eb53f9c9cd8ddf9d6a16fc861558647bf30213e3c0",
-      ".agents/skills/scroll-world/references/knockout.py": "c06bfc916592ba4f3dfd3e37070b20529298707ca3f94c9dcc51d508222e7792",
-      ".agents/skills/scroll-world/references/pipeline.md": "447d642733b527c149c52d303ff9ec3d697ed667e12ea137a2ce40d64d1db304",
-      ".agents/skills/scroll-world/references/prompts.md": "fca079691f7f3b470edb81f620e4143877d267afe0fcd3ea51af81b0c108f377",
-      ".agents/skills/scroll-world/references/scrub-engine.js": "630bb1ab6101e5ed54eb1a24ab0be3f29e3744a95e156835b89541ea7c04752b",
+      ".agents/skills/scroll-experience/SKILL.md": "e75266488a4c8d9301e8d4711468c34b3f87f5b47efc9fab27998e8b0c3ff77c",
+      ".agents/skills/scrollytelling/SKILL.md": "4c382877a5e91e104b1aef483222e8ec2f4d2505816be3f781b7705c6406fff9",
+      ".agents/skills/scrollytelling/references/api-reference.md": "7432d2174a35cadcf3800d2522366c8ab66678e8766035798f9293aae7f750f6",
+      ".agents/skills/scrollytelling/references/patterns.md": "5ea4e0846e38aa2c7d36878871d89dea8dee31c8a1d4d95cb8e62a2d62025527",
       ".agents/skills/security-auditor/SKILL.md": "01a5687de84be124b8d6c4ecd9e21185ddb31b5293474c60cac9c3f9fce57ca3",
       ".agents/skills/senior-architect/SKILL.md": "1dd4bd2f652980f0d1a46a0aad22b1178ee9826c2547a782d63f0b84419e08eb",
       ".agents/skills/senior-architect/references/architecture_patterns.md": "7eafaeddf4e1ab422623683ae8eb835af4321b878a96f3ca3b9d4fd9a0f982ef",
@@ -1838,8 +1835,8 @@
       ".agents/skills/web-app-penetration-testing/SKILL.md": "2e8df0b9233971c496d0c0c7660808fc717c08d4165455a0423229045389608a",
       ".gitignore": "ab5b1bfacf8dfa2edb0399b5a59477cc832ea09c4c5302458f402853b3a2831d",
       "GEMINI.MD": "b4000ebf016576181ccdd817c91cfbbc4f08910b369a4218b79ac2e409c2598f",
-      "README.MD": "645ece17f7beafc43a51d4a5f25028b918a15c7d75fd740965926dc3fb65c866",
-      "skills-lock.json": "15028dba839126da8da9349f3b6d92d0035bd0571f0d1c08ec32e19c9ff7d244"
+      "README.MD": "c4bf2b984f3bd334d8d4ffde7f0c2d754a7eda8200d5a039222ea4d7a3873761",
+      "skills-lock.json": "e14d503d92227d759803fc515321bab90786e2258db9770873d06a5d63504dc3"
     }
   },
   "originalPreserved": true,
@@ -1848,7 +1845,7 @@
     "discoverableSkills": 191,
     "duplicatesPreservedAsReferences": 2,
     "rules": 9,
-    "generatedFiles": 2012
+    "generatedFiles": 2009
   },
   "duplicateReferences": {
     "skills/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "skills/avoid-ai-writing/skills/avoid-ai-writing/REFERENCE.md",
@@ -3387,12 +3384,12 @@
     },
     "skills/3d-web-experience/SKILL.md": {
       "source": ".agents/skills/3d-web-experience/SKILL.md",
-      "sourceHash": "e54c427183228db79ea669dc8b86c22373a36883f7c34bd7618ffe9d5690015f",
-      "outputHash": "2591cd551b3c5b54ce643582ee66b2a80b68ec853d3ba86e2acd26959efa3b28"
+      "sourceHash": "7498d4a3cf8e52c9f71665b769d0e2b486d11858fdc4282c794d91de92ae244f",
+      "outputHash": "bf1bfd37e6f32547d212e6c6c9c48e485645d456d5ab51e5b45318aa65c62fd0"
     },
     "skills/3d-web-experience/agents/openai.yaml": {
       "source": ".agents/skills/3d-web-experience/SKILL.md",
-      "sourceHash": "e54c427183228db79ea669dc8b86c22373a36883f7c34bd7618ffe9d5690015f",
+      "sourceHash": "7498d4a3cf8e52c9f71665b769d0e2b486d11858fdc4282c794d91de92ae244f",
       "outputHash": "60b7d464825a886792138241cf2bcb6c8d663af1b659ffcd912612ac21bd588e"
     },
     "skills/ab-test-setup/SKILL.md": {
@@ -10572,32 +10569,32 @@
     },
     "skills/prompt-enhancer/SKILL.md": {
       "source": ".agents/skills/prompt-enhancer/SKILL.md",
-      "sourceHash": "57767b2e87d38e762b1e5c9f81b312f45af1cd2090e92764fd3d6389e714c0ca",
-      "outputHash": "bffff8c4674d5b200e5f3b462d8a70b8a02653089305c9ee0b504aefd74fc3be"
+      "sourceHash": "8e73d2d4022600dafee173364044e7c2820088d15f26c4ada92edb285bfd60bf",
+      "outputHash": "12dddd57092be47b2ec148160cef7ee5aa9c02dfa660d04bc5a26e8ace337c2b"
     },
     "skills/prompt-enhancer/agents/openai.yaml": {
       "source": ".agents/skills/prompt-enhancer/SKILL.md",
-      "sourceHash": "57767b2e87d38e762b1e5c9f81b312f45af1cd2090e92764fd3d6389e714c0ca",
+      "sourceHash": "8e73d2d4022600dafee173364044e7c2820088d15f26c4ada92edb285bfd60bf",
       "outputHash": "0dc3205e7477d80a81e8e4c817243f970dda3b6813fd44b67b1ae9292c789dc8"
     },
     "skills/prompt-enhancer-backend/SKILL.md": {
       "source": ".agents/skills/prompt-enhancer-backend/SKILL.md",
-      "sourceHash": "f1bfc297fe85ba3ff3ab6e6c54827579f8b4b9f5227a790b62fd31853a6323c6",
-      "outputHash": "4282ddba759bb3e40678ebea900d66e1abd27519430c06945c3d6212a4f7e3ad"
+      "sourceHash": "0b32cad92b4a2f747c2204cda55d6a1c43220191f3a555b06620b753779e3100",
+      "outputHash": "43bd664cc5e9d3b0fd79fac3ff4325d83855f59e97b4aa4246ddf3673ddedf16"
     },
     "skills/prompt-enhancer-backend/agents/openai.yaml": {
       "source": ".agents/skills/prompt-enhancer-backend/SKILL.md",
-      "sourceHash": "f1bfc297fe85ba3ff3ab6e6c54827579f8b4b9f5227a790b62fd31853a6323c6",
+      "sourceHash": "0b32cad92b4a2f747c2204cda55d6a1c43220191f3a555b06620b753779e3100",
       "outputHash": "4d3bea50e80446425a47e0b6410e30e093be9251b2e1918b58a69ea72df9bd3e"
     },
     "skills/prompt-enhancer-frontend/SKILL.md": {
       "source": ".agents/skills/prompt-enhancer-frontend/SKILL.md",
-      "sourceHash": "e5c6f60bd297c7de491f5cf35303b19e0130920eb42ef357c6132e0a31374a6e",
-      "outputHash": "593fc227bf8e42159e87c76b3d3e96109d9fac4ad011f658f470a9ed83d231dc"
+      "sourceHash": "4091eef3937a9c8455fa0cd057b64c1d8552ffa8d26a6ad778818d1ce74371ae",
+      "outputHash": "bf11b955d407eeed77c16f661343d4a68d2061a89f5482772c6cfce7253b3c19"
     },
     "skills/prompt-enhancer-frontend/agents/openai.yaml": {
       "source": ".agents/skills/prompt-enhancer-frontend/SKILL.md",
-      "sourceHash": "e5c6f60bd297c7de491f5cf35303b19e0130920eb42ef357c6132e0a31374a6e",
+      "sourceHash": "4091eef3937a9c8455fa0cd057b64c1d8552ffa8d26a6ad778818d1ce74371ae",
       "outputHash": "24a2bbd1d9193ac7996fdcb6275eb4e28170291db9bddb6069299531ea62715a"
     },
     "skills/python-patterns/SKILL.md": {
@@ -10962,48 +10959,33 @@
     },
     "skills/scroll-experience/SKILL.md": {
       "source": ".agents/skills/scroll-experience/SKILL.md",
-      "sourceHash": "4f32befc173fb89d8d20364fe096023667306a57b088857bc25b11ff033cf3d2",
-      "outputHash": "dfdf0f507df612a3ac5e0b829c82a2843dd445ca84395229bc01892255880894"
+      "sourceHash": "e75266488a4c8d9301e8d4711468c34b3f87f5b47efc9fab27998e8b0c3ff77c",
+      "outputHash": "d68590a5ab2329a7febce96213218d52f8384c502d9eb16cfda9057fcd01a821"
     },
     "skills/scroll-experience/agents/openai.yaml": {
       "source": ".agents/skills/scroll-experience/SKILL.md",
-      "sourceHash": "4f32befc173fb89d8d20364fe096023667306a57b088857bc25b11ff033cf3d2",
+      "sourceHash": "e75266488a4c8d9301e8d4711468c34b3f87f5b47efc9fab27998e8b0c3ff77c",
       "outputHash": "aba75ec77692d1f51104b581b374f179ed1ab2ca5936f6e75f2f86e716c4401b"
     },
-    "skills/scroll-world/references/index-template.html": {
-      "source": ".agents/skills/scroll-world/references/index-template.html",
-      "sourceHash": "b59814abbe21bff1f39321eb53f9c9cd8ddf9d6a16fc861558647bf30213e3c0",
-      "outputHash": "b59814abbe21bff1f39321eb53f9c9cd8ddf9d6a16fc861558647bf30213e3c0"
+    "skills/scrollytelling/references/api-reference.md": {
+      "source": ".agents/skills/scrollytelling/references/api-reference.md",
+      "sourceHash": "7432d2174a35cadcf3800d2522366c8ab66678e8766035798f9293aae7f750f6",
+      "outputHash": "7432d2174a35cadcf3800d2522366c8ab66678e8766035798f9293aae7f750f6"
     },
-    "skills/scroll-world/references/knockout.py": {
-      "source": ".agents/skills/scroll-world/references/knockout.py",
-      "sourceHash": "c06bfc916592ba4f3dfd3e37070b20529298707ca3f94c9dcc51d508222e7792",
-      "outputHash": "c06bfc916592ba4f3dfd3e37070b20529298707ca3f94c9dcc51d508222e7792"
+    "skills/scrollytelling/references/patterns.md": {
+      "source": ".agents/skills/scrollytelling/references/patterns.md",
+      "sourceHash": "5ea4e0846e38aa2c7d36878871d89dea8dee31c8a1d4d95cb8e62a2d62025527",
+      "outputHash": "5ea4e0846e38aa2c7d36878871d89dea8dee31c8a1d4d95cb8e62a2d62025527"
     },
-    "skills/scroll-world/references/pipeline.md": {
-      "source": ".agents/skills/scroll-world/references/pipeline.md",
-      "sourceHash": "447d642733b527c149c52d303ff9ec3d697ed667e12ea137a2ce40d64d1db304",
-      "outputHash": "447d642733b527c149c52d303ff9ec3d697ed667e12ea137a2ce40d64d1db304"
+    "skills/scrollytelling/SKILL.md": {
+      "source": ".agents/skills/scrollytelling/SKILL.md",
+      "sourceHash": "4c382877a5e91e104b1aef483222e8ec2f4d2505816be3f781b7705c6406fff9",
+      "outputHash": "d2bd5d021ffd474abef3e56cc4051179f56132aa4266d70cd1d086c743fbe717"
     },
-    "skills/scroll-world/references/prompts.md": {
-      "source": ".agents/skills/scroll-world/references/prompts.md",
-      "sourceHash": "fca079691f7f3b470edb81f620e4143877d267afe0fcd3ea51af81b0c108f377",
-      "outputHash": "fca079691f7f3b470edb81f620e4143877d267afe0fcd3ea51af81b0c108f377"
-    },
-    "skills/scroll-world/references/scrub-engine.js": {
-      "source": ".agents/skills/scroll-world/references/scrub-engine.js",
-      "sourceHash": "630bb1ab6101e5ed54eb1a24ab0be3f29e3744a95e156835b89541ea7c04752b",
-      "outputHash": "630bb1ab6101e5ed54eb1a24ab0be3f29e3744a95e156835b89541ea7c04752b"
-    },
-    "skills/scroll-world/SKILL.md": {
-      "source": ".agents/skills/scroll-world/SKILL.md",
-      "sourceHash": "e56fe396c1fa258278289cfa9cbf17253519f11f4856535f7709dd2368e3e65e",
-      "outputHash": "0d04540d63717e5ede5d3cc8c89645f0e6d9dfcd37e23c6918a575458e54e234"
-    },
-    "skills/scroll-world/agents/openai.yaml": {
-      "source": ".agents/skills/scroll-world/SKILL.md",
-      "sourceHash": "e56fe396c1fa258278289cfa9cbf17253519f11f4856535f7709dd2368e3e65e",
-      "outputHash": "9bdf25cbe5c618afab8dad1de97d3d7b30155633c35f8eef5fbab9a1f5d3e47a"
+    "skills/scrollytelling/agents/openai.yaml": {
+      "source": ".agents/skills/scrollytelling/SKILL.md",
+      "sourceHash": "4c382877a5e91e104b1aef483222e8ec2f4d2505816be3f781b7705c6406fff9",
+      "outputHash": "53251dffc426dc357948ba2ca6630489b376279496355151a4ee0961becc96d0"
     },
     "skills/security-auditor/SKILL.md": {
       "source": ".agents/skills/security-auditor/SKILL.md",
@@ -11862,8 +11844,8 @@
     },
     "rules/frontend.md": {
       "source": "tools/codex/templates/rules/frontend.md",
-      "sourceHash": "6e3fad85b8a69131222bd02e574739201fdb861e9918123d4d4d08b8397e9c01",
-      "outputHash": "3284605fdfc6b6ba4de2ad11b159d4ccbe187c9742ebfdbe3cb46b10d9bfc3ef"
+      "sourceHash": "be2cb76defdc2af8b7a793fd87d20dc6bfb8429f307de995fc634d2595152f13",
+      "outputHash": "546b0c865218c3133f512499c7a41e83a66edafb185900543565f677104271d5"
     },
     "rules/install.md": {
       "source": "tools/codex/templates/rules/install.md",
@@ -11872,8 +11854,8 @@
     },
     "rules/MOTION.md": {
       "source": ".agents/rules/MOTION.md",
-      "sourceHash": "96b829b38513a75edb1a8fe70ab95d67b94b3dc151e5f20259601bd84b15bd58",
-      "outputHash": "9343a627f504ef6e9102ebd346615db6e7ea260ebd9511b67abbb1292a5d3a6f"
+      "sourceHash": "d5d324e8393fc06f4c61a44cb4c7e802284d09248ef0b56f9841b45529112d49",
+      "outputHash": "a69959edbc85df4e9f9de9651c62c8fdbb2113f5d2af7ab445618fabc6acbd1b"
     },
     "rules/penetrating-and-testing.md": {
       "source": ".agents/rules/penetrating-and-testing.md",
@@ -11887,13 +11869,13 @@
     },
     "rules/starting-brandnew.md": {
       "source": ".agents/rules/starting-brandnew.md",
-      "sourceHash": "3a363d1d37af83326968cb9b6628bf9e2b7a8c20ebb93567bfdb29bef5f219d1",
-      "outputHash": "d9147ac9eb2e483393c6d31efe5412fbd9ef7a6a45db71c430788221bfc58c07"
+      "sourceHash": "12cb50c7255127cf514881f2e4db062df3fc5ff6531e76de036f712e2dce6f9a",
+      "outputHash": "103d037e54859a00c32cec9eadc380324c57d86a50aafec0c5b16981db86edd1"
     },
     "rules/starting-existing.md": {
       "source": ".agents/rules/starting-existing.md",
-      "sourceHash": "a46dc22e5dd5c439d6c60e74a011948890c24d89438268e148cd91b50e67c9bc",
-      "outputHash": "999f13eafc92570176dd524692718269bae07141024a9f2e081399185ee2c83b"
+      "sourceHash": "ab1fddb1ce071d19b13eaef8d9a170d0c8d9f9dfadd4ee402f8f4c6f64716725",
+      "outputHash": "535ec8cf2430d8bf439a46269971d4c49becec892e5a53612a1843b2ef1375c3"
     },
     "rules/UI_Always.md": {
       "source": "tools/codex/templates/rules/UI_Always.md",

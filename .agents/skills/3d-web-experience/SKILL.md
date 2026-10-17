@@ -53,27 +53,27 @@ Choosing the right 3D approach
 
 ## 3D Stack Selection
 
-### Options Comparison
+### Options Comparison (Modern React/Next.js Default)
 | Tool | Best For | Learning Curve | Control |
 |------|----------|----------------|---------|
-| Spline | Quick prototypes, designers | Low | Medium |
-| React Three Fiber | React apps, complex scenes | Medium | High |
-| Three.js vanilla | Max control, non-React | High | Maximum |
-| Babylon.js | Games, heavy 3D | High | Maximum |
+| React Three Fiber (`@react-three/fiber` + `@react-three/drei`) | **Default for new web projects** (Next.js App Router / React 19 + TypeScript) | Medium | Maximum |
+| `@bsmnt/scrollytelling` + R3F ([`scrollytelling`](../scrollytelling/SKILL.md)) | Scroll-scrubbed 3D camera flights & mesh timelines (`useScrollytelling()`) | Low | High |
+| Spline (`@splinetool/react-spline`) | Quick authored 3D embeds | Low | Medium |
+| Three.js (imperative) | Existing non-React codebases only (never default to vanilla JS for new projects) | High | Maximum |
+| Babylon.js | Heavy WebGL/WebGPU games | High | Maximum |
 
 ### Decision Tree
 ```
-Need quick 3D element?
-└── Yes → Spline
+Starting a new project?
+└── Default to Next.js / React + TypeScript + React Three Fiber (never vanilla HTML/JS unless explicitly requested)
+
+Need scroll-scrubbed 3D camera or mesh choreography?
+└── Yes → React Three Fiber + @bsmnt/scrollytelling (see `scrollytelling` skill)
 └── No → Continue
 
-Using React?
-└── Yes → React Three Fiber
-└── No → Continue
-
-Need max performance/control?
-└── Yes → Three.js vanilla
-└── No → Spline or R3F
+Need quick pre-authored 3D embed?
+└── Yes → Spline (@splinetool/react-spline)
+└── No → React Three Fiber (@react-three/fiber + @react-three/drei)
 ```
 
 ### Spline (Fastest Start)
@@ -202,19 +202,49 @@ export default function Scene() {
 }
 ```
 
-### GSAP + Three.js
-```javascript
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
+### `@bsmnt/scrollytelling` + React Three Fiber (Recommended Default)
+```tsx
+"use client";
 
-gsap.to(camera.position, {
-  scrollTrigger: {
-    trigger: '.section',
-    scrub: true,
-  },
-  z: 5,
-  y: 2,
-});
+import * as Scrollytelling from "@bsmnt/scrollytelling";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { useRef } from "react";
+import * as THREE from "three";
+
+function ScrubbedCameraAndMesh() {
+  const { timeline } = Scrollytelling.useScrollytelling();
+  const meshRef = useRef<THREE.Mesh>(null);
+
+  useFrame((state) => {
+    const progress = timeline?.scrollTrigger?.progress ?? 0;
+    if (meshRef.current) {
+      meshRef.current.rotation.y = progress * Math.PI * 2;
+    }
+    state.camera.position.z = THREE.MathUtils.lerp(7, 3.2, progress);
+    state.camera.lookAt(0, 0, 0);
+  });
+
+  return (
+    <mesh ref={meshRef}>
+      <torusKnotGeometry args={[1, 0.3, 128, 32]} />
+      <meshStandardMaterial color="#ededef" metalness={0.8} roughness={0.2} />
+    </mesh>
+  );
+}
+
+export default function ScrollScene() {
+  return (
+    <Scrollytelling.Root scrub={0.8}>
+      <Scrollytelling.Pin childHeight="100dvh" pinSpacerHeight="300vh">
+        <Canvas camera={{ position: [0, 0, 7], fov: 35 }}>
+          <ambientLight intensity={0.6} />
+          <directionalLight position={[5, 5, 5]} intensity={2} />
+          <ScrubbedCameraAndMesh />
+        </Canvas>
+      </Scrollytelling.Pin>
+    </Scrollytelling.Root>
+  );
+}
 ```
 
 ### Common Scroll Effects
@@ -324,7 +354,7 @@ Fix action: Limit DPR to 1 on mobile devices for better performance
 
 ### Delegation Triggers
 
-- scroll animation|parallax|GSAP -> scroll-experience (Scroll integration)
+- scroll animation|parallax|GSAP|@bsmnt/scrollytelling -> scrollytelling / scroll-experience (Scroll integration)
 - react|next|frontend -> frontend (React integration)
 - performance|slow|fps -> performance-hunter (3D performance optimization)
 - product page|landing|marketing -> landing-page-design (Product landing with 3D)
@@ -346,14 +376,14 @@ Workflow:
 
 ### Immersive Portfolio
 
-Skills: 3d-web-experience, scroll-experience, interactive-portfolio
+Skills: 3d-web-experience, scrollytelling, scroll-experience, interactive-portfolio
 
 Workflow:
 
 ```
 1. Design 3D scene concept
 2. Build scene in Spline or R3F
-3. Add scroll-driven animations
+3. Add scroll-driven animations with @bsmnt/scrollytelling
 4. Integrate with portfolio sections
 5. Ensure mobile fallback
 6. Optimize performance
@@ -361,7 +391,7 @@ Workflow:
 
 ## Related Skills
 
-Works well with: `scroll-experience`, `interactive-portfolio`, `frontend`, `landing-page-design`
+Works well with: `scrollytelling`, `scroll-experience`, `interactive-portfolio`, `frontend`, `landing-page-design`
 
 ## When to Use
 - User mentions or implies: 3D website

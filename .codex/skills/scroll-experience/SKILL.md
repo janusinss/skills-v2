@@ -51,16 +51,43 @@ Tools and techniques for scroll animations
 
 ## Scroll Animation Stack
 
-### Library Options
+### Library Options (Modern React/Next.js Default)
 | Library | Best For | Learning Curve |
 |---------|----------|----------------|
-| GSAP ScrollTrigger | Complex animations | Medium |
-| Framer Motion | React projects | Low |
-| Locomotive Scroll | Smooth scroll + parallax | Medium |
-| Lenis | Smooth scroll only | Low |
-| CSS scroll-timeline | Simple, native | Low |
+| `@bsmnt/scrollytelling` ([`scrollytelling`](../scrollytelling/SKILL.md)) | **Default for React / Next.js App Router** (`0–100` normalized timelines, `<Pin>`, `<Animation>`, `<Parallax>`, `<Stagger>`, `<Waypoint>`, `<ImageSequenceCanvas>`, R3F) | Low |
+| GSAP ScrollTrigger | Custom low-level imperative timelines | Medium |
+| Framer Motion (`motion/react`) | Simple component-level scroll transforms | Low |
+| Lenis (`lenis/react`) | Smooth scroll inertia (pairs with `@bsmnt/scrollytelling`) | Low |
+| CSS `scroll-timeline` | Simple progressive enhancement | Low |
 
-### GSAP ScrollTrigger Setup
+### Declarative React / Next.js Setup (`@bsmnt/scrollytelling` — Recommended Default)
+```tsx
+"use client";
+
+import * as Scrollytelling from "@bsmnt/scrollytelling";
+
+export function PinnedFeatureStage() {
+  return (
+    <Scrollytelling.Root scrub={0.6}>
+      <Scrollytelling.Pin childHeight="100dvh" pinSpacerHeight="300vh">
+        <Scrollytelling.Animation
+          tween={{
+            start: 0,
+            end: 100,
+            fromTo: [{ autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, ease: "power2.out" }],
+          }}
+        >
+          <section className="flex h-full items-center justify-center">
+            <h2>Choreographed Scroll Stage</h2>
+          </section>
+        </Scrollytelling.Animation>
+      </Scrollytelling.Pin>
+    </Scrollytelling.Root>
+  );
+}
+```
+
+### Low-Level GSAP ScrollTrigger Setup
 ```javascript
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -555,6 +582,7 @@ Fix action: Let users scroll naturally, use scrub animations instead
 
 ### Delegation Triggers
 
+- `@bsmnt/scrollytelling`|pinned timeline|waypoint|image sequence canvas -> `scrollytelling` (Declarative React + GSAP ScrollTrigger primitives)
 - 3D|WebGL|three.js|spline -> 3d-web-experience (3D elements in scroll experience)
 - react|vue|next|framework -> frontend (Frontend implementation)
 - performance|slow|optimize -> performance-hunter (Performance optimization)
@@ -562,21 +590,21 @@ Fix action: Let users scroll naturally, use scrub animations instead
 
 ### Immersive Product Page
 
-Skills: scroll-experience, 3d-web-experience, landing-page-design
+Skills: scrollytelling, scroll-experience, 3d-web-experience, landing-page-design
 
 Workflow:
 
 ```
 1. Design product story structure
 2. Create 3D product model
-3. Build scroll-driven reveals
+3. Build scroll-driven reveals with @bsmnt/scrollytelling
 4. Add conversion points
 5. Optimize performance
 ```
 
 ### Interactive Story
 
-Skills: scroll-experience, ui-design, frontend
+Skills: scrollytelling, scroll-experience, ui-design, frontend
 
 Workflow:
 
@@ -584,13 +612,13 @@ Workflow:
 1. Write story/content
 2. Design visual sections
 3. Plan scroll animations
-4. Implement with GSAP/Framer
+4. Implement with @bsmnt/scrollytelling (React + GSAP) or Framer Motion
 5. Test and optimize
 ```
 
 ## Related Skills
 
-Works well with: `3d-web-experience`, `frontend`, `ui-design`, `landing-page-design`
+Works well with: `scrollytelling`, `3d-web-experience`, `frontend`, `ui-design`, `landing-page-design`
 
 ## When to Use
 - User mentions or implies: scroll animation

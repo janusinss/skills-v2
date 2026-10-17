@@ -8,16 +8,16 @@ The plan is based on a real supported skills format, but it needs corrections be
 
 | Location | Actual role |
 | --- | --- |
-| `.agents/skills/` | 173 top-level skill folders; 192 manifests when nested skills are counted |
-| `.agents/rules/` | Eight workspace guidance documents with Antigravity trigger metadata |
+| `.agents/skills/` | 174 top-level skill folders; 193 manifests when nested skills are counted |
+| `.agents/rules/` | Nine workspace guidance documents with Antigravity trigger metadata |
 | `.agents/hooks.json` | Impeccable lifecycle command definitions; this location is not Codex's documented project hook location |
 | `.agents/resources/` | Checked-out creative libraries, integration examples, and type declarations |
 | `GEMINI.MD` | Root output, frontend dispatch, and browser-tool policy for the existing edition |
-| `skills-lock.json` | 29 updater-managed skill entries, rather than a complete inventory or runtime dependency lock |
+| `skills-lock.json` | 30 updater-managed skill entries, rather than a complete inventory or runtime dependency lock |
 | `README.MD` | Existing AGY-oriented setup, dispatch, and domain documentation |
 | `scratch/` | Ignored working artifacts |
 
-All 192 source manifests have valid required names and descriptions, and all 173 top-level names match their folders. There are 190 unique names: `avoid-ai-writing` appears three times. Eleven `agents/openai.yaml` files already exist. The measured description totals are 41,547 characters for the top-level collection and 45,045 including nested manifests.
+All 193 source manifests have valid required names and descriptions, and all 174 top-level names match their folders. There are 191 unique names: `avoid-ai-writing` appears three times. Eleven `agents/openai.yaml` files already exist. The measured description totals are 42,115 characters for the top-level collection and 45,613 including nested manifests.
 
 Our strict portability checks identify 145 source manifests with extension fields or metadata values needing normalization. Most have fields such as `risk`, `source`, `date_added`, or `version` outside the portable field set. These findings do not prove Codex refuses to load the source skills. The edition preserves those values under metadata and serializes nested metadata without inventing information.
 
@@ -26,8 +26,8 @@ Our strict portability checks identify 145 source manifests with extension field
 | Proposed claim or change | Finding and adopted approach |
 | --- | --- |
 | `.agents/skills` is a Codex discovery location | Correct. The skill format itself already works across compatible hosts; most files need adaptation rather than a new format. |
-| There are 173 skills in the complete audit | Correct for top-level folders, incomplete for nested manifests. Preserve the 17 additional distinct skills and retain the two duplicate entry points as references. |
-| Descriptions total 36,334 characters | Stale for this checkout. The measured top-level total is 41,547. |
+| There are 173 skills in the complete audit | Correct for top-level folders at the time of the proposal (now 174 top-level folders), incomplete for nested manifests. Preserve the 17 additional distinct skills and retain the two duplicate entry points as references. |
+| Descriptions total 36,334 characters | Stale for this checkout. The measured top-level total is 42,115. |
 | Codex has a universal 8,000-character catalog ceiling | Overstated. OpenAI documents a budget of 2% of known model context, with 8,000 characters as the fallback when context size is unknown. Names and paths also contribute to the catalog. |
 | Front-loading descriptions guarantees 100% routing accuracy | Unsupported. It helps when descriptions are shortened, but skills can still be omitted. The edition improves several long descriptions and offers selective exports without promising routing accuracy. |
 | `AGENTS.md` is the default Codex instruction entry | Correct. Keep it concise and link the relevant rules rather than copying every rule into the root prompt. |
@@ -44,13 +44,13 @@ The discovery, catalog budgeting, invocation, and supported local disable behavi
 
 ## Delivered version
 
-`.codex/skills/`, `.codex/rules/`, and `.codex/resources/` hold the Codex edition. At the user's request, the former `codex/` distribution was renamed to `.codex/` and activated in the source repository. Root `AGENTS.md` contains the Codex policy and prefers converted manifests when names match. The original payload remains on disk for AGY / Gemini; both edition catalogs can appear in this source collection. Codex CLI 0.159.2 was verified to discover all 190 converted `.codex/skills/` manifests as enabled, without load errors. External exports install `.codex/` directly, with the bundled `AGENTS.md` installed as the target's root `AGENTS.md`.
+`.codex/skills/`, `.codex/rules/`, and `.codex/resources/` hold the Codex edition. At the user's request, the former `codex/` distribution was renamed to `.codex/` and activated in the source repository. Root `AGENTS.md` contains the Codex policy and prefers converted manifests when names match. The original payload remains on disk for AGY / Gemini; both edition catalogs can appear in this source collection. Codex CLI 0.159.2 was verified to discover all 191 converted `.codex/skills/` manifests as enabled, without load errors. External exports install `.codex/` directly, with the bundled `AGENTS.md` installed as the target's root `AGENTS.md`.
 
-The conversion keeps licenses and supporting files; normalizes frontmatter and all 190 metadata files; fixes Claude-specific script paths and the two rules using `view_file`; repairs local Markdown links; removes duplicate skill discovery; and updates the Playwright runner's machine-specific resolution and automatic-install behavior. Banner design uses the host's available image and browser capabilities instead of assuming three absent ClaudeKit skills. The frontend and setup rules were adapted explicitly rather than copied with unavailable tool mandates.
+The conversion keeps licenses and supporting files; normalizes frontmatter and all 191 metadata files; fixes Claude-specific script paths and the two rules using `view_file`; repairs local Markdown links; removes duplicate skill discovery; and updates the Playwright runner's machine-specific resolution and automatic-install behavior. Banner design uses the host's available image and browser capabilities instead of assuming three absent ClaudeKit skills. The frontend and setup rules were adapted explicitly rather than copied with unavailable tool mandates.
 
 The optional hook example preserves the existing Impeccable commands and uses the documented destination only when requested during export. No fake MCP server, CLI dependency type, model setting, access token, or global toggle is generated. The original updater lock remains in the original edition; converted-file hashes are recorded separately.
 
-During conversion, all source files included in the snapshot retained their hashes, including the original plan. Git reported no changes to previously tracked source files. The converted distribution has 173 top-level skills, 190 distinct discoverable manifests, and eight rules. Its validator reported zero errors and zero missing-link warnings. Seven tests passed, including full native export, selected export, deterministic rebuild, and refusal to overwrite an existing project. The conversion test suite was subsequently removed after successful verification.
+During conversion, all source files included in the snapshot retained their hashes, including the original plan. Git reported no changes to previously tracked source files. The converted distribution has 174 top-level skills, 191 distinct discoverable manifests, and nine rules. Its validator reported zero errors and zero missing-link warnings. Seven tests passed, including full native export, selected export, deterministic rebuild, and refusal to overwrite an existing project. The conversion test suite was subsequently removed after successful verification.
 
 These checks establish the package's structure and exporter behavior. They do not establish live skill selection quality, external-service availability, successful browser execution, or completion of every third-party workflow. Those checks depend on the actual target host and its installed tools. Follow [README.md](README.md) to export and try the relevant installed skill.
 
@@ -60,31 +60,31 @@ A clean local clone with `core.autocrlf=true` reproduced 1,078 generated files d
 
 The installer now uses only Node's built-in libraries and verifies the prebuilt release before copying it directly into `.codex/`. Manifest format 2 hashes UTF-8 text with LF endings and binary files exactly; `.gitattributes` pins release text to LF. Conversion dependencies and optional source-snapshot checks remain maintainer steps. Codex paths in root instructions, workflow examples, hooks, and installation records are generated consistently, so installers do not rename folders or rewrite hashes.
 
-An isolated release snapshot was cloned with `core.autocrlf=true`, no installed tooling dependencies, and an empty AGY source gitlink. The full export wrote 2,003 files with 173 top-level skills and 190 manifests in 6.2 seconds on this machine; clone/download time is separate. Every installed file matched its installation hash, and full installed validation reported no errors or missing-link warnings. Inline regression checks accepted CRLF-only text changes, rejected altered content and missing files before writing a target, refused existing destinations, preserved binary bytes, and verified profile preview. Temporary verification files were removed afterward; no persistent test suite was added.
+An isolated release snapshot was cloned with `core.autocrlf=true`, no installed tooling dependencies, and an empty AGY source gitlink. The full export wrote 2,003 files with 174 top-level skills and 191 manifests in 6.2 seconds on this machine; clone/download time is separate. Every installed file matched its installation hash, and full installed validation reported no errors or missing-link warnings. Inline regression checks accepted CRLF-only text changes, rejected altered content and missing files before writing a target, refused existing destinations, preserved binary bytes, and verified profile preview. Temporary verification files were removed afterward; no persistent test suite was added.
 
 ## One-time installation flow
 
 At the user's request, choosing GPT / CODEX now automatically routes both assistants through the converted `rules/install.md`. `tools/codex/install.mjs` exports the prebuilt bundle, installs the pinned local Playwright dependencies and Chromium, verifies the installed runner, and removes only the target's installation rule after success. The installation record removes that file and records completed setup. The source rule remains available; installed instructions handle its absence. Failed setup retains the rule, and `--resume` retries without copying over the installation.
 
-A full temporary installation used cached packages and Chromium and passed a real headless browser launch and page-title verification. Its 173 top-level skills, 190 manifests, seven remaining rules, and installed hashes validated without errors or missing-link warnings. Inline checks also verified previews without writes, dependency and verification failures, refusal of modified installed files, retry after failure, cleanup rollback, completed retries without changes, and a profile without Playwright. Temporary verification artifacts were removed; no permanent test files were added.
+A full temporary installation used cached packages and Chromium and passed a real headless browser launch and page-title verification. Its 174 top-level skills, 191 manifests, eight remaining rules, and installed hashes validated without errors or missing-link warnings. Inline checks also verified previews without writes, dependency and verification failures, refusal of modified installed files, retry after failure, cleanup rollback, completed retries without changes, and a profile without Playwright. Temporary verification artifacts were removed; no permanent test files were added.
 
 ## Codex workspace policy
 
 The user's Universal Agent Policy and ADHD Mode now live in root `AGENTS.md`, tailored to Codex paths, permissions, local rule selection, and inline Playwright verification. Installation selection and one-time cleanup remain part of the policy. The builder generates `.codex/AGENTS.md` directly from that root source, and the exporter installs it as the target's root instructions. Both former instruction templates were removed. The builder retires only the verified, unchanged generated template; unrelated stale or manually edited files still require review.
 
-Source validation and a full native export verified all 190 manifests, instruction links, installed hashes, exact policy copying, removed template files, and overwrite protection without errors or warnings. The canonical inline browser audit passed a JavaScript syntax check; it checks the three requested widths, overflow, page exceptions, and console errors when run against an application. Temporary export artifacts were removed and no permanent tests were added.
+Source validation and a full native export verified all 191 manifests, instruction links, installed hashes, exact policy copying, removed template files, and overwrite protection without errors or warnings. The canonical inline browser audit passed a JavaScript syntax check; it checks the three requested widths, overflow, page exceptions, and console errors when run against an application. Temporary export artifacts were removed and no permanent tests were added.
 
 ## Project ignore-file repair
 
 The exporter previously omitted a target-root `.gitignore`. It now creates one or appends only missing entries for `/.codex/`, `/AGENTS.md`, `/scratch/`, and `/.impeccable/`. Existing contents, UTF-8 BOMs, and line endings are preserved. Shared ignore-file entries are recorded separately from immutable payload hashes, allowing later project edits. Previews do not write files. A completed installation can use `--resume` to add the missing file without reinstalling dependencies or rerunning browser setup.
 
-Inline verification covered creation, merge preservation, duplicate avoidance, changed-file refusal, encoding checks, full export, editable project rules, legacy repair, and unchanged repeated repairs. Git confirmed the intended paths are ignored while `.gitignore` itself remains available to commit. Native Codex discovery still returned all 190 project skills. An existing completed installation was repaired and validated with 190 skills, seven ongoing rules, and no errors or missing-link warnings. Temporary checks were removed; no permanent tests were added.
+Inline verification covered creation, merge preservation, duplicate avoidance, changed-file refusal, encoding checks, full export, editable project rules, legacy repair, and unchanged repeated repairs. Git confirmed the intended paths are ignored while `.gitignore` itself remains available to commit. Native Codex discovery still returned all 191 project skills. An existing completed installation was repaired and validated with 191 skills, eight ongoing rules, and no errors or missing-link warnings. Temporary checks were removed; no permanent tests were added.
 
 ## Expanded project ignore defaults
 
 The user's full supplied ignore list is now included in `project.gitignore`, generated from the collection's root `.gitignore` plus the four local Codex entries. Installation merges these 105 patterns into the target's root `.gitignore`, retaining comments for new sections and preserving existing bytes, UTF-8 BOMs, and line endings. Environment example/template and VS Code exceptions are appended again when needed to keep them after their exclusions. Repeated merges add no duplicates. Completed installations use `--resume` to adopt the current defaults without repeating dependency or browser setup.
 
-Inline checks verified exact default copying, exception ordering, merge preservation, unchanged retries, previews without writes, full export, shared-file edits, and completed-installation repair. Native Git passed 52 ignore and exception cases across new and merged files. Source and full installed validation found all 190 skills with no errors or missing-link warnings. Temporary verification artifacts were removed; no permanent test files were added.
+Inline checks verified exact default copying, exception ordering, merge preservation, unchanged retries, previews without writes, full export, shared-file edits, and completed-installation repair. Native Git passed 52 ignore and exception cases across new and merged files. Source and full installed validation found all 191 skills with no errors or missing-link warnings. Temporary verification artifacts were removed; no permanent test files were added.
 
 ## Installed policy replacement — 2026-10-02
 
