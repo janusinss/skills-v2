@@ -5,11 +5,12 @@
   ],
   "frontend": [
     "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
+    "prompt-enhancer", "prompt-enhancer-frontend", "3d-web-experience",
     "21st-ai", "21st-cli-use", "21st-design-sync", "21st-registry", "21st-ui-build", "21st-ui-explore", "21st-ui-review",
     "frontend-design", "frontend-developer", "frontend-security-coder", "impeccable", "ui-ux-pro-max", "ui-styling",
     "design-taste-frontend", "design-system", "awesome-design-md", "brandkit", "tailwind-patterns", "react-best-practices",
     "react-patterns", "nextjs-best-practices", "nextjs-app-router-patterns", "javascript-pro", "typescript-expert",
-    "redesign-existing-projects", "image-to-code", "imagegen-frontend-web", "avoid-ai-writing", "playwright-skill", "e2e-testing-patterns"
+    "redesign-existing-projects", "scroll-world", "image-to-code", "imagegen-frontend-web", "avoid-ai-writing", "playwright-skill", "e2e-testing-patterns"
   ],
   "backend": [
     "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",

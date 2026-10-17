@@ -1,14 +1,14 @@
 ---
 trigger: model_decision
-description: Follow this pipeline whenever designing, building, or refactoring UI. Enforce UI_Always.md for core layout, touch target, and CSS hygiene standards.
+description: Follow this pipeline whenever designing, building, or refactoring UI. Enforce UI_Always.md for core layout, touch target, and CSS hygiene standards, and MOTION.md for animations and micro-interactions.
 ---
 
 # Active Frontend Development Pipeline
 
-Follow this pipeline whenever designing, building, or refactoring UI. Enforce [UI_Always.md](.agents/rules/UI_Always.md) for core layout, touch target, and CSS hygiene standards.
+Follow this pipeline whenever designing, building, or refactoring UI. Enforce [UI_Always.md](.agents/rules/UI_Always.md) for core layout, touch target, and CSS hygiene standards, and [MOTION.md](.agents/rules/MOTION.md) for animations, spring physics, and micro-interactions.
 
 ## Stage 1: Target Aesthetic & System Alignment
-- **UI Scoping & Component Architecture:** When building new views or complex interfaces, invoke `prompt-enhancer-frontend` to deconstruct the concept into an exhaustive P0–P3 component matrix, state variants, and responsive journeys before generating code.
+- **UI Scoping & Component Architecture:** When building new views or complex interfaces, invoke [prompt-enhancer-frontend](.agents/skills/prompt-enhancer-frontend/SKILL.md) to deconstruct the concept into an exhaustive P0–P3 component matrix, state variants, and responsive journeys before generating code.
 - **Component Intake & Link-Pulling Engine (21st.dev & ThreeUI):**
   - **Fastest 21st.dev Extraction & Instant Deploy:** When given any 21st.dev link (preview query parameter, community URL, or direct component page), execute the universal extractor via inline Node:
     ```powershell
@@ -20,25 +20,20 @@ Follow this pipeline whenever designing, building, or refactoring UI. Enforce [U
     - **Dark Theme Preservation**: Automatically pre-configures `<html class="dark">` and `defaultTheme: "dark"` to eliminate text-gradient clipping or inverted background defects.
   - **ThreeUI Package Intake:** When ThreeUI components or shaders are requested, run `npm install @designcodeio/threeui three @types/three` and import the requested background shader or canvas directly.
   - **Shadcn Registry Fallback:** For standard CLI registry items, run `npx shadcn@latest add "<url>"`.
-- **Aesthetic Precedence:** The specification established via `design-taste-frontend` in `DESIGN.md` is the **authoritative target** for typography pairings, tinted palettes, spacing, and radius scales.
+- **Aesthetic Precedence:** The specification in `DESIGN.md` (guided by [impeccable](.agents/skills/impeccable/SKILL.md) and [design-taste-frontend](.agents/skills/design-taste-frontend/SKILL.md)) is the **authoritative target** for typography pairings, tinted palettes, spacing, and radius scales.
 - Replace legacy CSS variables, inline styles, and unapproved fonts in the codebase with the `DESIGN.md` tokens.
 - Never use unapproved fonts, hardcoded hex values, or untinted neutrals (tint all darks and grays toward the brand hue; no raw `#000000` or `#808080`). All colors must be declared as CSS tokens in `:root`.
 
-## Stage 2: Composition & Anti-Slop Standards
-- Apply `design-taste-frontend` layout principles (`DESIGN_VARIANCE`, `VISUAL_DENSITY`, `MOTION_INTENSITY`): prioritize intentional whitespace, asymmetric layout balance, and disciplined visual rhythm.
+## Stage 2: Composition, Motion & Anti-Slop Standards (via [impeccable](.agents/skills/impeccable/SKILL.md))
+- **Primary Visual Craft & Spatial Composition ([impeccable](.agents/skills/impeccable/SKILL.md)):** Use [impeccable](.agents/skills/impeccable/SKILL.md) as the primary design engine when creating or refactoring UI. Load [craft-floor.md](.agents/skills/impeccable/reference/craft-floor.md) and [layout.md](.agents/skills/impeccable/reference/layout.md) (plus [typeset.md](.agents/skills/impeccable/reference/typeset.md) and [colorize.md](.agents/skills/impeccable/reference/colorize.md) when tuning typography or color):
+  - **Visitor Mode, Spatial Thesis & Concentric Geometry:** Align composition with the surface's visitor mode (`Persuade`, `Operate`, `Read`, `Experience`). Establish a clear reading order that passes the squint test (primary, secondary, and major groups distinct), group by proximity before adding containers, pair tight internal grouping with generous section separation on a `4px` base scale (honoring `DESIGN.md` `DESIGN_VARIANCE`, `VISUAL_DENSITY`, and `MOTION_INTENSITY` dials when present), and calculate concentric nested radii (`R_inner = Math.max(0, R_outer - Padding)`).
+  - **Dashboard Telemetry & Density Hygiene (`1-to-3` / `85%-15%` Rule):** Enforce a **Single Source of Metric Truth**—never repeat the same KPI across headers and cards, never duplicate date pickers or filters inside individual cards (use one unified page-level control bar), and never add decorative tip banners or 3D globes. Enforce `1` focal element per zone (max `3` data points per card) and keep `85%` of primary workflows at `0` clicks while collapsing `≥ 5` secondary actions into popovers.
+  - **Typography, Color & Browser Surfaces:** Enforce high typographic hierarchy (`65ch–75ch` measure, `H1 ≤ 2 lines`, hero subtext `≤ 20 words`, `-0.02em` to `-0.03em` display tracking, zero single-word colored/italic serif `<span>` headline accents, zero serif fonts inside software dashboards), committed color calibration (hue-tinted secondary text and neutrals, WCAG AA `≥4.5:1` body / `≥3:1` large text, zero First-Order purple or Second-Order `#10B981` emerald defaults), single-source elevation (crisp `1px` border OR offset shadow, never both), and themed browser surfaces (text selection, caret, scrollbars, `:focus-visible` rings, `tabular-nums`).
+- **Motion & Micro-Interactions:** Delegate all transitions, spring physics (`stiffness`/`damping`), deterministic rest states, and `@media (prefers-reduced-motion: reduce)` fallbacks strictly to [MOTION.md](.agents/rules/MOTION.md).
 - **Strict Anti-Pattern Checks (Unless explicitly overridden in the user brief):**
-  - **No Floating Eyebrow Pill Badges:** Never place floating rounded pill badges or pastel chip capsules (`rounded-full` with colored backgrounds/borders) above headings. Lead directly with the headline, or use clean unboxed typographic kickers (plain text with tracking, zero borders or background bubbles).
-  - **No Ghost Cards & Fake Side Tabs:** No 1px hairline borders paired with 30px diffused drop shadows; no decorative `border-left` stripes.
-  - **No Icon-Tile Stacks:** No rounded square icon containers stacked directly above card headings.
-  - **No Card Nesting & Identical Grids:** Limit container depth to 1 level; replace uniform 3-card grids with asymmetric bento layouts.
-  - **No Decorative Gridlines or Radial Halo Glows:** No graph-paper linear gradients or neon dark-mode glow orbs.
-  - **Iconography & Assets:** Never use Unicode emojis as UI icons. Use SVG icons (Lucide or Phosphor) with proper accessibility attributes (`aria-hidden="true"` or descriptive `aria-label`). Never use placeholder URLs.
-  - **Real Photography Sourcing (Strict: No AI Generation):** Populate showcase, hero, and product cards with real, authentic photography sourced from the internet or scraped from template assets (e.g. Unsplash, Pexels, or CDN assets). **Never use AI generation** for showcase or product imagery. Pair images with `object-fit: cover` and semi-transparent scrim overlays (e.g. `linear-gradient(to top, rgba(0,0,0,0.7), transparent)`) to guarantee WCAG AA contrast for text labels and badges.
-  - **Anti-AI Writing & Natural Voice Standards (`avoid-ai-writing`):** Ground all UI copy, headlines, microcopy, and empty states in natural, human voice:
-    - **Zero Tier 1A Buzzwords:** Ban `delve`, `tapestry`, `realm`, `paradigm`, `embark`, `testament to`, `robust`, `comprehensive`, `cutting-edge`, `leverage`, `meticulous`, `seamless`, `game-changer`, `vibrant`, `thriving`, `deep dive`, `unpack`, `intricacies`, `ever-evolving`, `actionable`, `impactful`, `synergy`, `at its core`.
-    - **Zero Hollow Intensifiers:** Cut `truly`, `genuinely`, `quite frankly`, `worth noting`, `worth your time`, `actually` (unless marking factual contrast).
-    - **Zero Formulaic Rhetoric:** Ban "It's not X — it's Y", split-sentence reveals, and em dashes (`—` or `--`) in titles/headers/slogans.
-    - **Zero Header Emojis:** Ban decorative emojis in section titles (`## 🚀 Features` is strictly prohibited).
+  - **Structural Anti-Slop Floor:** Enforce Sections 1, 5, and 6 of [UI_Always.md](.agents/rules/UI_Always.md) and [craft-floor.md](.agents/skills/impeccable/reference/craft-floor.md) as the single canonical baseline: header `< 80px`, 8-State Interactive Primitives (`Default`, `Hover`, `Focus-Visible`, `Active`, `Loading`, `Error`, `Success`, `Disabled`), no floating eyebrow pill badges or kickers above headings, no centered hero + fake macOS traffic-light windows, no ghost cards or `backdrop-blur` over blobs on static cards, no decorative `border-left` side-tab stripes, no stacked icon-tiles above headings, max 1-level container depth (replace uniform 3-card grids with asymmetric layouts, never empty Bento cells), and no decorative gridlines or radial halo glows.
+  - **Iconography & Authentic Photography:** Enforce Section 4 of [UI_Always.md](.agents/rules/UI_Always.md): use accessible domain-specific SVG icons (Lucide or Phosphor at `16px`/`20px`, `1.5px` stroke, zero Unicode emojis as UI icons, zero reflexive **"Lucide Five"** `Sparkles`/`Zap`/`Shield`/`Check`/`BarChart3` filler icons, zero placeholder URLs) and real, authentic web photography (Unsplash, Pexels, CDN) paired with `object-fit: cover` and contrast scrim overlays—**never use AI generation** for showcase or product imagery.
+  - **Natural Voice & Anti-AI Writing (`avoid-ai-writing`):** Enforce Section 7 of [UI_Always.md](.agents/rules/UI_Always.md) as the single canonical copy floor: ban all Tier 1A machine vocabulary, hollow intensifiers, `"It's not X — it's Y"` rhetorical tropes, em dashes (`—` or `--`) in titles/headers/buttons, decorative emojis in section headings, spelled-out numbers (use Arabic numerals `3 steps`, `10x`), and fabricated `"Jane Doe"` / `"Sarah Chen"` / `"99.99%"` vanity data.
 - Ensure all interactive elements feature visible `:focus-visible` rings and `cursor: pointer`.
 
 ## Stage 3: Bounded Quality Audit (via Impeccable)
@@ -47,6 +42,6 @@ Follow this pipeline whenever designing, building, or refactoring UI. Enforce [U
 - **Extraction**: Extract repeated UI blocks into reusable components.
 
 ## Stage 4: Real Browser & Responsive Verification
-- **Verification Mandate:** Execute browser inspection and multi-viewport responsive verification strictly following Section 8 of [.agents/rules/UI_Always.md](.agents/rules/UI_Always.md).
+- **Verification Mandate:** Execute browser inspection and multi-viewport responsive verification strictly following Section 8 of [UI_Always.md](.agents/rules/UI_Always.md).
 - **Quality Gates:** Verify zero horizontal scroll leaks (`scrollWidth > innerWidth`), zero console errors, and valid touch targets across mobile (375px), tablet (768px), and desktop (1280px).
 - **Visual Proof:** Capture clean viewport screenshots into `scratch/` when needed. Do not create scratch `.js` files on disk.

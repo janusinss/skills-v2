@@ -14,7 +14,7 @@ Execute this rule when conducting authorized penetration testing, vulnerability 
 Before initiating any security or functional test:
 
 1. **Skill Discovery Verification**:
-   - Verify that target Strix skills exist in `[.agents/skills/](../skills)`:
+   - Verify that target Strix skills exist in `.codex/skills/` (inspect only the 1–2 skills matching the active target surface):
      - Core Pentesting: [`penetration-testing-with-strix`](../skills/penetration-testing-with-strix/SKILL.md) · [`managed-pentesting-with-strix`](../skills/managed-pentesting-with-strix/SKILL.md)
      - Surface Checkers: [`api-security-testing`](../skills/api-security-testing/SKILL.md) · [`web-app-penetration-testing`](../skills/web-app-penetration-testing/SKILL.md) · [`find-security-vulnerabilities-in-code`](../skills/find-security-vulnerabilities-in-code/SKILL.md)
      - Compliance & Patching: [`owasp-top-10-testing`](../skills/owasp-top-10-testing/SKILL.md) · [`fix-security-vulnerabilities-with-strix`](../skills/fix-security-vulnerabilities-with-strix/SKILL.md) · [`ci-security-scanning-with-strix`](../skills/ci-security-scanning-with-strix/SKILL.md)
@@ -102,7 +102,7 @@ Audit every interactive component across 5 mandatory operational states:
 - **Zero Unhandled Network Failures**: Ensure failed API calls (`500`, `502`) render user-facing retry states instead of infinite loaders.
 
 ### Step 2.4: Layout Integrity & Accessibility
-- Follow [`UI_Always.md`](UI_Always.md) standard via inline Playwright audit across 375px (mobile), 768px (tablet), and 1280px (desktop):
+- Follow [UI_Always.md](UI_Always.md) standard via inline Playwright audit across 375px (mobile), 768px (tablet), and 1280px (desktop):
   - Check zero horizontal overflow (`scrollWidth > innerWidth`).
   - Check minimum 44×44px touch targets on mobile.
   - Check keyboard navigation (Tab order, visible `:focus-visible` rings, Escape closes modals).

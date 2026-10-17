@@ -8,7 +8,7 @@ Execute this pipeline when designing, implementing, or refactoring server-side a
 ---
 
 ## Mandatory Backend Skill Dispatch Matrix
-Before generating backend architecture, database schemas, or API code, inspect the corresponding skill instructions using the available file-reading tool or shell:
+Before generating backend architecture, database schemas, or API code, inspect only the 1–2 skills matching the active task/surface using the available file-reading tool or shell rather than loading all listed skills:
 
 | Domain / Task | Required Skill & Direct Specification Link |
 | :--- | :--- |
@@ -18,7 +18,7 @@ Before generating backend architecture, database schemas, or API code, inspect t
 | **PostgreSQL Optimization** | [postgres-best-practices](../skills/postgres-best-practices/SKILL.md) |
 | **Observability & Logging** | [observability-engineer](../skills/observability-engineer/SKILL.md) |
 | **Backend Testing & TDD** | [test-driven-development](../skills/test-driven-development/SKILL.md) |
-| **Security & Auth Defenses** | [.agents/rules/security.md](security.md) |
+| **Security & Auth Defenses** | [security.md](security.md) |
 
 ---
 

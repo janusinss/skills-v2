@@ -23,14 +23,18 @@ const descriptions = {
   'fix-security-vulnerabilities-with-strix': 'Fix verified security findings from Strix by addressing their root causes and checking that the original exploits fail.',
   'ci-security-scanning-with-strix': 'Configure Strix security scanning in CI when the user requests automated security checks or gates for code changes.',
   'playwright-skill': 'Automate and verify websites with Playwright. Use for browser interactions, screenshots, responsive checks, or testing user journeys.',
-  'prompt-enhancer': 'Clarify a task prompt when the user requests prompt improvement or the task lacks details needed for execution.',
-  'prompt-enhancer-frontend': 'Clarify frontend requirements, components, and interaction states for a substantial UI task with unresolved scope.',
-  'prompt-enhancer-backend': 'Clarify backend requirements, API contracts, and data boundaries for a substantial server task with unresolved scope.',
+  'prompt-enhancer': 'Deconstruct concepts into domain-adaptive P0-P3 product architecture, data models, PRODUCT.md specs, and execution-ready Master Prompts.',
+  'prompt-enhancer-frontend': 'Expand UI concepts into exhaustive P0-P3 page/component matrices, interaction states, responsive journeys, and frontend Master Prompts.',
+  'prompt-enhancer-backend': 'Expand backend concepts into exhaustive P0-P3 API contracts, database schemas, state machines, auth/security rules, and backend Master Prompts.',
+  'scroll-world': 'Build scroll-scrubbed 3D diorama world landing pages with frame-locked camera clips and a portable vanilla-JS scrub engine.',
 };
 
 export function normalizeFrontmatter(original) {
   const result = { name: original.name, description: descriptions[original.name] || original.description };
   for (const key of ['license', 'compatibility', 'allowed-tools']) if (original[key] !== undefined) result[key] = original[key];
+  if (typeof result['allowed-tools'] === 'string') {
+    result['allowed-tools'] = result['allowed-tools'].replace(/,\s*AskUserQuestion\b|\bAskUserQuestion\s*,?\s*/g, '').trim();
+  }
   const metadata = {};
   for (const [key, value] of Object.entries(isRecord(original.metadata) ? original.metadata : {})) metadata[key] = typeof value === 'string' ? value : JSON.stringify(value);
   for (const [key, value] of Object.entries(original)) if (!supportedFields.has(key)) metadata[`upstream-${key}`] = typeof value === 'string' ? value : JSON.stringify(value);
@@ -63,6 +67,7 @@ export function adaptMarkdown(text, sourceFile, duplicatePaths = new Map()) {
   result = result.replaceAll('via `view_file`', 'using the available file-reading tool or shell');
   result = result.replaceAll('(`ask_question`)', '(when the existing user instructions leave a material choice unresolved)');
   result = result.replaceAll('AskUserQuestion', 'the available user-input tool');
+  result = result.replaceAll('(#step-5--the-seamless-chain-the-critical-part)', '(#step-5--connectors-architecture-b-only)');
   // Repair repository-root links into relative links that work in both the
   // staged bundle (skills/) and the installed edition (.codex/skills/).
   result = result.replace(/(\[[^\]\n]*\]\()([^\s)]+)(\))/g, (whole, prefix, target, suffix) => {
@@ -82,8 +87,8 @@ export function adaptMarkdown(text, sourceFile, duplicatePaths = new Map()) {
   }
   // Rewrite project-root command examples after rebasing local links. Preserve
   // user-scoped ~/.agents paths and unrelated upstream discovery examples.
-  return result.replace(/(^|[\s"'`(=:]|\.\/)\.agents\/(skills|rules|resources)\//gm, '$1.codex/$2/')
-    .replace(/(^|[\s"'`(=:])\.agents\\(skills|rules|resources)\\/gm, '$1.codex\\$2\\');
+  return result.replace(/(^|[\s"'`(=:\[]|\.\/)\.agents\/(skills|rules|resources)\//gm, '$1.codex/$2/')
+    .replace(/(^|[\s"'`(=:\[])\.agents\\(skills|rules|resources)\\/gm, '$1.codex\\$2\\');
 }
 
 export function convertSkill(text, sourceFile, duplicates) {

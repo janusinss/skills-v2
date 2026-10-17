@@ -109,7 +109,7 @@ export function buildBundle() {
   const manifest = {
     generatedBy: 'tools/codex/build.mjs', formatVersion: 2, hashing: 'sha256-lf-text', checkedOn: '2026-10-01',
     originalSnapshot: before, originalPreserved: true,
-    summary: { topLevelSkills, discoverableSkills, duplicatesPreservedAsReferences: duplicates.size, rules: 8, generatedFiles: outputs.size },
+    summary: { topLevelSkills, discoverableSkills, duplicatesPreservedAsReferences: duplicates.size, rules: filesIn(path.join(sourceRoot, 'rules')).filter(f => f.endsWith('.md')).length, generatedFiles: outputs.size },
     duplicateReferences: Object.fromEntries([...duplicates].map(([from, to]) => [slash(path.relative(sourceRoot, from)), slash(path.relative(sourceRoot, to))])),
     files: records,
   };

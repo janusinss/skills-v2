@@ -2,14 +2,14 @@
 
 This is the active Codex edition of the skills collection, stored in `.codex/`. The original AGY / Gemini skill payload remains in `.agents/`. The shared [INSTALL.md](../INSTALL.md) asks which edition to install when the user has not specified one.
 
-Codex CLI 0.159.2 was verified to discover all 190 converted manifests in this repository's `.codex/skills/`. Root [AGENTS.md](../AGENTS.md) contains the user's three-section policy: ADHD Mode, local rule selection, and inline Playwright verification. Source-only instructions below `<!-- source-repository-only -->` retain installation routing and maintenance guidance. Both edition catalogs are visible in this source collection; root instructions prefer the converted manifest when names match. The original `.agents/` files remain available for AGY / Gemini. Restart Codex to reload project instructions.
+Codex CLI 0.159.2 was verified to discover all 191 converted manifests in this repository's `.codex/skills/`. Root [AGENTS.md](../AGENTS.md) contains the user's three-section policy: ADHD Mode, local rule selection, and inline Playwright verification. Source-only instructions below `<!-- source-repository-only -->` retain installation routing and maintenance guidance. Both edition catalogs are visible in this source collection; root instructions prefer the converted manifest when names match. The original `.agents/` files remain available for AGY / Gemini. Restart Codex to reload project instructions.
 
 For other projects, the exporter installs this edition directly as `.codex/` and copies the bundled [AGENTS.md](AGENTS.md) to the target's root `AGENTS.md`. The builder generates that file from the three policy sections before `<!-- source-repository-only -->` in root `AGENTS.md`; source installation and maintenance instructions are excluded, and there is no separate instruction template. Only the selected converted edition is copied. The local `.codex/skills/` layout was verified with Codex CLI 0.159.2; OpenAI's current guide also documents `.agents/skills/` for shared skill discovery. Check the installed catalog in the actual target client. See [OpenAI's skills guide](https://learn.chatgpt.com/docs/build-skills).
 
 ## What is included
 
-- 173 top-level skills and 17 distinct nested skills: 190 discoverable manifests with valid YAML and optional `agents/openai.yaml` metadata.
-- Seven ongoing workspace rules adapted for Codex and one installation rule removed from the target after setup succeeds, plus the Codex `AGENTS.md` policy that selects relevant guidance.
+- 174 top-level skills and 17 distinct nested skills: 191 discoverable manifests with valid YAML and optional `agents/openai.yaml` metadata.
+- Eight ongoing workspace rules adapted for Codex and one installation rule removed from the target after setup succeeds, plus the Codex `AGENTS.md` policy that selects relevant guidance.
 - Original scripts, references, assets, licenses, and checked-out creative libraries. Two additional manifests sharing the name `avoid-ai-writing` are preserved as `REFERENCE.md` files, with their local callers updated.
 - Optional Impeccable hooks, profile selection, and file hashes for the generated edition.
 
@@ -43,7 +43,7 @@ Profiles select which top-level folders are copied. Their nested resources come 
 
 | Profile | Purpose |
 | --- | --- |
-| `all` | Entire collection; 173 top-level folders and 190 distinct manifests |
+| `all` | Entire collection; 174 top-level folders and 191 distinct manifests |
 | `minimal` | Eight general implementation and verification skills |
 | `frontend` | UI, design, React, Next.js, and browser verification |
 | `backend` | APIs, persistence, languages, architecture, and backend checks |
@@ -81,4 +81,4 @@ These are maintainer commands and require the full original source, including it
 
 Edit root `AGENTS.md` for the Codex policy; edit conversion logic or rule templates in `tools/codex/` for other converted guidance, then rebuild. The builder refuses to overwrite a manually edited generated file. The reviewed replacement of the old instruction template is the sole automatic stale-file removal; other stale files still require review. `profiles.json`, this README, and the review are maintained directly. The original updater lockfile is not copied to targets: its hashes describe upstream skills and do not represent these converted files.
 
-Validation covers parsed frontmatter, naming, metadata, unique skill names, local instruction/reference links, generated-file hashes, and preservation of the original source. Parsing, metadata normalization, deterministic generation, overwrite protection, profile selection, and full native exports were tested during conversion. Live model routing and the 190 individual tool workflows have not been exercised; verify the relevant workflow in its target host after installation.
+Validation covers parsed frontmatter, naming, metadata, unique skill names, local instruction/reference links, generated-file hashes, and preservation of the original source. Parsing, metadata normalization, deterministic generation, overwrite protection, profile selection, and full native exports were tested during conversion. Live model routing and the 191 individual tool workflows have not been exercised; verify the relevant workflow in its target host after installation.

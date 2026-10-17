@@ -22,15 +22,20 @@ Instructions, operating rules, and skill mappings for AI agents (Codex, Antigrav
 
 ---
 
-## 2. Design & Frontend: Mandatory Workspace Rule Selection
+## 2. Design, Architecture & Security: Mandatory Workspace Rule Selection
 
-For frontend, UI/UX, styling, web builds, redesigns, and motion, read the active workspace's relevant local rules before choosing generic skills:
+Read and apply the active workspace's local rules before choosing generic skills:
 
-- **Brand New Web App / Greenfield**: [.codex/rules/starting-brandnew.md](.codex/rules/starting-brandnew.md)
-- **Existing App / Redesign / Refactor**: [.codex/rules/starting-existing.md](.codex/rules/starting-existing.md)
-- **Active UI Implementation**: [.codex/rules/frontend.md](.codex/rules/frontend.md)
-- **Layout & CSS Hygiene**: [.codex/rules/UI_Always.md](.codex/rules/UI_Always.md)
-- **3D / Shaders / Motion**: [.codex/skills/3d-web-experience/SKILL.md](.codex/skills/3d-web-experience/SKILL.md)
+- **Frontend, UI/UX & Motion**:
+  - **Brand New Web App / Greenfield**: [.codex/rules/starting-brandnew.md](.codex/rules/starting-brandnew.md)
+  - **Existing App / Redesign / Refactor**: [.codex/rules/starting-existing.md](.codex/rules/starting-existing.md)
+  - **Active UI Implementation**: [.codex/rules/frontend.md](.codex/rules/frontend.md)
+  - **Layout & CSS Hygiene**: [.codex/rules/UI_Always.md](.codex/rules/UI_Always.md)
+  - **Motion, Physics & Micro-Interactions**: [.codex/rules/MOTION.md](.codex/rules/MOTION.md) (and [.codex/skills/3d-web-experience/SKILL.md](.codex/skills/3d-web-experience/SKILL.md) for 3D/WebGL)
+- **Backend, Security & QA**:
+  - **Backend Architecture, Data Layer & APIs**: [.codex/rules/backend.md](.codex/rules/backend.md)
+  - **Application Security & Exploit Defense**: [.codex/rules/security.md](.codex/rules/security.md)
+  - **Penetration Testing, Strix & Functional Flow QA**: [.codex/rules/penetrating-and-testing.md](.codex/rules/penetrating-and-testing.md)
 
 ---
 

@@ -26,13 +26,18 @@ Active permanently until "stop adhd mode" or "normal mode".
 
 ---
 
-## 2. Design & Frontend: Mandatory Workspace Rule Delegation
-For all requests involving frontend, UI/UX, visual styling, web builds, redesigns, or motion, **do not use generic global skill defaults**. The assistant MUST delegate to the active workspace's local design rules:
-- **Brand New Web App / Greenfield**: Read and follow [starting-brandnew.md](.agents/rules/starting-brandnew.md)
-- **Existing App / Redesign / Refactor**: Read and follow [starting-existing.md](.agents/rules/starting-existing.md)
-- **Active UI Implementation**: Read and follow [frontend.md](.agents/rules/frontend.md)
-- **Always-On Layout & CSS Hygiene**: Read and follow [UI_Always.md](.agents/rules/UI_Always.md)
-- **3D / Shaders / Motion**: [3d-web-experience](.agents/skills/3d-web-experience/SKILL.md)
+## 2. Design, Architecture & Security: Mandatory Workspace Rule Delegation
+For all requests involving frontend, UI/UX, motion, backend data layers, security hardening, or QA testing, **do not use generic global skill defaults**. The assistant MUST delegate to the active workspace's local rules:
+- **Frontend, UI/UX & Motion**:
+  - **Brand New Web App / Greenfield**: Read and follow [starting-brandnew.md](.agents/rules/starting-brandnew.md)
+  - **Existing App / Redesign / Refactor**: Read and follow [starting-existing.md](.agents/rules/starting-existing.md)
+  - **Active UI Implementation**: Read and follow [frontend.md](.agents/rules/frontend.md)
+  - **Always-On Layout & CSS Hygiene**: Read and follow [UI_Always.md](.agents/rules/UI_Always.md)
+  - **Motion, Physics & Micro-Interactions**: Read and follow [MOTION.md](.agents/rules/MOTION.md) (and [3d-web-experience](.agents/skills/3d-web-experience/SKILL.md) for 3D/WebGL)
+- **Backend, Security & QA**:
+  - **Backend Architecture, Data Layer & APIs**: Read and follow [backend.md](.agents/rules/backend.md)
+  - **Application Security & Exploit Defense**: Read and follow [security.md](.agents/rules/security.md)
+  - **Penetration Testing, Strix & Functional Flow QA**: Read and follow [penetrating-and-testing.md](.agents/rules/penetrating-and-testing.md)
 
 ---
 

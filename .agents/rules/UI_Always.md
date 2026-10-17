@@ -19,8 +19,11 @@ Apply these rules automatically whenever viewing, writing, or refactoring fronte
   - Full-page shells must use `min-height: 100dvh` (or `100vh`) with flex column layout so footers never float mid-screen on sparse content.
 - **Scrollbar Gutter:**
   - Add `scrollbar-gutter: stable;` on root/body to avoid layout jumping when scrollbars appear/disappear.
-- **Hero Fixed-Header Clearance:**
-  - Set hero section top padding strictly to `calc(var(--header-height) + var(--space-lg))` (24px inset below fixed header) to eliminate dead vertical whitespace between fixed navigation and hero headlines/bento showcases.
+- **Header Height Ceiling & Hero Clearance:**
+  - Keep top navigation header height strictly under `80px` (`--header-height` max `4rem`–`5rem`).
+  - Set hero section top padding strictly to `calc(var(--header-height, 4rem) + var(--space-lg, 1.5rem))` (24px inset below fixed header) to eliminate dead vertical whitespace between fixed navigation and hero headlines/bento showcases.
+- **Concentric Corner Radius Math & Differentiated Geometry:**
+  - Never apply uniform `rounded-2xl` (`16px–24px`) across every card, button, and input in the DOM. Differentiate geometry (`4px–6px` for inputs/buttons vs. `12px–16px` for outer containers) and calculate nested inner radii mathematically to prevent pinched corners: `R_inner = Math.max(0, R_outer - Padding)`.
 
 ---
 
@@ -33,7 +36,14 @@ Apply these rules automatically whenever viewing, writing, or refactoring fronte
 ---
 
 ## 3. Typography & Scannability
-- **Line Length:** Body copy capped at `max-width: 65ch` or `70ch`.
+- **Line Length & Hero Proportions:** Body copy capped at `max-width: 65ch`–`75ch`. Keep hero `H1 ≤ 2 lines` and hero subtext `≤ 20 words`.
+- **No Serif Type in Software Dashboards & No Single-Word Headline Spans:**
+  - Never use serif fonts inside software, SaaS, or admin dashboards (pair a deliberate UI sans-serif with a tabular monospace font for data).
+  - Never wrap a single isolated word inside a headline in a colored, gradient, or italic serif `<span>`.
+  - Never apply `background-clip: text` (`bg-clip-text`) gradient fills to headlines, subheads, or metric numerals.
+- **No Monospace Button Spray & Mandatory Tabular Numerals:**
+  - Never use monospace fonts or `UPPERCASE_WITH_UNDERSCORE` formatting on standard marketing or UI buttons.
+  - Always apply `font-variant-numeric: tabular-nums` (`tabular-nums`) to prices, dates, counters, and data tables to prevent digit jitter.
 - **Font Smoothing:**
   ```css
   -webkit-font-smoothing: antialiased;
@@ -47,28 +57,41 @@ Apply these rules automatically whenever viewing, writing, or refactoring fronte
 ## 4. Media & Asset Stability (Zero CLS)
 - **Layout Shift Prevention:** Always declare explicit `width`/`height` attributes or `aspect-ratio` on images, videos, and iframes.
 - **Image Distortion:** Responsive images must use `object-fit: cover` and `display: block` to prevent distortion and inline baseline gaps.
-- **No Raw Emojis as Icons:** Never use Unicode emojis as UI icons. Use SVG icons (Lucide or Phosphor) with `aria-hidden="true"` or descriptive `aria-label`.
+- **No Raw Emojis or "Lucide Five" Icon Clichés:**
+  - Never use Unicode emojis (`🚀`, `✨`, `⚙️`) as UI icons.
+  - Never reflexively spray **"The Lucide Five"** (`Sparkles`, `Zap`, `Shield`, `Check`, `BarChart3`) across every feature block. Omit icons when typography carries hierarchy, or select domain-specific SVG glyphs (Lucide or Phosphor at consistent `16px`/`20px` sizing, `1.5px` stroke, with `aria-hidden="true"` or descriptive `aria-label`).
 - **No Placeholder Domains:** Never link to `via.placeholder.com` or similar. Use inline SVG, themed skeleton boxes, or actual assets.
 - **Authentic Photography (Strict: No AI Generation):** Populate showcase, hero, and product cards with real photography from the web (Unsplash, Pexels, CDN). Never generate AI images for UI showcases or product cards. Always apply semi-transparent scrim overlays (e.g. `linear-gradient(to top, rgba(0,0,0,0.7), transparent)`) to guarantee WCAG AA text contrast.
 
 ---
 
-## 5. Forms & Interactive Feedback
+## 5. Forms & 8-State Interactive Primitive Standard
 - **Form Labels:** Every input must have an associated `<label>` (`for="id"`) or a descriptive `aria-label`.
 - **Button Type Safety:** Non-submitting `<button>` inside `<form>` must specify `type="button"`.
-- **State Feedback:** All buttons and interactive elements must have `:hover`, `:active`, and `:disabled` (`cursor: not-allowed; opacity: 0.6;`) visual states.
+- **8-State Interactive Primitive Standard:** Never output hover-only interactive primitives (`<button>`, `<input>`, tabs, selects). Every interactive control must account for all 8 states:
+  1. `Default` (resting surface/border)
+  2. `Hover` (surface/ink shift)
+  3. `Focus-Visible` (`2px` high-contrast ring with `2px` offset)
+  4. `Active` (tactile press `scale(0.97)` over `60ms` ease-out)
+  5. `Loading` (inline spinner + locked width to prevent layout shift)
+  6. `Error` (semantic error border/text + `aria-invalid="true"`)
+  7. `Success` (semantic confirmation feedback)
+  8. `Disabled` (`disabled` attribute + `cursor: not-allowed; opacity: 0.6;`)
 
 ---
 
 ## 6. Color & Aesthetic Floor (Structural Anti-Slop)
-- **No Floating Eyebrow Pill Badges:** Never place floating rounded pill badges or pastel chip capsules (`rounded-full` with colored backgrounds/borders) above headings. Lead directly with the headline, or use clean unboxed typographic kickers (plain text with tracking, zero borders or background bubbles).
+- **No Floating Eyebrow Pill Badges or Kickers:** Never place floating rounded pill badges, pastel chip capsules (`rounded-full` with colored backgrounds/borders), fake `NEW`/`AI` badges, pulsing green `LIVE` dots on static pages, or eyebrow/kicker labels above headings. Delete the label and lead directly with the headline so the heading carries its own weight.
+- **No Centered Hero + Fake macOS Terminal Formula:** Do not default to a centered vertical hero stack (eyebrow badge + centered H1 + two centered buttons + fake macOS window with red/yellow/green traffic-light dots). Prefer asymmetric or artifact-led heroes with real functional UI showcases.
 - **No Ghost Cards:** Never combine a 1px hairline border with a wide, diffused drop shadow (`box-shadow: 0 20px 25px`). Choose either a crisp border OR a subtle directional elevation shadow, never both.
-- **No Side-Tab Accent Stripes:** Never put decorative `border-left: 4px solid <color>` on cards unless it communicates a genuine functional warning or status.
+- **No Reflexive Glassmorphism Over Color Blobs:** Never apply `backdrop-filter: blur()` (`backdrop-blur`) to static content cards, data tables, or dashboards layered over floating color blobs. Use opaque surface tokens for data containers and restrict glass strictly to floating fixed navbars or modals.
+- **No Side-Tab Accent Stripes:** Never put decorative `border-left: 4px solid <color>` or `border-t-4` on cards unless communicating a genuine semantic system warning or error alert.
 - **No Icon-Tile Stacks:** Never center an icon inside a rounded square directly stacked on top of a card heading (`rule-icon-tile-stack`). Place icons inline with headings or let the text lead.
 - **No Decorative Grid Backgrounds:** Never apply faux-developer gridline backgrounds (`background-size: 18px 18px` linear-gradient grid) unless building an actual interactive canvas or mapping tool.
-- **No Container Over-Nesting (Cardocalypse):** Limit container depth to 1 level. Use whitespace, typography, and light divider borders rather than nesting cards inside cards.
-- **Tinted Neutrals:** Never use raw `#000000` or untinted `#808080`. Tint darks toward the brand palette (slate, zinc, deep navy, warm charcoal).
-- **No Default AI Gradients:** No uncalibrated purple-to-blue gradients or glowing dark radial halos unless explicitly requested.
+- **No Container Over-Nesting (Cardocalypse) or Empty Bento Cells:** Limit container depth to 1 level (never nest bordered boxes inside bordered cards). Never force content into arbitrary dark Bento grids with empty filler cells—require genuine visual diversity and 1:1 artifact mapping.
+- **Tinted Neutrals & Zero Second-Order Default Fallbacks:**
+  - Never use raw `#000000` or untinted `#808080`. Tint darks and light canvases (`#121215` dark / `#F8FAFC` light) subtly toward the brand hue.
+  - **Ban Both First-Order & Second-Order Slop Palettes:** Never use uncalibrated purple/indigo/violet gradients (`#6366F1`, `#8B5CF6`, `#A855F7`), and when avoiding purple, **do not reflexively cascade into Second-Order Slop defaults** (default Tailwind `emerald-500` `#10B981` on dark slate, unprompted cream/terracotta, `Space Grotesk`, or italic `Instrument Serif`). Define a deliberate 5-token Visual DNA (`--canvas`, `--surface`, `--ink`, `--muted`, `--accent`, `--border`).
 
 ---
 
@@ -78,7 +101,9 @@ Apply these rules automatically whenever viewing, writing, or refactoring fronte
 - **No Em Dashes in Headings/Buttons:** Replace `—` and `--` with periods, commas, or direct declarative sentence structure.
 - **No AI Rhetorical Tropes:** Zero "It's not X — it's Y" or multi-sentence countdown reveals.
 - **No Section Title Emojis:** Ban emojis in headings (e.g. `## 🚀 Our Features`).
-- **Factual & User-Grounded:** State concrete capabilities, actual metrics, and direct human verbs.
+- **Arabic Numerals & Organic Domain Data (No "Jane Doe" Slop):**
+  - Write all quantities as **Arabic numerals** (`3 steps`, `10x`, `2 days`) instead of spelled-out words (`three simple steps`) to anchor visual eye-tracking.
+  - Never populate mockups with synthetic LLM personas (`Sarah Chen`, `Marcus Williams`, `Jane Doe`), slop brand names (`Acme`, `Nexus`, `SmartFlow`), or round vanity stats (`99.99%`, `10k+ users`). Use organic domain metrics with natural variance (`$14,892.40`, `+12.4%`, `47.2%`).
 
 ---
 

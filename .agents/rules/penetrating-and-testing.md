@@ -1,11 +1,11 @@
 ---
-trigger: manual
+trigger: model_decision
 description: End-to-end security penetration testing, Strix vulnerability validation, and functional web-flow verification.
 ---
 
 # Penetrating and Testing: Security Validation & Functional Flow QA
 
-Execute this rule when conducting authorized penetration testing, vulnerability validation, or full-surface functional quality assurance on web apps, APIs, and client flows. Ongoing defensive coding standards remain defined in [security.md](security.md).
+Execute this rule when conducting authorized penetration testing, vulnerability validation, or full-surface functional quality assurance on web apps, APIs, and client flows. Ongoing defensive coding standards remain defined in [security.md](.agents/rules/security.md).
 
 > [!CAUTION]
 > **Authorization & Non-Destructive Safeguards**: Only test environments and codebases you own or have explicit written authorization to test. Default to isolated staging or local dev environments. Never test against live customer data or execute destructive actions.
@@ -16,7 +16,7 @@ Execute this rule when conducting authorized penetration testing, vulnerability 
 Before initiating any security or functional test:
 
 1. **Skill Discovery Verification**:
-   - Verify that target Strix skills exist in `[.agents/skills/](.agents/skills)`:
+   - Verify that target Strix skills exist in `.agents/skills/` (inspect only the 1–2 skills matching the active target surface):
      - Core Pentesting: [`penetration-testing-with-strix`](.agents/skills/penetration-testing-with-strix/SKILL.md) · [`managed-pentesting-with-strix`](.agents/skills/managed-pentesting-with-strix/SKILL.md)
      - Surface Checkers: [`api-security-testing`](.agents/skills/api-security-testing/SKILL.md) · [`web-app-penetration-testing`](.agents/skills/web-app-penetration-testing/SKILL.md) · [`find-security-vulnerabilities-in-code`](.agents/skills/find-security-vulnerabilities-in-code/SKILL.md)
      - Compliance & Patching: [`owasp-top-10-testing`](.agents/skills/owasp-top-10-testing/SKILL.md) · [`fix-security-vulnerabilities-with-strix`](.agents/skills/fix-security-vulnerabilities-with-strix/SKILL.md) · [`ci-security-scanning-with-strix`](.agents/skills/ci-security-scanning-with-strix/SKILL.md)
@@ -64,7 +64,7 @@ Select the operational mode matching the environment:
 
 ### Step 1.4: Output Artifact & Automated Remediation Loop
 1. **Target Artifact**: Strix automatically outputs all proven findings to `strix_runs/<run-name>/vulnerabilities.json` (contains file paths, line numbers, CWE tags, and `fix_before` / `fix_after` diffs).
-2. **Automated Fix Pipeline**: Feed `strix_runs/<run-name>/vulnerabilities.json` directly into [`fix-security-vulnerabilities-with-strix`](.agents/skills/fix-security-vulnerabilities-with-strix/SKILL.md) to apply root-cause patches adhering to [security.md](security.md).
+2. **Automated Fix Pipeline**: Feed `strix_runs/<run-name>/vulnerabilities.json` directly into [`fix-security-vulnerabilities-with-strix`](.agents/skills/fix-security-vulnerabilities-with-strix/SKILL.md) to apply root-cause patches adhering to [security.md](.agents/rules/security.md).
 3. **Re-Test Verification**: Re-test the patched files using diff-scoped verification:
    ```bash
    strix -n -t ./ --scan-mode quick --scope-mode diff --diff-base origin/main --max-budget 5
@@ -104,7 +104,7 @@ Audit every interactive component across 5 mandatory operational states:
 - **Zero Unhandled Network Failures**: Ensure failed API calls (`500`, `502`) render user-facing retry states instead of infinite loaders.
 
 ### Step 2.4: Layout Integrity & Accessibility
-- Follow [`UI_Always.md`](UI_Always.md) standard via inline Playwright audit across 375px (mobile), 768px (tablet), and 1280px (desktop):
+- Follow [UI_Always.md](.agents/rules/UI_Always.md) standard via inline Playwright audit across 375px (mobile), 768px (tablet), and 1280px (desktop):
   - Check zero horizontal overflow (`scrollWidth > innerWidth`).
   - Check minimum 44×44px touch targets on mobile.
   - Check keyboard navigation (Tab order, visible `:focus-visible` rings, Escape closes modals).
@@ -153,5 +153,5 @@ Every execution must produce a structured Markdown audit report:
 ## 5. Completion Criteria
 A testing cycle is complete only when:
 1. **Evidence Recorded**: Every passed flow and confirmed vulnerability has recorded test evidence. No blanket claims without telemetry.
-2. **Defensive Alignment**: Any discovered vulnerability is patched according to [security.md](security.md) and verified with an exploit re-test.
+2. **Defensive Alignment**: Any discovered vulnerability is patched according to [security.md](.agents/rules/security.md) and verified with an exploit re-test.
 3. **Traceability**: Untested or blocked paths are explicitly cataloged in the report.

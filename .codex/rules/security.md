@@ -8,7 +8,7 @@ Execute this pipeline when designing, implementing, or auditing routing, server 
 ---
 
 ## 1. Security Skill Dispatch Matrix
-Inspect target skills using the available file-reading tool or shell before generating security-sensitive code:
+Before generating security-sensitive code, inspect only the 1–2 skills matching the active task/surface using the available file-reading tool or shell rather than loading all listed skills:
 
 | Objective / Surface | Required Skill Link |
 | :--- | :--- |

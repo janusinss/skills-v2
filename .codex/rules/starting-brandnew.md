@@ -15,12 +15,11 @@ Prevent accidental destruction of existing work:
 
 ---
 
-## Phase 1: Visual Foundation & DESIGN.md Selection (`awesome-design-md`)
+## Phase 1: Visual Foundation & DESIGN.md Selection ([awesome-design-md](../skills/awesome-design-md/SKILL.md))
 Establish the visual ground truth before gathering product requirements or writing code:
 1. **Analyze User Intent**: Evaluate the user's initial prompt against the 74 production brand design systems in `.codex/skills/awesome-design-md/design-md/`.
-2. **Interactive Selection Gate (when the existing user instructions leave a material choice unresolved)**: Present at least 6 choices to the user:
-   - 5 curated `DESIGN.md` recommendations closely matching the user's prompt (e.g., `linear.app`, `stripe`, `apple`, `vercel`, `supabase`, `raycast`).
-   - 1 option to choose manually (allowing the user to specify any other brand from the 74 available).
+2. **Batched Interactive Discovery Gate (when the existing user instructions leave a material choice unresolved)**: Combine all unresolved project choices (Phase 1.2 design system, Phase 2.1 product intent & website archetype, and Phase 5.1 tech stack) into a single batched prompt:
+   - Present up to 5 curated `DESIGN.md` recommendations closely matching the user's prompt (e.g., `linear.app`, `stripe`, `apple`, `vercel`, `supabase`); rely on the prompt's built-in write-in field (or a custom brand response) if the user prefers any other brand from the 74 available.
 3. **Install Ground Truth**: Copy the selected specification directly to the project root:
    ```bash
    # Unix / PowerShell:
@@ -31,32 +30,33 @@ Establish the visual ground truth before gathering product requirements or writi
 
 ---
 
-## Phase 2: Product Truth & Architecture Expansion (`prompt-enhancer`)
+## Phase 2: Product Truth & Architecture Expansion ([prompt-enhancer](../skills/prompt-enhancer/SKILL.md))
 Transform brief user concepts into an exhaustive, stack-agnostic specification:
 1. **Capture Raw Product Intent & Archetype Selection (when the existing user instructions leave a material choice unresolved)**:
-   - Prompt the user for their product concept, target audience, and primary problem solved (keep stack-agnostic).
-   - **Website Archetype Gate**: Explicitly ask the user if they want a **Standard Website** or a **Website with Hero**:
+   - Batched into the Phase 1.2 discovery prompt when unspecified: capture the user's product concept, target audience, and primary problem solved (keep stack-agnostic).
+   - **Website Archetype Gate (Default Landing / Marketing Builds)**: When building a landing page, marketing site, or storefront and no custom layout is requested, ask if the user wants a **Standard Website** or a **Website with Hero** (skip for pure dashboards, internal tools, or custom-specified layouts):
      - *Standard Website*: TailGrids NexStudio blueprint + Spectrum UI footer.
      - *Website with Hero*: Md Adul E-commerce Marketplace blueprint + Spectrum UI footer.
 2. **Execute Domain-Specific Enhancer**:
-   - **Frontend / Client UI**: Apply `prompt-enhancer-frontend` (Page/Component Matrix, responsive breakpoints, state variants).
-   - **Backend / Data API**: Apply `prompt-enhancer-backend` (API endpoints, DB schemas, state machines, RBAC tables).
-   - **Fullstack System**: Apply general `prompt-enhancer` (End-to-end scope, core loop, and full domain analysis).
+   - **Frontend / Client UI**: Apply [prompt-enhancer-frontend](../skills/prompt-enhancer-frontend/SKILL.md) (Page/Component Matrix, responsive breakpoints, state variants).
+   - **Backend / Data API**: Apply [prompt-enhancer-backend](../skills/prompt-enhancer-backend/SKILL.md) (API endpoints, DB schemas, state machines, RBAC tables).
+   - **Fullstack System**: Apply general [prompt-enhancer](../skills/prompt-enhancer/SKILL.md) (End-to-end scope, core loop, and full domain analysis).
 3. **Commit Exhaustive `PRODUCT.md`**: Write the generated domain analysis artifact (Sections 1–5) directly to `./PRODUCT.md`.
 4. **Retain Master Specification**: Use the Section 6 Master Prompt as the primary execution contract for downstream phases.
 
 ---
 
-## Phase 3: Prompt Synthesis for `design-taste-frontend`
-Synthesize `PRODUCT.md` and `DESIGN.md` into the formal configuration required by the `design-taste-frontend` skill:
+## Phase 3: Aesthetic & Visitor-Mode Synthesis ([impeccable](../skills/impeccable/SKILL.md) & [design-taste-frontend](../skills/design-taste-frontend/SKILL.md))
+Synthesize `PRODUCT.md` and `DESIGN.md` into the formal configuration required by Stage 2 of [frontend.md](frontend.md) ([impeccable](../skills/impeccable/SKILL.md) primary visual craft and [design-taste-frontend](../skills/design-taste-frontend/SKILL.md) taste calibration):
 1. **Formulate Skill Input Specification**:
    ```text
-   Skill: design-taste-frontend
+   Primary Craft Engine: impeccable (Visitor Mode: [Persuade | Operate | Read | Experience])
+   Taste Calibration: design-taste-frontend
    Page: [Landing | Portfolio | Redesign | Editorial | Dashboard]
    Audience: [Target user group extracted from PRODUCT.md]
    Vibe & Aesthetic: [Visual world & tone from the chosen DESIGN.md]
    References: [The chosen brand from awesome-design-md + competitor inspirations]
-   Dials (inferred): Variance [1-10], Motion [1-10], Density [1-10]
+   Dials (inferred): DESIGN_VARIANCE [1-10], MOTION_INTENSITY [1-10], VISUAL_DENSITY [1-10]
    Key Assets / Constraints: [Color tokens from DESIGN.md, accessibility, dark/light mode]
    ```
 2. **Declare Design Read**: Emit the mandatory one-line summary before generating code:
@@ -66,8 +66,8 @@ Synthesize `PRODUCT.md` and `DESIGN.md` into the formal configuration required b
 
 ## Phase 4: Component Architecture & Blueprint Extraction
 Prepare components adhering strictly to `DESIGN.md` tokens and `PRODUCT.md` P0 features:
-1. **Default Component Blueprints (21st.dev Extraction)**:
-   - **Extraction Mandate**: Pull the selected archetype components (from Phase 2 Website Archetype Gate) strictly via Stage 1 of [.agents/rules/frontend.md](frontend.md) using `helpers.extract21stComponent('<url>', { writeTo: '<target-file>' })`.
+1. **Default Component Blueprints (21st.dev Extraction — Default Landing / Marketing Builds)**:
+   - **Scope & Extraction Mandate**: When a default landing or marketing archetype was selected in Phase 2.1 (and no custom layout overrides it), pull the selected archetype components following [frontend.md](frontend.md) (using `helpers.extract21stComponent('<url>', { writeTo: '<target-file>' })` when available).
    - **Option A: Standard Website (Default)**:
      - **Main Page**: **TailGrids NexStudio** (`https://21st.dev/community/templates/free?preview=%2F%40tailgrids%2Ftemplates%2Ftailgrids-nexstudio`): sticky header, hero with interactive preview, metrics telemetry bar, asymmetric bento capabilities grid, interactive developer sandbox, and conversion CTA.
      - **Footer**: **Spectrum UI Footer Section** by Arihant Jain (`https://21st.dev/community/components?q=footer&qs=downloads&preview=%2F%40arihantcodes_1f7b8c4d%2Fcomponents%2Ffooter-section`): integrated newsletter/inquiry subscription bar, multi-column directory, prominent brand wordmark, live system status pill, and compliance/social links.
@@ -78,33 +78,34 @@ Prepare components adhering strictly to `DESIGN.md` tokens and `PRODUCT.md` P0 f
    - Both default blueprints **must dynamically inherit and map all styles** (backgrounds, surfaces, borders, text, typography, border radius, and spacing) to the chosen `DESIGN.md` tokens.
    - Never use raw uncalibrated defaults or untinted grays; all color tokens and type scales must strictly resolve to `DESIGN.md` CSS variables.
 3. **Execution & Hygiene Delegation**:
-   - Spacing, responsive layout, and photography standards delegate strictly to [.agents/rules/UI_Always.md](UI_Always.md).
-   - Component intake, shader physics, anti-slop rules, and writing sanitization delegate strictly to [.agents/rules/frontend.md](frontend.md).
+   - Spacing, responsive layout, and photography standards delegate strictly to [UI_Always.md](UI_Always.md).
+   - Component intake, [impeccable](../skills/impeccable/SKILL.md) Stage 2 visual craft, shader physics, anti-slop rules, and writing sanitization delegate strictly to [frontend.md](frontend.md).
+   - Animations, spring physics, and interactive micro-interactions delegate strictly to [MOTION.md](MOTION.md).
 
 ---
 
-## Phase 5: Implementation & Code Assembly
-Build components strictly adhering to `DESIGN.md` tokens and `PRODUCT.md` P0 features:
-1. **Confirm Tech Stack**: Confirm implementation framework before generating code (Next.js App Router, Vite/React, Astro, SvelteKit, or Static HTML5/CSS3).
+## Phase 5: Implementation & Code Assembly (via [impeccable](../skills/impeccable/SKILL.md) & [frontend.md](frontend.md))
+Build components strictly adhering to `DESIGN.md` tokens, `PRODUCT.md` P0 features, and Stage 2 of [frontend.md](frontend.md) ([impeccable](../skills/impeccable/SKILL.md) visitor-mode composition and [craft-floor.md](../skills/impeccable/reference/craft-floor.md)):
+1. **Confirm Tech Stack (when the existing user instructions leave a material choice unresolved)**: Confirm implementation framework before generating code (Next.js App Router, Vite/React, Astro, SvelteKit, or Static HTML5/CSS3), batched into the Phase 1.2 discovery prompt when not already specified.
 2. **Standard Layout Archetypes**:
    - **Archetype A: High-Conversion SaaS & Product Dashboard**:
      - CSS Grid / Flexbox data tables with sticky headers and sortable columns.
      - `prefers-color-scheme` media query for system dark/light modes.
-     - ≥16px body text, ≥44px interactive targets, subtle hover micro-interactions (opacity/translate, ≤200ms).
+     - ≥16px body text, ≥44px interactive targets, and tactile hover/active micro-interactions governed by [MOTION.md](MOTION.md) (composite-only `transform`/`opacity`, settling ≤300ms).
    - **Archetype B: Clean Editorial & Content Platform**:
      - Asymmetrical CSS Grid layouts (e.g., `2fr 1fr` or `1fr 3fr`) with generous `clamp()`-based spacing.
      - Typographic rhythm: distinct heading scale (1.333+ ratio), styled pull-quotes, and ≥1.6 line-height body.
      - Image curation with `object-fit: cover`, art-directed `<picture>` sources, and lazy loading.
 3. **Ban Generic AI Clichés (Visual Slop & AI Writing)**:
-   - **Visual Slop**: Zero floating pastel pills, zero icon-tile stacks, zero ghost cards, zero side-tab stripes, zero cards-in-cards nesting, zero unstyled browser fonts, zero uncalibrated purple/blue gradients.
-   - **Textual Slop (`avoid-ai-writing`)**: Zero Tier 1A machine words, zero em dashes in headings, zero "It's not X — it's Y" tropes.
+   - **Visual & Structural Slop**: Enforce Section 6 of [UI_Always.md](UI_Always.md) as the canonical anti-slop baseline (zero floating pill badges, icon-tile stacks, ghost cards, side-tab stripes, nested cards, unstyled fonts, or uncalibrated gradients).
+   - **Textual Slop (`avoid-ai-writing`)**: Enforce Section 7 of [UI_Always.md](UI_Always.md) as the canonical copy floor (zero Tier 1A machine words, hollow intensifiers, em dashes in headings/buttons, `"It's not X — it's Y"` tropes, or section header emojis).
 4. **Scope: P0 Delivery Only**: Build UI modules implementing the **P0 roadmap** from `PRODUCT.md`. P1–P3 features are cataloged in `PRODUCT.md` but deferred to iterative development cycles after this pipeline completes.
 
 ---
 
 ## Phase 6: Automated Verification & Handoff
 Validate the running application inside real Chromium viewports:
-1. **Browser Verification Mandate**: Execute browser inspection and multi-viewport responsive verification strictly following Section 8 of [.agents/rules/UI_Always.md](UI_Always.md).
+1. **Browser Verification Mandate**: Execute browser inspection and multi-viewport responsive verification strictly following Section 8 of [UI_Always.md](UI_Always.md).
 2. **Quality & Token Compliance Check**:
    - Verify 0 horizontal scroll overflows, 0 console errors, >=44px tap targets.
    - Run `.codex/skills/impeccable/scripts/impeccable.cmd detect .` (or Unix `.codex/skills/impeccable/scripts/impeccable detect .`) to verify compliance against `DESIGN.md` tokens.

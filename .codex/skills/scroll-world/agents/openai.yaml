@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scroll World"
+  short_description: "Build scroll-scrubbed 3D diorama world landing pages with..."
+  default_prompt: "Use $scroll-world for the relevant part of this task."

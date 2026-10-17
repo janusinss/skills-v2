@@ -1,6 +1,6 @@
 # Agent Skills & Workspace Configurations
 
-A collection of **173 top-level AI agent skills**, architectural rules, and workflow resources, with separate **AGY / Gemini** and **GPT / Codex** editions.
+A collection of **174 top-level AI agent skills**, architectural rules, and workflow resources, with separate **AGY / Gemini** and **GPT / Codex** editions.
 
 ---
 
@@ -9,8 +9,8 @@ A collection of **173 top-level AI agent skills**, architectural rules, and work
 ```text
 ├── .agents/
 │   ├── hooks.json         # Automated lifecycle hooks (UI checks & design deep passes)
-│   ├── rules/             # 8 architectural guidelines & proactive rules (UI, backend, security, testing, install)
-│   ├── skills/            # 173 specialized agent skills across 12 engineering domains
+│   ├── rules/             # 9 architectural guidelines & proactive rules (UI, motion, backend, security, testing, install)
+│   ├── skills/            # 174 specialized agent skills across 12 engineering domains
 │   └── resources/         # Creative libraries, shader utilities, and ambient types
 ├── .codex/                # Active GPT / Codex skills, rules, and resources
 ├── tools/codex/           # Conversion, validation, and Codex export tools
@@ -58,7 +58,7 @@ This installs the committed bundle directly into `.codex/` with root `AGENTS.md`
 
 ### Active Codex Edition in This Repository
 
-The local Codex loader discovers all 190 converted skills under `.codex/skills/`. Root `AGENTS.md` contains the user's three-section policy with ADHD Mode, local rule selection, and inline browser checks. The builder generates `.codex/AGENTS.md` from those sections for installation as the target project's root instructions. Source-only routing and maintenance notes below `<!-- source-repository-only -->` stay in this collection. Both editions can appear in this collection's skill catalog; root instructions prefer the converted copy when names match. The `.agents/` payload remains available to AGY / Gemini. Restart Codex to reload project instructions. Exported Codex targets use the same `.codex/` structure and contain only the selected edition.
+The local Codex loader discovers all 191 converted skills under `.codex/skills/`. Root `AGENTS.md` contains the user's three-section policy with ADHD Mode, local rule selection, and inline browser checks. The builder generates `.codex/AGENTS.md` from those sections for installation as the target project's root instructions. Source-only routing and maintenance notes below `<!-- source-repository-only -->` stay in this collection. Both editions can appear in this collection's skill catalog; root instructions prefer the converted copy when names match. The `.agents/` payload remains available to AGY / Gemini. Restart Codex to reload project instructions. Exported Codex targets use the same `.codex/` structure and contain only the selected edition.
 
 ### Codex Global Instructions
 
@@ -84,35 +84,36 @@ For the Codex edition, maintain the source collection and publish a rebuilt, val
 
 ---
 
-## 🌐 Universal Agent Policy (`GEMINI.MD`)
+## 🌐 Universal Agent Policy (`GEMINI.MD` & `AGENTS.md`)
 
-Loadable at workspace root or globally at `~/.gemini/GEMINI.md`:
-- **Workspace Design Delegation**: Automatically delegates all frontend, UI/UX, and motion requests to local workspace rules (`starting-brandnew.md`, `starting-existing.md`, `frontend.md`, `UI_Always.md`).
-- **Indirect-Intent Dispatch Matrix**: Maps fuzzy user intents across 11 non-design domains directly to target skills (Backend, Security, DevOps, Testing, AI Agents, Growth, etc.).
+Loadable at workspace root (`GEMINI.MD` for AGY / Gemini; `AGENTS.md` for GPT / Codex):
+- **Workspace Rule Delegation**: Automatically delegates frontend, UI/UX, motion, backend architecture, security hardening, and QA requests to local workspace rules (`starting-brandnew.md`, `starting-existing.md`, `frontend.md`, `UI_Always.md`, `MOTION.md`, `backend.md`, `security.md`, `penetrating-and-testing.md`).
+- **Selective Skill Dispatch Matrices**: Maps domain tasks directly to target skills while inspecting only the 1–2 skills matching the active surface.
 - **Global ADHD Mode**: Enforces action-first formatting (Line 1 action, bounded numbered steps, max 5-item lists, zero conversational filler, and sub-2-minute next steps).
 
 ---
 
-## 📋 Workspace Rules (`.agents/rules/`)
+## 📋 Workspace Rules (`.agents/rules/` & `.codex/rules/`)
 
 Foundational architectural guidelines, proactive quality floors, and execution pipelines:
 
 | Rule | Trigger | Activation Criteria | Core Guardrails & Skills Integrated |
 | :--- | :---: | :--- | :--- |
-| [`UI_Always.md`](.agents/rules/UI_Always.md) | `model_decision` | Always-on when inspecting, writing, or refactoring UI | Proactive CSS floor: fixed-header clearance (`calc(var(--header-height) + 24px)`), zero horizontal overflow (`min-width: 0`), authentic photography (strict no AI slop), 48px touch targets, and inline Node Playwright audits. |
-| [`frontend.md`](.agents/rules/frontend.md) | `model_decision` | Designing, building, or refactoring UI components | 4-stage delivery pipeline: `prompt-enhancer-frontend` scoping, 21st.dev/ThreeUI instant bundle extraction via inline Node, design token adherence from `DESIGN.md`, and multi-viewport responsive QA. |
-| [`starting-brandnew.md`](.agents/rules/starting-brandnew.md) | `manual` | Greenfield project or building web app from scratch | 6-phase scaffolding: pre-flight conflict check, 74 curated brand systems in `awesome-design-md`, component blueprints, responsive layout implementation, and Playwright verification. |
-| [`starting-existing.md`](.agents/rules/starting-existing.md) | `manual` | Auditing, refactoring, or redesigning an existing app | 7-phase redesign: baseline design token extraction, selective visual overhauls, scoped non-breaking refactors, and browser verification against legacy regression. |
-| [`backend.md`](.agents/rules/backend.md) | `model_decision` | Database schemas, ORMs, API routes, or data layers | Production persistence standards: service/repository separation, connection pooling, schema integrity, atomic transaction boundaries, and backend skill dispatching. |
-| [`security.md`](.agents/rules/security.md) | `model_decision` | Server routing, configs, auth, APIs, or data intake | Zero-trust DevSecOps: 7 defensive hardening phases, plaintext secret eradication, Argon2id/bcrypt auth, anti-CSRF architecture, strict CORS, error suppression, and negative TDD. |
-| [`penetrating-and-testing.md`](.agents/rules/penetrating-and-testing.md) | `manual` | Dynamic pentesting, exploit auditing, or full-surface QA | Dual-surface validation: Strix autonomous exploit validation with working PoCs, machine-readable `vulnerabilities.json` generation, and Playwright functional QA across 5 UI states (Empty, Loading, Error, Partial, Ideal). |
+| [`UI_Always.md`](.agents/rules/UI_Always.md) | `model_decision` | Always-on when inspecting, writing, or refactoring UI | Proactive CSS floor: fixed-header clearance (`calc(var(--header-height, 4rem) + var(--space-lg, 1.5rem))`), zero horizontal overflow (`min-width: 0`), authentic photography (strict no AI slop), 44px touch targets, canonical structural/copy anti-slop floor, and inline Node Playwright audits. |
+| [`MOTION.md`](.agents/rules/MOTION.md) | `model_decision` | Designing, authoring, reviewing, or implementing UI motion & animations | 4-point Quick-Execution Contract + 12-archetype animation toolbox: spring physics (`stiffness`/`damping`), composite-only `transform`/`opacity`, state machine rest invariant (`[Rest] -> [Action] -> [Rest]`), and `@media (prefers-reduced-motion: reduce)`. |
+| [`frontend.md`](.agents/rules/frontend.md) | `model_decision` | Designing, building, or refactoring UI components | 4-stage delivery pipeline: `prompt-enhancer-frontend` scoping, 21st.dev/ThreeUI instant bundle extraction via inline Node, `DESIGN.md` token adherence, `impeccable` Stage 2 visual craft & Stage 3 audit, `MOTION.md` delegation, and multi-viewport responsive QA. |
+| [`starting-brandnew.md`](.agents/rules/starting-brandnew.md) | `model_decision` | Greenfield project or building web app from scratch | 6-phase scaffolding: pre-flight conflict check, batched discovery prompt, 74 curated brand systems in `awesome-design-md`, scoped 21st.dev landing blueprints, `impeccable` Stage 2 responsive layout implementation, and Playwright verification. |
+| [`starting-existing.md`](.agents/rules/starting-existing.md) | `model_decision` | Auditing, refactoring, or redesigning an existing app | 7-phase redesign: baseline design token extraction, selective visual overhauls (up to 5 curated `DESIGN.md` choices), `impeccable` Stage 2 scoped non-breaking refactors, and browser verification against legacy regression. |
+| [`backend.md`](.agents/rules/backend.md) | `model_decision` | Database schemas, ORMs, API routes, or data layers | Production persistence standards: service/repository separation, connection pooling, schema integrity, atomic transaction boundaries, and selective 1–2 backend skill dispatching. |
+| [`security.md`](.agents/rules/security.md) | `model_decision` | Server routing, configs, auth, APIs, or data intake | Zero-trust DevSecOps: 7 defensive hardening phases, selective 1–2 security skill dispatching, Argon2id/bcrypt auth, anti-CSRF architecture, strict CORS, error suppression, and negative TDD. |
+| [`penetrating-and-testing.md`](.agents/rules/penetrating-and-testing.md) | `model_decision` | Dynamic pentesting, exploit auditing, or full-surface QA | Dual-surface validation: Strix autonomous exploit validation with working PoCs, machine-readable `vulnerabilities.json` generation, and Playwright functional QA across 5 UI states. |
 | [`install.md`](.agents/rules/install.md) | `manual` | Initial workspace setup or onboarding (`@install.md`) | Checks GPT / CODEX or AGY / GEMINI first; the AGY branch runs the legacy Playwright bootstrapper and target-only setup cleanup. |
 
 ### Rule Lifecycle & Interaction Map
 
 ```text
   [ Greenfield ] ──► starting-brandnew.md ┐
-                                          ├──► frontend.md ◄──► UI_Always.md (Always-On CSS Floor)
+                                          ├──► frontend.md ◄──► UI_Always.md & MOTION.md (CSS & Motion Floor)
   [ Existing ]   ──► starting-existing.md ┘        ▲
                                                    │
   [ Data Layer ] ──► backend.md ───────────────────┼──► security.md (Defensive Hardening)
@@ -169,7 +170,7 @@ The workspace includes a dual-engine security pipeline linking offensive adversa
 
 ---
 
-## 🛠️ Included Skill Domains (173 Skills)
+## 🛠️ Included Skill Domains (174 Skills)
 
 | Domain | Count | Key Skills |
 | :--- | :---: | :--- |
@@ -182,7 +183,7 @@ The workspace includes a dual-engine security pipeline linking offensive adversa
 | **🤖 AI & LLM Systems** | 11 | `ai-agents-architect`, `langgraph`, `rag-engineer`, `langfuse`, `prompt-engineering`, `context-window-management` |
 | **💳 FinTech & Integrations** | 6 | `stripe-integration`, `plaid-fintech`, `twilio-communications`, `hubspot-integration` |
 | **🔍 Data & Search** | 11 | `data-engineer`, `dbt-transformation-patterns`, `airflow-dag-patterns`, `algolia-search`, `vector-database-engineer` |
-| **🎮 Creative, 3D & Games** | 5 | `3d-web-experience`, `game-development`, `godot-gdscript-patterns`, `unity-developer`, `algorithmic-art` |
+| **🎮 Creative, 3D & Games** | 6 | `3d-web-experience`, `scroll-world`, `game-development`, `godot-gdscript-patterns`, `unity-developer`, `algorithmic-art` |
 | **📈 Product & Growth** | 26 | `prompt-enhancer`, `copywriting`, `avoid-ai-writing`, `seo-audit`, `analytics-tracking`, `launch-strategy`, `competitor-alternatives` |
 | **🛠️ Engineering Workflow** | 6 | `architecture-decision-records`, `concise-planning`, `full-output-enforcement`, `git-pushing`, `kaizen` |
 

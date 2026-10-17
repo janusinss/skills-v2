@@ -5,12 +5,12 @@ description: Application security standards, attack surface minimization, and ex
 
 # Application Security & Exploit Defense Standards
 
-Execute this pipeline when designing, implementing, or auditing routing, server configs, auth, APIs, data boundaries, and file intake. For dynamic penetration testing and functional QA, see [penetrating-and-testing.md](penetrating-and-testing.md).
+Execute this pipeline when designing, implementing, or auditing routing, server configs, auth, APIs, data boundaries, and file intake. For dynamic penetration testing and functional QA, see [penetrating-and-testing.md](.agents/rules/penetrating-and-testing.md).
 
 ---
 
 ## 1. Security Skill Dispatch Matrix
-Inspect target skills via `view_file` before generating security-sensitive code:
+Before generating security-sensitive code, inspect only the 1–2 skills matching the active task/surface via `view_file` rather than loading all listed skills:
 
 | Objective / Surface | Required Skill Link |
 | :--- | :--- |
@@ -147,4 +147,4 @@ Inspect target skills via `view_file` before generating security-sensitive code:
    - Rapid authentication failures trigger HTTP `429 Too Many Requests`.
 3. **Remediation Standard (Ingesting `vulnerabilities.json`)**:
    - Ingest findings from `strix_runs/<run-name>/vulnerabilities.json` via [`fix-security-vulnerabilities-with-strix`](.agents/skills/fix-security-vulnerabilities-with-strix/SKILL.md).
-   - Patch architectural root causes (parameterization, centralized tenant filters) rather than string filtering. For live penetration testing workflows, see [penetrating-and-testing.md](penetrating-and-testing.md).
+   - Patch architectural root causes (parameterization, centralized tenant filters) rather than string filtering. For live penetration testing workflows, see [penetrating-and-testing.md](.agents/rules/penetrating-and-testing.md).
