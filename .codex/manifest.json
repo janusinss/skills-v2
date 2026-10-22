@@ -11895,8 +11895,8 @@
     },
     "AGENTS.md": {
       "source": "AGENTS.md",
-      "sourceHash": "0f1443b727717c17a3543219de72e3f14c6d590fe7353f5926abc63e549a5ff8",
-      "outputHash": "c281e9eeb09ed908e73e54d64c8e04903fc284826319885605a6aa33bd821410"
+      "sourceHash": "3972ac18d86dccf99dde9c4b8d815ab36d35ad76a5752ff2f426bdf75764d776",
+      "outputHash": "dadc758b26856c03ce927fcef855f894a3769ff67e44a880256247639288e246"
     },
     "project.gitignore": {
       "source": ".gitignore",

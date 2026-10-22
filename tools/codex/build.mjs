@@ -93,13 +93,15 @@ export function buildBundle() {
   const retired = [];
   for (const old of Object.keys(previous.files || {})) {
     if (outputs.has(old)) continue;
-    if (old !== 'AGENTS.template.md' || previous.files[old].source !== 'tools/codex/templates/AGENTS.template.md') throw new Error(`Stale generated file ${old}; review it before rebuilding. No files were removed.`);
+    const sourcePath = previous.files[old]?.source ? path.resolve(repoRoot, previous.files[old].source) : null;
+    const isSourceRemoved = sourcePath && !fs.existsSync(sourcePath);
+    if (!isSourceRemoved && old !== 'AGENTS.template.md') throw new Error(`Stale generated file ${old}; review it before rebuilding. No files were removed.`);
     const absolute = path.join(bundleRoot, old);
     assertNoSymlinkAncestors(absolute);
     if (fs.existsSync(absolute)) {
       const data = fs.readFileSync(absolute);
       const hash = previous.formatVersion === 2 ? payloadHash(data) : sha256(data);
-      if (hash !== previous.files[old].outputHash) throw new Error(`Edited retired instruction file: ${old}. Preserve it before rebuilding.`);
+      if (hash !== previous.files[old].outputHash) throw new Error(`Edited retired file: ${old}. Preserve it before rebuilding.`);
       retired.push(absolute);
     }
   }
