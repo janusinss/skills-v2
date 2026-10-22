@@ -27,23 +27,23 @@ Instructions, operating rules, and skill mappings for AI agents (Codex, Antigrav
 Read and apply the active workspace's local rules before choosing generic skills:
 
 - **Frontend, UI/UX & Motion**:
-  - **Brand New Web App / Greenfield**: [.codex/rules/starting-brandnew.md](.codex/rules/starting-brandnew.md)
-  - **Existing App / Redesign / Refactor**: [.codex/rules/starting-existing.md](.codex/rules/starting-existing.md)
-  - **Active UI Implementation**: [.codex/rules/frontend.md](.codex/rules/frontend.md)
-  - **Layout & CSS Hygiene**: [.codex/rules/UI_Always.md](.codex/rules/UI_Always.md)
-  - **Motion, Physics & Micro-Interactions**: [.codex/rules/MOTION.md](.codex/rules/MOTION.md) (and [.codex/skills/3d-web-experience/SKILL.md](.codex/skills/3d-web-experience/SKILL.md) for 3D/WebGL)
+  - **Brand New Web App / Greenfield**: [.agents/rules/starting-brandnew.md](.agents/rules/starting-brandnew.md)
+  - **Existing App / Redesign / Refactor**: [.agents/rules/starting-existing.md](.agents/rules/starting-existing.md)
+  - **Active UI Implementation**: [.agents/rules/frontend.md](.agents/rules/frontend.md)
+  - **Layout & CSS Hygiene**: [.agents/rules/UI_Always.md](.agents/rules/UI_Always.md)
+  - **Motion, Physics & Micro-Interactions**: [.agents/rules/MOTION.md](.agents/rules/MOTION.md) (and [.agents/skills/3d-web-experience/SKILL.md](.agents/skills/3d-web-experience/SKILL.md) for 3D/WebGL)
 - **Backend, Security & QA**:
-  - **Backend Architecture, Data Layer & APIs**: [.codex/rules/backend.md](.codex/rules/backend.md)
-  - **Application Security & Exploit Defense**: [.codex/rules/security.md](.codex/rules/security.md)
-  - **Penetration Testing, Strix & Functional Flow QA**: [.codex/rules/penetrating-and-testing.md](.codex/rules/penetrating-and-testing.md)
+  - **Backend Architecture, Data Layer & APIs**: [.agents/rules/backend.md](.agents/rules/backend.md)
+  - **Application Security & Exploit Defense**: [.agents/rules/security.md](.agents/rules/security.md)
+  - **Penetration Testing, Strix & Functional Flow QA**: [.agents/rules/penetrating-and-testing.md](.agents/rules/penetrating-and-testing.md)
 
 ---
 
 ## 3. Playwright & Browser Verification Policy
 
-Follow [.codex/rules/UI_Always.md](.codex/rules/UI_Always.md#browser-verification) for visual and responsive checks:
+Follow [.agents/rules/UI_Always.md](.agents/rules/UI_Always.md#8-browser-verification-policy) for visual and responsive checks:
 
-- **Engine**: Use the bundled [playwright-skill](.codex/skills/playwright-skill/SKILL.md) through inline Node execution from the project root: `node .codex/skills/playwright-skill/run.js -e "..."`. Create no scratch `.js` files for these audits and do not delegate browser verification to subagents.
+- **Engine**: Use the bundled [playwright-skill](.agents/skills/playwright-skill/SKILL.md) through inline Node execution from the project root: `node .agents/skills/playwright-skill/run.js -e "..."`. Create no scratch `.js` files for these audits and do not delegate browser verification to subagents.
 - **Target URL**: Resolve the running application through `helpers.resolveTargetUrl()`. Respect a user-provided URL or project configuration; do not guess a port.
 - **Layout Audits**: Check 375px, 768px, and 1280px for accidental horizontal overflow (`document.documentElement.scrollWidth > window.innerWidth`), page exceptions, and console errors.
 - **Artifacts**: Save screenshots and temporary browser diagnostics in the project's git-ignored `scratch/` directory.
@@ -57,9 +57,9 @@ Follow [.codex/rules/UI_Always.md](.codex/rules/UI_Always.md#browser-verificatio
 
 This section applies only to this collection's source checkout and is excluded from the installed Codex `AGENTS.md`.
 
-### Codex Skills & Installation
+### Skills & Installation
 
-Use the converted skills, rules, and resources under `.codex/`. Read a matching skill's `SKILL.md` before using it and load only the supporting files needed for the task. Prefer converted manifests when both edition catalogs contain the same name. Use Codex's available tools; do not assume Gemini or Claude tool names. A skill does not authorize external actions or configure its external providers.
+For Antigravity, use skills and rules under `.agents/`. For Codex, use converted skills, rules, and resources under `.codex/`. Read a matching skill's `SKILL.md` before using it and load only the supporting files needed for the task. Prefer converted manifests when both edition catalogs contain the same name. A skill does not authorize external actions or configure its external providers.
 
 For requests such as "INSTALL THIS SKILLS REPO HERE", read the source checkout's `INSTALL.md`. If the edition has not already been selected for that installation, ask:
 

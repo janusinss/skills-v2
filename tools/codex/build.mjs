@@ -70,7 +70,8 @@ export function buildBundle() {
   const agentsPolicy = path.join(repoRoot, 'AGENTS.md');
   // Keep source-only installation routing and maintenance notes in this
   // checkout. Installed projects receive the user's three-section policy.
-  const installedPolicy = fs.readFileSync(agentsPolicy, 'utf8').split('\n<!-- source-repository-only -->')[0].trimEnd() + '\n';
+  const rawInstalledPolicy = fs.readFileSync(agentsPolicy, 'utf8').split('\n<!-- source-repository-only -->')[0].trimEnd() + '\n';
+  const installedPolicy = adaptMarkdown(rawInstalledPolicy, agentsPolicy, duplicates);
   add('AGENTS.md', installedPolicy, agentsPolicy);
   const projectIgnore = path.join(repoRoot, '.gitignore');
   add('project.gitignore', '# Local Codex skills, instructions, and workflow artifacts\n' + localCodexIgnoreEntries.join('\n') + '\n\n' + fs.readFileSync(projectIgnore, 'utf8'), projectIgnore);

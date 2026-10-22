@@ -41,7 +41,7 @@ Read and apply the active workspace's local rules before choosing generic skills
 
 ## 3. Playwright & Browser Verification Policy
 
-Follow [.codex/rules/UI_Always.md](.codex/rules/UI_Always.md#browser-verification) for visual and responsive checks:
+Follow [.codex/rules/UI_Always.md](.codex/rules/UI_Always.md#8-browser-verification-policy) for visual and responsive checks:
 
 - **Engine**: Use the bundled [playwright-skill](.codex/skills/playwright-skill/SKILL.md) through inline Node execution from the project root: `node .codex/skills/playwright-skill/run.js -e "..."`. Create no scratch `.js` files for these audits and do not delegate browser verification to subagents.
 - **Target URL**: Resolve the running application through `helpers.resolveTargetUrl()`. Respect a user-provided URL or project configuration; do not guess a port.

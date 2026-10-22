@@ -8,15 +8,15 @@ A collection of **174 top-level AI agent skills**, architectural rules, and work
 
 ```text
 ├── .agents/
+│   ├── agents/            # Subagents: security-auditor, penetration-tester (UI dropdown & delegation)
 │   ├── hooks.json         # Automated lifecycle hooks (UI checks & design deep passes)
 │   ├── rules/             # 9 architectural guidelines & proactive rules (UI, motion, backend, security, testing, install)
 │   ├── skills/            # 174 specialized agent skills across 12 engineering domains
 │   └── resources/         # Creative libraries, shader utilities, and ambient types
-├── .codex/                # Active GPT / Codex skills, rules, and resources
+├── .codex/                # Active GPT / Codex skills, rules, resources, and agents
 ├── tools/codex/           # Conversion, validation, and Codex export tools
-├── AGENTS.md              # Codex policy: ADHD Mode, local rules, browser checks & installation
+├── AGENTS.md              # Universal agent policy: ADHD Mode, local rules, browser checks & installation
 ├── INSTALL.md             # Shared installer: ask GPT / CODEX or AGY / GEMINI
-├── GEMINI.MD              # Original AGY / Gemini workspace policy and installer routing
 ├── skills-lock.json       # Skill dependency manifest and integrity lockfile
 └── .gitignore             # Environment and ephemeral file ignore rules
 ```
@@ -39,10 +39,10 @@ It waits for your choice, then installs that edition into the current target pro
 
 | Choice | Payload | Target instruction file |
 | --- | --- | --- |
-| GPT / CODEX | Prebuilt converted `.codex/` edition, installed directly as `.codex/` | `AGENTS.md` |
-| AGY / GEMINI | Original `.agents/` tree and `skills-lock.json` | `GEMINI.MD` |
+| GPT / CODEX | Prebuilt converted `.codex/` edition, installed directly as `.codex/` | `AGENTS.md` (configured with `.codex/` paths) |
+| AGY / GEMINI | Original `.agents/` tree and `skills-lock.json` | `AGENTS.md` (configured with `.agents/` paths) |
 
-The root `AGENTS.md` and `GEMINI.MD` route installation requests through the same choice. The original `@.agents/rules/install.md` entry point also checks the edition before setup.
+The root `AGENTS.md` routes installation requests through the same choice. The original `@.agents/rules/install.md` entry point also checks the edition before setup.
 
 ### Manual Setup
 
@@ -84,12 +84,23 @@ For the Codex edition, maintain the source collection and publish a rebuilt, val
 
 ---
 
-## 🌐 Universal Agent Policy (`GEMINI.MD` & `AGENTS.md`)
+## 🌐 Universal Agent Policy (`AGENTS.md`)
 
-Loadable at workspace root (`GEMINI.MD` for AGY / Gemini; `AGENTS.md` for GPT / Codex):
+Standardized at workspace root for both AGY / Gemini and GPT / Codex:
 - **Workspace Rule Delegation**: Automatically delegates frontend, UI/UX, motion, backend architecture, security hardening, and QA requests to local workspace rules (`starting-brandnew.md`, `starting-existing.md`, `frontend.md`, `UI_Always.md`, `MOTION.md`, `backend.md`, `security.md`, `penetrating-and-testing.md`).
 - **Selective Skill Dispatch Matrices**: Maps domain tasks directly to target skills while inspecting only the 1–2 skills matching the active surface.
 - **Global ADHD Mode**: Enforces action-first formatting (Line 1 action, bounded numbered steps, max 5-item lists, zero conversational filler, and sub-2-minute next steps).
+
+---
+
+## 🤖 Specialized Subagents (`.agents/agents/` & `.codex/agents/`)
+
+Domain-specific agent personas configured with `mainAgent: true` (for chat UI dropdown selection) and `subagent: true` (for isolated background delegation):
+
+| Subagent | Role & Capabilities | Activation |
+| :--- | :--- | :--- |
+| **`security-auditor`** | Adversarial pre-commit code reviewer. Enforces the 7 defensive phases from `security.md` (injection defense, auth boundaries, IDOR, SSRF, and security header hardening). | Select in chat UI dropdown or prompt: *"Audit with security-auditor"* |
+| **`penetration-tester`** | Dynamic penetration tester and functional QA. Runs Strix autonomous exploit scans and 5-state UI tests from `penetrating-and-testing.md` in private context without polluting chat history. | Select in chat UI dropdown or prompt: *"Test with penetration-tester"* |
 
 ---
 
@@ -207,5 +218,5 @@ For the original AGY / GEMINI edition, if you want agent skills to remain local 
 ```gitignore
 .agents/
 skills-lock.json
-GEMINI.MD
+AGENTS.md
 ```

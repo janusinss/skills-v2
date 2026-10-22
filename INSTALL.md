@@ -16,7 +16,7 @@ The GPT / CODEX choice installs local skills for a supported Codex client. A mod
 
 Record the absolute target project path when the user says "here", before changing directories or fetching the source. Keep the source checkout separate from the target project. Read this guide from the source checkout; run installed workflow setup from the target.
 
-Inspect existing `.agents/`, `AGENTS.md`, and `GEMINI.MD` files before writing. Preserve existing user instructions and skills. If destinations conflict, stage the selected edition separately and review the merge. Do not install both editions over the same skill paths or delete the source repository as cleanup.
+Inspect existing `.agents/`, `.codex/`, and `AGENTS.md` files before writing. Preserve existing user instructions and skills. If destinations conflict, stage the selected edition separately and review the merge. Do not install both editions over the same skill paths or delete the source repository as cleanup.
 
 ## GPT / CODEX
 
@@ -38,7 +38,7 @@ Open the target in Codex and confirm the installed skills are available in that 
 
 ## AGY / GEMINI
 
-Copy the original source `.agents/` tree, root `GEMINI.MD`, and `skills-lock.json` into the target, after checking for conflicts. Use the original payload rather than `.codex/skills/`. Do not copy this source repository's root `AGENTS.md` into the target.
+Copy the original source `.agents/` tree, root `AGENTS.md` (configured with `.agents/` paths), and `skills-lock.json` into the target, after checking for conflicts. Use the original payload rather than `.codex/skills/`.
 
 From the target project, follow its installed `.agents/rules/install.md` after the AGY / GEMINI choice is confirmed. That legacy bootstrapper sets up Playwright and Chromium and verifies its runner. Its self-cleanup applies only to setup artifacts installed for this operation in the target; preserve the source checkout and unrelated project files. Global Gemini policy synchronization is optional and requires a user request.
 

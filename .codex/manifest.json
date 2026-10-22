@@ -4,8 +4,10 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-10-01",
   "originalSnapshot": {
-    "digest": "b3f1f9181f238ac62bd5db63d0f3416b4d0d0b86483fd95900dfdb89c2869674",
+    "digest": "b160bf8bc5e0e2ca9f8f2b8316d0f9c82e5affd088cbdcd827240833787dd095",
     "files": {
+      ".agents/agents/penetration-tester.md": "84e5a4b42ba3e081683f6c310d70d5fb60fe871ab9b28c861b2d6c9f5378f3ed",
+      ".agents/agents/security-auditor.md": "c356ac324a675566e071d2b04b6e1f1550e813a5e3700b5c9397a83021c3b82e",
       ".agents/hooks.json": "b7a28b6ef3f4f6284c9c40d49fa72107c6b6dd3a9f8ebce1e70473cab7f5ff6f",
       ".agents/resources/creative-libraries/README.md": "3a771a19ff9d37c9c2f147bd678f8d4ebc6a1cb0d0e51f74b9e58124678b2248",
       ".agents/resources/creative-libraries/components/LenisGsapBridge.tsx": "7379da0ae3e85143881bba6930393fb4542e66e600bc486dbf27a741caa317dd",
@@ -1834,8 +1836,7 @@
       ".agents/skills/vulnerability-scanner/scripts/security_scan.py": "5a066b5ffeb57b29187aaa83f570279cb3b05f39521169a4ae407d19d37dc482",
       ".agents/skills/web-app-penetration-testing/SKILL.md": "2e8df0b9233971c496d0c0c7660808fc717c08d4165455a0423229045389608a",
       ".gitignore": "ab5b1bfacf8dfa2edb0399b5a59477cc832ea09c4c5302458f402853b3a2831d",
-      "GEMINI.MD": "b4000ebf016576181ccdd817c91cfbbc4f08910b369a4218b79ac2e409c2598f",
-      "README.MD": "c4bf2b984f3bd334d8d4ffde7f0c2d754a7eda8200d5a039222ea4d7a3873761",
+      "README.MD": "562c33e1876009b8f3e6a10f79d0f6ef805d115fbaa7354b21c2312cbbf33593",
       "skills-lock.json": "e14d503d92227d759803fc515321bab90786e2258db9770873d06a5d63504dc3"
     }
   },
@@ -1845,13 +1846,23 @@
     "discoverableSkills": 191,
     "duplicatesPreservedAsReferences": 2,
     "rules": 9,
-    "generatedFiles": 2009
+    "generatedFiles": 2011
   },
   "duplicateReferences": {
     "skills/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "skills/avoid-ai-writing/skills/avoid-ai-writing/REFERENCE.md",
     "skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/REFERENCE.md"
   },
   "files": {
+    "agents/penetration-tester.md": {
+      "source": ".agents/agents/penetration-tester.md",
+      "sourceHash": "84e5a4b42ba3e081683f6c310d70d5fb60fe871ab9b28c861b2d6c9f5378f3ed",
+      "outputHash": "e7af8b2600e7a82988e031c5d931ebcb2183590ffa87795b4a43ff6f5a3d4624"
+    },
+    "agents/security-auditor.md": {
+      "source": ".agents/agents/security-auditor.md",
+      "sourceHash": "c356ac324a675566e071d2b04b6e1f1550e813a5e3700b5c9397a83021c3b82e",
+      "outputHash": "b91e21120bdb516d056dab656cd6c2fe33be29bafdb75c7c856c2878128851ce"
+    },
     "resources/creative-libraries/components/LenisGsapBridge.tsx": {
       "source": ".agents/resources/creative-libraries/components/LenisGsapBridge.tsx",
       "sourceHash": "7379da0ae3e85143881bba6930393fb4542e66e600bc486dbf27a741caa317dd",
@@ -11884,8 +11895,8 @@
     },
     "AGENTS.md": {
       "source": "AGENTS.md",
-      "sourceHash": "25adb8cf297a911a25a43df2cae9e62085fc07b4308bbc980f7a6e26d18bee6d",
-      "outputHash": "ce52768e6dbbd3d2a01c140a5142863c302b7e8a658dc761bce74184c01b67d9"
+      "sourceHash": "0f1443b727717c17a3543219de72e3f14c6d590fe7353f5926abc63e549a5ff8",
+      "outputHash": "c281e9eeb09ed908e73e54d64c8e04903fc284826319885605a6aa33bd821410"
     },
     "project.gitignore": {
       "source": ".gitignore",
