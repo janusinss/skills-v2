@@ -205,7 +205,8 @@ The workspace includes a dual-engine security pipeline linking offensive adversa
 The GPT / CODEX installer automatically creates the target's root `.gitignore`, or merges missing entries while preserving existing project rules. [.codex/project.gitignore](.codex/project.gitignore) includes the full supplied OS, secrets, editor, dependency, test, cache, agent-runtime, and audit rules, plus these local Codex entries:
 
 ```gitignore
-/.codex/
+/.codex/*
+!/.codex/rules/
 /AGENTS.md
 /scratch/
 /.impeccable/
@@ -216,7 +217,12 @@ For an already completed Codex installation, run `node tools/codex/install.mjs -
 For the original AGY / GEMINI edition, if you want agent skills to remain local to your machine without being committed to your application's remote repository, ensure your target project's `.gitignore` includes:
 
 ```gitignore
-.agents/
+.agents/*
+!.agents/rules/
 skills-lock.json
 AGENTS.md
 ```
+
+> [!TIP]
+> **Why `.agents/*` + `!.agents/rules/`?**
+> A blanket `.agents/` ignore causes IDE file indexers (VS Code / Cursor / Antigravity) to hide the directory from chat `@` autocomplete. Un-ignoring `!.agents/rules/` allows `@UI_Always.md` and `@backend.md` to autocomplete in chat while keeping heavy skills, dependencies, and caches safely ignored.

@@ -3,7 +3,7 @@ import path from 'node:path';
 import { isUtf8 } from 'node:buffer';
 import { assertNoSymlinkAncestors, bundleRoot } from './lib.mjs';
 
-export const localCodexIgnoreEntries = Object.freeze(['/.codex/', '/AGENTS.md', '/scratch/', '/.impeccable/']);
+export const localCodexIgnoreEntries = Object.freeze(['/.codex/*', '!/.codex/rules/', '/AGENTS.md', '/scratch/', '/.impeccable/']);
 
 export function planGitignore(target, root = bundleRoot) {
   if (!path.isAbsolute(target)) throw new Error('The .gitignore target must be an absolute project path');

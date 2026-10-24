@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-10-01",
   "originalSnapshot": {
-    "digest": "b160bf8bc5e0e2ca9f8f2b8316d0f9c82e5affd088cbdcd827240833787dd095",
+    "digest": "72d2618e8641b6d5507d5a4d30aa1d7346ebf5a4e2867e40b9d4d0fd505d258c",
     "files": {
       ".agents/agents/penetration-tester.md": "84e5a4b42ba3e081683f6c310d70d5fb60fe871ab9b28c861b2d6c9f5378f3ed",
       ".agents/agents/security-auditor.md": "c356ac324a675566e071d2b04b6e1f1550e813a5e3700b5c9397a83021c3b82e",
@@ -305,7 +305,7 @@
       ".agents/rules/UI_Always.md": "8c5aa87c670617f5b4ab49aae8c9559f0997df20fde3735de1e0db50676358d7",
       ".agents/rules/backend.md": "2ee0d34ebeb2740e1248133a7cdd262f67ccdbef3049505695cb1fa70c57ef2c",
       ".agents/rules/frontend.md": "91f33b015665ca94383c93018b7962a77e70f2959b60c1f5f8ee9dbe76318e84",
-      ".agents/rules/install.md": "33291998d1142fe36ab9687491940eaf51475d73feb6a45f7696291e7ab85143",
+      ".agents/rules/install.md": "3cc4c8ec764a2cecaac1f705c89ec43b421a92e1f98a6ef1cd4c8ad305760fc1",
       ".agents/rules/penetrating-and-testing.md": "da661ab8b6fb12f7b5b592f0fb5e8d383563a48ea8fd376450ece038a9553b85",
       ".agents/rules/security.md": "941277f49e5032b022fbb7246682c1720908574d83fafa1c85a9514e8bc2c2f6",
       ".agents/rules/starting-brandnew.md": "12cb50c7255127cf514881f2e4db062df3fc5ff6531e76de036f712e2dce6f9a",
@@ -1836,7 +1836,7 @@
       ".agents/skills/vulnerability-scanner/scripts/security_scan.py": "5a066b5ffeb57b29187aaa83f570279cb3b05f39521169a4ae407d19d37dc482",
       ".agents/skills/web-app-penetration-testing/SKILL.md": "2e8df0b9233971c496d0c0c7660808fc717c08d4165455a0423229045389608a",
       ".gitignore": "ab5b1bfacf8dfa2edb0399b5a59477cc832ea09c4c5302458f402853b3a2831d",
-      "README.MD": "562c33e1876009b8f3e6a10f79d0f6ef805d115fbaa7354b21c2312cbbf33593",
+      "README.MD": "861839926cef7e14327047c20da2d58196d3fc5db3a1461afa59564c41511ca7",
       "skills-lock.json": "e14d503d92227d759803fc515321bab90786e2258db9770873d06a5d63504dc3"
     }
   },
@@ -11901,7 +11901,7 @@
     "project.gitignore": {
       "source": ".gitignore",
       "sourceHash": "ab5b1bfacf8dfa2edb0399b5a59477cc832ea09c4c5302458f402853b3a2831d",
-      "outputHash": "23a7981c8024a74e9f74ac50cfb406d356d9b1aadc1c1906c2d42b6c9a52c41e"
+      "outputHash": "6023bff3fa81d8bcf82bf33ad17911af650d5f3d2f6b518ad5628d0c31be9cbb"
     },
     "hooks.example.json": {
       "source": ".agents/hooks.json",
