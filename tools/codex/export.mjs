@@ -31,7 +31,7 @@ export function planExport({ target, profile = 'all', includeHooks = false }, ro
     entries.push({ source, destination: output, relative });
   };
   add(path.join(root, 'AGENTS.md'), 'AGENTS.md');
-  for (const area of ['rules', 'resources']) for (const source of filesIn(path.join(root, area))) add(source, slash(path.join('.codex', area, path.relative(path.join(root, area), source))));
+  for (const area of ['rules', 'resources', 'agents']) for (const source of filesIn(path.join(root, area))) add(source, slash(path.join('.codex', area, path.relative(path.join(root, area), source))));
   for (const skill of selected) {
     if (!all.includes(skill)) throw new Error(`Missing skill ${skill} in profile ${profile}`);
     const directory = path.join(root, 'skills', skill);

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ai Regression Testing"
+  short_description: "Regression testing strategies for AI-assisted development...."
+  default_prompt: "Use $ai-regression-testing for the relevant part of this task."

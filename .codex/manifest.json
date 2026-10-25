@@ -4,10 +4,38 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-10-01",
   "originalSnapshot": {
-    "digest": "72d2618e8641b6d5507d5a4d30aa1d7346ebf5a4e2867e40b9d4d0fd505d258c",
+    "digest": "6b28de13e91ab736ff8643fc52bffa87090bc4bd0ee2e1ddd984a90aa33f3b26",
     "files": {
+      ".agents/agents/a11y-architect.md": "33c2c756b1dd391e12ed583e06290ddc816aaa4a8e5e838949e218a05e60584e",
+      ".agents/agents/agent-evaluator.md": "61ea865430c05af5ce15443a0b12ab5ee87ce76c47da59d91042ed0ce12e4b77",
+      ".agents/agents/architect.md": "df00df38208d05b656d8d0f02f8e888e874b4af6e5741592ba4da0de69d4fd5c",
+      ".agents/agents/build-error-resolver.md": "03c247a5680ab296a54e9c2ff44f8fb79b143e61eaa65955bcb6a5c640f5442a",
+      ".agents/agents/code-architect.md": "f6f06c0aaf7426c52703aceed795e1175ad43d88d68d7f8333ae3d3b529709c0",
+      ".agents/agents/code-reviewer.md": "7d90f23be66fd00a4f6d22e53fa69049706d81510a2907efd8007fc77c6f9008",
+      ".agents/agents/code-simplifier.md": "d01211020928579f40489585706ca3021c1818721679a176ca19bcd99d8f661d",
+      ".agents/agents/cpp-build-resolver.md": "2edf0e9d8ffb96631329707f510674d6d959554e2f8a4c19342599f871f03560",
+      ".agents/agents/database-reviewer.md": "75e59dc8e277f3bbc26533c26c6cbb7becae481298666f5b1be1aba551dab783",
+      ".agents/agents/django-build-resolver.md": "f84179fcd6903c3b52de48a9d417b6c2e1c5ea9121dc804eca15018998bdc2f0",
+      ".agents/agents/e2e-runner.md": "21c0eefe47cef28ec3aff77cf766b2662673a28f367b19d4b0583a121394937f",
+      ".agents/agents/fastapi-reviewer.md": "a07e76bcf429cb54c871389264b71cfd13ac665f59841645b13bbaa0c1359788",
+      ".agents/agents/go-build-resolver.md": "a05d13ed830c01b9255019960805767b6bef55593ea4d288706bc284d9f68d18",
+      ".agents/agents/go-reviewer.md": "cc7ab60f4ccba8276cb5fe2747feff02a8f73acba7800508ea567860a424f5ad",
       ".agents/agents/penetration-tester.md": "84e5a4b42ba3e081683f6c310d70d5fb60fe871ab9b28c861b2d6c9f5378f3ed",
+      ".agents/agents/performance-optimizer.md": "2fcf9dbf201c2c59d63efd32eec37d047c362240ac377daa7ba03ec3ac8bc4eb",
+      ".agents/agents/php-reviewer.md": "79480435b15b4b60dae04ab51689d073eef02d719ae51f38afd73688066206a9",
+      ".agents/agents/planner.md": "c91e99648b29147c06d1ac9d52bf2cb364cfdab560eeaf6316be6ae25064317d",
+      ".agents/agents/pytorch-build-resolver.md": "f316306e1acb8e2ec60a3ca4d1fa2fdc4e8f56cda0fff9d3270176afe43281dd",
+      ".agents/agents/react-build-resolver.md": "8501316bfdd2d49c3279ed9a2481dab0e77b44490a78a617eaec4b87f9ddb135",
+      ".agents/agents/react-reviewer.md": "fe94e6e4a67d4e9bb5b05873f954609259083f0ffbb1bcd527b6eb8899b93867",
+      ".agents/agents/refactor-cleaner.md": "f41e6fe9d5a0facd2372119a036368f56b2a14b26ba87f9e59c80a2d1bd32c7a",
+      ".agents/agents/rust-build-resolver.md": "9a8b94d66746e002abb244d3d504574ccb9c6fa63b94904d52c451d4061e9bc1",
+      ".agents/agents/rust-reviewer.md": "bc981ab5b66d88edf19da69216463c4c466321204590a686e750d16b65e8a526",
       ".agents/agents/security-auditor.md": "c356ac324a675566e071d2b04b6e1f1550e813a5e3700b5c9397a83021c3b82e",
+      ".agents/agents/silent-failure-hunter.md": "e38d169bd0d2d495b9bd9853d4a13acf703317f8f9147d8f91a9052b7d877823",
+      ".agents/agents/spec-miner.md": "59973cd841ec9fe9eaaa00c632aa0daa948db44d5e209f600cf88d8e5c10f4c6",
+      ".agents/agents/tdd-guide.md": "83b30eb5fdc0d1149a1998ef1a59f1aced491f012135efc406c3e68bf321e19c",
+      ".agents/agents/typescript-reviewer.md": "2a8a3d2b3f91009cca73fdb4b204dbae07abaf198ce2c91abfcb10d0bd53f982",
+      ".agents/agents/vue-reviewer.md": "d33dfb8f39056d3fab628fc144c0e5019424ac3294c16f00138a43e7b2ab3bff",
       ".agents/hooks.json": "b7a28b6ef3f4f6284c9c40d49fa72107c6b6dd3a9f8ebce1e70473cab7f5ff6f",
       ".agents/resources/creative-libraries/README.md": "3a771a19ff9d37c9c2f147bd678f8d4ebc6a1cb0d0e51f74b9e58124678b2248",
       ".agents/resources/creative-libraries/components/LenisGsapBridge.tsx": "7379da0ae3e85143881bba6930393fb4542e66e600bc486dbf27a741caa317dd",
@@ -323,7 +351,17 @@
       ".agents/skills/3d-web-experience/SKILL.md": "7498d4a3cf8e52c9f71665b769d0e2b486d11858fdc4282c794d91de92ae244f",
       ".agents/skills/ab-test-setup/SKILL.md": "73b7018f269a4fcd9af44302ef02bf327bdf7f89ba825dcef32c991c4f669f52",
       ".agents/skills/agent-evaluation/SKILL.md": "c7a2bca261edc021d0d3a264b3ab1cba7b567f9084f6ddea5af448077afc3843",
+      ".agents/skills/agent-security-hardening/SKILL.md": "0e0895ada90aa8fa085e4257961ebe15f2dff43b843785b1533d4c731186ad81",
+      ".agents/skills/agent-self-evaluation/SKILL.md": "96bb21eb37760f596789f84ec0a5dad4ef92fc2255e35cd7b88dc4234062b8c1",
+      ".agents/skills/agent-self-evaluation/examples/high-score-example.md": "7f60196a1e6ae73e783b73d1f171600192b500b1b3b1e96453ad5fca84c035cd",
+      ".agents/skills/agent-self-evaluation/examples/low-score-example.md": "ee286d3adcbab489c5f277ae094a25e38e9401dc01b6c39987c3f5bf3b61706e",
+      ".agents/skills/agent-self-evaluation/references/evaluation-criteria.md": "d1ccdbc90dfe2485a42e7aef2f06b71506dca3010da1ea8765382b8f038f7c61",
+      ".agents/skills/agent-self-evaluation/references/hook-integration.md": "65888876994a12410c17723ca768f6715cb33a8ad963264a7caef67e3ef2fa8a",
+      ".agents/skills/agent-self-evaluation/scripts/evaluate.py": "04b2a9460a7baba2a8d86993c8aecb068380ee72c5de8ca07d996c4055dcaf5c",
+      ".agents/skills/agent-self-evaluation/templates/evaluation-report.md": "5fc8a0820de9bc74e0a1470e55aaa50b3957aa1b0f947c4b458213b8e39fedbe",
+      ".agents/skills/agentic-engineering/SKILL.md": "41c32c20ec97469341f5d83d8beb15f03d1b6f1c40fb1bdf534c50cd9a38cb6f",
       ".agents/skills/ai-agents-architect/SKILL.md": "93201997db7ee7b31986d26d6c67e7e98f712bd3a85369bc04225d0297d00ef4",
+      ".agents/skills/ai-regression-testing/SKILL.md": "83f2f5c4083af5762dd658f742d4a390eb3a6f969d835f69e8f47efba296c127",
       ".agents/skills/airflow-dag-patterns/SKILL.md": "94a41e7557ed0038de304d942691a6f432f6a29b82dc096e7c1f265b74fc332c",
       ".agents/skills/airflow-dag-patterns/resources/implementation-playbook.md": "55053a11ce43dc7f6dd2efcaf3efcb665033deb3739ccf763357faac3cdc467b",
       ".agents/skills/algolia-search/SKILL.md": "ea8e74c8370e0844e2a445ca155cdf709a459dcb5cee07cdc4ea8c2267f84889",
@@ -1316,6 +1354,7 @@
       ".agents/skills/content-creator/scripts/brand_voice_analyzer.py": "ba127b610dd4acab79f8f1dfd00ad25e2e695895b5674488d0753828d195f80a",
       ".agents/skills/content-creator/scripts/seo_optimizer.py": "ce5ca345c0fa9ab6a919144303dd8d5b126900a70be66f89e734ce93aaeb047e",
       ".agents/skills/context-window-management/SKILL.md": "15cbbe382e643897c9b0cf3973bc557d0ab857311f017799494c87da6787bf90",
+      ".agents/skills/continuous-agent-loop/SKILL.md": "f228cd383a9063b3a0116c5aea02565e859992f63fae5e799adf9c9e44e2454d",
       ".agents/skills/copy-editing/SKILL.md": "9d3cd8c334b6bf95528563672f5a5e4fe93388f399a873c9410b5b99c816ce54",
       ".agents/skills/copywriting/SKILL.md": "61b53ed71587818c3395682e9170f96b220a931ce40a24a857bb6d70186240b3",
       ".agents/skills/cpp-pro/SKILL.md": "8b136cd7cbf5ba73db0041cad94691c8191cb406e0347a8f16b22e30a41b88fb",
@@ -1842,26 +1881,166 @@
   },
   "originalPreserved": true,
   "summary": {
-    "topLevelSkills": 174,
-    "discoverableSkills": 191,
+    "topLevelSkills": 179,
+    "discoverableSkills": 196,
     "duplicatesPreservedAsReferences": 2,
     "rules": 9,
-    "generatedFiles": 2011
+    "generatedFiles": 2055
   },
   "duplicateReferences": {
     "skills/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "skills/avoid-ai-writing/skills/avoid-ai-writing/REFERENCE.md",
     "skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/REFERENCE.md"
   },
   "files": {
+    "agents/a11y-architect.md": {
+      "source": ".agents/agents/a11y-architect.md",
+      "sourceHash": "33c2c756b1dd391e12ed583e06290ddc816aaa4a8e5e838949e218a05e60584e",
+      "outputHash": "33c2c756b1dd391e12ed583e06290ddc816aaa4a8e5e838949e218a05e60584e"
+    },
+    "agents/agent-evaluator.md": {
+      "source": ".agents/agents/agent-evaluator.md",
+      "sourceHash": "61ea865430c05af5ce15443a0b12ab5ee87ce76c47da59d91042ed0ce12e4b77",
+      "outputHash": "61ea865430c05af5ce15443a0b12ab5ee87ce76c47da59d91042ed0ce12e4b77"
+    },
+    "agents/architect.md": {
+      "source": ".agents/agents/architect.md",
+      "sourceHash": "df00df38208d05b656d8d0f02f8e888e874b4af6e5741592ba4da0de69d4fd5c",
+      "outputHash": "df00df38208d05b656d8d0f02f8e888e874b4af6e5741592ba4da0de69d4fd5c"
+    },
+    "agents/build-error-resolver.md": {
+      "source": ".agents/agents/build-error-resolver.md",
+      "sourceHash": "03c247a5680ab296a54e9c2ff44f8fb79b143e61eaa65955bcb6a5c640f5442a",
+      "outputHash": "03c247a5680ab296a54e9c2ff44f8fb79b143e61eaa65955bcb6a5c640f5442a"
+    },
+    "agents/code-architect.md": {
+      "source": ".agents/agents/code-architect.md",
+      "sourceHash": "f6f06c0aaf7426c52703aceed795e1175ad43d88d68d7f8333ae3d3b529709c0",
+      "outputHash": "f6f06c0aaf7426c52703aceed795e1175ad43d88d68d7f8333ae3d3b529709c0"
+    },
+    "agents/code-reviewer.md": {
+      "source": ".agents/agents/code-reviewer.md",
+      "sourceHash": "7d90f23be66fd00a4f6d22e53fa69049706d81510a2907efd8007fc77c6f9008",
+      "outputHash": "7d90f23be66fd00a4f6d22e53fa69049706d81510a2907efd8007fc77c6f9008"
+    },
+    "agents/code-simplifier.md": {
+      "source": ".agents/agents/code-simplifier.md",
+      "sourceHash": "d01211020928579f40489585706ca3021c1818721679a176ca19bcd99d8f661d",
+      "outputHash": "d01211020928579f40489585706ca3021c1818721679a176ca19bcd99d8f661d"
+    },
+    "agents/cpp-build-resolver.md": {
+      "source": ".agents/agents/cpp-build-resolver.md",
+      "sourceHash": "2edf0e9d8ffb96631329707f510674d6d959554e2f8a4c19342599f871f03560",
+      "outputHash": "2edf0e9d8ffb96631329707f510674d6d959554e2f8a4c19342599f871f03560"
+    },
+    "agents/database-reviewer.md": {
+      "source": ".agents/agents/database-reviewer.md",
+      "sourceHash": "75e59dc8e277f3bbc26533c26c6cbb7becae481298666f5b1be1aba551dab783",
+      "outputHash": "75e59dc8e277f3bbc26533c26c6cbb7becae481298666f5b1be1aba551dab783"
+    },
+    "agents/django-build-resolver.md": {
+      "source": ".agents/agents/django-build-resolver.md",
+      "sourceHash": "f84179fcd6903c3b52de48a9d417b6c2e1c5ea9121dc804eca15018998bdc2f0",
+      "outputHash": "f84179fcd6903c3b52de48a9d417b6c2e1c5ea9121dc804eca15018998bdc2f0"
+    },
+    "agents/e2e-runner.md": {
+      "source": ".agents/agents/e2e-runner.md",
+      "sourceHash": "21c0eefe47cef28ec3aff77cf766b2662673a28f367b19d4b0583a121394937f",
+      "outputHash": "21c0eefe47cef28ec3aff77cf766b2662673a28f367b19d4b0583a121394937f"
+    },
+    "agents/fastapi-reviewer.md": {
+      "source": ".agents/agents/fastapi-reviewer.md",
+      "sourceHash": "a07e76bcf429cb54c871389264b71cfd13ac665f59841645b13bbaa0c1359788",
+      "outputHash": "a07e76bcf429cb54c871389264b71cfd13ac665f59841645b13bbaa0c1359788"
+    },
+    "agents/go-build-resolver.md": {
+      "source": ".agents/agents/go-build-resolver.md",
+      "sourceHash": "a05d13ed830c01b9255019960805767b6bef55593ea4d288706bc284d9f68d18",
+      "outputHash": "a05d13ed830c01b9255019960805767b6bef55593ea4d288706bc284d9f68d18"
+    },
+    "agents/go-reviewer.md": {
+      "source": ".agents/agents/go-reviewer.md",
+      "sourceHash": "cc7ab60f4ccba8276cb5fe2747feff02a8f73acba7800508ea567860a424f5ad",
+      "outputHash": "cc7ab60f4ccba8276cb5fe2747feff02a8f73acba7800508ea567860a424f5ad"
+    },
     "agents/penetration-tester.md": {
       "source": ".agents/agents/penetration-tester.md",
       "sourceHash": "84e5a4b42ba3e081683f6c310d70d5fb60fe871ab9b28c861b2d6c9f5378f3ed",
       "outputHash": "e7af8b2600e7a82988e031c5d931ebcb2183590ffa87795b4a43ff6f5a3d4624"
     },
+    "agents/performance-optimizer.md": {
+      "source": ".agents/agents/performance-optimizer.md",
+      "sourceHash": "2fcf9dbf201c2c59d63efd32eec37d047c362240ac377daa7ba03ec3ac8bc4eb",
+      "outputHash": "2fcf9dbf201c2c59d63efd32eec37d047c362240ac377daa7ba03ec3ac8bc4eb"
+    },
+    "agents/php-reviewer.md": {
+      "source": ".agents/agents/php-reviewer.md",
+      "sourceHash": "79480435b15b4b60dae04ab51689d073eef02d719ae51f38afd73688066206a9",
+      "outputHash": "79480435b15b4b60dae04ab51689d073eef02d719ae51f38afd73688066206a9"
+    },
+    "agents/planner.md": {
+      "source": ".agents/agents/planner.md",
+      "sourceHash": "c91e99648b29147c06d1ac9d52bf2cb364cfdab560eeaf6316be6ae25064317d",
+      "outputHash": "c91e99648b29147c06d1ac9d52bf2cb364cfdab560eeaf6316be6ae25064317d"
+    },
+    "agents/pytorch-build-resolver.md": {
+      "source": ".agents/agents/pytorch-build-resolver.md",
+      "sourceHash": "f316306e1acb8e2ec60a3ca4d1fa2fdc4e8f56cda0fff9d3270176afe43281dd",
+      "outputHash": "f316306e1acb8e2ec60a3ca4d1fa2fdc4e8f56cda0fff9d3270176afe43281dd"
+    },
+    "agents/react-build-resolver.md": {
+      "source": ".agents/agents/react-build-resolver.md",
+      "sourceHash": "8501316bfdd2d49c3279ed9a2481dab0e77b44490a78a617eaec4b87f9ddb135",
+      "outputHash": "8501316bfdd2d49c3279ed9a2481dab0e77b44490a78a617eaec4b87f9ddb135"
+    },
+    "agents/react-reviewer.md": {
+      "source": ".agents/agents/react-reviewer.md",
+      "sourceHash": "fe94e6e4a67d4e9bb5b05873f954609259083f0ffbb1bcd527b6eb8899b93867",
+      "outputHash": "fe94e6e4a67d4e9bb5b05873f954609259083f0ffbb1bcd527b6eb8899b93867"
+    },
+    "agents/refactor-cleaner.md": {
+      "source": ".agents/agents/refactor-cleaner.md",
+      "sourceHash": "f41e6fe9d5a0facd2372119a036368f56b2a14b26ba87f9e59c80a2d1bd32c7a",
+      "outputHash": "f41e6fe9d5a0facd2372119a036368f56b2a14b26ba87f9e59c80a2d1bd32c7a"
+    },
+    "agents/rust-build-resolver.md": {
+      "source": ".agents/agents/rust-build-resolver.md",
+      "sourceHash": "9a8b94d66746e002abb244d3d504574ccb9c6fa63b94904d52c451d4061e9bc1",
+      "outputHash": "9a8b94d66746e002abb244d3d504574ccb9c6fa63b94904d52c451d4061e9bc1"
+    },
+    "agents/rust-reviewer.md": {
+      "source": ".agents/agents/rust-reviewer.md",
+      "sourceHash": "bc981ab5b66d88edf19da69216463c4c466321204590a686e750d16b65e8a526",
+      "outputHash": "bc981ab5b66d88edf19da69216463c4c466321204590a686e750d16b65e8a526"
+    },
     "agents/security-auditor.md": {
       "source": ".agents/agents/security-auditor.md",
       "sourceHash": "c356ac324a675566e071d2b04b6e1f1550e813a5e3700b5c9397a83021c3b82e",
       "outputHash": "b91e21120bdb516d056dab656cd6c2fe33be29bafdb75c7c856c2878128851ce"
+    },
+    "agents/silent-failure-hunter.md": {
+      "source": ".agents/agents/silent-failure-hunter.md",
+      "sourceHash": "e38d169bd0d2d495b9bd9853d4a13acf703317f8f9147d8f91a9052b7d877823",
+      "outputHash": "e38d169bd0d2d495b9bd9853d4a13acf703317f8f9147d8f91a9052b7d877823"
+    },
+    "agents/spec-miner.md": {
+      "source": ".agents/agents/spec-miner.md",
+      "sourceHash": "59973cd841ec9fe9eaaa00c632aa0daa948db44d5e209f600cf88d8e5c10f4c6",
+      "outputHash": "59973cd841ec9fe9eaaa00c632aa0daa948db44d5e209f600cf88d8e5c10f4c6"
+    },
+    "agents/tdd-guide.md": {
+      "source": ".agents/agents/tdd-guide.md",
+      "sourceHash": "83b30eb5fdc0d1149a1998ef1a59f1aced491f012135efc406c3e68bf321e19c",
+      "outputHash": "83b30eb5fdc0d1149a1998ef1a59f1aced491f012135efc406c3e68bf321e19c"
+    },
+    "agents/typescript-reviewer.md": {
+      "source": ".agents/agents/typescript-reviewer.md",
+      "sourceHash": "2a8a3d2b3f91009cca73fdb4b204dbae07abaf198ce2c91abfcb10d0bd53f982",
+      "outputHash": "2a8a3d2b3f91009cca73fdb4b204dbae07abaf198ce2c91abfcb10d0bd53f982"
+    },
+    "agents/vue-reviewer.md": {
+      "source": ".agents/agents/vue-reviewer.md",
+      "sourceHash": "d33dfb8f39056d3fab628fc144c0e5019424ac3294c16f00138a43e7b2ab3bff",
+      "outputHash": "d33dfb8f39056d3fab628fc144c0e5019424ac3294c16f00138a43e7b2ab3bff"
     },
     "resources/creative-libraries/components/LenisGsapBridge.tsx": {
       "source": ".agents/resources/creative-libraries/components/LenisGsapBridge.tsx",
@@ -3423,6 +3602,66 @@
       "sourceHash": "c7a2bca261edc021d0d3a264b3ab1cba7b567f9084f6ddea5af448077afc3843",
       "outputHash": "2e23a3f06df9d7cea9d03c179a816a6cf6379b01220f5d27c3bc29b6b595ae20"
     },
+    "skills/agent-security-hardening/SKILL.md": {
+      "source": ".agents/skills/agent-security-hardening/SKILL.md",
+      "sourceHash": "0e0895ada90aa8fa085e4257961ebe15f2dff43b843785b1533d4c731186ad81",
+      "outputHash": "2be3e121fff97bf53398e7ad5e55adb93116c02f0d76d36345e402447c2432a3"
+    },
+    "skills/agent-security-hardening/agents/openai.yaml": {
+      "source": ".agents/skills/agent-security-hardening/SKILL.md",
+      "sourceHash": "0e0895ada90aa8fa085e4257961ebe15f2dff43b843785b1533d4c731186ad81",
+      "outputHash": "e607be90f62415ad4c838dd009de2bb879d49c491c6c786b80779969366030aa"
+    },
+    "skills/agent-self-evaluation/examples/high-score-example.md": {
+      "source": ".agents/skills/agent-self-evaluation/examples/high-score-example.md",
+      "sourceHash": "7f60196a1e6ae73e783b73d1f171600192b500b1b3b1e96453ad5fca84c035cd",
+      "outputHash": "7f60196a1e6ae73e783b73d1f171600192b500b1b3b1e96453ad5fca84c035cd"
+    },
+    "skills/agent-self-evaluation/examples/low-score-example.md": {
+      "source": ".agents/skills/agent-self-evaluation/examples/low-score-example.md",
+      "sourceHash": "ee286d3adcbab489c5f277ae094a25e38e9401dc01b6c39987c3f5bf3b61706e",
+      "outputHash": "ee286d3adcbab489c5f277ae094a25e38e9401dc01b6c39987c3f5bf3b61706e"
+    },
+    "skills/agent-self-evaluation/references/evaluation-criteria.md": {
+      "source": ".agents/skills/agent-self-evaluation/references/evaluation-criteria.md",
+      "sourceHash": "d1ccdbc90dfe2485a42e7aef2f06b71506dca3010da1ea8765382b8f038f7c61",
+      "outputHash": "d1ccdbc90dfe2485a42e7aef2f06b71506dca3010da1ea8765382b8f038f7c61"
+    },
+    "skills/agent-self-evaluation/references/hook-integration.md": {
+      "source": ".agents/skills/agent-self-evaluation/references/hook-integration.md",
+      "sourceHash": "65888876994a12410c17723ca768f6715cb33a8ad963264a7caef67e3ef2fa8a",
+      "outputHash": "65888876994a12410c17723ca768f6715cb33a8ad963264a7caef67e3ef2fa8a"
+    },
+    "skills/agent-self-evaluation/scripts/evaluate.py": {
+      "source": ".agents/skills/agent-self-evaluation/scripts/evaluate.py",
+      "sourceHash": "04b2a9460a7baba2a8d86993c8aecb068380ee72c5de8ca07d996c4055dcaf5c",
+      "outputHash": "04b2a9460a7baba2a8d86993c8aecb068380ee72c5de8ca07d996c4055dcaf5c"
+    },
+    "skills/agent-self-evaluation/SKILL.md": {
+      "source": ".agents/skills/agent-self-evaluation/SKILL.md",
+      "sourceHash": "96bb21eb37760f596789f84ec0a5dad4ef92fc2255e35cd7b88dc4234062b8c1",
+      "outputHash": "6f9f8975a0806eb7bd4767318b752d871e80edfff0f619b7019426abe6432238"
+    },
+    "skills/agent-self-evaluation/agents/openai.yaml": {
+      "source": ".agents/skills/agent-self-evaluation/SKILL.md",
+      "sourceHash": "96bb21eb37760f596789f84ec0a5dad4ef92fc2255e35cd7b88dc4234062b8c1",
+      "outputHash": "70107d308188a4d071e9f75a57de7b77c272f687b70262703a7b4d6a14f316a6"
+    },
+    "skills/agent-self-evaluation/templates/evaluation-report.md": {
+      "source": ".agents/skills/agent-self-evaluation/templates/evaluation-report.md",
+      "sourceHash": "5fc8a0820de9bc74e0a1470e55aaa50b3957aa1b0f947c4b458213b8e39fedbe",
+      "outputHash": "5fc8a0820de9bc74e0a1470e55aaa50b3957aa1b0f947c4b458213b8e39fedbe"
+    },
+    "skills/agentic-engineering/SKILL.md": {
+      "source": ".agents/skills/agentic-engineering/SKILL.md",
+      "sourceHash": "41c32c20ec97469341f5d83d8beb15f03d1b6f1c40fb1bdf534c50cd9a38cb6f",
+      "outputHash": "47225e2d7507140b8a44b01711637751bc34e847ecf2a5c3c7db222ab3df6cad"
+    },
+    "skills/agentic-engineering/agents/openai.yaml": {
+      "source": ".agents/skills/agentic-engineering/SKILL.md",
+      "sourceHash": "41c32c20ec97469341f5d83d8beb15f03d1b6f1c40fb1bdf534c50cd9a38cb6f",
+      "outputHash": "c42df8d966995d05b7511eeb4336a1ec39ea222ad481e960cf241aa402b25b7b"
+    },
     "skills/ai-agents-architect/SKILL.md": {
       "source": ".agents/skills/ai-agents-architect/SKILL.md",
       "sourceHash": "93201997db7ee7b31986d26d6c67e7e98f712bd3a85369bc04225d0297d00ef4",
@@ -3432,6 +3671,16 @@
       "source": ".agents/skills/ai-agents-architect/SKILL.md",
       "sourceHash": "93201997db7ee7b31986d26d6c67e7e98f712bd3a85369bc04225d0297d00ef4",
       "outputHash": "dae1260688688e2a22fe6fb775701ea15aa66de07fd96cbe2ce0f8aa88fd6354"
+    },
+    "skills/ai-regression-testing/SKILL.md": {
+      "source": ".agents/skills/ai-regression-testing/SKILL.md",
+      "sourceHash": "83f2f5c4083af5762dd658f742d4a390eb3a6f969d835f69e8f47efba296c127",
+      "outputHash": "e7d654cd9f50254caece84669cea47350e6156a4bf476965cc9f23bbe178d0f1"
+    },
+    "skills/ai-regression-testing/agents/openai.yaml": {
+      "source": ".agents/skills/ai-regression-testing/SKILL.md",
+      "sourceHash": "83f2f5c4083af5762dd658f742d4a390eb3a6f969d835f69e8f47efba296c127",
+      "outputHash": "b6adb8af706896962977ef655c906e3e067962472bffaa43dbb8c8ddc8ca6a1f"
     },
     "skills/airflow-dag-patterns/resources/implementation-playbook.md": {
       "source": ".agents/skills/airflow-dag-patterns/resources/implementation-playbook.md",
@@ -8583,6 +8832,16 @@
       "sourceHash": "15cbbe382e643897c9b0cf3973bc557d0ab857311f017799494c87da6787bf90",
       "outputHash": "e804a61a58ff00a79c7afc280fd0cf87a109948d8e3c8f06a4fbd4627d59aaaa"
     },
+    "skills/continuous-agent-loop/SKILL.md": {
+      "source": ".agents/skills/continuous-agent-loop/SKILL.md",
+      "sourceHash": "f228cd383a9063b3a0116c5aea02565e859992f63fae5e799adf9c9e44e2454d",
+      "outputHash": "5c5df08035f4dafed45fdb1fb1d53aef0653c31dec4f48d7b94edd3f67e86594"
+    },
+    "skills/continuous-agent-loop/agents/openai.yaml": {
+      "source": ".agents/skills/continuous-agent-loop/SKILL.md",
+      "sourceHash": "f228cd383a9063b3a0116c5aea02565e859992f63fae5e799adf9c9e44e2454d",
+      "outputHash": "1f617eb8666a60f38b367f01b430bfffff13c1cd1ac015db9eb99c2cc4ef8547"
+    },
     "skills/copy-editing/SKILL.md": {
       "source": ".agents/skills/copy-editing/SKILL.md",
       "sourceHash": "9d3cd8c334b6bf95528563672f5a5e4fe93388f399a873c9410b5b99c816ce54",
@@ -11895,13 +12154,13 @@
     },
     "AGENTS.md": {
       "source": "AGENTS.md",
-      "sourceHash": "3972ac18d86dccf99dde9c4b8d815ab36d35ad76a5752ff2f426bdf75764d776",
-      "outputHash": "dadc758b26856c03ce927fcef855f894a3769ff67e44a880256247639288e246"
+      "sourceHash": "72e530cab47253212f31fae2ec057ef19664e52a8af27e7e65fffcdeaa824a95",
+      "outputHash": "df344a5adb2cbf0989050ebfb8029dae6010fa4790332a4f360ce156fd380c67"
     },
     "project.gitignore": {
       "source": ".gitignore",
       "sourceHash": "ab5b1bfacf8dfa2edb0399b5a59477cc832ea09c4c5302458f402853b3a2831d",
-      "outputHash": "6023bff3fa81d8bcf82bf33ad17911af650d5f3d2f6b518ad5628d0c31be9cbb"
+      "outputHash": "a02e01e6e6c946c23e0d46a944fa21663badadcfc4cb6675f8f3d91d55d8c610"
     },
     "hooks.example.json": {
       "source": ".agents/hooks.json",

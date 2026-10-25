@@ -50,3 +50,36 @@ Follow [.codex/rules/UI_Always.md](.codex/rules/UI_Always.md#8-browser-verificat
 - **Layout Audits**: Check 375px, 768px, and 1280px for accidental horizontal overflow (`document.documentElement.scrollWidth > window.innerWidth`), page exceptions, and console errors.
 - **Artifacts**: Save screenshots and temporary browser diagnostics in the project's git-ignored `scratch/` directory.
 - **Execution Script**: Start with the canonical inline layout audit in `UI_Always.md`.
+
+---
+
+## 4. Subagents & Specialized Roles
+
+Delegate specialized lifecycle tasks to the agents defined under [.codex/agents/](.codex/agents):
+
+- **Planning & Architecture**:
+  - Implementation Planning: [.codex/agents/planner.md](.codex/agents/planner.md)
+  - Domain & System Architecture: [.codex/agents/code-architect.md](.codex/agents/code-architect.md)
+  - Web Accessibility (WCAG 2.2): [.codex/agents/a11y-architect.md](.codex/agents/a11y-architect.md)
+- **Quality Gates & Failure Hunting**:
+  - Swallowed Exception & Fallback Audits: [.codex/agents/silent-failure-hunter.md](.codex/agents/silent-failure-hunter.md)
+  - Code Simplification & Dead Weight Removal: [.codex/agents/code-simplifier.md](.codex/agents/code-simplifier.md)
+  - Pre-Delivery Verification: [.codex/agents/agent-evaluator.md](.codex/agents/agent-evaluator.md)
+- **Security & Penetration Testing**:
+  - Pre-Commit Security & Invariant Audits: [.codex/agents/security-auditor.md](.codex/agents/security-auditor.md)
+  - Exploit Validation & Penetration QA: [.codex/agents/penetration-tester.md](.codex/agents/penetration-tester.md)
+- **Closed-Loop Build & Error Repair**:
+  - TypeScript & Generic Build Repair: [.codex/agents/build-error-resolver.md](.codex/agents/build-error-resolver.md)
+  - Framework Resolvers: [.codex/agents/react-build-resolver.md](.codex/agents/react-build-resolver.md), [.codex/agents/go-build-resolver.md](.codex/agents/go-build-resolver.md), [.codex/agents/rust-build-resolver.md](.codex/agents/rust-build-resolver.md)
+
+---
+
+## 5. Standard Engineering Lifecycle & Loop Execution
+
+For non-trivial features, refactoring, or multi-file changes, route through the bounded five-stage lifecycle:
+
+1. **Phase 1: Planning & Scope**: Delegate to [.codex/agents/planner.md](.codex/agents/planner.md) (or [.codex/agents/code-architect.md](.codex/agents/code-architect.md) for boundaries) to produce numbered atomic checklists before writing code.
+2. **Phase 2: Test Specification (TDD)**: Delegate to [.codex/agents/tdd-guide.md](.codex/agents/tdd-guide.md) to author failing unit or integration tests verifying invariants before implementation.
+3. **Phase 3: Implementation & Repair**: Implement minimal code to turn tests green; on compiler/type failure, delegate strictly to [.codex/agents/build-error-resolver.md](.codex/agents/build-error-resolver.md) for micro-patches.
+4. **Phase 4: Defensive Audit**: Delegate to [.codex/agents/silent-failure-hunter.md](.codex/agents/silent-failure-hunter.md) for swallowed errors and [.codex/agents/security-auditor.md](.codex/agents/security-auditor.md) for boundary defenses.
+5. **Phase 5: Verification & Gate Evaluation**: Run tests and Playwright audits, then evaluate output completeness with [.codex/agents/agent-evaluator.md](.codex/agents/agent-evaluator.md) and [.codex/skills/agent-self-evaluation/SKILL.md](.codex/skills/agent-self-evaluation/SKILL.md).

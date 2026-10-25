@@ -86,8 +86,8 @@ export function adaptMarkdown(text, sourceFile, duplicatePaths = new Map()) {
   }
   // Rewrite project-root command examples after rebasing local links. Preserve
   // user-scoped ~/.agents paths and unrelated upstream discovery examples.
-  return result.replace(/(^|[\s"'`(=:\[]|\.\/)\.agents\/(skills|rules|resources)\//gm, '$1.codex/$2/')
-    .replace(/(^|[\s"'`(=:\[])\.agents\\(skills|rules|resources)\\/gm, '$1.codex\\$2\\');
+  return result.replace(/(^|[\s"'`(=:\[]|\.\/)\.agents\/(skills|rules|resources|agents)(\/|[)\]#\s]|$)/gm, '$1.codex/$2$3')
+    .replace(/(^|[\s"'`(=:\[])\.agents\\(skills|rules|resources|agents)(\\|[)\]#\s]|$)/gm, '$1.codex\\$2$3');
 }
 
 export function convertSkill(text, sourceFile, duplicates) {

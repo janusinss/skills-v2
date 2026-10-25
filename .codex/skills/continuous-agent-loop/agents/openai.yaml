@@ -1,0 +1,4 @@
+interface:
+  display_name: "Continuous Agent Loop"
+  short_description: "Patterns for continuous autonomous agent loops with quality..."
+  default_prompt: "Use $continuous-agent-loop for the relevant part of this task."
