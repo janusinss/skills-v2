@@ -4,18 +4,9 @@ import YAML from 'yaml';
 import { parseSkill, supportedFields, isRecord, parseYaml, slash, sourceRoot } from './lib.mjs';
 
 const descriptions = {
-  '21st-ai': 'Generate, preview, and iterate UI drafts with the 21st AI CLI when exploring or handing off a design.',
-  '21st-cli-use': 'Use the 21st CLI to obtain design context, inspiration, and implementation guidance for a UI task.',
-  '21st-design-sync': 'Synchronize a project design system with 21st design context when its tokens or components change.',
-  '21st-registry': 'Find and install UI components from a 21st or compatible registry using its supported tooling.',
-  '21st-ui-build': 'Build or change production UI using the existing design system and 21st inspiration. Use for implementation of pages, components, or responsive layouts.',
-  '21st-ui-explore': 'Explore distinct UI directions when the user requests alternatives, visual concepts, or an undecided redesign.',
-  '21st-ui-review': 'Review UI for visual defects, accessibility, responsiveness, and interaction quality. Use for critique and design QA.',
   'impeccable': 'Design, review, and polish frontend interfaces using Impeccable playbooks. Use for UI, typography, layout, accessibility, or interaction work.',
-  'banner-design': 'Design and export social, advertising, or website banners at requested sizes using brand assets and available image tools.',
   'design': 'Create brand assets, logos, icons, and identity collateral using the bundled design references and scripts. Image generation requires an available provider.',
   'penetration-testing-with-strix': 'Run an authorized penetration test with Strix and report evidence of exploitable vulnerabilities in web apps, APIs, or repositories.',
-  'managed-pentesting-with-strix': 'Run an authorized managed Strix scan when the user requests a cloud penetration test and has the required account and budget.',
   'api-security-testing': 'Test an authorized API with Strix for authentication, authorization, injection, and API-specific vulnerabilities, with verified evidence.',
   'application-security-testing': 'Assess application security across code, web apps, APIs, and CI using Strix. Use when the user requests an AppSec review or assessment.',
   'web-app-penetration-testing': 'Penetration-test an authorized web application with Strix for exploitable web vulnerabilities and report proof of findings.',

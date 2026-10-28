@@ -80,19 +80,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 ---
 
-## 4. Premium Component Sources (21st.dev & ThreeUI)
+## 4. Premium Component Sources (ThreeUI & Registries)
 
-When projects require WebGL background shaders, 3D heroes, glowing borders, or modern containers, pull them from **21st.dev** or **ThreeUI** instead of writing raw WebGL boilerplate.
+When projects require WebGL background shaders, 3D heroes, or interactive canvases, pull them from **ThreeUI** or modern registries instead of writing raw WebGL boilerplate.
 
-### A. 21st.dev (`npx shadcn` & `@21st-dev/cli`)
-Marketplace of design-engineer React/Tailwind components:
-- **Background Shaders**: `npx shadcn@latest add "https://21st.dev/r/<author>/shader-background"`
-- **Animated Borders**: `npx shadcn@latest add "https://21st.dev/r/<author>/glowing-border"`
-- **Hero Sections**: `npx shadcn@latest add "https://21st.dev/r/<author>/hero-section"`
-- **Interactive Containers**: `npx shadcn@latest add "https://21st.dev/r/<author>/bento-grid"`
-- **Agent Discovery**: Query via `npx @21st-dev/cli search "<component>"` or use the installed `.codex/skills/21st-*` skills.
-
-### B. ThreeUI (`@designcodeio/threeui`)
+### ThreeUI (`@designcodeio/threeui`)
 DesignCode's curated 3D Three.js React library:
 - **Installation**: `npm install @designcodeio/threeui three @types/three`
 - **Background Shaders**: `WarpFieldBackground`, `StreamConvergenceBackground`, `RibbonFieldBackground`, `AtTheHorizon`

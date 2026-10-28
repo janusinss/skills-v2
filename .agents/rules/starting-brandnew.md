@@ -68,14 +68,14 @@ Synthesize `PRODUCT.md` and `DESIGN.md` into the formal configuration required b
 
 ## Phase 4: Component Architecture & Blueprint Extraction
 Prepare components adhering strictly to `DESIGN.md` tokens and `PRODUCT.md` P0 features:
-1. **Default Component Blueprints (21st.dev Extraction — Default Landing / Marketing Builds)**:
-   - **Scope & Extraction Mandate**: When a default landing or marketing archetype was selected in Phase 2.1 (and no custom layout overrides it), pull the selected archetype components following [frontend.md](.agents/rules/frontend.md) (using `helpers.extract21stComponent('<url>', { writeTo: '<target-file>' })` when available).
+1. **Default Component Blueprints (Landing / Marketing Builds)**:
+   - **Scope Mandate**: When a default landing or marketing archetype was selected in Phase 2.1 (and no custom layout overrides it), construct the selected archetype components following [frontend.md](.agents/rules/frontend.md) and [ui-styling](.agents/skills/ui-styling/SKILL.md).
    - **Option A: Standard Website (Default)**:
-     - **Main Page**: **TailGrids NexStudio** (`https://21st.dev/community/templates/free?preview=%2F%40tailgrids%2Ftemplates%2Ftailgrids-nexstudio`): sticky header, hero with interactive preview, metrics telemetry bar, asymmetric bento capabilities grid, interactive developer sandbox, and conversion CTA.
-     - **Footer**: **Spectrum UI Footer Section** by Arihant Jain (`https://21st.dev/community/components?q=footer&qs=downloads&preview=%2F%40arihantcodes_1f7b8c4d%2Fcomponents%2Ffooter-section`): integrated newsletter/inquiry subscription bar, multi-column directory, prominent brand wordmark, live system status pill, and compliance/social links.
+     - **Main Page**: Sticky header, hero with interactive preview, metrics telemetry bar, asymmetric bento capabilities grid, interactive developer sandbox, and conversion CTA.
+     - **Footer**: Integrated newsletter/inquiry subscription bar, multi-column directory, prominent brand wordmark, live system status pill, and compliance/social links.
    - **Option B: Website with Hero (Default)**:
-     - **Main Page**: **E-commerce Marketplace Template** by Md Adul (`https://21st.dev/community/templates/free?preview=%2F%40mdadul%2Ftemplates%2Fe-commerce-marketplace-template`): prominent hero banner with curated product showcases, integrated marketplace search bar, quick artisan/product CTAs, asymmetric image bento showcase, and platform statistics bar.
-     - **Footer**: The same **Spectrum UI Footer Section** by Arihant Jain (`https://21st.dev/community/components?q=footer&qs=downloads&preview=%2F%40arihantcodes_1f7b8c4d%2Fcomponents%2Ffooter-section`).
+     - **Main Page**: Prominent hero banner with curated product showcases, integrated marketplace search bar, quick artisan/product CTAs, asymmetric image bento showcase, and platform statistics bar.
+     - **Footer**: Integrated newsletter/inquiry subscription bar, multi-column directory, prominent brand wordmark, live system status pill, and compliance/social links.
 2. **Universal DESIGN.md Theming**:
    - Both default blueprints **must dynamically inherit and map all styles** (backgrounds, surfaces, borders, text, typography, border radius, and spacing) to the chosen `DESIGN.md` tokens.
    - Never use raw uncalibrated defaults or untinted grays; all color tokens and type scales must strictly resolve to `DESIGN.md` CSS variables.

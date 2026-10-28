@@ -6,7 +6,6 @@
   "frontend": [
     "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
     "prompt-enhancer", "prompt-enhancer-frontend", "3d-web-experience",
-    "21st-ai", "21st-cli-use", "21st-design-sync", "21st-registry", "21st-ui-build", "21st-ui-explore", "21st-ui-review",
     "frontend-design", "frontend-developer", "frontend-security-coder", "impeccable", "ui-ux-pro-max", "ui-styling",
     "design-taste-frontend", "design-system", "awesome-design-md", "brandkit", "tailwind-patterns", "react-best-practices",
     "react-patterns", "nextjs-best-practices", "nextjs-app-router-patterns", "javascript-pro", "typescript-expert",
@@ -23,10 +22,10 @@
   ],
   "security": [
     "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
-    "security-auditor", "backend-security-coder", "frontend-security-coder", "api-security-best-practices",
+    "security-audit", "security-auditor", "backend-security-coder", "frontend-security-coder", "api-security-best-practices",
     "auth-implementation-patterns", "ethical-hacking-methodology", "top-web-vulnerabilities", "vulnerability-scanner",
-    "penetration-testing-with-strix", "managed-pentesting-with-strix", "find-security-vulnerabilities-in-code",
+    "penetration-testing-with-strix", "find-security-vulnerabilities-in-code",
     "api-security-testing", "application-security-testing", "web-app-penetration-testing", "owasp-top-10-testing",
-    "fix-security-vulnerabilities-with-strix", "ci-security-scanning-with-strix", "cc-skill-security-review", "playwright-skill"
+    "fix-security-vulnerabilities-with-strix", "ci-security-scanning-with-strix", "playwright-skill"
   ]
 }

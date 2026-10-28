@@ -17,7 +17,7 @@
       "source": "tt-a1i/archify",
       "sourceType": "github",
       "skillPath": "archify/SKILL.md",
-      "computedHash": "f52b30468fcccabb55357ae19d531059ca460fbbca77727946287413cc5cc027"
+      "computedHash": "e9ef0923cda908886e667eb48e36b29e81d0a7a7b9fe2bc05f3779be271e5119"
     },
     "awesome-design-md": {
       "source": "VoltAgent/awesome-design-md",
@@ -31,47 +31,17 @@
       "skillPath": "skills/brandkit/SKILL.md",
       "computedHash": "735007879f5110aeae1e981a53fe74a12afde70347f9773dacd50e4697a091bf"
     },
-    "build-with-exa": {
-      "source": "exa-labs/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/build-with-exa/SKILL.md",
-      "computedHash": "827eb52ab6ffb547145cc1f156bf2613d0eb595aa8472f806c4ecea3bbf83a7c"
-    },
     "ci-security-scanning-with-strix": {
       "source": "usestrix/strix",
       "sourceType": "github",
       "skillPath": "skills/ci-security-scanning-with-strix/SKILL.md",
-      "computedHash": "ac3b8d18690ee68dcf178f3156caac1006da4377f4e3a02a55cb7ebe99566d9f"
-    },
-    "company-research": {
-      "source": "exa-labs/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/company-research/SKILL.md",
-      "computedHash": "45a271854a4a5d58e7fc2359171262eb5e99af0b9087daaea6c9938aa2533444"
+      "computedHash": "a244809965b2c7dbcd4f3094dec3bf32123c229a76b3e5d8f24c873537f39f5b"
     },
     "design-taste-frontend": {
       "source": "Leonxlnx/taste-skill",
       "sourceType": "github",
       "skillPath": "skills/taste-skill/SKILL.md",
-      "computedHash": "899b84384f74f540ea5284d9b2e9234e050998b42eacc805410b518d4226c0b3"
-    },
-    "design-taste-frontend-v1": {
-      "source": "Leonxlnx/taste-skill",
-      "sourceType": "github",
-      "skillPath": "skills/taste-skill-v1/SKILL.md",
-      "computedHash": "0a226c13d69639553cf8a7c40aa5527b026820f8ddaf7a6b263988e32ab44a27"
-    },
-    "exa-contents": {
-      "source": "exa-labs/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/exa-contents/SKILL.md",
-      "computedHash": "175bf0b235af79c49c185b1e2ffd84f7f9bf124ec4ec2f1ada3ddb0515c8924b"
-    },
-    "exa-search": {
-      "source": "exa-labs/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/exa-search/SKILL.md",
-      "computedHash": "c133e169c124f1f0c511c1b953c4631f1bfc0a7421c2a2c848dca0385e91c084"
+      "computedHash": "53590ee9325bee34d7888bf0d81bd3941a108b1e7850df46802d93104e3f2b90"
     },
     "find-security-vulnerabilities-in-code": {
       "source": "usestrix/strix",
@@ -127,18 +97,6 @@
       "skillPath": "skills/brutalist-skill/SKILL.md",
       "computedHash": "e66e5a2a8b73cef79ab6546459c665e8b983645689c5f3772f7eed8b9f1e8e0e"
     },
-    "lead-generation": {
-      "source": "exa-labs/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/lead-generation/SKILL.md",
-      "computedHash": "f95c6172ceb7d3171bcfd8f2d2663b2167ccc59c712537531f69b420121dd208"
-    },
-    "managed-pentesting-with-strix": {
-      "source": "usestrix/strix",
-      "sourceType": "github",
-      "skillPath": "skills/managed-pentesting-with-strix/SKILL.md",
-      "computedHash": "64c0544b9c50750f3d417cae3fdc5cb8710ca0a0d6ac29ed3b81807e37d63ee1"
-    },
     "minimalist-ui": {
       "source": "Leonxlnx/taste-skill",
       "sourceType": "github",
@@ -155,7 +113,7 @@
       "source": "usestrix/strix",
       "sourceType": "github",
       "skillPath": "skills/penetration-testing-with-strix/SKILL.md",
-      "computedHash": "0dce672086a5b3cc00f69884eeb6b38e9e331a7ba97639c11500e453c70ca565"
+      "computedHash": "4440e56be80c8b9ce31211b0fc8d37a02025f7d4b1d9ba54cc05981d8240ac58"
     },
     "redesign-existing-projects": {
       "source": "Leonxlnx/taste-skill",
@@ -168,6 +126,12 @@
       "sourceType": "github",
       "skillPath": "skills/scrollytelling/SKILL.md",
       "computedHash": "4c382877a5e91e104b1aef483222e8ec2f4d2505816be3f781b7705c6406fff9"
+    },
+    "security-audit": {
+      "source": "cloudflare/security-audit-skill",
+      "sourceType": "github",
+      "skillPath": "skills/security-audit/SKILL.md",
+      "computedHash": "e6b2e317de75da97e9de18d842982994803f3a67a4a6d8154a82323dc3de8528"
     },
     "stitch-design-taste": {
       "source": "Leonxlnx/taste-skill",

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Security Audit"
+  short_description: "Security guidance and vulnerability review for codebases,..."
+  default_prompt: "Use $security-audit for the relevant part of this task."

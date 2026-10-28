@@ -15,7 +15,7 @@ Before initiating any security or functional test:
 
 1. **Skill Discovery Verification**:
    - Verify that target Strix skills exist in `.codex/skills/` (inspect only the 1–2 skills matching the active target surface):
-     - Core Pentesting: [`penetration-testing-with-strix`](../skills/penetration-testing-with-strix/SKILL.md) · [`managed-pentesting-with-strix`](../skills/managed-pentesting-with-strix/SKILL.md)
+     - Core Pentesting: [`penetration-testing-with-strix`](../skills/penetration-testing-with-strix/SKILL.md)
      - Surface Checkers: [`api-security-testing`](../skills/api-security-testing/SKILL.md) · [`web-app-penetration-testing`](../skills/web-app-penetration-testing/SKILL.md) · [`find-security-vulnerabilities-in-code`](../skills/find-security-vulnerabilities-in-code/SKILL.md)
      - Compliance & Patching: [`owasp-top-10-testing`](../skills/owasp-top-10-testing/SKILL.md) · [`fix-security-vulnerabilities-with-strix`](../skills/fix-security-vulnerabilities-with-strix/SKILL.md) · [`ci-security-scanning-with-strix`](../skills/ci-security-scanning-with-strix/SKILL.md)
    - *Limitation Protocol*: If Strix skills are missing, report that Strix automation is unavailable and fall back to manual checklist verification. Never claim an automated exploit was validated if Strix did not execute.

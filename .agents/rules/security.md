@@ -14,7 +14,7 @@ Before generating security-sensitive code, inspect only the 1–2 skills matchin
 
 | Objective / Surface | Required Skill Link |
 | :--- | :--- |
-| **Code Vulnerabilities & Pentesting** | [find-security-vulnerabilities-in-code](.agents/skills/find-security-vulnerabilities-in-code/SKILL.md) · [penetration-testing-with-strix](.agents/skills/penetration-testing-with-strix/SKILL.md) |
+| **Code Vulnerabilities & Pentesting** | [find-security-vulnerabilities-in-code](.agents/skills/find-security-vulnerabilities-in-code/SKILL.md) · [penetration-testing-with-strix](.agents/skills/penetration-testing-with-strix/SKILL.md) · [security-audit](.agents/skills/security-audit/SKILL.md) |
 | **APIs & OWASP API 2023** | [api-security-testing](.agents/skills/api-security-testing/SKILL.md) · [api-security-best-practices](.agents/skills/api-security-best-practices/SKILL.md) |
 | **Web Apps & OWASP Top 10** | [web-app-penetration-testing](.agents/skills/web-app-penetration-testing/SKILL.md) · [owasp-top-10-testing](.agents/skills/owasp-top-10-testing/SKILL.md) · [top-web-vulnerabilities](.agents/skills/top-web-vulnerabilities/SKILL.md) |
 | **Auth, Sessions & IDOR** | [auth-implementation-patterns](.agents/skills/auth-implementation-patterns/SKILL.md) · [backend-security-coder](.agents/skills/backend-security-coder/SKILL.md) |
