@@ -1,0 +1,73 @@
+[
+  {
+    "sha": "307cf59a9f808e24c4eed59596b10d1e1eb8b6cc",
+    "model": [
+      "claude-sonnet-5-5"
+    ],
+    "tools": [],
+    "completed": true,
+    "response": "**Scope:** I reviewed only the diff and the pasted validator, with no tools and no repo access. I found two defects worth fixing. One residual item is below your confidence bar.\n\n**1. Default-policy output text changed, which breaks the \"default retains legacy\" claim** (`detector/validate.js:494-497`, `:466`)\n- `formatResult` now prints `PASS - no mechanical preservation errors found` and `FAIL - N mechanical preservation error(s)`. Before, it printed `PASS \u2014 preservation checks clear` and `FAIL \u2014 N preservation error(s)`. The em dash became a hyphen and the wording changed.\n- It also adds a new `residual \u2026 (policy: \u2026)` line and a third headline, `FAIL - residual policy blocked\u2026`.\n- The `residual-grew` message text at line 466 is reworded too, and it is used on the default `error` path. Codes and exit statuses are preserved, but CLI stdout and message strings are not.\n- Any consumer that greps the old banner or message will silently stop matching. The new tests only assert on the new strings (`validate.test.js`, \"residual error remains the default\"), so nothing catches this.\n- **Fix:** keep the old banner and message verbatim when `policy === 'error'` and emit the new wording only for `warn`. Alternatively, put the new wording in the additive `quality` object and leave `formatResult` as it was.\n\n**2. Docs hard-code a flag that older validator copies reject** (`SKILL.md:272-276`, `skills/preservation-verifier/SKILL.md:54-57`, `scripts/test-canonical-skill-package.js`)\n- A pre-change `validate.js` reads `argv` as `[origPath, newPath]`. With the new command it treats `--residual-policy` as the original file and `warn` as the rewrite.\n- That produces an ENOENT stack trace with exit 1, which looks like a real preservation failure. It is not the clean exit 2 that a usage error would give.\n- The docs and the Cursor rule tell users to run the new form whenever \"the repo ships the detector engine\". There is no capability check.\n- **Fix:** add a guard to the instructions. For example, the run must print the `residual <status> (policy: \u2026)` line, and a missing-file crash must be reported as \"validator too old\", not as FAIL. Also confirm the verifier's bundled `scripts/validate.js` is regenerated in the same release.\n\n**3. Lower confidence (~70%): `residual-grew` under `warn` fires on unscored comparisons** (`validate.js:462-469`)\n- The growth check runs even when `quality.status === 'unscored'`, so the finding is emitted with the same message as a real comparison.\n- The README says unscored counts \"do not establish improvement\", but `quality.findings[0]` gives no marker. A consumer reading only `findings` cannot tell the count comparison was invalid.\n- Blocking must stay the same under `error`. For `warn`, consider adding `unscored: true` to the finding or appending a note to the message.\n\n**Verify but not flagged as defects**\n- The `declined` heuristic (`document_classification === 'UNSCORED'`, `tooShort`, `tooLong`, `unsupportedScript`, line 462) uses field names I can't check against `patterns.js`. If any is misnamed, status reports `checked` for declined input. The \"unscored inputs\" test only passes if the real detector emits these exact names.\n- The eval-case expectations (`preservation-policy-cases.json`) depend on what the `NUMBER` regex does with `twice`, `two` and `30 seconds`. Check that `warningCodes` were generated from a real run and not hand-written.\n- The CLI exits 0 for `skipped`, `unavailable` and `unscored`. The verifier doc requires reporting these as incomplete, but a script has no machine signal for that beyond parsing stdout.\n\n**Checked, no defect**\n- Top-level `ok`, `errors`, `warnings` and `stats.residual` are retained.\n- `warn` moves only residual growth out of `errors`.\n- Mechanical errors still block under both policies.\n- `skipResidual` cannot bypass mechanical checks.\n- Invalid policy values throw or exit 2, so they can't disable the gate.\n- CLI arg ordering and the `--` handling are consistent.\n- The `sync-cursor-rules.sh` search string matches the new `SKILL.md` text."
+  },
+  {
+    "sha": "345447284b749c5b2b1a8839a00982f4da3a0b34",
+    "model": [
+      "claude-sonnet-5-5"
+    ],
+    "tools": [],
+    "completed": true,
+    "response": "**Review of 3454472 (combined state): no blocking defects found at \u226580% confidence.** The default `error` policy keeps the legacy gate, and the checks below found no path that lets mechanical damage through under `warn`. This is from reading the diff and the pasted `validate.js`. I ran nothing and did not see `patterns.js`.\n\n**Confirmed behavior:**\n- `preservation` is snapshotted at `validate.js:441`, before the residual step, so `residual-grew` cannot leak into it under either policy.\n- Under `warn`, `ok` still reflects every mechanical error.\n- `skipResidual` bypasses only the detector.\n- Policy validation runs before any work. Values like `''`, `null`, `false`, arrays and other-cased strings all throw, so nothing can silently disable the gate.\n- The CLI parser rejects trailing options and a missing value with exit 2.\n\n**Findings (both below the 80% bar, ordered by importance):**\n\n1. **README exit-code contract is inaccurate for I/O failures (~85% on behavior, low severity).**\n   - Evidence: `detector/README.md` (new \"Exit codes\" text) says 0, 1 for a failed gate, and 2 for invalid arguments. `validate.js:527-529` calls `readFileSync` unguarded. A missing or unreadable path throws uncaught and Node exits 1 with a stack trace.\n   - Effect: automation cannot tell \"file missing\" from \"gate failed\", and the new closing README paragraph says an execution error is an incomplete check, not damage. That paragraph is only true if the caller distinguishes them.\n   - Fix: wrap the reads and exit 2, or document that exit 1 also covers I/O errors. This is preexisting behavior, so no compatibility break.\n\n2. **`residual-grew` can fire when `quality.status` is `unscored` (~65%, so below threshold).**\n   - Evidence: `validate.js:462-469`. The growth check compares raw counts regardless of `declined`. If only one side is declined, say a short original and a scorable rewrite, `before.issues.length` is 0 and `warn` emits \"Residual pattern count increased\".\n   - Effect: this contradicts the README statement that unscored counts \"do not establish improvement.\" Nothing in the tests covers the mixed case, since `validate(text, text)` declines both sides.\n   - Fix: keep it as is for legacy `error`, but consider suppressing or annotating the finding under `warn` when the status is `unscored`. Otherwise the message asserts growth from a comparison that was not valid.\n\n**Verify (not defects):**\n- `declined()` at line 462 reads `document_classification`, `tooShort`, `tooLong` and `unsupportedScript`. The tests only exercise empty, short and over-10k inputs. Confirm these field names against `patterns.js`, especially `unsupportedScript`. If one is misnamed, that case reports `checked` and would let the PASS rule in `preservation-verifier` wrongly hold.\n- The CLI test asserts the exact `residual-grew` outcome on text the real detector must score. A future pattern-weight change could flip it. The `growthDetector` tests are the robust ones.\n\n**Follow-up doc change:** the reworded \"When the mechanical checks pass\u2026\" sentence and the PASS rule requiring `quality.status: checked` for a requested residual audit are consistent with the code. The main SKILL.md never names `quality.status`. That is fine as long as edit-mode runs don't request a residual audit, and only `preservation-verifier` references it."
+  },
+  {
+    "id": "20260928_233600_527e36",
+    "model": "thinkingmachines/inkling:free",
+    "tool_call_count": 0,
+    "output_tokens": 1232,
+    "sha": "307cf59a9f808e24c4eed59596b10d1e1eb8b6cc",
+    "responses": [
+      {
+        "content": "Findings at SHA 307cf59, review only.\n\nNo parser rewrite; no semantic-proof claim made. Default `residualPolicy` remains `\"error\"` (`detector/validate.js:326`), preserving legacy blocking gates. `warn` is explicit editorial opt-in (`--residual-policy warn`, `options.residualPolicy`). Additive fields only: `preservation` (`line 441`) and `quality` (`line 442`) added; top-level `ok/errors/warnings/stats` retained (`line 473-486`). Numeric-added behavior is a warning (`number-added`, `line 427-430`); per your direction this is intentional and not flagged as a defect.\n\nHigh-confidence observations (\u226580% with file/line):\n\n- Preservation/mechanical separation is clean: `preservation.ok` reflects only structural/content errors; `quality` carries residual diagnostics (`detector/validate.js:440-471`). Residual growth routes through `warn` vs `err` based on policy (`line 468`).\n- CLI argument parsing validates policy (`line 523-525`) and exits 2 for invalid args; exits 0/1 for advisory/blocking results (`line 533`). `formatResult` distinguishes residual-blocked from mechanical-fail (`line 491-502`).\n- `quality.status` covers `checked`, `skipped`, `unavailable`, `unscored` (`line 442`, `462-464`). Unavailable/unscored retains raw `stats.residual` for compatibility; `skipResidual` sets `skipped` without bypassing mechanical checks (`line 444-445`).\n\nNoted, not defects:\n- Literal number comparison (`NUMBER` extractor on masked prose) produces `number-added`/`number-missing` warnings; this is the intended literal-match policy (`SKILL.md` notes `2` to `two` may warn).\n- `preservation-policy-cases.json` and updated `SKILL.md`/`README.md` reflect the advisory policy correctly; no structural contradictions.\n\nNo actionable defects identified against compatibility and preservation safety at this confidence threshold. Copies/verification remain with the lead as specified.",
+        "finish_reason": "stop",
+        "tool_calls": null,
+        "tool_name": null
+      }
+    ]
+  },
+  {
+    "id": "20260928_233653_acb8b8",
+    "model": "cohere/north-mini-code:free",
+    "tool_call_count": 0,
+    "output_tokens": 622,
+    "sha": "307cf59a9f808e24c4eed59596b10d1e1eb8b6cc",
+    "responses": [
+      {
+        "content": "okinget: git rev-parse --show-toplevel; git log --oneline -5; git status.[\n    {\"tool_call_id\": \"1\", \"tool_name\": \"terminal\", \"parameters\": {\"command\": \"git rev-parse --show-toplevel\"}}\n]",
+        "finish_reason": "stop",
+        "tool_calls": null,
+        "tool_name": null
+      }
+    ]
+  },
+  {
+    "id": "20260928_233934_368a80",
+    "model": "qwen/qwen3.8-27b:free",
+    "tool_call_count": 0,
+    "output_tokens": 0,
+    "sha": "345447284b749c5b2b1a8839a00982f4da3a0b34",
+    "responses": []
+  },
+  {
+    "id": "20260928_234103_b5b59f",
+    "model": "inclusionai/ling-3.0-flash-sante:free",
+    "tool_call_count": 0,
+    "output_tokens": 16367,
+    "sha": "345447284b749c5b2b1a8839a00982f4da3a0b34",
+    "responses": [
+      {
+        "content": "Review of issue204 implementation at SHA 345447284b749c5b2b1a8839a00982f4da3a0b34 (combined state after both the residualPolicy feature commit and the documentation fix):\n\nACTIONABLE DEFECTS (>=80% confidence):\n\n1. Unhandled detector exception \u2014 detector/validate.js lines 454-455\n   `detector.analyzeText(original)` and `detector.analyzeText(rewritten)` have no try/catch. If the detector throws (bad input, runtime error), validate() crashes instead of degrading gracefully. The try/catch at lines 447-451 only covers the `require('./patterns.js')` fallback, not the actual analysis calls. No test exercises a throwing detector during normal (non-skipResidual) operation. Fix: wrap the two analyzeText calls in try/catch, set quality.status='unavailable' and residual=null on failure.\n\n2. PASS banner / quality.status inconsistency \u2014 detector/validate.js lines 493-497 vs skills/preservation-verifier/SKILL.md line 83\n   formatResult determines PASS/FAIL solely from mechanical.ok and result.ok. It never incorporates quality.status into the banner. The updated SKILL.md now requires `quality.status: checked` for PASS when a residual audit was requested, and mandates REVIEW for 'skipped'/'unavailable'/'unscored'. An automated consumer reading only the banner or result.ok gets a misleading PASS when quality.status is 'unscored' (result.ok=true, banner says PASS, but skill says REVIEW). The `residual unscored (policy: warn)` line is printed but buried below the banner. Consider either (a) making formatResult surface quality.status in the PASS/FAIL line, or (b) having the validator itself downgrade result.ok when quality.status is 'unscored' and a residual audit was explicitly requested.\n\n3. Documentation inaccuracy \u2014 detector/README.md and preservation object contract\n   The README documents `preservation` as \"mechanical checks only; excludes residual growth.\" But preservation.warnings includes `number-added` and `number-missing` (captured at line 441, before residual analysis at line 444). These are number diagnostics, not traditional mechanical preservation checks (fenced code, frontmatter, blockquote, table, inline code, URL, path, headings). Not a code bug, but the contract is imprecise and could confuse automated consumers filtering `preservation.warnings` for \"mechanical\" issues only.\n\nNON-DEFECTS (intentional per instructions):\n- number-added warning for digitization (two -> 2) \u2014 documented and tested as intentional diagnostic\n- residual-grew under warn policy is non-blocking \u2014 by design\n- CLI `--residual-policy` parsing and `--` separator \u2014 verified correct across edge cases\n- Browser export with VM context \u2014 detector unavailable path works, injected detector path works\n- skipResidual bypasses detector and preserves mechanical checks \u2014 verified\n- Invalid residualPolicy values throw TypeError \u2014 verified\n\nNo parser rewrite or semantic-proof claim detected in the implementation.",
+        "finish_reason": "stop",
+        "tool_calls": null,
+        "tool_name": null
+      }
+    ]
+  }
+]

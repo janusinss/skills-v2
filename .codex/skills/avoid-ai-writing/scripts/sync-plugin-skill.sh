@@ -19,7 +19,6 @@ examples_src="$repo_root/examples"
 canonical_skill_root="$repo_root/skills/avoid-ai-writing"
 canonical_detector_dest="$canonical_skill_root/detector"
 canonical_scripts_dest="$canonical_skill_root/scripts"
-canonical_examples_dest="$canonical_skill_root/examples"
 detector_patterns_dest="$repo_root/skills/ai-writing-detector/scripts/patterns.js"
 verifier_patterns_dest="$repo_root/skills/preservation-verifier/scripts/patterns.js"
 verifier_validate_dest="$repo_root/skills/preservation-verifier/scripts/validate.js"
@@ -72,7 +71,7 @@ if [ -z "$skill_version" ]; then
 fi
 
 read_manifest_version() {
-  python3 - "$1" <<'PY'
+  "$python_bin" - "$1" <<'PY'
 import json
 import sys
 
@@ -81,15 +80,15 @@ try:
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
 except FileNotFoundError:
-    print(f"Missing plugin manifest: {path}", file=sys.stderr)
+    print(f"Missing manifest: {path}", file=sys.stderr)
     sys.exit(1)
 except json.JSONDecodeError as e:
-    print(f"Invalid JSON in plugin manifest: {path}: {e}", file=sys.stderr)
+    print(f"Invalid JSON in manifest: {path}: {e}", file=sys.stderr)
     sys.exit(1)
 
 version = data.get("version")
 if not isinstance(version, str) or not version:
-    print(f'Invalid or missing "version" in plugin manifest: {path}', file=sys.stderr)
+    print(f'Invalid or missing "version" in manifest: {path}', file=sys.stderr)
     sys.exit(1)
 print(version)
 PY
@@ -97,6 +96,7 @@ PY
 
 claude_version="$(read_manifest_version "$repo_root/plugins/avoid-ai-writing/.claude-plugin/plugin.json")"
 openai_version="$(read_manifest_version "$repo_root/.codex-plugin/plugin.json")"
+package_version="$(read_manifest_version "$repo_root/package.json")"
 
 if [ "$skill_version" != "$claude_version" ]; then
   echo "version mismatch: SKILL.md=$skill_version Claude plugin=$claude_version" >&2
@@ -104,6 +104,10 @@ if [ "$skill_version" != "$claude_version" ]; then
 fi
 if [ "$skill_version" != "$openai_version" ]; then
   echo "version mismatch: SKILL.md=$skill_version OpenAI plugin=$openai_version" >&2
+  exit 1
+fi
+if [ "$skill_version" != "$package_version" ]; then
+  echo "version mismatch: SKILL.md=$skill_version package.json=$package_version" >&2
   exit 1
 fi
 

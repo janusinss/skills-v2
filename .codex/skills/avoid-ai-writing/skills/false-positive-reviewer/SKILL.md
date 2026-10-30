@@ -1,6 +1,9 @@
 ---
 name: "false-positive-reviewer"
 description: "Use when a user asks what AI-writing flags mean, whether detector output proves AI authorship, or wants a careful interpretation of possible false positives, especially for academic, hiring, publication, disciplinary, or other consequential decisions."
+license: "MIT"
+metadata:
+  upstream-version: "3.38.0"
 ---
 
 # False-Positive Reviewer

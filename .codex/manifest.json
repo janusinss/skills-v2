@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-10-01",
   "originalSnapshot": {
-    "digest": "a415648562f23fc3ab22e39bab6b1d00b0bfe59f1c77a31c80b3b80f45f14aa6",
+    "digest": "093272b46db682c1212a53d4ff57589033bcbeec2f4d699d1e7b86dfcb082129",
     "files": {
       ".agents/agents/a11y-architect.md": "33c2c756b1dd391e12ed583e06290ddc816aaa4a8e5e838949e218a05e60584e",
       ".agents/agents/agent-evaluator.md": "61ea865430c05af5ce15443a0b12ab5ee87ce76c47da59d91042ed0ce12e4b77",
@@ -583,71 +583,84 @@
       ".agents/skills/auth-implementation-patterns/resources/implementation-playbook.md": "b6b65fb008fe8cc2b1ccba2063928b9080079ba16e44647d19b054da7f8dfcd9",
       ".agents/skills/avoid-ai-writing/.agents/plugins/marketplace.json": "ed1e5041e5b9c83add5bfc95a968171c9afbebffb94be596bd35feac65fc4183",
       ".agents/skills/avoid-ai-writing/.claude-plugin/marketplace.json": "d7e2491aeca8005121ed9d51f20f261226791fb62ef6a3ea3db505f0262dd626",
-      ".agents/skills/avoid-ai-writing/.codex-plugin/plugin.json": "a5c702ed8ffc2602c00e1436941aa3a0a6f901978538887dd88126388346aa49",
-      ".agents/skills/avoid-ai-writing/.gitattributes": "0381a600056d69f4eee4f33a60045eae59df82afda843adfe4286bf38cb1c012",
+      ".agents/skills/avoid-ai-writing/.codex-plugin/plugin.json": "40f9bc49edf2a2e25090bc2b37363e2d32a2e882d874062b34253c70b43760df",
+      ".agents/skills/avoid-ai-writing/.gitattributes": "492d0aff864e52a755e44c118780d08d0a548c6ce30ca7d2a18e689777b79680",
       ".agents/skills/avoid-ai-writing/.github/CODEOWNERS": "5ace5c8bbec57751335ae479549a4a08931adb24e364788087d17f3549bb0261",
       ".agents/skills/avoid-ai-writing/.github/FUNDING.yml": "eb502f724bf3f0505e7d6d3a5fc7e96e8d2560c14781381cdeef24bb1e13462f",
-      ".agents/skills/avoid-ai-writing/.github/ISSUE_TEMPLATE/false_positive.yml": "a6c15e1c12bde0f407ee32ca9306734701de678351d7822ec6c8a2ae7ef2ee44",
+      ".agents/skills/avoid-ai-writing/.github/ISSUE_TEMPLATE/bug_report.yml": "cb942558828cf5371ffe99e19dd1c123428547b87f00e02996310c8f686f5514",
+      ".agents/skills/avoid-ai-writing/.github/ISSUE_TEMPLATE/config.yml": "6897bd394d2963a22e277d000b736e8ac255458b8286cbf7938caf4e91c31b67",
+      ".agents/skills/avoid-ai-writing/.github/ISSUE_TEMPLATE/false_positive.yml": "985ebbb23b237bf2fc126c6c0675c8104872bc353a1014628e0bcf554e59a288",
       ".agents/skills/avoid-ai-writing/.github/ISSUE_TEMPLATE/pattern_proposal.yml": "7963671158a218afdbcd6af4ea09a3b03207ede455a7cbb4458e3cd3f5eb50d6",
-      ".agents/skills/avoid-ai-writing/.github/PULL_REQUEST_TEMPLATE.md": "d82ec54b3d1f863a62acebd5e54758723b8eb8b7620fbc540fda48cccec52459",
+      ".agents/skills/avoid-ai-writing/.github/PULL_REQUEST_TEMPLATE.md": "60be76830004c76f8ac82e04a2f071efa73a771830fef55982a436e50bc08bb8",
       ".agents/skills/avoid-ai-writing/.github/dependabot.yml": "2a5b9b3b6c59b580a20627e0886b9bf6ab23996be0bf2eef227cc31239019190",
       ".agents/skills/avoid-ai-writing/.github/workflows/corpus-fetch.yml": "b0657d72c49ad7a70f1bdd54e9fc6418f5d3ba12a0f971c4f264e68752d52e75",
-      ".agents/skills/avoid-ai-writing/.github/workflows/detector-test.yml": "12a6807dbaff17c0521385d01ab047850767609837890b57a50955ca39e457b5",
+      ".agents/skills/avoid-ai-writing/.github/workflows/detector-test.yml": "34198294484d7e69f068e5096f0155edf4fd2776c459658904b27dd10c3ef10e",
       ".agents/skills/avoid-ai-writing/.github/workflows/plugin-skill-sync.yml": "fdd85df749d4545c7a909f409b95cfe24871a6b38dc197a25f854f421db10ac4",
-      ".agents/skills/avoid-ai-writing/.github/workflows/promo-drift.yml": "20b4528be9cddf1154f217b52038bdb1ca350ea756707b6cb0712ca283abf592",
-      ".agents/skills/avoid-ai-writing/.github/workflows/release.yml": "9aef039a850aa55a2f9774459d04ee62908230fefee22fca7614c035c1cf0340",
+      ".agents/skills/avoid-ai-writing/.github/workflows/promo-drift.yml": "f6a9578b162270b7d5db5127498d39d6f03013faa3701aac33d39f170c71ccb8",
+      ".agents/skills/avoid-ai-writing/.github/workflows/release.yml": "bfabcfd2750669a2b9e81b99f39ba7a35957ee8019f364bb20c7f96bae1c7099",
       ".agents/skills/avoid-ai-writing/.github/workflows/ssot.yml": "68277d3f3467ba0b5510ea9eec768b6b0b8dfab1528ef30ca7b08c1e84753560",
       ".agents/skills/avoid-ai-writing/.gitignore": "3fa079c702b8686b3626779a1845e08fab00ff868ddaea230cf51574df6669f5",
       ".agents/skills/avoid-ai-writing/.pre-commit-hooks.yaml": "6d858c357c8a5c2b6015653f06828e13ce215b7d4674fd2cc74fbe68e147dbf1",
-      ".agents/skills/avoid-ai-writing/.ssot-local.yaml": "daa38a05cc0d146cf33c5c954f19b75e3326704f1c430667b941c306f973d2a4",
-      ".agents/skills/avoid-ai-writing/.ssot.yaml": "1cb6c52469842f67cf720568afa6befc4024f7250cb14f3d89c73050446d798a",
-      ".agents/skills/avoid-ai-writing/CHANGELOG.md": "44c3941d50552a45abfe937883d73f36ba463f2272e245b6da350b81cca5c50a",
-      ".agents/skills/avoid-ai-writing/CLAUDE.md": "3237bc8187a8922a90a7435d442516ab9e78a8ce2a1f3f307a113c826a63bc6c",
-      ".agents/skills/avoid-ai-writing/CONTRIBUTING.md": "a1969463ef3d396751190996941655a1baffa9add9d05f79d5423b58788e10d4",
+      ".agents/skills/avoid-ai-writing/.ssot-local.yaml": "8fc4d25fef3589f3f927df37863bf411c1a3034be898acd04723a7622cf276dc",
+      ".agents/skills/avoid-ai-writing/.ssot.yaml": "69b6989a8bce271e0155a813e9e58dfa5a3e2ce33cc69bf40ea3671ced15081f",
+      ".agents/skills/avoid-ai-writing/CHANGELOG.md": "a6a1629fb28389e8e80ea0268038f85170898c1b5c10e1b8cc69ca4a371fb99f",
+      ".agents/skills/avoid-ai-writing/CLAUDE.md": "3c02886bc6d884682b42558ec042dce4b1c6de44c79071bae65436da6797a6a4",
+      ".agents/skills/avoid-ai-writing/CONTRIBUTING.md": "5373b2606c4275d467f7325f9cad51953d6a12e55bd62558db5d64aee9186e57",
+      ".agents/skills/avoid-ai-writing/GLOSSARY.md": "c0b7962efaa99fb6676b275db12f6c4708872b98c573c22223f3aa971459966d",
       ".agents/skills/avoid-ai-writing/LICENSE": "4da9b9f0bb899269b6e79fb383b4c3f24ebcadf7352f970871bae3e215401589",
       ".agents/skills/avoid-ai-writing/NOTICE.md": "cced9e526a6fcdd9f3fcf47e282227c768b644db82e17b6dec886d9b3e8ce709",
-      ".agents/skills/avoid-ai-writing/OPENAI_PLUGIN.md": "800150d1c50c4e352bc33ef6ac1ec2ba417c5cb607b9a5d95581c78b94067ade",
+      ".agents/skills/avoid-ai-writing/OPENAI_PLUGIN.md": "ed199ca4893aba1e78035388da8f42c1d7d79d279850b32ff447043ec9da7a0e",
       ".agents/skills/avoid-ai-writing/PRIVACY.md": "d23c79b05aa4617e2fa03a59c0bbe05b5638fab2451ffee388f5dab5a1e8a11d",
       ".agents/skills/avoid-ai-writing/PROOF.md": "e8a1b64de134bff26b734a5b9dbe025a0dc2e958cf52f95fb34a473a16751c6d",
-      ".agents/skills/avoid-ai-writing/README.md": "8fecd29fe3fb71e13c72787fc25395b56955eaa468d5f2b34358bc178656f104",
+      ".agents/skills/avoid-ai-writing/README.md": "225a3dad131c13d83592f6263b98dcb17fedb651f0b50e04b092b18dd8525be2",
       ".agents/skills/avoid-ai-writing/SECURITY.md": "5aa9a0ffe6e30f71dfb2050100ba161d7a572f0f976ab7dc36140eb55631b4a3",
-      ".agents/skills/avoid-ai-writing/SKILL.full.md": "95fc2092d50fdce5b9ab4b173e5adb45d5b62f4899513f8bb2978f5fec727e59",
-      ".agents/skills/avoid-ai-writing/SKILL.md": "d13b188369d32d050b55d13e38c9c805a2873870def410a046ff292845359324",
-      ".agents/skills/avoid-ai-writing/SUPPORT.md": "56d36f2b5cdf961b4f09b5df4454065ece4b801dd7132ea493f12227fd1461be",
+      ".agents/skills/avoid-ai-writing/SKILL.full.md": "4c6a971a10fc4e34e6b8cf29df8a14e15331e2f8f059b9760f398747ed07442f",
+      ".agents/skills/avoid-ai-writing/SKILL.md": "031c8ad21ea2a8ce93c4af97f82cf0218fabeb8450ad2d5fce41a76fac1eebd7",
+      ".agents/skills/avoid-ai-writing/SUPPORT.md": "e85f823b029a3f296d7428dec22b5a7c7817201c84b5c344c6ec1874dfae8730",
       ".agents/skills/avoid-ai-writing/TERMS.md": "ec19bfca3719b7e1ad4855eb0b3c1ed26388323875aef7bf6c036cffe2492679",
       ".agents/skills/avoid-ai-writing/action.yml": "e626818debe058caffd35c3c1c3fd1f13fed1b75d27e2bc088310eb248397ccf",
       ".agents/skills/avoid-ai-writing/assets/logo-dark.svg": "34b6fd9e3efd24c4664dfab40a26480d9e2277a42cab45f177effeb869e6e3ce",
       ".agents/skills/avoid-ai-writing/assets/logo-light.svg": "f0244655ce6faab59792589e4249bbbf63da9a2fe653aba8c126646383c3915d",
       ".agents/skills/avoid-ai-writing/assets/mark.svg": "4a6697cd95c241ee6eaf77e24e348d590294543b19f131dc814cdd80a738a33e",
-      ".agents/skills/avoid-ai-writing/bin/avoid-ai-writing-gate.js": "48e56b65fbbecb7c0261b904d2d493ebb72d72f1d993043f1988d6507eeea3c0",
-      ".agents/skills/avoid-ai-writing/bin/avoid-ai-writing-gate.test.js": "c4a30a02dc820fca5e5c1370c51c93b4c32f0c3ac4110e0bf5e8a4f528a727c0",
-      ".agents/skills/avoid-ai-writing/bin/avoid-ai-writing.js": "3368d6dd1853164a4cd52c2eb08f0de4f7bf271b4e7858af28decab89f4326dd",
-      ".agents/skills/avoid-ai-writing/bin/avoid-ai-writing.test.js": "cc39ffdbe880eb03a664007a79bf4ce3aa64613c8cb7767b5fbaa7b021d1936b",
-      ".agents/skills/avoid-ai-writing/corpus/README.md": "1e91e28153b0a3ab0cb58042b5caf30e08c6db5898236f95d464016861230ef9",
-      ".agents/skills/avoid-ai-writing/corpus/manifest.json": "dac828af8f6b91b29be203c204756d18b8c80621c3ef1ef481fb7eddb09911fa",
-      ".agents/skills/avoid-ai-writing/cursor-rules/README.md": "6935380d1cd303e21c67495e55ec47110a59999e69156a4bd36b03d6cf4e2567",
-      ".agents/skills/avoid-ai-writing/cursor-rules/avoid-ai-writing.mdc": "374678da22c12612ab1391961129467f52123fa117291164b498854ae033b448",
-      ".agents/skills/avoid-ai-writing/detector/CATEGORIES.md": "378d95767421d161dbf222e05ca47ef7f350dd7362539be611ffc9d82d708b50",
-      ".agents/skills/avoid-ai-writing/detector/README.md": "fff25e0666a7e93e6a096646211d5d38af47068fa95329a0f4922b68c834bc71",
-      ".agents/skills/avoid-ai-writing/detector/categories.test.js": "947a1b0db0e8a4ccd7e2d0513f9766c99ef3c24674b6cbe4a0c14e79b0847f01",
-      ".agents/skills/avoid-ai-writing/detector/patterns.js": "1ad7ed44ddc4d266b2c168d1df384e3d30ba225ff74d72db0ac71f49c060db3d",
-      ".agents/skills/avoid-ai-writing/detector/patterns.test.js": "27e230f67bde0817f8fef9af0562ef98e45a2b388734f8229b2ec11baee727a7",
-      ".agents/skills/avoid-ai-writing/detector/validate.js": "fd6f11f5a68b82a40579a868d1a02085843f1202ada79f67bc7ee884eb54d04c",
-      ".agents/skills/avoid-ai-writing/detector/validate.test.js": "5ebe6c293135a28984b48a02c0562b61cc30194e84edca8318870305c60163a9",
-      ".agents/skills/avoid-ai-writing/dist/avoid-ai-writing.md": "181cdbfa51cd111a9ffc0d6167f2edf380ad0ecccf39e85a5eaa9923dfc68365",
+      ".agents/skills/avoid-ai-writing/bin/avoid-ai-writing-gate.js": "8d584a2145f0991842fea4bb21d6ed06f34b2af3073bbe9ff5b20bce7e3e2a76",
+      ".agents/skills/avoid-ai-writing/bin/avoid-ai-writing-gate.test.js": "ab77f98957981d14fd01b8ad0b2d0f738521cbc9fab7700e0e28eed123403964",
+      ".agents/skills/avoid-ai-writing/bin/avoid-ai-writing.js": "02e10238cf9f9025d193c105153aa8328ac942031ad1f0453f841889dbe33e50",
+      ".agents/skills/avoid-ai-writing/bin/avoid-ai-writing.test.js": "06c1b1b2cb97f74508c2d289c5e3b1d2d4646b30141f2e0412126ed119c73d87",
+      ".agents/skills/avoid-ai-writing/corpus/INTAKE_TASKS.md": "f9cf4250e0c11fb431c5bc7ac87f1d999882d5e8de9a9a3564099e348608f257",
+      ".agents/skills/avoid-ai-writing/corpus/README.md": "8ddf7a4d38609682ea3a36383b907f682d58b703ece4f37935d2ac134a3a9af8",
+      ".agents/skills/avoid-ai-writing/corpus/intake-candidates.json": "946fd7f2718918ffbb3b0672150928ec53a16a7677081834302b60ff4cbc6d28",
+      ".agents/skills/avoid-ai-writing/corpus/manifest.json": "77e1fc016239f9d92e352db0f02b5fe46acbbc207ee254a454cb5de6992bef00",
+      ".agents/skills/avoid-ai-writing/cursor-rules/README.md": "b4ead33f0a9dd10c5b8c96f89b9ecb825d8465c36ffa8211e2a98fa8e4d65ba3",
+      ".agents/skills/avoid-ai-writing/cursor-rules/avoid-ai-writing.mdc": "6eb536821e4381184e3d43c215b0aa53798e66c73405e500cecf6dd7b9fa6f57",
+      ".agents/skills/avoid-ai-writing/detector/CATEGORIES.md": "fb303990be9e9da197ab83ac5b9ff3539de63b827641f3760493a13bc1763256",
+      ".agents/skills/avoid-ai-writing/detector/README.md": "6d3e7b7729350bbbb7bca8625102c21a7415882b7be6a735cfbd122388163e42",
+      ".agents/skills/avoid-ai-writing/detector/categories.test.js": "571144f75dbbc36f7b7a816739413b4d603419baf5e0b5d18db477cb23647a5c",
+      ".agents/skills/avoid-ai-writing/detector/patterns.js": "37d6b022821f592b062e421c639789861b692e22388f65e8db0692154f7a59fd",
+      ".agents/skills/avoid-ai-writing/detector/patterns.test.js": "6b4a49e3eb5540df2ce35dc488d5819246ee6ef2b71b88a605fee38a1b70cb25",
+      ".agents/skills/avoid-ai-writing/detector/validate.js": "00c36a802373e263120325c4180e34d7bf2f64196f850b76226e90a09c7f22c9",
+      ".agents/skills/avoid-ai-writing/detector/validate.test.js": "af298d88f551123d98505647817dba71b01ca14c70f9437dbcf979da6893df0b",
+      ".agents/skills/avoid-ai-writing/dist/avoid-ai-writing.md": "80b80de20122af7217456a747e8c0fb8ed9bf19977e05b8ec8e034b621e3bb65",
       ".agents/skills/avoid-ai-writing/docs/demo.gif": "24818ce2ee8228401c014f3229f0f516242a1b434ba0428692744432f882297d",
       ".agents/skills/avoid-ai-writing/docs/releasing.md": "e721b0ca4c6431c3c62368de82480f185a2cbea934c93c2c1af5e8d1c5e970e4",
       ".agents/skills/avoid-ai-writing/docs/social-preview.png": "546c62f7bc2e8a9bc4fffd408e69227d9ef143768f336870d3efc3dee10c3c87",
-      ".agents/skills/avoid-ai-writing/evals/rewrite/README.md": "6805250b11d988eefe550ba039969be6ed97d6a795b493ef45cd21b43cecb38c",
+      ".agents/skills/avoid-ai-writing/docs/vale-export-proposal.md": "177d9a168c0bc5de182355fd32dab6368ac96d55f4941d29a2ab7c8be71fc240",
+      ".agents/skills/avoid-ai-writing/evals/gate-calibration/2026-10-15.json": "f47857eb2dfa258d57f281e9d4b3b18ba4589a9eb36225d7790a738a3549a205",
+      ".agents/skills/avoid-ai-writing/evals/gate-calibration/2026-10-15.md": "375ddef6d66e915d7224ef0757e8ef9eb1f30e3a9b06b834e297aa8a295a8b53",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/README.md": "ee2af726c748b4222e68fd11f26e021e5221a4dd70bf119ba5f3706a46907148",
       ".agents/skills/avoid-ai-writing/evals/rewrite/automated-gate.md": "b053122789ec0813c875d93c79fa5480cb0e66cc5c4982d45d840530b03bfab3",
-      ".agents/skills/avoid-ai-writing/evals/rewrite/automated-scenarios.json": "9a66cd3dc8212363f076acc72956a1fdc504142abee81a5c6e529075064f9f70",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/automated-scenarios.json": "739587448d411bbc0c86fcf32f6d1eb4c3ded530137f2d7d8bde92f65eae4cc8",
       ".agents/skills/avoid-ai-writing/evals/rewrite/cases.json": "e2d30c0d7ea3a9f329e677838d075950389a5edca18685242f51454fea926da7",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/check-detect-audit.cjs": "c936f34e5f98cbcdbbca5096a0401c8b0a62ec1127de97639101991ff848dd62",
       ".agents/skills/avoid-ai-writing/evals/rewrite/demo.json": "422498f26a0c722df602cbb6a476eac41a9d86cb1277a7c67a667a8aa6daf879",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/editorial-cards-206.json": "10f2a7a816649313271f4a00b4d5d5c2143f82cbc0926687749e89f9a9ca14fd",
       ".agents/skills/avoid-ai-writing/evals/rewrite/output-contract-scenarios.md": "04268da4c21d02892a89a01fa36454ddd136b8c4a931f9660cc12b0d00859c23",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/preservation-policy-cases.json": "3fb6345bd31c0d45fcb7d49c67828c97cc4e50806fc1c15fe71aae816dc0f7c6",
       ".agents/skills/avoid-ai-writing/evals/rewrite/protocol.json": "b845382cd38827081c4a2de6faf07b347c07f7122a14830a16c0475984eaceaf",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reference-loading-205.json": "24e7df85a0e4b045b4c0c0ba4236aaf42d877d4601ea4f4480a5c57cba1fdd73",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reference-loading-205.md": "053c42bf410418d358baea19a99181c7c49ca2a3694804405fed4e1c274cb0b4",
       ".agents/skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/.gitattributes": "bb13f79b742e3c00c82ae9e237846b4c95d0e33bbee464a2ce364c4332e848be",
-      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/FOLLOWUP.md": "b2adabffab3b09646a4e2e90d22dc00989817e3979d80a4fe7fe9f31d426c395",
-      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/README.md": "e012992b6bea5a40d63202a20f9bf7863b24cf00920a2759c1b35b47f9bf079d",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/FOLLOWUP.md": "5e741901db34d858e65f1c55c97b0763496e9b81140009c26a52648f5426784e",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/README.md": "c23ccfd267300c389edda63ea2e689c75a069d04e80c8bdadae567fb08573279",
       ".agents/skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/README.txt": "f02ec9d6284b457d9a31eaf29def126a6cdb90e33222d1382c03a5cf7c6bc32e",
       ".agents/skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/check-literals.cjs": "fe4f1cd7b3b0a81ea155a0c8c21311b5463dc198d1053dd4f825649e5f409b02",
       ".agents/skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/fixtures-frozen.json": "9a66cd3dc8212363f076acc72956a1fdc504142abee81a5c6e529075064f9f70",
@@ -901,32 +914,183 @@
       ".agents/skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/reviews/muse-repair1-metadata.json": "76699ed8c758758e2708e72dac6761f0c91e6e283a2d226d84dca7a6b611398b",
       ".agents/skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/reviews/muse-repair1-response.md": "4b96c43391d7e4ad216a4d869760e49c86a90731b7cb9186af50a661662422ce",
       ".agents/skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/reviews/summary.json": "360267bd4140730426d14deb00386e7305a7637f5597da465ac0edb37bcd32b0",
-      ".agents/skills/avoid-ai-writing/examples/README.md": "d1b655658a66f0bb81d2c5e6b1c117d6dc722538cb1f43deb1ab909601aa4760",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/README.md": "38dcc6affac3734d4e39379baffd6df237ae2503b9bd8e143f54cf7a321049a6",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/fixtures-frozen.json": "302bf404ab84a18412d8cef22865fb29251754b6bdedb1b52fbbfff60ddc44e5",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/A-responses.json": "a480f07d9174bab6af9046d372f0f225a458c689bd28c5b478207fb2a9e5d163",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/B-responses.json": "101fc1f78cc1ac56eab2831248e7de5c3b2c433096ba82dfdcbc35ba7bb96320",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/README.md": "e623fadee6139e16916b0085eb1402d58bddfc5271dc9829b016385f5a0b6d15",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/blind-key.json": "af79f0bc6cffb829d023dbdbfb3c4ea3ac3182c2999a1d60c8ad177686b1f954",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/blind-review.json": "ada0265ccdbab8827023bbe2f436e238f8b79ff167c740f1f292de272ae0a469",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/expectations.json": "b407a60c8a9d0577feff009dea8157508b6f058707d9ee369c24618d6903ece0",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/inputs.json": "84ccb60f097e1c5b6396b071939fdf7c37f12db5e4ffa9fad131f1aef77ec781",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/method-frozen.json": "3b40cf9b5cbb4d57c0520bde008b46eb892c937a45d4c60bf33724fd967b8768",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/source-snapshots/A-SKILL.md.txt": "2f6dc40a0108dca18fb487033dd6c47b55eb7ca5c8a8a2d0cc3c9de3f54a95f7",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/source-snapshots/A-references-patterns.md.txt": "f0c48a48ff80fd341ee863d8e73fd5d671b976b90d188eb7450df3bb59e36b53",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/source-snapshots/B-references-patterns.md.txt": "d5452a813006840b47273b0c1ddd4ca655733cbab4db9fbe19e803c03e77c499",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/sources.json": "a74a3240f741dacf99e6078abde25d49093ab76a03ae861e4cadb1e1fbe4e1c3",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/summary.json": "ad06e046f6ea4bdf15ef4765e4e64d6273f83b45b5470f1eea0d1466a728f749",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/initial-baseline-responses.json": "8a64a32b957d03bc7dfe5dfafd475ad8be55c2c26ae11de1cc522b4530cf7d88",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/initial-blind-key.json": "51978cf3aa973d4261f67795dc43b93083f51084a0de49342694beccb74f487e",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/initial-blind-review.json": "473fa656f51e07a971c24018f7681783803d9475b8b4e6ec78059742d73a2fd1",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/initial-candidate-responses.json": "8278866583f9e5e692b7dd6f2eade4c4ef6d9c9e7b7a9fc47369813a5d3f3098",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/method-frozen.json": "8642818284c2fabd5d4d3feca659429a103aba8aa721bbd5e180dde2d36ed123",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/review-counts.json": "de73366d3243289f6f68233b300958c05d516d955425833b82d5aecc15134aac",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/revised-blind-key.json": "f58eef50c8d1eb8852a306253dc49606305d9f33157e03626c60ff016f3c3c2c",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/revised-blind-review.json": "3773adb8acbfa32ddf1f862d7deba81c5dd198c9134c104fad04148269aa3ca0",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/revised-responses.json": "f4f8e246961d378fd0efe7a418274e8c36c0c38e6bcc7f17dc543092d2239236",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/revision-method-frozen.json": "068915801d8ba3c552fa8898db50cff46eb3eddc374fe78147f1ed41e8a40c6b",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/source-snapshots.json": "d573d02a219f815552a77658a4c4dd037dba52176ea1deac3d619059809a656c",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/source-snapshots/baseline-patterns.txt": "d43f2450459c45e34d308fde94120b7947ed31023c0c96f6b3f63787e42120dd",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/source-snapshots/initial-patterns.txt": "1167820991d5f78cd098f0fa4ecfc83a9db713d6a16c5eea1d5e4587ce493793",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/source-snapshots/revised-patterns.txt": "e1207f2d620a565c1ed8503ea353b518c8d5251ac526667926a3688eba29db38",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/source-snapshots/shared-entry.txt": "ab255722f1826fd68cca01b703f625d318ee38361e512d21abf5d94b0c920b1f",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/summary.json": "7615b7e9d4338aa3ea6f75f20074617f56914d9def526a286d94d5868f3ed7dd",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/README.md": "df12740c62ffc7ea9d2236e05df8d0301e533995efa0f33ce021a519072ad004",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/additional-family-method.json": "880aff77f990b3becc9a788e78356b5289f308c99d035f50f4440aedb3447967",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/check-repair-literals.py": "c784d7e3a74abb3ff682dd14b932a131a43715133b9750628f4ccdce38113d0c",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-detect-result.json": "3e83bd6eb445064514c2db803f776149bca153bde56645bb0abd68ee828071cd",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-editor-method.json": "e5943a480693fb67f7ff8177f34d0c9ec868ee36a458b3ec1fb33b6c9950757a",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-gate-responses.json": "f0bd138cab158d25b6703561ac8f59412e399cbf6271b54494b8dfee7de6426c",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-gate/answer.txt": "ca25367c677f6e7e9af439475b7ae51cd537aa5aff2d3a6212909e8213b6d1e8",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-gate/events.jsonl": "d13edefe8239ba4260e26d2cda3c3481bc407fc9f0327dce33bfb5ea7b8b0ecf",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-gate/receipt.json": "7715ccd6e0f7895eb3c86a4e1f7e712575a2cf85f67f18339cf2f7566eb357be",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-literal-result.json": "71c1928c6d9bf755c2da9c448e03573230edc598b9b7cce600eb265a621c1c51",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-repair-responses.json": "8540d1117a8511365a0477b83d52e43f6684dd79072cda860338d4453a4615ba",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-repair/answer.txt": "87e73b32b3440f38d36d1f1f5a36b4b033c913dede52ef6695c071618cccf885",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-repair/events.jsonl": "a54e91db6abc9611e1c39a5ce915e3e5db9c2dfb2c2f7662e211a20f4bbf5c19",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-repair/receipt.json": "d2523f50201fd0751f5c5fb2ac048d62ee0beb01381722da21d93b8d0d25b4fe",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/gate-scenarios.json": "072a84c4f2fcc76974434335e2811b0af34081d4d3680a7047835b606e233277",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/gemma-fallback-method.json": "05c1704e1bbcfcb2dee1ed5686e9e9e02eed9c1d6d30008a8837b1b6c59fd66d",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/gpt-assessment-of-haiku.json": "2e89648ae93307efc3686497422b49049148e6860e1f2f9fc0ca5b9835c792d7",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/gpt-utf8-transport-method.json": "9b2614c4a9f33a8d6a43e2e54922234964665c170674c72fd484ea5b553659ea",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-api-system-prompt.txt": "9c8a7397dc0fc37c54b79014e8258dfbdbdc3755d03c6d57e3147cac0d0bed86",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-detect-result.json": "0479dd211c34a5e5022ab48346f87c75b44fc4317eccfd1ddb00c3da9a16fc54",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-gate-responses.json": "512d83871e463383435da227bf15fdaa9c717f6323f3694100d55e6b0b1d8b93",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-gate/answer.txt": "25e7f7390298d6972d6a931c97def9eb5d7c42d13b20c468950d5e6ffcf90346",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-gate/receipt.json": "cdd5f7603a962b3294be9e1bbdf76a211105d95da17b94f227cd32f0e8ec7d6a",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-gate/response.raw.json": "313586b5aa267f99c0bd2a15e76ed8ceaf21f1d7dd22dc978d4480e0389460e6",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-literal-result.json": "d42123bb2577ebfa6948759dc202bb5d590ecbfeba7e17860ffe1aebc26dea51",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-repair-responses.json": "608545a6d69ff9322ce834dacc7754bf109d3a2d98a886f1c355f13be941d497",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-repair/answer.txt": "52089d7b32faf874f1fe78956a8dcff226ae98eedd2991159d4eb338c1b1d0e9",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-repair/receipt.json": "a642a7a735972a78c391b42701e3a54c27bd124581d5c0a7a719585b000ec93b",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-repair/response.raw.json": "cd4c7a30d365b733646131a65769ab838daf1529edb064803575148ded3c4c21",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/inkling-gate-rejected-metadata.json": "ecbc5e63fe6b65e92a4a74a9de889a12543b1e990d84889fc0bebd7001aa9cb4",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/inkling-gate-rejected.txt": "e1a77d7e428c3e42826ddb8a1bf96cd8c833c417d22dd09823c2f22613abe7ff",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/method-frozen.json": "6bfead6cf746789bb6a6499199e83af82bf700ef7c453e14ef08ff731b058ce4",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/prompt-transport-note.json": "c6ea56881c7806f1ffdc36d5bfe4c0772fb47311193e552235b99779b617dbfe",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/prompts/gate.md": "e8b784da365c6b02313fe822d3662e9ccafeb245cc5edc4da30481690bc9e57e",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/prompts/repair.md": "f8d66d10aa3a6068f0099b2a5ecfb6b73f0ec80fe2b2d99a021193286f797f5c",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-detect-result.json": "fb72036bd9a9507257513f2983a65d293fb975db3522d3705ce8ad7ce3162b1e",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-gate-responses.json": "4dc4b391df6166b020be56e33497de2b19108acb4459777c4f825c614f864112",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-gate/answer.txt": "503bc4e033883ed5228d083ea97407f953ffe48cdb54e5b29422a73c871706f8",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-gate/events.jsonl": "cd11f0247842f4b4ed1bd6c296d32410b2304c54c08992f9bb3be1ae3c04ce63",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-gate/receipt.json": "86d0fc88c6a9d935d9bfc89fa383c8d293b21db916343fefbb93ad52ac46fbe4",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-literal-result.json": "fca9f5c5053c6a14b79c98dd3d6281823b4c60f3b305a95a21400711a6365684",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-repair-responses.json": "ee98af8a2905dbdd3b560678bf46a3a13b09089bdc0ececb015004d383982966",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-repair/answer.txt": "eff4c1af3ed7f4240e2dfa31426647447254a47d0711742abe674e3dd809de27",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-repair/events.jsonl": "ecfc15c68d09c384f3b2db5fd77f8c59dccf0d26124f0cbc0a3445a636b71ffd",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-repair/receipt.json": "159edcb5b8cbe9faab57759dda1649a76f42d92c665264ad582ac4f2fb35354e",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/repair-expectations.json": "b407a60c8a9d0577feff009dea8157508b6f058707d9ee369c24618d6903ece0",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/repair-inputs.json": "84ccb60f097e1c5b6396b071939fdf7c37f12db5e4ffa9fad131f1aef77ec781",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/repair-literal-checks.json": "aebe75632df19840db86d6915066d72ff2de5af8d49fb17bc5ef495edaf92dfa",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-closeout-review/answer.txt": "add5429ef60249926d05bdbb87eb94224804cef05c36a1f3bfd570e036d22670",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-closeout-review/receipt.json": "5158ca505e666ff86f5ec1260128e1f7ba4b7b7de4ab373f4a302b43b3911ec0",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-final-recheck/answer.txt": "539e0147a006d40dda1c511f41f90ae3708307ac05524b2e5235c00337cad998",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-final-recheck/receipt.json": "b606a9820d9aa1985143432276fea3723660c88a195d9e918848986ff5b07215",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-operational/answer.txt": "525999c680e08c094ce34e2333aa7f1c831fa4198c67fa38bb1da7c628c8990c",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-operational/receipt.json": "a06c1100695f0787e47c757e6752263d1465cbeb1b51e5cd4d4f7be2241cb9f1",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-recheck/answer.txt": "fb8d9762040e980547ec0114a67826b3e6fc8c78ce8bcd88f58cd90e1b00f980",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-recheck/receipt.json": "2d185c76f0a002eabe82069ec92485fa0526ca7dca947ef42a99a0c3b11e07ef",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-closeout-review/answer.txt": "1f16cb3ecfe617e9cad7217e85464251bec1e1d57e3390bf44ab0a339693736b",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-closeout-review/receipt.json": "1ec2e62b328f812aeb7e9eb8520dba334627881fe9f6390d010e1616aff818f4",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-closeout-review/response.raw.json": "a85ea762af3ec85a48db12a871ec08f73c0f6295ac794dfd1430e63290f8ec9c",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review-retry/answer.txt": "e1e345568b3647c4fe73e582a3f2143cca8847a086a003e76956f971f3606ff0",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review-retry/receipt.json": "b4b749d41b27aafac5164d1f28940f19fa13f92a85647697eb6259df52b0bd59",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review-retry/response.raw.json": "24fa15c6fae90ee18dcb2d83713f9ec55e87716d0a901d6857ebf29e5d8f4d18",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review/answer.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review/receipt.json": "2914fa752ccb91693532a50cea88a14085fa596a0312a5c9c4ca7f022d37005d",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review/response.raw.json": "6e43aa0f66d89db6a9e302df74cc4bdbaedb1dcc6ab0a2bcf033ab618f66f289",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-fixture-review/answer.txt": "a7165dc3ac09f64e4da369f66490dcb199ba2161f6c28d10cbc93ce7dd1f406d",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-fixture-review/receipt.json": "1f6446f279155d3ab5f0a2e092e39484faa813dd94a61bd009550b82a7e29cbb",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-fixture-review/response.raw.json": "a1937636b170071b414bfe8421c107a5d449821d5336de981841605c7c17e042",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-adjudication/answer.txt": "fd0605334eb40aa9cc63c63cbca462513d4b3192372b95b7bcfd184f8d63f49b",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-adjudication/receipt.json": "10dd399431c7018d7d4a4e16c19bbaadd1ba96156cc2b4c9e0be09787980e19f",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-adjudication/response.raw.json": "72a1b9c33e2e7977308ea32e94cb0341f2e8bb19b4b759aa3370bac6871b2640",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-ascii-adjudication/answer.txt": "9d08c682f681871062fe6a573ea0db423b624e6b79c62d3ad1d899523a1450af",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-ascii-adjudication/receipt.json": "debaf37d6face29d0be19230f89c7d56e691b9eb3752df2b708a1ec89225b98c",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-ascii-adjudication/response.raw.json": "f1e45b32dbf20333111cc2e3686272f3d502902eb766b7ae23c2aea38804daf1",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-final-recheck/answer.txt": "b2775ff869e7a3cdd736c0ea3f3a6257786359623b2db9eebffa9f05cac0258a",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-final-recheck/receipt.json": "a72169dbdb2dfeb7f0abed75823b8cbd4aaa543343d2bffb6757c111059c4f73",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-final-recheck/response.raw.json": "077c6e28c724d4b1c50b4f7b519fd0b265e401cdf0f1550f0236a5310a825988",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-recheck/answer.txt": "4a0dbf5cf58de3ea5043e7d6a91f0d192df7df26c7d64ac1ab8a1da2a225e93b",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-recheck/receipt.json": "6cf97bb5d8c77ec6a52e6642fef9f17f242e6ab9f5322e535978d395a1ad2379",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-recheck/response.raw.json": "4d7902ecc2099d21aa6ac2dfb38dd7c2e1b449718e0e9f8f6b4793df7d3590d4",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/inkling-code-review.txt": "1c868b0eeb012b35ba8d016f4783c376810c386aa4f58fa023501a78fa20abda",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/inkling-receipt.json": "1b6fe105a1a017ddac07cd50e6162bf7e7f6b4b421c66c97d4b3c1fb425cfad5",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/triage.json": "e60b18a69049e5a77848aea2dfa3bf814c9129033cc5ff2342b1f2bbd1a7c49f",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/gemma-code-review.txt": "1448dd46734db180ab5876e520e107b261b8cb2847adbb0ce224fc25ee78d2ef",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/gemma-gate.txt": "bb8e0867a7580a24f7f943059352eb2346d857860d0e34361bf64a5c32ac7691",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/gemma26-code-review.txt": "755228b24140ca029703be44d5093a50d484e3af3f774aa48adb89b8486070dd",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/gemma26-operational-retry.txt": "151f18345a7a36a11a02bae4621b4309971063eb69ca37dd82bb72804d5c9762",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/nemotron-code-review.txt": "4481944bfc3d3b5dd9cc5a24ce360a73151393f5b04404619571a799833ef52a",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/nemotron-gate.txt": "6c5d547473d96e0ae0ab2e0550a10d224918713d0c7c215b6b4cc0760e9289ad",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/routes.json": "8426145f930241214c5374a5378c3df814da15344962643d0eea4c7fba6cad13",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/source-snapshots/SKILL.md.txt": "031c8ad21ea2a8ce93c4af97f82cf0218fabeb8450ad2d5fce41a76fac1eebd7",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/source-snapshots/references-patterns.md.txt": "d5452a813006840b47273b0c1ddd4ca655733cbab4db9fbe19e803c03e77c499",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/summary.json": "cd87798ae6da50df0c3d36643af5290f10cc0f9d3bc7a5e843a25ae2b3696f86",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/validator-disagreements.json": "375fcc70e7120500a7209b7b590217a359bd250319aa82a1eaf459f9d96b017c",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/README.md": "269af5a865c9ba7906098d30c4ae3885c51afc9c5cd6077081e232ac6c20e0c7",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/claude-initial.json": "8c36b496fa70d3a0263ad0d8e0d74e47cffeaad27f830e43fffd792eb1d77c70",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/cursor-initial.json": "882dad3ee7e4c2aed950a9ceb80bb8cad766fa4b7688e5c62ffa05a0ebcd580c",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/cursor-revised.json": "47d8114cb93b3a377a50f802f97474741717ef8e3158438de158d833e64190a6",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/prompt-initial.md": "bce8ff003c43bf4d916f2b229c924fea9193ede1b6da25665a8495e58c508dfc",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/prompt-revised.md": "5eb4d348b84f60e0b0fac8a931ddc7e88f60aa7eef89f2c418e0bff56b3e51bb",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/reviews.json": "5494dea323da625779128bdab66106d353d077321d5ac06aa0c87a7e000d395c",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/scenarios.json": "6263739b26d30f3d4d9cb1f43ed5afeb4803d10e457e7bb4556269160d048d0a",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/source-initial.json": "5c2170d4cf6b3fed04239e1985a3d87f747a038b4ed4ec6ce85a07ef0b0ffe4f",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/source-revised.json": "c6e0d803f8ec52c9da20e758e9c92f89c1de2a4bc0fea09111a8da0408f079fc",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/README.md": "2eb305c280875ee40cba1e0b25ae8ce9828f935a7e42b7be253fa36f11c02261",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/fallback-config.json": "25fd892bfd44a2540e942728e9cd6173ff5655ddf66567fc00eae78299e3e885",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/fallback-trace.json": "7e0c0eba01b425188b3727055aa4b09e54f2161e49525682d7b77d90d6679e02",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/focused-config.json": "8b8ac112855b973f5e7d122535882a95265ddcbd11c5595dc0583bb45d92efc3",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/focused-trace.json": "b59eb2d6ce2c5a3fb20e6dfb3affa9653ac731829cc4b6b25d4781e186799fc5",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/full-config.json": "8a5dfab57c3f66ae35fc50c6b2df4ea16f816ff103ee392dec4bbc8269c680aa",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/full-trace.json": "8db471c8e0ce3e148cb59f90c7ce88848f42b3ee42d364824aefc66bd271a0cf",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/generator-source.js.txt": "d440af2f1fb749d589c2a5c6463b988146b90c6e1a0a0a4c082501ba517b8bab",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/independent-recheck.md": "2f9b47925dfc1946d3ebe1036727c3da41b197a9d6c2a9ffe58cd4d33467c8d2",
+      ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/independent-review.md": "a883c5071020f79ccea792b45ed8e492a49dd5f9b951e174f3554596fb9bfaab",
+      ".agents/skills/avoid-ai-writing/examples/README.md": "d1e0ca4d2c100b2f276253a9964506b3a92a161068ca327f9c4f06e77e04bc39",
       ".agents/skills/avoid-ai-writing/examples/prose.json": "720a208037e469e3e4234aa41a05d13f9600dc6d562e40e033c41f0fa7fead3f",
       ".agents/skills/avoid-ai-writing/examples/technical.json": "f44c732fa3d222b997fa1310f2b74e1c2d6d619c3e47249833a66816b08cc969",
-      ".agents/skills/avoid-ai-writing/package.json": "526a4143433c8dd2d1aee37b4b7d51487837729ae118422b489ec8caf3dae1e2",
-      ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/.claude-plugin/plugin.json": "d0a9e5dc253cf97f053606279f205a0a98df84c51416bca1d4665e187c4c3acd",
-      ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "d13b188369d32d050b55d13e38c9c805a2873870def410a046ff292845359324",
-      ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/detector/CATEGORIES.md": "378d95767421d161dbf222e05ca47ef7f350dd7362539be611ffc9d82d708b50",
-      ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/detector/patterns.js": "1ad7ed44ddc4d266b2c168d1df384e3d30ba225ff74d72db0ac71f49c060db3d",
-      ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/detector/validate.js": "fd6f11f5a68b82a40579a868d1a02085843f1202ada79f67bc7ee884eb54d04c",
-      ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/examples/README.md": "d1b655658a66f0bb81d2c5e6b1c117d6dc722538cb1f43deb1ab909601aa4760",
+      ".agents/skills/avoid-ai-writing/package.json": "db450ccc0c4dcb9d7d1ac6165750e567005209af9cf61db24bd56981aba352ea",
+      ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/.claude-plugin/plugin.json": "dae1d3956613c9b0034a2fbffda38b302637f1748898531d2524febe70c39bab",
+      ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "031c8ad21ea2a8ce93c4af97f82cf0218fabeb8450ad2d5fce41a76fac1eebd7",
+      ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/detector/CATEGORIES.md": "fb303990be9e9da197ab83ac5b9ff3539de63b827641f3760493a13bc1763256",
+      ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/detector/patterns.js": "37d6b022821f592b062e421c639789861b692e22388f65e8db0692154f7a59fd",
+      ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/detector/validate.js": "00c36a802373e263120325c4180e34d7bf2f64196f850b76226e90a09c7f22c9",
+      ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/examples/README.md": "d1e0ca4d2c100b2f276253a9964506b3a92a161068ca327f9c4f06e77e04bc39",
       ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/examples/prose.json": "720a208037e469e3e4234aa41a05d13f9600dc6d562e40e033c41f0fa7fead3f",
       ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/examples/technical.json": "f44c732fa3d222b997fa1310f2b74e1c2d6d619c3e47249833a66816b08cc969",
-      ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/references/patterns.md": "d6f45ffdaf9914270243208e59136d76cbb4e128f28586aeda47b5925eff2011",
+      ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/references/patterns.md": "d5452a813006840b47273b0c1ddd4ca655733cbab4db9fbe19e803c03e77c499",
       ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/scripts/check-style.js": "a7265f5b5dd3312c4cafa5d395300cdf6156876ef60b499cde06f63eea8a374f",
       ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/scripts/markdown-prose.js": "bd3cc9a98081728f9b663c4943b38e3bf2ceea389721b45bb5abccba0b916903",
       ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/scripts/normalize-quotes.js": "9d3ee6f66d8e70041a66d60a41d60fc53ea6308c20728e48cbb71dc2493bfb65",
-      ".agents/skills/avoid-ai-writing/references/patterns.md": "d6f45ffdaf9914270243208e59136d76cbb4e128f28586aeda47b5925eff2011",
+      ".agents/skills/avoid-ai-writing/references/patterns.md": "d5452a813006840b47273b0c1ddd4ca655733cbab4db9fbe19e803c03e77c499",
+      ".agents/skills/avoid-ai-writing/scripts/check-detect-audit.test.js": "5cdfcbb02ba55cfc2d6001ad07fc6a2846de4bca96eadb8bdf85f6b6c8965c0c",
       ".agents/skills/avoid-ai-writing/scripts/check-pattern-count.sh": "dc19d647b444da2fde125331ba0124b9a57e4e53b922db78936ea142f95429f7",
       ".agents/skills/avoid-ai-writing/scripts/check-ssot-controls.py": "04cd2824f826955c78d9ccabca93c5026e673f8debaa95f6bf9a34976b71d138",
       ".agents/skills/avoid-ai-writing/scripts/check-style.js": "a7265f5b5dd3312c4cafa5d395300cdf6156876ef60b499cde06f63eea8a374f",
-      ".agents/skills/avoid-ai-writing/scripts/check-style.test.js": "a5c058715e97b064b39e703bc21496bbe84e442389e9905fc4fc8a749816275c",
+      ".agents/skills/avoid-ai-writing/scripts/check-style.test.js": "7b0591e71f2905ffd7df61b7c6db9c31c32b2383d89b278716ca7763aeef00cf",
+      ".agents/skills/avoid-ai-writing/scripts/corpus-intake-example.test.js": "a1e967fd7f4aa51bb8a6e975ded9842cfcfa441fa7b83ac741dcd0deea6672d5",
       ".agents/skills/avoid-ai-writing/scripts/corpus.js": "1cdc2207e02e72d14626464f7f7f8cb7d331123c03af8342ec74a788a7417c86",
       ".agents/skills/avoid-ai-writing/scripts/corpus.test.js": "4000d88b5f799829a86883406aca4267b61ac26b5a8a4f46465329f85d034ecd",
       ".agents/skills/avoid-ai-writing/scripts/csv-lite.js": "374ddcb9cceb26105cea10a88004a4778407de3a244ca7672de9c011eaef33c5",
       ".agents/skills/avoid-ai-writing/scripts/dataset-hc3.js": "db0f4c6f22d006bcc3a406454534a3b17c66d853de220af3d1d436b3f82f352d",
       ".agents/skills/avoid-ai-writing/scripts/dataset-raid.js": "88e3c7a3da59a1fa4d6d8b0f271d36eeba31de7d5930b4616fb0031dbd778582",
+      ".agents/skills/avoid-ai-writing/scripts/detect-parity.test.js": "da317b7c94aa38d4aedb45cc762aa1c972d8d76e8bb1b1297dd83a7d0eed427c",
+      ".agents/skills/avoid-ai-writing/scripts/editorial-cards.test.js": "a918e511603e1e722c0bd82dbe99b3e35d2f940774556de20fb65ace1ab68b66",
+      ".agents/skills/avoid-ai-writing/scripts/fixtures/vale-export-94/cases.json": "b24596b541a3630caf520eca9daac1c977b64066c947a10c1ddad5b8d12b0719",
+      ".agents/skills/avoid-ai-writing/scripts/fixtures/vale-export-94/sample.json": "3174a7272452b667950843999a7b26a3de7acf18331856f8f292add34dc9f9a6",
       ".agents/skills/avoid-ai-writing/scripts/flatten-skill.js": "fe1b12341633230e2e1cb33fd2d8f513c4c09e5f6ae080b2396fad60f2c416d4",
       ".agents/skills/avoid-ai-writing/scripts/flatten-skill.test.js": "089609a1e3c40cb8a53e844afbfd97fafef41748cf05391ef94a459f8b87fcc4",
       ".agents/skills/avoid-ai-writing/scripts/fp-compare.js": "7d80dd8096704b4de4255565298c43e3839dfe391e03e6c365bf856f77018508",
@@ -935,34 +1099,38 @@
       ".agents/skills/avoid-ai-writing/scripts/fp-measure.js": "d148b0da2d18d6d48bd0391c5b1281984f143ca8c6c8b97365e75bf2c408c169",
       ".agents/skills/avoid-ai-writing/scripts/fp-measure.test.js": "2956ab1b03e3d287c7e53f9db4d5765ff3e5fef24cc88c526885a7bb39265e87",
       ".agents/skills/avoid-ai-writing/scripts/fp-preprocess.js": "caeac7254c34d7c1014aa007716f2077f5591ce803c066c6361d3eb7008b38fd",
-      ".agents/skills/avoid-ai-writing/scripts/fp-preprocess.test.js": "29f882a6183431caa4d2aec1fcafcfa0b0ea7b9684b6823a7e74c86439284d4e",
+      ".agents/skills/avoid-ai-writing/scripts/fp-preprocess.test.js": "cffd0c547d5d23e1aed1735ecebfb994bc6c614398e59a8fc26351fe4db90c0a",
       ".agents/skills/avoid-ai-writing/scripts/markdown-prose.js": "bd3cc9a98081728f9b663c4943b38e3bf2ceea389721b45bb5abccba0b916903",
       ".agents/skills/avoid-ai-writing/scripts/normalize-quotes.js": "9d3ee6f66d8e70041a66d60a41d60fc53ea6308c20728e48cbb71dc2493bfb65",
       ".agents/skills/avoid-ai-writing/scripts/normalize-quotes.test.js": "60713c2306859aaaa775d51cf7cd9d7bca3b88120c69e90e1c36ecf1755b3a0b",
       ".agents/skills/avoid-ai-writing/scripts/package-openai-plugin.py": "b5560e5a73626de08620faa292ccc13c5ce76860a85de2968632983c655a7a02",
       ".agents/skills/avoid-ai-writing/scripts/promo-drift-report.py": "ba3d61864f74d6d015f8bc88559f1c3a1a74ea3ca5523847c0e1d81a9795b19a",
+      ".agents/skills/avoid-ai-writing/scripts/reference-loading.js": "d440af2f1fb749d589c2a5c6463b988146b90c6e1a0a0a4c082501ba517b8bab",
+      ".agents/skills/avoid-ai-writing/scripts/reference-loading.test.js": "b1a8c38bbbd25d4243ba384c76b342ce081aee65c3a5e5ee85cdf0d5c9af665d",
       ".agents/skills/avoid-ai-writing/scripts/rewrite-demo.test.js": "a6ff74f158ea78184ca2f05158535e7239473d9a4867af2848451bf8313499c0",
       ".agents/skills/avoid-ai-writing/scripts/rewrite-eval-opencode.js": "1082ca13b3d253d4e4055fbc2bcc3f22dc22e70b2615a1d03d254e96633b8e1a",
       ".agents/skills/avoid-ai-writing/scripts/rewrite-eval-opencode.test.js": "e5dcdb3017ab3f7be71683b3f6e2634f2b90961f4762c8fc18eaf3adaeefa268",
       ".agents/skills/avoid-ai-writing/scripts/rewrite-eval.js": "5fb7e54944add0da1e60ef49024fb2a3d3fde71ac1eb8e4c3de4d8ce5b0129ab",
       ".agents/skills/avoid-ai-writing/scripts/rewrite-eval.test.js": "eddb06148d79c5789c7ee3d7717ee75f6a04370297dfb190e70d962eadedf4ee",
-      ".agents/skills/avoid-ai-writing/scripts/run-tests.js": "7d205386af028ad41d729913c17de313b2d70dc7750f432a66a312dc1667f7d2",
-      ".agents/skills/avoid-ai-writing/scripts/self-scan-diagnostics.test.js": "14f364b05cf4f8d701cf21cab86774e6777ab854e9ea318803f9fbddd5e4c9e1",
-      ".agents/skills/avoid-ai-writing/scripts/self-scan.js": "e8590f58963f49c801b0a46592bacbef53c2409bed93854f6effe11a1f0fbdc6",
-      ".agents/skills/avoid-ai-writing/scripts/self-scan.test.js": "1826a5febd2d7251dce762e683d33dc994d10da5176a7627322d7d9bc722f20e",
-      ".agents/skills/avoid-ai-writing/scripts/sync-cursor-rules.sh": "d33694ebcd11345992da506e3d9bb4fc12570a1e88fd283b92c2d9aaf3fb5760",
-      ".agents/skills/avoid-ai-writing/scripts/sync-plugin-skill.sh": "c322b1d928de2db3943b9f34387a7d76b97d227f98ca3d900671ac18dfc02991",
-      ".agents/skills/avoid-ai-writing/scripts/test-canonical-skill-package.js": "4a4759cef705bb39b13d5042eb59c4917dc25668ab6c3435e9af5633e47e49ee",
-      ".agents/skills/avoid-ai-writing/scripts/test-preservation-package.js": "eb8d349fb41ef4c07c20ad5ce5d06587d4cf1613f0d97268818c25248773096f",
-      ".agents/skills/avoid-ai-writing/scripts/validate-openai-plugin.py": "c8b20412e302fa8066a85e3235474d9beaf18775cc7df81d18837f60977722fa",
-      ".agents/skills/avoid-ai-writing/scripts/validate-openai-plugin.test.py": "e56e22a252a6b2f00d135980d262766f0b5977a0f87cb1a0d353fb9217a30a44",
+      ".agents/skills/avoid-ai-writing/scripts/run-tests.js": "ba5b493e9b13ab8c0b5b5fa9be2e35c64617c8be9345133036f6d40b10af71f3",
+      ".agents/skills/avoid-ai-writing/scripts/self-scan-diagnostics.test.js": "2b0ab4937b7df4cda393332e80f25cbb4ec0089a22aae6414d152e7272d67de9",
+      ".agents/skills/avoid-ai-writing/scripts/self-scan.js": "08f800d16972a43b352d48277c04ee6ce33946e71485e9d315366a8d48e178ee",
+      ".agents/skills/avoid-ai-writing/scripts/self-scan.test.js": "cc2ce7ed9ebb988af175fc063a50a446e90712081dca3542dffb02bfbd9583c0",
+      ".agents/skills/avoid-ai-writing/scripts/sync-cursor-rules.sh": "9bf39e0d79d61472a0c9b41ea8c6191c41c362d8460f124411d89fb89a25d2b4",
+      ".agents/skills/avoid-ai-writing/scripts/sync-plugin-skill.sh": "c1666470ef8a5b9612634c0301f7e72e9bf2c5c1897fb50e089cfaffbb889856",
+      ".agents/skills/avoid-ai-writing/scripts/test-canonical-skill-package.js": "503ec33037392316458dc185830e10d323fdc714f0c6b0b7e2bcace4b2fd347a",
+      ".agents/skills/avoid-ai-writing/scripts/test-preservation-package.js": "5d37605b7822656ce9f608439d39a2d8a09fc4f7c1ec624042823294f99a1f02",
+      ".agents/skills/avoid-ai-writing/scripts/vale-export-sample.js": "5b56ec85ec3869c8208e7aa111f1fecde392aad7fc3b9c9356310188dab2f34d",
+      ".agents/skills/avoid-ai-writing/scripts/vale-export-sample.test.js": "66e7a162e5755923be84dd89d545fdb2cf0448ee988d0c513fac33f3d2acab81",
+      ".agents/skills/avoid-ai-writing/scripts/validate-openai-plugin.py": "14b1cbfa171340f1c721a0d80ae718f8f2ebf3a2717befecb9cb3d097bcb345b",
+      ".agents/skills/avoid-ai-writing/scripts/validate-openai-plugin.test.py": "1a5f09b187e3295a36be0f24a14a8bc1598ca29e98598b73eb04366b6c9eee9c",
       ".agents/skills/avoid-ai-writing/scripts/verify-release-versions.js": "b8ab773eddd3516cc72a9c158f4d46f4c67d63093cb33eba2667575240352772",
       ".agents/skills/avoid-ai-writing/scripts/verify-release-versions.test.js": "188d45786f89c0e610952403c7ba1db704e7f5f26411706c138e807ecdcfe6f7",
-      ".agents/skills/avoid-ai-writing/skills/ai-writing-detector/SKILL.md": "af799b3012206d42fd395006e57d6794801819cdb73755bc545bdd6302d492d5",
+      ".agents/skills/avoid-ai-writing/skills/ai-writing-detector/SKILL.md": "27350f969fdbb261f7da28d9c0ce8efa805d29e2bd7aeedf736605abf38d2010",
       ".agents/skills/avoid-ai-writing/skills/ai-writing-detector/agents/openai.yaml": "3d814bc1394a5f9e22142082eff0943b5534c8690011ae650ae32aa505f1f898",
-      ".agents/skills/avoid-ai-writing/skills/ai-writing-detector/scripts/detect.js": "87e021e73534fcff0f17e4f46c184eac6749b96cb30328d7b1b12a0b8ed9a2c5",
-      ".agents/skills/avoid-ai-writing/skills/ai-writing-detector/scripts/patterns.js": "1ad7ed44ddc4d266b2c168d1df384e3d30ba225ff74d72db0ac71f49c060db3d",
-      ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing-router/SKILL.md": "e366396bfd0cac0d64c0e7cb451f50cb8024ab295b7fdde81cc8c55aee0a395b",
+      ".agents/skills/avoid-ai-writing/skills/ai-writing-detector/scripts/detect.js": "ca8d402aa020f41a51c2af72748ee609be9f6829e1db7ca109fec55a0a06226c",
+      ".agents/skills/avoid-ai-writing/skills/ai-writing-detector/scripts/patterns.js": "37d6b022821f592b062e421c639789861b692e22388f65e8db0692154f7a59fd",
+      ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing-router/SKILL.md": "24e1f157359be6b011407fda91a22ce9a372e3f54fa4f3078229d4b4cdd904c4",
       ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing-router/agents/openai.yaml": "1a3770a526a195bb8fa4088adc47df8ef64f7891e9c51c18ff5e25fac2565412",
       ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing-router/references/agency-role-lenses.md": "8b51d8116d937dfceae3161f302ac4e757b52eba3cd7e897715a7d07939546a8",
       ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing-router/references/handoff-contract.md": "8dcd66d4e71548d6ad1fb53bbd666ca4278688b8d21d7c7398ac489652725e8f",
@@ -970,33 +1138,33 @@
       ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing-router/references/skill-graph.json": "ce2c758878a35c63c5923604e55eed9b2ec8ef93fbab5de3ec4cadad9f077c9f",
       ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing-router/scripts/validate_connections.py": "1cb464407a64bb1dccea99038c53ec95988e42318400b7854511fc0580007a97",
       ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing-router/scripts/validate_connections.test.py": "d434d6c723109c4386cb2adbf25396fd0a151ddd8700ccb84aa1ea782b2b858e",
-      ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "77288f96a2ff93bb97970ef6c7a5ad9653d469c536dd88c6db606762f197d1ff",
+      ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "af4be7fb7898d00a9fca25b54ffe6d0f123117989aa60732d1be7dc69fac0491",
       ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/agents/openai.yaml": "cc9c3a3cf200e64753cd182c9ed85fa1fa378ce6f02d9d4318ab9e918847d2fe",
-      ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/detector/CATEGORIES.md": "378d95767421d161dbf222e05ca47ef7f350dd7362539be611ffc9d82d708b50",
-      ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/detector/patterns.js": "1ad7ed44ddc4d266b2c168d1df384e3d30ba225ff74d72db0ac71f49c060db3d",
-      ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/detector/validate.js": "fd6f11f5a68b82a40579a868d1a02085843f1202ada79f67bc7ee884eb54d04c",
-      ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/examples/README.md": "d1b655658a66f0bb81d2c5e6b1c117d6dc722538cb1f43deb1ab909601aa4760",
+      ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/detector/CATEGORIES.md": "fb303990be9e9da197ab83ac5b9ff3539de63b827641f3760493a13bc1763256",
+      ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/detector/patterns.js": "37d6b022821f592b062e421c639789861b692e22388f65e8db0692154f7a59fd",
+      ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/detector/validate.js": "00c36a802373e263120325c4180e34d7bf2f64196f850b76226e90a09c7f22c9",
+      ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/examples/README.md": "d1e0ca4d2c100b2f276253a9964506b3a92a161068ca327f9c4f06e77e04bc39",
       ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/examples/prose.json": "720a208037e469e3e4234aa41a05d13f9600dc6d562e40e033c41f0fa7fead3f",
       ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/examples/technical.json": "f44c732fa3d222b997fa1310f2b74e1c2d6d619c3e47249833a66816b08cc969",
-      ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/references/patterns.md": "d6f45ffdaf9914270243208e59136d76cbb4e128f28586aeda47b5925eff2011",
+      ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/references/patterns.md": "d5452a813006840b47273b0c1ddd4ca655733cbab4db9fbe19e803c03e77c499",
       ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/scripts/check-style.js": "a7265f5b5dd3312c4cafa5d395300cdf6156876ef60b499cde06f63eea8a374f",
       ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/scripts/markdown-prose.js": "bd3cc9a98081728f9b663c4943b38e3bf2ceea389721b45bb5abccba0b916903",
       ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/scripts/normalize-quotes.js": "9d3ee6f66d8e70041a66d60a41d60fc53ea6308c20728e48cbb71dc2493bfb65",
-      ".agents/skills/avoid-ai-writing/skills/false-positive-reviewer/SKILL.md": "e83bead8603a4de54a956139800e76125ee1211c0bee5096b9a0bf02e926e1b4",
+      ".agents/skills/avoid-ai-writing/skills/false-positive-reviewer/SKILL.md": "194721b0b52945db38ef0f97ec5170b91489c2b76d7defbb29b099380ef76e2b",
       ".agents/skills/avoid-ai-writing/skills/false-positive-reviewer/agents/openai.yaml": "84b23d5be01a6948dd5edc6916084980dd54aea1a8845df3a6421baa48707b75",
-      ".agents/skills/avoid-ai-writing/skills/file-edit-in-place/SKILL.md": "c3a52b2737128ab320c11163cd627bfed1195f2345b4a6d06c852fe3f0477074",
+      ".agents/skills/avoid-ai-writing/skills/file-edit-in-place/SKILL.md": "d35752b7eb3f164cb793e9d05941b0bb748b114ef9bf80763a3ed0a0216dd6a1",
       ".agents/skills/avoid-ai-writing/skills/file-edit-in-place/agents/openai.yaml": "4e3522dea1df9d2a6cc102604a8628b78353d80dc1a344185dd12d5190ccad08",
-      ".agents/skills/avoid-ai-writing/skills/preservation-verifier/SKILL.md": "1e46b9309d9827dc63811fd3ad4da62d5fc3ce245d050e07925c35fd50441a8d",
+      ".agents/skills/avoid-ai-writing/skills/preservation-verifier/SKILL.md": "e67c6f9708f7af626550a0b3ef90f8687bc73bf931a0942fafed9fd4697cf14d",
       ".agents/skills/avoid-ai-writing/skills/preservation-verifier/agents/openai.yaml": "1ad71bd88d5654b07171b872da8882d318ad5984dce1d6d72b6bb7dcae75e694",
-      ".agents/skills/avoid-ai-writing/skills/preservation-verifier/scripts/patterns.js": "1ad7ed44ddc4d266b2c168d1df384e3d30ba225ff74d72db0ac71f49c060db3d",
-      ".agents/skills/avoid-ai-writing/skills/preservation-verifier/scripts/validate.js": "fd6f11f5a68b82a40579a868d1a02085843f1202ada79f67bc7ee884eb54d04c",
-      ".agents/skills/avoid-ai-writing/skills/voice-preserving-rewriter/SKILL.md": "b1a6cb41822af0f24e5217f8340778f3ef927ad876f0a4a6a6f5a23a02107cd3",
+      ".agents/skills/avoid-ai-writing/skills/preservation-verifier/scripts/patterns.js": "37d6b022821f592b062e421c639789861b692e22388f65e8db0692154f7a59fd",
+      ".agents/skills/avoid-ai-writing/skills/preservation-verifier/scripts/validate.js": "00c36a802373e263120325c4180e34d7bf2f64196f850b76226e90a09c7f22c9",
+      ".agents/skills/avoid-ai-writing/skills/voice-preserving-rewriter/SKILL.md": "e55e446132bd75295701af3c9542b5229afd2cc36bd4285e0f7baa3a86db6660",
       ".agents/skills/avoid-ai-writing/skills/voice-preserving-rewriter/agents/openai.yaml": "9488c6b9912377e3ebc3d68a4081aa591e2fc69b4b09215eaf64b36017b8ef21",
       ".agents/skills/avoid-ai-writing/submission/discovery-evals.json": "369db7f1a120f98ed14c4d97ae5e71e6c6141048ee1dab52d336ce91be6f16d9",
-      ".agents/skills/avoid-ai-writing/submission/listing.json": "5925c9d58127d5830925aeb1915ea987a4b1b5b3d6106f3c4aa04d5bd384f967",
+      ".agents/skills/avoid-ai-writing/submission/listing.json": "e3401154eb41e58c51ff91c218db1c6e7779dd6e84c930f4759fa62bb216d4da",
       ".agents/skills/avoid-ai-writing/submission/release-notes.md": "38cef7e60943ebbb1bd40c230077f6e0fee9b90a47fe8e67defb8ff64addeba4",
       ".agents/skills/avoid-ai-writing/submission/reviewer-tests.json": "10d5f15a4143022e747a875969c7ad80e4b8b8c681e2da97f152d4b9f480ad7d",
-      ".agents/skills/avoid-ai-writing/submission/submission-pack.json": "e3c58d346abce5ee4ef23243abcd69037069219f29d97e30cc19c03392a7e3e5",
+      ".agents/skills/avoid-ai-writing/submission/submission-pack.json": "4bc426e9f5679560f517dd7cdd7a41fe0095ebcc9b7ded3d104931838f15ec2b",
       ".agents/skills/awesome-design-md/.github/FUNDING.yml": "c83e2ddee6671fe8ab439fce89f49e0e5dc4ade984e78186df3f046f1d77094c",
       ".agents/skills/awesome-design-md/.github/ISSUE_TEMPLATE/design-md-request.yml": "d6def674a6bd32f667f486a566c7ad0b42dcfa618b909af773234d7540eeedc0",
       ".agents/skills/awesome-design-md/.gitignore": "cf237c7aff44efbe6e502e645c3e06da03a69d7bdeb43392108ef3348143417e",
@@ -1717,7 +1885,7 @@
       ".agents/skills/ui-ux-pro-max/data/ui-reasoning.csv": "f0774dd741cecdad5eec842034bd6d5e9ea50e9f220a1910069748daa0bb8e9a",
       ".agents/skills/ui-ux-pro-max/data/ux-guidelines.csv": "ff81ec613f70ba9fc3fcce52dbe4ae35d44b2079dbe6dc066d2d6e38c28facd5",
       ".agents/skills/ui-ux-pro-max/data/web-interface.csv": "10bfc24e09a6a15db8309e6ef9b6881e1d4af97dffb7c99418aefb8e30df7d54",
-      ".agents/skills/ui-ux-pro-max/scripts/core.py": "e544826963efefce3c59b65e18d83d92a5baf571f05458025bf1fa9021eced42",
+      ".agents/skills/ui-ux-pro-max/scripts/core.py": "fb2fd69ba122cccba7a1a664396872f4f9ffcb38284e83238694394d1adecd56",
       ".agents/skills/ui-ux-pro-max/scripts/design_system.py": "6a94743c3362c9c7e6d1450b94f4014d9ea752e7b4e151f6f0bdb217e0544bf7",
       ".agents/skills/ui-ux-pro-max/scripts/reasoning_contract.py": "b8bac1af82aa280d3e06f00aabaeac4337e632996b07fed874e2b6ee6e9c5913",
       ".agents/skills/ui-ux-pro-max/scripts/search.py": "8373e2dd2d560d9853ec116140de0e0d5bee45a6abe5e041173c84e1c36a7f87",
@@ -1761,7 +1929,7 @@
     "discoverableSkills": 146,
     "duplicatesPreservedAsReferences": 2,
     "rules": 9,
-    "generatedFiles": 1884
+    "generatedFiles": 2052
   },
   "duplicateReferences": {
     "skills/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "skills/avoid-ai-writing/skills/avoid-ai-writing/REFERENCE.md",
@@ -4695,13 +4863,13 @@
     },
     "skills/avoid-ai-writing/.codex-plugin/plugin.json": {
       "source": ".agents/skills/avoid-ai-writing/.codex-plugin/plugin.json",
-      "sourceHash": "a5c702ed8ffc2602c00e1436941aa3a0a6f901978538887dd88126388346aa49",
-      "outputHash": "a5c702ed8ffc2602c00e1436941aa3a0a6f901978538887dd88126388346aa49"
+      "sourceHash": "40f9bc49edf2a2e25090bc2b37363e2d32a2e882d874062b34253c70b43760df",
+      "outputHash": "40f9bc49edf2a2e25090bc2b37363e2d32a2e882d874062b34253c70b43760df"
     },
     "skills/avoid-ai-writing/.gitattributes": {
       "source": ".agents/skills/avoid-ai-writing/.gitattributes",
-      "sourceHash": "0381a600056d69f4eee4f33a60045eae59df82afda843adfe4286bf38cb1c012",
-      "outputHash": "0381a600056d69f4eee4f33a60045eae59df82afda843adfe4286bf38cb1c012"
+      "sourceHash": "492d0aff864e52a755e44c118780d08d0a548c6ce30ca7d2a18e689777b79680",
+      "outputHash": "492d0aff864e52a755e44c118780d08d0a548c6ce30ca7d2a18e689777b79680"
     },
     "skills/avoid-ai-writing/.github/CODEOWNERS": {
       "source": ".agents/skills/avoid-ai-writing/.github/CODEOWNERS",
@@ -4718,10 +4886,20 @@
       "sourceHash": "eb502f724bf3f0505e7d6d3a5fc7e96e8d2560c14781381cdeef24bb1e13462f",
       "outputHash": "eb502f724bf3f0505e7d6d3a5fc7e96e8d2560c14781381cdeef24bb1e13462f"
     },
+    "skills/avoid-ai-writing/.github/ISSUE_TEMPLATE/bug_report.yml": {
+      "source": ".agents/skills/avoid-ai-writing/.github/ISSUE_TEMPLATE/bug_report.yml",
+      "sourceHash": "cb942558828cf5371ffe99e19dd1c123428547b87f00e02996310c8f686f5514",
+      "outputHash": "cb942558828cf5371ffe99e19dd1c123428547b87f00e02996310c8f686f5514"
+    },
+    "skills/avoid-ai-writing/.github/ISSUE_TEMPLATE/config.yml": {
+      "source": ".agents/skills/avoid-ai-writing/.github/ISSUE_TEMPLATE/config.yml",
+      "sourceHash": "6897bd394d2963a22e277d000b736e8ac255458b8286cbf7938caf4e91c31b67",
+      "outputHash": "6897bd394d2963a22e277d000b736e8ac255458b8286cbf7938caf4e91c31b67"
+    },
     "skills/avoid-ai-writing/.github/ISSUE_TEMPLATE/false_positive.yml": {
       "source": ".agents/skills/avoid-ai-writing/.github/ISSUE_TEMPLATE/false_positive.yml",
-      "sourceHash": "a6c15e1c12bde0f407ee32ca9306734701de678351d7822ec6c8a2ae7ef2ee44",
-      "outputHash": "a6c15e1c12bde0f407ee32ca9306734701de678351d7822ec6c8a2ae7ef2ee44"
+      "sourceHash": "985ebbb23b237bf2fc126c6c0675c8104872bc353a1014628e0bcf554e59a288",
+      "outputHash": "985ebbb23b237bf2fc126c6c0675c8104872bc353a1014628e0bcf554e59a288"
     },
     "skills/avoid-ai-writing/.github/ISSUE_TEMPLATE/pattern_proposal.yml": {
       "source": ".agents/skills/avoid-ai-writing/.github/ISSUE_TEMPLATE/pattern_proposal.yml",
@@ -4730,8 +4908,8 @@
     },
     "skills/avoid-ai-writing/.github/PULL_REQUEST_TEMPLATE.md": {
       "source": ".agents/skills/avoid-ai-writing/.github/PULL_REQUEST_TEMPLATE.md",
-      "sourceHash": "d82ec54b3d1f863a62acebd5e54758723b8eb8b7620fbc540fda48cccec52459",
-      "outputHash": "d82ec54b3d1f863a62acebd5e54758723b8eb8b7620fbc540fda48cccec52459"
+      "sourceHash": "60be76830004c76f8ac82e04a2f071efa73a771830fef55982a436e50bc08bb8",
+      "outputHash": "60be76830004c76f8ac82e04a2f071efa73a771830fef55982a436e50bc08bb8"
     },
     "skills/avoid-ai-writing/.github/workflows/corpus-fetch.yml": {
       "source": ".agents/skills/avoid-ai-writing/.github/workflows/corpus-fetch.yml",
@@ -4740,8 +4918,8 @@
     },
     "skills/avoid-ai-writing/.github/workflows/detector-test.yml": {
       "source": ".agents/skills/avoid-ai-writing/.github/workflows/detector-test.yml",
-      "sourceHash": "12a6807dbaff17c0521385d01ab047850767609837890b57a50955ca39e457b5",
-      "outputHash": "12a6807dbaff17c0521385d01ab047850767609837890b57a50955ca39e457b5"
+      "sourceHash": "34198294484d7e69f068e5096f0155edf4fd2776c459658904b27dd10c3ef10e",
+      "outputHash": "34198294484d7e69f068e5096f0155edf4fd2776c459658904b27dd10c3ef10e"
     },
     "skills/avoid-ai-writing/.github/workflows/plugin-skill-sync.yml": {
       "source": ".agents/skills/avoid-ai-writing/.github/workflows/plugin-skill-sync.yml",
@@ -4750,13 +4928,13 @@
     },
     "skills/avoid-ai-writing/.github/workflows/promo-drift.yml": {
       "source": ".agents/skills/avoid-ai-writing/.github/workflows/promo-drift.yml",
-      "sourceHash": "20b4528be9cddf1154f217b52038bdb1ca350ea756707b6cb0712ca283abf592",
-      "outputHash": "20b4528be9cddf1154f217b52038bdb1ca350ea756707b6cb0712ca283abf592"
+      "sourceHash": "f6a9578b162270b7d5db5127498d39d6f03013faa3701aac33d39f170c71ccb8",
+      "outputHash": "f6a9578b162270b7d5db5127498d39d6f03013faa3701aac33d39f170c71ccb8"
     },
     "skills/avoid-ai-writing/.github/workflows/release.yml": {
       "source": ".agents/skills/avoid-ai-writing/.github/workflows/release.yml",
-      "sourceHash": "9aef039a850aa55a2f9774459d04ee62908230fefee22fca7614c035c1cf0340",
-      "outputHash": "9aef039a850aa55a2f9774459d04ee62908230fefee22fca7614c035c1cf0340"
+      "sourceHash": "bfabcfd2750669a2b9e81b99f39ba7a35957ee8019f364bb20c7f96bae1c7099",
+      "outputHash": "bfabcfd2750669a2b9e81b99f39ba7a35957ee8019f364bb20c7f96bae1c7099"
     },
     "skills/avoid-ai-writing/.github/workflows/ssot.yml": {
       "source": ".agents/skills/avoid-ai-writing/.github/workflows/ssot.yml",
@@ -4775,13 +4953,13 @@
     },
     "skills/avoid-ai-writing/.ssot-local.yaml": {
       "source": ".agents/skills/avoid-ai-writing/.ssot-local.yaml",
-      "sourceHash": "daa38a05cc0d146cf33c5c954f19b75e3326704f1c430667b941c306f973d2a4",
-      "outputHash": "daa38a05cc0d146cf33c5c954f19b75e3326704f1c430667b941c306f973d2a4"
+      "sourceHash": "8fc4d25fef3589f3f927df37863bf411c1a3034be898acd04723a7622cf276dc",
+      "outputHash": "8fc4d25fef3589f3f927df37863bf411c1a3034be898acd04723a7622cf276dc"
     },
     "skills/avoid-ai-writing/.ssot.yaml": {
       "source": ".agents/skills/avoid-ai-writing/.ssot.yaml",
-      "sourceHash": "1cb6c52469842f67cf720568afa6befc4024f7250cb14f3d89c73050446d798a",
-      "outputHash": "1cb6c52469842f67cf720568afa6befc4024f7250cb14f3d89c73050446d798a"
+      "sourceHash": "69b6989a8bce271e0155a813e9e58dfa5a3e2ce33cc69bf40ea3671ced15081f",
+      "outputHash": "69b6989a8bce271e0155a813e9e58dfa5a3e2ce33cc69bf40ea3671ced15081f"
     },
     "skills/avoid-ai-writing/action.yml": {
       "source": ".agents/skills/avoid-ai-writing/action.yml",
@@ -4805,98 +4983,108 @@
     },
     "skills/avoid-ai-writing/bin/avoid-ai-writing-gate.js": {
       "source": ".agents/skills/avoid-ai-writing/bin/avoid-ai-writing-gate.js",
-      "sourceHash": "48e56b65fbbecb7c0261b904d2d493ebb72d72f1d993043f1988d6507eeea3c0",
-      "outputHash": "48e56b65fbbecb7c0261b904d2d493ebb72d72f1d993043f1988d6507eeea3c0"
+      "sourceHash": "8d584a2145f0991842fea4bb21d6ed06f34b2af3073bbe9ff5b20bce7e3e2a76",
+      "outputHash": "8d584a2145f0991842fea4bb21d6ed06f34b2af3073bbe9ff5b20bce7e3e2a76"
     },
     "skills/avoid-ai-writing/bin/avoid-ai-writing-gate.test.js": {
       "source": ".agents/skills/avoid-ai-writing/bin/avoid-ai-writing-gate.test.js",
-      "sourceHash": "c4a30a02dc820fca5e5c1370c51c93b4c32f0c3ac4110e0bf5e8a4f528a727c0",
-      "outputHash": "c4a30a02dc820fca5e5c1370c51c93b4c32f0c3ac4110e0bf5e8a4f528a727c0"
+      "sourceHash": "ab77f98957981d14fd01b8ad0b2d0f738521cbc9fab7700e0e28eed123403964",
+      "outputHash": "ab77f98957981d14fd01b8ad0b2d0f738521cbc9fab7700e0e28eed123403964"
     },
     "skills/avoid-ai-writing/bin/avoid-ai-writing.js": {
       "source": ".agents/skills/avoid-ai-writing/bin/avoid-ai-writing.js",
-      "sourceHash": "3368d6dd1853164a4cd52c2eb08f0de4f7bf271b4e7858af28decab89f4326dd",
-      "outputHash": "3368d6dd1853164a4cd52c2eb08f0de4f7bf271b4e7858af28decab89f4326dd"
+      "sourceHash": "02e10238cf9f9025d193c105153aa8328ac942031ad1f0453f841889dbe33e50",
+      "outputHash": "02e10238cf9f9025d193c105153aa8328ac942031ad1f0453f841889dbe33e50"
     },
     "skills/avoid-ai-writing/bin/avoid-ai-writing.test.js": {
       "source": ".agents/skills/avoid-ai-writing/bin/avoid-ai-writing.test.js",
-      "sourceHash": "cc39ffdbe880eb03a664007a79bf4ce3aa64613c8cb7767b5fbaa7b021d1936b",
-      "outputHash": "cc39ffdbe880eb03a664007a79bf4ce3aa64613c8cb7767b5fbaa7b021d1936b"
+      "sourceHash": "06c1b1b2cb97f74508c2d289c5e3b1d2d4646b30141f2e0412126ed119c73d87",
+      "outputHash": "06c1b1b2cb97f74508c2d289c5e3b1d2d4646b30141f2e0412126ed119c73d87"
     },
     "skills/avoid-ai-writing/CHANGELOG.md": {
       "source": ".agents/skills/avoid-ai-writing/CHANGELOG.md",
-      "sourceHash": "44c3941d50552a45abfe937883d73f36ba463f2272e245b6da350b81cca5c50a",
-      "outputHash": "44c3941d50552a45abfe937883d73f36ba463f2272e245b6da350b81cca5c50a"
+      "sourceHash": "a6a1629fb28389e8e80ea0268038f85170898c1b5c10e1b8cc69ca4a371fb99f",
+      "outputHash": "a6a1629fb28389e8e80ea0268038f85170898c1b5c10e1b8cc69ca4a371fb99f"
     },
     "skills/avoid-ai-writing/CLAUDE.md": {
       "source": ".agents/skills/avoid-ai-writing/CLAUDE.md",
-      "sourceHash": "3237bc8187a8922a90a7435d442516ab9e78a8ce2a1f3f307a113c826a63bc6c",
-      "outputHash": "3237bc8187a8922a90a7435d442516ab9e78a8ce2a1f3f307a113c826a63bc6c"
+      "sourceHash": "3c02886bc6d884682b42558ec042dce4b1c6de44c79071bae65436da6797a6a4",
+      "outputHash": "9dcab285639c52c51c3367472197b60d2b7db987fa855ab8b2298947eebbeac9"
     },
     "skills/avoid-ai-writing/CONTRIBUTING.md": {
       "source": ".agents/skills/avoid-ai-writing/CONTRIBUTING.md",
-      "sourceHash": "a1969463ef3d396751190996941655a1baffa9add9d05f79d5423b58788e10d4",
-      "outputHash": "a1969463ef3d396751190996941655a1baffa9add9d05f79d5423b58788e10d4"
+      "sourceHash": "5373b2606c4275d467f7325f9cad51953d6a12e55bd62558db5d64aee9186e57",
+      "outputHash": "f267089b9b5cde2e108d3313e4219672d30e65adbf2c5d15d36d64da905457ca"
+    },
+    "skills/avoid-ai-writing/corpus/INTAKE_TASKS.md": {
+      "source": ".agents/skills/avoid-ai-writing/corpus/INTAKE_TASKS.md",
+      "sourceHash": "f9cf4250e0c11fb431c5bc7ac87f1d999882d5e8de9a9a3564099e348608f257",
+      "outputHash": "f9cf4250e0c11fb431c5bc7ac87f1d999882d5e8de9a9a3564099e348608f257"
+    },
+    "skills/avoid-ai-writing/corpus/intake-candidates.json": {
+      "source": ".agents/skills/avoid-ai-writing/corpus/intake-candidates.json",
+      "sourceHash": "946fd7f2718918ffbb3b0672150928ec53a16a7677081834302b60ff4cbc6d28",
+      "outputHash": "946fd7f2718918ffbb3b0672150928ec53a16a7677081834302b60ff4cbc6d28"
     },
     "skills/avoid-ai-writing/corpus/manifest.json": {
       "source": ".agents/skills/avoid-ai-writing/corpus/manifest.json",
-      "sourceHash": "dac828af8f6b91b29be203c204756d18b8c80621c3ef1ef481fb7eddb09911fa",
-      "outputHash": "dac828af8f6b91b29be203c204756d18b8c80621c3ef1ef481fb7eddb09911fa"
+      "sourceHash": "77e1fc016239f9d92e352db0f02b5fe46acbbc207ee254a454cb5de6992bef00",
+      "outputHash": "77e1fc016239f9d92e352db0f02b5fe46acbbc207ee254a454cb5de6992bef00"
     },
     "skills/avoid-ai-writing/corpus/README.md": {
       "source": ".agents/skills/avoid-ai-writing/corpus/README.md",
-      "sourceHash": "1e91e28153b0a3ab0cb58042b5caf30e08c6db5898236f95d464016861230ef9",
-      "outputHash": "1e91e28153b0a3ab0cb58042b5caf30e08c6db5898236f95d464016861230ef9"
+      "sourceHash": "8ddf7a4d38609682ea3a36383b907f682d58b703ece4f37935d2ac134a3a9af8",
+      "outputHash": "8ddf7a4d38609682ea3a36383b907f682d58b703ece4f37935d2ac134a3a9af8"
     },
     "skills/avoid-ai-writing/cursor-rules/avoid-ai-writing.mdc": {
       "source": ".agents/skills/avoid-ai-writing/cursor-rules/avoid-ai-writing.mdc",
-      "sourceHash": "374678da22c12612ab1391961129467f52123fa117291164b498854ae033b448",
-      "outputHash": "374678da22c12612ab1391961129467f52123fa117291164b498854ae033b448"
+      "sourceHash": "6eb536821e4381184e3d43c215b0aa53798e66c73405e500cecf6dd7b9fa6f57",
+      "outputHash": "6eb536821e4381184e3d43c215b0aa53798e66c73405e500cecf6dd7b9fa6f57"
     },
     "skills/avoid-ai-writing/cursor-rules/README.md": {
       "source": ".agents/skills/avoid-ai-writing/cursor-rules/README.md",
-      "sourceHash": "6935380d1cd303e21c67495e55ec47110a59999e69156a4bd36b03d6cf4e2567",
-      "outputHash": "6935380d1cd303e21c67495e55ec47110a59999e69156a4bd36b03d6cf4e2567"
+      "sourceHash": "b4ead33f0a9dd10c5b8c96f89b9ecb825d8465c36ffa8211e2a98fa8e4d65ba3",
+      "outputHash": "b4ead33f0a9dd10c5b8c96f89b9ecb825d8465c36ffa8211e2a98fa8e4d65ba3"
     },
     "skills/avoid-ai-writing/detector/CATEGORIES.md": {
       "source": ".agents/skills/avoid-ai-writing/detector/CATEGORIES.md",
-      "sourceHash": "378d95767421d161dbf222e05ca47ef7f350dd7362539be611ffc9d82d708b50",
-      "outputHash": "378d95767421d161dbf222e05ca47ef7f350dd7362539be611ffc9d82d708b50"
+      "sourceHash": "fb303990be9e9da197ab83ac5b9ff3539de63b827641f3760493a13bc1763256",
+      "outputHash": "88fc35ec72082f704b6c2531db196cb3b12d669602fd66872457ab9d7c85b1b2"
     },
     "skills/avoid-ai-writing/detector/categories.test.js": {
       "source": ".agents/skills/avoid-ai-writing/detector/categories.test.js",
-      "sourceHash": "947a1b0db0e8a4ccd7e2d0513f9766c99ef3c24674b6cbe4a0c14e79b0847f01",
-      "outputHash": "947a1b0db0e8a4ccd7e2d0513f9766c99ef3c24674b6cbe4a0c14e79b0847f01"
+      "sourceHash": "571144f75dbbc36f7b7a816739413b4d603419baf5e0b5d18db477cb23647a5c",
+      "outputHash": "571144f75dbbc36f7b7a816739413b4d603419baf5e0b5d18db477cb23647a5c"
     },
     "skills/avoid-ai-writing/detector/patterns.js": {
       "source": ".agents/skills/avoid-ai-writing/detector/patterns.js",
-      "sourceHash": "1ad7ed44ddc4d266b2c168d1df384e3d30ba225ff74d72db0ac71f49c060db3d",
-      "outputHash": "1ad7ed44ddc4d266b2c168d1df384e3d30ba225ff74d72db0ac71f49c060db3d"
+      "sourceHash": "37d6b022821f592b062e421c639789861b692e22388f65e8db0692154f7a59fd",
+      "outputHash": "37d6b022821f592b062e421c639789861b692e22388f65e8db0692154f7a59fd"
     },
     "skills/avoid-ai-writing/detector/patterns.test.js": {
       "source": ".agents/skills/avoid-ai-writing/detector/patterns.test.js",
-      "sourceHash": "27e230f67bde0817f8fef9af0562ef98e45a2b388734f8229b2ec11baee727a7",
-      "outputHash": "27e230f67bde0817f8fef9af0562ef98e45a2b388734f8229b2ec11baee727a7"
+      "sourceHash": "6b4a49e3eb5540df2ce35dc488d5819246ee6ef2b71b88a605fee38a1b70cb25",
+      "outputHash": "6b4a49e3eb5540df2ce35dc488d5819246ee6ef2b71b88a605fee38a1b70cb25"
     },
     "skills/avoid-ai-writing/detector/README.md": {
       "source": ".agents/skills/avoid-ai-writing/detector/README.md",
-      "sourceHash": "fff25e0666a7e93e6a096646211d5d38af47068fa95329a0f4922b68c834bc71",
-      "outputHash": "17e70dfccd84bd0c8cb3b5d222cff5628ad02b72705c645366ea7da2f077355d"
+      "sourceHash": "6d3e7b7729350bbbb7bca8625102c21a7415882b7be6a735cfbd122388163e42",
+      "outputHash": "bf4719b3f1afd9fb49d78d6fdbffc32bbdb47f5140000945aad877f4937701f8"
     },
     "skills/avoid-ai-writing/detector/validate.js": {
       "source": ".agents/skills/avoid-ai-writing/detector/validate.js",
-      "sourceHash": "fd6f11f5a68b82a40579a868d1a02085843f1202ada79f67bc7ee884eb54d04c",
-      "outputHash": "fd6f11f5a68b82a40579a868d1a02085843f1202ada79f67bc7ee884eb54d04c"
+      "sourceHash": "00c36a802373e263120325c4180e34d7bf2f64196f850b76226e90a09c7f22c9",
+      "outputHash": "00c36a802373e263120325c4180e34d7bf2f64196f850b76226e90a09c7f22c9"
     },
     "skills/avoid-ai-writing/detector/validate.test.js": {
       "source": ".agents/skills/avoid-ai-writing/detector/validate.test.js",
-      "sourceHash": "5ebe6c293135a28984b48a02c0562b61cc30194e84edca8318870305c60163a9",
-      "outputHash": "5ebe6c293135a28984b48a02c0562b61cc30194e84edca8318870305c60163a9"
+      "sourceHash": "af298d88f551123d98505647817dba71b01ca14c70f9437dbcf979da6893df0b",
+      "outputHash": "af298d88f551123d98505647817dba71b01ca14c70f9437dbcf979da6893df0b"
     },
     "skills/avoid-ai-writing/dist/avoid-ai-writing.md": {
       "source": ".agents/skills/avoid-ai-writing/dist/avoid-ai-writing.md",
-      "sourceHash": "181cdbfa51cd111a9ffc0d6167f2edf380ad0ecccf39e85a5eaa9923dfc68365",
-      "outputHash": "181cdbfa51cd111a9ffc0d6167f2edf380ad0ecccf39e85a5eaa9923dfc68365"
+      "sourceHash": "80b80de20122af7217456a747e8c0fb8ed9bf19977e05b8ec8e034b621e3bb65",
+      "outputHash": "80b80de20122af7217456a747e8c0fb8ed9bf19977e05b8ec8e034b621e3bb65"
     },
     "skills/avoid-ai-writing/docs/demo.gif": {
       "source": ".agents/skills/avoid-ai-writing/docs/demo.gif",
@@ -4913,6 +5101,21 @@
       "sourceHash": "546c62f7bc2e8a9bc4fffd408e69227d9ef143768f336870d3efc3dee10c3c87",
       "outputHash": "546c62f7bc2e8a9bc4fffd408e69227d9ef143768f336870d3efc3dee10c3c87"
     },
+    "skills/avoid-ai-writing/docs/vale-export-proposal.md": {
+      "source": ".agents/skills/avoid-ai-writing/docs/vale-export-proposal.md",
+      "sourceHash": "177d9a168c0bc5de182355fd32dab6368ac96d55f4941d29a2ab7c8be71fc240",
+      "outputHash": "177d9a168c0bc5de182355fd32dab6368ac96d55f4941d29a2ab7c8be71fc240"
+    },
+    "skills/avoid-ai-writing/evals/gate-calibration/2026-10-15.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/gate-calibration/2026-10-15.json",
+      "sourceHash": "f47857eb2dfa258d57f281e9d4b3b18ba4589a9eb36225d7790a738a3549a205",
+      "outputHash": "f47857eb2dfa258d57f281e9d4b3b18ba4589a9eb36225d7790a738a3549a205"
+    },
+    "skills/avoid-ai-writing/evals/gate-calibration/2026-10-15.md": {
+      "source": ".agents/skills/avoid-ai-writing/evals/gate-calibration/2026-10-15.md",
+      "sourceHash": "375ddef6d66e915d7224ef0757e8ef9eb1f30e3a9b06b834e297aa8a295a8b53",
+      "outputHash": "375ddef6d66e915d7224ef0757e8ef9eb1f30e3a9b06b834e297aa8a295a8b53"
+    },
     "skills/avoid-ai-writing/evals/rewrite/automated-gate.md": {
       "source": ".agents/skills/avoid-ai-writing/evals/rewrite/automated-gate.md",
       "sourceHash": "b053122789ec0813c875d93c79fa5480cb0e66cc5c4982d45d840530b03bfab3",
@@ -4920,23 +5123,38 @@
     },
     "skills/avoid-ai-writing/evals/rewrite/automated-scenarios.json": {
       "source": ".agents/skills/avoid-ai-writing/evals/rewrite/automated-scenarios.json",
-      "sourceHash": "9a66cd3dc8212363f076acc72956a1fdc504142abee81a5c6e529075064f9f70",
-      "outputHash": "9a66cd3dc8212363f076acc72956a1fdc504142abee81a5c6e529075064f9f70"
+      "sourceHash": "739587448d411bbc0c86fcf32f6d1eb4c3ded530137f2d7d8bde92f65eae4cc8",
+      "outputHash": "739587448d411bbc0c86fcf32f6d1eb4c3ded530137f2d7d8bde92f65eae4cc8"
     },
     "skills/avoid-ai-writing/evals/rewrite/cases.json": {
       "source": ".agents/skills/avoid-ai-writing/evals/rewrite/cases.json",
       "sourceHash": "e2d30c0d7ea3a9f329e677838d075950389a5edca18685242f51454fea926da7",
       "outputHash": "e2d30c0d7ea3a9f329e677838d075950389a5edca18685242f51454fea926da7"
     },
+    "skills/avoid-ai-writing/evals/rewrite/check-detect-audit.cjs": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/check-detect-audit.cjs",
+      "sourceHash": "c936f34e5f98cbcdbbca5096a0401c8b0a62ec1127de97639101991ff848dd62",
+      "outputHash": "c936f34e5f98cbcdbbca5096a0401c8b0a62ec1127de97639101991ff848dd62"
+    },
     "skills/avoid-ai-writing/evals/rewrite/demo.json": {
       "source": ".agents/skills/avoid-ai-writing/evals/rewrite/demo.json",
       "sourceHash": "422498f26a0c722df602cbb6a476eac41a9d86cb1277a7c67a667a8aa6daf879",
       "outputHash": "422498f26a0c722df602cbb6a476eac41a9d86cb1277a7c67a667a8aa6daf879"
     },
+    "skills/avoid-ai-writing/evals/rewrite/editorial-cards-206.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/editorial-cards-206.json",
+      "sourceHash": "10f2a7a816649313271f4a00b4d5d5c2143f82cbc0926687749e89f9a9ca14fd",
+      "outputHash": "10f2a7a816649313271f4a00b4d5d5c2143f82cbc0926687749e89f9a9ca14fd"
+    },
     "skills/avoid-ai-writing/evals/rewrite/output-contract-scenarios.md": {
       "source": ".agents/skills/avoid-ai-writing/evals/rewrite/output-contract-scenarios.md",
       "sourceHash": "04268da4c21d02892a89a01fa36454ddd136b8c4a931f9660cc12b0d00859c23",
       "outputHash": "04268da4c21d02892a89a01fa36454ddd136b8c4a931f9660cc12b0d00859c23"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/preservation-policy-cases.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/preservation-policy-cases.json",
+      "sourceHash": "3fb6345bd31c0d45fcb7d49c67828c97cc4e50806fc1c15fe71aae816dc0f7c6",
+      "outputHash": "3fb6345bd31c0d45fcb7d49c67828c97cc4e50806fc1c15fe71aae816dc0f7c6"
     },
     "skills/avoid-ai-writing/evals/rewrite/protocol.json": {
       "source": ".agents/skills/avoid-ai-writing/evals/rewrite/protocol.json",
@@ -4945,8 +5163,18 @@
     },
     "skills/avoid-ai-writing/evals/rewrite/README.md": {
       "source": ".agents/skills/avoid-ai-writing/evals/rewrite/README.md",
-      "sourceHash": "6805250b11d988eefe550ba039969be6ed97d6a795b493ef45cd21b43cecb38c",
-      "outputHash": "cd83f3729ce8803dad146d703eec40fb3089ccb1fc3e49940e1e24f936e6cf03"
+      "sourceHash": "ee2af726c748b4222e68fd11f26e021e5221a4dd70bf119ba5f3706a46907148",
+      "outputHash": "8f233d038f424d2889c676900639037d17d94440ca51159e46a70e0960d636c3"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reference-loading-205.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reference-loading-205.json",
+      "sourceHash": "24e7df85a0e4b045b4c0c0ba4236aaf42d877d4601ea4f4480a5c57cba1fdd73",
+      "outputHash": "24e7df85a0e4b045b4c0c0ba4236aaf42d877d4601ea4f4480a5c57cba1fdd73"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reference-loading-205.md": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reference-loading-205.md",
+      "sourceHash": "053c42bf410418d358baea19a99181c7c49ca2a3694804405fed4e1c274cb0b4",
+      "outputHash": "053c42bf410418d358baea19a99181c7c49ca2a3694804405fed4e1c274cb0b4"
     },
     "skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/.gitattributes": {
       "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/.gitattributes",
@@ -4965,8 +5193,8 @@
     },
     "skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/FOLLOWUP.md": {
       "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/FOLLOWUP.md",
-      "sourceHash": "b2adabffab3b09646a4e2e90d22dc00989817e3979d80a4fe7fe9f31d426c395",
-      "outputHash": "b2adabffab3b09646a4e2e90d22dc00989817e3979d80a4fe7fe9f31d426c395"
+      "sourceHash": "5e741901db34d858e65f1c55c97b0763496e9b81140009c26a52648f5426784e",
+      "outputHash": "5e741901db34d858e65f1c55c97b0763496e9b81140009c26a52648f5426784e"
     },
     "skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/free-route-evidence.json": {
       "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/free-route-evidence.json",
@@ -6095,8 +6323,8 @@
     },
     "skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/README.md": {
       "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/README.md",
-      "sourceHash": "e012992b6bea5a40d63202a20f9bf7863b24cf00920a2759c1b35b47f9bf079d",
-      "outputHash": "e012992b6bea5a40d63202a20f9bf7863b24cf00920a2759c1b35b47f9bf079d"
+      "sourceHash": "c23ccfd267300c389edda63ea2e689c75a069d04e80c8bdadae567fb08573279",
+      "outputHash": "c23ccfd267300c389edda63ea2e689c75a069d04e80c8bdadae567fb08573279"
     },
     "skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/README.txt": {
       "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/automated-stack-295-296-2026-09-16/README.txt",
@@ -6228,6 +6456,731 @@
       "sourceHash": "360267bd4140730426d14deb00386e7305a7637f5597da465ac0edb37bcd32b0",
       "outputHash": "360267bd4140730426d14deb00386e7305a7637f5597da465ac0edb37bcd32b0"
     },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/fixtures-frozen.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/fixtures-frozen.json",
+      "sourceHash": "302bf404ab84a18412d8cef22865fb29251754b6bdedb1b52fbbfff60ddc44e5",
+      "outputHash": "302bf404ab84a18412d8cef22865fb29251754b6bdedb1b52fbbfff60ddc44e5"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/A-responses.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/A-responses.json",
+      "sourceHash": "a480f07d9174bab6af9046d372f0f225a458c689bd28c5b478207fb2a9e5d163",
+      "outputHash": "a480f07d9174bab6af9046d372f0f225a458c689bd28c5b478207fb2a9e5d163"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/B-responses.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/B-responses.json",
+      "sourceHash": "101fc1f78cc1ac56eab2831248e7de5c3b2c433096ba82dfdcbc35ba7bb96320",
+      "outputHash": "101fc1f78cc1ac56eab2831248e7de5c3b2c433096ba82dfdcbc35ba7bb96320"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/blind-key.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/blind-key.json",
+      "sourceHash": "af79f0bc6cffb829d023dbdbfb3c4ea3ac3182c2999a1d60c8ad177686b1f954",
+      "outputHash": "af79f0bc6cffb829d023dbdbfb3c4ea3ac3182c2999a1d60c8ad177686b1f954"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/blind-review.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/blind-review.json",
+      "sourceHash": "ada0265ccdbab8827023bbe2f436e238f8b79ff167c740f1f292de272ae0a469",
+      "outputHash": "ada0265ccdbab8827023bbe2f436e238f8b79ff167c740f1f292de272ae0a469"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/expectations.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/expectations.json",
+      "sourceHash": "b407a60c8a9d0577feff009dea8157508b6f058707d9ee369c24618d6903ece0",
+      "outputHash": "b407a60c8a9d0577feff009dea8157508b6f058707d9ee369c24618d6903ece0"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/inputs.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/inputs.json",
+      "sourceHash": "84ccb60f097e1c5b6396b071939fdf7c37f12db5e4ffa9fad131f1aef77ec781",
+      "outputHash": "84ccb60f097e1c5b6396b071939fdf7c37f12db5e4ffa9fad131f1aef77ec781"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/method-frozen.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/method-frozen.json",
+      "sourceHash": "3b40cf9b5cbb4d57c0520bde008b46eb892c937a45d4c60bf33724fd967b8768",
+      "outputHash": "3b40cf9b5cbb4d57c0520bde008b46eb892c937a45d4c60bf33724fd967b8768"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/README.md": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/README.md",
+      "sourceHash": "e623fadee6139e16916b0085eb1402d58bddfc5271dc9829b016385f5a0b6d15",
+      "outputHash": "e623fadee6139e16916b0085eb1402d58bddfc5271dc9829b016385f5a0b6d15"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/source-snapshots/A-references-patterns.md.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/source-snapshots/A-references-patterns.md.txt",
+      "sourceHash": "f0c48a48ff80fd341ee863d8e73fd5d671b976b90d188eb7450df3bb59e36b53",
+      "outputHash": "f0c48a48ff80fd341ee863d8e73fd5d671b976b90d188eb7450df3bb59e36b53"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/source-snapshots/A-SKILL.md.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/source-snapshots/A-SKILL.md.txt",
+      "sourceHash": "2f6dc40a0108dca18fb487033dd6c47b55eb7ca5c8a8a2d0cc3c9de3f54a95f7",
+      "outputHash": "2f6dc40a0108dca18fb487033dd6c47b55eb7ca5c8a8a2d0cc3c9de3f54a95f7"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/source-snapshots/B-references-patterns.md.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/source-snapshots/B-references-patterns.md.txt",
+      "sourceHash": "d5452a813006840b47273b0c1ddd4ca655733cbab4db9fbe19e803c03e77c499",
+      "outputHash": "d5452a813006840b47273b0c1ddd4ca655733cbab4db9fbe19e803c03e77c499"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/sources.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/sources.json",
+      "sourceHash": "a74a3240f741dacf99e6078abde25d49093ab76a03ae861e4cadb1e1fbe4e1c3",
+      "outputHash": "a74a3240f741dacf99e6078abde25d49093ab76a03ae861e4cadb1e1fbe4e1c3"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/summary.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/followup/summary.json",
+      "sourceHash": "ad06e046f6ea4bdf15ef4765e4e64d6273f83b45b5470f1eea0d1466a728f749",
+      "outputHash": "ad06e046f6ea4bdf15ef4765e4e64d6273f83b45b5470f1eea0d1466a728f749"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/initial-baseline-responses.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/initial-baseline-responses.json",
+      "sourceHash": "8a64a32b957d03bc7dfe5dfafd475ad8be55c2c26ae11de1cc522b4530cf7d88",
+      "outputHash": "8a64a32b957d03bc7dfe5dfafd475ad8be55c2c26ae11de1cc522b4530cf7d88"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/initial-blind-key.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/initial-blind-key.json",
+      "sourceHash": "51978cf3aa973d4261f67795dc43b93083f51084a0de49342694beccb74f487e",
+      "outputHash": "51978cf3aa973d4261f67795dc43b93083f51084a0de49342694beccb74f487e"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/initial-blind-review.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/initial-blind-review.json",
+      "sourceHash": "473fa656f51e07a971c24018f7681783803d9475b8b4e6ec78059742d73a2fd1",
+      "outputHash": "473fa656f51e07a971c24018f7681783803d9475b8b4e6ec78059742d73a2fd1"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/initial-candidate-responses.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/initial-candidate-responses.json",
+      "sourceHash": "8278866583f9e5e692b7dd6f2eade4c4ef6d9c9e7b7a9fc47369813a5d3f3098",
+      "outputHash": "8278866583f9e5e692b7dd6f2eade4c4ef6d9c9e7b7a9fc47369813a5d3f3098"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/method-frozen.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/method-frozen.json",
+      "sourceHash": "8642818284c2fabd5d4d3feca659429a103aba8aa721bbd5e180dde2d36ed123",
+      "outputHash": "8642818284c2fabd5d4d3feca659429a103aba8aa721bbd5e180dde2d36ed123"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/README.md": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/README.md",
+      "sourceHash": "38dcc6affac3734d4e39379baffd6df237ae2503b9bd8e143f54cf7a321049a6",
+      "outputHash": "38dcc6affac3734d4e39379baffd6df237ae2503b9bd8e143f54cf7a321049a6"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/review-counts.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/review-counts.json",
+      "sourceHash": "de73366d3243289f6f68233b300958c05d516d955425833b82d5aecc15134aac",
+      "outputHash": "de73366d3243289f6f68233b300958c05d516d955425833b82d5aecc15134aac"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/revised-blind-key.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/revised-blind-key.json",
+      "sourceHash": "f58eef50c8d1eb8852a306253dc49606305d9f33157e03626c60ff016f3c3c2c",
+      "outputHash": "f58eef50c8d1eb8852a306253dc49606305d9f33157e03626c60ff016f3c3c2c"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/revised-blind-review.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/revised-blind-review.json",
+      "sourceHash": "3773adb8acbfa32ddf1f862d7deba81c5dd198c9134c104fad04148269aa3ca0",
+      "outputHash": "3773adb8acbfa32ddf1f862d7deba81c5dd198c9134c104fad04148269aa3ca0"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/revised-responses.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/revised-responses.json",
+      "sourceHash": "f4f8e246961d378fd0efe7a418274e8c36c0c38e6bcc7f17dc543092d2239236",
+      "outputHash": "f4f8e246961d378fd0efe7a418274e8c36c0c38e6bcc7f17dc543092d2239236"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/revision-method-frozen.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/revision-method-frozen.json",
+      "sourceHash": "068915801d8ba3c552fa8898db50cff46eb3eddc374fe78147f1ed41e8a40c6b",
+      "outputHash": "068915801d8ba3c552fa8898db50cff46eb3eddc374fe78147f1ed41e8a40c6b"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/source-snapshots/baseline-patterns.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/source-snapshots/baseline-patterns.txt",
+      "sourceHash": "d43f2450459c45e34d308fde94120b7947ed31023c0c96f6b3f63787e42120dd",
+      "outputHash": "d43f2450459c45e34d308fde94120b7947ed31023c0c96f6b3f63787e42120dd"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/source-snapshots/initial-patterns.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/source-snapshots/initial-patterns.txt",
+      "sourceHash": "1167820991d5f78cd098f0fa4ecfc83a9db713d6a16c5eea1d5e4587ce493793",
+      "outputHash": "1167820991d5f78cd098f0fa4ecfc83a9db713d6a16c5eea1d5e4587ce493793"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/source-snapshots/revised-patterns.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/source-snapshots/revised-patterns.txt",
+      "sourceHash": "e1207f2d620a565c1ed8503ea353b518c8d5251ac526667926a3688eba29db38",
+      "outputHash": "e1207f2d620a565c1ed8503ea353b518c8d5251ac526667926a3688eba29db38"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/source-snapshots/shared-entry.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/source-snapshots/shared-entry.txt",
+      "sourceHash": "ab255722f1826fd68cca01b703f625d318ee38361e512d21abf5d94b0c920b1f",
+      "outputHash": "ab255722f1826fd68cca01b703f625d318ee38361e512d21abf5d94b0c920b1f"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/source-snapshots.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/source-snapshots.json",
+      "sourceHash": "d573d02a219f815552a77658a4c4dd037dba52176ea1deac3d619059809a656c",
+      "outputHash": "d573d02a219f815552a77658a4c4dd037dba52176ea1deac3d619059809a656c"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/summary.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-2026-10-15/summary.json",
+      "sourceHash": "7615b7e9d4338aa3ea6f75f20074617f56914d9def526a286d94d5868f3ed7dd",
+      "outputHash": "7615b7e9d4338aa3ea6f75f20074617f56914d9def526a286d94d5868f3ed7dd"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/additional-family-method.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/additional-family-method.json",
+      "sourceHash": "880aff77f990b3becc9a788e78356b5289f308c99d035f50f4440aedb3447967",
+      "outputHash": "880aff77f990b3becc9a788e78356b5289f308c99d035f50f4440aedb3447967"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/check-repair-literals.py": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/check-repair-literals.py",
+      "sourceHash": "c784d7e3a74abb3ff682dd14b932a131a43715133b9750628f4ccdce38113d0c",
+      "outputHash": "c784d7e3a74abb3ff682dd14b932a131a43715133b9750628f4ccdce38113d0c"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-detect-result.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-detect-result.json",
+      "sourceHash": "3e83bd6eb445064514c2db803f776149bca153bde56645bb0abd68ee828071cd",
+      "outputHash": "3e83bd6eb445064514c2db803f776149bca153bde56645bb0abd68ee828071cd"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-editor-method.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-editor-method.json",
+      "sourceHash": "e5943a480693fb67f7ff8177f34d0c9ec868ee36a458b3ec1fb33b6c9950757a",
+      "outputHash": "e5943a480693fb67f7ff8177f34d0c9ec868ee36a458b3ec1fb33b6c9950757a"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-gate/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-gate/answer.txt",
+      "sourceHash": "ca25367c677f6e7e9af439475b7ae51cd537aa5aff2d3a6212909e8213b6d1e8",
+      "outputHash": "ca25367c677f6e7e9af439475b7ae51cd537aa5aff2d3a6212909e8213b6d1e8"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-gate/events.jsonl": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-gate/events.jsonl",
+      "sourceHash": "d13edefe8239ba4260e26d2cda3c3481bc407fc9f0327dce33bfb5ea7b8b0ecf",
+      "outputHash": "d13edefe8239ba4260e26d2cda3c3481bc407fc9f0327dce33bfb5ea7b8b0ecf"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-gate/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-gate/receipt.json",
+      "sourceHash": "7715ccd6e0f7895eb3c86a4e1f7e712575a2cf85f67f18339cf2f7566eb357be",
+      "outputHash": "7715ccd6e0f7895eb3c86a4e1f7e712575a2cf85f67f18339cf2f7566eb357be"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-gate-responses.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-gate-responses.json",
+      "sourceHash": "f0bd138cab158d25b6703561ac8f59412e399cbf6271b54494b8dfee7de6426c",
+      "outputHash": "f0bd138cab158d25b6703561ac8f59412e399cbf6271b54494b8dfee7de6426c"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-literal-result.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-literal-result.json",
+      "sourceHash": "71c1928c6d9bf755c2da9c448e03573230edc598b9b7cce600eb265a621c1c51",
+      "outputHash": "71c1928c6d9bf755c2da9c448e03573230edc598b9b7cce600eb265a621c1c51"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-repair/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-repair/answer.txt",
+      "sourceHash": "87e73b32b3440f38d36d1f1f5a36b4b033c913dede52ef6695c071618cccf885",
+      "outputHash": "87e73b32b3440f38d36d1f1f5a36b4b033c913dede52ef6695c071618cccf885"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-repair/events.jsonl": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-repair/events.jsonl",
+      "sourceHash": "a54e91db6abc9611e1c39a5ce915e3e5db9c2dfb2c2f7662e211a20f4bbf5c19",
+      "outputHash": "a54e91db6abc9611e1c39a5ce915e3e5db9c2dfb2c2f7662e211a20f4bbf5c19"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-repair/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-repair/receipt.json",
+      "sourceHash": "d2523f50201fd0751f5c5fb2ac048d62ee0beb01381722da21d93b8d0d25b4fe",
+      "outputHash": "d2523f50201fd0751f5c5fb2ac048d62ee0beb01381722da21d93b8d0d25b4fe"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-repair-responses.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/codex-repair-responses.json",
+      "sourceHash": "8540d1117a8511365a0477b83d52e43f6684dd79072cda860338d4453a4615ba",
+      "outputHash": "8540d1117a8511365a0477b83d52e43f6684dd79072cda860338d4453a4615ba"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/gate-scenarios.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/gate-scenarios.json",
+      "sourceHash": "072a84c4f2fcc76974434335e2811b0af34081d4d3680a7047835b606e233277",
+      "outputHash": "072a84c4f2fcc76974434335e2811b0af34081d4d3680a7047835b606e233277"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/gemma-fallback-method.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/gemma-fallback-method.json",
+      "sourceHash": "05c1704e1bbcfcb2dee1ed5686e9e9e02eed9c1d6d30008a8837b1b6c59fd66d",
+      "outputHash": "05c1704e1bbcfcb2dee1ed5686e9e9e02eed9c1d6d30008a8837b1b6c59fd66d"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/gpt-assessment-of-haiku.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/gpt-assessment-of-haiku.json",
+      "sourceHash": "2e89648ae93307efc3686497422b49049148e6860e1f2f9fc0ca5b9835c792d7",
+      "outputHash": "2e89648ae93307efc3686497422b49049148e6860e1f2f9fc0ca5b9835c792d7"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/gpt-utf8-transport-method.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/gpt-utf8-transport-method.json",
+      "sourceHash": "9b2614c4a9f33a8d6a43e2e54922234964665c170674c72fd484ea5b553659ea",
+      "outputHash": "9b2614c4a9f33a8d6a43e2e54922234964665c170674c72fd484ea5b553659ea"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-api-system-prompt.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-api-system-prompt.txt",
+      "sourceHash": "9c8a7397dc0fc37c54b79014e8258dfbdbdc3755d03c6d57e3147cac0d0bed86",
+      "outputHash": "9c8a7397dc0fc37c54b79014e8258dfbdbdc3755d03c6d57e3147cac0d0bed86"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-detect-result.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-detect-result.json",
+      "sourceHash": "0479dd211c34a5e5022ab48346f87c75b44fc4317eccfd1ddb00c3da9a16fc54",
+      "outputHash": "0479dd211c34a5e5022ab48346f87c75b44fc4317eccfd1ddb00c3da9a16fc54"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-gate/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-gate/answer.txt",
+      "sourceHash": "25e7f7390298d6972d6a931c97def9eb5d7c42d13b20c468950d5e6ffcf90346",
+      "outputHash": "25e7f7390298d6972d6a931c97def9eb5d7c42d13b20c468950d5e6ffcf90346"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-gate/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-gate/receipt.json",
+      "sourceHash": "cdd5f7603a962b3294be9e1bbdf76a211105d95da17b94f227cd32f0e8ec7d6a",
+      "outputHash": "cdd5f7603a962b3294be9e1bbdf76a211105d95da17b94f227cd32f0e8ec7d6a"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-gate/response.raw.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-gate/response.raw.json",
+      "sourceHash": "313586b5aa267f99c0bd2a15e76ed8ceaf21f1d7dd22dc978d4480e0389460e6",
+      "outputHash": "313586b5aa267f99c0bd2a15e76ed8ceaf21f1d7dd22dc978d4480e0389460e6"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-gate-responses.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-gate-responses.json",
+      "sourceHash": "512d83871e463383435da227bf15fdaa9c717f6323f3694100d55e6b0b1d8b93",
+      "outputHash": "512d83871e463383435da227bf15fdaa9c717f6323f3694100d55e6b0b1d8b93"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-literal-result.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-literal-result.json",
+      "sourceHash": "d42123bb2577ebfa6948759dc202bb5d590ecbfeba7e17860ffe1aebc26dea51",
+      "outputHash": "d42123bb2577ebfa6948759dc202bb5d590ecbfeba7e17860ffe1aebc26dea51"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-repair/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-repair/answer.txt",
+      "sourceHash": "52089d7b32faf874f1fe78956a8dcff226ae98eedd2991159d4eb338c1b1d0e9",
+      "outputHash": "52089d7b32faf874f1fe78956a8dcff226ae98eedd2991159d4eb338c1b1d0e9"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-repair/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-repair/receipt.json",
+      "sourceHash": "a642a7a735972a78c391b42701e3a54c27bd124581d5c0a7a719585b000ec93b",
+      "outputHash": "a642a7a735972a78c391b42701e3a54c27bd124581d5c0a7a719585b000ec93b"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-repair/response.raw.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-repair/response.raw.json",
+      "sourceHash": "cd4c7a30d365b733646131a65769ab838daf1529edb064803575148ded3c4c21",
+      "outputHash": "cd4c7a30d365b733646131a65769ab838daf1529edb064803575148ded3c4c21"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-repair-responses.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/haiku-repair-responses.json",
+      "sourceHash": "608545a6d69ff9322ce834dacc7754bf109d3a2d98a886f1c355f13be941d497",
+      "outputHash": "608545a6d69ff9322ce834dacc7754bf109d3a2d98a886f1c355f13be941d497"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/inkling-gate-rejected-metadata.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/inkling-gate-rejected-metadata.json",
+      "sourceHash": "ecbc5e63fe6b65e92a4a74a9de889a12543b1e990d84889fc0bebd7001aa9cb4",
+      "outputHash": "ecbc5e63fe6b65e92a4a74a9de889a12543b1e990d84889fc0bebd7001aa9cb4"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/inkling-gate-rejected.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/inkling-gate-rejected.txt",
+      "sourceHash": "e1a77d7e428c3e42826ddb8a1bf96cd8c833c417d22dd09823c2f22613abe7ff",
+      "outputHash": "e1a77d7e428c3e42826ddb8a1bf96cd8c833c417d22dd09823c2f22613abe7ff"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/method-frozen.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/method-frozen.json",
+      "sourceHash": "6bfead6cf746789bb6a6499199e83af82bf700ef7c453e14ef08ff731b058ce4",
+      "outputHash": "6bfead6cf746789bb6a6499199e83af82bf700ef7c453e14ef08ff731b058ce4"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/prompt-transport-note.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/prompt-transport-note.json",
+      "sourceHash": "c6ea56881c7806f1ffdc36d5bfe4c0772fb47311193e552235b99779b617dbfe",
+      "outputHash": "c6ea56881c7806f1ffdc36d5bfe4c0772fb47311193e552235b99779b617dbfe"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/prompts/gate.md": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/prompts/gate.md",
+      "sourceHash": "e8b784da365c6b02313fe822d3662e9ccafeb245cc5edc4da30481690bc9e57e",
+      "outputHash": "e8b784da365c6b02313fe822d3662e9ccafeb245cc5edc4da30481690bc9e57e"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/prompts/repair.md": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/prompts/repair.md",
+      "sourceHash": "f8d66d10aa3a6068f0099b2a5ecfb6b73f0ec80fe2b2d99a021193286f797f5c",
+      "outputHash": "f8d66d10aa3a6068f0099b2a5ecfb6b73f0ec80fe2b2d99a021193286f797f5c"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/README.md": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/README.md",
+      "sourceHash": "df12740c62ffc7ea9d2236e05df8d0301e533995efa0f33ce021a519072ad004",
+      "outputHash": "a4a6970d2e1d9752cf7b7cfb4be717f7e63ffcc5f588ca019ed16c69073caf94"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-detect-result.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-detect-result.json",
+      "sourceHash": "fb72036bd9a9507257513f2983a65d293fb975db3522d3705ce8ad7ce3162b1e",
+      "outputHash": "fb72036bd9a9507257513f2983a65d293fb975db3522d3705ce8ad7ce3162b1e"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-gate/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-gate/answer.txt",
+      "sourceHash": "503bc4e033883ed5228d083ea97407f953ffe48cdb54e5b29422a73c871706f8",
+      "outputHash": "503bc4e033883ed5228d083ea97407f953ffe48cdb54e5b29422a73c871706f8"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-gate/events.jsonl": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-gate/events.jsonl",
+      "sourceHash": "cd11f0247842f4b4ed1bd6c296d32410b2304c54c08992f9bb3be1ae3c04ce63",
+      "outputHash": "cd11f0247842f4b4ed1bd6c296d32410b2304c54c08992f9bb3be1ae3c04ce63"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-gate/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-gate/receipt.json",
+      "sourceHash": "86d0fc88c6a9d935d9bfc89fa383c8d293b21db916343fefbb93ad52ac46fbe4",
+      "outputHash": "86d0fc88c6a9d935d9bfc89fa383c8d293b21db916343fefbb93ad52ac46fbe4"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-gate-responses.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-gate-responses.json",
+      "sourceHash": "4dc4b391df6166b020be56e33497de2b19108acb4459777c4f825c614f864112",
+      "outputHash": "4dc4b391df6166b020be56e33497de2b19108acb4459777c4f825c614f864112"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-literal-result.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-literal-result.json",
+      "sourceHash": "fca9f5c5053c6a14b79c98dd3d6281823b4c60f3b305a95a21400711a6365684",
+      "outputHash": "fca9f5c5053c6a14b79c98dd3d6281823b4c60f3b305a95a21400711a6365684"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-repair/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-repair/answer.txt",
+      "sourceHash": "eff4c1af3ed7f4240e2dfa31426647447254a47d0711742abe674e3dd809de27",
+      "outputHash": "eff4c1af3ed7f4240e2dfa31426647447254a47d0711742abe674e3dd809de27"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-repair/events.jsonl": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-repair/events.jsonl",
+      "sourceHash": "ecfc15c68d09c384f3b2db5fd77f8c59dccf0d26124f0cbc0a3445a636b71ffd",
+      "outputHash": "ecfc15c68d09c384f3b2db5fd77f8c59dccf0d26124f0cbc0a3445a636b71ffd"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-repair/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-repair/receipt.json",
+      "sourceHash": "159edcb5b8cbe9faab57759dda1649a76f42d92c665264ad582ac4f2fb35354e",
+      "outputHash": "159edcb5b8cbe9faab57759dda1649a76f42d92c665264ad582ac4f2fb35354e"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-repair-responses.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/rejected-transports/gpt-ascii-repair-responses.json",
+      "sourceHash": "ee98af8a2905dbdd3b560678bf46a3a13b09089bdc0ececb015004d383982966",
+      "outputHash": "ee98af8a2905dbdd3b560678bf46a3a13b09089bdc0ececb015004d383982966"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/repair-expectations.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/repair-expectations.json",
+      "sourceHash": "b407a60c8a9d0577feff009dea8157508b6f058707d9ee369c24618d6903ece0",
+      "outputHash": "b407a60c8a9d0577feff009dea8157508b6f058707d9ee369c24618d6903ece0"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/repair-inputs.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/repair-inputs.json",
+      "sourceHash": "84ccb60f097e1c5b6396b071939fdf7c37f12db5e4ffa9fad131f1aef77ec781",
+      "outputHash": "84ccb60f097e1c5b6396b071939fdf7c37f12db5e4ffa9fad131f1aef77ec781"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/repair-literal-checks.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/repair-literal-checks.json",
+      "sourceHash": "aebe75632df19840db86d6915066d72ff2de5af8d49fb17bc5ef495edaf92dfa",
+      "outputHash": "aebe75632df19840db86d6915066d72ff2de5af8d49fb17bc5ef495edaf92dfa"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-closeout-review/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-closeout-review/answer.txt",
+      "sourceHash": "add5429ef60249926d05bdbb87eb94224804cef05c36a1f3bfd570e036d22670",
+      "outputHash": "add5429ef60249926d05bdbb87eb94224804cef05c36a1f3bfd570e036d22670"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-closeout-review/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-closeout-review/receipt.json",
+      "sourceHash": "5158ca505e666ff86f5ec1260128e1f7ba4b7b7de4ab373f4a302b43b3911ec0",
+      "outputHash": "5158ca505e666ff86f5ec1260128e1f7ba4b7b7de4ab373f4a302b43b3911ec0"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-final-recheck/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-final-recheck/answer.txt",
+      "sourceHash": "539e0147a006d40dda1c511f41f90ae3708307ac05524b2e5235c00337cad998",
+      "outputHash": "539e0147a006d40dda1c511f41f90ae3708307ac05524b2e5235c00337cad998"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-final-recheck/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-final-recheck/receipt.json",
+      "sourceHash": "b606a9820d9aa1985143432276fea3723660c88a195d9e918848986ff5b07215",
+      "outputHash": "b606a9820d9aa1985143432276fea3723660c88a195d9e918848986ff5b07215"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-operational/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-operational/answer.txt",
+      "sourceHash": "525999c680e08c094ce34e2333aa7f1c831fa4198c67fa38bb1da7c628c8990c",
+      "outputHash": "525999c680e08c094ce34e2333aa7f1c831fa4198c67fa38bb1da7c628c8990c"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-operational/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-operational/receipt.json",
+      "sourceHash": "a06c1100695f0787e47c757e6752263d1465cbeb1b51e5cd4d4f7be2241cb9f1",
+      "outputHash": "a06c1100695f0787e47c757e6752263d1465cbeb1b51e5cd4d4f7be2241cb9f1"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-recheck/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-recheck/answer.txt",
+      "sourceHash": "fb8d9762040e980547ec0114a67826b3e6fc8c78ce8bcd88f58cd90e1b00f980",
+      "outputHash": "fb8d9762040e980547ec0114a67826b3e6fc8c78ce8bcd88f58cd90e1b00f980"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-recheck/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/devin-recheck/receipt.json",
+      "sourceHash": "2d185c76f0a002eabe82069ec92485fa0526ca7dca947ef42a99a0c3b11e07ef",
+      "outputHash": "2d185c76f0a002eabe82069ec92485fa0526ca7dca947ef42a99a0c3b11e07ef"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-closeout-review/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-closeout-review/answer.txt",
+      "sourceHash": "1f16cb3ecfe617e9cad7217e85464251bec1e1d57e3390bf44ab0a339693736b",
+      "outputHash": "1f16cb3ecfe617e9cad7217e85464251bec1e1d57e3390bf44ab0a339693736b"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-closeout-review/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-closeout-review/receipt.json",
+      "sourceHash": "1ec2e62b328f812aeb7e9eb8520dba334627881fe9f6390d010e1616aff818f4",
+      "outputHash": "1ec2e62b328f812aeb7e9eb8520dba334627881fe9f6390d010e1616aff818f4"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-closeout-review/response.raw.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-closeout-review/response.raw.json",
+      "sourceHash": "a85ea762af3ec85a48db12a871ec08f73c0f6295ac794dfd1430e63290f8ec9c",
+      "outputHash": "a85ea762af3ec85a48db12a871ec08f73c0f6295ac794dfd1430e63290f8ec9c"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review/answer.txt",
+      "sourceHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "outputHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review/receipt.json",
+      "sourceHash": "2914fa752ccb91693532a50cea88a14085fa596a0312a5c9c4ca7f022d37005d",
+      "outputHash": "2914fa752ccb91693532a50cea88a14085fa596a0312a5c9c4ca7f022d37005d"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review/response.raw.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review/response.raw.json",
+      "sourceHash": "6e43aa0f66d89db6a9e302df74cc4bdbaedb1dcc6ab0a2bcf033ab618f66f289",
+      "outputHash": "6e43aa0f66d89db6a9e302df74cc4bdbaedb1dcc6ab0a2bcf033ab618f66f289"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review-retry/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review-retry/answer.txt",
+      "sourceHash": "e1e345568b3647c4fe73e582a3f2143cca8847a086a003e76956f971f3606ff0",
+      "outputHash": "e1e345568b3647c4fe73e582a3f2143cca8847a086a003e76956f971f3606ff0"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review-retry/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review-retry/receipt.json",
+      "sourceHash": "b4b749d41b27aafac5164d1f28940f19fa13f92a85647697eb6259df52b0bd59",
+      "outputHash": "b4b749d41b27aafac5164d1f28940f19fa13f92a85647697eb6259df52b0bd59"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review-retry/response.raw.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-code-review-retry/response.raw.json",
+      "sourceHash": "24fa15c6fae90ee18dcb2d83713f9ec55e87716d0a901d6857ebf29e5d8f4d18",
+      "outputHash": "24fa15c6fae90ee18dcb2d83713f9ec55e87716d0a901d6857ebf29e5d8f4d18"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-fixture-review/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-fixture-review/answer.txt",
+      "sourceHash": "a7165dc3ac09f64e4da369f66490dcb199ba2161f6c28d10cbc93ce7dd1f406d",
+      "outputHash": "a7165dc3ac09f64e4da369f66490dcb199ba2161f6c28d10cbc93ce7dd1f406d"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-fixture-review/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-fixture-review/receipt.json",
+      "sourceHash": "1f6446f279155d3ab5f0a2e092e39484faa813dd94a61bd009550b82a7e29cbb",
+      "outputHash": "1f6446f279155d3ab5f0a2e092e39484faa813dd94a61bd009550b82a7e29cbb"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-fixture-review/response.raw.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-fixture-review/response.raw.json",
+      "sourceHash": "a1937636b170071b414bfe8421c107a5d449821d5336de981841605c7c17e042",
+      "outputHash": "a1937636b170071b414bfe8421c107a5d449821d5336de981841605c7c17e042"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-adjudication/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-adjudication/answer.txt",
+      "sourceHash": "fd0605334eb40aa9cc63c63cbca462513d4b3192372b95b7bcfd184f8d63f49b",
+      "outputHash": "fd0605334eb40aa9cc63c63cbca462513d4b3192372b95b7bcfd184f8d63f49b"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-adjudication/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-adjudication/receipt.json",
+      "sourceHash": "10dd399431c7018d7d4a4e16c19bbaadd1ba96156cc2b4c9e0be09787980e19f",
+      "outputHash": "10dd399431c7018d7d4a4e16c19bbaadd1ba96156cc2b4c9e0be09787980e19f"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-adjudication/response.raw.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-adjudication/response.raw.json",
+      "sourceHash": "72a1b9c33e2e7977308ea32e94cb0341f2e8bb19b4b759aa3370bac6871b2640",
+      "outputHash": "72a1b9c33e2e7977308ea32e94cb0341f2e8bb19b4b759aa3370bac6871b2640"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-ascii-adjudication/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-ascii-adjudication/answer.txt",
+      "sourceHash": "9d08c682f681871062fe6a573ea0db423b624e6b79c62d3ad1d899523a1450af",
+      "outputHash": "9d08c682f681871062fe6a573ea0db423b624e6b79c62d3ad1d899523a1450af"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-ascii-adjudication/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-ascii-adjudication/receipt.json",
+      "sourceHash": "debaf37d6face29d0be19230f89c7d56e691b9eb3752df2b708a1ec89225b98c",
+      "outputHash": "debaf37d6face29d0be19230f89c7d56e691b9eb3752df2b708a1ec89225b98c"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-ascii-adjudication/response.raw.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-gpt-ascii-adjudication/response.raw.json",
+      "sourceHash": "f1e45b32dbf20333111cc2e3686272f3d502902eb766b7ae23c2aea38804daf1",
+      "outputHash": "f1e45b32dbf20333111cc2e3686272f3d502902eb766b7ae23c2aea38804daf1"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-final-recheck/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-final-recheck/answer.txt",
+      "sourceHash": "b2775ff869e7a3cdd736c0ea3f3a6257786359623b2db9eebffa9f05cac0258a",
+      "outputHash": "b2775ff869e7a3cdd736c0ea3f3a6257786359623b2db9eebffa9f05cac0258a"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-final-recheck/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-final-recheck/receipt.json",
+      "sourceHash": "a72169dbdb2dfeb7f0abed75823b8cbd4aaa543343d2bffb6757c111059c4f73",
+      "outputHash": "a72169dbdb2dfeb7f0abed75823b8cbd4aaa543343d2bffb6757c111059c4f73"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-final-recheck/response.raw.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-final-recheck/response.raw.json",
+      "sourceHash": "077c6e28c724d4b1c50b4f7b519fd0b265e401cdf0f1550f0236a5310a825988",
+      "outputHash": "077c6e28c724d4b1c50b4f7b519fd0b265e401cdf0f1550f0236a5310a825988"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-recheck/answer.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-recheck/answer.txt",
+      "sourceHash": "4a0dbf5cf58de3ea5043e7d6a91f0d192df7df26c7d64ac1ab8a1da2a225e93b",
+      "outputHash": "4a0dbf5cf58de3ea5043e7d6a91f0d192df7df26c7d64ac1ab8a1da2a225e93b"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-recheck/receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-recheck/receipt.json",
+      "sourceHash": "6cf97bb5d8c77ec6a52e6642fef9f17f242e6ab9f5322e535978d395a1ad2379",
+      "outputHash": "6cf97bb5d8c77ec6a52e6642fef9f17f242e6ab9f5322e535978d395a1ad2379"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-recheck/response.raw.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/haiku-test-recheck/response.raw.json",
+      "sourceHash": "4d7902ecc2099d21aa6ac2dfb38dd7c2e1b449718e0e9f8f6b4793df7d3590d4",
+      "outputHash": "4d7902ecc2099d21aa6ac2dfb38dd7c2e1b449718e0e9f8f6b4793df7d3590d4"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/inkling-code-review.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/inkling-code-review.txt",
+      "sourceHash": "1c868b0eeb012b35ba8d016f4783c376810c386aa4f58fa023501a78fa20abda",
+      "outputHash": "1c868b0eeb012b35ba8d016f4783c376810c386aa4f58fa023501a78fa20abda"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/inkling-receipt.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/inkling-receipt.json",
+      "sourceHash": "1b6fe105a1a017ddac07cd50e6162bf7e7f6b4b421c66c97d4b3c1fb425cfad5",
+      "outputHash": "1b6fe105a1a017ddac07cd50e6162bf7e7f6b4b421c66c97d4b3c1fb425cfad5"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/triage.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/reviews/triage.json",
+      "sourceHash": "e60b18a69049e5a77848aea2dfa3bf814c9129033cc5ff2342b1f2bbd1a7c49f",
+      "outputHash": "e60b18a69049e5a77848aea2dfa3bf814c9129033cc5ff2342b1f2bbd1a7c49f"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/gemma-code-review.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/gemma-code-review.txt",
+      "sourceHash": "1448dd46734db180ab5876e520e107b261b8cb2847adbb0ce224fc25ee78d2ef",
+      "outputHash": "1448dd46734db180ab5876e520e107b261b8cb2847adbb0ce224fc25ee78d2ef"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/gemma-gate.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/gemma-gate.txt",
+      "sourceHash": "bb8e0867a7580a24f7f943059352eb2346d857860d0e34361bf64a5c32ac7691",
+      "outputHash": "bb8e0867a7580a24f7f943059352eb2346d857860d0e34361bf64a5c32ac7691"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/gemma26-code-review.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/gemma26-code-review.txt",
+      "sourceHash": "755228b24140ca029703be44d5093a50d484e3af3f774aa48adb89b8486070dd",
+      "outputHash": "755228b24140ca029703be44d5093a50d484e3af3f774aa48adb89b8486070dd"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/gemma26-operational-retry.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/gemma26-operational-retry.txt",
+      "sourceHash": "151f18345a7a36a11a02bae4621b4309971063eb69ca37dd82bb72804d5c9762",
+      "outputHash": "151f18345a7a36a11a02bae4621b4309971063eb69ca37dd82bb72804d5c9762"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/nemotron-code-review.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/nemotron-code-review.txt",
+      "sourceHash": "4481944bfc3d3b5dd9cc5a24ce360a73151393f5b04404619571a799833ef52a",
+      "outputHash": "4481944bfc3d3b5dd9cc5a24ce360a73151393f5b04404619571a799833ef52a"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/nemotron-gate.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/nemotron-gate.txt",
+      "sourceHash": "6c5d547473d96e0ae0ab2e0550a10d224918713d0c7c215b6b4cc0760e9289ad",
+      "outputHash": "6c5d547473d96e0ae0ab2e0550a10d224918713d0c7c215b6b4cc0760e9289ad"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/routes.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/setup-failures/routes.json",
+      "sourceHash": "8426145f930241214c5374a5378c3df814da15344962643d0eea4c7fba6cad13",
+      "outputHash": "8426145f930241214c5374a5378c3df814da15344962643d0eea4c7fba6cad13"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/source-snapshots/references-patterns.md.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/source-snapshots/references-patterns.md.txt",
+      "sourceHash": "d5452a813006840b47273b0c1ddd4ca655733cbab4db9fbe19e803c03e77c499",
+      "outputHash": "d5452a813006840b47273b0c1ddd4ca655733cbab4db9fbe19e803c03e77c499"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/source-snapshots/SKILL.md.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/source-snapshots/SKILL.md.txt",
+      "sourceHash": "031c8ad21ea2a8ce93c4af97f82cf0218fabeb8450ad2d5fce41a76fac1eebd7",
+      "outputHash": "031c8ad21ea2a8ce93c4af97f82cf0218fabeb8450ad2d5fce41a76fac1eebd7"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/summary.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/summary.json",
+      "sourceHash": "cd87798ae6da50df0c3d36643af5290f10cc0f9d3bc7a5e843a25ae2b3696f86",
+      "outputHash": "cd87798ae6da50df0c3d36643af5290f10cc0f9d3bc7a5e843a25ae2b3696f86"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/validator-disagreements.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/editorial-cards-206-final-2026-10-18/validator-disagreements.json",
+      "sourceHash": "375fcc70e7120500a7209b7b590217a359bd250319aa82a1eaf459f9d96b017c",
+      "outputHash": "375fcc70e7120500a7209b7b590217a359bd250319aa82a1eaf459f9d96b017c"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/claude-initial.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/claude-initial.json",
+      "sourceHash": "8c36b496fa70d3a0263ad0d8e0d74e47cffeaad27f830e43fffd792eb1d77c70",
+      "outputHash": "8c36b496fa70d3a0263ad0d8e0d74e47cffeaad27f830e43fffd792eb1d77c70"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/cursor-initial.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/cursor-initial.json",
+      "sourceHash": "882dad3ee7e4c2aed950a9ceb80bb8cad766fa4b7688e5c62ffa05a0ebcd580c",
+      "outputHash": "882dad3ee7e4c2aed950a9ceb80bb8cad766fa4b7688e5c62ffa05a0ebcd580c"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/cursor-revised.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/cursor-revised.json",
+      "sourceHash": "47d8114cb93b3a377a50f802f97474741717ef8e3158438de158d833e64190a6",
+      "outputHash": "47d8114cb93b3a377a50f802f97474741717ef8e3158438de158d833e64190a6"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/prompt-initial.md": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/prompt-initial.md",
+      "sourceHash": "bce8ff003c43bf4d916f2b229c924fea9193ede1b6da25665a8495e58c508dfc",
+      "outputHash": "bce8ff003c43bf4d916f2b229c924fea9193ede1b6da25665a8495e58c508dfc"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/prompt-revised.md": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/prompt-revised.md",
+      "sourceHash": "5eb4d348b84f60e0b0fac8a931ddc7e88f60aa7eef89f2c418e0bff56b3e51bb",
+      "outputHash": "5eb4d348b84f60e0b0fac8a931ddc7e88f60aa7eef89f2c418e0bff56b3e51bb"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/README.md": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/README.md",
+      "sourceHash": "269af5a865c9ba7906098d30c4ae3885c51afc9c5cd6077081e232ac6c20e0c7",
+      "outputHash": "269af5a865c9ba7906098d30c4ae3885c51afc9c5cd6077081e232ac6c20e0c7"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/reviews.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/reviews.json",
+      "sourceHash": "5494dea323da625779128bdab66106d353d077321d5ac06aa0c87a7e000d395c",
+      "outputHash": "5494dea323da625779128bdab66106d353d077321d5ac06aa0c87a7e000d395c"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/scenarios.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/scenarios.json",
+      "sourceHash": "6263739b26d30f3d4d9cb1f43ed5afeb4803d10e457e7bb4556269160d048d0a",
+      "outputHash": "6263739b26d30f3d4d9cb1f43ed5afeb4803d10e457e7bb4556269160d048d0a"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/source-initial.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/source-initial.json",
+      "sourceHash": "5c2170d4cf6b3fed04239e1985a3d87f747a038b4ed4ec6ce85a07ef0b0ffe4f",
+      "outputHash": "5c2170d4cf6b3fed04239e1985a3d87f747a038b4ed4ec6ce85a07ef0b0ffe4f"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/source-revised.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/preservation-policy-204/source-revised.json",
+      "sourceHash": "c6e0d803f8ec52c9da20e758e9c92f89c1de2a4bc0fea09111a8da0408f079fc",
+      "outputHash": "c6e0d803f8ec52c9da20e758e9c92f89c1de2a4bc0fea09111a8da0408f079fc"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/fallback-config.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/fallback-config.json",
+      "sourceHash": "25fd892bfd44a2540e942728e9cd6173ff5655ddf66567fc00eae78299e3e885",
+      "outputHash": "25fd892bfd44a2540e942728e9cd6173ff5655ddf66567fc00eae78299e3e885"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/fallback-trace.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/fallback-trace.json",
+      "sourceHash": "7e0c0eba01b425188b3727055aa4b09e54f2161e49525682d7b77d90d6679e02",
+      "outputHash": "7e0c0eba01b425188b3727055aa4b09e54f2161e49525682d7b77d90d6679e02"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/focused-config.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/focused-config.json",
+      "sourceHash": "8b8ac112855b973f5e7d122535882a95265ddcbd11c5595dc0583bb45d92efc3",
+      "outputHash": "8b8ac112855b973f5e7d122535882a95265ddcbd11c5595dc0583bb45d92efc3"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/focused-trace.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/focused-trace.json",
+      "sourceHash": "b59eb2d6ce2c5a3fb20e6dfb3affa9653ac731829cc4b6b25d4781e186799fc5",
+      "outputHash": "b59eb2d6ce2c5a3fb20e6dfb3affa9653ac731829cc4b6b25d4781e186799fc5"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/full-config.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/full-config.json",
+      "sourceHash": "8a5dfab57c3f66ae35fc50c6b2df4ea16f816ff103ee392dec4bbc8269c680aa",
+      "outputHash": "8a5dfab57c3f66ae35fc50c6b2df4ea16f816ff103ee392dec4bbc8269c680aa"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/full-trace.json": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/full-trace.json",
+      "sourceHash": "8db471c8e0ce3e148cb59f90c7ce88848f42b3ee42d364824aefc66bd271a0cf",
+      "outputHash": "8db471c8e0ce3e148cb59f90c7ce88848f42b3ee42d364824aefc66bd271a0cf"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/generator-source.js.txt": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/generator-source.js.txt",
+      "sourceHash": "d440af2f1fb749d589c2a5c6463b988146b90c6e1a0a0a4c082501ba517b8bab",
+      "outputHash": "d440af2f1fb749d589c2a5c6463b988146b90c6e1a0a0a4c082501ba517b8bab"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/independent-recheck.md": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/independent-recheck.md",
+      "sourceHash": "2f9b47925dfc1946d3ebe1036727c3da41b197a9d6c2a9ffe58cd4d33467c8d2",
+      "outputHash": "2f9b47925dfc1946d3ebe1036727c3da41b197a9d6c2a9ffe58cd4d33467c8d2"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/independent-review.md": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/independent-review.md",
+      "sourceHash": "a883c5071020f79ccea792b45ed8e492a49dd5f9b951e174f3554596fb9bfaab",
+      "outputHash": "a883c5071020f79ccea792b45ed8e492a49dd5f9b951e174f3554596fb9bfaab"
+    },
+    "skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/README.md": {
+      "source": ".agents/skills/avoid-ai-writing/evals/rewrite/reports/reference-loading-preparation-205-2026-10-15/README.md",
+      "sourceHash": "2eb305c280875ee40cba1e0b25ae8ce9828f935a7e42b7be253fa36f11c02261",
+      "outputHash": "2eb305c280875ee40cba1e0b25ae8ce9828f935a7e42b7be253fa36f11c02261"
+    },
     "skills/avoid-ai-writing/examples/prose.json": {
       "source": ".agents/skills/avoid-ai-writing/examples/prose.json",
       "sourceHash": "720a208037e469e3e4234aa41a05d13f9600dc6d562e40e033c41f0fa7fead3f",
@@ -6235,13 +7188,18 @@
     },
     "skills/avoid-ai-writing/examples/README.md": {
       "source": ".agents/skills/avoid-ai-writing/examples/README.md",
-      "sourceHash": "d1b655658a66f0bb81d2c5e6b1c117d6dc722538cb1f43deb1ab909601aa4760",
-      "outputHash": "d1b655658a66f0bb81d2c5e6b1c117d6dc722538cb1f43deb1ab909601aa4760"
+      "sourceHash": "d1e0ca4d2c100b2f276253a9964506b3a92a161068ca327f9c4f06e77e04bc39",
+      "outputHash": "d1e0ca4d2c100b2f276253a9964506b3a92a161068ca327f9c4f06e77e04bc39"
     },
     "skills/avoid-ai-writing/examples/technical.json": {
       "source": ".agents/skills/avoid-ai-writing/examples/technical.json",
       "sourceHash": "f44c732fa3d222b997fa1310f2b74e1c2d6d619c3e47249833a66816b08cc969",
       "outputHash": "f44c732fa3d222b997fa1310f2b74e1c2d6d619c3e47249833a66816b08cc969"
+    },
+    "skills/avoid-ai-writing/GLOSSARY.md": {
+      "source": ".agents/skills/avoid-ai-writing/GLOSSARY.md",
+      "sourceHash": "c0b7962efaa99fb6676b275db12f6c4708872b98c573c22223f3aa971459966d",
+      "outputHash": "c0b7962efaa99fb6676b275db12f6c4708872b98c573c22223f3aa971459966d"
     },
     "skills/avoid-ai-writing/LICENSE": {
       "source": ".agents/skills/avoid-ai-writing/LICENSE",
@@ -6255,33 +7213,33 @@
     },
     "skills/avoid-ai-writing/OPENAI_PLUGIN.md": {
       "source": ".agents/skills/avoid-ai-writing/OPENAI_PLUGIN.md",
-      "sourceHash": "800150d1c50c4e352bc33ef6ac1ec2ba417c5cb607b9a5d95581c78b94067ade",
-      "outputHash": "800150d1c50c4e352bc33ef6ac1ec2ba417c5cb607b9a5d95581c78b94067ade"
+      "sourceHash": "ed199ca4893aba1e78035388da8f42c1d7d79d279850b32ff447043ec9da7a0e",
+      "outputHash": "ed199ca4893aba1e78035388da8f42c1d7d79d279850b32ff447043ec9da7a0e"
     },
     "skills/avoid-ai-writing/package.json": {
       "source": ".agents/skills/avoid-ai-writing/package.json",
-      "sourceHash": "526a4143433c8dd2d1aee37b4b7d51487837729ae118422b489ec8caf3dae1e2",
-      "outputHash": "526a4143433c8dd2d1aee37b4b7d51487837729ae118422b489ec8caf3dae1e2"
+      "sourceHash": "db450ccc0c4dcb9d7d1ac6165750e567005209af9cf61db24bd56981aba352ea",
+      "outputHash": "db450ccc0c4dcb9d7d1ac6165750e567005209af9cf61db24bd56981aba352ea"
     },
     "skills/avoid-ai-writing/plugins/avoid-ai-writing/.claude-plugin/plugin.json": {
       "source": ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/.claude-plugin/plugin.json",
-      "sourceHash": "d0a9e5dc253cf97f053606279f205a0a98df84c51416bca1d4665e187c4c3acd",
-      "outputHash": "d0a9e5dc253cf97f053606279f205a0a98df84c51416bca1d4665e187c4c3acd"
+      "sourceHash": "dae1d3956613c9b0034a2fbffda38b302637f1748898531d2524febe70c39bab",
+      "outputHash": "dae1d3956613c9b0034a2fbffda38b302637f1748898531d2524febe70c39bab"
     },
     "skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/detector/CATEGORIES.md": {
       "source": ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/detector/CATEGORIES.md",
-      "sourceHash": "378d95767421d161dbf222e05ca47ef7f350dd7362539be611ffc9d82d708b50",
-      "outputHash": "378d95767421d161dbf222e05ca47ef7f350dd7362539be611ffc9d82d708b50"
+      "sourceHash": "fb303990be9e9da197ab83ac5b9ff3539de63b827641f3760493a13bc1763256",
+      "outputHash": "fb303990be9e9da197ab83ac5b9ff3539de63b827641f3760493a13bc1763256"
     },
     "skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/detector/patterns.js": {
       "source": ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/detector/patterns.js",
-      "sourceHash": "1ad7ed44ddc4d266b2c168d1df384e3d30ba225ff74d72db0ac71f49c060db3d",
-      "outputHash": "1ad7ed44ddc4d266b2c168d1df384e3d30ba225ff74d72db0ac71f49c060db3d"
+      "sourceHash": "37d6b022821f592b062e421c639789861b692e22388f65e8db0692154f7a59fd",
+      "outputHash": "37d6b022821f592b062e421c639789861b692e22388f65e8db0692154f7a59fd"
     },
     "skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/detector/validate.js": {
       "source": ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/detector/validate.js",
-      "sourceHash": "fd6f11f5a68b82a40579a868d1a02085843f1202ada79f67bc7ee884eb54d04c",
-      "outputHash": "fd6f11f5a68b82a40579a868d1a02085843f1202ada79f67bc7ee884eb54d04c"
+      "sourceHash": "00c36a802373e263120325c4180e34d7bf2f64196f850b76226e90a09c7f22c9",
+      "outputHash": "00c36a802373e263120325c4180e34d7bf2f64196f850b76226e90a09c7f22c9"
     },
     "skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/examples/prose.json": {
       "source": ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/examples/prose.json",
@@ -6290,8 +7248,8 @@
     },
     "skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/examples/README.md": {
       "source": ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/examples/README.md",
-      "sourceHash": "d1b655658a66f0bb81d2c5e6b1c117d6dc722538cb1f43deb1ab909601aa4760",
-      "outputHash": "d1b655658a66f0bb81d2c5e6b1c117d6dc722538cb1f43deb1ab909601aa4760"
+      "sourceHash": "d1e0ca4d2c100b2f276253a9964506b3a92a161068ca327f9c4f06e77e04bc39",
+      "outputHash": "d1e0ca4d2c100b2f276253a9964506b3a92a161068ca327f9c4f06e77e04bc39"
     },
     "skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/examples/technical.json": {
       "source": ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/examples/technical.json",
@@ -6300,8 +7258,8 @@
     },
     "skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/references/patterns.md": {
       "source": ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/references/patterns.md",
-      "sourceHash": "d6f45ffdaf9914270243208e59136d76cbb4e128f28586aeda47b5925eff2011",
-      "outputHash": "d6f45ffdaf9914270243208e59136d76cbb4e128f28586aeda47b5925eff2011"
+      "sourceHash": "d5452a813006840b47273b0c1ddd4ca655733cbab4db9fbe19e803c03e77c499",
+      "outputHash": "d5452a813006840b47273b0c1ddd4ca655733cbab4db9fbe19e803c03e77c499"
     },
     "skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/scripts/check-style.js": {
       "source": ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/scripts/check-style.js",
@@ -6320,8 +7278,8 @@
     },
     "skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/REFERENCE.md": {
       "source": ".agents/skills/avoid-ai-writing/plugins/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md",
-      "sourceHash": "d13b188369d32d050b55d13e38c9c805a2873870def410a046ff292845359324",
-      "outputHash": "975df4671c9b37c9bcf67e37a71c3155d2d77f751f57bae39e1f9bf34d4347b1"
+      "sourceHash": "031c8ad21ea2a8ce93c4af97f82cf0218fabeb8450ad2d5fce41a76fac1eebd7",
+      "outputHash": "e9b291af351f58885da6ccc6376be451bb3b579e4d8e8a4438d2d44853af5e9e"
     },
     "skills/avoid-ai-writing/PRIVACY.md": {
       "source": ".agents/skills/avoid-ai-writing/PRIVACY.md",
@@ -6335,13 +7293,18 @@
     },
     "skills/avoid-ai-writing/README.md": {
       "source": ".agents/skills/avoid-ai-writing/README.md",
-      "sourceHash": "8fecd29fe3fb71e13c72787fc25395b56955eaa468d5f2b34358bc178656f104",
-      "outputHash": "9d29b87c33964bd27b3f69e619fbfb4fbc5303d51e6e713a7e1f2a6e62e8865e"
+      "sourceHash": "225a3dad131c13d83592f6263b98dcb17fedb651f0b50e04b092b18dd8525be2",
+      "outputHash": "a5661a8d226df18b8317591ee8d20384e7cf67b424e7fefa3624b61ecb54deaa"
     },
     "skills/avoid-ai-writing/references/patterns.md": {
       "source": ".agents/skills/avoid-ai-writing/references/patterns.md",
-      "sourceHash": "d6f45ffdaf9914270243208e59136d76cbb4e128f28586aeda47b5925eff2011",
-      "outputHash": "d6f45ffdaf9914270243208e59136d76cbb4e128f28586aeda47b5925eff2011"
+      "sourceHash": "d5452a813006840b47273b0c1ddd4ca655733cbab4db9fbe19e803c03e77c499",
+      "outputHash": "d5452a813006840b47273b0c1ddd4ca655733cbab4db9fbe19e803c03e77c499"
+    },
+    "skills/avoid-ai-writing/scripts/check-detect-audit.test.js": {
+      "source": ".agents/skills/avoid-ai-writing/scripts/check-detect-audit.test.js",
+      "sourceHash": "5cdfcbb02ba55cfc2d6001ad07fc6a2846de4bca96eadb8bdf85f6b6c8965c0c",
+      "outputHash": "5cdfcbb02ba55cfc2d6001ad07fc6a2846de4bca96eadb8bdf85f6b6c8965c0c"
     },
     "skills/avoid-ai-writing/scripts/check-pattern-count.sh": {
       "source": ".agents/skills/avoid-ai-writing/scripts/check-pattern-count.sh",
@@ -6360,8 +7323,13 @@
     },
     "skills/avoid-ai-writing/scripts/check-style.test.js": {
       "source": ".agents/skills/avoid-ai-writing/scripts/check-style.test.js",
-      "sourceHash": "a5c058715e97b064b39e703bc21496bbe84e442389e9905fc4fc8a749816275c",
-      "outputHash": "a5c058715e97b064b39e703bc21496bbe84e442389e9905fc4fc8a749816275c"
+      "sourceHash": "7b0591e71f2905ffd7df61b7c6db9c31c32b2383d89b278716ca7763aeef00cf",
+      "outputHash": "7b0591e71f2905ffd7df61b7c6db9c31c32b2383d89b278716ca7763aeef00cf"
+    },
+    "skills/avoid-ai-writing/scripts/corpus-intake-example.test.js": {
+      "source": ".agents/skills/avoid-ai-writing/scripts/corpus-intake-example.test.js",
+      "sourceHash": "a1e967fd7f4aa51bb8a6e975ded9842cfcfa441fa7b83ac741dcd0deea6672d5",
+      "outputHash": "a1e967fd7f4aa51bb8a6e975ded9842cfcfa441fa7b83ac741dcd0deea6672d5"
     },
     "skills/avoid-ai-writing/scripts/corpus.js": {
       "source": ".agents/skills/avoid-ai-writing/scripts/corpus.js",
@@ -6387,6 +7355,26 @@
       "source": ".agents/skills/avoid-ai-writing/scripts/dataset-raid.js",
       "sourceHash": "88e3c7a3da59a1fa4d6d8b0f271d36eeba31de7d5930b4616fb0031dbd778582",
       "outputHash": "88e3c7a3da59a1fa4d6d8b0f271d36eeba31de7d5930b4616fb0031dbd778582"
+    },
+    "skills/avoid-ai-writing/scripts/detect-parity.test.js": {
+      "source": ".agents/skills/avoid-ai-writing/scripts/detect-parity.test.js",
+      "sourceHash": "da317b7c94aa38d4aedb45cc762aa1c972d8d76e8bb1b1297dd83a7d0eed427c",
+      "outputHash": "da317b7c94aa38d4aedb45cc762aa1c972d8d76e8bb1b1297dd83a7d0eed427c"
+    },
+    "skills/avoid-ai-writing/scripts/editorial-cards.test.js": {
+      "source": ".agents/skills/avoid-ai-writing/scripts/editorial-cards.test.js",
+      "sourceHash": "a918e511603e1e722c0bd82dbe99b3e35d2f940774556de20fb65ace1ab68b66",
+      "outputHash": "a918e511603e1e722c0bd82dbe99b3e35d2f940774556de20fb65ace1ab68b66"
+    },
+    "skills/avoid-ai-writing/scripts/fixtures/vale-export-94/cases.json": {
+      "source": ".agents/skills/avoid-ai-writing/scripts/fixtures/vale-export-94/cases.json",
+      "sourceHash": "b24596b541a3630caf520eca9daac1c977b64066c947a10c1ddad5b8d12b0719",
+      "outputHash": "b24596b541a3630caf520eca9daac1c977b64066c947a10c1ddad5b8d12b0719"
+    },
+    "skills/avoid-ai-writing/scripts/fixtures/vale-export-94/sample.json": {
+      "source": ".agents/skills/avoid-ai-writing/scripts/fixtures/vale-export-94/sample.json",
+      "sourceHash": "3174a7272452b667950843999a7b26a3de7acf18331856f8f292add34dc9f9a6",
+      "outputHash": "3174a7272452b667950843999a7b26a3de7acf18331856f8f292add34dc9f9a6"
     },
     "skills/avoid-ai-writing/scripts/flatten-skill.js": {
       "source": ".agents/skills/avoid-ai-writing/scripts/flatten-skill.js",
@@ -6430,8 +7418,8 @@
     },
     "skills/avoid-ai-writing/scripts/fp-preprocess.test.js": {
       "source": ".agents/skills/avoid-ai-writing/scripts/fp-preprocess.test.js",
-      "sourceHash": "29f882a6183431caa4d2aec1fcafcfa0b0ea7b9684b6823a7e74c86439284d4e",
-      "outputHash": "29f882a6183431caa4d2aec1fcafcfa0b0ea7b9684b6823a7e74c86439284d4e"
+      "sourceHash": "cffd0c547d5d23e1aed1735ecebfb994bc6c614398e59a8fc26351fe4db90c0a",
+      "outputHash": "cffd0c547d5d23e1aed1735ecebfb994bc6c614398e59a8fc26351fe4db90c0a"
     },
     "skills/avoid-ai-writing/scripts/markdown-prose.js": {
       "source": ".agents/skills/avoid-ai-writing/scripts/markdown-prose.js",
@@ -6457,6 +7445,16 @@
       "source": ".agents/skills/avoid-ai-writing/scripts/promo-drift-report.py",
       "sourceHash": "ba3d61864f74d6d015f8bc88559f1c3a1a74ea3ca5523847c0e1d81a9795b19a",
       "outputHash": "ba3d61864f74d6d015f8bc88559f1c3a1a74ea3ca5523847c0e1d81a9795b19a"
+    },
+    "skills/avoid-ai-writing/scripts/reference-loading.js": {
+      "source": ".agents/skills/avoid-ai-writing/scripts/reference-loading.js",
+      "sourceHash": "d440af2f1fb749d589c2a5c6463b988146b90c6e1a0a0a4c082501ba517b8bab",
+      "outputHash": "d440af2f1fb749d589c2a5c6463b988146b90c6e1a0a0a4c082501ba517b8bab"
+    },
+    "skills/avoid-ai-writing/scripts/reference-loading.test.js": {
+      "source": ".agents/skills/avoid-ai-writing/scripts/reference-loading.test.js",
+      "sourceHash": "b1a8c38bbbd25d4243ba384c76b342ce081aee65c3a5e5ee85cdf0d5c9af665d",
+      "outputHash": "b1a8c38bbbd25d4243ba384c76b342ce081aee65c3a5e5ee85cdf0d5c9af665d"
     },
     "skills/avoid-ai-writing/scripts/rewrite-demo.test.js": {
       "source": ".agents/skills/avoid-ai-writing/scripts/rewrite-demo.test.js",
@@ -6485,53 +7483,63 @@
     },
     "skills/avoid-ai-writing/scripts/run-tests.js": {
       "source": ".agents/skills/avoid-ai-writing/scripts/run-tests.js",
-      "sourceHash": "7d205386af028ad41d729913c17de313b2d70dc7750f432a66a312dc1667f7d2",
-      "outputHash": "7d205386af028ad41d729913c17de313b2d70dc7750f432a66a312dc1667f7d2"
+      "sourceHash": "ba5b493e9b13ab8c0b5b5fa9be2e35c64617c8be9345133036f6d40b10af71f3",
+      "outputHash": "ba5b493e9b13ab8c0b5b5fa9be2e35c64617c8be9345133036f6d40b10af71f3"
     },
     "skills/avoid-ai-writing/scripts/self-scan-diagnostics.test.js": {
       "source": ".agents/skills/avoid-ai-writing/scripts/self-scan-diagnostics.test.js",
-      "sourceHash": "14f364b05cf4f8d701cf21cab86774e6777ab854e9ea318803f9fbddd5e4c9e1",
-      "outputHash": "14f364b05cf4f8d701cf21cab86774e6777ab854e9ea318803f9fbddd5e4c9e1"
+      "sourceHash": "2b0ab4937b7df4cda393332e80f25cbb4ec0089a22aae6414d152e7272d67de9",
+      "outputHash": "2b0ab4937b7df4cda393332e80f25cbb4ec0089a22aae6414d152e7272d67de9"
     },
     "skills/avoid-ai-writing/scripts/self-scan.js": {
       "source": ".agents/skills/avoid-ai-writing/scripts/self-scan.js",
-      "sourceHash": "e8590f58963f49c801b0a46592bacbef53c2409bed93854f6effe11a1f0fbdc6",
-      "outputHash": "e8590f58963f49c801b0a46592bacbef53c2409bed93854f6effe11a1f0fbdc6"
+      "sourceHash": "08f800d16972a43b352d48277c04ee6ce33946e71485e9d315366a8d48e178ee",
+      "outputHash": "08f800d16972a43b352d48277c04ee6ce33946e71485e9d315366a8d48e178ee"
     },
     "skills/avoid-ai-writing/scripts/self-scan.test.js": {
       "source": ".agents/skills/avoid-ai-writing/scripts/self-scan.test.js",
-      "sourceHash": "1826a5febd2d7251dce762e683d33dc994d10da5176a7627322d7d9bc722f20e",
-      "outputHash": "1826a5febd2d7251dce762e683d33dc994d10da5176a7627322d7d9bc722f20e"
+      "sourceHash": "cc2ce7ed9ebb988af175fc063a50a446e90712081dca3542dffb02bfbd9583c0",
+      "outputHash": "cc2ce7ed9ebb988af175fc063a50a446e90712081dca3542dffb02bfbd9583c0"
     },
     "skills/avoid-ai-writing/scripts/sync-cursor-rules.sh": {
       "source": ".agents/skills/avoid-ai-writing/scripts/sync-cursor-rules.sh",
-      "sourceHash": "d33694ebcd11345992da506e3d9bb4fc12570a1e88fd283b92c2d9aaf3fb5760",
-      "outputHash": "d33694ebcd11345992da506e3d9bb4fc12570a1e88fd283b92c2d9aaf3fb5760"
+      "sourceHash": "9bf39e0d79d61472a0c9b41ea8c6191c41c362d8460f124411d89fb89a25d2b4",
+      "outputHash": "9bf39e0d79d61472a0c9b41ea8c6191c41c362d8460f124411d89fb89a25d2b4"
     },
     "skills/avoid-ai-writing/scripts/sync-plugin-skill.sh": {
       "source": ".agents/skills/avoid-ai-writing/scripts/sync-plugin-skill.sh",
-      "sourceHash": "c322b1d928de2db3943b9f34387a7d76b97d227f98ca3d900671ac18dfc02991",
-      "outputHash": "c322b1d928de2db3943b9f34387a7d76b97d227f98ca3d900671ac18dfc02991"
+      "sourceHash": "c1666470ef8a5b9612634c0301f7e72e9bf2c5c1897fb50e089cfaffbb889856",
+      "outputHash": "c1666470ef8a5b9612634c0301f7e72e9bf2c5c1897fb50e089cfaffbb889856"
     },
     "skills/avoid-ai-writing/scripts/test-canonical-skill-package.js": {
       "source": ".agents/skills/avoid-ai-writing/scripts/test-canonical-skill-package.js",
-      "sourceHash": "4a4759cef705bb39b13d5042eb59c4917dc25668ab6c3435e9af5633e47e49ee",
-      "outputHash": "4a4759cef705bb39b13d5042eb59c4917dc25668ab6c3435e9af5633e47e49ee"
+      "sourceHash": "503ec33037392316458dc185830e10d323fdc714f0c6b0b7e2bcace4b2fd347a",
+      "outputHash": "503ec33037392316458dc185830e10d323fdc714f0c6b0b7e2bcace4b2fd347a"
     },
     "skills/avoid-ai-writing/scripts/test-preservation-package.js": {
       "source": ".agents/skills/avoid-ai-writing/scripts/test-preservation-package.js",
-      "sourceHash": "eb8d349fb41ef4c07c20ad5ce5d06587d4cf1613f0d97268818c25248773096f",
-      "outputHash": "eb8d349fb41ef4c07c20ad5ce5d06587d4cf1613f0d97268818c25248773096f"
+      "sourceHash": "5d37605b7822656ce9f608439d39a2d8a09fc4f7c1ec624042823294f99a1f02",
+      "outputHash": "5d37605b7822656ce9f608439d39a2d8a09fc4f7c1ec624042823294f99a1f02"
+    },
+    "skills/avoid-ai-writing/scripts/vale-export-sample.js": {
+      "source": ".agents/skills/avoid-ai-writing/scripts/vale-export-sample.js",
+      "sourceHash": "5b56ec85ec3869c8208e7aa111f1fecde392aad7fc3b9c9356310188dab2f34d",
+      "outputHash": "5b56ec85ec3869c8208e7aa111f1fecde392aad7fc3b9c9356310188dab2f34d"
+    },
+    "skills/avoid-ai-writing/scripts/vale-export-sample.test.js": {
+      "source": ".agents/skills/avoid-ai-writing/scripts/vale-export-sample.test.js",
+      "sourceHash": "66e7a162e5755923be84dd89d545fdb2cf0448ee988d0c513fac33f3d2acab81",
+      "outputHash": "66e7a162e5755923be84dd89d545fdb2cf0448ee988d0c513fac33f3d2acab81"
     },
     "skills/avoid-ai-writing/scripts/validate-openai-plugin.py": {
       "source": ".agents/skills/avoid-ai-writing/scripts/validate-openai-plugin.py",
-      "sourceHash": "c8b20412e302fa8066a85e3235474d9beaf18775cc7df81d18837f60977722fa",
-      "outputHash": "c8b20412e302fa8066a85e3235474d9beaf18775cc7df81d18837f60977722fa"
+      "sourceHash": "14b1cbfa171340f1c721a0d80ae718f8f2ebf3a2717befecb9cb3d097bcb345b",
+      "outputHash": "14b1cbfa171340f1c721a0d80ae718f8f2ebf3a2717befecb9cb3d097bcb345b"
     },
     "skills/avoid-ai-writing/scripts/validate-openai-plugin.test.py": {
       "source": ".agents/skills/avoid-ai-writing/scripts/validate-openai-plugin.test.py",
-      "sourceHash": "e56e22a252a6b2f00d135980d262766f0b5977a0f87cb1a0d353fb9217a30a44",
-      "outputHash": "e56e22a252a6b2f00d135980d262766f0b5977a0f87cb1a0d353fb9217a30a44"
+      "sourceHash": "1a5f09b187e3295a36be0f24a14a8bc1598ca29e98598b73eb04366b6c9eee9c",
+      "outputHash": "1a5f09b187e3295a36be0f24a14a8bc1598ca29e98598b73eb04366b6c9eee9c"
     },
     "skills/avoid-ai-writing/scripts/verify-release-versions.js": {
       "source": ".agents/skills/avoid-ai-writing/scripts/verify-release-versions.js",
@@ -6550,53 +7558,53 @@
     },
     "skills/avoid-ai-writing/SKILL.full.md": {
       "source": ".agents/skills/avoid-ai-writing/SKILL.full.md",
-      "sourceHash": "95fc2092d50fdce5b9ab4b173e5adb45d5b62f4899513f8bb2978f5fec727e59",
-      "outputHash": "95fc2092d50fdce5b9ab4b173e5adb45d5b62f4899513f8bb2978f5fec727e59"
+      "sourceHash": "4c6a971a10fc4e34e6b8cf29df8a14e15331e2f8f059b9760f398747ed07442f",
+      "outputHash": "4c6a971a10fc4e34e6b8cf29df8a14e15331e2f8f059b9760f398747ed07442f"
     },
     "skills/avoid-ai-writing/SKILL.md": {
       "source": ".agents/skills/avoid-ai-writing/SKILL.md",
-      "sourceHash": "d13b188369d32d050b55d13e38c9c805a2873870def410a046ff292845359324",
-      "outputHash": "975df4671c9b37c9bcf67e37a71c3155d2d77f751f57bae39e1f9bf34d4347b1"
+      "sourceHash": "031c8ad21ea2a8ce93c4af97f82cf0218fabeb8450ad2d5fce41a76fac1eebd7",
+      "outputHash": "e9b291af351f58885da6ccc6376be451bb3b579e4d8e8a4438d2d44853af5e9e"
     },
     "skills/avoid-ai-writing/agents/openai.yaml": {
       "source": ".agents/skills/avoid-ai-writing/SKILL.md",
-      "sourceHash": "d13b188369d32d050b55d13e38c9c805a2873870def410a046ff292845359324",
+      "sourceHash": "031c8ad21ea2a8ce93c4af97f82cf0218fabeb8450ad2d5fce41a76fac1eebd7",
       "outputHash": "41fa05fe27191894b79e6add09550d89eeb425ac823a20561c8c99cd4ce6f9ae"
     },
     "skills/avoid-ai-writing/skills/ai-writing-detector/scripts/detect.js": {
       "source": ".agents/skills/avoid-ai-writing/skills/ai-writing-detector/scripts/detect.js",
-      "sourceHash": "87e021e73534fcff0f17e4f46c184eac6749b96cb30328d7b1b12a0b8ed9a2c5",
-      "outputHash": "87e021e73534fcff0f17e4f46c184eac6749b96cb30328d7b1b12a0b8ed9a2c5"
+      "sourceHash": "ca8d402aa020f41a51c2af72748ee609be9f6829e1db7ca109fec55a0a06226c",
+      "outputHash": "ca8d402aa020f41a51c2af72748ee609be9f6829e1db7ca109fec55a0a06226c"
     },
     "skills/avoid-ai-writing/skills/ai-writing-detector/scripts/patterns.js": {
       "source": ".agents/skills/avoid-ai-writing/skills/ai-writing-detector/scripts/patterns.js",
-      "sourceHash": "1ad7ed44ddc4d266b2c168d1df384e3d30ba225ff74d72db0ac71f49c060db3d",
-      "outputHash": "1ad7ed44ddc4d266b2c168d1df384e3d30ba225ff74d72db0ac71f49c060db3d"
+      "sourceHash": "37d6b022821f592b062e421c639789861b692e22388f65e8db0692154f7a59fd",
+      "outputHash": "37d6b022821f592b062e421c639789861b692e22388f65e8db0692154f7a59fd"
     },
     "skills/avoid-ai-writing/skills/ai-writing-detector/SKILL.md": {
       "source": ".agents/skills/avoid-ai-writing/skills/ai-writing-detector/SKILL.md",
-      "sourceHash": "af799b3012206d42fd395006e57d6794801819cdb73755bc545bdd6302d492d5",
-      "outputHash": "39d27b63a0a15fbfb2cf43b8d3399b3e01dff3bc772faf3f3bf8a91032555f69"
+      "sourceHash": "27350f969fdbb261f7da28d9c0ce8efa805d29e2bd7aeedf736605abf38d2010",
+      "outputHash": "a6aa549804679fda3925f96061dbd8bb25755dffe81b95c41be7921dad20de06"
     },
     "skills/avoid-ai-writing/skills/ai-writing-detector/agents/openai.yaml": {
       "source": ".agents/skills/avoid-ai-writing/skills/ai-writing-detector/SKILL.md",
-      "sourceHash": "af799b3012206d42fd395006e57d6794801819cdb73755bc545bdd6302d492d5",
+      "sourceHash": "27350f969fdbb261f7da28d9c0ce8efa805d29e2bd7aeedf736605abf38d2010",
       "outputHash": "1f210c82cc42d1d1f9b71e9b67990e27f726108220184fb17b9846fa3ab5daf2"
     },
     "skills/avoid-ai-writing/skills/avoid-ai-writing/detector/CATEGORIES.md": {
       "source": ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/detector/CATEGORIES.md",
-      "sourceHash": "378d95767421d161dbf222e05ca47ef7f350dd7362539be611ffc9d82d708b50",
-      "outputHash": "378d95767421d161dbf222e05ca47ef7f350dd7362539be611ffc9d82d708b50"
+      "sourceHash": "fb303990be9e9da197ab83ac5b9ff3539de63b827641f3760493a13bc1763256",
+      "outputHash": "fb303990be9e9da197ab83ac5b9ff3539de63b827641f3760493a13bc1763256"
     },
     "skills/avoid-ai-writing/skills/avoid-ai-writing/detector/patterns.js": {
       "source": ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/detector/patterns.js",
-      "sourceHash": "1ad7ed44ddc4d266b2c168d1df384e3d30ba225ff74d72db0ac71f49c060db3d",
-      "outputHash": "1ad7ed44ddc4d266b2c168d1df384e3d30ba225ff74d72db0ac71f49c060db3d"
+      "sourceHash": "37d6b022821f592b062e421c639789861b692e22388f65e8db0692154f7a59fd",
+      "outputHash": "37d6b022821f592b062e421c639789861b692e22388f65e8db0692154f7a59fd"
     },
     "skills/avoid-ai-writing/skills/avoid-ai-writing/detector/validate.js": {
       "source": ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/detector/validate.js",
-      "sourceHash": "fd6f11f5a68b82a40579a868d1a02085843f1202ada79f67bc7ee884eb54d04c",
-      "outputHash": "fd6f11f5a68b82a40579a868d1a02085843f1202ada79f67bc7ee884eb54d04c"
+      "sourceHash": "00c36a802373e263120325c4180e34d7bf2f64196f850b76226e90a09c7f22c9",
+      "outputHash": "00c36a802373e263120325c4180e34d7bf2f64196f850b76226e90a09c7f22c9"
     },
     "skills/avoid-ai-writing/skills/avoid-ai-writing/examples/prose.json": {
       "source": ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/examples/prose.json",
@@ -6605,8 +7613,8 @@
     },
     "skills/avoid-ai-writing/skills/avoid-ai-writing/examples/README.md": {
       "source": ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/examples/README.md",
-      "sourceHash": "d1b655658a66f0bb81d2c5e6b1c117d6dc722538cb1f43deb1ab909601aa4760",
-      "outputHash": "d1b655658a66f0bb81d2c5e6b1c117d6dc722538cb1f43deb1ab909601aa4760"
+      "sourceHash": "d1e0ca4d2c100b2f276253a9964506b3a92a161068ca327f9c4f06e77e04bc39",
+      "outputHash": "d1e0ca4d2c100b2f276253a9964506b3a92a161068ca327f9c4f06e77e04bc39"
     },
     "skills/avoid-ai-writing/skills/avoid-ai-writing/examples/technical.json": {
       "source": ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/examples/technical.json",
@@ -6615,8 +7623,8 @@
     },
     "skills/avoid-ai-writing/skills/avoid-ai-writing/references/patterns.md": {
       "source": ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/references/patterns.md",
-      "sourceHash": "d6f45ffdaf9914270243208e59136d76cbb4e128f28586aeda47b5925eff2011",
-      "outputHash": "d6f45ffdaf9914270243208e59136d76cbb4e128f28586aeda47b5925eff2011"
+      "sourceHash": "d5452a813006840b47273b0c1ddd4ca655733cbab4db9fbe19e803c03e77c499",
+      "outputHash": "d5452a813006840b47273b0c1ddd4ca655733cbab4db9fbe19e803c03e77c499"
     },
     "skills/avoid-ai-writing/skills/avoid-ai-writing/scripts/check-style.js": {
       "source": ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/scripts/check-style.js",
@@ -6635,8 +7643,8 @@
     },
     "skills/avoid-ai-writing/skills/avoid-ai-writing/REFERENCE.md": {
       "source": ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md",
-      "sourceHash": "77288f96a2ff93bb97970ef6c7a5ad9653d469c536dd88c6db606762f197d1ff",
-      "outputHash": "1eac4b643e74a985e9e125a2e573b3af154c4521ab729160926a29646ec8a9ba"
+      "sourceHash": "af4be7fb7898d00a9fca25b54ffe6d0f123117989aa60732d1be7dc69fac0491",
+      "outputHash": "6bb9893242f1c8126efc9ecc632205fff1c2ab7fcb5f36616c79f69e8a7c4dac"
     },
     "skills/avoid-ai-writing/skills/avoid-ai-writing-router/references/agency-role-lenses.md": {
       "source": ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing-router/references/agency-role-lenses.md",
@@ -6670,62 +7678,62 @@
     },
     "skills/avoid-ai-writing/skills/avoid-ai-writing-router/SKILL.md": {
       "source": ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing-router/SKILL.md",
-      "sourceHash": "e366396bfd0cac0d64c0e7cb451f50cb8024ab295b7fdde81cc8c55aee0a395b",
-      "outputHash": "8fef72421fcdaeb02f1e1f56fd1d9eea7758f2dc296b3539b49e97a9c1fae4fb"
+      "sourceHash": "24e1f157359be6b011407fda91a22ce9a372e3f54fa4f3078229d4b4cdd904c4",
+      "outputHash": "dec717763fcf4ab7ccd221cb8d494e9ad47da2a7c378601a13368fa803dd4adb"
     },
     "skills/avoid-ai-writing/skills/avoid-ai-writing-router/agents/openai.yaml": {
       "source": ".agents/skills/avoid-ai-writing/skills/avoid-ai-writing-router/SKILL.md",
-      "sourceHash": "e366396bfd0cac0d64c0e7cb451f50cb8024ab295b7fdde81cc8c55aee0a395b",
+      "sourceHash": "24e1f157359be6b011407fda91a22ce9a372e3f54fa4f3078229d4b4cdd904c4",
       "outputHash": "5f80a98721c5ebed5e97d85feac2b4f28ebae6e6c8d5485a4d49809b39b896f4"
     },
     "skills/avoid-ai-writing/skills/false-positive-reviewer/SKILL.md": {
       "source": ".agents/skills/avoid-ai-writing/skills/false-positive-reviewer/SKILL.md",
-      "sourceHash": "e83bead8603a4de54a956139800e76125ee1211c0bee5096b9a0bf02e926e1b4",
-      "outputHash": "ad1fe046ee7dc2705bc3235aad83d286ce6aa7c80fe8d70863e0913eb7df47ee"
+      "sourceHash": "194721b0b52945db38ef0f97ec5170b91489c2b76d7defbb29b099380ef76e2b",
+      "outputHash": "3543ad4d89a6329423eb4702de55beef1650913d9e1403e1089e4f9566f9f742"
     },
     "skills/avoid-ai-writing/skills/false-positive-reviewer/agents/openai.yaml": {
       "source": ".agents/skills/avoid-ai-writing/skills/false-positive-reviewer/SKILL.md",
-      "sourceHash": "e83bead8603a4de54a956139800e76125ee1211c0bee5096b9a0bf02e926e1b4",
+      "sourceHash": "194721b0b52945db38ef0f97ec5170b91489c2b76d7defbb29b099380ef76e2b",
       "outputHash": "ad91d1907f76047685078f48e207d0b239d5f91cad0d651c4b73d8111fa744c4"
     },
     "skills/avoid-ai-writing/skills/file-edit-in-place/SKILL.md": {
       "source": ".agents/skills/avoid-ai-writing/skills/file-edit-in-place/SKILL.md",
-      "sourceHash": "c3a52b2737128ab320c11163cd627bfed1195f2345b4a6d06c852fe3f0477074",
-      "outputHash": "7e2c593b5647c9f2cf25e614de0dac534a5c35ea012c46b2ab720c3e1e9e6ebf"
+      "sourceHash": "d35752b7eb3f164cb793e9d05941b0bb748b114ef9bf80763a3ed0a0216dd6a1",
+      "outputHash": "3069c27294f7fcd4d76328c72f025a387744745da97782b36a278ab92ebfde13"
     },
     "skills/avoid-ai-writing/skills/file-edit-in-place/agents/openai.yaml": {
       "source": ".agents/skills/avoid-ai-writing/skills/file-edit-in-place/SKILL.md",
-      "sourceHash": "c3a52b2737128ab320c11163cd627bfed1195f2345b4a6d06c852fe3f0477074",
+      "sourceHash": "d35752b7eb3f164cb793e9d05941b0bb748b114ef9bf80763a3ed0a0216dd6a1",
       "outputHash": "f8ea8b1f76307eb53e5d2bb5ffb1697f17f184c9bd7a3cad055f80bb71f00bec"
     },
     "skills/avoid-ai-writing/skills/preservation-verifier/scripts/patterns.js": {
       "source": ".agents/skills/avoid-ai-writing/skills/preservation-verifier/scripts/patterns.js",
-      "sourceHash": "1ad7ed44ddc4d266b2c168d1df384e3d30ba225ff74d72db0ac71f49c060db3d",
-      "outputHash": "1ad7ed44ddc4d266b2c168d1df384e3d30ba225ff74d72db0ac71f49c060db3d"
+      "sourceHash": "37d6b022821f592b062e421c639789861b692e22388f65e8db0692154f7a59fd",
+      "outputHash": "37d6b022821f592b062e421c639789861b692e22388f65e8db0692154f7a59fd"
     },
     "skills/avoid-ai-writing/skills/preservation-verifier/scripts/validate.js": {
       "source": ".agents/skills/avoid-ai-writing/skills/preservation-verifier/scripts/validate.js",
-      "sourceHash": "fd6f11f5a68b82a40579a868d1a02085843f1202ada79f67bc7ee884eb54d04c",
-      "outputHash": "fd6f11f5a68b82a40579a868d1a02085843f1202ada79f67bc7ee884eb54d04c"
+      "sourceHash": "00c36a802373e263120325c4180e34d7bf2f64196f850b76226e90a09c7f22c9",
+      "outputHash": "00c36a802373e263120325c4180e34d7bf2f64196f850b76226e90a09c7f22c9"
     },
     "skills/avoid-ai-writing/skills/preservation-verifier/SKILL.md": {
       "source": ".agents/skills/avoid-ai-writing/skills/preservation-verifier/SKILL.md",
-      "sourceHash": "1e46b9309d9827dc63811fd3ad4da62d5fc3ce245d050e07925c35fd50441a8d",
-      "outputHash": "0b0b6ecac7295bbb78804f75561f15fce4b99fad0d61a45d08ee50d619a8b74b"
+      "sourceHash": "e67c6f9708f7af626550a0b3ef90f8687bc73bf931a0942fafed9fd4697cf14d",
+      "outputHash": "bd064a09afa7e1a1bd2ecf4b22802b2ed1bd9e03eb0ea345354d9f23c4dd95a6"
     },
     "skills/avoid-ai-writing/skills/preservation-verifier/agents/openai.yaml": {
       "source": ".agents/skills/avoid-ai-writing/skills/preservation-verifier/SKILL.md",
-      "sourceHash": "1e46b9309d9827dc63811fd3ad4da62d5fc3ce245d050e07925c35fd50441a8d",
+      "sourceHash": "e67c6f9708f7af626550a0b3ef90f8687bc73bf931a0942fafed9fd4697cf14d",
       "outputHash": "3236d47aeec7580b617b7e454d28ccaae635cd402a7efd84fb31bff0879328a3"
     },
     "skills/avoid-ai-writing/skills/voice-preserving-rewriter/SKILL.md": {
       "source": ".agents/skills/avoid-ai-writing/skills/voice-preserving-rewriter/SKILL.md",
-      "sourceHash": "b1a6cb41822af0f24e5217f8340778f3ef927ad876f0a4a6a6f5a23a02107cd3",
-      "outputHash": "c096ec215d3c610193a4ac0bc177592f5c805594707710765c83a3a892e35455"
+      "sourceHash": "e55e446132bd75295701af3c9542b5229afd2cc36bd4285e0f7baa3a86db6660",
+      "outputHash": "9100182216476ef1395416c401b5cb8c63c1fd6224c71eb7affba947401ed4d8"
     },
     "skills/avoid-ai-writing/skills/voice-preserving-rewriter/agents/openai.yaml": {
       "source": ".agents/skills/avoid-ai-writing/skills/voice-preserving-rewriter/SKILL.md",
-      "sourceHash": "b1a6cb41822af0f24e5217f8340778f3ef927ad876f0a4a6a6f5a23a02107cd3",
+      "sourceHash": "e55e446132bd75295701af3c9542b5229afd2cc36bd4285e0f7baa3a86db6660",
       "outputHash": "1e913ef2f5bd525b6e29b0b31d3852189927c67a8de24d21e7dc5209513be333"
     },
     "skills/avoid-ai-writing/submission/discovery-evals.json": {
@@ -6735,8 +7743,8 @@
     },
     "skills/avoid-ai-writing/submission/listing.json": {
       "source": ".agents/skills/avoid-ai-writing/submission/listing.json",
-      "sourceHash": "5925c9d58127d5830925aeb1915ea987a4b1b5b3d6106f3c4aa04d5bd384f967",
-      "outputHash": "5925c9d58127d5830925aeb1915ea987a4b1b5b3d6106f3c4aa04d5bd384f967"
+      "sourceHash": "e3401154eb41e58c51ff91c218db1c6e7779dd6e84c930f4759fa62bb216d4da",
+      "outputHash": "e3401154eb41e58c51ff91c218db1c6e7779dd6e84c930f4759fa62bb216d4da"
     },
     "skills/avoid-ai-writing/submission/release-notes.md": {
       "source": ".agents/skills/avoid-ai-writing/submission/release-notes.md",
@@ -6750,13 +7758,13 @@
     },
     "skills/avoid-ai-writing/submission/submission-pack.json": {
       "source": ".agents/skills/avoid-ai-writing/submission/submission-pack.json",
-      "sourceHash": "e3c58d346abce5ee4ef23243abcd69037069219f29d97e30cc19c03392a7e3e5",
-      "outputHash": "e3c58d346abce5ee4ef23243abcd69037069219f29d97e30cc19c03392a7e3e5"
+      "sourceHash": "4bc426e9f5679560f517dd7cdd7a41fe0095ebcc9b7ded3d104931838f15ec2b",
+      "outputHash": "4bc426e9f5679560f517dd7cdd7a41fe0095ebcc9b7ded3d104931838f15ec2b"
     },
     "skills/avoid-ai-writing/SUPPORT.md": {
       "source": ".agents/skills/avoid-ai-writing/SUPPORT.md",
-      "sourceHash": "56d36f2b5cdf961b4f09b5df4454065ece4b801dd7132ea493f12227fd1461be",
-      "outputHash": "56d36f2b5cdf961b4f09b5df4454065ece4b801dd7132ea493f12227fd1461be"
+      "sourceHash": "e85f823b029a3f296d7428dec22b5a7c7817201c84b5c344c6ec1874dfae8730",
+      "outputHash": "e85f823b029a3f296d7428dec22b5a7c7817201c84b5c344c6ec1874dfae8730"
     },
     "skills/avoid-ai-writing/TERMS.md": {
       "source": ".agents/skills/avoid-ai-writing/TERMS.md",
@@ -10940,8 +11948,8 @@
     },
     "skills/ui-ux-pro-max/scripts/core.py": {
       "source": ".agents/skills/ui-ux-pro-max/scripts/core.py",
-      "sourceHash": "e544826963efefce3c59b65e18d83d92a5baf571f05458025bf1fa9021eced42",
-      "outputHash": "e544826963efefce3c59b65e18d83d92a5baf571f05458025bf1fa9021eced42"
+      "sourceHash": "fb2fd69ba122cccba7a1a664396872f4f9ffcb38284e83238694394d1adecd56",
+      "outputHash": "fb2fd69ba122cccba7a1a664396872f4f9ffcb38284e83238694394d1adecd56"
     },
     "skills/ui-ux-pro-max/scripts/design_system.py": {
       "source": ".agents/skills/ui-ux-pro-max/scripts/design_system.py",

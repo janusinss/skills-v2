@@ -6,13 +6,80 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+### Changed
+
+- Add editorial decision cards to selected existing rules, with stable IDs, partial detector mappings, applicability conditions, and edit/keep/gap examples. Preserve subjective judgments and report unresolved claim scope. Keep the full catalog mandatory in directory and portable installations; no detector API, loading default, or category count changes (#206).
+- Reworded the large-file scope sentence in the editing contract so it no longer reads as "without asking" to static skill scanners; the meaning is unchanged. Documented known scanner false positives in `SUPPORT.md`.
+- The detector now exports `CONTEXT_MODES` and `SOURCE_MODES`, the frozen lists of modes `analyzeText()` accepts. The CLIs read them instead of keeping their own copies (#413, #414).
+
 ### Fixed
 
-- Require explicit skill names matching their directories and reject duplicate frontmatter keys, including mixed quoted/unquoted keys, while retaining required names in every generated distribution (#259).
+- Remove polynomial backtracking from the sentence-unit regex in `normalizeText()`. A long tab or space run after a Markdown table delimiter (`-|-`) or thematic break (`***`, `___`) made `analyzeText()` take seconds on a 64 KB input, before the word limit applied. Matching is unchanged; both shapes are now in the bounded-time test (CodeQL `js/polynomial-redos`).
+- Treat the smart-punctuation co-occurrence finding as a low-priority style check in plain mode and omit it in rendered-Markdown mode. House-style typography no longer changes authorship scores, probabilities, confidence, or classifications, including the separate classifier corroborator. Keep the public type and other pattern checks (#351).
+
+## [3.38.0] — 2026-10-15
+
+### Changed
+
+- Replaced placeholder instructions and empty suggestions in the word replacement tables with concrete, direct alternatives for previously incomplete entries (#215).
+- Removed `breakthrough` from the `game-changer` / `game-changing` suggestions to avoid preserving unsupported importance claims. Added missing context fallbacks and adjective/noun clarifications for `transformative`, `paradigm-shifting`, and `despite challenges` (#380).
+- Ground model-only `detect` audit findings in the pattern catalog: report only catalog patterns with canonical categories and severities (e.g., transition phrases and generic conclusions under P2), support catalog-defined adverbial base forms (e.g. `robustly`, `comprehensively`), exclude suggested replacement alternatives, and omit sub-threshold Tier 2 and Tier 3 matches from standalone issues (#323). Added standalone `evals/rewrite/check-detect-audit.cjs` and a regression suite with executed mutation controls, while preserving original pinned `check-literals.cjs` for dated report reproducibility.
+
+### Fixed
+
+- Keep the "X is dead; long live Y" form as editorial judgment rather than a deterministic `performed-insight` finding. Essay titles, supported contrasts, and literal succession announcements share the wording; other performed-insight phrases still detect (#351).
+- Recognize Markdown setext heading underlines (including two-hyphen level-2 underlines) alongside thematic breaks as sentence boundaries so surrounding blocks do not share homoglyph script evidence (#390).
+- Short Russian words in Russian technical prose with English terms ("`make_json_safe()` на Enum", "r/StableDiffusion от 07.10") are no longer read as homoglyph swaps. The lookalike rule now decides per sentence: a dot inside a date or a version and a hard line wrap no longer end it, and a word spelled entirely in lookalike letters is swapped only when its sentence has no Russian or Greek letter that is not a lookalike (follow-up to #352). Sentence punctuation, Markdown separators/tables and HTML block starts keep unrelated blocks separate. Fully substituted words beside Russian or Greek prose, including across plain hard wraps, remain a documented detection limit.
+- Disambiguate "features support for" detection to flag verb uses with definite, possessive, and singular subject determiners, including versioned product names ("The library features support for...", "This Windows 11 app features support for..."), while preserving plural-noun readings with programming keyword objects and compound predicates (#387).
+- Treat "which/what features" as a noun in an indirect question (right after a question verb such as decide, check or find out, or at the start of a sentence) and "whose features" as a noun; every other use keeps the existing verb checks (#384). Recognize explicitly singular subjects before "features support for" as a verb, preserving plural-noun readings, and recognize article-led indirect-question verb cases with compound subjects (#391).
+- Narrow the `features` clarity finding with noun-context heuristics for product writing, including headings and bare objects ("three new features", "Features", "we ship features"). Keep findings for tested verb uses such as "the app features a dashboard", relative clauses and versioned product subjects. This is a context heuristic rather than a complete grammatical classifier (#351).
+- Score long self-scan documents with a rounded word-weighted average of their accepted chunks instead of the highest chunk score. Short-document scores and issue/category totals stay unchanged (#382).
+- Narrow the evolution-of shape in `significance-inflation` to require a preceding inflating word, such as "chapter" or "turning point"; neutral scientific and historical uses ("a key stage in the evolution of the vertebrate eye", "an odd place in the evolution of systems languages") no longer flag (#212).
+- Narrow the step-towards/forward shape in `template-phrase` to require a preceding vague-praise adjective, such as "major" or "crucial"; neutral milestones ("a first step towards the full API", "a small step towards cutting our storage bill") no longer flag (#212).
+
+## [3.37.0] — 2026-10-04
+
+### Documentation
+
+- Document paste-field limits and current file-size measurement. Recommend a directory install for Windsurf and the native plugin or an activated Knowledge upload for ChatGPT (#219).
+
+### Packaging
+
+- The six ChatGPT/Codex Skills that lacked them now carry `version` and `license` in their frontmatter, so a bug report or vendored copy can name its version. `validate-openai-plugin.py` fails when any Skill's version is missing or differs from the plugin manifest, both in PR checks and release preflight before tagging or publishing (#246).
+
+### Fixed
+
+- Fix empty-result stats and non-string input handling (#234).
+- Cyrillic and Greek prose no longer reads as a homoglyph bypass. Script dominance is decided per sentence, and only mixed-script or fully substituted words surrounded by non-Russian text are swapped; limits are documented in `detector/patterns.js` (#352).
+- Narrow the false-concession rule to require a vague close in the following clause, allow multi-word subjects, and drop the bare "despite challenges" opener (#211).
+
+### Added
+
+- Add advisory residual checks and separate mechanical preservation results from pattern diagnostics (#204).
+
+- The bundled `ai-writing-detector` script accepts `--source-mode <plain|rendered-markdown>`, so the published plugin can reach rendered-Markdown scoring instead of flagging YAML frontmatter as the author's prose. It also accepts the `marketing` and `personal` contexts the root CLI and the detector already support, which it previously rejected. Blank input reports the selected context and source mode instead of an empty `stats` object, matching the root CLI. A bad argument now prints the usage message and exits 2 instead of throwing an uncaught stack trace (#244).
+
+- The detector flags negative parallelism with a new `negative-parallelism` type. "It's not just a search index, it's a foundation for trust." flags on its own. The plain "isn't X, it's Y" frame and the split-sentence "isn't just X. It's Y." flag only when another frame starts within three sentences in the same paragraph, so one real correction stays clean and two unrelated ones far apart do too. "Not only X but also Y" and "not X but Y" are not matched: they are ordinary correlatives and showed up more often in the human control corpus than in the machine one. The engine now has 54 types (#351).
+- Ignore markers: text between `<!-- avoid-ai-writing:ignore-start -->` and `<!-- avoid-ai-writing:ignore-end -->` is excluded from scoring in every source mode, so a page can quote an AI specimen on purpose. Markers act only on their own line, and starts nest. `stats.ignoredRegions` counts the regions (#351).
+
+### Changed
+
+- The low vocabulary diversity flag (`low-ttr`) now averages the type-token ratio over 200-token windows instead of taking it across the whole text. Whole-text TTR falls with length, so in the human control corpus the flag fired on all 13 documents longer than 1,900 tokens, including every 6,000-word public-domain slice, and it now fires on none of them. A text of exactly 200 tokens gets the same value as before (#361).
+- Word joiners (U+2060) next to URLs, spaces, or punctuation no longer raise the bypass-character flag. Show-notes editors insert them to control line breaks, and four of them pushed a plain paragraph of links to `AI_ONLY`. They are still stripped before matching, and a word joiner that splits a word still counts (#351).
+- A word joiner between two letters outside the Basic Multilingual Plane now counts as a bypass character (#353).
+- The negative-parallelism proximity gate now counts distinct reported frames. Repeating an identical plain contrast no longer produces one finding from a gate that counted two raw matches (#353).
+- The Cursor rule and the portable paste file now state the manual marks-pass convention once. The paragraph no longer tells the model to run normalizer flags (`--write`, `--quotes`, `--reference`) that those standalone files cannot use (#218).
+- Check how a destination renders single newlines before delivering prose; unwrap hard-wrapped paragraphs only where the breaks remain visible, while preserving intentional line breaks and fixed-width Markdown source layout (#122).
+- Performed-insight phrases now cover staged discoveries: a judgment framed as a twist the writer found ("the recording turned out to be the least interesting part", "the real story was"). The detector keeps the superlative-plus-insight-noun form and reveal-style "real story" continuations narrow, so literal uses such as "turned out to be the most expensive option" and "the real story was covered" stay clean. Nested emotional-flatline wording and sentence-initial "Turns out" count once when contained in a staged discovery. In short social copy, one staged discovery carrying the payoff is enough to fix. The fabricated-speaker-perspective guardrail now also covers drafting new copy in someone else's voice. No new category.
+- The detector now skips quoted material, as the skill's self-reference escape hatch describes. Words inside a double-quoted span (straight or curly) and single-line blockquotes, including nested `>>` lines, lists inside a quote and the compact `>text` form, no longer count against the writer, so quoting AI output to criticise it stops scoring its vocabulary. Bypass characters inside a quotation no longer raise the normalization flag. `stats.maskedQuotes` reports how many spans were skipped. Single quotes still count, because apostrophes would pair up across ordinary prose. Issue and highlight offsets still point at the original text (#238).
+- Cover two phrasings flagged in #325 as judgment-only examples: cold-outreach flattery asks ("I'd value your take on this") under sycophantic tone, and the teaser form of the crowd contrast ("the call most leaders still won't make"). No detector change and no new category.
+
+## [3.36.0] — 2026-09-23
 
 ### Added
 
 - Add machine-readable `--json` output to `avoid-ai-writing-gate` and expose `pass`, `total-findings`, and `failed-files` step outputs in the GitHub Action (#252).
+- Note in the README that the pinned `v3.35.0` Action example predates the step outputs and `--json`, and cover the gate's `--json` operational-error paths and the Action's output writer with executed tests.
 
 ### Changed
 
@@ -26,13 +93,15 @@ All notable changes to this project are documented here.
 
 ### Fixed
 
-- Detect unsegmented-script documents (Chinese/Japanese: no inter-word spaces) before the word gate and label them `Unsupported script` instead of `Too short`, with the reason and CJK character count in `stats`. The check recognizes the full Unicode Han and kana scripts (including supplementary-plane and halfwidth forms) and declines only when CJK characters dominate the non-whitespace text, so newline-wrapped lines cannot bypass it and short English documents with an incidental place name stay scorable. The gate CLI now exits 2 on such files — matching the documented unscannable-input exit code — instead of passing silently at every threshold, and the repository self-scan reports declined documents instead of scoring them as clean while keeping raw and exemption-aware declines distinct (#241).
+- Require explicit skill names matching their directories and reject duplicate frontmatter keys, including mixed quoted/unquoted keys, while retaining required names in every generated distribution (#259).
+- Accept `--context marketing` and `--context personal` in the `avoid-ai-writing` scoring CLI, which previously rejected them with exit 2 even though the engine and the gate CLI support all four contexts. `--help` now lists the same values in both binaries (#207).
 - Align false-positive preprocessing with CommonMark for backtick fence info strings and multiline setext headings, preserve unique normalized units as modified when only whitespace boundaries move their source spans, reject Windows OpenCode command shims with an actionable native-binary error, and recognize first-person `I` inside otherwise targeted Title Case headings (#314).
 - Restrict Title Case header word separators and trailing whitespace to horizontal whitespace, so a match can never run past one physical line. `\s` also ate newlines, which let two unrelated lines or a blank-line-separated fragment combine into a single heading match that neither line independently satisfied (#291).
 - Report the underlying OpenCode export launch error instead of a secondary `stderr.trim()` exception during rewrite evaluation.
 - Preserve non-tracking query parameters when removing AI-referrer parameters from URLs during rewrite validation (#210). Removing a tracker that sits directly before bold markers, a dash, or an ellipsis no longer reports the URL as altered.
 - Replace four superlinear Markdown scans reachable through the detector API with bounded or forward-only parsing. Validate corpus cache IDs, stage and retry cache replacements, isolate CLI-test files in private temporary directories, and require push-triggered releases to prove the package version changed.
 - Replace the preservation validator's fenced-code regex with a line scanner that tracks the opening fence marker and run length, so a fence closes only on the same marker at equal or greater length per CommonMark. A `~~~` line inside a ``` block (the normal way to document Markdown fences) is content, and a three-backtick line inside a four-backtick fence no longer closes it. The same scanner replaces the marker-agnostic matcher in `scripts/self-scan.js` (#236).
+- Stop the preservation validator's fence scanner from opening a fence on a backtick line whose info string contains a backtick, which CommonMark forbids. A prose line that began with a triple-backtick inline span opened a fence that ran to end of document, so every later prose edit reported `code-block-modified`. `scripts/self-scan.js` had the same gap and exempted the rest of the document from its scan.
 
 ## [3.35.0] — 2026-09-13
 
@@ -748,7 +817,7 @@ Trope review sourced from [tropes.fyi/directory](https://tropes.fyi/directory) a
   - Tier 1 (always flag): 53 entries — dead giveaways that appear 5–20x more often in AI text
   - Tier 2 (flag in clusters): 38 entries — legitimate words that signal AI when 2+ appear in the same paragraph
   - Tier 3 (flag by density): 11 entries — common words that only flag when the text is saturated with them
-- 39 new vocabulary entries across all tiers, including: bustling, intricate, complexities, ever-evolving, daunting, holistic, actionable, impactful, learnings, thought leadership, best practices, synergy, interplay, encompass, catalyze, reimagine, galvanize, augment, cultivate, illuminate, elucidate, juxtapose, paradigm-shifting, transformative, cornerstone, paramount, poised, burgeoning, nascent, quintessential, overarching, underpinning, significant, innovative, dynamic, scalable, compelling, unprecedented, sophisticated, instrumental, world-class
+- 39 new vocabulary entries across all tiers, including: `bustling, intricate, complexities, ever-evolving, daunting, holistic, actionable, impactful, learnings, thought leadership, best practices, synergy, interplay, encompass, catalyze, reimagine, galvanize, augment, cultivate, illuminate, elucidate, juxtapose, paradigm-shifting, transformative, cornerstone, paramount, poised, burgeoning, nascent, quintessential, overarching, underpinning, significant, innovative, dynamic, scalable, compelling, unprecedented, sophisticated, instrumental, world-class`
 - Credit to [brandonwise/humanizer](https://github.com/brandonwise/humanizer) for tiered vocabulary research
 
 ### Changed
@@ -761,7 +830,7 @@ Trope review sourced from [tropes.fyi/directory](https://tropes.fyi/directory) a
 ## [1.4.0] — 2026-03-17
 
 ### Added
-- 15 new word/phrase replacements: nuanced, crucial, multifaceted, ecosystem, myriad, plethora, deep dive/dive into, unpack, bolster, spearhead, resonate, revolutionize, facilitate, underpin
+- 15 new word/phrase replacements: `nuanced, crucial, multifaceted, ecosystem, myriad, plethora, deep dive/dive into, unpack, bolster, spearhead, resonate, revolutionize, facilitate, underpin`
 - New pattern category: "let's" constructions (false-collaborative openers like "let's explore," "let's break this down")
 - Skill now covers 23 pattern categories with 58 word/phrase replacements
 
@@ -791,7 +860,7 @@ Trope review sourced from [tropes.fyi/directory](https://tropes.fyi/directory) a
 
 ### Added
 - 8 new pattern categories: notability name-dropping, superficial -ing analyses, promotional language, formulaic challenges, false ranges, inline-header lists, title case headings, cutoff disclaimers
-- 5 new word table entries (nestled, vibrant, thriving, despite challenges, showcasing)
+- 5 new word table entries (`nestled`, `vibrant`, `thriving`, `despite challenges`, `showcasing`)
 - Skill now covers 21 pattern categories with 43 word/phrase replacements
 
 ### Changed

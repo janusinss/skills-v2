@@ -2,6 +2,7 @@
 'use strict';
 
 const path = require('node:path');
+const assert = require('node:assert/strict');
 
 const root = path.resolve(process.argv[2] || '.');
 const validatorPath = path.join(
@@ -43,4 +44,16 @@ for (const field of ['issuesBefore', 'issuesAfter', 'scoreBefore', 'scoreAfter']
   }
 }
 
-console.log(JSON.stringify({ ok: true, residual }, null, 2));
+const before = sample + ' `config.json`';
+const after = 'We leverage a robust and comprehensive framework to delve into the landscape of tooling, showcasing a seamless paradigm. `config.json`';
+const legacy = validator.validate(before, after);
+const editorial = validator.validate(before, after, { residualPolicy: 'warn' });
+assert.equal(legacy.ok, false);
+assert.ok(legacy.errors.some(e => e.code === 'residual-grew'));
+assert.equal(editorial.ok, true);
+assert.equal(editorial.preservation.ok, true);
+assert.ok(editorial.warnings.some(w => w.code === 'residual-grew'));
+const damaged = validator.validate(before, after.replace('`config.json`', ''), { residualPolicy: 'warn' });
+assert.equal(damaged.ok, false);
+assert.ok(damaged.preservation.errors.some(e => e.code === 'inline-code-missing'));
+console.log(JSON.stringify({ ok: true, residual, advisoryAndDamageControls: true }, null, 2));

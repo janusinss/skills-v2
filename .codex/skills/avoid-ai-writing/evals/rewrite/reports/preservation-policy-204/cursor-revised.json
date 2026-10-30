@@ -1,0 +1,64 @@
+{
+  "model": [
+    "composer-2.5 (requested; canonical ID not exposed)"
+  ],
+  "result": {
+    "cases": [
+      {
+        "id": "quantity-added",
+        "status": "FAIL",
+        "assessment": "model_only",
+        "reason": "Supplied validator: preservation.ok true, number-added warn for literal 30; quality unscored (no residual audit). Semantic: retains \u201ctwice\u201d and stopping but adds a 30-second duration not in the source and not an explicit user correction\u2014violates source fidelity on quantities/timing. Mechanical pass does not authorize the new fact."
+      },
+      {
+        "id": "quantity-removed",
+        "status": "REVIEW",
+        "assessment": "model_only",
+        "reason": "Supplied validator: preservation.ok true, number-missing warn for 30; quality unscored. Semantic: \u201cafter the timeout\u201d drops the concrete 30-second figure; may be acceptable only if timeout is defined elsewhere as 30s. Without that, quantity and precision are lost\u2014judgment needed, not a clean PASS."
+      },
+      {
+        "id": "quantity-spelled-out",
+        "status": "PASS",
+        "assessment": "model_only",
+        "reason": "Supplied validator: number-missing warn for digit 2 only (spelling mismatch). Semantic: \u201c2 times\u201d and \u201ctwo times\u201d are equivalent; no new claims, negation, or timing change. Warn is a legitimate digit\u2194word change; unscored quality does not block when residual audit was not the only issue and preservation meaning holds."
+      },
+      {
+        "id": "quantity-digitized",
+        "status": "PASS",
+        "assessment": "model_only",
+        "reason": "Supplied validator: number-added warn for literal 2. Semantic: same count as \u201ctwo times\u201d; faithful quantity with typography change only. Mechanical warn resolved by model review; no semantic drift."
+      },
+      {
+        "id": "claim-added-without-number",
+        "status": "FAIL",
+        "assessment": "model_only",
+        "reason": "Supplied validator: no errors or warnings (blind to non-numeric additions). Semantic: \u201cexponential backoff\u201d is new behavioral/causal detail absent from the source and unauthorized\u2014invents technical behavior. Blocking fidelity failure despite mechanical ok."
+      },
+      {
+        "id": "claim-removed-without-number",
+        "status": "FAIL",
+        "assessment": "model_only",
+        "reason": "Supplied validator: clean mechanically. Semantic: removes \u201cwith exponential backoff,\u201d a sourced diagnostic constraint; remaining sentence is weaker and no longer states the original retry policy. Protected meaning loss without scoped authorization."
+      },
+      {
+        "id": "residual-only",
+        "status": "REVIEW",
+        "assessment": "model_only",
+        "reason": "Supplied validator: preservation ok; quality checked with residual-grew (0\u21921 issue). Semantic: \u201cincludes\u201d\u2192\u201cfeatures\u201d preserves parser/config meaning; likely register tweak. Residual growth is flagged for applicability review, not proof of damage; warning remains per contract so not PASS."
+      },
+      {
+        "id": "protected-damage",
+        "status": "FAIL",
+        "assessment": "model_only",
+        "reason": "Supplied validator: preservation.ok false, inline-code-missing for `config.json`. Protected inline identifier removed and replaced with generic \u201cthe file,\u201d corrupting a path/token the contract keeps intact. Blocking mechanical error; repair owner file-edit-in-place or voice-preserving-rewriter per source kind."
+      },
+      {
+        "id": "unavailable",
+        "status": "REVIEW",
+        "assessment": "model_only",
+        "reason": "Supplied validator: preservation ok on identical strings; quality.status unavailable (residual null). Semantic: no edit drift. User requested residual verification\u2014unscored/unavailable residual audit is incomplete per verifier PASS rules even when text is unchanged; not FAIL absent content damage."
+      }
+    ]
+  },
+  "session_id": "0309adab-dbb7-4618-9f4e-925ec161ba20"
+}

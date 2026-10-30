@@ -25,8 +25,8 @@ Examples:
   avoid-ai-writing-gate --context technical README.md docs/guide.md
 `;
 
-const CONTEXTS = ["general", "technical", "marketing", "personal"];
-const SOURCE_MODES = ["plain", "rendered-markdown"];
+const CONTEXTS = AIDetector.CONTEXT_MODES;
+const SOURCE_MODES = AIDetector.SOURCE_MODES;
 
 function parseArgs(argv) {
   const options = { help: false, json: false, glob: null, threshold: 6, context: "technical", sourceMode: "rendered-markdown", files: [] };

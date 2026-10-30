@@ -1,6 +1,9 @@
 ---
 name: "file-edit-in-place"
 description: "Use when the user names a local file and explicitly asks to clean, rewrite, humanize, or remove AI-writing patterns in that file itself, with minimal targeted edits and post-edit verification."
+license: "MIT"
+metadata:
+  upstream-version: "3.38.0"
 ---
 
 # File Edit In Place

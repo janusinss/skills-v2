@@ -46,7 +46,7 @@ jobs:
           OWNER: ${{ github.repository_owner }}
         run: |
           cd "$GITHUB_WORKSPACE/.."
-          for repo in agent-skills ai-tools-for-creators conorbronsdon; do
+          for repo in agent-skills ai-tools-for-creators; do
             git clone --depth 1 --quiet \
               "https://github.com/$OWNER/$repo.git" "$repo"
           done
@@ -79,6 +79,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          set -o pipefail
           title="Promo surfaces have drifted from the canonical counts"
           {
             echo "The counts in this repo's README moved and one or more"
@@ -95,9 +96,11 @@ jobs:
 
           # Loose search, then exact title match, so a differently-worded issue
           # never gets commented on by mistake.
+          # gh's --jq takes only an expression (no --arg), so the exact-title
+          # filter runs in standalone jq, which the runner image ships.
           existing="$(gh issue list --state open --search "in:title drifted from the canonical counts" \
             --json number,title \
-            --jq --arg t "$title" 'map(select(.title == $t)) | .[0].number // empty')"
+            | jq -r --arg t "$title" 'map(select(.title == $t)) | .[0].number // empty')"
 
           if [ -n "$existing" ]; then
             gh issue comment "$existing" --body-file issue.md

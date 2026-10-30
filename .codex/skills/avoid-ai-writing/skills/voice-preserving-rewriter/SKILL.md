@@ -1,6 +1,9 @@
 ---
 name: "voice-preserving-rewriter"
 description: "Use when the user asks to rewrite, humanize, clean up, or remove AI-isms from text while preserving the writer's voice, facts, intent, structure, register, and protected material."
+license: "MIT"
+metadata:
+  upstream-version: "3.38.0"
 ---
 
 # Voice-Preserving Rewriter

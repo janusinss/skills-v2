@@ -48,7 +48,7 @@ try {
   fs.writeFileSync(referenceFixture, 'Say “welcome.”\n');
   run(['scripts/normalize-quotes.js', styleFixture, '--reference', referenceFixture, '--write']);
   assert.strictEqual(fs.readFileSync(styleFixture, 'utf8'), 'Say “hello” in [docs](url "Title").\n');
-  const preservation = run(['detector/validate.js', beforeFixture, afterFixture]);
+  const preservation = run(['detector/validate.js', '--residual-policy', 'warn', beforeFixture, afterFixture]);
   console.log(JSON.stringify({ ok: true, cwd: path.relative(root, skillRoot), style, marks, preservation }, null, 2));
  }
 } finally {

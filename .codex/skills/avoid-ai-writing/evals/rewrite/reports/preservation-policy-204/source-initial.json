@@ -1,0 +1,16 @@
+{
+  "source_commit": "307cf59a9f808e24c4eed59596b10d1e1eb8b6cc",
+  "files": {
+    "detector/validate.js": "00c36a802373e263120325c4180e34d7bf2f64196f850b76226e90a09c7f22c9",
+    "detector/validate.test.js": "af298d88f551123d98505647817dba71b01ca14c70f9437dbcf979da6893df0b",
+    "detector/README.md": "8d0dcaf8239adbb463fd061f34dc26c3bf2431eab0d7b5af858a1b9d53985a40",
+    "SKILL.md": "e93173731d358486df538b124ef2138446534af9394c6e21321f9a2e4d9f3482",
+    "skills/preservation-verifier/SKILL.md": "fd87ee89466b7892dfd176130c08a55d49fb02491b1cb50d0db6b9039f69d445",
+    "scripts/sync-cursor-rules.sh": "c11e1617c645e3edd4e641a8c419f29578adad047e67abeabd6961b552f47613",
+    "scripts/test-preservation-package.js": "5d37605b7822656ce9f608439d39a2d8a09fc4f7c1ec624042823294f99a1f02",
+    "scripts/test-canonical-skill-package.js": "503ec33037392316458dc185830e10d323fdc714f0c6b0b7e2bcace4b2fd347a",
+    "evals/rewrite/preservation-policy-cases.json": "4691644b5172dbdf624704fa1704797a281d57bf73932c95cda89d068f09d13f"
+  },
+  "scenario_prompt_sha256": "bce8ff003c43bf4d916f2b229c924fea9193ede1b6da25665a8495e58c508dfc",
+  "method": "two tool-free batches; supplied actual validator results; lead GPT assesses; no actual model edits"
+}

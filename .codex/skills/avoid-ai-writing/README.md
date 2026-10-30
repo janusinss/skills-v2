@@ -17,7 +17,9 @@ Audit & rewrite content to remove AI writing patterns. A practical skill for any
 ---
 
 
-A portable writing skill for [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [OpenClaw](https://github.com/openclaw/openclaw), [Hermes](https://github.com/NousResearch/hermes-agent), and any other [agentskills.io](https://agentskills.io)-compatible agent. Audits and rewrites content to remove AI writing patterns ("AI-isms").
+A portable writing skill for [Claude Code](https://docs.anthropic.com/en/docs/claude-code), Codex,  [OpenClaw](https://github.com/openclaw/openclaw), [Hermes](https://github.com/NousResearch/hermes-agent), and any other [agentskills.io](https://agentskills.io)-compatible agent. Audits and rewrites content to remove AI writing patterns ("AI-isms").
+
+The rules and bundled detector are calibrated for English. See [community language adaptations](#community--multilingual) for independently maintained versions in other languages.
 
 **Three modes:**
 - **Rewrite** (default) — flags AI patterns, applies up to two editing passes, verifies the result when possible, and returns one final version.
@@ -27,6 +29,8 @@ A portable writing skill for [Claude Code](https://docs.anthropic.com/en/docs/cl
 Use `--iterate 1|2` to set the editing-pass ceiling. `--iterate 1` allows the initial rewrite only. `--iterate 2` uses the default maximum of an initial rewrite plus one correction or preservation repair, and stops early when no justified in-scope edit remains. Checks do not consume a pass, but any change they prompt does. The skill reports how many editing passes it used and any intentional, protected, or unresolved finding.
 
 An optional **voice profile** (casual / professional / technical / warm / blunt) sets how the prose should sound, independent of the audience context profile.
+
+The [glossary](GLOSSARY.md) defines the terms these docs use: word tiers, severity tiers, modes, profiles, and detector options.
 
 ## Table of contents
 - [Quick demo](#quick-demo)
@@ -84,6 +88,7 @@ A one-shot "make this sound human" prompt catches the obvious stuff. This skill 
 
 - **Single final rewrite** — completes its audit, correction, and available verification before returning one full version. A short change summary follows when useful; a detailed audit remains available on request without adding a competing draft.
 - **Two-pass editing** — review can catch patterns that survive the first edit, while one shared limit covers both corrective edits and preservation repairs.
+- **Surface-aware delivery** — checks how the destination renders single newlines before returning prose, unwraps accidental hard-wrapped paragraphs only when those breaks would show, and preserves intentional structure such as lists, poetry, code, and addresses.
 - **112-entry word replacement table across 3 tiers + 10 Tier 3 phrases** — not vibes-based. Every flagged word has a specific, plainer alternative. "Leverage" → "use." "Commence" → "start." Tier 1 matches flag unless a listed exception applies, Tier 2 words flag when they cluster, Tier 3 words flag only at high density. Tier 1 itself splits into **1A frequency markers** (`delve`, `tapestry`) and **1B clarity edits** (`in order to`, `utilize`) — same fix, but only 1A is evidence about how a passage was produced, and 1B is weighted lower so a wordiness fix cannot push a document toward an AI classification. Tier 3 *phrases* (multi-word boilerplate like "the integration of," "decentralized compute") flag on per-phrase repetition or when 3+ distinct phrases stack in one piece — the LLM-self-varies-boilerplate shape.
 - **74 pattern categories** — representative examples below, each with before/after. Includes structural detection (hashtag stuffing, bare-NP bullet lists, hedge-stacked predictions), AI-tool fingerprints (placeholders, citation markup, UTM params), rhythm/uniformity checks, conversational-register tells, and writer-side tests. The full catalog lives in [`references/patterns.md`](references/patterns.md); this count is enforced against it in CI.
 - **Detect mode** — flag patterns without rewriting. See which flags are real problems vs. judgment calls. Useful when patterns might be intentional or you're auditing content you don't want altered.
@@ -95,7 +100,7 @@ A one-shot "make this sound human" prompt catches the obvious stuff. This skill 
 
 Use the plugin install below or clone the repository into your agent's skills directory. Keep `SKILL.md` with `references/patterns.md`: the entry file loads the catalog before auditing. The bundled `scripts/`, `detector/`, and `examples/` provide optional mechanical verification.
 
-For a single-file rules field, use [`dist/avoid-ai-writing.md`](dist/avoid-ai-writing.md). It includes every rule and profile, with manual fallbacks for commands unavailable outside the bundle. Do not copy the slim entry file alone. Older installers that fetch only root `SKILL.md` omit its required reference; use a directory install instead.
+For a single-file rules field, use [`dist/avoid-ai-writing.md`](dist/avoid-ai-writing.md) (about 138 KB). It includes every rule and profile, with manual fallbacks for commands unavailable outside the bundle. Some rules and instructions fields hold far less than that, so check the size limits under [Other agents](#other-agents) before pasting. Do not copy the slim entry file alone. Older installers that fetch only root `SKILL.md` omit its required reference; use a directory install instead.
 
 ### Claude Code
 
@@ -104,6 +109,8 @@ For a single-file rules field, use [`dist/avoid-ai-writing.md`](dist/avoid-ai-wr
 ```bash
 git clone https://github.com/conorbronsdon/avoid-ai-writing .codex/skills/avoid-ai-writing
 ```
+
+Then invoke it with `/avoid-ai-writing <your text>`.
 
 **Option 2: Copy a self-contained file**
 
@@ -115,7 +122,7 @@ Download `dist/avoid-ai-writing.md` and place it in any directory that Claude Co
 
 **Option 3: Use as a slash command**
 
-Create a command file (e.g., `~/.claude/commands/clean-ai-writing.md`):
+Optional alias. Claude Code names a command after its file, so use a different name from `avoid-ai-writing`. If you've done Option 1, the skill already answers to `/avoid-ai-writing` and a command file with the same name would collide with it. Create a command file (e.g., `~/.claude/commands/clean-ai-writing.md`):
 
 ```markdown
 ---
@@ -210,15 +217,17 @@ python3 scripts/validate-openai-plugin.py . --json
 
 ### Other agents
 
-The generated `dist/avoid-ai-writing.md` (or the Cursor `.mdc` port) drops into most tools' rules/skills location:
+Use the destination below for your tool. Measure the downloaded file with `wc -c dist/avoid-ai-writing.md` for its exact UTF-8 byte count before comparing byte limits; character limits count characters instead.
 
-| Tool | Where to put it |
-|------|-----------------|
-| **Windsurf** | `.windsurf/rules/avoid-ai-writing.md` |
-| **Cline** | `.clinerules/avoid-ai-writing.md` |
-| **GitHub Copilot** (VS Code) | paste into `.github/copilot-instructions.md` |
-| **Claude.ai Projects** | paste `dist/avoid-ai-writing.md` into the project's custom instructions |
-| **ChatGPT Custom GPTs** | paste `dist/avoid-ai-writing.md` into the GPT's Instructions field |
+| Tool | Where to put it | Size limit |
+|------|-----------------|------------|
+| **Windsurf** | clone the skill directory into `.devin/skills/avoid-ai-writing/` (`.windsurf/skills/avoid-ai-writing/` is also supported) ([skills docs](https://docs.windsurf.com/windsurf/cascade/skills)) | Workspace rule files are limited to 12,000 characters ([rules docs](https://docs.windsurf.com/windsurf/cascade/memories)), so the single file does not fit in `.windsurf/rules/` |
+| **Cline** | `.clinerules/avoid-ai-writing.md` | None documented; rules use context tokens on every task ([docs](https://docs.cline.bot/features/cline-rules)) |
+| **GitHub Copilot** (VS Code) | paste into `.github/copilot-instructions.md` | None documented ([docs](https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions)) |
+| **Claude.ai Projects** | paste `dist/avoid-ai-writing.md` into the project's custom instructions | None documented ([docs](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects)) |
+| **ChatGPT** | install the [native plugin package](#native-chatgpt-and-codex-plugin-package), or upload `dist/avoid-ai-writing.md` as a Custom GPT Knowledge file | A Custom GPT's Instructions field holds far less than the file; do not paste it there |
+
+For a Custom GPT Knowledge upload, add a short instruction directing the GPT to consult `avoid-ai-writing.md` when auditing or rewriting prose. Knowledge files supply reference material; uploading one alone does not activate the skill. Test the GPT in Preview with an example from this README before relying on it ([GPT configuration docs](https://help.openai.com/en/articles/8554397-creating-a-gpt)).
 
 ### Triggering the skill
 
@@ -246,7 +255,7 @@ Trigger detect mode with: "detect," "flag only," "audit only," "just flag," "sca
 
 ## Pattern reference
 
-> Representative examples from the catalog — not the exhaustive list (that's [`references/patterns.md`](references/patterns.md)). The skill's human-facing prose catalog and the [detector engine](detector) use **different counts on purpose**: the engine implements 53 `type` categories because it splits the vocabulary tiers and adds stylometric/fingerprint signals (punctuation distribution, function-word entropy, bypass-trick detection) that work as math over a document rather than as a rule you'd look up. The two are mapped in [`detector/CATEGORIES.md`](detector/CATEGORIES.md); don't "fix" one count to match the other.
+> Representative examples from the catalog — not the exhaustive list (that's [`references/patterns.md`](references/patterns.md)). The skill's human-facing prose catalog and the [detector engine](detector) use **different counts on purpose**: the engine implements 54 `type` categories because it splits the vocabulary tiers and adds stylometric/fingerprint signals (punctuation distribution, function-word entropy, bypass-trick detection) that work as math over a document rather than as a rule you'd look up. The two are mapped in [`detector/CATEGORIES.md`](detector/CATEGORIES.md); don't "fix" one count to match the other.
 
 ### Content Patterns
 
@@ -447,7 +456,7 @@ or add it directly to a workflow:
 steps:
   - uses: actions/checkout@v7
   - id: gate
-    uses: conorbronsdon/avoid-ai-writing@v3.35.0
+    uses: conorbronsdon/avoid-ai-writing@v3.36.0
     with:
       glob: "**/*.md"
       threshold: "6"
@@ -456,6 +465,9 @@ steps:
 
 The example pins the release tag. For stricter supply-chain controls, pin
 `uses:` to the full commit SHA for that release.
+
+Step outputs and the gate CLI's `--json` flag require `v3.36.0` or later. On
+`v3.35.0` and earlier, `steps.gate.outputs.*` resolves to empty strings.
 
 The Action exposes step outputs via `$GITHUB_OUTPUT`:
 
@@ -495,12 +507,10 @@ The underlying `avoid-ai-writing-gate` CLI also accepts `--json` to emit structu
 Top-level fields report `schemaVersion`, `threshold`, `context`, `sourceMode`, `pass` (boolean), `totalFindings`, `failedFiles`, and `files` (preserving scan order). Each file item reports `path`, `findings`, `pass`, and sorted distinct detector `types`. When no files match the input or glob, `files` is empty with `pass: true`.
 
 `threshold` is the maximum number of deterministic findings allowed in **each**
-file. The shipped default is **6**, chosen from the current human-control corpus
-using the same `technical` + `rendered-markdown` settings as the Action. Across
-376 human corpus documents, threshold 0 rejected 118/376 (31.4%); threshold 6
-rejected 7/376 (1.9%). Six is also at or above the observed 95th-percentile
-finding count in every represented register (the `technical-blog` register has
-only one corpus document, so that slice remains under-sampled). Set
+file. The shipped default is **6**. The
+[dated gate calibration](evals/gate-calibration/2026-10-15.md) records the measured
+rejection counts, per-register limits and exact detector/corpus revision under
+the Action's `technical` + `rendered-markdown` settings. Set
 `threshold: "0"` explicitly when a project intentionally wants a strict
 zero-findings policy. This is a writing-quality baseline, not an authorship
 classifier calibration.
@@ -554,6 +564,25 @@ When the input is a Markdown source file, pass
 HTML comments from the score while keeping issue offsets aligned with the
 original file. Plain-text behavior remains the default.
 
+To keep a passage out of the score, such as a specimen of AI prose a page
+quotes on purpose, wrap it in ignore markers. They work in every source mode
+and in HTML source:
+
+```html
+<!-- avoid-ai-writing:ignore-start -->
+It's not just a search index, it's a foundation for trust.
+<!-- avoid-ai-writing:ignore-end -->
+```
+
+Each marker must sit on a line of its own. The markers and the text between
+them are blanked before scoring, and `stats.ignoredRegions` counts the regions.
+Markers inside code blocks, HTML `<pre>` or `<code>` elements, YAML
+frontmatter, inline prose, or quotations do nothing. Starts
+nest, so each needs its own end, and a start with no end runs to the end of the
+text. The
+detector reads source text, not rendered HTML, so an HTML-to-text step that
+drops comments also drops the markers.
+
 See [`detector/README.md`](detector/README.md) for the full `analyzeText` API
 and [`detector/CATEGORIES.md`](detector/CATEGORIES.md) for the rule ↔ category
 map that keeps `SKILL.md` and the engine in sync.
@@ -575,15 +604,20 @@ agent can apply the full editorial rules and preservation guardrails. See the
 [MCP repository](https://github.com/conorbronsdon/avoid-ai-writing-mcp) for
 configuration examples for other MCP hosts.
 
-The engine also ships a preservation validator. `detector/validate.js` compares
-a rewrite against its original and fails when the edit touched something it
-shouldn't have: a code block, YAML frontmatter, a blockquote, a table cell,
-inline code, a URL, a file path, the heading structure, or when the rewrite ends
-with more flagged patterns than it started with.
+The engine also ships a preservation validator. `detector/validate.js` checks
+protected content and structure, including code, frontmatter, blockquotes,
+tables, inline code, URLs, paths, and headings. The default gate also blocks
+residual pattern growth for compatibility; that quality signal does not prove
+content damage. Editorial workflows use the advisory policy:
 
 ```bash
-node detector/validate.js before.md after.md   # exits 1 on a preservation error
+node detector/validate.js --residual-policy warn before.md after.md
 ```
+
+Mechanical errors still fail. Warnings and residual findings remain visible
+for review. A pass does not verify meaning; check facts and claims separately.
+See the [validator API](detector/README.md#validateoriginal-rewritten-options--result)
+for result fields, availability states, and the unchanged default gate.
 
 **Does it pass its own pass?** [`PROOF.md`](PROOF.md) scores this repo's
 documentation with this repo's detector and publishes the result, including two
@@ -656,11 +690,12 @@ Authored by [Conor Bronsdon](https://github.com/conorbronsdon) · [LinkedIn](htt
 
 ## Community / Multilingual
 
-Things the community has built around this skill:
+Community-maintained adaptations are linked here for discovery. Their authors own their rules, evidence, releases, and support; a link does not mean this repository maintains or validates their results.
 
 - **[avoid-ai-writing-multilingual](https://github.com/jurigis/avoid-ai-writing-multilingual)** by [Jürgen Kraus](https://github.com/jurigis) — German (`SKILL-DE.md`), French (`SKILL-FR.md`), Italian (`SKILL-IT.md`), Romanian (`SKILL-RO.md`), and Swedish (`SKILL-SV.md`) adaptations, grounded in native-language research rather than translated from English.
+- **[evitar-escrita-ia](https://github.com/mariorabeloneto/evitar-escrita-ia)** by [Mário Rabelo Neto](https://github.com/mariorabeloneto) — European Portuguese adaptation with dialect and formal-register guidance. Its vocabulary tables are editorial hypotheses, not corpus measurements.
 
-Built something on top of this skill? Open an issue — happy to link it here.
+Built an adaptation? See the [language adaptation guidance](CONTRIBUTING.md#language-adaptations), then open an issue with the language, dialect, maintainer, evidence, limitations, and link. We can link independent versions without taking over their maintenance.
 
 ---
 

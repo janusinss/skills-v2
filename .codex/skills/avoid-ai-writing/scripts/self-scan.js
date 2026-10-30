@@ -49,6 +49,7 @@ const BUDGETS = {
   'detector/README.md': 15,
   'detector/CATEGORIES.md': 15,
   'examples/README.md': 10,
+  'GLOSSARY.md': 10,
   // Higher than the rest on purpose. A changelog enumerates the pattern names
   // it added ("bustling, intricate, ever-evolving"), unquoted, which the
   // exemption cannot reach, and Keep-a-Changelog headings carry a
@@ -80,7 +81,14 @@ function fenceSpans(text) {
   for (const line of lines) {
     const markerMatch = line.match(/^[ \t]{0,3}(`{3,}|~{3,})/);
     if (!open) {
-      if (markerMatch) {
+      // CommonMark forbids backticks in the info string of a backtick fence.
+      // Without this guard a prose line that starts with an inline span such as
+      // ```npm test``` opens a fence that never closes, and the rest of the
+      // document is exempted from the scan.
+      const isOpen =
+        markerMatch &&
+        !(markerMatch[1][0] === '`' && line.slice(markerMatch[0].length).includes('`'));
+      if (isOpen) {
         open = { marker: markerMatch[1][0], len: markerMatch[1].length, start: cursor };
       }
     } else {
@@ -175,10 +183,10 @@ function applyExemptions(text) {
 
 /**
  * The detector refuses text over ~10k words. Long documents are scored in
- * paragraph-aligned chunks and reported by their worst chunk, which is the
- * conservative reading: a document is as machine-sounding as its worst section.
- * Issue categories are counted across every accepted chunk so the over-budget
- * diagnostic can name them, the same way the single-pass path does.
+ * paragraph-aligned chunks. Accepted chunks are combined using a word-weighted
+ * average and the final score is rounded. Issue categories are counted across
+ * every accepted chunk so the over-budget diagnostic can name them, the same
+ * way the single-pass path does.
  */
 const CHUNK_WORDS = 4000;
 
@@ -218,10 +226,13 @@ function scoreLongText(text) {
   const scored = results.filter((r) => !r.tooShort && r.label !== 'Text too long');
 
   if (!scored.length) return { score: 0, issues: 0, wordCount: 0, chunks: chunks.length, topTypes: [] };
+  const totalWordCount = scored.reduce((sum, r) => sum + (r.stats.wordCount || 0), 0);
+  const weightedScore = scored.reduce((sum, r) => sum + (r.score * (r.stats.wordCount || 0)), 0) / (totalWordCount || 1);
+
   return {
-    score: Math.max(...scored.map((r) => r.score)),
+    score: Math.round(weightedScore),
     issues: scored.reduce((sum, r) => sum + r.issues.length, 0),
-    wordCount: scored.reduce((sum, r) => sum + (r.stats.wordCount || 0), 0),
+    wordCount: totalWordCount,
     chunks: scored.length,
     topTypes: topTypes(scored.flatMap((r) => r.issues)),
   };

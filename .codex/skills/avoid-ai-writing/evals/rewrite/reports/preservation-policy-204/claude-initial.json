@@ -1,0 +1,64 @@
+{
+  "model": [
+    "claude-sonnet-5-5"
+  ],
+  "result": {
+    "cases": [
+      {
+        "id": "quantity-added",
+        "status": "FAIL",
+        "assessment": "model_only",
+        "reason": "Supplied validator result: ok, one number-added warning (30). Semantic assessment: the candidate adds a 30-second condition that the source does not contain, and the wording is ambiguous about whether it applies to the retry delay or the stop. This is an invented quantity and a changed condition, so the warning reflects real content damage rather than a benign respelling. Repair owner: rewriter or file-edit, depending on source kind. Unused: the bounded repair opportunity. Residual audit: quality is unscored, so it is incomplete."
+      },
+      {
+        "id": "quantity-removed",
+        "status": "FAIL",
+        "assessment": "model_only",
+        "reason": "Supplied validator result: ok, one number-missing warning (30). Semantic assessment: 'after 30 seconds' became 'after the timeout'. The quantity and unit are gone and nothing in the source supports the substitution, so specificity is lost and the original figure cannot be recovered. This is not a spelled-out numeral. The validator's pass does not clear it. Residual audit is unscored, hence incomplete. Repair should restore '30 seconds'."
+      },
+      {
+        "id": "quantity-spelled-out",
+        "status": "PASS",
+        "assessment": "model_only",
+        "reason": "Supplied validator result: ok with a number-missing warning for 2. Semantic assessment: '2 times' became 'two times', which is a pure respelling with the same quantity and unit. The warning is the legitimate spelling-change case the validator itself names. Whether the house style calls for numerals is not stated, so this is not a style finding. Caveat: the quality check is unscored, so no residual-pattern audit was performed. That is acceptable here only because the user did not require one for this case; if convergence was requested, treat it as incomplete."
+      },
+      {
+        "id": "quantity-digitized",
+        "status": "PASS",
+        "assessment": "model_only",
+        "reason": "Supplied validator result: ok with a number-added warning for 2. Semantic assessment: 'two times' became '2 times' with the same value and unit, so the warning is a benign digitization. Meaning, certainty, and conditions are unchanged. Caveat: quality is unscored, so residual analysis was not performed, which matters only if the user asked for it."
+      },
+      {
+        "id": "claim-added-without-number",
+        "status": "FAIL",
+        "assessment": "model_only",
+        "reason": "Supplied validator result: clean, no warnings, quality unscored. Semantic assessment: 'with exponential backoff' is a new technical claim about the worker's behavior that the source does not support. The validator only checks structure and numerals, so its silence proves nothing here. This violates source fidelity by adding an unsupported claim. The residual audit is incomplete because quality is unscored. Repair should remove the phrase."
+      },
+      {
+        "id": "claim-removed-without-number",
+        "status": "FAIL",
+        "assessment": "model_only",
+        "reason": "Supplied validator result: clean, no warnings, quality unscored. Semantic assessment: the candidate drops 'with exponential backoff', a specific technical detail that carried meaning about retry behavior. Nothing in the task authorizes condensing that substance, and the validator cannot detect non-numeric omissions. This is content loss beyond ordinary cleanup. Repair should restore the phrase. The residual audit is incomplete because quality is unscored."
+      },
+      {
+        "id": "residual-only",
+        "status": "REVIEW",
+        "assessment": "model_only",
+        "reason": "Supplied validator result: preservation ok, no errors; quality checked with a residual-grew warning (0 to 1 issues). Semantic assessment: 'includes' became 'features', a mild puffery-style verb swap. The meaning is essentially unchanged, and no fact, quantity, or protected span moved. It is not a blocking preservation problem and does not by itself justify a repair. It is a low-severity residual regression to judge, and the plain 'includes' would likely be preferable. Status is REVIEW because the warning is unresolved, not because of content damage. Note that the swap looks unnecessary for an ordinary cleanup."
+      },
+      {
+        "id": "protected-damage",
+        "status": "FAIL",
+        "assessment": "model_only",
+        "reason": "Supplied validator result: ok is false with the blocking error inline-code-missing for `config.json`. Semantic assessment: this confirms real damage. The identifier was replaced by 'the file', which loses the exact path and makes the instruction non-actionable. Nothing indicates the user placed this span in scope for editing. Repair owner depends on source kind. The bounded repair opportunity is not yet used. Quality is unscored, so the residual audit is incomplete."
+      },
+      {
+        "id": "unavailable",
+        "status": "REVIEW",
+        "assessment": "model_only",
+        "reason": "Supplied validator result: preservation ok with no errors or warnings, but quality status is unavailable and residual is null. Semantic assessment: the texts are identical, so nothing was changed and meaning is trivially preserved. The residual audit could not run, so it must be reported as incomplete rather than clean. If the user required a residual check, that requirement is unmet. If no such audit was needed, this could be treated as PASS. The strict reading is REVIEW because the residual audit is unavailable."
+      }
+    ]
+  },
+  "session_id": "87c417c1-3900-498b-a4ab-bd9b16da51d1"
+}

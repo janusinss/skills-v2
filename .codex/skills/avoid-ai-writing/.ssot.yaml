@@ -7,7 +7,7 @@
 #
 # The first link derives the count from the catalog, so the README cannot lie
 # about references/patterns.md. The second link is the one that actually rots: a release moves
-# the number here, the four surfaces below sit still, and nothing in *their*
+# the number here, the copies below sit still, and nothing in *their*
 # repos changes — so no pre-commit hook over there can ever fire on it. That is
 # why this check is a release/cron job and not a hook.
 #
@@ -21,6 +21,10 @@
 # conorbronsdon.com/builds is deliberately absent for exactly that reason: it
 # floors both counts, so there is nothing to keep in sync. It is also the one
 # private surface, and excluding it keeps this check free of any credential.
+#
+# The conorbronsdon profile README is absent too: it now describes the skill
+# without quoting either count, so a tracked copy there can only report
+# "pattern did not match". Re-add it if the profile starts quoting a number.
 
 facts:
   - name: avoid-ai-pattern-count
@@ -41,8 +45,6 @@ facts:
         pattern: '(\d+) pattern categories'
       - file: ../ai-tools-for-creators/README.md
         pattern: '(\d+) pattern categories'
-      - file: ../conorbronsdon/README.md
-        pattern: '(\d+) pattern categories'
 
   - name: avoid-ai-replacement-table
     type: integer
@@ -57,6 +59,4 @@ facts:
       pattern: '\*\*(\d+)-entry word replacement table'
     copies:
       - file: ../ai-tools-for-creators/README.md
-        pattern: '(\d+)-entry replacement table'
-      - file: ../conorbronsdon/README.md
         pattern: '(\d+)-entry replacement table'

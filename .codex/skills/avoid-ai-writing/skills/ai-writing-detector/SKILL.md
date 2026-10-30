@@ -1,6 +1,9 @@
 ---
 name: "ai-writing-detector"
 description: "Use when the user asks to detect, scan, audit, score, or flag AI-writing patterns without rewriting the text, including requests for a deterministic local detector result when the host can execute Node."
+license: "MIT"
+metadata:
+  upstream-version: "3.38.0"
 ---
 
 # AI Writing Detector
@@ -63,9 +66,10 @@ When the current host can execute Node safely:
 
 1. Pass the supplied text to `scripts/detect.js`.
 2. Use `--context technical` for code-adjacent or technical prose when appropriate. Otherwise use `general`.
-3. Report the detector's score, label, issue types, severity, matched text, and suggestions.
-4. Separate deterministic candidate matches from justified editorial findings and observations that only exist in the full rulebook.
-5. Never claim execution unless the command actually ran.
+3. Use `--source-mode rendered-markdown` for Markdown that carries YAML frontmatter or HTML comments, so unedited metadata is not scored as the author's prose. Otherwise leave the default `plain`.
+4. Report the detector's score, label, issue types, severity, matched text, and suggestions.
+5. Separate deterministic candidate matches from justified editorial findings and observations that only exist in the full rulebook.
+6. Never claim execution unless the command actually ran.
 
 Example:
 
@@ -77,6 +81,12 @@ For a file:
 
 ```bash
 node scripts/detect.js --file path/to/draft.md --context general
+```
+
+For Markdown with frontmatter or HTML comments:
+
+```bash
+node scripts/detect.js --file path/to/draft.md --source-mode rendered-markdown
 ```
 
 If Node or shell execution is unavailable, perform the detect-only workflow from the canonical `avoid-ai-writing` Skill and explicitly say the deterministic detector was not run.

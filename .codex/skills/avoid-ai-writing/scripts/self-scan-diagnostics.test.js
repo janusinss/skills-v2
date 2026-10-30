@@ -71,6 +71,60 @@ const independentTopTypes = (text) => {
 };
 
 try {
+  t('unequal long-document chunks use word-weighted scores and retain every issue', () => {
+    const paragraph = (sample, size) => {
+      const tokens = sample.split(/\s+/);
+      return Array.from({ length: size }, (_, i) => tokens[i % tokens.length]).join(' ');
+    };
+    // These known paragraph boundaries produce two full, lower-score chunks
+    // and a shorter, higher-score tail. Equal weighting and worst-chunk
+    // aggregation must both disagree with the expected document score.
+    const chunks = [paragraph(PLAIN, 4000), paragraph(PLAIN, 4000), paragraph(SEEDED, 1600)];
+    const document = chunks.join('\n\n');
+    assert.strictEqual(words(document), 9600);
+    assert.strictEqual(applyExemptions(document), document);
+    const results = chunks.map((chunk) => AIDetector.analyzeText(chunk));
+    assert.ok(results.every((r) => !r.tooShort && r.label !== 'Text too long' && !r.unsupportedScript));
+    const [full, secondFull, tail] = results;
+    assert.strictEqual(full.stats.wordCount, secondFull.stats.wordCount);
+    assert.strictEqual(full.score, secondFull.score);
+    assert.ok(tail.stats.wordCount < full.stats.wordCount);
+    assert.ok(tail.score > full.score, 'the shorter tail must carry a higher score');
+    const totalWords = full.stats.wordCount * 2 + tail.stats.wordCount;
+    const expectedScore = Math.round((full.score * full.stats.wordCount * 2
+      + tail.score * tail.stats.wordCount) / totalWords);
+    assert.notStrictEqual(expectedScore, Math.max(...results.map((r) => r.score)));
+    assert.notStrictEqual(expectedScore, Math.round((full.score * 2 + tail.score) / 3));
+    const row = scanFile(fixture('weighted-chunks.md', document), expectedScore);
+    assert.strictEqual(row.chunked, 3);
+    assert.strictEqual(row.words, totalWords);
+    assert.strictEqual(row.rawScore, expectedScore);
+    assert.strictEqual(row.exemptScore, expectedScore);
+    assert.strictEqual(row.overBudget, false, 'the weighted score equals the budget');
+    const issueTotal = results.reduce((sum, r) => sum + r.issues.length, 0);
+    assert.ok(issueTotal > 0);
+    assert.strictEqual(row.rawIssues, issueTotal);
+    assert.strictEqual(row.exemptIssues, issueTotal);
+    assert.deepStrictEqual(row.topTypes, independentTopTypes(document));
+  });
+
+  t('short-document scores and categories still match a single detector pass', () => {
+    const document = `${SEEDED}\n\n${PLAIN}`;
+    assert.ok(words(document) < LONG_DOCUMENT_WORDS);
+    assert.strictEqual(applyExemptions(document), document);
+    const result = AIDetector.analyzeText(document);
+    const row = scanFile(fixture('short-unchanged.md', document));
+    assert.strictEqual(row.chunked, null);
+    assert.strictEqual(row.words, result.stats.wordCount);
+    assert.strictEqual(row.rawScore, result.score);
+    assert.strictEqual(row.exemptScore, result.score);
+    assert.strictEqual(row.rawIssues, result.issues.length);
+    assert.strictEqual(row.exemptIssues, result.issues.length);
+    const counts = new Map();
+    for (const issue of result.issues) counts.set(issue.type, (counts.get(issue.type) || 0) + 1);
+    assert.deepStrictEqual(row.topTypes, [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3));
+  });
+
   const text = longDocument();
   assert.ok(words(text) > LONG_DOCUMENT_WORDS, 'fixture must take the chunked path');
   assert.strictEqual(applyExemptions(text), text, 'fixture must contain no exempt spans');

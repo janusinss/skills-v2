@@ -34,19 +34,24 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  # Kept as a single job on purpose: branch protection pins required checks by
-  # job name, so a second job would silently not be required until someone
-  # updates the rule.
-  test:
+  node-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    # package.json declares "engines": { "node": ">=18" }.  Exercise the
+    # documented minimum and every maintained release line, so a regression
+    # that only shows up on older Node cannot ship unnoticed.  fail-fast is
+    # off so that one red version still leaves a report for the others.
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ["18", "20", "22", "24"]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: "20"
+          node-version: ${{ matrix.node-version }}
       - run: npm test
       # Release runs trigger only on package.json changes, so a release PR that
       # bumps CHANGELOG.md without package.json would otherwise merge green and
@@ -56,3 +61,18 @@ jobs:
       # that drifts past its budget in scripts/self-scan.js fails here. PROOF.md
       # explains what the numbers mean and what they do not claim.
       - run: npm run self-scan:check
+
+  # The main ruleset requires the exact `test` check. Matrix jobs report
+  # versioned names, so this job restores that check and requires every Node
+  # run to pass. `always()` prevents a failed dependency from skipping a
+  # required check (GitHub treats skipped checks as successful).
+  test:
+    needs: node-tests
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - name: Require every Node run to pass
+        env:
+          NODE_TESTS_RESULT: ${{ needs.node-tests.result }}
+        run: test "$NODE_TESTS_RESULT" = success

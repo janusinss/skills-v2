@@ -1,6 +1,9 @@
 ---
 name: "avoid-ai-writing-router"
 description: "Use when a request combines AI-writing audit, rewrite, file editing, voice preservation, false-positive interpretation, verification, or when the user invokes Avoid AI Writing without naming a mode."
+license: "MIT"
+metadata:
+  upstream-version: "3.38.0"
 ---
 
 # Avoid AI Writing Router

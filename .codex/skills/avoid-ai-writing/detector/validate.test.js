@@ -89,6 +89,32 @@ test('an indented fenced-code edit still fires', () => {
   assert.ok(codes(r).includes('code-block-modified'), formatResult(r));
 });
 
+test('a prose line opening with a triple-backtick inline span is not a fence', () => {
+  // CommonMark: a backtick fence's info string cannot contain a backtick, so
+  // this line is a paragraph. Treated as an opener it never closes, the rest
+  // of the document becomes one code block, and an ordinary prose edit below
+  // it reports as code-block-modified.
+  const before = '# Setup\n\n```npm test``` runs the suite.\n\nOrdinary prose alpha.';
+  const after = '# Setup\n\n```npm test``` runs the suite.\n\nOrdinary prose beta.';
+  const r = validate(before, after, { skipResidual: true });
+  assert.equal(r.ok, true, formatResult(r));
+});
+
+test('a real fence after a triple-backtick inline span still fires', () => {
+  const before = '```npm test``` runs the suite.\n\n```js\nconst x = 1;\n```\n\nOrdinary prose.';
+  const after = '```npm test``` runs the suite.\n\n```js\nconst x = 2;\n```\n\nOrdinary prose.';
+  const r = validate(before, after, { skipResidual: true });
+  assert.ok(codes(r).includes('code-block-modified'), formatResult(r));
+});
+
+test('a tilde fence keeps backticks in its info string → error', () => {
+  // The backtick restriction applies to backtick fences only.
+  const before = '~~~ `md`\nSECRET CODE A\n~~~\n\nOrdinary prose.';
+  const after = '~~~ `md`\nSECRET CODE B\n~~~\n\nOrdinary prose.';
+  const r = validate(before, after, { skipResidual: true });
+  assert.ok(codes(r).includes('code-block-modified'), formatResult(r));
+});
+
 test('blockquote reworded → error', () => {
   const before = 'He said:\n\n> The system is slow and it is getting slower.\n> We need to fix it.\n\nThat is the claim.';
   const after = 'He said:\n\n> The system is slow and getting slower.\n> We need to fix it.\n\nThat is the claim.';
@@ -460,6 +486,143 @@ test('identical input and output is always clean', () => {
 
 test('non-string input throws', () => {
   assert.throws(() => validate('a', null), TypeError);
+});
+
+
+// Policy and API compatibility: controlled detector results isolate routing
+// from unrelated changes to pattern weights or text-length thresholds.
+const growthDetector = {
+  analyzeText(text) {
+    return { issues: text.includes('candidate') ? [{ type: 'example' }] : [], score: text.includes('candidate') ? 1 : 0 };
+  },
+};
+
+test('residual error remains the default, with additive independent results', () => {
+  const r = validate('source', 'candidate', { detector: growthDetector });
+  assert.equal(r.ok, false);
+  assert.deepEqual(codes(r), ['residual-grew']);
+  assert.deepEqual(r.preservation, { ok: true, errors: [], warnings: [] });
+  assert.equal(r.quality.status, 'checked');
+  assert.equal(r.quality.policy, 'error');
+  assert.deepEqual(r.quality.findings.map(f => f.code), ['residual-grew']);
+  assert.deepEqual(r.stats.residual, { issuesBefore: 0, issuesAfter: 1, scoreBefore: 0, scoreAfter: 1 });
+  assert.deepEqual(r.quality.residual, r.stats.residual);
+  assert.match(formatResult(r), /residual policy blocked; no mechanical preservation errors/);
+});
+
+test('warn policy keeps residual growth visible without failing preservation', () => {
+  const r = validate('source `token`', 'candidate `token`', { detector: growthDetector, residualPolicy: 'warn' });
+  assert.equal(r.ok, true);
+  assert.deepEqual(codes(r), []);
+  assert.deepEqual(warnCodes(r), ['residual-grew']);
+  assert.equal(r.preservation.ok, true);
+  assert.deepEqual(r.preservation.warnings, []);
+  assert.equal(r.quality.findings.length, 1);
+  assert.match(formatResult(r), /warning \[residual-grew\]/);
+});
+
+test('damage blocks in both policies even with a lower score and fewer patterns', () => {
+  for (const residualPolicy of ['error', 'warn']) {
+    const r = validate('candidate `token`', 'source', { detector: growthDetector, residualPolicy });
+    assert.equal(r.ok, false);
+    assert.equal(r.preservation.ok, false);
+    assert.deepEqual(codes(r), ['inline-code-missing']);
+    assert.equal(r.stats.residual.scoreBefore, 1);
+    assert.equal(r.stats.residual.scoreAfter, 0);
+    assert.deepEqual(r.quality.findings, []);
+  }
+});
+
+test('mixed damage and residual growth remain separate and visible', () => {
+  for (const residualPolicy of ['error', 'warn']) {
+    const r = validate('source `token`', 'candidate', { detector: growthDetector, residualPolicy });
+    assert.equal(r.ok, false);
+    assert.deepEqual(r.preservation.errors.map(e => e.code), ['inline-code-missing']);
+    assert.deepEqual(r.quality.findings.map(e => e.code), ['residual-grew']);
+    assert.deepEqual(codes(r), residualPolicy === 'error' ? ['inline-code-missing', 'residual-grew'] : ['inline-code-missing']);
+    assert.deepEqual(warnCodes(r), residualPolicy === 'warn' ? ['residual-grew'] : []);
+  }
+});
+
+test('skipResidual never invokes the detector or bypasses mechanical errors', () => {
+  const detector = { analyzeText() { throw new Error('must not run'); } };
+  for (const residualPolicy of ['error', 'warn']) {
+    const r = validate('source `token`', 'candidate', { detector, residualPolicy, skipResidual: true });
+    assert.equal(r.ok, false);
+    assert.deepEqual(codes(r), ['inline-code-missing']);
+    assert.equal(r.quality.status, 'skipped');
+    assert.equal(r.quality.residual, null);
+    assert.equal(r.stats.residual, null);
+  }
+});
+
+test('browser export reports unavailable detector, and accepts explicit injection', () => {
+  const fs = require('node:fs');
+  const vm = require('node:vm');
+  const context = vm.createContext({});
+  vm.runInContext(fs.readFileSync(require.resolve('./validate.js'), 'utf8') + '\nthis.validator = AIDetectorValidate;', context);
+  const r = context.validator.validate('source `token`', 'candidate', { residualPolicy: 'warn' });
+  assert.equal(r.ok, false);
+  assert.equal(r.errors[0].code, 'inline-code-missing');
+  assert.equal(r.quality.status, 'unavailable');
+  assert.equal(r.stats.residual, null);
+  assert.match(context.validator.formatResult(r), /residual unavailable/);
+  const injected = context.validator.validate('source', 'candidate', { detector: growthDetector, residualPolicy: 'warn' });
+  assert.equal(injected.quality.status, 'checked');
+  assert.equal(injected.warnings[0].code, 'residual-grew');
+});
+
+test('unscored inputs do not claim a completed residual comparison', () => {
+  for (const text of ['', 'short', 'word '.repeat(10001)]) {
+    const r = validate(text, text, { residualPolicy: 'warn' });
+    assert.equal(r.ok, true);
+    assert.equal(r.quality.status, 'unscored');
+    assert.equal(r.stats.residual.issuesAfter, 0);
+    assert.match(formatResult(r), /residual unscored/);
+  }
+});
+
+test('invalid residual policies cannot silently disable the legacy gate', () => {
+  for (const residualPolicy of ['ignore', '', null, false]) {
+    assert.throws(() => validate('a', 'b', { residualPolicy }), /residualPolicy must be error or warn/);
+  }
+});
+
+test('quantity and claim evaluation cases remain diagnostics, not semantic proof', () => {
+  const cases = require('../evals/rewrite/preservation-policy-cases.json');
+  for (const c of cases) {
+    const r = validate(c.original, c.candidate, { skipResidual: true, residualPolicy: 'warn' });
+    assert.equal(r.ok, c.mechanicalOk, c.id);
+    assert.deepEqual(warnCodes(r), c.warningCodes, c.id);
+    assert.deepEqual(r.preservation.warnings, r.warnings, c.id);
+  }
+});
+
+test('CLI preserves default failure and explicitly supports advisory residuals', () => {
+  const fs = require('node:fs'), os = require('node:os'), path = require('node:path');
+  const { spawnSync } = require('node:child_process');
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'preservation-policy-'));
+  const before = path.join(dir, 'before.md'), after = path.join(dir, 'after.md');
+  try {
+    fs.writeFileSync(before, 'The team shipped the parser on Tuesday and checked the results before releasing the patch.');
+    fs.writeFileSync(after, 'The team leveraged a robust, comprehensive approach to delve into the landscape of parsing. It is important to note that this is a testament to their seamless, cutting-edge paradigm.');
+    const run = (...args) => spawnSync(process.execPath, [require.resolve('./validate.js'), ...args], { encoding: 'utf8' });
+    const legacy = run(before, after);
+    assert.equal(legacy.status, 1, legacy.stderr);
+    assert.match(legacy.stdout, /error\s+\[residual-grew\]/);
+    const advisory = run('--residual-policy', 'warn', before, after);
+    assert.equal(advisory.status, 0, advisory.stderr);
+    assert.match(advisory.stdout, /warning \[residual-grew\]/);
+    fs.appendFileSync(before, ' `protected`');
+    const damage = run('--residual-policy', 'warn', before, after);
+    assert.equal(damage.status, 1, damage.stderr);
+    assert.match(damage.stdout, /inline-code-missing/);
+    assert.equal(run('--residual-policy', 'ignore', before, after).status, 2);
+    assert.equal(run('--residual-policy').status, 2);
+    assert.equal(run().status, 2);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
 });
 
 console.log(`\n${failed === 0 ? 'all preservation tests passed' : `${failed} test(s) failed`}\n`);
