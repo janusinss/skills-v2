@@ -12,16 +12,16 @@ Before generating security-sensitive code, inspect only the 1–2 skills matchin
 
 | Objective / Surface | Required Skill Link |
 | :--- | :--- |
-| **Code Vulnerabilities & Pentesting** | [find-security-vulnerabilities-in-code](../skills/find-security-vulnerabilities-in-code/SKILL.md) · [penetration-testing-with-strix](../skills/penetration-testing-with-strix/SKILL.md) · [security-audit](../skills/security-audit/SKILL.md) |
-| **APIs & OWASP API 2023** | [api-security-testing](../skills/api-security-testing/SKILL.md) · [api-security-best-practices](../skills/api-security-best-practices/SKILL.md) |
-| **Web Apps & OWASP Top 10** | [web-app-penetration-testing](../skills/web-app-penetration-testing/SKILL.md) · [owasp-top-10-testing](../skills/owasp-top-10-testing/SKILL.md) · [top-web-vulnerabilities](../skills/top-web-vulnerabilities/SKILL.md) |
-| **Auth, Sessions & IDOR** | [auth-implementation-patterns](../skills/auth-implementation-patterns/SKILL.md) · [backend-security-coder](../skills/backend-security-coder/SKILL.md) |
+| **Code Vulnerabilities & Pentesting** | [penetration-testing-with-strix](../skills/penetration-testing-with-strix/SKILL.md) · [security-audit](../skills/security-audit/SKILL.md) |
+| **APIs & OWASP API 2023** | [penetration-testing-with-strix](../skills/penetration-testing-with-strix/SKILL.md) · [api-security-best-practices](../skills/api-security-best-practices/SKILL.md) |
+| **Web Apps & OWASP Top 10** | [penetration-testing-with-strix](../skills/penetration-testing-with-strix/SKILL.md) · [top-web-vulnerabilities](../skills/top-web-vulnerabilities/SKILL.md) |
+| **Auth, Sessions & IDOR** | [auth-implementation-patterns](../skills/auth-implementation-patterns/SKILL.md) · [api-security-best-practices](../skills/api-security-best-practices/SKILL.md) |
 | **Remediation & CI/CD Gates** | [fix-security-vulnerabilities-with-strix](../skills/fix-security-vulnerabilities-with-strix/SKILL.md) · [ci-security-scanning-with-strix](../skills/ci-security-scanning-with-strix/SKILL.md) |
 
 ---
 
 ## Phase 0: Attack Surface Minimization & Reconnaissance Defense
-> **Skills**: [find-security-vulnerabilities-in-code](../skills/find-security-vulnerabilities-in-code/SKILL.md) · [ethical-hacking-methodology](../skills/ethical-hacking-methodology/SKILL.md)
+> **Skills**: [penetration-testing-with-strix](../skills/penetration-testing-with-strix/SKILL.md) · [ethical-hacking-methodology](../skills/ethical-hacking-methodology/SKILL.md)
 
 1. **Routing & URL Masking**:
    - Zero script extensions in URLs (`.php`, `.asp`, `.jsp`, `.cgi`, `.py`). All dynamic endpoints use clean semantic paths (`/login`, `/api/v1/orders`).
@@ -39,7 +39,7 @@ Before generating security-sensitive code, inspect only the 1–2 skills matchin
 ---
 
 ## Phase 1: Input Boundary & Injection Defense
-> **Skills**: [backend-security-coder](../skills/backend-security-coder/SKILL.md) · [top-web-vulnerabilities](../skills/top-web-vulnerabilities/SKILL.md)
+> **Skills**: [api-security-best-practices](../skills/api-security-best-practices/SKILL.md) · [top-web-vulnerabilities](../skills/top-web-vulnerabilities/SKILL.md)
 
 1. **Edge Schema Validation**:
    - Validate query params, route args, headers, and request bodies against strict schemas (Zod, Pydantic, Joi). Reject unrecognized keys (`extra: forbid`).
@@ -58,7 +58,7 @@ Before generating security-sensitive code, inspect only the 1–2 skills matchin
 ---
 
 ## Phase 2: Authentication, Session Security & Anti-Automation
-> **Skills**: [auth-implementation-patterns](../skills/auth-implementation-patterns/SKILL.md) · [owasp-top-10-testing](../skills/owasp-top-10-testing/SKILL.md)
+> **Skills**: [auth-implementation-patterns](../skills/auth-implementation-patterns/SKILL.md) · [top-web-vulnerabilities](../skills/top-web-vulnerabilities/SKILL.md)
 
 1. **Rate Limiting & Lockout**:
    - Auth routes (`/login`, `/register`, `/forgot-password`, `/verify-2fa`): max 5 failed attempts per 15 min per IP/account.
@@ -76,7 +76,7 @@ Before generating security-sensitive code, inspect only the 1–2 skills matchin
 ---
 
 ## Phase 3: Authorization & Access Control (BOLA / IDOR / RBAC)
-> **Skills**: [api-security-testing](../skills/api-security-testing/SKILL.md) · [backend-security-coder](../skills/backend-security-coder/SKILL.md)
+> **Skills**: [penetration-testing-with-strix](../skills/penetration-testing-with-strix/SKILL.md) · [api-security-best-practices](../skills/api-security-best-practices/SKILL.md)
 
 1. **Object-Level Authorization (IDOR / BOLA)**:
    - On every record lookup, update, or deletion, verify tenant ownership against authenticated session identity:
@@ -90,7 +90,7 @@ Before generating security-sensitive code, inspect only the 1–2 skills matchin
 ---
 
 ## Phase 4: File Intake & Webshell Upload Defense
-> **Skills**: [backend-security-coder](../skills/backend-security-coder/SKILL.md) · [top-web-vulnerabilities](../skills/top-web-vulnerabilities/SKILL.md)
+> **Skills**: [api-security-best-practices](../skills/api-security-best-practices/SKILL.md) · [top-web-vulnerabilities](../skills/top-web-vulnerabilities/SKILL.md)
 
 1. **Binary Magic Byte Verification**:
    - Verify file payloads via binary signature inspection (`mime_content_type()`, `file-type`), never trusting client `Content-Type` headers or file extensions.
@@ -104,7 +104,7 @@ Before generating security-sensitive code, inspect only the 1–2 skills matchin
 ---
 
 ## Phase 5: Transport, Communication & SSRF Lockdown
-> **Skills**: [api-security-best-practices](../skills/api-security-best-practices/SKILL.md) · [api-security-testing](../skills/api-security-testing/SKILL.md)
+> **Skills**: [api-security-best-practices](../skills/api-security-best-practices/SKILL.md) · [penetration-testing-with-strix](../skills/penetration-testing-with-strix/SKILL.md)
 
 1. **SSRF Defense**:
    - Block user-supplied URLs from targeting loopback (`127.0.0.1`, `localhost`), RFC 1918 CIDRs (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`), and cloud metadata (`169.254.169.254`).
@@ -116,7 +116,7 @@ Before generating security-sensitive code, inspect only the 1–2 skills matchin
 ---
 
 ## Phase 6: Browser Hardening & Security Headers
-> **Skills**: [frontend-security-coder](../skills/frontend-security-coder/SKILL.md) · [web-app-penetration-testing](../skills/web-app-penetration-testing/SKILL.md)
+> **Skills**: [frontend-security-coder](../skills/frontend-security-coder/SKILL.md) · [penetration-testing-with-strix](../skills/penetration-testing-with-strix/SKILL.md)
 
 1. **Mandatory Security Headers**:
    ```http

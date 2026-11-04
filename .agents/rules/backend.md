@@ -15,8 +15,8 @@ Before generating backend architecture, database schemas, or API code, inspect o
 | Domain / Task | Required Skill & Direct Specification Link |
 | :--- | :--- |
 | **API Contract & Scoping** | [prompt-enhancer-backend](.agents/skills/prompt-enhancer-backend/SKILL.md) · [api-patterns](.agents/skills/api-patterns/SKILL.md) |
-| **Architecture & Reliability** | [senior-architect](.agents/skills/senior-architect/SKILL.md) · [architecture-patterns](.agents/skills/architecture-patterns/SKILL.md) · [backend-dev-guidelines](.agents/skills/backend-dev-guidelines/SKILL.md) |
-| **Database Design & ORM** | [database-architect](.agents/skills/database-architect/SKILL.md) · [database-design](.agents/skills/database-design/SKILL.md) · [sql-pro](.agents/skills/sql-pro/SKILL.md) |
+| **Architecture & Reliability** | [backend-dev-guidelines](.agents/skills/backend-dev-guidelines/SKILL.md) · [architecture-patterns](.agents/skills/architecture-patterns/SKILL.md) |
+| **Database Design & ORM** | [database-design](.agents/skills/database-design/SKILL.md) · [postgres-best-practices](.agents/skills/postgres-best-practices/SKILL.md) |
 | **PostgreSQL Optimization** | [postgres-best-practices](.agents/skills/postgres-best-practices/SKILL.md) |
 | **Observability & Logging** | [observability-engineer](.agents/skills/observability-engineer/SKILL.md) |
 | **Backend Testing & TDD** | [test-driven-development](.agents/skills/test-driven-development/SKILL.md) |
@@ -40,7 +40,7 @@ Before generating backend architecture, database schemas, or API code, inspect o
 ## Active Pipeline (Run on Data & Persistence Tasks)
 
 ### Stage 1: System Topology & Infrastructure Design
-> **Active Skill**: [senior-architect](.agents/skills/senior-architect/SKILL.md) & [backend-dev-guidelines](.agents/skills/backend-dev-guidelines/SKILL.md)
+> **Active Skill**: [backend-dev-guidelines](.agents/skills/backend-dev-guidelines/SKILL.md) & [architecture-patterns](.agents/skills/architecture-patterns/SKILL.md)
 
 1. **Architecture Boundaries**:
    - Define clean service layers, repository patterns, and ORM/query boundaries separating business logic from transport and storage.
@@ -52,7 +52,7 @@ Before generating backend architecture, database schemas, or API code, inspect o
    - For read-heavy endpoints, define an application-level caching layer (Redis, in-memory LRU, or HTTP cache headers with `Cache-Control` / `ETag`). Never cache user-specific data in shared caches without key isolation.
 
 ### Stage 2: Schema Integrity & Relational Design
-> **Active Skill**: [database-architect](.agents/skills/database-architect/SKILL.md), [database-design](.agents/skills/database-design/SKILL.md) & [sql-pro](.agents/skills/sql-pro/SKILL.md) *(apply [postgres-best-practices](.agents/skills/postgres-best-practices/SKILL.md) for Postgres)*
+> **Active Skill**: [database-design](.agents/skills/database-design/SKILL.md) & [postgres-best-practices](.agents/skills/postgres-best-practices/SKILL.md)
 
 1. **Constraint Discipline**:
    - Define column nullability, unique keys, and explicit foreign key constraints with safe deletion cascades (`ON DELETE RESTRICT` or `CASCADE`).
@@ -62,7 +62,7 @@ Before generating backend architecture, database schemas, or API code, inspect o
    - Disallow polymorphic relations that bypass database-level foreign key enforcement.
 
 ### Stage 3: Atomic Mutation & Transaction Boundaries
-> **Active Skill**: [backend-dev-guidelines](.agents/skills/backend-dev-guidelines/SKILL.md) & [sql-pro](.agents/skills/sql-pro/SKILL.md)
+> **Active Skill**: [backend-dev-guidelines](.agents/skills/backend-dev-guidelines/SKILL.md) & [postgres-best-practices](.agents/skills/postgres-best-practices/SKILL.md)
 
 1. **Explicit Transactions**:
    - Wrap all multi-step data mutations within explicit transactions (`BEGIN` / `COMMIT` / `ROLLBACK`).

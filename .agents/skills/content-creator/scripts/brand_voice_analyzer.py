@@ -190,7 +190,7 @@ if __name__ == "__main__":
     import sys
     
     if len(sys.argv) > 1:
-        with safe_user_path(sys.argv[1]).open('r') as f:
+        with safe_user_path(sys.argv[1]).open('r', encoding='utf-8') as f:
             content = f.read()
         
         output_format = sys.argv[2] if len(sys.argv) > 2 else 'text'

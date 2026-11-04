@@ -61,6 +61,7 @@ Delegate specialized lifecycle tasks to the agents defined under [.agents/agents
   - Implementation Planning: [.agents/agents/planner.md](.agents/agents/planner.md)
   - Domain & System Architecture: [.agents/agents/code-architect.md](.agents/agents/code-architect.md)
   - Web Accessibility (WCAG 2.2): [.agents/agents/a11y-architect.md](.agents/agents/a11y-architect.md)
+  - Test-Driven Specification: [.agents/agents/tdd-guide.md](.agents/agents/tdd-guide.md)
 - **Quality Gates & Failure Hunting**:
   - Swallowed Exception & Fallback Audits: [.agents/agents/silent-failure-hunter.md](.agents/agents/silent-failure-hunter.md)
   - Code Simplification & Dead Weight Removal: [.agents/agents/code-simplifier.md](.agents/agents/code-simplifier.md)
@@ -68,9 +69,13 @@ Delegate specialized lifecycle tasks to the agents defined under [.agents/agents
 - **Security & Penetration Testing**:
   - Pre-Commit Security & Invariant Audits: [.agents/agents/security-auditor.md](.agents/agents/security-auditor.md)
   - Exploit Validation & Penetration QA: [.agents/agents/penetration-tester.md](.agents/agents/penetration-tester.md)
+- **Code Review Specialists**:
+  - TypeScript / JS: [.agents/agents/typescript-reviewer.md](.agents/agents/typescript-reviewer.md) · React: [.agents/agents/react-reviewer.md](.agents/agents/react-reviewer.md)
+  - Backend & Databases: [.agents/agents/database-reviewer.md](.agents/agents/database-reviewer.md) · FastAPI: [.agents/agents/fastapi-reviewer.md](.agents/agents/fastapi-reviewer.md)
+  - Systems & Stacks: [.agents/agents/go-reviewer.md](.agents/agents/go-reviewer.md) · [.agents/agents/rust-reviewer.md](.agents/agents/rust-reviewer.md) · [.agents/agents/php-reviewer.md](.agents/agents/php-reviewer.md) · [.agents/agents/vue-reviewer.md](.agents/agents/vue-reviewer.md)
 - **Closed-Loop Build & Error Repair**:
   - TypeScript & Generic Build Repair: [.agents/agents/build-error-resolver.md](.agents/agents/build-error-resolver.md)
-  - Framework Resolvers: [.agents/agents/react-build-resolver.md](.agents/agents/react-build-resolver.md), [.agents/agents/go-build-resolver.md](.agents/agents/go-build-resolver.md), [.agents/agents/rust-build-resolver.md](.agents/agents/rust-build-resolver.md)
+  - Framework Resolvers: [.agents/agents/react-build-resolver.md](.agents/agents/react-build-resolver.md), [.agents/agents/go-build-resolver.md](.agents/agents/go-build-resolver.md), [.agents/agents/rust-build-resolver.md](.agents/agents/rust-build-resolver.md), [.agents/agents/django-build-resolver.md](.agents/agents/django-build-resolver.md), [.agents/agents/cpp-build-resolver.md](.agents/agents/cpp-build-resolver.md), [.agents/agents/pytorch-build-resolver.md](.agents/agents/pytorch-build-resolver.md)
 
 ---
 

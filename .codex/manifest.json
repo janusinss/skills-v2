@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-10-01",
   "originalSnapshot": {
-    "digest": "7d09dd922079aeec3954acac6e82386c494511c2b8b0614040d1f44dfbb0ae62",
+    "digest": "8ddf0927e166c48acd84bea89fcaab538fe074337c25dc3208ef4207eed3514c",
     "files": {
       ".agents/agents/a11y-architect.md": "33c2c756b1dd391e12ed583e06290ddc816aaa4a8e5e838949e218a05e60584e",
       ".agents/agents/agent-evaluator.md": "61ea865430c05af5ce15443a0b12ab5ee87ce76c47da59d91042ed0ce12e4b77",
@@ -331,11 +331,11 @@
       ".agents/resources/creative-libraries/types/ambient.d.ts": "b05fa40bf9480db9fb90530b833eaca137c6373313af1440d531b61d9cb48b6a",
       ".agents/rules/MOTION.md": "d5d324e8393fc06f4c61a44cb4c7e802284d09248ef0b56f9841b45529112d49",
       ".agents/rules/UI_Always.md": "8c5aa87c670617f5b4ab49aae8c9559f0997df20fde3735de1e0db50676358d7",
-      ".agents/rules/backend.md": "2ee0d34ebeb2740e1248133a7cdd262f67ccdbef3049505695cb1fa70c57ef2c",
+      ".agents/rules/backend.md": "e57a47bcc5a13661b2a43f3b4441c4ce7d1eb5d28015714b545932f4d689cbcf",
       ".agents/rules/frontend.md": "54a566cdd40b1497ee607d52a3688c054f11306506958e76f73ecc9c7318c7ed",
       ".agents/rules/install.md": "a6f7f5f500a7b2130520b8b03a470e868c17581f768d8a9f51deb6df462899f1",
-      ".agents/rules/penetrating-and-testing.md": "7f6dda1e33eb102069afa8a073e0ffeb04bd2efc057e41be82e46b4d3fdc6575",
-      ".agents/rules/security.md": "5ffef7b0813a3b9ea71766b3661b6bd31653960f9a18a5f511d874e1758ed226",
+      ".agents/rules/penetrating-and-testing.md": "c2ddb929453a40ca08ef8829ef677ac6cb373635491513ae6b5ab0bf204ea337",
+      ".agents/rules/security.md": "f3fe188d2885c5c1e699f86304e24ea6d00991f8e39d67770eea025b3d4cb806",
       ".agents/rules/starting-brandnew.md": "ba04565e5997cb3af157342f9ca1ca6412b8ae7eaf3faca935c359ec11389a2b",
       ".agents/rules/starting-existing.md": "0afab878715d952748b5b7d9dd9c1189e697d6337d7549a8b690eb068b1b9f0d",
       ".agents/skills/3d-web-experience/SKILL.md": "7498d4a3cf8e52c9f71665b769d0e2b486d11858fdc4282c794d91de92ae244f",
@@ -366,7 +366,6 @@
       ".agents/skills/api-patterns/trpc.md": "722dde150b45392b9517a2053e53958619cb8fc0c2047c8ef09be4bcb5e9095d",
       ".agents/skills/api-patterns/versioning.md": "58abb2fc534e687bb54a4a191188f2698ec9ed3e4e12ba269d93cc03ed8d1ee6",
       ".agents/skills/api-security-best-practices/SKILL.md": "1eadc9741aac9481fa56d7961b6d65987fc77f69903c97c67a7ecff46b69998c",
-      ".agents/skills/api-security-testing/SKILL.md": "bd04c90d87be2353ebefee33363af0818746345e25c80ed36f63fcdd2b25509c",
       ".agents/skills/application-security-testing/SKILL.md": "b3041c800a9a1d34e04164c5f700b6d12bbc237f098d760c09ec076c92d2a654",
       ".agents/skills/archify/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
       ".agents/skills/archify/LICENSE-MIT": "b799ab081703e7821ae5096d2c1abdf14bbdc75e8ea1c4045998c36ed6db9706",
@@ -1332,7 +1331,6 @@
       ".agents/skills/backend-dev-guidelines/resources/services-and-repositories.md": "fcd5acebc8262ba765e7c09ebd340fe19ef7fd6c85607c5e9729b1543c31afb2",
       ".agents/skills/backend-dev-guidelines/resources/testing-guide.md": "b1862c83d89dbec8ea17a29bc39b82e8a065830108ae0665175f2682d8268b6a",
       ".agents/skills/backend-dev-guidelines/resources/validation-patterns.md": "345a761bef6935c78a3caffed49aa5497cf634073f01d40aa7776d0bee3049c8",
-      ".agents/skills/backend-security-coder/SKILL.md": "21312abd5ace8c80cee948b94041ab0c8be07e32429cfd9e8f2f7c8fd66d5abf",
       ".agents/skills/bash-linux/SKILL.md": "8c2479ab77d4c3fe751cbe4a3de56b388bafc382b4cf1193372566c6778aa4b5",
       ".agents/skills/brand/SKILL.md": "6a450ee1a83a403d47cec2ede9030feb60a67a81fc425d2406e975339313bd44",
       ".agents/skills/brand/references/approval-checklist.md": "4bf8549687f53a7b9684005b4b87de93c26f018e00609b4c506a5812abd13d20",
@@ -1373,7 +1371,7 @@
       ".agents/skills/content-creator/references/brand_guidelines.md": "354630ae489a22f1593ecc20ade52e9227ccc7066dde93828b9c579f9755c7a8",
       ".agents/skills/content-creator/references/content_frameworks.md": "250fab301a5462c0b14aa70965d43614d8ac2ff5ce36f9813c0ac7d92fa4148a",
       ".agents/skills/content-creator/references/social_media_optimization.md": "c90dffb1b7c5c110f56d570d5ce61c7e14c04821d183406e7f0473e075a543b1",
-      ".agents/skills/content-creator/scripts/brand_voice_analyzer.py": "ba127b610dd4acab79f8f1dfd00ad25e2e695895b5674488d0753828d195f80a",
+      ".agents/skills/content-creator/scripts/brand_voice_analyzer.py": "c1319215c1aa77734fc7bec34558667d2a8bc51f6d41ca969de6d0fdce97f302",
       ".agents/skills/content-creator/scripts/seo_optimizer.py": "ce5ca345c0fa9ab6a919144303dd8d5b126900a70be66f89e734ce93aaeb047e",
       ".agents/skills/context-window-management/SKILL.md": "15cbbe382e643897c9b0cf3973bc557d0ab857311f017799494c87da6787bf90",
       ".agents/skills/continuous-agent-loop/SKILL.md": "f228cd383a9063b3a0116c5aea02565e859992f63fae5e799adf9c9e44e2454d",
@@ -1386,7 +1384,6 @@
       ".agents/skills/cpp-pro/references/modern-cpp.md": "7410851bb066f5e6d825fab2efe7d767ed0ca2ea44cd377ff4f6ef7f90a21736",
       ".agents/skills/cpp-pro/references/templates.md": "d7a8e294439879126cd5df5b415eecf171d193f97368a2142607162c106a3ee8",
       ".agents/skills/cpp-pro/resources/implementation-playbook.md": "633456607c26300d7ef3e262255e2f7b782f6308d3c2174d8f30eb2ec6bd9994",
-      ".agents/skills/database-architect/SKILL.md": "341616fc336a178cb82ffe06675a947b1f2d3e967d9d38bb8a1fd20f96f998a8",
       ".agents/skills/database-design/SKILL.md": "ad1918b9daa821388c6b9838bd739126f52cc9236ac7a7a1b14bcab055d38160",
       ".agents/skills/database-design/database-selection.md": "3655cdd3a38a9ca1ae8408be8057ea628b08bf9ab22460b1bc571228dd2ba6c6",
       ".agents/skills/database-design/indexing.md": "eec8ce01e7c1c8ec2aed7a96d260a52b12d90c2996288e32814a8d9cf29cc22a",
@@ -1506,16 +1503,12 @@
       ".agents/skills/environment-setup-guide/SKILL.md": "b2a2b8ac0612cba0cbfd010c4046a925b96e91ff9bff7984fd6ab00bfb68214a",
       ".agents/skills/ethical-hacking-methodology/SKILL.md": "94b0fd2f370ba397131ee7180d3eb20954c3f38a3806d81f72760cc75e928a21",
       ".agents/skills/event-sourcing-architect/SKILL.md": "af5aa7e36580e75008abbb54af233fbefd2b53a1d7c2a61bcb441adc34932f62",
-      ".agents/skills/fastapi-pro/SKILL.md": "5beef01a81f4571fa7ff6fc8ac5c83902c2b16ce5588de737734fd650e11ccfe",
       ".agents/skills/fastapi-templates/SKILL.md": "9cea6875382e08b8f987b7bafa1ace3992aca780bea28440a858f02260965f8f",
       ".agents/skills/fastapi-templates/resources/implementation-playbook.md": "0b331f6678f8729bc1abdfaa634a0e799c481ad74f811a33de550a466ba1e660",
-      ".agents/skills/find-security-vulnerabilities-in-code/SKILL.md": "e7c25f1a0aea437d011d96dd306736b644597b07aa5a6dbc5588eefaab248e0a",
       ".agents/skills/fix-security-vulnerabilities-with-strix/SKILL.md": "bb1b351fd60c91e4875207f3fe4f35774ff5194261a00aea9f4752e459f24a9f",
       ".agents/skills/flutter-expert/SKILL.md": "3f90c3e17e754260ea9aeb9b4159a93d3da88b96959bb21efa33504bd5fa2f92",
       ".agents/skills/flutter-expert/resources/implementation-playbook.md": "59252c29ee24fb04b29b2999588c28b682000e23f1c0470f48dc698b4815d077",
       ".agents/skills/form-cro/SKILL.md": "a676f1d86f5ec1b09a97652e03fac9ad4fa483d7cfa1ff870e557492f0c4f968",
-      ".agents/skills/frontend-design/LICENSE.txt": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
-      ".agents/skills/frontend-design/SKILL.md": "7630d4503589534f899ca94dba13611ded59a4df33ab969b93b87b8b73d008c0",
       ".agents/skills/frontend-developer/SKILL.md": "ae84793b4c1746984cd145564339f07a6473cff1970f73d0647200ee4bd86176",
       ".agents/skills/frontend-security-coder/SKILL.md": "b5ada44308cb5011e1d3e3c193befe9f93c91d383bf532fe1fdcd62ae0384bd7",
       ".agents/skills/full-output-enforcement/SKILL.md": "e5bf48b1ae561511439cf71672209a10a88cee0968cc925909ff861dfa0a96a7",
@@ -1524,8 +1517,6 @@
       ".agents/skills/go-concurrency-patterns/SKILL.md": "d8c25de9abddf2ff610324b240c02c6a944c17e85fe729ff1d4bf643b16a1e68",
       ".agents/skills/go-concurrency-patterns/resources/implementation-playbook.md": "e4d671b203c5e4e7cf714d4b4b6ac854c2ae5ac9fc7c9521543faac8c5d497e8",
       ".agents/skills/golang-pro/SKILL.md": "a1c6e19e3a9266c88ead5a13314481c90e4efec8873b5900a7fb0638feaf65fd",
-      ".agents/skills/gpt-taste/SKILL.md": "2e64c269953f2656c21bf5a0fa6b4568e82fe0c72b36e8f84758e090349966a5",
-      ".agents/skills/high-end-visual-design/SKILL.md": "e1e32f5e2d420872c6c7332b53d5ff7721946766b78c4822b424c2d512c8fdbc",
       ".agents/skills/image-to-code/SKILL.md": "4c060a8064a8b13380bc2ef3d6e6a1d0b1e316aa093cd9807d0ce9e4eeb037fa",
       ".agents/skills/imagegen-frontend-mobile/SKILL.md": "8a33389979f3074fa0926678e266ad2eb9234624472254469fc1ad916b9caa24",
       ".agents/skills/imagegen-frontend-web/SKILL.md": "6b5c2256522fdba1e3313eafa3d743b960a7b13ec029d3e6586e04b23327c1f8",
@@ -1593,7 +1584,6 @@
       ".agents/skills/impeccable/scripts/live-browser-session.js": "e042339a54d4521fc47555b602013ed5b51410ec9d7d8878d99a526f5f237f68",
       ".agents/skills/impeccable/scripts/live-browser.js": "718b7e3c5c9cc3cc8fb75ed99b32a7ebce627e3b6a108e21656fa0fd298e34f0",
       ".agents/skills/impeccable/scripts/modern-screenshot.umd.js": "bb36665889124a0b6e15f16045265737449c3bdcf2712cdb08af3cfa01563e2b",
-      ".agents/skills/industrial-brutalist-ui/SKILL.md": "fffbaac8597f07679e9d87145533567658aedba3b5eca6f16a7075a333048caa",
       ".agents/skills/interactive-portfolio/SKILL.md": "9413c42fd38df3a9e0a4d2719fad7ca2b01a53b28e64e414270d243394650415",
       ".agents/skills/ios-developer/SKILL.md": "05cf24fabd0acc80c410eb1e1c33a5fda416a812103df97d2baeb3644938be19",
       ".agents/skills/javascript-pro/SKILL.md": "d37d2c8efea7a7f676a1566d6f7a71109796744f3a226f72ccb6ccbc62f33c8f",
@@ -1621,7 +1611,6 @@
       ".agents/skills/memory-safety-patterns/resources/implementation-playbook.md": "c095b819d12fb21fd7580b33f68b734f50e86a6ee9c6818e8f14a3a699ced477",
       ".agents/skills/microservices-patterns/SKILL.md": "b3f49ab405777254ba7c7d9dd95544deb8d77a5416202e92a5588ae97a096133",
       ".agents/skills/microservices-patterns/resources/implementation-playbook.md": "564ca16caf7a8d6c0fe285c24bfd099fb2dd98ac44e4918f6b3ffc2faa1e0b9c",
-      ".agents/skills/minimalist-ui/SKILL.md": "36bc7328f085405f43b476938e62460fa573bf7e984e949e072bcf014831a44c",
       ".agents/skills/mobile-design/SKILL.md": "f66841ab7e6e5f26f91d78d722955bd05caa3af6b8c88c3396a7ab1f1b352afb",
       ".agents/skills/mobile-design/decision-trees.md": "ed7e218bdd40a6d6614974acf4d54772bc6384536d747ac7e4f378870388b0d3",
       ".agents/skills/mobile-design/mobile-backend.md": "b46b4c0d122de115ed85a8ea814c898cebecb6338f58008b8ce23f28d136dcb2",
@@ -1636,13 +1625,11 @@
       ".agents/skills/mobile-design/platform-ios.md": "3843ee18984f68ab5fa022976f2015429788baff5f8af0dd56d6298792e09396",
       ".agents/skills/mobile-design/scripts/mobile_audit.py": "6eee7ae6c7fba747e9fcaafd9db7f50b006887a7cd114d0e6fd26bdab8e1a6fe",
       ".agents/skills/mobile-design/touch-psychology.md": "ec131aea1ce39b8d46d1c491ee4839510979d2f60ee7698e2ad1aed2c48b6146",
-      ".agents/skills/mobile-developer/SKILL.md": "99b015328ab94f446c6928c4101d540867722f4ee223003668b32a81014039ec",
       ".agents/skills/nextjs-app-router-patterns/SKILL.md": "9cac63755b145c04656015145c145d9e5a3b541ff36440c18252d06166cee01e",
       ".agents/skills/nextjs-app-router-patterns/resources/implementation-playbook.md": "5a95b2564e70de6382cff35cd509692d0eed98134ab73fc3e4e5abe64c431873",
       ".agents/skills/nextjs-best-practices/SKILL.md": "08a3b5d6a02c1644112a155ddd1dc815e258bd6420e051dca2318092d8eecee7",
       ".agents/skills/nodejs-best-practices/SKILL.md": "bbe124438b07704e44a5dd4ad80abbb8d52039bbb600fc7a5b5152c64efff930",
       ".agents/skills/observability-engineer/SKILL.md": "3c07e08c040e1173943f53b5e5be5d20c29111a83c4f8498ceab7983c4d833b1",
-      ".agents/skills/owasp-top-10-testing/SKILL.md": "02b1cbe60d40c44493309418c7824f1f681d9f32bf0299ca246892c46cb130af",
       ".agents/skills/pci-compliance/SKILL.md": "ff04cf9f626e5686400e37467924fcd017ed6bb9525b4d1f4f24d7231a5c7747",
       ".agents/skills/penetration-testing-with-strix/SKILL.md": "d70bc1c9fc5c4557ae072467731eed0ff755a25d3e3aff958dc7d4a1ab615915",
       ".agents/skills/performance-engineer/SKILL.md": "551387dcfa7464aa931a803778f58af90650d19904204aef6909139ed35e31e2",
@@ -1696,15 +1683,13 @@
       ".agents/skills/programmatic-seo/SKILL.md": "d25952fd66889ba417fc6a49d60eb4b5fb190f1e4cade7477c0d8d89621d1cdd",
       ".agents/skills/prompt-caching/SKILL.md": "a66441b2c4538facfa2def501ed16b14dbd0a97a4ef5e771fffadb520caff3b6",
       ".agents/skills/prompt-engineering/SKILL.md": "d8be59f756c28532cff71d9401b414a5423ebf94c00959ecdf85015aff380d56",
-      ".agents/skills/prompt-enhancer-backend/SKILL.md": "0b32cad92b4a2f747c2204cda55d6a1c43220191f3a555b06620b753779e3100",
+      ".agents/skills/prompt-enhancer-backend/SKILL.md": "022998d138ff7b697311c76a2316c8bb5aa6a2ffa4b469765aa11321a9166597",
       ".agents/skills/prompt-enhancer-frontend/SKILL.md": "5a54a212388bc32da13d95080dd260e8bc615c08c46ef5bfeba262d0898c83ac",
-      ".agents/skills/prompt-enhancer/SKILL.md": "439ac7f678dbe52e2163110cef8be7ae6f7776bf1ae92511c9247a439a018cbb",
+      ".agents/skills/prompt-enhancer/SKILL.md": "d3f81e23794fbd9587707aea9d6191746d550e52594770c4174a0e5037733f46",
       ".agents/skills/python-patterns/SKILL.md": "feba490b666581bf07b7b673e5de4cd3260827b78aae35a6ae80cc0c0334ce06",
-      ".agents/skills/python-pro/SKILL.md": "bcc90cf5bdd67342925c2a041f54821116270001a2944d8242af7f8426595326",
       ".agents/skills/python-testing-patterns/SKILL.md": "467fdbc399027e09da7df551c2088dad0e2fa7cba590be3059b40bfcbc63794a",
       ".agents/skills/python-testing-patterns/resources/implementation-playbook.md": "885f14af72736e2145e61326b8e743cbe9f7e96e617ab2b5d1306be378964f3f",
       ".agents/skills/rag-engineer/SKILL.md": "ff15cdfcc4e0f50fd967000cb6d97a6aa5fbab816028ed042090188dc1a5ddf7",
-      ".agents/skills/rag-implementation/SKILL.md": "087496c0ebe4d4a7c3d055992f945bdae495c222c104734a97d8c4c0fb4e667b",
       ".agents/skills/react-best-practices/AGENTS.md": "9288e276adf1a8e907721874d5c1ca7ea62d57ca81750d5ac9d0d87f4e1c52f8",
       ".agents/skills/react-best-practices/README.md": "9eafb2123d3b8b2aef41fba0db2648a3f4f49996f8c7c8bb2c86263befd8b48a",
       ".agents/skills/react-best-practices/SKILL.md": "75a1cf7ee1d59f56604b4db52d3cb680d1bfdbe5b064f6abc7acf8ba30acc1d3",
@@ -1785,25 +1770,7 @@
       ".agents/skills/security-audit/validate-coverage-ledger.test.cjs": "cfb9df26b03469a4279a70e7664a2a5434dd6f8c2c204e91f9b0aeb9dd71e648",
       ".agents/skills/security-audit/validate-findings.cjs": "e85f232e36bfac0f866f244da50376692d6b45c690beadcb00608b0e6c8b5283",
       ".agents/skills/security-audit/validate-findings.test.cjs": "b92001117a92c4161d43777a0ba2fa182a8a4d97f2304cc8c0cee5331497b73b",
-      ".agents/skills/security-auditor/SKILL.md": "01a5687de84be124b8d6c4ecd9e21185ddb31b5293474c60cac9c3f9fce57ca3",
-      ".agents/skills/senior-architect/SKILL.md": "1dd4bd2f652980f0d1a46a0aad22b1178ee9826c2547a782d63f0b84419e08eb",
-      ".agents/skills/senior-architect/references/architecture_patterns.md": "7eafaeddf4e1ab422623683ae8eb835af4321b878a96f3ca3b9d4fd9a0f982ef",
-      ".agents/skills/senior-architect/references/system_design_workflows.md": "9815bcf71022acbcc2619d2c9c2894cf0d83ff798ed7d27a4c81241ceb387e5c",
-      ".agents/skills/senior-architect/references/tech_decision_guide.md": "c9a0274d29a7f1b5db13146b1dd62ed44a4bac9cc680d19cf9ed416ede8669db",
-      ".agents/skills/senior-architect/scripts/architecture_diagram_generator.py": "9f618797927ecea15a80611580b203314cc9f6ccc83ef0fb64f8ca50706c86ca",
-      ".agents/skills/senior-architect/scripts/dependency_analyzer.py": "0a86f37f4fca629780268d917b46a9e13c4ca26b84534ae71d84c16920e35068",
-      ".agents/skills/senior-architect/scripts/project_architect.py": "ce9231e7e018845fe0bf4ad3b71117845042e76a748b01fd0329877a11f190d1",
-      ".agents/skills/senior-fullstack/SKILL.md": "d16875df73337daea6264d3673bfce0a510b61a6a6ec2a80eb4d98914c799060",
-      ".agents/skills/senior-fullstack/references/architecture_patterns.md": "cef561637c3375ebb91ecaa9e82d6c847751b746ff99186f1248f8c99bc2f8a8",
-      ".agents/skills/senior-fullstack/references/development_workflows.md": "000c2a1f3d0e0269a32d4144a80c09bd7192a01995d70ec006c610ac399241d3",
-      ".agents/skills/senior-fullstack/references/tech_stack_guide.md": "6534f2fd38f6794eba17315c9e3dff5ea1d25b4d7193d2d80f93dbc8e2b2794f",
-      ".agents/skills/senior-fullstack/scripts/code_quality_analyzer.py": "acf799d8745e1a59cb3afb30b4c3b80560bc943e99cca214c2b17613a3508506",
-      ".agents/skills/senior-fullstack/scripts/fullstack_scaffolder.py": "dcbf20b479eb8137805cd08127f9023f416fe995883156b6c9d93d9dc635fba4",
-      ".agents/skills/senior-fullstack/scripts/project_scaffolder.py": "b238683e3fae9f49844fa9040d68d682f04bfb5513b3d80a6885b385180cfed3",
       ".agents/skills/seo-audit/SKILL.md": "e093db4cbce9c6c2c3fac60c6103c6494733d94a44d36384e72ba75964dfe1e6",
-      ".agents/skills/sql-pro/SKILL.md": "80daba9ebba46014df00ecdb9b5c609986f50ea59d343c828c36e464d21b1c4f",
-      ".agents/skills/stitch-design-taste/DESIGN.md": "0ab6740c4ebb1966dbceddb823a66d4bf027e960efbd73faca56cbf8370ae2ad",
-      ".agents/skills/stitch-design-taste/SKILL.md": "46bdb08fee2dded38b6ba0a051230a502d6ac6e4044afd47592cb40c256028b5",
       ".agents/skills/stripe-integration/SKILL.md": "5980ed1dc7ac40eaeb765ecf52e41f0498166ccfbffe65ed2d92c83686f91354",
       ".agents/skills/systematic-debugging/CREATION-LOG.md": "b482ef9a918fbfc6c369729e8160633ddfa2332466dd362ee73f1527c239ef8b",
       ".agents/skills/systematic-debugging/SKILL.md": "d5c48f81b1e8ec1b8895027ef44d4ab0beeba041bfee760c3b2ad08e38825bfa",
@@ -1913,11 +1880,6 @@
       ".agents/skills/ui-ux-pro-max/scripts/tests/test_text_layout_resilience.py": "b51d32ee8a15505b87cb81957fb2d1b385e041e8beb4463c311d236bfd29ebd4",
       ".agents/skills/ui-ux-pro-max/scripts/tests/test_web_stack_freshness.py": "becc5fa40e7516613d4e9930f226aa483e3796090c17cb16542c93d1927e680d",
       ".agents/skills/ui-ux-pro-max/scripts/validate_data.py": "718ad4cbb227436015c9c2bc80fc583d6ed738b01c1a940ef85e350780d99f58",
-      ".agents/skills/vector-database-engineer/SKILL.md": "9662324ae6658d5cbb23798b5752d1a3d100ed423debc6fd5c4416019bd92605",
-      ".agents/skills/vulnerability-scanner/SKILL.md": "10ac0ce500a2cea443aac49117cd276fd52949712ca7f5066366e3f5222f587e",
-      ".agents/skills/vulnerability-scanner/checklists.md": "fcad8d2be67a2ef31a223f2fba9e1ed13188fcc15857a584a8fb5b55d9813e42",
-      ".agents/skills/vulnerability-scanner/scripts/security_scan.py": "5a066b5ffeb57b29187aaa83f570279cb3b05f39521169a4ae407d19d37dc482",
-      ".agents/skills/web-app-penetration-testing/SKILL.md": "2e8df0b9233971c496d0c0c7660808fc717c08d4165455a0423229045389608a",
       ".gitignore": "ab5b1bfacf8dfa2edb0399b5a59477cc832ea09c4c5302458f402853b3a2831d",
       "README.MD": "861839926cef7e14327047c20da2d58196d3fc5db3a1461afa59564c41511ca7",
       "skills-lock.json": "74df0fb86e349789417376ceff221b6c0b8cdad47732e25e58fed74bc64a6fdf"
@@ -1925,11 +1887,11 @@
   },
   "originalPreserved": true,
   "summary": {
-    "topLevelSkills": 140,
-    "discoverableSkills": 146,
+    "topLevelSkills": 118,
+    "discoverableSkills": 124,
     "duplicatesPreservedAsReferences": 2,
     "rules": 9,
-    "generatedFiles": 2052
+    "generatedFiles": 1992
   },
   "duplicateReferences": {
     "skills/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "skills/avoid-ai-writing/skills/avoid-ai-writing/REFERENCE.md",
@@ -3740,16 +3702,6 @@
       "source": ".agents/skills/api-security-best-practices/SKILL.md",
       "sourceHash": "1eadc9741aac9481fa56d7961b6d65987fc77f69903c97c67a7ecff46b69998c",
       "outputHash": "4b34cda4a73fdb7ebf6714dda374f61ad54cc8ceb64ede56b8e5316feb11ad62"
-    },
-    "skills/api-security-testing/SKILL.md": {
-      "source": ".agents/skills/api-security-testing/SKILL.md",
-      "sourceHash": "bd04c90d87be2353ebefee33363af0818746345e25c80ed36f63fcdd2b25509c",
-      "outputHash": "16da087b9cbb4316ee2690c0d36f8dfc6858700169f86d9ef7f407269c1f4635"
-    },
-    "skills/api-security-testing/agents/openai.yaml": {
-      "source": ".agents/skills/api-security-testing/SKILL.md",
-      "sourceHash": "bd04c90d87be2353ebefee33363af0818746345e25c80ed36f63fcdd2b25509c",
-      "outputHash": "d3e9d6ba8c4f456540403fe3f84336cb515a9c1e74925eb5e309d18fbd23857f"
     },
     "skills/application-security-testing/SKILL.md": {
       "source": ".agents/skills/application-security-testing/SKILL.md",
@@ -8621,16 +8573,6 @@
       "sourceHash": "aa2e8fc9ab3d641cb41b7b320a130a4dc27b32251a1db8c5a4bbd5d80bf13dd2",
       "outputHash": "52386b952c1fd3e57414ff1b3d5fde327eab246d97cdb0afff9955dc103d04ed"
     },
-    "skills/backend-security-coder/SKILL.md": {
-      "source": ".agents/skills/backend-security-coder/SKILL.md",
-      "sourceHash": "21312abd5ace8c80cee948b94041ab0c8be07e32429cfd9e8f2f7c8fd66d5abf",
-      "outputHash": "743883bb190ba91363651dbb4e6ac99b1ed8870c2671963ee1c52918ae368838"
-    },
-    "skills/backend-security-coder/agents/openai.yaml": {
-      "source": ".agents/skills/backend-security-coder/SKILL.md",
-      "sourceHash": "21312abd5ace8c80cee948b94041ab0c8be07e32429cfd9e8f2f7c8fd66d5abf",
-      "outputHash": "07c37f31765406267e27f0fefd7573b4f6904f2d7a5b9f0e2fce5294d57edaaa"
-    },
     "skills/bash-linux/SKILL.md": {
       "source": ".agents/skills/bash-linux/SKILL.md",
       "sourceHash": "8c2479ab77d4c3fe751cbe4a3de56b388bafc382b4cf1193372566c6778aa4b5",
@@ -8883,8 +8825,8 @@
     },
     "skills/content-creator/scripts/brand_voice_analyzer.py": {
       "source": ".agents/skills/content-creator/scripts/brand_voice_analyzer.py",
-      "sourceHash": "ba127b610dd4acab79f8f1dfd00ad25e2e695895b5674488d0753828d195f80a",
-      "outputHash": "ba127b610dd4acab79f8f1dfd00ad25e2e695895b5674488d0753828d195f80a"
+      "sourceHash": "c1319215c1aa77734fc7bec34558667d2a8bc51f6d41ca969de6d0fdce97f302",
+      "outputHash": "c1319215c1aa77734fc7bec34558667d2a8bc51f6d41ca969de6d0fdce97f302"
     },
     "skills/content-creator/scripts/seo_optimizer.py": {
       "source": ".agents/skills/content-creator/scripts/seo_optimizer.py",
@@ -8980,16 +8922,6 @@
       "source": ".agents/skills/cpp-pro/SKILL.md",
       "sourceHash": "8b136cd7cbf5ba73db0041cad94691c8191cb406e0347a8f16b22e30a41b88fb",
       "outputHash": "6aeedd06919c96eaeed3c1f0c6d8f262c62780d67b3d92fd1d139d130884282e"
-    },
-    "skills/database-architect/SKILL.md": {
-      "source": ".agents/skills/database-architect/SKILL.md",
-      "sourceHash": "341616fc336a178cb82ffe06675a947b1f2d3e967d9d38bb8a1fd20f96f998a8",
-      "outputHash": "430900648aaa3ead507ec2bd3e34d54c7202a5f69d4a9d76568f4508d15b00f8"
-    },
-    "skills/database-architect/agents/openai.yaml": {
-      "source": ".agents/skills/database-architect/SKILL.md",
-      "sourceHash": "341616fc336a178cb82ffe06675a947b1f2d3e967d9d38bb8a1fd20f96f998a8",
-      "outputHash": "c330284e98caace3e304821e8acf11fdb04fa1a0949e2294d5de8cfda920bc88"
     },
     "skills/database-design/database-selection.md": {
       "source": ".agents/skills/database-design/database-selection.md",
@@ -9651,16 +9583,6 @@
       "sourceHash": "af5aa7e36580e75008abbb54af233fbefd2b53a1d7c2a61bcb441adc34932f62",
       "outputHash": "929b35754126e70dd3a41b6a9501aa42f3ff781cf0a6c47c19475bbe7068de15"
     },
-    "skills/fastapi-pro/SKILL.md": {
-      "source": ".agents/skills/fastapi-pro/SKILL.md",
-      "sourceHash": "5beef01a81f4571fa7ff6fc8ac5c83902c2b16ce5588de737734fd650e11ccfe",
-      "outputHash": "4c8158fdd5236a900977bce4bdd7117a7ee6f2644aff86c7dc98d417313cd40c"
-    },
-    "skills/fastapi-pro/agents/openai.yaml": {
-      "source": ".agents/skills/fastapi-pro/SKILL.md",
-      "sourceHash": "5beef01a81f4571fa7ff6fc8ac5c83902c2b16ce5588de737734fd650e11ccfe",
-      "outputHash": "c3a7ec50840899866c3d43fcbd51511851fa275cb4e3d914a940e1643cc92216"
-    },
     "skills/fastapi-templates/resources/implementation-playbook.md": {
       "source": ".agents/skills/fastapi-templates/resources/implementation-playbook.md",
       "sourceHash": "0b331f6678f8729bc1abdfaa634a0e799c481ad74f811a33de550a466ba1e660",
@@ -9675,16 +9597,6 @@
       "source": ".agents/skills/fastapi-templates/SKILL.md",
       "sourceHash": "9cea6875382e08b8f987b7bafa1ace3992aca780bea28440a858f02260965f8f",
       "outputHash": "33f54e7b6448daf2c9e64b0f53665bba823e41eedb6dfa975f95e3f928376b72"
-    },
-    "skills/find-security-vulnerabilities-in-code/SKILL.md": {
-      "source": ".agents/skills/find-security-vulnerabilities-in-code/SKILL.md",
-      "sourceHash": "e7c25f1a0aea437d011d96dd306736b644597b07aa5a6dbc5588eefaab248e0a",
-      "outputHash": "5ee121f54f8afd3d3959f090666f5037a070359b51c77c741c6c2b4218adcbcc"
-    },
-    "skills/find-security-vulnerabilities-in-code/agents/openai.yaml": {
-      "source": ".agents/skills/find-security-vulnerabilities-in-code/SKILL.md",
-      "sourceHash": "e7c25f1a0aea437d011d96dd306736b644597b07aa5a6dbc5588eefaab248e0a",
-      "outputHash": "e3ae2770068c9fd48d165775cb07718e87fb0df213f8f0842eba28c4d2f68797"
     },
     "skills/fix-security-vulnerabilities-with-strix/SKILL.md": {
       "source": ".agents/skills/fix-security-vulnerabilities-with-strix/SKILL.md",
@@ -9720,21 +9632,6 @@
       "source": ".agents/skills/form-cro/SKILL.md",
       "sourceHash": "a676f1d86f5ec1b09a97652e03fac9ad4fa483d7cfa1ff870e557492f0c4f968",
       "outputHash": "f0e2aec8a3225121fa3de38e49bdf77bcd109b008c7a6cb12fac600c2c279fd2"
-    },
-    "skills/frontend-design/LICENSE.txt": {
-      "source": ".agents/skills/frontend-design/LICENSE.txt",
-      "sourceHash": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
-      "outputHash": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
-    },
-    "skills/frontend-design/SKILL.md": {
-      "source": ".agents/skills/frontend-design/SKILL.md",
-      "sourceHash": "7630d4503589534f899ca94dba13611ded59a4df33ab969b93b87b8b73d008c0",
-      "outputHash": "e5ad676029d2384a8abc424a771d1ce7bdb8f079f7249d595d11caffb05d4bd3"
-    },
-    "skills/frontend-design/agents/openai.yaml": {
-      "source": ".agents/skills/frontend-design/SKILL.md",
-      "sourceHash": "7630d4503589534f899ca94dba13611ded59a4df33ab969b93b87b8b73d008c0",
-      "outputHash": "da29b280ef0d77ede4c2c21f69b25eab8d9a5dac13fe7d98e9e3152b60a910ee"
     },
     "skills/frontend-developer/SKILL.md": {
       "source": ".agents/skills/frontend-developer/SKILL.md",
@@ -9805,26 +9702,6 @@
       "source": ".agents/skills/golang-pro/SKILL.md",
       "sourceHash": "a1c6e19e3a9266c88ead5a13314481c90e4efec8873b5900a7fb0638feaf65fd",
       "outputHash": "64a2885e6241d96a373ff76e534fcdf1a6161f8d1faa2be5321d3b18e164c57f"
-    },
-    "skills/gpt-taste/SKILL.md": {
-      "source": ".agents/skills/gpt-taste/SKILL.md",
-      "sourceHash": "2e64c269953f2656c21bf5a0fa6b4568e82fe0c72b36e8f84758e090349966a5",
-      "outputHash": "5b4d7aa459f7863366412b6e72df1ace795538a76ba4077ba896cc254ac91659"
-    },
-    "skills/gpt-taste/agents/openai.yaml": {
-      "source": ".agents/skills/gpt-taste/SKILL.md",
-      "sourceHash": "2e64c269953f2656c21bf5a0fa6b4568e82fe0c72b36e8f84758e090349966a5",
-      "outputHash": "416b8c14b4d4032cddbd9d978b5f9fedcbf96b949e62443dd83caed524580a51"
-    },
-    "skills/high-end-visual-design/SKILL.md": {
-      "source": ".agents/skills/high-end-visual-design/SKILL.md",
-      "sourceHash": "e1e32f5e2d420872c6c7332b53d5ff7721946766b78c4822b424c2d512c8fdbc",
-      "outputHash": "1067a17b079e1617dd47e15b6c297f25dba61ff02eb512eac04884e496e6ab39"
-    },
-    "skills/high-end-visual-design/agents/openai.yaml": {
-      "source": ".agents/skills/high-end-visual-design/SKILL.md",
-      "sourceHash": "e1e32f5e2d420872c6c7332b53d5ff7721946766b78c4822b424c2d512c8fdbc",
-      "outputHash": "faf673914a8542ca604f9af2f3669aa5a7218b962ff33424c8464c4d36f9887b"
     },
     "skills/image-to-code/SKILL.md": {
       "source": ".agents/skills/image-to-code/SKILL.md",
@@ -10176,16 +10053,6 @@
       "sourceHash": "fab04b31f946573b00a8559db1fc070f8ea5825254d491c2b13156e5661a86d7",
       "outputHash": "3d433be65bb8c910742c5ef87a05820deb6e8d70a28edd388b0cb668d601b5ac"
     },
-    "skills/industrial-brutalist-ui/SKILL.md": {
-      "source": ".agents/skills/industrial-brutalist-ui/SKILL.md",
-      "sourceHash": "fffbaac8597f07679e9d87145533567658aedba3b5eca6f16a7075a333048caa",
-      "outputHash": "8da4cbb7bdecef726f4f90699954ed8bb2d3bf2bc5615a711f54938a63f7b2a1"
-    },
-    "skills/industrial-brutalist-ui/agents/openai.yaml": {
-      "source": ".agents/skills/industrial-brutalist-ui/SKILL.md",
-      "sourceHash": "fffbaac8597f07679e9d87145533567658aedba3b5eca6f16a7075a333048caa",
-      "outputHash": "4e6d58b05ca2f10028a85bf5df02f96a36509828b65ff88e11bc5d352ff2e5f5"
-    },
     "skills/interactive-portfolio/SKILL.md": {
       "source": ".agents/skills/interactive-portfolio/SKILL.md",
       "sourceHash": "9413c42fd38df3a9e0a4d2719fad7ca2b01a53b28e64e414270d243394650415",
@@ -10391,16 +10258,6 @@
       "sourceHash": "b3f49ab405777254ba7c7d9dd95544deb8d77a5416202e92a5588ae97a096133",
       "outputHash": "a78a6bca50dac84f459cb1942c087aa475a47a886f12f100cc494422de8d8bb6"
     },
-    "skills/minimalist-ui/SKILL.md": {
-      "source": ".agents/skills/minimalist-ui/SKILL.md",
-      "sourceHash": "36bc7328f085405f43b476938e62460fa573bf7e984e949e072bcf014831a44c",
-      "outputHash": "eb3e4da2cd1b27f1f78b1439ba75dac3261e847655733aae36a07e057657b5ba"
-    },
-    "skills/minimalist-ui/agents/openai.yaml": {
-      "source": ".agents/skills/minimalist-ui/SKILL.md",
-      "sourceHash": "36bc7328f085405f43b476938e62460fa573bf7e984e949e072bcf014831a44c",
-      "outputHash": "243be04a7e658c74c9e9ed0b95047473370dc24b193eb04636517e9f29a81021"
-    },
     "skills/mobile-design/decision-trees.md": {
       "source": ".agents/skills/mobile-design/decision-trees.md",
       "sourceHash": "ed7e218bdd40a6d6614974acf4d54772bc6384536d747ac7e4f378870388b0d3",
@@ -10476,16 +10333,6 @@
       "sourceHash": "ec131aea1ce39b8d46d1c491ee4839510979d2f60ee7698e2ad1aed2c48b6146",
       "outputHash": "ec131aea1ce39b8d46d1c491ee4839510979d2f60ee7698e2ad1aed2c48b6146"
     },
-    "skills/mobile-developer/SKILL.md": {
-      "source": ".agents/skills/mobile-developer/SKILL.md",
-      "sourceHash": "99b015328ab94f446c6928c4101d540867722f4ee223003668b32a81014039ec",
-      "outputHash": "15bdac14318f81d20bacd78e3075917c5054f56a631ea226fc81f8811f847fd8"
-    },
-    "skills/mobile-developer/agents/openai.yaml": {
-      "source": ".agents/skills/mobile-developer/SKILL.md",
-      "sourceHash": "99b015328ab94f446c6928c4101d540867722f4ee223003668b32a81014039ec",
-      "outputHash": "f75f337243b5eb1e6ea79f0edd01b3182afbdec90340f61eb9d61ce89ebf7490"
-    },
     "skills/nextjs-app-router-patterns/resources/implementation-playbook.md": {
       "source": ".agents/skills/nextjs-app-router-patterns/resources/implementation-playbook.md",
       "sourceHash": "5a95b2564e70de6382cff35cd509692d0eed98134ab73fc3e4e5abe64c431873",
@@ -10530,16 +10377,6 @@
       "source": ".agents/skills/observability-engineer/SKILL.md",
       "sourceHash": "3c07e08c040e1173943f53b5e5be5d20c29111a83c4f8498ceab7983c4d833b1",
       "outputHash": "f5a4cd115ac910920fadbe1599f13d9d54f7f918c8146190a92b3afdecb66d79"
-    },
-    "skills/owasp-top-10-testing/SKILL.md": {
-      "source": ".agents/skills/owasp-top-10-testing/SKILL.md",
-      "sourceHash": "02b1cbe60d40c44493309418c7824f1f681d9f32bf0299ca246892c46cb130af",
-      "outputHash": "4b49cc1e306989224b39ba2ee31301b270f9f96105ff7576f8fe5ae2bcabbb13"
-    },
-    "skills/owasp-top-10-testing/agents/openai.yaml": {
-      "source": ".agents/skills/owasp-top-10-testing/SKILL.md",
-      "sourceHash": "02b1cbe60d40c44493309418c7824f1f681d9f32bf0299ca246892c46cb130af",
-      "outputHash": "72dc0c48589f4de0cb48a3f7fd36d1f88890e3b79ce976dd1b9781688fc5024d"
     },
     "skills/pci-compliance/SKILL.md": {
       "source": ".agents/skills/pci-compliance/SKILL.md",
@@ -10853,22 +10690,22 @@
     },
     "skills/prompt-enhancer/SKILL.md": {
       "source": ".agents/skills/prompt-enhancer/SKILL.md",
-      "sourceHash": "439ac7f678dbe52e2163110cef8be7ae6f7776bf1ae92511c9247a439a018cbb",
-      "outputHash": "abf1fc60e6f0e21d273db34d35d6ab463b7f666a8a8cabec71e6abd495c29de3"
+      "sourceHash": "d3f81e23794fbd9587707aea9d6191746d550e52594770c4174a0e5037733f46",
+      "outputHash": "2e3360a8a7809e96596d75997484bd44cc54397134b47524fb1e6057b1d5274d"
     },
     "skills/prompt-enhancer/agents/openai.yaml": {
       "source": ".agents/skills/prompt-enhancer/SKILL.md",
-      "sourceHash": "439ac7f678dbe52e2163110cef8be7ae6f7776bf1ae92511c9247a439a018cbb",
+      "sourceHash": "d3f81e23794fbd9587707aea9d6191746d550e52594770c4174a0e5037733f46",
       "outputHash": "0dc3205e7477d80a81e8e4c817243f970dda3b6813fd44b67b1ae9292c789dc8"
     },
     "skills/prompt-enhancer-backend/SKILL.md": {
       "source": ".agents/skills/prompt-enhancer-backend/SKILL.md",
-      "sourceHash": "0b32cad92b4a2f747c2204cda55d6a1c43220191f3a555b06620b753779e3100",
-      "outputHash": "43bd664cc5e9d3b0fd79fac3ff4325d83855f59e97b4aa4246ddf3673ddedf16"
+      "sourceHash": "022998d138ff7b697311c76a2316c8bb5aa6a2ffa4b469765aa11321a9166597",
+      "outputHash": "c4c15e23fc917316130bcd4f48107960d6239014c0d1bb4d7a17fa209a35389d"
     },
     "skills/prompt-enhancer-backend/agents/openai.yaml": {
       "source": ".agents/skills/prompt-enhancer-backend/SKILL.md",
-      "sourceHash": "0b32cad92b4a2f747c2204cda55d6a1c43220191f3a555b06620b753779e3100",
+      "sourceHash": "022998d138ff7b697311c76a2316c8bb5aa6a2ffa4b469765aa11321a9166597",
       "outputHash": "4d3bea50e80446425a47e0b6410e30e093be9251b2e1918b58a69ea72df9bd3e"
     },
     "skills/prompt-enhancer-frontend/SKILL.md": {
@@ -10890,16 +10727,6 @@
       "source": ".agents/skills/python-patterns/SKILL.md",
       "sourceHash": "feba490b666581bf07b7b673e5de4cd3260827b78aae35a6ae80cc0c0334ce06",
       "outputHash": "774c85ce1f0c161999a616306772d42a20c645c0d6a839fae5004beb9bf579b5"
-    },
-    "skills/python-pro/SKILL.md": {
-      "source": ".agents/skills/python-pro/SKILL.md",
-      "sourceHash": "bcc90cf5bdd67342925c2a041f54821116270001a2944d8242af7f8426595326",
-      "outputHash": "802fc974c6c8ea0f0c463a7abad86bee5cc84d2203ac53b98d8789675f6cb636"
-    },
-    "skills/python-pro/agents/openai.yaml": {
-      "source": ".agents/skills/python-pro/SKILL.md",
-      "sourceHash": "bcc90cf5bdd67342925c2a041f54821116270001a2944d8242af7f8426595326",
-      "outputHash": "879ccbb80efa3f1b58e92f530bde56b79330480a690204e98e3dc5f5a87b23b2"
     },
     "skills/python-testing-patterns/resources/implementation-playbook.md": {
       "source": ".agents/skills/python-testing-patterns/resources/implementation-playbook.md",
@@ -10925,16 +10752,6 @@
       "source": ".agents/skills/rag-engineer/SKILL.md",
       "sourceHash": "ff15cdfcc4e0f50fd967000cb6d97a6aa5fbab816028ed042090188dc1a5ddf7",
       "outputHash": "173fda9cfc33ed991e2b0a31f8721659be20f6e71cbfe9c0d0ca356696f3684a"
-    },
-    "skills/rag-implementation/SKILL.md": {
-      "source": ".agents/skills/rag-implementation/SKILL.md",
-      "sourceHash": "087496c0ebe4d4a7c3d055992f945bdae495c222c104734a97d8c4c0fb4e667b",
-      "outputHash": "2d3fc6053c1174883eadc9bd9018a2d81018e8fbcb22bd68c7ea3d3d1d32ff02"
-    },
-    "skills/rag-implementation/agents/openai.yaml": {
-      "source": ".agents/skills/rag-implementation/SKILL.md",
-      "sourceHash": "087496c0ebe4d4a7c3d055992f945bdae495c222c104734a97d8c4c0fb4e667b",
-      "outputHash": "a796f41cba365db3f3adcad5f766296fe555ac640a26996073a5b89a940a3e66"
     },
     "skills/react-best-practices/AGENTS.md": {
       "source": ".agents/skills/react-best-practices/AGENTS.md",
@@ -11376,96 +11193,6 @@
       "sourceHash": "4f3066dffa23c5635859187be9b96c32f2aff29a688186b91ff0c63e47d62b5c",
       "outputHash": "4f3066dffa23c5635859187be9b96c32f2aff29a688186b91ff0c63e47d62b5c"
     },
-    "skills/security-auditor/SKILL.md": {
-      "source": ".agents/skills/security-auditor/SKILL.md",
-      "sourceHash": "01a5687de84be124b8d6c4ecd9e21185ddb31b5293474c60cac9c3f9fce57ca3",
-      "outputHash": "b988c4095cd095ccbcad78c4e48b8d42818aa3b795d0deaf2ec35808c05c0b16"
-    },
-    "skills/security-auditor/agents/openai.yaml": {
-      "source": ".agents/skills/security-auditor/SKILL.md",
-      "sourceHash": "01a5687de84be124b8d6c4ecd9e21185ddb31b5293474c60cac9c3f9fce57ca3",
-      "outputHash": "559d7681e18952f87fb2a8e8309b6e2e338b84d3958cb02ad40fe12a496d6406"
-    },
-    "skills/senior-architect/references/architecture_patterns.md": {
-      "source": ".agents/skills/senior-architect/references/architecture_patterns.md",
-      "sourceHash": "7eafaeddf4e1ab422623683ae8eb835af4321b878a96f3ca3b9d4fd9a0f982ef",
-      "outputHash": "7eafaeddf4e1ab422623683ae8eb835af4321b878a96f3ca3b9d4fd9a0f982ef"
-    },
-    "skills/senior-architect/references/system_design_workflows.md": {
-      "source": ".agents/skills/senior-architect/references/system_design_workflows.md",
-      "sourceHash": "9815bcf71022acbcc2619d2c9c2894cf0d83ff798ed7d27a4c81241ceb387e5c",
-      "outputHash": "9815bcf71022acbcc2619d2c9c2894cf0d83ff798ed7d27a4c81241ceb387e5c"
-    },
-    "skills/senior-architect/references/tech_decision_guide.md": {
-      "source": ".agents/skills/senior-architect/references/tech_decision_guide.md",
-      "sourceHash": "c9a0274d29a7f1b5db13146b1dd62ed44a4bac9cc680d19cf9ed416ede8669db",
-      "outputHash": "c9a0274d29a7f1b5db13146b1dd62ed44a4bac9cc680d19cf9ed416ede8669db"
-    },
-    "skills/senior-architect/scripts/architecture_diagram_generator.py": {
-      "source": ".agents/skills/senior-architect/scripts/architecture_diagram_generator.py",
-      "sourceHash": "9f618797927ecea15a80611580b203314cc9f6ccc83ef0fb64f8ca50706c86ca",
-      "outputHash": "9f618797927ecea15a80611580b203314cc9f6ccc83ef0fb64f8ca50706c86ca"
-    },
-    "skills/senior-architect/scripts/dependency_analyzer.py": {
-      "source": ".agents/skills/senior-architect/scripts/dependency_analyzer.py",
-      "sourceHash": "0a86f37f4fca629780268d917b46a9e13c4ca26b84534ae71d84c16920e35068",
-      "outputHash": "0a86f37f4fca629780268d917b46a9e13c4ca26b84534ae71d84c16920e35068"
-    },
-    "skills/senior-architect/scripts/project_architect.py": {
-      "source": ".agents/skills/senior-architect/scripts/project_architect.py",
-      "sourceHash": "ce9231e7e018845fe0bf4ad3b71117845042e76a748b01fd0329877a11f190d1",
-      "outputHash": "ce9231e7e018845fe0bf4ad3b71117845042e76a748b01fd0329877a11f190d1"
-    },
-    "skills/senior-architect/SKILL.md": {
-      "source": ".agents/skills/senior-architect/SKILL.md",
-      "sourceHash": "1dd4bd2f652980f0d1a46a0aad22b1178ee9826c2547a782d63f0b84419e08eb",
-      "outputHash": "70614ae05251f4fdc0512672746810777a85218a3a48631ef6c2c788253fe8a0"
-    },
-    "skills/senior-architect/agents/openai.yaml": {
-      "source": ".agents/skills/senior-architect/SKILL.md",
-      "sourceHash": "1dd4bd2f652980f0d1a46a0aad22b1178ee9826c2547a782d63f0b84419e08eb",
-      "outputHash": "377805c9e97bca56418ccc4cb76f02afee1b527bb39bb55a6d5f4813d40d6777"
-    },
-    "skills/senior-fullstack/references/architecture_patterns.md": {
-      "source": ".agents/skills/senior-fullstack/references/architecture_patterns.md",
-      "sourceHash": "cef561637c3375ebb91ecaa9e82d6c847751b746ff99186f1248f8c99bc2f8a8",
-      "outputHash": "cef561637c3375ebb91ecaa9e82d6c847751b746ff99186f1248f8c99bc2f8a8"
-    },
-    "skills/senior-fullstack/references/development_workflows.md": {
-      "source": ".agents/skills/senior-fullstack/references/development_workflows.md",
-      "sourceHash": "000c2a1f3d0e0269a32d4144a80c09bd7192a01995d70ec006c610ac399241d3",
-      "outputHash": "000c2a1f3d0e0269a32d4144a80c09bd7192a01995d70ec006c610ac399241d3"
-    },
-    "skills/senior-fullstack/references/tech_stack_guide.md": {
-      "source": ".agents/skills/senior-fullstack/references/tech_stack_guide.md",
-      "sourceHash": "6534f2fd38f6794eba17315c9e3dff5ea1d25b4d7193d2d80f93dbc8e2b2794f",
-      "outputHash": "6534f2fd38f6794eba17315c9e3dff5ea1d25b4d7193d2d80f93dbc8e2b2794f"
-    },
-    "skills/senior-fullstack/scripts/code_quality_analyzer.py": {
-      "source": ".agents/skills/senior-fullstack/scripts/code_quality_analyzer.py",
-      "sourceHash": "acf799d8745e1a59cb3afb30b4c3b80560bc943e99cca214c2b17613a3508506",
-      "outputHash": "acf799d8745e1a59cb3afb30b4c3b80560bc943e99cca214c2b17613a3508506"
-    },
-    "skills/senior-fullstack/scripts/fullstack_scaffolder.py": {
-      "source": ".agents/skills/senior-fullstack/scripts/fullstack_scaffolder.py",
-      "sourceHash": "dcbf20b479eb8137805cd08127f9023f416fe995883156b6c9d93d9dc635fba4",
-      "outputHash": "dcbf20b479eb8137805cd08127f9023f416fe995883156b6c9d93d9dc635fba4"
-    },
-    "skills/senior-fullstack/scripts/project_scaffolder.py": {
-      "source": ".agents/skills/senior-fullstack/scripts/project_scaffolder.py",
-      "sourceHash": "b238683e3fae9f49844fa9040d68d682f04bfb5513b3d80a6885b385180cfed3",
-      "outputHash": "b238683e3fae9f49844fa9040d68d682f04bfb5513b3d80a6885b385180cfed3"
-    },
-    "skills/senior-fullstack/SKILL.md": {
-      "source": ".agents/skills/senior-fullstack/SKILL.md",
-      "sourceHash": "d16875df73337daea6264d3673bfce0a510b61a6a6ec2a80eb4d98914c799060",
-      "outputHash": "d2bcbda5e7e9625026e1e2dfa116cf5378b817848d88a4e0bd4bab15013adc47"
-    },
-    "skills/senior-fullstack/agents/openai.yaml": {
-      "source": ".agents/skills/senior-fullstack/SKILL.md",
-      "sourceHash": "d16875df73337daea6264d3673bfce0a510b61a6a6ec2a80eb4d98914c799060",
-      "outputHash": "fe3dd6c2d6554c55aaa4ffaf346582d979c8523a23fcc379ecc53746a231d9f7"
-    },
     "skills/seo-audit/SKILL.md": {
       "source": ".agents/skills/seo-audit/SKILL.md",
       "sourceHash": "e093db4cbce9c6c2c3fac60c6103c6494733d94a44d36384e72ba75964dfe1e6",
@@ -11475,31 +11202,6 @@
       "source": ".agents/skills/seo-audit/SKILL.md",
       "sourceHash": "e093db4cbce9c6c2c3fac60c6103c6494733d94a44d36384e72ba75964dfe1e6",
       "outputHash": "6ae5f94bad4f81349c40d5066e791bdeff15546e6ceee1136fbdd4d5d34d3b14"
-    },
-    "skills/sql-pro/SKILL.md": {
-      "source": ".agents/skills/sql-pro/SKILL.md",
-      "sourceHash": "80daba9ebba46014df00ecdb9b5c609986f50ea59d343c828c36e464d21b1c4f",
-      "outputHash": "5d3c30e10cfe0f218ad14943527eb104364b42902a58eb3decd1f9dad2f6fa99"
-    },
-    "skills/sql-pro/agents/openai.yaml": {
-      "source": ".agents/skills/sql-pro/SKILL.md",
-      "sourceHash": "80daba9ebba46014df00ecdb9b5c609986f50ea59d343c828c36e464d21b1c4f",
-      "outputHash": "8f56be6d7fcbaf2220168da8714e71c5149a03dc2ed4f4a5b5ae59c88c4da444"
-    },
-    "skills/stitch-design-taste/DESIGN.md": {
-      "source": ".agents/skills/stitch-design-taste/DESIGN.md",
-      "sourceHash": "0ab6740c4ebb1966dbceddb823a66d4bf027e960efbd73faca56cbf8370ae2ad",
-      "outputHash": "0ab6740c4ebb1966dbceddb823a66d4bf027e960efbd73faca56cbf8370ae2ad"
-    },
-    "skills/stitch-design-taste/SKILL.md": {
-      "source": ".agents/skills/stitch-design-taste/SKILL.md",
-      "sourceHash": "46bdb08fee2dded38b6ba0a051230a502d6ac6e4044afd47592cb40c256028b5",
-      "outputHash": "a6c9900e63e4a0ff57e8653a272fa8d9eb83ac0f57f45a245709bb439b37c3f6"
-    },
-    "skills/stitch-design-taste/agents/openai.yaml": {
-      "source": ".agents/skills/stitch-design-taste/SKILL.md",
-      "sourceHash": "46bdb08fee2dded38b6ba0a051230a502d6ac6e4044afd47592cb40c256028b5",
-      "outputHash": "de94211ebdcd2334bb131a79dfeda23291f5bb47f1d11b38fe3311e5b480b5f9"
     },
     "skills/stripe-integration/SKILL.md": {
       "source": ".agents/skills/stripe-integration/SKILL.md",
@@ -12096,55 +11798,15 @@
       "sourceHash": "5905a2b470ca86077daf03f3c13361b949a702ae9f98399515abc55882cb9aa3",
       "outputHash": "d21077fd49a366247eadfa18f828a4b8dbd6be3051b688bba0cbb11aa1bf1fdf"
     },
-    "skills/vector-database-engineer/SKILL.md": {
-      "source": ".agents/skills/vector-database-engineer/SKILL.md",
-      "sourceHash": "9662324ae6658d5cbb23798b5752d1a3d100ed423debc6fd5c4416019bd92605",
-      "outputHash": "32cfd1f1691376997b3a86e00fed8b54be067fa3cfe90843a11538d794fbb9e3"
-    },
-    "skills/vector-database-engineer/agents/openai.yaml": {
-      "source": ".agents/skills/vector-database-engineer/SKILL.md",
-      "sourceHash": "9662324ae6658d5cbb23798b5752d1a3d100ed423debc6fd5c4416019bd92605",
-      "outputHash": "f9475c54adc4c87aab03e9d855d602bf057afd8ae4f0a193daf6a3fbdf5aa0a9"
-    },
-    "skills/vulnerability-scanner/checklists.md": {
-      "source": ".agents/skills/vulnerability-scanner/checklists.md",
-      "sourceHash": "fcad8d2be67a2ef31a223f2fba9e1ed13188fcc15857a584a8fb5b55d9813e42",
-      "outputHash": "fcad8d2be67a2ef31a223f2fba9e1ed13188fcc15857a584a8fb5b55d9813e42"
-    },
-    "skills/vulnerability-scanner/scripts/security_scan.py": {
-      "source": ".agents/skills/vulnerability-scanner/scripts/security_scan.py",
-      "sourceHash": "5a066b5ffeb57b29187aaa83f570279cb3b05f39521169a4ae407d19d37dc482",
-      "outputHash": "5a066b5ffeb57b29187aaa83f570279cb3b05f39521169a4ae407d19d37dc482"
-    },
-    "skills/vulnerability-scanner/SKILL.md": {
-      "source": ".agents/skills/vulnerability-scanner/SKILL.md",
-      "sourceHash": "10ac0ce500a2cea443aac49117cd276fd52949712ca7f5066366e3f5222f587e",
-      "outputHash": "e455c3cd85ddd2ed2eb3d2126de653f21dde220d4373aa3d088364cb8820776c"
-    },
-    "skills/vulnerability-scanner/agents/openai.yaml": {
-      "source": ".agents/skills/vulnerability-scanner/SKILL.md",
-      "sourceHash": "10ac0ce500a2cea443aac49117cd276fd52949712ca7f5066366e3f5222f587e",
-      "outputHash": "551b49e8039a7cd0448ab48a9549f9e8fc8f67be84f0a9d0c33e36a737f8ecc9"
-    },
-    "skills/web-app-penetration-testing/SKILL.md": {
-      "source": ".agents/skills/web-app-penetration-testing/SKILL.md",
-      "sourceHash": "2e8df0b9233971c496d0c0c7660808fc717c08d4165455a0423229045389608a",
-      "outputHash": "12ca6ebe223c89d508c190ed03808969f97288b3c3772e79f6f93394326c5ec7"
-    },
-    "skills/web-app-penetration-testing/agents/openai.yaml": {
-      "source": ".agents/skills/web-app-penetration-testing/SKILL.md",
-      "sourceHash": "2e8df0b9233971c496d0c0c7660808fc717c08d4165455a0423229045389608a",
-      "outputHash": "cfcd1026f5329b22b6583535c9251837af1717ad06de2dc367f81dbf6866aa8d"
-    },
     "rules/backend.md": {
       "source": ".agents/rules/backend.md",
-      "sourceHash": "2ee0d34ebeb2740e1248133a7cdd262f67ccdbef3049505695cb1fa70c57ef2c",
-      "outputHash": "5c43b763444dfd9599e5648b7e4259f3dfe53409941341e6471f78ffbdf1d852"
+      "sourceHash": "e57a47bcc5a13661b2a43f3b4441c4ce7d1eb5d28015714b545932f4d689cbcf",
+      "outputHash": "0d2980ee25b83b67ecb9cf68dfe91f4bbc30d433161cb53a2c3a1de551e59039"
     },
     "rules/frontend.md": {
       "source": "tools/codex/templates/rules/frontend.md",
-      "sourceHash": "98369de198a809dda79695eca9b045b35ce770345b2ae1483dc47801e58f3771",
-      "outputHash": "7070307ecac95d5bccbb289935bb122e945f58baabd6234cf2981946d695b12a"
+      "sourceHash": "25aec01f1085fa11305973c5863fdaa2be1e62871e1e5b163d7e394f7a7462e4",
+      "outputHash": "bc8ca577063333bdf4f7765175c0375b1393350ab320db8dae1d5a517cae9ea7"
     },
     "rules/install.md": {
       "source": "tools/codex/templates/rules/install.md",
@@ -12158,13 +11820,13 @@
     },
     "rules/penetrating-and-testing.md": {
       "source": ".agents/rules/penetrating-and-testing.md",
-      "sourceHash": "7f6dda1e33eb102069afa8a073e0ffeb04bd2efc057e41be82e46b4d3fdc6575",
-      "outputHash": "7d4d6d464653fd5d03a552ba77b93c54657eb8ceaecef691b7a9d762b56ea496"
+      "sourceHash": "c2ddb929453a40ca08ef8829ef677ac6cb373635491513ae6b5ab0bf204ea337",
+      "outputHash": "98957594e6083d421a1050660cab627cf07ddd70f4daa2acef8236bbef927321"
     },
     "rules/security.md": {
       "source": ".agents/rules/security.md",
-      "sourceHash": "5ffef7b0813a3b9ea71766b3661b6bd31653960f9a18a5f511d874e1758ed226",
-      "outputHash": "fd86f8d28a2cb84d26b527bfa18ece6162f3067dd3e578e48ff2fc69b8c2269d"
+      "sourceHash": "f3fe188d2885c5c1e699f86304e24ea6d00991f8e39d67770eea025b3d4cb806",
+      "outputHash": "19c7c0d5dffef180561af6d956ceff25f64418d9e7810393b01fc3aac4525563"
     },
     "rules/starting-brandnew.md": {
       "source": ".agents/rules/starting-brandnew.md",
@@ -12183,8 +11845,8 @@
     },
     "AGENTS.md": {
       "source": "AGENTS.md",
-      "sourceHash": "702064a449d52c2dc129e7ea9273482aba7c3dbd3ac4c09f375e3f487a93c6e3",
-      "outputHash": "df344a5adb2cbf0989050ebfb8029dae6010fa4790332a4f360ce156fd380c67"
+      "sourceHash": "9ea1e8edd88be631e47089c78382e84af055ac810e7585336b8a3cea65390fea",
+      "outputHash": "787d035ba21d4ec0f13f017b1e25ec2f8b74dca75a8512fadbe8f8d84380ebdb"
     },
     "project.gitignore": {
       "source": ".gitignore",
