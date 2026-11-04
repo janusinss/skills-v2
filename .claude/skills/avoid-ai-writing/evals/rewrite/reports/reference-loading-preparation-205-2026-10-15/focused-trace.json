@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "source_commit": "174336f7c784d028af81d9886f835204e7a90d71",
+  "generator_sha256": "d440af2f1fb749d589c2a5c6463b988146b90c6e1a0a0a4c082501ba517b8bab",
+  "config_sha256": "8b8ac112855b973f5e7d122535882a95265ddcbd11c5595dc0583bb45d92efc3",
+  "entry_sha256": "2f6dc40a0108dca18fb487033dd6c47b55eb7ca5c8a8a2d0cc3c9de3f54a95f7",
+  "reference_sha256": "9fc998c71034730ec12daffacbe7e4aca73181a289e010d1830115f4d7776afa",
+  "requested_mode": "focused",
+  "loading_mode": "focused",
+  "coverage": "declared-focus-only",
+  "fallback_reason": null,
+  "requested_module_ids": [
+    "false-agency",
+    "vague-attributions"
+  ],
+  "assembled_module_ids": [
+    "catalog-intro",
+    "false-agency",
+    "vague-attributions",
+    "context-profiles",
+    "voice-profiles",
+    "return-to-the-output-contract"
+  ],
+  "prompt_sha256": "5f03e5569f40c5f2d8d126f50101c84e4138136a17e8d39935f6ad6fbd6f3631",
+  "prompt_utf8_bytes": 52228,
+  "prompt_words": 7594,
+  "usage": {
+    "kind": "unavailable"
+  },
+  "model_latency_ms": null,
+  "observation": "Verified context assembly only. No model read, editing outcome, token usage, routing overhead or model latency was observed."
+}

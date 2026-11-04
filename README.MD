@@ -1,22 +1,26 @@
 # Agent Skills & Workspace Configurations
 
-A collection of **174 top-level AI agent skills**, architectural rules, and workflow resources, with separate **AGY / Gemini** and **GPT / Codex** editions.
+A collection of **118 curated top-level AI agent skills**, architectural rules, specialized subagents, and workflow resources, with dedicated editions for **AGY / Gemini**, **GPT / Codex**, and **Anthropic / Claude Code**.
 
 ---
 
 ## 📁 Repository Structure
 
 ```text
-├── .agents/
-│   ├── agents/            # Subagents: security-auditor, penetration-tester (UI dropdown & delegation)
+├── .agents/               # Antigravity / Gemini edition
+│   ├── agents/            # Specialized subagents: planner, tdd-guide, security-auditor, build resolvers
 │   ├── hooks.json         # Automated lifecycle hooks (UI checks & design deep passes)
 │   ├── rules/             # 9 architectural guidelines & proactive rules (UI, motion, backend, security, testing, install)
-│   ├── skills/            # 174 specialized agent skills across 12 engineering domains
+│   ├── skills/            # 118 curated agent skills across 10 engineering domains
 │   └── resources/         # Creative libraries, shader utilities, and ambient types
-├── .codex/                # Active GPT / Codex skills, rules, resources, and agents
-├── tools/codex/           # Conversion, validation, and Codex export tools
+├── .codex/                # OpenAI / Codex edition (skills, rules, resources, agents)
+├── .claude/               # Anthropic / Claude Code edition (skills, agents, commands, rules)
+├── tools/
+│   ├── codex/             # Codex conversion, validation, export, and install tools
+│   └── claude/            # Claude Code conversion, validation, export, and install tools
 ├── AGENTS.md              # Universal agent policy: ADHD Mode, local rules, browser checks & installation
-├── INSTALL.md             # Shared installer: ask GPT / CODEX or AGY / GEMINI
+├── CLAUDE.md              # Claude Code project instructions & memory (synchronized from AGENTS.md)
+├── INSTALL.md             # Shared installer: ask GPT / CODEX, AGY / GEMINI, or ANTHROPIC / CLAUDE CODE
 ├── skills-lock.json       # Skill dependency manifest and integrity lockfile
 └── .gitignore             # Environment and ephemeral file ignore rules
 ```
@@ -33,74 +37,92 @@ Inside your coding assistant, say:
 
 The agent follows [INSTALL.md](INSTALL.md) and asks:
 
-> **Which version would you like to install: GPT / CODEX or AGY / GEMINI?**
+> **Which version would you like to install: GPT / CODEX, AGY / GEMINI, or ANTHROPIC / CLAUDE CODE?**
 
-It waits for your choice, then installs that edition into the current target project. Choosing GPT / CODEX automatically executes the converted `install.md`: copy the bundle, install local Playwright and Chromium, verify the runner, and delete the target's one-time rule after success. The source copy stays available. You can still use "INSTALL THIS SKILLS REPO HERE" when the agent already has this checkout. To skip the choice, specify the edition in your request, such as "Install the Codex edition here."
+It waits for your choice, then installs that edition into the current target project.
 
 | Choice | Payload | Target instruction file |
 | --- | --- | --- |
-| GPT / CODEX | Prebuilt converted `.codex/` edition, installed directly as `.codex/` | `AGENTS.md` (configured with `.codex/` paths) |
-| AGY / GEMINI | Original `.agents/` tree and `skills-lock.json` | `AGENTS.md` (configured with `.agents/` paths) |
+| **GPT / CODEX** | Prebuilt converted `.codex/` edition, installed directly as `.codex/` | `AGENTS.md` (configured with `.codex/` paths) |
+| **AGY / GEMINI** | Original `.agents/` tree and `skills-lock.json` | `AGENTS.md` (configured with `.agents/` paths) |
+| **ANTHROPIC / CLAUDE CODE** | Prebuilt converted `.claude/` edition (`skills/`, `agents/`, `commands/`, `rules/`) | `CLAUDE.md` (configured with `.claude/` paths) |
 
-The root `AGENTS.md` routes installation requests through the same choice. The original `@.agents/rules/install.md` entry point also checks the edition before setup.
+---
 
 ### Manual Setup
 
-Clone this repository separately from the target project, then follow the selected branch in [INSTALL.md](INSTALL.md). Codex export commands, profiles, and optional hooks are documented in [.codex/README.md](.codex/README.md).
+Clone this repository separately from the target project, then follow the selected branch in [INSTALL.md](INSTALL.md).
 
-For GPT / CODEX, use Node.js 20 or newer and npm:
-
+#### 1. GPT / CODEX
 ```powershell
 node tools/codex/install.mjs --target "C:/Projects/my-project" --profile all
 ```
+This installs the committed bundle directly into `.codex/` with root `AGENTS.md`, sets up and verifies Playwright, and configures `.gitignore`.
 
-This installs the committed bundle directly into `.codex/` with root `AGENTS.md`, sets up and verifies Playwright, then removes only the installed `.codex/rules/install.md`. Failed setup keeps the rule; retry with the same target and `--resume`. No conversion build, conversion-tool npm dependencies, AGY submodule download, or path rewriting is needed. An AGY / Gemini assistant can run the same command when the selected target is Codex. `export.mjs` remains available for copy-only staging.
-
-### Active Codex Edition in This Repository
-
-The local Codex loader discovers all 191 converted skills under `.codex/skills/`. Root `AGENTS.md` contains the user's three-section policy with ADHD Mode, local rule selection, and inline browser checks. The builder generates `.codex/AGENTS.md` from those sections for installation as the target project's root instructions. Source-only routing and maintenance notes below `<!-- source-repository-only -->` stay in this collection. Both editions can appear in this collection's skill catalog; root instructions prefer the converted copy when names match. The `.agents/` payload remains available to AGY / Gemini. Restart Codex to reload project instructions. Exported Codex targets use the same `.codex/` structure and contain only the selected edition.
-
-### Codex Global Instructions
-
-Use `~/.codex/AGENTS.md` for general instructions across projects. On Windows, this is `%USERPROFILE%\.codex\AGENTS.md`. `CODEX_HOME` can change that directory, and a nonempty `AGENTS.override.md` takes precedence. Each target project can also have its own root `AGENTS.md`. See [OpenAI's instruction guide](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
-
----
-
-## 🔄 Updating Skills
-
-For the original AGY / Gemini edition, update upstream skills while cleaning CLI-generated symlinks (`playwright-skill` is decoupled from `skills-lock.json` to protect `lib/helpers.js` and local dependencies from being overwritten):
-
-**Windows (PowerShell):**
+#### 2. ANTHROPIC / CLAUDE CODE
 ```powershell
-npx skills update -y; if (Test-Path .claude) { Remove-Item -Recurse -Force .claude }
+node tools/claude/install.mjs --target "C:/Projects/my-project" --profile all
 ```
+This installs the committed bundle directly into `.claude/` with root `CLAUDE.md`, sets up custom slash commands (`/plan`, `/tdd`, `/audit`, `/review`, `/eval`), sets up and verifies Playwright, and configures `.gitignore`.
 
-**macOS / Linux (Bash):**
-```bash
-npx skills update -y && rm -rf .claude
-```
-
-For the Codex edition, maintain the source collection and publish a rebuilt, validated bundle. Installers consume that prebuilt release; they do not rebuild during setup. Review and merge converted updates into an existing target, since the exporter refuses existing files. The original updater lockfile does not describe converted skill hashes.
+#### 3. AGY / GEMINI
+Copy `.agents/`, root `AGENTS.md`, and `skills-lock.json` into the target workspace, then execute target `.agents/rules/install.md`.
 
 ---
 
-## 🌐 Universal Agent Policy (`AGENTS.md`)
+### Active Editions in This Repository
 
-Standardized at workspace root for both AGY / Gemini and GPT / Codex:
+1. **Antigravity / Gemini**: Direct native access to 118 skills under `.agents/skills/`, 30 subagents under `.agents/agents/`, and root `AGENTS.md`.
+2. **OpenAI / Codex**: Discovers 124 converted and reference skills under `.codex/skills/`, subagents under `.codex/agents/`, and root `AGENTS.md`.
+3. **Anthropic / Claude Code**: Discovers 124 converted skills under `.claude/skills/`, 30 subagents under `.claude/agents/` (with native `Read`, `Write`, `Edit`, `Bash`, `Grep`, `Glob` permissions), 5 custom workflow commands under `.claude/commands/`, and root `CLAUDE.md`.
+
+### Global Instructions
+- **Codex**: `~/.codex/AGENTS.md` (or `%USERPROFILE%\.codex\AGENTS.md` on Windows).
+- **Claude Code**: `CLAUDE.md` in repository root is loaded into memory on every session.
+- **Antigravity**: Workspace `AGENTS.md` and user customization rules.
+
+---
+
+## 🔄 Updating & Rebuilding Editions
+
+- **Original AGY / Gemini (`.agents/`)**: Update upstream skills using `npx skills update -y` (`playwright-skill` is decoupled from `skills-lock.json` to protect `lib/helpers.js` and local dependencies from being overwritten).
+- **GPT / Codex (`.codex/`)**: Rebuild and validate bundle releases using:
+  ```powershell
+  node tools/codex/build.mjs
+  node tools/codex/validate.mjs --source
+  ```
+- **Anthropic / Claude Code (`.claude/`)**: Rebuild and validate native Claude Code releases using:
+  ```powershell
+  node tools/claude/build.mjs
+  node tools/claude/validate.mjs --source
+  ```
+
+---
+
+## 🌐 Universal Agent Policy (`AGENTS.md` & `CLAUDE.md`)
+
+Standardized at workspace root across all supported agent environments:
 - **Workspace Rule Delegation**: Automatically delegates frontend, UI/UX, motion, backend architecture, security hardening, and QA requests to local workspace rules (`starting-brandnew.md`, `starting-existing.md`, `frontend.md`, `UI_Always.md`, `MOTION.md`, `backend.md`, `security.md`, `penetrating-and-testing.md`).
 - **Selective Skill Dispatch Matrices**: Maps domain tasks directly to target skills while inspecting only the 1–2 skills matching the active surface.
 - **Global ADHD Mode**: Enforces action-first formatting (Line 1 action, bounded numbered steps, max 5-item lists, zero conversational filler, and sub-2-minute next steps).
 
 ---
 
-## 🤖 Specialized Subagents (`.agents/agents/` & `.codex/agents/`)
+## 🤖 Specialized Subagents (`.agents/agents/`, `.codex/agents/`, & `.claude/agents/`)
 
-Domain-specific agent personas configured with `mainAgent: true` (for chat UI dropdown selection) and `subagent: true` (for isolated background delegation):
+Domain-specific agent personas configured for isolated background delegation and native tool permissions (`Read`, `Write`, `Edit`, `Bash`, `Grep`, `Glob` in Claude Code):
 
-| Subagent | Role & Capabilities | Activation |
+| Subagent | Role & Capabilities | Activation / Lifecycle Phase |
 | :--- | :--- | :--- |
-| **`security-auditor`** | Adversarial pre-commit code reviewer. Enforces the 7 defensive phases from `security.md` (injection defense, auth boundaries, IDOR, SSRF, and security header hardening). | Select in chat UI dropdown or prompt: *"Audit with security-auditor"* |
-| **`penetration-tester`** | Dynamic penetration tester and functional QA. Runs Strix autonomous exploit scans and 5-state UI tests from `penetrating-and-testing.md` in private context without polluting chat history. | Select in chat UI dropdown or prompt: *"Test with penetration-tester"* |
+| **`planner`** | Implementation planning specialist. Deconstructs features into atomic, numbered, verb-first checklists with zero compound steps. | Phase 1 (Planning & Scope) or prompt: *"Plan with planner"* |
+| **`code-architect`** | Domain and system architecture specialist. Establishes modular service boundaries, repository patterns, and data flow. | Phase 1 (Architecture) or prompt: *"Design with code-architect"* |
+| **`tdd-guide`** | Test-Driven Development lead. Authors failing unit and integration test specifications before feature code is written. | Phase 2 (Test Specification) or prompt: *"Spec with tdd-guide"* |
+| **`build-error-resolver`** | Closed-loop TypeScript, bundler, and build failure repair. Emits minimal, surgical micro-patches without architectural refactoring. | Phase 3 (Repair) on build/compiler failure |
+| **`silent-failure-hunter`** | Quality gate auditor. Detects swallowed exceptions, empty catch blocks, bad fallbacks, and missing telemetry. | Phase 4 (Defensive Audit) or prompt: *"Audit with silent-failure-hunter"* |
+| **`security-auditor`** | Adversarial pre-commit code reviewer. Enforces the 7 defensive phases from `security.md` (injection defense, auth boundaries, IDOR, SSRF, and security header hardening). | Phase 4 (Security Audit) or prompt: *"Audit with security-auditor"* |
+| **`penetration-tester`** | Dynamic penetration tester and functional QA. Runs Strix autonomous exploit scans and 5-state UI tests from `penetrating-and-testing.md` in private context. | Phase 4 / QA gate or prompt: *"Test with penetration-tester"* |
+| **`typescript-reviewer`** | Expert TypeScript/JavaScript code reviewer specializing in type safety, async correctness, and API edge validation. | Code review gate or prompt: *"Review with typescript-reviewer"* |
+| **`agent-evaluator`** | 5-axis quality rubric gatekeeper (accuracy, completeness, clarity, actionability, conciseness). Outputs structured 1–5 scorecards. | Phase 5 (Verification Gate) or prompt: *"Evaluate with agent-evaluator"* |
 
 ---
 
@@ -181,22 +203,20 @@ The workspace includes a dual-engine security pipeline linking offensive adversa
 
 ---
 
-## 🛠️ Included Skill Domains (174 Skills)
+## 🛠️ Included Skill Domains (118 Skills)
 
 | Domain | Count | Key Skills |
 | :--- | :---: | :--- |
-| **🎨 Frontend & UI/UX** | 35 | `ui-ux-pro-max`, `impeccable`, `21st-ui-build`, `tailwind-patterns`, `react-best-practices`, `design-taste-frontend`, `awesome-design-md`, `minimalist-ui` |
-| **📱 Mobile Development** | 7 | `flutter-expert`, `ios-developer`, `react-native-architecture`, `mobile-design`, `app-store-optimization` |
-| **⚙️ Backend & APIs** | 23 | `fastapi-pro`, `database-architect`, `backend-dev-guidelines`, `postgres-best-practices`, `api-patterns`, `golang-pro`, `django-pro`, `sql-pro` |
-| **🔒 Security & Auth** | 23 | `penetration-testing-with-strix`, `backend-security-coder`, `top-web-vulnerabilities`, `security-auditor`, `auth-implementation-patterns`, `fix-security-vulnerabilities-with-strix` |
-| **🧪 Testing & QA** | 8 | `playwright-skill`, `e2e-testing-patterns`, `systematic-debugging`, `test-driven-development`, `test-fixing` |
-| **☁️ DevOps, Cloud & SRE** | 12 | `docker-expert`, `kubernetes-architect`, `aws-serverless`, `terraform-specialist`, `observability-engineer`, `incident-responder` |
-| **🤖 AI & LLM Systems** | 11 | `ai-agents-architect`, `langgraph`, `rag-engineer`, `langfuse`, `prompt-engineering`, `context-window-management` |
-| **💳 FinTech & Integrations** | 6 | `stripe-integration`, `plaid-fintech`, `twilio-communications`, `hubspot-integration` |
-| **🔍 Data & Search** | 11 | `data-engineer`, `dbt-transformation-patterns`, `airflow-dag-patterns`, `algolia-search`, `vector-database-engineer` |
-| **🎮 Creative, 3D & Games** | 6 | `3d-web-experience`, `scrollytelling`, `game-development`, `godot-gdscript-patterns`, `unity-developer`, `algorithmic-art` |
-| **📈 Product & Growth** | 26 | `prompt-enhancer`, `copywriting`, `avoid-ai-writing`, `seo-audit`, `analytics-tracking`, `launch-strategy`, `competitor-alternatives` |
-| **🛠️ Engineering Workflow** | 6 | `architecture-decision-records`, `concise-planning`, `full-output-enforcement`, `git-pushing`, `kaizen` |
+| **🎨 Frontend & UI/UX** | 21 | `ui-ux-pro-max`, `impeccable`, `design-taste-frontend`, `awesome-design-md`, `ui-styling`, `react-best-practices`, `nextjs-best-practices`, `tailwind-patterns` |
+| **📱 Mobile Development** | 5 | `flutter-expert`, `ios-developer`, `react-native-architecture`, `mobile-design`, `imagegen-frontend-mobile` |
+| **⚙️ Backend & Persistence** | 18 | `backend-dev-guidelines`, `database-design`, `postgres-best-practices`, `fastapi-templates`, `api-patterns`, `django-pro`, `golang-pro`, `rust-pro` |
+| **🔒 Security & Pentesting** | 10 | `penetration-testing-with-strix`, `security-audit`, `api-security-best-practices`, `auth-implementation-patterns`, `top-web-vulnerabilities`, `fix-security-vulnerabilities-with-strix` |
+| **🧪 Testing & Quality** | 8 | `playwright-skill`, `browser-automation`, `test-driven-development`, `test-fixing`, `systematic-debugging`, `ai-regression-testing` |
+| **☁️ DevOps, Cloud & SRE** | 9 | `docker-expert`, `kubernetes-architect`, `aws-serverless`, `terraform-specialist`, `observability-engineer`, `distributed-tracing` |
+| **🤖 AI & Autonomous Agents** | 15 | `ai-agents-architect`, `agentic-engineering`, `agent-evaluation`, `agent-self-evaluation`, `rag-engineer`, `langgraph`, `langfuse`, `llm-app-patterns` |
+| **📈 Product & Growth** | 18 | `prompt-enhancer`, `copywriting`, `copy-editing`, `avoid-ai-writing`, `content-creator`, `brandkit`, `product-manager-toolkit`, `launch-strategy` |
+| **🎮 Creative, Motion & 3D** | 5 | `scrollytelling`, `scroll-experience`, `3d-web-experience`, `claude-d3js-skill`, `archify` |
+| **🛠️ Core Engineering** | 9 | `concise-planning`, `code-review-checklist`, `architecture-decision-records`, `full-output-enforcement`, `git-pushing`, `stripe-integration` |
 
 ---
 

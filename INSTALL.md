@@ -1,22 +1,23 @@
 # Install this skills repository
 
-This is the shared installation entry point for both editions. It applies to requests such as "INSTALL THIS SKILLS REPO HERE", "install this repo here", or "set up these skills".
+This is the shared installation entry point for all editions. It applies to requests such as "INSTALL THIS SKILLS REPO HERE", "install this repo here", or "set up these skills".
 
 ## Ask which edition
 
 If the user has not specified the edition for this installation, ask exactly:
 
-> Which version would you like to install: GPT / CODEX or AGY / GEMINI?
+> Which version would you like to install: GPT / CODEX, AGY / GEMINI, or ANTHROPIC / CLAUDE CODE?
 
-Offer those two choices and wait for the answer before copying skills, installing dependencies, enabling hooks, or changing global instructions. Do not choose a default based on the assistant being used. If the user already said "for Codex", "for GPT", "for Antigravity", "for AGY", or "for Gemini", use that choice without asking again. An `@install.md` reference alone does not select an edition.
+Offer those three choices and wait for the answer before copying skills, installing dependencies, enabling hooks, or changing global instructions. Do not choose a default based on the assistant being used. If the user already said "for Codex", "for GPT", "for Antigravity", "for AGY", "for Gemini", "for Claude", or "for Claude Code", use that choice without asking again. An `@install.md` reference alone does not select an edition.
 
 The GPT / CODEX choice installs local skills for a supported Codex client. A model name alone does not give web ChatGPT a filesystem installation mechanism; see the [Codex edition guide](.codex/README.md#use-the-installed-edition) for client requirements.
+The ANTHROPIC / CLAUDE CODE choice installs local skills, subagents, custom commands, rules, and root `CLAUDE.md` for the official Claude Code CLI (`claude`).
 
 ## Identify the source and target
 
 Record the absolute target project path when the user says "here", before changing directories or fetching the source. Keep the source checkout separate from the target project. Read this guide from the source checkout; run installed workflow setup from the target.
 
-Inspect existing `.agents/`, `.codex/`, and `AGENTS.md` files before writing. Preserve existing user instructions and skills. If destinations conflict, stage the selected edition separately and review the merge. Do not install both editions over the same skill paths or delete the source repository as cleanup.
+Inspect existing `.agents/`, `.codex/`, `.claude/`, `AGENTS.md`, and `CLAUDE.md` files before writing. Preserve existing user instructions and skills. If destinations conflict, stage the selected edition separately and review the merge. Do not install multiple editions over the same paths or delete the source repository as cleanup.
 
 ## GPT / CODEX
 
@@ -43,6 +44,25 @@ Copy the original source `.agents/` tree, root `AGENTS.md` (configured with `.ag
 From the target project, follow its installed `.agents/rules/install.md` after the AGY / GEMINI choice is confirmed. That legacy bootstrapper sets up Playwright and Chromium and verifies its runner. Its self-cleanup applies only to setup artifacts installed for this operation in the target; preserve the source checkout and unrelated project files. Global Gemini policy synchronization is optional and requires a user request.
 
 Confirm the selected host sees the installed skills and workspace policy. Report the edition, target path, and checks that actually ran.
+
+## ANTHROPIC / CLAUDE CODE
+
+After ANTHROPIC / CLAUDE CODE is selected, run the automated installer from the source checkout:
+
+```powershell
+node tools/claude/install.mjs --target "C:/Projects/my-project" --profile all
+```
+
+The installer verifies and copies the committed bundle into the target workspace:
+- `.claude/skills/`: Skills automatically discoverable via `/skill-name` inside Claude Code.
+- `.claude/agents/`: Subagents with native Claude tools (`Read`, `Write`, `Edit`, `Bash`, `Grep`, `Glob`) for isolated tasks.
+- `.claude/commands/`: Custom workflow commands (`/plan`, `/tdd`, `/audit`, `/review`, `/eval`).
+- `.claude/rules/`: Workspace development rules and architecture policies.
+- `CLAUDE.md`: Root configuration and memory loaded on every Claude Code session.
+
+It creates or merges the root `.gitignore` using `.claude/project.gitignore`, protecting `.claude/*` while preserving rules, agents, commands, and `CLAUDE.md`. When the profile includes `playwright-skill`, it installs local Playwright and Chromium dependencies and verifies headless browser execution. On failure, retry with `--resume` to complete setup without re-copying existing files.
+
+Open Claude Code (`claude`) in the target project to verify skill and command discovery.
 
 ## Codex instruction files
 

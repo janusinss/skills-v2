@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-10-01",
   "originalSnapshot": {
-    "digest": "8ddf0927e166c48acd84bea89fcaab538fe074337c25dc3208ef4207eed3514c",
+    "digest": "ad30ff054144a260a846a6ded6b547fec4f578b9ab0e92d068d82a441b3a5eed",
     "files": {
       ".agents/agents/a11y-architect.md": "33c2c756b1dd391e12ed583e06290ddc816aaa4a8e5e838949e218a05e60584e",
       ".agents/agents/agent-evaluator.md": "61ea865430c05af5ce15443a0b12ab5ee87ce76c47da59d91042ed0ce12e4b77",
@@ -1880,8 +1880,8 @@
       ".agents/skills/ui-ux-pro-max/scripts/tests/test_text_layout_resilience.py": "b51d32ee8a15505b87cb81957fb2d1b385e041e8beb4463c311d236bfd29ebd4",
       ".agents/skills/ui-ux-pro-max/scripts/tests/test_web_stack_freshness.py": "becc5fa40e7516613d4e9930f226aa483e3796090c17cb16542c93d1927e680d",
       ".agents/skills/ui-ux-pro-max/scripts/validate_data.py": "718ad4cbb227436015c9c2bc80fc583d6ed738b01c1a940ef85e350780d99f58",
-      ".gitignore": "ab5b1bfacf8dfa2edb0399b5a59477cc832ea09c4c5302458f402853b3a2831d",
-      "README.MD": "861839926cef7e14327047c20da2d58196d3fc5db3a1461afa59564c41511ca7",
+      ".gitignore": "90d8b773db675d46b97ec83c823eb3e24d3b1573b1aeeaa08137173a08225507",
+      "README.MD": "3045087247afe6d3405c775eb9a28e3625ed7521634ff2df95524b1cff4f9c5f",
       "skills-lock.json": "74df0fb86e349789417376ceff221b6c0b8cdad47732e25e58fed74bc64a6fdf"
     }
   },
@@ -11845,13 +11845,13 @@
     },
     "AGENTS.md": {
       "source": "AGENTS.md",
-      "sourceHash": "9ea1e8edd88be631e47089c78382e84af055ac810e7585336b8a3cea65390fea",
+      "sourceHash": "9c4f47782d97f1c65c56a3926f222c6a5efa82f926806b3aeb372d3a1e19a16a",
       "outputHash": "787d035ba21d4ec0f13f017b1e25ec2f8b74dca75a8512fadbe8f8d84380ebdb"
     },
     "project.gitignore": {
       "source": ".gitignore",
-      "sourceHash": "ab5b1bfacf8dfa2edb0399b5a59477cc832ea09c4c5302458f402853b3a2831d",
-      "outputHash": "a02e01e6e6c946c23e0d46a944fa21663badadcfc4cb6675f8f3d91d55d8c610"
+      "sourceHash": "90d8b773db675d46b97ec83c823eb3e24d3b1573b1aeeaa08137173a08225507",
+      "outputHash": "41777c79c6c664f3d5f0fd18d666c6601eaee0f926a8d7d5ee293b68e104d4ce"
     },
     "hooks.example.json": {
       "source": ".agents/hooks.json",

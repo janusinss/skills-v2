@@ -1,0 +1,41 @@
+---
+trigger: model_decision
+description: Follow this pipeline whenever designing, building, or refactoring UI. Enforce UI_Always.md for core layout, touch target, and CSS hygiene standards, and MOTION.md for animations and micro-interactions.
+---
+
+# Active Frontend Development Pipeline
+
+Follow this pipeline whenever designing, building, or refactoring UI. Enforce [UI_Always.md](UI_Always.md) for core layout, touch target, and CSS hygiene standards, and [MOTION.md](MOTION.md) for animations, spring physics, and micro-interactions.
+
+## Stage 1: Target Aesthetic & System Alignment
+- **Modern Tech Stack Default (Greenfield Builds):** When starting a new project or scaffolding a new frontend application, always default to a modern component framework stack (**Next.js App Router + React 19 + TypeScript + Tailwind CSS + shadcn/ui + Motion / `@bsmnt/scrollytelling` + GSAP**, or Vite + React + TypeScript + Tailwind CSS, Astro, or SvelteKit). **Never default to or output vanilla HTML/CSS/JS** unless the user explicitly asks for vanilla or the existing codebase is already vanilla.
+- **UI Scoping & Component Architecture:** When building new views or complex interfaces, invoke [prompt-enhancer-frontend](../skills/prompt-enhancer-frontend/SKILL.md) to deconstruct the concept into an exhaustive P0–P3 component matrix, state variants, and responsive journeys before generating code.
+- **Component Intake Engine (Scrollytelling, ThreeUI & Registries):**
+  - **Scrollytelling (`@bsmnt/scrollytelling`) Intake:** For scroll-driven storytelling, pinned stages, parallax, or scroll-scrubbed 2D/3D canvas sequences, follow [scrollytelling](../skills/scrollytelling/SKILL.md) (`npm install @bsmnt/scrollytelling gsap`).
+  - **ThreeUI Package Intake:** When ThreeUI components or shaders are requested, run `npm install @designcodeio/threeui three @types/three` and import the requested background shader or canvas directly.
+  - **Shadcn Registry Fallback:** For standard CLI registry items, run `npx shadcn@latest add "<url>"`.
+- **Aesthetic Precedence:** The specification in `DESIGN.md` (guided by [impeccable](../skills/impeccable/SKILL.md) and [design-taste-frontend](../skills/design-taste-frontend/SKILL.md)) is the **authoritative target** for typography pairings, tinted palettes, spacing, and radius scales.
+- Replace legacy CSS variables, inline styles, and unapproved fonts in the codebase with the `DESIGN.md` tokens.
+- Never use unapproved fonts, hardcoded hex values, or untinted neutrals (tint all darks and grays toward the brand hue; no raw `#000000` or `#808080`). All colors must be declared as CSS tokens in `:root`.
+
+## Stage 2: Composition, Motion & Anti-Slop Standards (via [impeccable](../skills/impeccable/SKILL.md))
+- **Primary Visual Craft & Spatial Composition ([impeccable](../skills/impeccable/SKILL.md)):** Use [impeccable](../skills/impeccable/SKILL.md) as the primary design engine when creating or refactoring UI. Load [craft-floor.md](../skills/impeccable/reference/craft-floor.md) and [layout.md](../skills/impeccable/reference/layout.md) (plus [typeset.md](../skills/impeccable/reference/typeset.md) and [colorize.md](../skills/impeccable/reference/colorize.md) when tuning typography or color):
+  - **Visitor Mode, Spatial Thesis & Concentric Geometry:** Align composition with the surface's visitor mode (`Persuade`, `Operate`, `Read`, `Experience`). Establish a clear reading order that passes the squint test (primary, secondary, and major groups distinct), group by proximity before adding containers, pair tight internal grouping with generous section separation on a `4px` base scale (honoring `DESIGN.md` `DESIGN_VARIANCE`, `VISUAL_DENSITY`, and `MOTION_INTENSITY` dials when present), and calculate concentric nested radii (`R_inner = Math.max(0, R_outer - Padding)`).
+  - **Dashboard Telemetry & Density Hygiene (`1-to-3` / `85%-15%` Rule):** Enforce a **Single Source of Metric Truth**—never repeat the same KPI across headers and cards, never duplicate date pickers or filters inside individual cards (use one unified page-level control bar), and never add decorative tip banners or 3D globes. Enforce `1` focal element per zone (max `3` data points per card) and keep `85%` of primary workflows at `0` clicks while collapsing `≥ 5` secondary actions into popovers.
+  - **Typography, Color & Browser Surfaces:** Enforce high typographic hierarchy (`65ch–75ch` measure, `H1 ≤ 2 lines`, hero subtext `≤ 20 words`, `-0.02em` to `-0.03em` display tracking, zero single-word colored/italic serif `<span>` headline accents, zero serif fonts inside software dashboards), committed color calibration (hue-tinted secondary text and neutrals, WCAG AA `≥4.5:1` body / `≥3:1` large text, zero First-Order purple or Second-Order `#10B981` emerald defaults), single-source elevation (crisp `1px` border OR offset shadow, never both), and themed browser surfaces (text selection, caret, scrollbars, `:focus-visible` rings, `tabular-nums`).
+- **Motion & Micro-Interactions:** Delegate all transitions, spring physics (`stiffness`/`damping`), deterministic rest states, and `@media (prefers-reduced-motion: reduce)` fallbacks strictly to [MOTION.md](MOTION.md).
+- **Strict Anti-Pattern Checks (Unless explicitly overridden in the user brief):**
+  - **Structural Anti-Slop Floor:** Enforce Sections 1, 5, and 6 of [UI_Always.md](UI_Always.md) and [craft-floor.md](../skills/impeccable/reference/craft-floor.md) as the single canonical baseline: header `< 80px`, 8-State Interactive Primitives (`Default`, `Hover`, `Focus-Visible`, `Active`, `Loading`, `Error`, `Success`, `Disabled`), no floating eyebrow pill badges or kickers above headings, no centered hero + fake macOS traffic-light windows, no ghost cards or `backdrop-blur` over blobs on static cards, no decorative `border-left` side-tab stripes, no stacked icon-tiles above headings, max 1-level container depth (replace uniform 3-card grids with asymmetric layouts, never empty Bento cells), and no decorative gridlines or radial halo glows.
+  - **Iconography & Authentic Photography:** Enforce Section 4 of [UI_Always.md](UI_Always.md): use accessible domain-specific SVG icons (Lucide or Phosphor at `16px`/`20px`, `1.5px` stroke, zero Unicode emojis as UI icons, zero reflexive **"Lucide Five"** `Sparkles`/`Zap`/`Shield`/`Check`/`BarChart3` filler icons, zero placeholder URLs) and real, authentic web photography (Unsplash, Pexels, CDN) paired with `object-fit: cover` and contrast scrim overlays—**never use AI generation** for showcase or product imagery.
+  - **Natural Voice & Anti-AI Writing (`avoid-ai-writing`):** Enforce Section 7 of [UI_Always.md](UI_Always.md) as the single canonical copy floor: ban all Tier 1A machine vocabulary, hollow intensifiers, `"It's not X — it's Y"` rhetorical tropes, em dashes (`—` or `--`) in titles/headers/buttons, decorative emojis in section headings, spelled-out numbers (use Arabic numerals `3 steps`, `10x`), and fabricated `"Jane Doe"` / `"Sarah Chen"` / `"99.99%"` vanity data.
+- Ensure all interactive elements feature visible `:focus-visible` rings and `cursor: pointer`.
+
+## Stage 3: Bounded Quality Audit (via Impeccable)
+- **Audit**: Run `.claude/skills/impeccable/scripts/impeccable.cmd detect <file-or-dir>` (or Unix `.claude/skills/impeccable/scripts/impeccable detect <file-or-dir>`).
+- **Single-Pass Remediation**: Resolve all detected contrast, rhythm, and token violations in **one single edit**. No iterative multi-turn patching.
+- **Extraction**: Extract repeated UI blocks into reusable components.
+
+## Stage 4: Real Browser & Responsive Verification
+- **Verification Mandate:** Execute browser inspection and multi-viewport responsive verification strictly following Section 8 of [UI_Always.md](UI_Always.md).
+- **Quality Gates:** Verify zero horizontal scroll leaks (`scrollWidth > innerWidth`), zero console errors, and valid touch targets across mobile (375px), tablet (768px), and desktop (1280px).
+- **Visual Proof:** Capture clean viewport screenshots into `scratch/` when needed. Do not create scratch `.js` files on disk.

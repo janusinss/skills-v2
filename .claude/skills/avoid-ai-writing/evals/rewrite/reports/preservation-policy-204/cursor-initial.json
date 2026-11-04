@@ -1,0 +1,64 @@
+{
+  "model": [
+    "composer-2.5 (requested; canonical ID not exposed)"
+  ],
+  "result": {
+    "cases": [
+      {
+        "id": "quantity-added",
+        "status": "FAIL",
+        "assessment": "model_only",
+        "reason": "Supplied validator: preservation.ok true, number-added warning for literal 30, quality unscored (no residual audit). Model-only: candidate adds a 30-second delay not in the source; ordinary cleanup does not authorize new quantities. Source-fidelity violation beyond the warning."
+      },
+      {
+        "id": "quantity-removed",
+        "status": "REVIEW",
+        "assessment": "model_only",
+        "reason": "Supplied validator: preservation.ok true, number-missing warning for 30, quality unscored. Model-only: specific duration removed; \"the timeout\" may or may not mean 30 seconds\u2014precision and units eroded without spelling-out equivalence or an explicit user correction."
+      },
+      {
+        "id": "quantity-spelled-out",
+        "status": "PASS",
+        "assessment": "model_only",
+        "reason": "Supplied validator: number-missing warning for digit 2 only. Model-only: \"two times\" preserves the same quantity and retry behavior as \"2 times\"; legitimate numeral-to-word change, no new or dropped facts."
+      },
+      {
+        "id": "quantity-digitized",
+        "status": "PASS",
+        "assessment": "model_only",
+        "reason": "Supplied validator: number-added warning for literal 2 only. Model-only: digit form matches spelled \"two\" in meaning; legitimate formatting change under source fidelity."
+      },
+      {
+        "id": "claim-added-without-number",
+        "status": "FAIL",
+        "assessment": "model_only",
+        "reason": "Supplied validator: no preservation errors or warnings; quality unscored. Model-only: \"exponential backoff\" is new technical behavior not grounded in the source\u2014semantic invention the mechanical checks did not flag."
+      },
+      {
+        "id": "claim-removed-without-number",
+        "status": "FAIL",
+        "assessment": "model_only",
+        "reason": "Supplied validator: clean mechanical preservation. Model-only: removes \"with exponential backoff,\" a sourced behavioral detail; meaning narrowed without user-authorized scope or correction."
+      },
+      {
+        "id": "residual-only",
+        "status": "REVIEW",
+        "assessment": "model_only",
+        "reason": "Supplied validator: preservation.ok true; residual-grew warning (0\u21921 issue, quality checked). Model-only: \"includes\"\u2192\"features\" appears semantically equivalent; warning flags possible AI-pattern regression only\u2014judge applicability, not automatic FAIL."
+      },
+      {
+        "id": "protected-damage",
+        "status": "FAIL",
+        "assessment": "model_only",
+        "reason": "Supplied validator: blocking inline-code-missing for `config.json`; preservation.ok false. Model-only: protected inline identifier removed and genericized\u2014aligns with mechanical FAIL; repair owner file-edit-in-place or voice-preserving-rewriter per target kind."
+      },
+      {
+        "id": "unavailable",
+        "status": "REVIEW",
+        "assessment": "model_only",
+        "reason": "Supplied validator: preservation.ok true, texts identical, quality.status unavailable (residual null). Model-only: no preservation drift, but requested residual verification is incomplete\u2014unavailable audit is not a clean residual pass per contract."
+      }
+    ]
+  },
+  "session_id": "68d29166-9b41-42aa-a23a-ec605dec6117"
+}

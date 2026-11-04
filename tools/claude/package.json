@@ -1,0 +1,12 @@
+{
+  "name": "skills-claude-conversion-tools",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Convert, build, and export a native Anthropic Claude Code edition of this skills collection.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node build.mjs",
+    "validate": "node validate.mjs"
+  }
+}

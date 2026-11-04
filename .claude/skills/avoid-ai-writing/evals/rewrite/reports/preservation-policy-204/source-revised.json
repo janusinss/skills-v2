@@ -1,0 +1,18 @@
+{
+  "source_commit": "345447284b749c5b2b1a8839a00982f4da3a0b34",
+  "source_sha256": {
+    "detector/validate.js": "00c36a802373e263120325c4180e34d7bf2f64196f850b76226e90a09c7f22c9",
+    "detector/validate.test.js": "af298d88f551123d98505647817dba71b01ca14c70f9437dbcf979da6893df0b",
+    "SKILL.md": "5547f4b56f3629b1307c921e582570c0a57efab60fc28736b1258ebb688a4955",
+    "skills/preservation-verifier/SKILL.md": "119687053008f9d41c28c5070edb9d4d52dcb74c86d026f15172c369bfd774a8"
+  },
+  "prompt_sha256": {
+    "prompt-initial.md": "e1b264dee14a37a61666a7a6817a3f6fc1ed116663337e75befccd00e73ae71b",
+    "prompt-revised.md": "9010149184040fdd54fb9c2144e9d6ad7daea4f2edcf76ca863369f893a01db1"
+  },
+  "prompt_sha256_note": "Original submitted file bytes; Git normalizes the archived prompt files to LF. Normalized archival hashes are below.",
+  "archived_prompt_lf_sha256": {
+    "prompt-initial.md": "bce8ff003c43bf4d916f2b229c924fea9193ede1b6da25665a8495e58c508dfc",
+    "prompt-revised.md": "5eb4d348b84f60e0b0fac8a931ddc7e88f60aa7eef89f2c418e0bff56b3e51bb"
+  }
+}
