@@ -38,7 +38,7 @@ Open the target in Codex and confirm the installed skills are available in that 
 
 ## AGY / GEMINI
 
-Copy the original source `.agents/` tree, root `AGENTS.md` (configured with `.agents/` paths), and `skills-lock.json` into the target, after checking for conflicts. Use the original payload rather than `.codex/skills/`. For target projects maintaining a `.gitignore`, ignore skills while un-ignoring rules (`.agents/*` and `!.agents/rules/`) so that rule files remain visible to IDE `@` autocomplete while keeping heavy skills local.
+Copy the original source `.agents/` tree, root `AGENTS.md` (configured with `.agents/` paths and stripped of the source-only section after `<!-- source-repository-only -->`), and `skills-lock.json` into the target, after checking for conflicts. Use the original payload rather than `.codex/skills/`. For target projects maintaining a `.gitignore`, ignore skills while un-ignoring rules (`.agents/*` and `!.agents/rules/`) so that rule files remain visible to IDE `@` autocomplete while keeping heavy skills local.
 
 From the target project, follow its installed `.agents/rules/install.md` after the AGY / GEMINI choice is confirmed. That legacy bootstrapper sets up Playwright and Chromium and verifies its runner. Its self-cleanup applies only to setup artifacts installed for this operation in the target; preserve the source checkout and unrelated project files. Global Gemini policy synchronization is optional and requires a user request.
 

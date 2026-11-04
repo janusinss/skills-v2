@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-10-01",
   "originalSnapshot": {
-    "digest": "093272b46db682c1212a53d4ff57589033bcbeec2f4d699d1e7b86dfcb082129",
+    "digest": "7d09dd922079aeec3954acac6e82386c494511c2b8b0614040d1f44dfbb0ae62",
     "files": {
       ".agents/agents/a11y-architect.md": "33c2c756b1dd391e12ed583e06290ddc816aaa4a8e5e838949e218a05e60584e",
       ".agents/agents/agent-evaluator.md": "61ea865430c05af5ce15443a0b12ab5ee87ce76c47da59d91042ed0ce12e4b77",
@@ -333,7 +333,7 @@
       ".agents/rules/UI_Always.md": "8c5aa87c670617f5b4ab49aae8c9559f0997df20fde3735de1e0db50676358d7",
       ".agents/rules/backend.md": "2ee0d34ebeb2740e1248133a7cdd262f67ccdbef3049505695cb1fa70c57ef2c",
       ".agents/rules/frontend.md": "54a566cdd40b1497ee607d52a3688c054f11306506958e76f73ecc9c7318c7ed",
-      ".agents/rules/install.md": "3cc4c8ec764a2cecaac1f705c89ec43b421a92e1f98a6ef1cd4c8ad305760fc1",
+      ".agents/rules/install.md": "a6f7f5f500a7b2130520b8b03a470e868c17581f768d8a9f51deb6df462899f1",
       ".agents/rules/penetrating-and-testing.md": "7f6dda1e33eb102069afa8a073e0ffeb04bd2efc057e41be82e46b4d3fdc6575",
       ".agents/rules/security.md": "5ffef7b0813a3b9ea71766b3661b6bd31653960f9a18a5f511d874e1758ed226",
       ".agents/rules/starting-brandnew.md": "ba04565e5997cb3af157342f9ca1ca6412b8ae7eaf3faca935c359ec11389a2b",
@@ -12183,7 +12183,7 @@
     },
     "AGENTS.md": {
       "source": "AGENTS.md",
-      "sourceHash": "72e530cab47253212f31fae2ec057ef19664e52a8af27e7e65fffcdeaa824a95",
+      "sourceHash": "702064a449d52c2dc129e7ea9273482aba7c3dbd3ac4c09f375e3f487a93c6e3",
       "outputHash": "df344a5adb2cbf0989050ebfb8029dae6010fa4790332a4f360ce156fd380c67"
     },
     "project.gitignore": {
