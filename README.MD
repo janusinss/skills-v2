@@ -124,9 +124,18 @@ Domain-specific agent personas configured for isolated background delegation and
 | **`typescript-reviewer`** | Expert TypeScript/JavaScript code reviewer specializing in type safety, async correctness, and API edge validation. | Code review gate or prompt: *"Review with typescript-reviewer"* |
 | **`agent-evaluator`** | 5-axis quality rubric gatekeeper (accuracy, completeness, clarity, actionability, conciseness). Outputs structured 1–5 scorecards. | Phase 5 (Verification Gate) or prompt: *"Evaluate with agent-evaluator"* |
 
+### Claude Code Slash Commands (`.claude/commands/`)
+
+In Claude Code, standard engineering lifecycle phases are triggered via native slash commands:
+- `/plan <task>`: Invoke `@planner` to decompose features into bounded, verb-first atomic checklists.
+- `/tdd <task>`: Invoke `@tdd-guide` to author failing unit or integration tests before writing code.
+- `/audit`: Invoke `@security-auditor` and `@silent-failure-hunter` to catch vulnerabilities and swallowed exceptions.
+- `/review`: Invoke `@typescript-reviewer` or `@code-reviewer` to audit types, security, and conventions.
+- `/eval`: Invoke `@agent-evaluator` to score the final delivery across the 5-axis quality rubric.
+
 ---
 
-## 📋 Workspace Rules (`.agents/rules/` & `.codex/rules/`)
+## 📋 Workspace Rules (`.agents/rules/`, `.codex/rules/`, & `.claude/rules/`)
 
 Foundational architectural guidelines, proactive quality floors, and execution pipelines:
 
@@ -140,7 +149,7 @@ Foundational architectural guidelines, proactive quality floors, and execution p
 | [`backend.md`](.agents/rules/backend.md) | `model_decision` | Database schemas, ORMs, API routes, or data layers | Production persistence standards: service/repository separation, connection pooling, schema integrity, atomic transaction boundaries, and selective 1–2 backend skill dispatching. |
 | [`security.md`](.agents/rules/security.md) | `model_decision` | Server routing, configs, auth, APIs, or data intake | Zero-trust DevSecOps: 7 defensive hardening phases, selective 1–2 security skill dispatching, Argon2id/bcrypt auth, anti-CSRF architecture, strict CORS, error suppression, and negative TDD. |
 | [`penetrating-and-testing.md`](.agents/rules/penetrating-and-testing.md) | `model_decision` | Dynamic pentesting, exploit auditing, or full-surface QA | Dual-surface validation: Strix autonomous exploit validation with working PoCs, machine-readable `vulnerabilities.json` generation, and Playwright functional QA across 5 UI states. |
-| [`install.md`](.agents/rules/install.md) | `manual` | Initial workspace setup or onboarding (`@install.md`) | Checks GPT / CODEX or AGY / GEMINI first; the AGY branch runs the legacy Playwright bootstrapper and target-only setup cleanup. |
+| [`install.md`](.agents/rules/install.md) | `manual` | Initial workspace setup or onboarding (`@install.md`) | Interactive router supporting GPT / CODEX, AGY / GEMINI, and ANTHROPIC / CLAUDE CODE installations. |
 
 ### Rule Lifecycle & Interaction Map
 
@@ -243,6 +252,18 @@ skills-lock.json
 AGENTS.md
 ```
 
+For the ANTHROPIC / CLAUDE CODE edition, the automated installer (`node tools/claude/install.mjs`) automatically merges [.claude/project.gitignore](.claude/project.gitignore) into the target project's `.gitignore`:
+
+```gitignore
+/.claude/*
+!/.claude/rules/
+!/.claude/agents/
+!/.claude/commands/
+/CLAUDE.md
+/scratch/
+/.impeccable/
+```
+
 > [!TIP]
-> **Why `.agents/*` + `!.agents/rules/`?**
-> A blanket `.agents/` ignore causes IDE file indexers (VS Code / Cursor / Antigravity) to hide the directory from chat `@` autocomplete. Un-ignoring `!.agents/rules/` allows `@UI_Always.md` and `@backend.md` to autocomplete in chat while keeping heavy skills, dependencies, and caches safely ignored.
+> **Why un-ignore rules, agents, and commands?**
+> A blanket `/.claude/*` ignore would hide custom slash commands and subagents from Claude Code's session indexing. Un-ignoring `!/.claude/rules/`, `!/.claude/agents/`, and `!/.claude/commands/` ensures that `/plan`, `@planner`, and architectural guidelines remain fully active in the client while keeping heavy node modules, test artifacts, and caches local.
