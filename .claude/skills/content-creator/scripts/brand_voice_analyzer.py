@@ -188,6 +188,8 @@ def analyze_content(content: str, output_format: str = 'json') -> str:
 
 if __name__ == "__main__":
     import sys
+    if hasattr(sys.stdout, 'reconfigure'):
+        sys.stdout.reconfigure(encoding='utf-8')
     
     if len(sys.argv) > 1:
         with safe_user_path(sys.argv[1]).open('r', encoding='utf-8') as f:

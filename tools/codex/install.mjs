@@ -9,7 +9,7 @@ import { planGitignore, applyGitignore } from './gitignore.mjs';
 const installRule = '.codex/rules/install.md';
 const playwrightRunner = '.codex/skills/playwright-skill/run.js';
 const verificationMarker = 'PLAYWRIGHT_VERIFIED_OK';
-const verificationScript = `const browser = await chromium.launch({ headless: true }); try { const page = await browser.newPage(); await page.setContent('<title>Codex setup</title>'); if (await page.title() !== 'Codex setup') throw new Error('Browser verification failed'); console.log('${verificationMarker}'); } finally { await browser.close(); }`;
+const verificationScript = `const browser = await helpers.launchBrowser('chromium', { headless: true }); try { const page = await browser.newPage(); await page.setContent('<title>Codex setup</title>'); if (await page.title() !== 'Codex setup') throw new Error('Browser verification failed'); console.log('${verificationMarker}'); } finally { await browser.close(); }`;
 
 function readInstallation(target) {
   const manifestPath = path.join(target, '.codex/codex-install.json');
@@ -32,11 +32,18 @@ function runStep(execute, command, args, options, label) {
   return result;
 }
 
+function verifyRunner(execute, target, runnerPath) {
+  return execute(process.execPath, [path.join(target, runnerPath), '-e', verificationScript], { cwd: target, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+}
+
 function finishSetup(target, manifestPath, manifest, playwright) {
-  // Recheck ownership after setup and before deleting the installed rule.
-  const checked = readInstallation(target);
-  if (json(checked.manifest) !== json(manifest)) throw new Error('Installation record changed during setup');
+  assertNoSymlinkAncestors(manifestPath);
+  const onDisk = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  if (json(onDisk) !== json(manifest)) throw new Error('Installation record changed during setup');
   const rulePath = path.join(target, installRule);
+  if (!fs.existsSync(rulePath) || payloadHash(fs.readFileSync(rulePath)) !== manifest.files[installRule]) {
+    throw new Error(`Installed file changed or missing: ${installRule}. Preserve it before retrying setup.`);
+  }
   const ruleData = fs.readFileSync(rulePath);
   const completed = { ...manifest, files: { ...manifest.files }, setup: { status: 'complete', playwright, removedFiles: [installRule] } };
   delete completed.files[installRule];
@@ -88,15 +95,37 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
   try {
     if (manifest.files[playwrightRunner]) {
       const skillDirectory = path.dirname(path.join(target, playwrightRunner));
-      console.error('Installing local Playwright dependencies from the included lockfile...');
-      if (process.platform === 'win32') runStep(execute, process.env.ComSpec || 'cmd.exe', ['/d', '/s', '/c', 'npm ci --no-audit --no-fund --prefer-offline'], { cwd: skillDirectory, stdio: 'inherit' }, 'Playwright dependency setup');
-      else runStep(execute, 'npm', ['ci', '--no-audit', '--no-fund', '--prefer-offline'], { cwd: skillDirectory, stdio: 'inherit' }, 'Playwright dependency setup');
-      console.error('Installing Chromium (cached browsers are reused)...');
-      runStep(execute, process.execPath, [path.join(skillDirectory, 'node_modules/playwright/cli.js'), 'install', 'chromium'], { cwd: skillDirectory, stdio: 'inherit' }, 'Chromium setup');
-      console.error('Verifying the installed Playwright runner...');
-      const result = runStep(execute, process.execPath, [path.join(target, playwrightRunner), '-e', verificationScript], { cwd: target, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }, 'Playwright verification');
-      if (!result.stdout?.split(/\r?\n/).includes(verificationMarker)) throw new Error('Playwright verification did not return its success marker');
-      playwright = 'verified';
+      const hasLocalModules = fs.existsSync(path.join(skillDirectory, 'node_modules/playwright'));
+      if (!hasLocalModules) {
+        console.error('Installing local Playwright dependencies from the included lockfile...');
+        if (process.platform === 'win32') runStep(execute, process.env.ComSpec || 'cmd.exe', ['/d', '/s', '/c', 'npm ci --no-audit --no-fund --prefer-offline'], { cwd: skillDirectory, stdio: 'inherit' }, 'Playwright dependency setup');
+        else runStep(execute, 'npm', ['ci', '--no-audit', '--no-fund', '--prefer-offline'], { cwd: skillDirectory, stdio: 'inherit' }, 'Playwright dependency setup');
+      } else {
+        console.error('Local Playwright dependencies already present. Skipping npm ci.');
+      }
+      console.error('Checking for working browser installation on system...');
+      const precheck = verifyRunner(execute, target, playwrightRunner);
+      if (precheck.stdout?.split(/\r?\n/).includes(verificationMarker)) {
+        console.error('Working browser detected on computer. Skipping Chromium download.');
+        playwright = 'verified';
+      } else {
+        if (process.env.DEBUG && precheck.stderr) console.error(`Precheck diagnostic: ${precheck.stderr.trim()}`);
+        console.error('No working browser detected. Attempting Chromium download...');
+        let downloadError = null;
+        try {
+          runStep(execute, process.execPath, [path.join(skillDirectory, 'node_modules/playwright/cli.js'), 'install', 'chromium'], { cwd: skillDirectory, stdio: 'inherit' }, 'Chromium setup');
+        } catch (err) {
+          downloadError = err;
+          console.error(`Chromium download warning: ${err.message}`);
+        }
+        console.error('Verifying the installed Playwright runner...');
+        const result = verifyRunner(execute, target, playwrightRunner);
+        if (!result.stdout?.split(/\r?\n/).includes(verificationMarker)) {
+          if (downloadError) throw downloadError;
+          throw new Error(`Playwright verification did not return its success marker: ${result.stderr?.trim() || result.stdout?.trim() || 'unknown failure'}`);
+        }
+        playwright = 'verified';
+      }
     }
     const completed = finishSetup(target, manifestPath, manifest, playwright);
     return { target, profile: completed.profile, topLevelSkills: completed.topLevelSkills, files: Object.keys(completed.files).length + 2, gitignore, dryRun: false, setup: completed.setup };
@@ -111,5 +140,9 @@ export function parseArgs(args) {
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try { console.log(json(installBundle(parseArgs(process.argv.slice(2))))); }
-  catch (error) { console.error(error.message); process.exitCode = 1; }
+  catch (error) {
+    console.error(error.stack || error.message);
+    if (error.cause) console.error('Caused by:', error.cause.stack || error.cause.message || error.cause);
+    process.exitCode = 1;
+  }
 }

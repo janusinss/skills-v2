@@ -6,7 +6,6 @@
   "description": "Audit and export a separate Codex edition of this skills collection.",
   "engines": { "node": ">=20" },
   "scripts": {
-    "audit": "node audit.mjs",
     "build": "node build.mjs",
     "validate": "node validate.mjs"
   },

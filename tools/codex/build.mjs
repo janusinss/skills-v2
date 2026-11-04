@@ -30,7 +30,11 @@ export function buildBundle() {
     if (outputs.has(relative)) throw new Error(`Output collision: ${relative}`);
     const data = payloadData(content);
     outputs.set(relative, data);
-    records[relative] = { source: slash(path.relative(repoRoot, source)), sourceHash: payloadHash(fs.readFileSync(source)), outputHash: sha256(data) };
+    const sourceRelative = slash(path.relative(repoRoot, source));
+    const sourceHash = before.files[sourceRelative] !== undefined
+      ? before.files[sourceRelative]
+      : payloadHash(fs.readFileSync(source));
+    records[relative] = { source: sourceRelative, sourceHash, outputHash: sha256(data) };
   }
 
   for (const source of sourceFiles) {

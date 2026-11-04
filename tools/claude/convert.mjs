@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { parseFrontmatter, parseYaml, isRecord, slash, sourceRoot } from './lib.mjs';
+import { parseFrontmatter, slash, sourceRoot } from './lib.mjs';
 
 const descriptions = {
   'impeccable': 'Design, review, and polish frontend interfaces using Impeccable playbooks. Use for UI, typography, layout, accessibility, or interaction work.',

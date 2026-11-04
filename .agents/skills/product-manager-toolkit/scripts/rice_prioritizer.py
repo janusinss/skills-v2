@@ -7,8 +7,12 @@ RICE = (Reach x Impact x Confidence) / Effort
 
 import json
 import csv
+import sys
 from typing import List, Dict, Tuple
 import argparse
+
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
 
 class RICECalculator:
     """Calculate RICE scores for feature prioritization"""

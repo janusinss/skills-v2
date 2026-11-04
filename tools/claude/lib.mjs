@@ -11,7 +11,6 @@ let yamlParser;
 export const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 export const bundleRoot = path.join(repoRoot, '.claude');
 export const sourceRoot = path.join(repoRoot, '.agents');
-export const supportedSkillFields = new Set(['name', 'description', 'license', 'compatibility', 'metadata', 'allowed-tools']);
 export const claudeBuiltinTools = new Set(['Read', 'Write', 'Edit', 'Bash', 'Grep', 'Glob']);
 const skippedDirectories = new Set(['.git', 'node_modules', '__pycache__', '.venv', 'venv', '.cache']);
 
@@ -87,7 +86,7 @@ export function checkClaudeAgent(frontmatter, filename) {
 
 export function snapshotSource() {
   const names = filesIn(sourceRoot).map(file => slash(path.relative(repoRoot, file)));
-  names.push(...['AGENTS.md', 'README.MD', 'skills-lock.json', '.gitignore'].filter(name => fs.existsSync(path.join(repoRoot, name))));
+  names.push(...['AGENTS.md', 'README.md', 'skills-lock.json', '.gitignore'].filter(name => fs.existsSync(path.join(repoRoot, name))));
   const files = Object.fromEntries(names.sort().map(name => [name, payloadHash(fs.readFileSync(path.join(repoRoot, name)))]));
   return { digest: sha256(json(files)), files };
 }
@@ -99,14 +98,19 @@ export function writeIfChanged(absolute, content) {
   fs.writeFileSync(absolute, data);
 }
 
+const verifiedAncestors = new Set();
 export function assertNoSymlinkAncestors(absolute) {
   let current = path.resolve(absolute);
+  const toVerify = [];
   for (;;) {
+    if (verifiedAncestors.has(current)) break;
     if (fs.existsSync(current) && fs.lstatSync(current).isSymbolicLink()) throw new Error(`Refusing a symlink destination: ${current}`);
+    toVerify.push(current);
     const parent = path.dirname(current);
     if (parent === current) break;
     current = parent;
   }
+  for (const p of toVerify) verifiedAncestors.add(p);
 }
 
 export function within(parent, child) {

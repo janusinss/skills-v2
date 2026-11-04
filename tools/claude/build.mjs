@@ -51,7 +51,6 @@ export function buildClaudeBundle() {
   const before = snapshotSource();
   const sourceFiles = filesIn(sourceRoot);
   const skillFiles = sourceFiles.filter(file => path.basename(file) === 'SKILL.md');
-  const agentFiles = sourceFiles.filter(file => path.basename(path.dirname(file)) === 'agents' && file.endsWith('.md'));
 
   const canonicalNames = new Map();
   const duplicates = new Map();
@@ -73,9 +72,12 @@ export function buildClaudeBundle() {
     if (outputs.has(relative)) throw new Error(`Output collision: ${relative}`);
     const data = payloadData(content);
     outputs.set(relative, data);
+    const sourceRelative = source ? slash(path.relative(repoRoot, source)) : null;
     records[relative] = {
-      source: source ? slash(path.relative(repoRoot, source)) : null,
-      sourceHash: source ? payloadHash(fs.readFileSync(source)) : sha256(data),
+      source: sourceRelative,
+      sourceHash: sourceRelative && before.files[sourceRelative] !== undefined
+        ? before.files[sourceRelative]
+        : source ? payloadHash(fs.readFileSync(source)) : sha256(data),
       outputHash: sha256(data)
     };
   }

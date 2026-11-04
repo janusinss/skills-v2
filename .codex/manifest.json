@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-10-01",
   "originalSnapshot": {
-    "digest": "e1efb20113d2cee65645828e40fb17c195fca37b6e91023161f0ebac250632fa",
+    "digest": "b6ef72ff4b851cce3af2f345e08ba2b326ebc3c02d666be1be531ace1bbd355d",
     "files": {
       ".agents/agents/a11y-architect.md": "33c2c756b1dd391e12ed583e06290ddc816aaa4a8e5e838949e218a05e60584e",
       ".agents/agents/agent-evaluator.md": "61ea865430c05af5ce15443a0b12ab5ee87ce76c47da59d91042ed0ce12e4b77",
@@ -1371,7 +1371,7 @@
       ".agents/skills/content-creator/references/brand_guidelines.md": "354630ae489a22f1593ecc20ade52e9227ccc7066dde93828b9c579f9755c7a8",
       ".agents/skills/content-creator/references/content_frameworks.md": "250fab301a5462c0b14aa70965d43614d8ac2ff5ce36f9813c0ac7d92fa4148a",
       ".agents/skills/content-creator/references/social_media_optimization.md": "c90dffb1b7c5c110f56d570d5ce61c7e14c04821d183406e7f0473e075a543b1",
-      ".agents/skills/content-creator/scripts/brand_voice_analyzer.py": "c1319215c1aa77734fc7bec34558667d2a8bc51f6d41ca969de6d0fdce97f302",
+      ".agents/skills/content-creator/scripts/brand_voice_analyzer.py": "81cb5feebf18daae35b933959f4c5b89da217941f93897475d52b8aa9a588940",
       ".agents/skills/content-creator/scripts/seo_optimizer.py": "ce5ca345c0fa9ab6a919144303dd8d5b126900a70be66f89e734ce93aaeb047e",
       ".agents/skills/context-window-management/SKILL.md": "15cbbe382e643897c9b0cf3973bc557d0ab857311f017799494c87da6787bf90",
       ".agents/skills/continuous-agent-loop/SKILL.md": "f228cd383a9063b3a0116c5aea02565e859992f63fae5e799adf9c9e44e2454d",
@@ -1635,10 +1635,10 @@
       ".agents/skills/performance-engineer/SKILL.md": "551387dcfa7464aa931a803778f58af90650d19904204aef6909139ed35e31e2",
       ".agents/skills/playwright-skill/API_REFERENCE.md": "948e778e15e24d453219be6e05889416f088b59469818875f728d97a4ad17603",
       ".agents/skills/playwright-skill/SKILL.md": "7ba414c8960b057f437c18765da8ea41d6277ab501d4312ba12bf08da4c87159",
-      ".agents/skills/playwright-skill/lib/helpers.js": "0e897e81072df13c2150c33e07cb22de36c64d59b123dfd7fe0cdd1423c24f52",
+      ".agents/skills/playwright-skill/lib/helpers.js": "44faab190f5a04a6d547a461e68cb7c8fb2dc2e7ce06dee71d524def4568bf3f",
       ".agents/skills/playwright-skill/package-lock.json": "a0502f20d5c475c9654b8a6faa69263d2eb7ab0c7898c3c0a2490ddc75316df3",
       ".agents/skills/playwright-skill/package.json": "8f1870c8f1124cadae0bf493eccdbc8e2df48124f90d2eecaef0c43638906d8e",
-      ".agents/skills/playwright-skill/run.js": "cd0f853e26459a88a32d6667749b4aaa9ea59340723299c912a2b0b40f6a6dbe",
+      ".agents/skills/playwright-skill/run.js": "011f5101dd0e619133988048b38e6c36f7e3d4c2646132bdd39ec2da53929c6b",
       ".agents/skills/postgres-best-practices/AGENTS.md": "a5226ca435fe12cf69ef8343aeaa5a9f2ae40679986b09eacb247711471e8722",
       ".agents/skills/postgres-best-practices/README.md": "8ada1fb7d5fc4783d17714ee0b0c7a0453c90e62c99a803d2953bd2018eade71",
       ".agents/skills/postgres-best-practices/SKILL.md": "4efb922ec694331f6687c69508716c9f2cf0a39d6fe9fec6e871e6352335d0ea",
@@ -1679,7 +1679,7 @@
       ".agents/skills/product-manager-toolkit/SKILL.md": "0c4e4866390a2d79dcc0031bf5bed339b0222ebe62125185c21223a99f495126",
       ".agents/skills/product-manager-toolkit/references/prd_templates.md": "cd0d50ea82142ad801e2cd5a9c1a7ce88ce024259df7da15923b9d6bf2d3c85d",
       ".agents/skills/product-manager-toolkit/scripts/customer_interview_analyzer.py": "3d6db4deae6e83c0909334c2b536967e38c4fb15a6639074c881a64c58b9c9d8",
-      ".agents/skills/product-manager-toolkit/scripts/rice_prioritizer.py": "9ceb1964ebb949f6aaa7afda9651cd8d4ea1502df2fe58ed9e8cceb080a3f043",
+      ".agents/skills/product-manager-toolkit/scripts/rice_prioritizer.py": "4937e6f09d2e2f59a6e909f8115acee493fee13426df072c693ec5a0bdc5437a",
       ".agents/skills/programmatic-seo/SKILL.md": "d25952fd66889ba417fc6a49d60eb4b5fb190f1e4cade7477c0d8d89621d1cdd",
       ".agents/skills/prompt-caching/SKILL.md": "a66441b2c4538facfa2def501ed16b14dbd0a97a4ef5e771fffadb520caff3b6",
       ".agents/skills/prompt-engineering/SKILL.md": "d8be59f756c28532cff71d9401b414a5423ebf94c00959ecdf85015aff380d56",
@@ -1881,7 +1881,8 @@
       ".agents/skills/ui-ux-pro-max/scripts/tests/test_web_stack_freshness.py": "becc5fa40e7516613d4e9930f226aa483e3796090c17cb16542c93d1927e680d",
       ".agents/skills/ui-ux-pro-max/scripts/validate_data.py": "718ad4cbb227436015c9c2bc80fc583d6ed738b01c1a940ef85e350780d99f58",
       ".gitignore": "90d8b773db675d46b97ec83c823eb3e24d3b1573b1aeeaa08137173a08225507",
-      "README.MD": "fc9ced0b700aa31fc9cfb9459a38bda74a7a381dbb2c825f8be68c31f5493839",
+      "AGENTS.md": "9c4f47782d97f1c65c56a3926f222c6a5efa82f926806b3aeb372d3a1e19a16a",
+      "README.md": "fc9ced0b700aa31fc9cfb9459a38bda74a7a381dbb2c825f8be68c31f5493839",
       "skills-lock.json": "74df0fb86e349789417376ceff221b6c0b8cdad47732e25e58fed74bc64a6fdf"
     }
   },
@@ -8825,8 +8826,8 @@
     },
     "skills/content-creator/scripts/brand_voice_analyzer.py": {
       "source": ".agents/skills/content-creator/scripts/brand_voice_analyzer.py",
-      "sourceHash": "c1319215c1aa77734fc7bec34558667d2a8bc51f6d41ca969de6d0fdce97f302",
-      "outputHash": "c1319215c1aa77734fc7bec34558667d2a8bc51f6d41ca969de6d0fdce97f302"
+      "sourceHash": "81cb5feebf18daae35b933959f4c5b89da217941f93897475d52b8aa9a588940",
+      "outputHash": "81cb5feebf18daae35b933959f4c5b89da217941f93897475d52b8aa9a588940"
     },
     "skills/content-creator/scripts/seo_optimizer.py": {
       "source": ".agents/skills/content-creator/scripts/seo_optimizer.py",
@@ -10415,8 +10416,8 @@
     },
     "skills/playwright-skill/lib/helpers.js": {
       "source": ".agents/skills/playwright-skill/lib/helpers.js",
-      "sourceHash": "0e897e81072df13c2150c33e07cb22de36c64d59b123dfd7fe0cdd1423c24f52",
-      "outputHash": "0e897e81072df13c2150c33e07cb22de36c64d59b123dfd7fe0cdd1423c24f52"
+      "sourceHash": "44faab190f5a04a6d547a461e68cb7c8fb2dc2e7ce06dee71d524def4568bf3f",
+      "outputHash": "44faab190f5a04a6d547a461e68cb7c8fb2dc2e7ce06dee71d524def4568bf3f"
     },
     "skills/playwright-skill/package-lock.json": {
       "source": ".agents/skills/playwright-skill/package-lock.json",
@@ -10430,8 +10431,8 @@
     },
     "skills/playwright-skill/run.js": {
       "source": ".agents/skills/playwright-skill/run.js",
-      "sourceHash": "cd0f853e26459a88a32d6667749b4aaa9ea59340723299c912a2b0b40f6a6dbe",
-      "outputHash": "8e05d30b9cb1609d16742d271edda00493b0b00af48b331a98281d11d3bdd8a0"
+      "sourceHash": "011f5101dd0e619133988048b38e6c36f7e3d4c2646132bdd39ec2da53929c6b",
+      "outputHash": "5a2f769d84952ffec38837ba76e529adaf13e0e24f21ad1373b45d2e63e1084f"
     },
     "skills/playwright-skill/SKILL.md": {
       "source": ".agents/skills/playwright-skill/SKILL.md",
@@ -10645,8 +10646,8 @@
     },
     "skills/product-manager-toolkit/scripts/rice_prioritizer.py": {
       "source": ".agents/skills/product-manager-toolkit/scripts/rice_prioritizer.py",
-      "sourceHash": "9ceb1964ebb949f6aaa7afda9651cd8d4ea1502df2fe58ed9e8cceb080a3f043",
-      "outputHash": "9ceb1964ebb949f6aaa7afda9651cd8d4ea1502df2fe58ed9e8cceb080a3f043"
+      "sourceHash": "4937e6f09d2e2f59a6e909f8115acee493fee13426df072c693ec5a0bdc5437a",
+      "outputHash": "4937e6f09d2e2f59a6e909f8115acee493fee13426df072c693ec5a0bdc5437a"
     },
     "skills/product-manager-toolkit/SKILL.md": {
       "source": ".agents/skills/product-manager-toolkit/SKILL.md",

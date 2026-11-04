@@ -2,7 +2,6 @@ const http = require('node:http');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
-const { chromium, firefox, webkit } = require('playwright');
 
 function getExtraHeadersFromEnv() {
   const name = process.env.PW_HEADER_NAME;
@@ -21,9 +20,11 @@ function getExtraHeadersFromEnv() {
 }
 
 async function launchBrowser(browserType = process.env.PW_BROWSER || 'chromium', options = {}) {
-  const browser = { chromium, firefox, webkit }[browserType];
+  const playwright = require('playwright');
+  const browser = playwright[browserType];
   if (!browser) throw new Error(`Invalid browser type: ${browserType}`);
 
+  const origLaunch = browser._origLaunch || browser.launch.bind(browser);
   const headlessValue = process.env.PW_HEADLESS || process.env.HEADLESS || 'false';
   // ponytail: Chromium refuses to start as root without --no-sandbox; only add it there
   const needsNoSandbox = browserType === 'chromium' && process.getuid?.() === 0;
@@ -35,7 +36,19 @@ async function launchBrowser(browserType = process.env.PW_BROWSER || 'chromium',
     ...options,
     ...(needsNoSandbox && { args: ['--no-sandbox', ...(options.args ?? [])] }),
   };
-  return browser.launch(launchOptions);
+  try {
+    return await origLaunch(launchOptions);
+  } catch (error) {
+    if (browserType === 'chromium' && !launchOptions.channel && !launchOptions.executablePath && (error.message.includes("Executable doesn't exist") || error.message.includes("npx playwright install") || error.code === 'ENOENT')) {
+      const channelErrors = [];
+      for (const channel of ['chrome', 'msedge']) {
+        try { return await origLaunch({ ...launchOptions, channel }); }
+        catch (chErr) { channelErrors.push(`${channel}: ${chErr.message}`); }
+      }
+      if (channelErrors.length) error.message += ` (Fallback attempts: ${channelErrors.join('; ')})`;
+    }
+    throw error;
+  }
 }
 
 async function createContext(browser, options = {}) {

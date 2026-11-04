@@ -112,7 +112,7 @@ if (args[0] === '-e' || args[0] === '--eval') {
     process.exit(1);
   }
   const helpersPath = JSON.stringify(path.join(skillDir, 'lib/helpers'));
-  const prefix = `const { chromium, firefox, webkit, devices } = require('playwright');\nconst helpers = require(${helpersPath});\n`;
+  const prefix = `const playwright = require('playwright');\nconst { chromium, firefox, webkit, devices } = playwright;\nif (!chromium._origLaunch) chromium._origLaunch = chromium.launch.bind(chromium);\nconst helpers = require(${helpersPath});\nchromium.launch = (opts = {}) => helpers.launchBrowser('chromium', { headless: opts.headless ?? true, ...opts });\n`;
   const exit = "async () => { for (const s of [process.stdout, process.stderr]) await new Promise(r => s.write('', r)); process.exit(process.exitCode ?? 0); }";
   run(['-e', `${prefix}\n(async () => {\n  try {\n    ${source}\n  } catch (error) {\n    console.error(error.stack || error.message);\n    process.exitCode = 1;\n  }\n})().finally(${exit});`]);
 } else if (args[0]) {

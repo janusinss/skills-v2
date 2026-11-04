@@ -128,8 +128,7 @@ export function snapshotSource() {
   // Include checked-out resource submodules, but exclude dependencies, secrets,
   // and embedded Git administration. The exporter also works from a ZIP checkout.
   const names = filesIn(sourceRoot).map(file => slash(path.relative(repoRoot, file)));
-  names.push(...['GEMINI.MD', 'README.MD', 'skills-lock.json', '.gitignore'].filter(name => fs.existsSync(path.join(repoRoot, name))));
-  if (fs.existsSync(path.join(repoRoot, 'codex_gpt_conversion_plan.md'))) names.push('codex_gpt_conversion_plan.md');
+  names.push(...['AGENTS.md', 'README.md', 'skills-lock.json', '.gitignore'].filter(name => fs.existsSync(path.join(repoRoot, name))));
   const files = Object.fromEntries(names.sort().map(name => [name, payloadHash(fs.readFileSync(path.join(repoRoot, name)))]));
   return { digest: sha256(json(files)), files };
 }
@@ -141,14 +140,19 @@ export function writeIfChanged(absolute, content) {
   fs.writeFileSync(absolute, data);
 }
 
+const verifiedAncestors = new Set();
 export function assertNoSymlinkAncestors(absolute) {
   let current = path.resolve(absolute);
+  const toVerify = [];
   for (;;) {
+    if (verifiedAncestors.has(current)) break;
     if (fs.existsSync(current) && fs.lstatSync(current).isSymbolicLink()) throw new Error(`Refusing a symlink destination: ${current}`);
+    toVerify.push(current);
     const parent = path.dirname(current);
     if (parent === current) break;
     current = parent;
   }
+  for (const p of toVerify) verifiedAncestors.add(p);
 }
 
 export function within(parent, child) {

@@ -87,7 +87,7 @@ export function planExport({ target, profile = 'all' }, root = bundleRoot) {
 
 export function exportBundle(options, root = bundleRoot) {
   const plan = planExport(options, root);
-  const { files } = verifyBundleFiles(root);
+  const { manifest, files } = verifyBundleFiles(root);
   for (const entry of plan.entries) {
     if (!files.has(slash(path.relative(root, entry.source)))) {
       throw new Error(`Unverified bundle file: ${entry.source}`);
@@ -106,10 +106,11 @@ export function exportBundle(options, root = bundleRoot) {
 
   const hashes = {};
   for (const entry of plan.entries) {
-    const data = files.get(slash(path.relative(root, entry.source)));
+    const bundleRelative = slash(path.relative(root, entry.source));
+    const data = files.get(bundleRelative);
     fs.mkdirSync(path.dirname(entry.destination), { recursive: true });
     fs.writeFileSync(entry.destination, data, { flag: 'wx' });
-    hashes[entry.relative] = sha256(data);
+    hashes[entry.relative] = manifest.files?.[bundleRelative]?.outputHash ?? sha256(data);
   }
 
   const gitignore = applyGitignore(plan.gitignore);
