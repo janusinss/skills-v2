@@ -2,8 +2,6 @@
 
 Instructions, operating rules, and skill mappings for Anthropic Claude Code.
 
-Instructions, operating rules, and skill mappings for AI agents (Codex, Antigravity, and compatible harnesses).
-
 ---
 
 ## 1. Operating Rules (ADHD Mode & Action-First Execution)

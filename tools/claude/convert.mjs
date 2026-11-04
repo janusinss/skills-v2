@@ -109,7 +109,10 @@ export function convertAgent(text, sourceFile) {
 export function generateClaudeMd(agentsMdText) {
   // Extract content before <!-- source-repository-only -->
   const content = agentsMdText.split('<!-- source-repository-only -->')[0].trim();
-  let result = content.replace(/^# AGENTS\.md/m, '# CLAUDE.md\n\nInstructions, operating rules, and skill mappings for Anthropic Claude Code.');
+  let result = content.replace(
+    /^# AGENTS\.md(?:\r?\n\r?\nInstructions, operating rules, and skill mappings for AI agents \(Codex, Antigravity, and compatible harnesses\)\.)?/m,
+    '# CLAUDE.md\n\nInstructions, operating rules, and skill mappings for Anthropic Claude Code.'
+  );
   
   // Rewrite .agents/ paths to .claude/
   result = result.replace(/(^|[\s"'`(=:\[]|\.\/)\.(?:agents|codex)\/(skills|rules|resources|agents)(\/|[)\]#\s]|$)/gm, '$1.claude/$2$3')
