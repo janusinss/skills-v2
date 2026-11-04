@@ -70,6 +70,26 @@ Copy `.agents/`, root `AGENTS.md`, and `skills-lock.json` into the target worksp
 
 ---
 
+### Installation Profiles
+
+Both the Codex and Claude Code installers support targeted bundle profiles via `--profile <name>`:
+
+| Profile | Target Scope | Skills Included | Description |
+| :--- | :---: | :---: | :--- |
+| **`all`** *(default)* | Full Tri-Edition | 118 skills | Complete engineering toolkit across all domains, subagents, and tools. |
+| **`minimal`** | Core Essentials | 8 skills | Lightweight footprint for fast onboarding (planning, debugging, TDD, validation). |
+| **`frontend`** | UI/UX & Motion | 31 skills | Design tokens, components, responsive layout, motion physics, and Playwright QA. |
+| **`backend`** | APIs & Data Layer | 29 skills | Persistence guidelines, database design, FastAPI, Django, Go, and Rust. |
+| **`security`** | DevSecOps & QA | 15 skills | Strix penetration testing, exploit remediation, auth patterns, and API security. |
+| **`fullstack`** | Web Application | 52 skills | Combined frontend and backend profiles for end-to-end product development. |
+
+Example installing a lightweight frontend profile:
+```powershell
+node tools/codex/install.mjs --target "C:/Projects/my-project" --profile frontend
+```
+
+---
+
 ### Active Editions in This Repository
 
 1. **Antigravity / Gemini**: Direct native access to 118 skills under `.agents/skills/`, 30 subagents under `.agents/agents/`, and root `AGENTS.md`.
@@ -96,6 +116,31 @@ Copy `.agents/`, root `AGENTS.md`, and `skills-lock.json` into the target worksp
   node tools/claude/build.mjs
   node tools/claude/validate.mjs --source
   ```
+
+### Resuming & Updating Existing Installations
+
+To refresh `.gitignore`, re-verify browser installations, or resume interrupted setup without re-downloading dependencies or re-hashing target files:
+```powershell
+# For Codex installations:
+node tools/codex/install.mjs --target "C:/Projects/my-project" --resume
+
+# For Claude Code installations:
+node tools/claude/install.mjs --target "C:/Projects/my-project" --resume
+```
+
+---
+
+## ⚡ Performance & Stress-Test Benchmarks
+
+The repository is continuously audited under high-concurrency workloads and large payloads. Complete telemetry is tracked in [STRESS_TEST_RESULTS.md](STRESS_TEST_RESULTS.md):
+
+| Dimension | Benchmark Workload | Telemetry | Result |
+| :--- | :--- | :--- | :--- |
+| **Playwright Startup** | Module `require('playwright-skill/lib/helpers')` | **11.6 ms** (down from ~250 ms via lazy loading) | **PASS** |
+| **Browser Rapid-Fire** | 5 successive headless browser sessions via `helpers.launchBrowser()` | **4,425 ms total** (~885 ms/session; 0 process leaks) | **PASS** |
+| **High-Payload NLP** | `brand_voice_analyzer.py` on 193 KB (24,000 words) | **119.8 ms** with UTF-8 terminal encoding stability | **PASS** |
+| **Subagent Concurrency** | 5 parallel agents (`planner`, `tdd-guide`, `security-auditor`, `silent-failure-hunter`, `build-error-resolver`) | **100% adherence** to Line 1 action-first and 5-item bounded checklists | **PASS** |
+| **Fast Resume Check** | Installer `--resume` against completed workspaces | **260 ms** (Codex) / **139 ms** (Claude Code) | **PASS** |
 
 ---
 

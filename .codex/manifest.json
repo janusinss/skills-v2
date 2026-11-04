@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-10-01",
   "originalSnapshot": {
-    "digest": "b6ef72ff4b851cce3af2f345e08ba2b326ebc3c02d666be1be531ace1bbd355d",
+    "digest": "99dcd1b3bd0b55b3edda56cedf5b89ff39c654e012830f4c253525a5ff7279bd",
     "files": {
       ".agents/agents/a11y-architect.md": "33c2c756b1dd391e12ed583e06290ddc816aaa4a8e5e838949e218a05e60584e",
       ".agents/agents/agent-evaluator.md": "61ea865430c05af5ce15443a0b12ab5ee87ce76c47da59d91042ed0ce12e4b77",
@@ -1882,7 +1882,7 @@
       ".agents/skills/ui-ux-pro-max/scripts/validate_data.py": "718ad4cbb227436015c9c2bc80fc583d6ed738b01c1a940ef85e350780d99f58",
       ".gitignore": "90d8b773db675d46b97ec83c823eb3e24d3b1573b1aeeaa08137173a08225507",
       "AGENTS.md": "9c4f47782d97f1c65c56a3926f222c6a5efa82f926806b3aeb372d3a1e19a16a",
-      "README.md": "fc9ced0b700aa31fc9cfb9459a38bda74a7a381dbb2c825f8be68c31f5493839",
+      "README.md": "0e1ad6b0067c7ba3e5fd5d9651dead9999c526592b5c20fae6184f04bc8a6053",
       "skills-lock.json": "74df0fb86e349789417376ceff221b6c0b8cdad47732e25e58fed74bc64a6fdf"
     }
   },
