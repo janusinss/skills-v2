@@ -1,259 +1,116 @@
 # Agent Skills & Workspace Configurations
 
-A collection of **118 curated top-level AI agent skills**, architectural rules, specialized subagents, and workflow resources, with dedicated editions for **AGY / Gemini**, **GPT / Codex**, and **Anthropic / Claude Code**.
+A curated collection of **118 top-level AI agent skills**, 30 specialized subagents, 9 architectural rules, and multi-profile installers across three dedicated editions: **AGY / Gemini**, **GPT / Codex**, and **Anthropic / Claude Code**.
 
 ---
 
 ## 📁 Repository Structure
 
 ```text
-├── .agents/               # Antigravity / Gemini edition
-│   ├── agents/            # Specialized subagents: planner, tdd-guide, security-auditor, build resolvers
-│   ├── hooks.json         # Automated lifecycle hooks (UI checks & design deep passes)
-│   ├── rules/             # 9 architectural guidelines & proactive rules (UI, motion, backend, security, testing, install)
-│   ├── skills/            # 118 curated agent skills across 10 engineering domains
-│   └── resources/         # Creative libraries, shader utilities, and ambient types
+├── .agents/               # Antigravity / Gemini edition (skills, agents, rules, hooks, resources)
 ├── .codex/                # OpenAI / Codex edition (skills, rules, resources, agents)
 ├── .claude/               # Anthropic / Claude Code edition (skills, agents, commands, rules)
 ├── tools/
-│   ├── codex/             # Codex conversion, validation, export, and install tools
-│   └── claude/            # Claude Code conversion, validation, export, and install tools
-├── AGENTS.md              # Universal agent policy: ADHD Mode, local rules, browser checks & installation
-├── CLAUDE.md              # Claude Code project instructions & memory (synchronized from AGENTS.md)
-├── INSTALL.md             # Shared installer: ask GPT / CODEX, AGY / GEMINI, or ANTHROPIC / CLAUDE CODE
-├── skills-lock.json       # Skill dependency manifest and integrity lockfile
-└── .gitignore             # Environment and ephemeral file ignore rules
+│   ├── codex/             # Codex build, validation, export, and installation tools
+│   └── claude/            # Claude Code build, validation, export, and installation tools
+├── AGENTS.md              # Universal agent policy: ADHD Mode, local rules, and browser verification
+├── CLAUDE.md              # Claude Code workspace memory (synchronized from AGENTS.md)
+├── INSTALL.md             # Shared installer router for all three editions
+├── skills-lock.json       # Upstream dependency lockfile
+└── .gitignore             # Root ignore rules
 ```
 
 ---
 
 ## 🚀 Quick Install & Setup
 
-### AI Agent Mode
+### Automated (AI Agent)
 
-Inside your coding assistant, say:
-
+Ask your coding assistant:
 > "Install this skills repo here: https://github.com/janusinss/skills-v2. Read its INSTALL.md first."
 
-The agent follows [INSTALL.md](INSTALL.md) and asks:
+The agent reads [INSTALL.md](INSTALL.md), asks for your target edition, and installs it:
 
-> **Which version would you like to install: GPT / CODEX, AGY / GEMINI, or ANTHROPIC / CLAUDE CODE?**
-
-It waits for your choice, then installs that edition into the current target project.
-
-| Choice | Payload | Target instruction file |
-| --- | --- | --- |
-| **GPT / CODEX** | Prebuilt converted `.codex/` edition, installed directly as `.codex/` | `AGENTS.md` (configured with `.codex/` paths) |
-| **AGY / GEMINI** | Original `.agents/` tree and `skills-lock.json` | `AGENTS.md` (configured with `.agents/` paths) |
-| **ANTHROPIC / CLAUDE CODE** | Prebuilt converted `.claude/` edition (`skills/`, `agents/`, `commands/`, `rules/`) | `CLAUDE.md` (configured with `.claude/` paths) |
+| Edition | Payload | Target Instructions |
+| :--- | :--- | :--- |
+| **GPT / CODEX** | Prebuilt `.codex/` bundle + verified Playwright | `AGENTS.md` (configured with `.codex/` paths) |
+| **AGY / GEMINI** | Original `.agents/` tree + `skills-lock.json` | `AGENTS.md` (configured with `.agents/` paths) |
+| **ANTHROPIC / CLAUDE CODE** | Prebuilt `.claude/` bundle (`skills/`, `agents/`, `commands/`) | `CLAUDE.md` (configured with `.claude/` paths) |
 
 ---
 
 ### Manual Setup
 
-Clone this repository separately from the target project, then follow the selected branch in [INSTALL.md](INSTALL.md).
+From a cloned checkout of this repository:
 
-#### 1. GPT / CODEX
 ```powershell
+# 1. GPT / Codex (Installs .codex/ + AGENTS.md + Playwright + .gitignore)
 node tools/codex/install.mjs --target "C:/Projects/my-project" --profile all
-```
-This installs the committed bundle directly into `.codex/` with root `AGENTS.md`, sets up and verifies Playwright, and configures `.gitignore`.
 
-#### 2. ANTHROPIC / CLAUDE CODE
-```powershell
+# 2. Anthropic / Claude Code (Installs .claude/ + CLAUDE.md + custom commands + .gitignore)
 node tools/claude/install.mjs --target "C:/Projects/my-project" --profile all
+
+# 3. Antigravity / Gemini
+# Copy .agents/, root AGENTS.md, and skills-lock.json into the target workspace.
 ```
-This installs the committed bundle directly into `.claude/` with root `CLAUDE.md`, sets up custom slash commands (`/plan`, `/tdd`, `/audit`, `/review`, `/eval`), sets up and verifies Playwright, and configures `.gitignore`.
-
-#### 3. AGY / GEMINI
-Copy `.agents/`, root `AGENTS.md`, and `skills-lock.json` into the target workspace, then execute target `.agents/rules/install.md`.
-
----
 
 ### Installation Profiles
 
-Both the Codex and Claude Code installers support targeted bundle profiles via `--profile <name>`:
+Both the Codex and Claude Code installers accept `--profile <name>` to install targeted subsets:
 
-| Profile | Target Scope | Skills Included | Description |
-| :--- | :---: | :---: | :--- |
-| **`all`** *(default)* | Full Tri-Edition | 118 skills | Complete engineering toolkit across all domains, subagents, and tools. |
-| **`minimal`** | Core Essentials | 8 skills | Lightweight footprint for fast onboarding (planning, debugging, TDD, validation). |
-| **`frontend`** | UI/UX & Motion | 31 skills | Design tokens, components, responsive layout, motion physics, and Playwright QA. |
-| **`backend`** | APIs & Data Layer | 29 skills | Persistence guidelines, database design, FastAPI, Django, Go, and Rust. |
-| **`security`** | DevSecOps & QA | 15 skills | Strix penetration testing, exploit remediation, auth patterns, and API security. |
-| **`fullstack`** | Web Application | 52 skills | Combined frontend and backend profiles for end-to-end product development. |
-
-Example installing a lightweight frontend profile:
-```powershell
-node tools/codex/install.mjs --target "C:/Projects/my-project" --profile frontend
-```
+| Profile | Skills | Scope & Description |
+| :--- | :---: | :--- |
+| **`all`** *(default)* | 118 | Complete toolkit across all 10 engineering domains, subagents, and tools. |
+| **`minimal`** | 8 | Core essentials for rapid onboarding (planning, debugging, TDD, linting). |
+| **`frontend`** | 31 | UI/UX, design tokens, components, responsive layout, motion physics, and Playwright QA. |
+| **`backend`** | 29 | Persistence standards, schema design, database optimization, FastAPI, Go, and Rust. |
+| **`security`** | 15 | Strix penetration testing, exploit remediation, auth patterns, and API security. |
+| **`fullstack`** | 52 | Combined frontend and backend profiles for end-to-end product development. |
 
 ---
 
-### Active Editions in This Repository
+## 🤖 Specialized Subagents (`.agents/agents/`, `.codex/agents/`, `.claude/agents/`)
 
-1. **Antigravity / Gemini**: Direct native access to 118 skills under `.agents/skills/`, 30 subagents under `.agents/agents/`, and root `AGENTS.md`.
-2. **OpenAI / Codex**: Discovers 124 converted and reference skills under `.codex/skills/`, subagents under `.codex/agents/`, and root `AGENTS.md`.
-3. **Anthropic / Claude Code**: Discovers 124 converted skills under `.claude/skills/`, 30 subagents under `.claude/agents/` (with native `Read`, `Write`, `Edit`, `Bash`, `Grep`, `Glob` permissions), 5 custom workflow commands under `.claude/commands/`, and root `CLAUDE.md`.
+Domain-specific subagents configured for background task delegation:
 
-### Global Instructions
-- **Codex**: `~/.codex/AGENTS.md` (or `%USERPROFILE%\.codex\AGENTS.md` on Windows).
-- **Claude Code**: `CLAUDE.md` in repository root is loaded into memory on every session.
-- **Antigravity**: Workspace `AGENTS.md` and user customization rules.
-
----
-
-## 🔄 Updating & Rebuilding Editions
-
-- **Original AGY / Gemini (`.agents/`)**: Update upstream skills using `npx skills update -y` (`playwright-skill` is decoupled from `skills-lock.json` to protect `lib/helpers.js` and local dependencies from being overwritten).
-- **GPT / Codex (`.codex/`)**: Rebuild and validate bundle releases using:
-  ```powershell
-  node tools/codex/build.mjs
-  node tools/codex/validate.mjs --source
-  ```
-- **Anthropic / Claude Code (`.claude/`)**: Rebuild and validate native Claude Code releases using:
-  ```powershell
-  node tools/claude/build.mjs
-  node tools/claude/validate.mjs --source
-  ```
-
-### Resuming & Updating Existing Installations
-
-To refresh `.gitignore`, re-verify browser installations, or resume interrupted setup without re-downloading dependencies or re-hashing target files:
-```powershell
-# For Codex installations:
-node tools/codex/install.mjs --target "C:/Projects/my-project" --resume
-
-# For Claude Code installations:
-node tools/claude/install.mjs --target "C:/Projects/my-project" --resume
-```
-
----
-
-## ⚡ Performance & Stress-Test Benchmarks
-
-The repository is continuously audited under high-concurrency workloads and large payloads. Complete telemetry is tracked in [STRESS_TEST_RESULTS.md](STRESS_TEST_RESULTS.md):
-
-| Dimension | Benchmark Workload | Telemetry | Result |
-| :--- | :--- | :--- | :--- |
-| **Playwright Startup** | Module `require('playwright-skill/lib/helpers')` | **11.6 ms** (down from ~250 ms via lazy loading) | **PASS** |
-| **Browser Rapid-Fire** | 5 successive headless browser sessions via `helpers.launchBrowser()` | **4,425 ms total** (~885 ms/session; 0 process leaks) | **PASS** |
-| **High-Payload NLP** | `brand_voice_analyzer.py` on 193 KB (24,000 words) | **119.8 ms** with UTF-8 terminal encoding stability | **PASS** |
-| **Subagent Concurrency** | 5 parallel agents (`planner`, `tdd-guide`, `security-auditor`, `silent-failure-hunter`, `build-error-resolver`) | **100% adherence** to Line 1 action-first and 5-item bounded checklists | **PASS** |
-| **Fast Resume Check** | Installer `--resume` against completed workspaces | **260 ms** (Codex) / **139 ms** (Claude Code) | **PASS** |
-
----
-
-## 🌐 Universal Agent Policy (`AGENTS.md` & `CLAUDE.md`)
-
-Standardized at workspace root across all supported agent environments:
-- **Workspace Rule Delegation**: Automatically delegates frontend, UI/UX, motion, backend architecture, security hardening, and QA requests to local workspace rules (`starting-brandnew.md`, `starting-existing.md`, `frontend.md`, `UI_Always.md`, `MOTION.md`, `backend.md`, `security.md`, `penetrating-and-testing.md`).
-- **Selective Skill Dispatch Matrices**: Maps domain tasks directly to target skills while inspecting only the 1–2 skills matching the active surface.
-- **Global ADHD Mode**: Enforces action-first formatting (Line 1 action, bounded numbered steps, max 5-item lists, zero conversational filler, and sub-2-minute next steps).
-
----
-
-## 🤖 Specialized Subagents (`.agents/agents/`, `.codex/agents/`, & `.claude/agents/`)
-
-Domain-specific agent personas configured for isolated background delegation and native tool permissions (`Read`, `Write`, `Edit`, `Bash`, `Grep`, `Glob` in Claude Code):
-
-| Subagent | Role & Capabilities | Activation / Lifecycle Phase |
+| Subagent | Role & Capabilities | Lifecycle Phase |
 | :--- | :--- | :--- |
-| **`planner`** | Implementation planning specialist. Deconstructs features into atomic, numbered, verb-first checklists with zero compound steps. | Phase 1 (Planning & Scope) or prompt: *"Plan with planner"* |
-| **`code-architect`** | Domain and system architecture specialist. Establishes modular service boundaries, repository patterns, and data flow. | Phase 1 (Architecture) or prompt: *"Design with code-architect"* |
-| **`tdd-guide`** | Test-Driven Development lead. Authors failing unit and integration test specifications before feature code is written. | Phase 2 (Test Specification) or prompt: *"Spec with tdd-guide"* |
-| **`build-error-resolver`** | Closed-loop TypeScript, bundler, and build failure repair. Emits minimal, surgical micro-patches without architectural refactoring. | Phase 3 (Repair) on build/compiler failure |
-| **`silent-failure-hunter`** | Quality gate auditor. Detects swallowed exceptions, empty catch blocks, bad fallbacks, and missing telemetry. | Phase 4 (Defensive Audit) or prompt: *"Audit with silent-failure-hunter"* |
-| **`security-auditor`** | Adversarial pre-commit code reviewer. Enforces the 7 defensive phases from `security.md` (injection defense, auth boundaries, IDOR, SSRF, and security header hardening). | Phase 4 (Security Audit) or prompt: *"Audit with security-auditor"* |
-| **`penetration-tester`** | Dynamic penetration tester and functional QA. Runs Strix autonomous exploit scans and 5-state UI tests from `penetrating-and-testing.md` in private context. | Phase 4 / QA gate or prompt: *"Test with penetration-tester"* |
-| **`typescript-reviewer`** | Expert TypeScript/JavaScript code reviewer specializing in type safety, async correctness, and API edge validation. | Code review gate or prompt: *"Review with typescript-reviewer"* |
-| **`agent-evaluator`** | 5-axis quality rubric gatekeeper (accuracy, completeness, clarity, actionability, conciseness). Outputs structured 1–5 scorecards. | Phase 5 (Verification Gate) or prompt: *"Evaluate with agent-evaluator"* |
+| **`planner`** | Deconstructs features into atomic, numbered, verb-first checklists. | Phase 1: Planning & Scope |
+| **`code-architect`** | Establishes modular service boundaries, repository patterns, and data flow. | Phase 1: Architecture |
+| **`tdd-guide`** | Authors failing unit and integration test specifications before implementation. | Phase 2: Test Specification |
+| **`build-error-resolver`** | Surgical TypeScript, bundler, and build failure repairs with minimal diffs. | Phase 3: Repair |
+| **`silent-failure-hunter`** | Detects swallowed exceptions, empty catch blocks, bad fallbacks, and missing telemetry. | Phase 4: Defensive Audit |
+| **`security-auditor`** | Pre-commit security audits (SSRF, injection, auth boundaries, IDOR, ReDoS). | Phase 4: Security Audit |
+| **`penetration-tester`** | Autonomous exploit scanning (Strix) and 5-state functional UI testing. | Phase 4: Pentest & QA |
+| **`typescript-reviewer`** | Reviews TypeScript/JavaScript for type safety, async correctness, and edge checks. | Code Review Gate |
+| **`agent-evaluator`** | Grades delivery against 5-axis quality rubric (accuracy, completeness, clarity, actionability, conciseness). | Phase 5: Verification Gate |
 
 ### Claude Code Slash Commands (`.claude/commands/`)
 
-In Claude Code, standard engineering lifecycle phases are triggered via native slash commands:
-- `/plan <task>`: Invoke `@planner` to decompose features into bounded, verb-first atomic checklists.
-- `/tdd <task>`: Invoke `@tdd-guide` to author failing unit or integration tests before writing code.
-- `/audit`: Invoke `@security-auditor` and `@silent-failure-hunter` to catch vulnerabilities and swallowed exceptions.
-- `/review`: Invoke `@typescript-reviewer` or `@code-reviewer` to audit types, security, and conventions.
-- `/eval`: Invoke `@agent-evaluator` to score the final delivery across the 5-axis quality rubric.
+In Claude Code, engineering phases are triggered directly via native slash commands:
+- `/plan <task>`: Invoke `@planner` for atomic implementation planning.
+- `/tdd <task>`: Invoke `@tdd-guide` to author failing tests before writing code.
+- `/audit`: Invoke `@security-auditor` and `@silent-failure-hunter` for defense-in-depth audits.
+- `/review`: Invoke `@typescript-reviewer` or `@code-reviewer` for code quality checks.
+- `/eval`: Invoke `@agent-evaluator` to grade delivery quality on a 1–5 scale.
 
 ---
 
-## 📋 Workspace Rules (`.agents/rules/`, `.codex/rules/`, & `.claude/rules/`)
+## 📋 Workspace Rules (`.agents/rules/`, `.codex/rules/`, `.claude/rules/`)
 
-Foundational architectural guidelines, proactive quality floors, and execution pipelines:
+Foundational architectural guidelines enforced automatically across all editions:
 
-| Rule | Trigger | Activation Criteria | Core Guardrails & Skills Integrated |
-| :--- | :---: | :--- | :--- |
-| [`UI_Always.md`](.agents/rules/UI_Always.md) | `model_decision` | Always-on when inspecting, writing, or refactoring UI | Proactive CSS floor: fixed-header clearance (`calc(var(--header-height, 4rem) + var(--space-lg, 1.5rem))`), zero horizontal overflow (`min-width: 0`), authentic photography (strict no AI slop), 44px touch targets, canonical structural/copy anti-slop floor, and inline Node Playwright audits. |
-| [`MOTION.md`](.agents/rules/MOTION.md) | `model_decision` | Designing, authoring, reviewing, or implementing UI motion & animations | 4-point Quick-Execution Contract + 12-archetype animation toolbox: spring physics (`stiffness`/`damping`), composite-only `transform`/`opacity`, state machine rest invariant (`[Rest] -> [Action] -> [Rest]`), and `@media (prefers-reduced-motion: reduce)`. |
-| [`frontend.md`](.agents/rules/frontend.md) | `model_decision` | Designing, building, or refactoring UI components | 4-stage delivery pipeline: modern stack default (Next.js App Router / React 19 + TypeScript + Tailwind CSS + shadcn/ui + `@bsmnt/scrollytelling`), `prompt-enhancer-frontend` scoping, 21st.dev/ThreeUI instant bundle extraction via inline Node, `DESIGN.md` token adherence, `impeccable` Stage 2 visual craft & Stage 3 audit, `MOTION.md` delegation, and multi-viewport responsive QA. |
-| [`starting-brandnew.md`](.agents/rules/starting-brandnew.md) | `model_decision` | Greenfield project or building web app from scratch | 6-phase scaffolding: pre-flight conflict check, batched discovery prompt with modern tech stack default (never vanilla HTML/CSS/JS), 74 curated brand systems in `awesome-design-md`, scoped 21st.dev landing blueprints, `impeccable` Stage 2 responsive layout implementation, and Playwright verification. |
-| [`starting-existing.md`](.agents/rules/starting-existing.md) | `model_decision` | Auditing, refactoring, or redesigning an existing app | 7-phase redesign: baseline design token extraction, selective visual overhauls (up to 5 curated `DESIGN.md` choices), `impeccable` Stage 2 scoped non-breaking refactors, and browser verification against legacy regression. |
-| [`backend.md`](.agents/rules/backend.md) | `model_decision` | Database schemas, ORMs, API routes, or data layers | Production persistence standards: service/repository separation, connection pooling, schema integrity, atomic transaction boundaries, and selective 1–2 backend skill dispatching. |
-| [`security.md`](.agents/rules/security.md) | `model_decision` | Server routing, configs, auth, APIs, or data intake | Zero-trust DevSecOps: 7 defensive hardening phases, selective 1–2 security skill dispatching, Argon2id/bcrypt auth, anti-CSRF architecture, strict CORS, error suppression, and negative TDD. |
-| [`penetrating-and-testing.md`](.agents/rules/penetrating-and-testing.md) | `model_decision` | Dynamic pentesting, exploit auditing, or full-surface QA | Dual-surface validation: Strix autonomous exploit validation with working PoCs, machine-readable `vulnerabilities.json` generation, and Playwright functional QA across 5 UI states. |
-| [`install.md`](.agents/rules/install.md) | `manual` | Initial workspace setup or onboarding (`@install.md`) | Interactive router supporting GPT / CODEX, AGY / GEMINI, and ANTHROPIC / CLAUDE CODE installations. |
-
-### Rule Lifecycle & Interaction Map
-
-```text
-  [ Greenfield ] ──► starting-brandnew.md ┐
-                                          ├──► frontend.md ◄──► UI_Always.md & MOTION.md (CSS & Motion Floor)
-  [ Existing ]   ──► starting-existing.md ┘        ▲
-                                                   │
-  [ Data Layer ] ──► backend.md ───────────────────┼──► security.md (Defensive Hardening)
-                                                   │          ▲
-  [ Pentest/QA ] ──► penetrating-and-testing.md ───┴──────────┘ (Fixes via vulnerabilities.json)
-```
-
----
-
-## 🛡️ Penetration Testing & Security Workflow (`penetrating-and-testing.md`)
-
-The workspace includes a dual-engine security pipeline linking offensive adversarial penetration testing with defensive root-cause remediation:
-
-### The 3-Step Security Cycle
-
-```text
-┌────────────────────────────────────────┐
-│ 1. OFFENSIVE PENTEST                   │  Run: "Run penetrating-and-testing on <path>"
-│    (penetrating-and-testing.md)        │  Outputs: strix_runs/<run>/vulnerabilities.json
-└───────────────────┬────────────────────┘
-                    │
-                    ▼
-┌────────────────────────────────────────┐
-│ 2. DEFENSIVE REMEDIATION               │  Run: "Apply fixes from vulnerabilities.json using security.md"
-│    (security.md + Strix fix skill)     │  Applies root-cause patches (CSRF, SQL params, headers, etc.)
-└───────────────────┬────────────────────┘
-                    │
-                    ▼
-┌────────────────────────────────────────┐
-│ 3. REGRESSION RE-TEST                  │  Run: "Re-test the fixes from vulnerabilities.json"
-│    (PoC & Negative TDD test suite)     │  Executes automated test scripts to prove attack vectors closed
-└────────────────────────────────────────┘
-```
-
-### Common Prompts to Trigger the Workflow
-
-- **Adversarial Pentest & QA**:
-  > *"Run penetrating-and-testing on `<path_or_url>`"*
-  > 
-  > Probes live endpoints and source code for OWASP Top 10 vulnerabilities, validates exploitability with working PoCs, audits functional web-flow states via Playwright, and writes structured findings to `strix_runs/<run-name>/vulnerabilities.json`.
-
-- **Defensive Remediation**:
-  > *"Apply fixes from vulnerabilities.json according to security.md"*
-  > 
-  > Invokes [`fix-security-vulnerabilities-with-strix`](.agents/skills/fix-security-vulnerabilities-with-strix/SKILL.md) and [`security.md`](.agents/rules/security.md) to patch root causes by severity order (Critical → High → Medium → Low).
-
-- **Regression Verification**:
-  > *"Verify and re-test the applied security patches"*
-  > 
-  > Runs negative TDD test scripts and replays the original PoCs to verify that the vulnerabilities are completely closed without breaking application functionality.
-
-> [!TIP]
-> **Proactive Rule of Thumb**: Reference [`security.md`](.agents/rules/security.md) while writing new features so code is hardened from day one. Run [`penetrating-and-testing.md`](.agents/rules/penetrating-and-testing.md) before merges or deployments as the adversarial QA gate.
+| Rule | Trigger | Scope & Key Guardrails |
+| :--- | :---: | :--- |
+| [`UI_Always.md`](.agents/rules/UI_Always.md) | Always-on UI | Header clearance, zero horizontal overflow, 44px tap targets, anti-slop visual floor, Playwright audits. |
+| [`MOTION.md`](.agents/rules/MOTION.md) | UI Motion | Spring physics, composite-only (`transform`/`opacity`), rest invariant, reduced-motion fallback. |
+| [`frontend.md`](.agents/rules/frontend.md) | UI Components | Next.js App Router default, design token adherence, responsive multi-viewport QA. |
+| [`starting-brandnew.md`](.agents/rules/starting-brandnew.md) | Greenfield | Conflict pre-check, curated brand system from `awesome-design-md`, component scaffolding. |
+| [`starting-existing.md`](.agents/rules/starting-existing.md) | Redesign | Design token extraction, scoped non-breaking refactoring, regression prevention. |
+| [`backend.md`](.agents/rules/backend.md) | Data Layer | Service/repository separation, connection pooling, schema integrity, atomic transaction boundaries. |
+| [`security.md`](.agents/rules/security.md) | Auth & APIs | 7 defensive hardening phases, Argon2id/bcrypt, CSRF tokens, strict CORS, error suppression. |
+| [`penetrating-and-testing.md`](.agents/rules/penetrating-and-testing.md) | Pentest & QA | Strix autonomous exploit verification with PoCs, `vulnerabilities.json` reporting, 5-state UI tests. |
+| [`install.md`](.agents/rules/install.md) | Onboarding | Interactive setup router supporting GPT / Codex, AGY / Gemini, and Claude Code. |
 
 ---
 
@@ -274,41 +131,28 @@ The workspace includes a dual-engine security pipeline linking offensive adversa
 
 ---
 
-## ⚙️ Target Project `.gitignore` Configuration
+## 🔄 Maintenance & Rebuilding
 
-The GPT / CODEX installer automatically creates the target's root `.gitignore`, or merges missing entries while preserving existing project rules. [.codex/project.gitignore](.codex/project.gitignore) includes the full supplied OS, secrets, editor, dependency, test, cache, agent-runtime, and audit rules, plus these local Codex entries:
+```powershell
+# Rebuild & validate Codex edition
+node tools/codex/build.mjs
+node tools/codex/validate.mjs --source
 
-```gitignore
-/.codex/*
-!/.codex/rules/
-/AGENTS.md
-/scratch/
-/.impeccable/
+# Rebuild & validate Claude Code edition
+node tools/claude/build.mjs
+node tools/claude/validate.mjs --source
+
+# Update target workspace .gitignore or re-verify installation
+node tools/codex/install.mjs --target "C:/Projects/my-project" --resume
+node tools/claude/install.mjs --target "C:/Projects/my-project" --resume
 ```
 
-For an already completed Codex installation, run `node tools/codex/install.mjs --target <absolute-project-path> --resume` from the source checkout to create or update this file. This adds the current defaults without reinstalling dependencies or rerunning browser setup. Environment example/template and VS Code exceptions are retained after their exclusions.
+---
 
-For the original AGY / GEMINI edition, if you want agent skills to remain local to your machine without being committed to your application's remote repository, ensure your target project's `.gitignore` includes:
+## ⚙️ Target Project `.gitignore`
 
-```gitignore
-.agents/*
-!.agents/rules/
-skills-lock.json
-AGENTS.md
-```
+The automated installers merge project rules into the target's `.gitignore` while un-ignoring executable rules, subagents, and commands:
 
-For the ANTHROPIC / CLAUDE CODE edition, the automated installer (`node tools/claude/install.mjs`) automatically merges [.claude/project.gitignore](.claude/project.gitignore) into the target project's `.gitignore`:
-
-```gitignore
-/.claude/*
-!/.claude/rules/
-!/.claude/agents/
-!/.claude/commands/
-/CLAUDE.md
-/scratch/
-/.impeccable/
-```
-
-> [!TIP]
-> **Why un-ignore rules, agents, and commands?**
-> A blanket `/.claude/*` ignore would hide custom slash commands and subagents from Claude Code's session indexing. Un-ignoring `!/.claude/rules/`, `!/.claude/agents/`, and `!/.claude/commands/` ensures that `/plan`, `@planner`, and architectural guidelines remain fully active in the client while keeping heavy node modules, test artifacts, and caches local.
+- **Codex**: Ignores `/.codex/*` while preserving `!/.codex/rules/` and `!/.codex/agents/`.
+- **Claude Code**: Ignores `/.claude/*` while preserving `!/.claude/rules/`, `!/.claude/agents/`, and `!/.claude/commands/`.
+- **Antigravity**: Ignores `.agents/*` while preserving `!.agents/rules/`.
