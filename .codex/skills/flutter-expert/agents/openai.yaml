@@ -1,4 +1,4 @@
 interface:
   display_name: "Flutter Expert"
-  short_description: "Master Flutter development with Dart 3, advanced widgets,..."
+  short_description: "Build cross-platform iOS, Android, web, and desktop apps..."
   default_prompt: "Use $flutter-expert for the relevant part of this task."

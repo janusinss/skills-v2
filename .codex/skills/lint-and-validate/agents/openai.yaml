@@ -1,4 +1,4 @@
 interface:
   display_name: "Lint And Validate"
-  short_description: "MANDATORY: Run appropriate validation tools after EVERY code..."
+  short_description: "Run typecheckers, linters, and validation suites after every..."
   default_prompt: "Use $lint-and-validate for the relevant part of this task."

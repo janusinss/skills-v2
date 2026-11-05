@@ -1,4 +1,4 @@
 interface:
   display_name: "Architecture Patterns"
-  short_description: "Master proven backend architecture patterns including Clean..."
+  short_description: "Apply Clean Architecture, Hexagonal Architecture (Ports &..."
   default_prompt: "Use $architecture-patterns for the relevant part of this task."

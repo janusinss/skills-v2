@@ -1,4 +1,4 @@
 interface:
   display_name: "React Patterns"
-  short_description: "Modern React patterns and principles. Hooks, composition,..."
+  short_description: "Write idiomatic React with custom hooks, compound..."
   default_prompt: "Use $react-patterns for the relevant part of this task."

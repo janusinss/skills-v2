@@ -1,4 +1,4 @@
 interface:
   display_name: "Ui Styling"
-  short_description: "Build accessible UIs with shadcn/ui (Radix + Tailwind),..."
+  short_description: "Build accessible UI components with shadcn/ui (Radix +..."
   default_prompt: "Use $ui-styling for the relevant part of this task."

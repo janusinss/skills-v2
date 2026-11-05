@@ -1,6 +1,6 @@
 ---
 name: "context-window-management"
-description: "Strategies for managing LLM context windows including summarization, trimming, routing, and avoiding context rot"
+description: "Manage LLM context budgets via summarization, sliding windows, token trimming, and semantic routing. Use when optimizing long chats or preventing context rot."
 metadata:
   upstream-risk: "critical"
   upstream-source: "vibeship-spawner-skills (Apache 2.0)"

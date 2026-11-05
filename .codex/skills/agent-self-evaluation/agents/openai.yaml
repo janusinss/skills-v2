@@ -1,4 +1,4 @@
 interface:
   display_name: "Agent Self Evaluation"
-  short_description: "Use after completing any non-trivial task. The agent..."
+  short_description: "Self-rate completed work on accuracy, completeness, clarity,..."
   default_prompt: "Use $agent-self-evaluation for the relevant part of this task."

@@ -1,6 +1,6 @@
 ---
 name: penetration-testing-with-strix
-description: "Pentest a web app, API, repo, URL or IP with Strix autonomous agents that exploit and prove vulnerabilities (OWASP Top 10 and beyond), returning proof-of-concept findings. Use when the user asks to pentest, security-scan or find vulnerabilities in an app or API."
+description: "Run autonomous Strix agents to exploit and prove vulnerabilities in a web app, API, or repo with PoCs. Use for active pentesting; for static review use security-audit."
 license: Apache-2.0
 metadata:
   author: usestrix

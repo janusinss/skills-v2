@@ -1,4 +1,4 @@
 interface:
   display_name: "Business Analyst"
-  short_description: "Master modern business analysis with AI-powered analytics,..."
+  short_description: "Build KPI frameworks, metric trees, cohort models, and..."
   default_prompt: "Use $business-analyst for the relevant part of this task."

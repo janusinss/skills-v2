@@ -1,6 +1,6 @@
 ---
 name: agent-security-hardening
-description: "Harden AI agent frameworks that process untrusted content, call tools, write workspace files or handle credentials. Use when building or reviewing an agent runtime, tool gateway, memory service or multi-tenant deployment. Not for general web app security."
+description: "Harden AI agent runtimes against prompt injection, untrusted tool calls, workspace escapes, and secret leaks. Use when securing agent frameworks or gateways."
 ---
 
 # Agent Security Hardening

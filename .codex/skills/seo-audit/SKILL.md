@@ -1,6 +1,6 @@
 ---
 name: "seo-audit"
-description: "Diagnose and audit SEO issues affecting crawlability, indexation, rankings, and organic performance."
+description: "Audit technical and on-page SEO: crawlability, Core Web Vitals, indexation, canonicals, and schema markup. Use when diagnosing search rankings or site indexing."
 metadata:
   upstream-risk: "safe"
   upstream-source: "community"

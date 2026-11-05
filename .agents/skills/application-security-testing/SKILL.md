@@ -1,6 +1,6 @@
 ---
 name: application-security-testing
-description: "Plan and run whole-product AppSec testing with Strix across source, web app, API and CI, then produce a ranked remediation plan. Use when the user asks for a security review, audit or pre-launch scan, or does not know which security test they need."
+description: "Run whole-product Strix AppSec testing across source, web, API, and CI with a ranked remediation plan. Use when planning a full pre-launch security audit."
 license: Apache-2.0
 metadata:
   author: usestrix

@@ -1,4 +1,4 @@
 interface:
   display_name: "Claude D3js Skill"
-  short_description: "This skill provides guidance for creating sophisticated,..."
+  short_description: "Create interactive D3.js data visualizations, custom..."
   default_prompt: "Use $claude-d3js-skill for the relevant part of this task."

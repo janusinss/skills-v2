@@ -1,6 +1,6 @@
 ---
 name: git-pushing
-description: "Safely stage, commit, and push intended git changes with conventional commit messages. Use for ordinary non-release pushes when explicitly asked to push, save work remotely, or share a completed change."
+description: "Stage, commit, and push intended git changes safely using conventional commit messages. Use when explicitly asked to commit and push changes to a remote."
 ---
 
 # Git Push Workflow

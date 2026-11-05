@@ -1,6 +1,6 @@
 ---
 name: systematic-debugging
-description: "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes"
+description: "Isolate root causes of bugs and test failures through hypothesis-driven reproduction before writing fixes. Use when encountering any bug or unexpected behavior."
 risk: critical
 source: community
 date_added: "2026-02-27"

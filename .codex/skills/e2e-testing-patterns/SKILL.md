@@ -1,6 +1,6 @@
 ---
 name: "e2e-testing-patterns"
-description: "Build reliable, fast, and maintainable end-to-end test suites that provide confidence to ship code quickly and catch regressions before users do."
+description: "Design deterministic Playwright and Cypress E2E test suites with page objects and network control. Use when writing E2E user-journey tests or fixing flake."
 metadata:
   upstream-risk: "safe"
   upstream-source: "community"

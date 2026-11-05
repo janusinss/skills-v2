@@ -1,6 +1,6 @@
 ---
 name: "content-creator"
-description: "Professional-grade brand voice analysis, SEO optimization, and platform-specific content frameworks."
+description: "Develop brand-aligned articles, social posts, and SEO-optimized content calendars. Use when drafting marketing content, blog posts, or editorial copy."
 metadata:
   upstream-category: "marketing"
   upstream-risk: "critical"

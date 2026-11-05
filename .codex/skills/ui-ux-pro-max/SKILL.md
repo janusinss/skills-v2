@@ -1,6 +1,6 @@
 ---
 name: "ui-ux-pro-max"
-description: "UI/UX design intelligence for web, mobile and desktop: styles, palettes, font pairings, UX guidelines, charts and stack-specific guidance. Use when designing, building, reviewing or fixing interfaces, components or design systems."
+description: "Searchable UI/UX intelligence database: palettes, font pairings, chart types, and stack guidelines. Use when choosing palettes or fonts; for critique use impeccable."
 ---
 # ui-ux-pro-max
 

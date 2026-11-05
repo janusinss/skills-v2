@@ -1,4 +1,4 @@
 interface:
   display_name: "Launch Strategy"
-  short_description: "You are an expert in SaaS product launches and feature..."
+  short_description: "Plan phased SaaS product launches, channel sequencing,..."
   default_prompt: "Use $launch-strategy for the relevant part of this task."

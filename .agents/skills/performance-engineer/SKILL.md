@@ -1,6 +1,6 @@
 ---
 name: performance-engineer
-description: "Diagnose and fix performance bottlenecks across backend, frontend and infrastructure using profiling, observability and load testing. Use when investigating slow responses, high latency, memory growth or scaling limits."
+description: "Profile and eliminate latency, CPU, memory, and query bottlenecks across frontend, backend, and infra. Use when diagnosing slow responses or scaling limits."
 risk: critical
 source: community
 date_added: "2026-02-27"

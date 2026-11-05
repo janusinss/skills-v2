@@ -1,6 +1,6 @@
 ---
 name: mobile-design
-description: "Mobile-first, touch-first UI/UX guidance covering iOS and Android platform conventions, offline behavior and battery use. Use when designing or reviewing mobile app screens, navigation, gestures or touch targets."
+description: "Design mobile-first, touch-first iOS and Android interfaces following platform ergonomics and offline rules. Use when designing or reviewing mobile app UX."
 ---
 # Mobile Design System
 

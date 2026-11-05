@@ -1,4 +1,4 @@
 interface:
   display_name: "Git Pushing"
-  short_description: "Safely stage, commit, and push intended git changes with..."
+  short_description: "Stage, commit, and push intended git changes safely using..."
   default_prompt: "Use $git-pushing for the relevant part of this task."

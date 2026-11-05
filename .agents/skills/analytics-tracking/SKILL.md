@@ -1,6 +1,6 @@
 ---
 name: analytics-tracking
-description: Design, audit, and improve analytics tracking systems that produce reliable, decision-ready data.
+description: "Design, audit, and implement event-tracking schemas and analytics instrumentation. Use when setting up product analytics, funnels, or telemetry pipelines."
 risk: critical
 source: community
 date_added: '2026-02-27'

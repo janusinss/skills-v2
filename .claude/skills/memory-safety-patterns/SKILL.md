@@ -1,6 +1,6 @@
 ---
 name: memory-safety-patterns
-description: "Cross-language patterns for memory-safe programming including RAII, ownership, smart pointers, and resource management."
+description: "Prevent use-after-free, buffer overflows, and leaks using RAII, ownership, lifetimes, and arenas. Use when writing memory-safe systems code in C, C++, or Rust."
 ---
 
 # Memory Safety Patterns

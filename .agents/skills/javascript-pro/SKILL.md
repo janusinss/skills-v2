@@ -1,6 +1,6 @@
 ---
 name: javascript-pro
-description: Master modern JavaScript with ES6+, async patterns, and Node.js APIs. Handles promises, event loops, and browser/Node compatibility.
+description: "Write modern ES2024+ JavaScript across browsers and Node.js: event loop, streams, Web APIs, and modules. Use when writing vanilla JS or debugging async runtime."
 risk: safe
 source: community
 date_added: '2026-02-27'

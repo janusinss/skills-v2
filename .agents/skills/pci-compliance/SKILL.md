@@ -1,6 +1,6 @@
 ---
 name: pci-compliance
-description: "Master PCI DSS (Payment Card Industry Data Security Standard) compliance for secure payment processing and handling of cardholder data."
+description: "Design PCI DSS 4.0 compliant payment flows: cardholder data isolation, tokenization, encryption, and audit logs. Use when handling payment cards or PCI scope."
 risk: critical
 source: community
 date_added: "2026-02-27"

@@ -1,6 +1,6 @@
 ---
 name: test-driven-development
-description: "Write the failing test first, then the minimal code to pass. Use when implementing any feature or bugfix, before writing implementation code."
+description: "Follow strict Red-Green-Refactor TDD: write the failing test first, then minimal passing code, then refactor. Use when implementing any new feature or bugfix."
 ---
 
 # Test-Driven Development (TDD)

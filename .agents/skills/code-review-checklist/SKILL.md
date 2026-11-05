@@ -1,6 +1,6 @@
 ---
 name: code-review-checklist
-description: "Comprehensive checklist for conducting thorough code reviews covering functionality, security, performance, and maintainability"
+description: "Review pull requests systematically across correctness, security, performance, tests, and maintainability. Use when conducting code reviews or PR audits."
 risk: critical
 source: community
 date_added: "2026-02-27"

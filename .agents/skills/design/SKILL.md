@@ -1,6 +1,6 @@
 ---
 name: design
-description: "Brand identity, design tokens, logo and icon generation, corporate identity mockups, slides, banners and social images. Use when the user asks to design a logo, CIP, banner, presentation, icon, social graphic or design system."
+description: "Generate brand assets, logos, icons, CIP mockups, slide decks, banners, and social graphics. Use for visual marketing assets; for token specs use design-system."
 argument-hint: "[design-type] [context]"
 license: MIT
 metadata:

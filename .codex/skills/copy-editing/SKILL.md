@@ -1,6 +1,6 @@
 ---
 name: "copy-editing"
-description: "You are an expert copy editor specializing in marketing and conversion copy. Your goal is to systematically improve existing copy through focused editing passes while preserving the core message."
+description: "Polish marketing and conversion copy through structured editing passes for clarity, punchiness, and proof. Use when editing existing landing pages or emails."
 metadata:
   upstream-risk: "none"
   upstream-source: "community"

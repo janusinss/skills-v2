@@ -1,9 +1,22 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { repoRoot, sourceRoot, filesIn, payloadHash, sha256, slash } from './codex/lib.mjs';
+import { repoRoot, sourceRoot, filesIn, payloadHash, parseSkill, sha256, slash } from './codex/lib.mjs';
 
 const provenancePath = path.join(repoRoot, 'provenance.json');
 const skillsRoot = path.join(sourceRoot, 'skills');
+
+const KNOWN_UPSTREAMS = {
+  'avoid-ai-writing': { source: 'cbronsdon/avoid-ai-writing', sourceType: 'github', license: 'MIT' },
+  'impeccable': { source: 'pbakaus/impeccable', sourceType: 'github', license: 'Apache-2.0' },
+  'mcp-builder': { source: 'anthropics/skills', sourceType: 'github', license: 'Apache-2.0' },
+  'playwright-skill': { source: 'lackeyjb/playwright-skill', sourceType: 'github', license: 'MIT' },
+  'postgres-best-practices': { source: 'supabase/agent-skills', sourceType: 'github', license: 'MIT' },
+  'react-best-practices': { source: 'vercel-labs/agent-skills', sourceType: 'github', license: 'MIT' },
+  'ui-ux-pro-max': { source: 'nextlevelbuilder/ui-ux-pro-max-skill', sourceType: 'github', license: 'MIT' },
+  'prompt-enhancer': { source: 'original', sourceType: 'original', license: 'MIT' },
+  'prompt-enhancer-backend': { source: 'original', sourceType: 'original', license: 'MIT' },
+  'prompt-enhancer-frontend': { source: 'original', sourceType: 'original', license: 'MIT' },
+};
 
 function detectLicense(directory, skillText) {
   const fromFrontmatter = /^license:\s*(.+)$/m.exec(skillText.split(/\r?\n---/)[0] || '');
@@ -14,6 +27,37 @@ function detectLicense(directory, skillText) {
   if (/MIT License/i.test(head)) return 'MIT';
   if (/Apache License/i.test(head)) return 'Apache-2.0';
   return `see ${licenseFile}`;
+}
+
+function inferUpstream(name, directory, skillText, locked) {
+  if (locked) {
+    return {
+      source: locked.source,
+      sourceType: locked.sourceType || 'github',
+      license: detectLicense(directory, skillText),
+    };
+  }
+  if (KNOWN_UPSTREAMS[name]) return KNOWN_UPSTREAMS[name];
+  const { frontmatter } = parseSkill(skillText, path.join(directory, 'SKILL.md'));
+  const fmSource = String(frontmatter.source || '');
+  const fmAuthor = String(frontmatter.author || frontmatter.metadata?.author || '');
+  const fmOrigin = String(frontmatter.origin || frontmatter.metadata?.origin || '');
+  if (/vibeship-spawner-skills/i.test(fmSource)) {
+    return { source: 'vibeship/vibeship-spawner-skills', sourceType: 'github', license: 'Apache-2.0' };
+  }
+  if (fmOrigin === 'ECC') {
+    return { source: 'affaan-m/everything-claude-code', sourceType: 'github', license: 'MIT' };
+  }
+  if (fmAuthor === 'claudekit') {
+    return { source: 'claudekit/claudekit', sourceType: 'github', license: 'MIT' };
+  }
+  if (fmAuthor === 'zebbern') {
+    return { source: 'zebbern/claude-code-security-skills', sourceType: 'github', license: 'MIT' };
+  }
+  if (fmSource === 'community' || ('risk' in frontmatter && 'date_added' in frontmatter)) {
+    return { source: 'sickn33/antigravity-awesome-skills', sourceType: 'github', license: 'MIT' };
+  }
+  return { source: 'unknown', sourceType: 'unknown', license: detectLicense(directory, skillText) };
 }
 
 function folderHash(directory) {
@@ -32,16 +76,19 @@ export function buildProvenance() {
     const directory = path.join(skillsRoot, name);
     const skillFile = path.join(directory, 'SKILL.md');
     if (!fs.existsSync(skillFile)) continue;
+    const skillText = fs.readFileSync(skillFile, 'utf8');
     const locked = lock[name];
     const kept = previous[name] || {};
+    const inferred = inferUpstream(name, directory, skillText, locked);
+    const hash = folderHash(directory);
+    const changedSincePrevious = kept.contentHash && kept.contentHash !== hash;
     skills[name] = {
-      // `source` and `modified` are curated by hand; regeneration preserves them.
-      source: kept.source ?? (locked ? locked.source : 'unknown'),
-      sourceType: kept.sourceType ?? (locked ? locked.sourceType : 'unknown'),
+      source: kept.source && kept.source !== 'unknown' ? kept.source : inferred.source,
+      sourceType: kept.sourceType && kept.sourceType !== 'unknown' ? kept.sourceType : inferred.sourceType,
       commit: kept.commit ?? null,
-      license: kept.license && kept.license !== 'unverified' ? kept.license : detectLicense(directory, fs.readFileSync(skillFile, 'utf8')),
-      modified: kept.modified ?? null,
-      contentHash: folderHash(directory),
+      license: kept.license && kept.license !== 'unverified' ? kept.license : inferred.license,
+      modified: kept.modified ?? (changedSincePrevious ? 'description/references updated in skills-v2' : null),
+      contentHash: hash,
     };
   }
   return skills;
@@ -66,7 +113,7 @@ function main() {
   for (const [name, entry] of Object.entries(current)) {
     if (!recorded[name]) errors.push(`${name}: no provenance entry`);
     else if (recorded[name].contentHash !== entry.contentHash) errors.push(`${name}: content changed since provenance.json was written`);
-    if (entry.source === 'unknown') unknown++;
+    if ((recorded[name]?.source || entry.source) === 'unknown') unknown++;
   }
   for (const name of Object.keys(recorded)) if (!current[name]) errors.push(`${name}: recorded but missing on disk`);
   const summary = { skills: Object.keys(current).length, unknownSource: unknown, unverifiedLicense: Object.values(current).filter(entry => entry.license === 'unverified').length, errors };

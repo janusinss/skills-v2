@@ -1,4 +1,4 @@
 interface:
   display_name: "Mcp Builder"
-  short_description: "Create MCP (Model Context Protocol) servers that enable LLMs..."
+  short_description: "Build Model Context Protocol (MCP) servers in TypeScript or..."
   default_prompt: "Use $mcp-builder for the relevant part of this task."

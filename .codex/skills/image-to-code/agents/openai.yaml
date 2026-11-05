@@ -1,4 +1,4 @@
 interface:
   display_name: "Image To Code"
-  short_description: "Generate section-specific design images first, analyze them,..."
+  short_description: "Generate section design reference images first, analyze..."
   default_prompt: "Use $image-to-code for the relevant part of this task."

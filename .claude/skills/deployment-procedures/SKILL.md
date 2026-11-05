@@ -1,6 +1,6 @@
 ---
 name: deployment-procedures
-description: "Production deployment principles and decision-making. Safe deployment workflows, rollback strategies, and verification. Teaches thinking, not scripts."
+description: "Plan zero-downtime production deployments, canary rollouts, health checks, and rollback runbooks. Use when designing release workflows or cutover checklists."
 ---
 
 # Deployment Procedures

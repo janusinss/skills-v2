@@ -1,6 +1,6 @@
 ---
 name: ethical-hacking-methodology
-description: "Master the complete penetration testing lifecycle from reconnaissance through reporting. This skill covers the five stages of ethical hacking methodology, essential tools, attack techniques, and professional reporting for authorized security assessments."
+description: "Execute authorized 5-stage penetration testing: recon, scanning, exploitation, post-exploitation, and reporting. Use for structured ethical hacking workflows."
 ---
 
 > **⚠️ AUTHORIZED USE ONLY**

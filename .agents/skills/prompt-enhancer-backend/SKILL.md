@@ -1,6 +1,6 @@
 ---
 name: prompt-enhancer-backend
-description: "Turn a raw concept into an API and data-layer spec: schemas, entities, auth flows, service boundaries, queues and a master prompt for backend agents. Use for backend-only work. For full product scope use prompt-enhancer."
+description: "Expand a backend concept into an API and data-layer spec: schemas, auth, queues, and master prompt. Use for backend-only specs; for full-stack use prompt-enhancer."
 ---
 
 # PROMPT ENHANCER — BACKEND & DATA

@@ -1,6 +1,6 @@
 ---
 name: python-testing-patterns
-description: "Implement comprehensive testing strategies with pytest, fixtures, mocking, and test-driven development. Use when writing Python tests, setting up test suites, or implementing testing best practices."
+description: "Write fast, deterministic Python test suites with pytest fixtures, parametrization, hypothesis, and mocks. Use when authoring or refactoring Python tests."
 risk: safe
 source: community
 date_added: "2026-02-27"

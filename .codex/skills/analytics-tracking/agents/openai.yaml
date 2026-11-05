@@ -1,4 +1,4 @@
 interface:
   display_name: "Analytics Tracking"
-  short_description: "Design, audit, and improve analytics tracking systems that..."
+  short_description: "Design, audit, and implement event-tracking schemas and..."
   default_prompt: "Use $analytics-tracking for the relevant part of this task."

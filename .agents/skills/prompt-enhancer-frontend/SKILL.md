@@ -1,6 +1,6 @@
 ---
 name: prompt-enhancer-frontend
-description: "Turn a raw concept into a UI and UX spec: page and component taxonomy, interactions, journeys, responsive and accessibility rules and a master prompt for frontend agents. Use for UI-only work. For full product scope use prompt-enhancer."
+description: "Expand a UI concept into a frontend spec: component taxonomy, user journeys, a11y, and master prompt. Use for UI-only specs; for full-stack use prompt-enhancer."
 ---
 
 # PROMPT ENHANCER — FRONTEND & UX

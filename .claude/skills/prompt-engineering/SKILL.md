@@ -1,6 +1,6 @@
 ---
 name: prompt-engineering
-description: "Expert guide on prompt engineering patterns, best practices, and optimization techniques. Use when user wants to improve prompts, learn prompting strategies, or debug agent behavior."
+description: "Design and tune system prompts, few-shot examples, structured outputs, and guardrails for LLMs. Use when improving prompt reliability or agent instruction following."
 ---
 
 # Prompt Engineering Patterns

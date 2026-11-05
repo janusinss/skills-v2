@@ -1,6 +1,6 @@
 ---
 name: mcp-builder
-description: "Create MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. The quality of an MCP server is measured by how well it enables LLMs to accomplish real-world tasks."
+description: "Build Model Context Protocol (MCP) servers in TypeScript or Python with well-typed tools, resources, and prompts. Use when creating or extending MCP servers."
 risk: critical
 source: community
 date_added: "2026-02-27"

@@ -1,6 +1,6 @@
 ---
 name: cpp-pro
-description: "Write idiomatic C++ code with modern features, RAII, smart pointers, and STL algorithms. Handles templates, move semantics, and performance optimization."
+description: "Write modern C++20/23 with RAII, smart pointers, concepts, ranges, and zero-overhead abstractions. Use when writing, optimizing, or reviewing C++ code."
 ---
 
 ## Use this skill when

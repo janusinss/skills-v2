@@ -1,6 +1,6 @@
 ---
 name: lint-and-validate
-description: "MANDATORY: Run appropriate validation tools after EVERY code change. Do not finish a task until the code is error-free."
+description: "Run typecheckers, linters, and validation suites after every code edit until zero errors remain. Use after modifying code to verify build and lint cleanliness."
 ---
 
 # Lint and Validate Skill

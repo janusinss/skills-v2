@@ -1,6 +1,6 @@
 ---
 name: embedding-strategies
-description: "Guide to selecting and optimizing embedding models for vector search applications."
+description: "Select, benchmark, and tune text or multimodal embedding models, dimensions, and distance metrics. Use when designing vector search or similarity indexes."
 risk: critical
 source: community
 date_added: "2026-02-27"

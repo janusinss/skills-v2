@@ -1,6 +1,6 @@
 ---
 name: impeccable
-description: "Design, redesign, critique, audit, polish or harden a frontend interface: UX review, hierarchy, layout, typography, color, motion, copy, accessibility and responsive behavior. Use when improving websites, dashboards, components, forms or native iOS/Android screens. Not for backend-only tasks."
+description: "Critique, audit, polish, or harden a frontend interface across hierarchy, type, color, motion, and a11y. Use when refining UI quality; for palettes use ui-ux-pro-max."
 metadata:
   version: 4.8.0
 ---

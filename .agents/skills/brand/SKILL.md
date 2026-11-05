@@ -1,6 +1,6 @@
 ---
 name: brand
-description: Brand voice, visual identity, messaging frameworks, asset management, brand consistency. Activate for branded content, tone of voice, marketing assets, brand compliance, style guides.
+description: "Define brand voice, positioning, messaging frameworks, and style-guide compliance. Use for verbal identity and brand rules; for visual boards use brandkit."
 argument-hint: "[update|review|create] [args]"
 metadata:
   author: claudekit

@@ -1,6 +1,6 @@
 ---
 name: programmatic-seo
-description: "Design and evaluate programmatic SEO strategies for creating SEO-driven pages at scale using templates and structured data."
+description: "Build scalable programmatic SEO page generators using structured data, canonical rules, and rich templates. Use when generating data-driven SEO pages at scale."
 ---
 
 ---

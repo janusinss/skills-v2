@@ -1,4 +1,4 @@
 interface:
   display_name: "Python Testing Patterns"
-  short_description: "Implement comprehensive testing strategies with pytest,..."
+  short_description: "Write fast, deterministic Python test suites with pytest..."
   default_prompt: "Use $python-testing-patterns for the relevant part of this task."

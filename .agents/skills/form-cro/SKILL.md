@@ -1,6 +1,6 @@
 ---
 name: form-cro
-description: Optimize any form that is NOT signup or account registration — including lead capture, contact, demo request, application, survey, quote, and checkout forms.
+description: "Optimize lead-capture, checkout, demo-request, and survey forms to maximize completion rates. Use when improving non-signup form conversion and validation UX."
 risk: critical
 source: community
 date_added: '2026-02-27'

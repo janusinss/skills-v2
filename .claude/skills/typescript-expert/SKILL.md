@@ -1,6 +1,6 @@
 ---
 name: typescript-expert
-description: "TypeScript and JavaScript expert with deep knowledge of type-level programming, performance optimization, monorepo management, migration strategies, and modern tooling."
+description: "Master advanced TypeScript: conditional/mapped types, template literals, strict tsconfig, and monorepo references. Use when solving complex TS types or build speed."
 ---
 
 # TypeScript Expert

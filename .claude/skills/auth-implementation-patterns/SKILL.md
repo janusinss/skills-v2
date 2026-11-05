@@ -1,6 +1,6 @@
 ---
 name: auth-implementation-patterns
-description: "Build secure, scalable authentication and authorization systems using industry-standard patterns and modern best practices."
+description: "Implement authentication and authorization: JWT, OAuth2/OIDC, session management, RBAC, and MFA. Use when building login, session, or permission systems."
 ---
 
 # Authentication & Authorization Implementation Patterns

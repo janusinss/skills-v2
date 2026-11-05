@@ -1,6 +1,6 @@
 ---
 name: aws-serverless
-description: "Build production-ready serverless apps on AWS: Lambda, API Gateway, DynamoDB, SQS/SNS event-driven patterns, SAM/CDK deployment and cold-start optimization. Use when designing, building or debugging AWS serverless systems."
+description: "Build AWS serverless apps with Lambda, API Gateway, DynamoDB, SQS/SNS, SAM/CDK, and cold-start tuning. Use when designing or debugging AWS serverless stacks."
 risk: critical
 source: vibeship-spawner-skills (Apache 2.0)
 date_added: 2026-02-27

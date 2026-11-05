@@ -1,6 +1,6 @@
 ---
 name: scrollytelling
-description: "Build scroll-driven animations, pinned stages, parallax and canvas frame sequences with @bsmnt/scrollytelling (React + GSAP ScrollTrigger). Use when the user wants scrollytelling, a pinned product tour, scroll-scrubbed 3D or horizontal scroll galleries."
+description: "Implement React + GSAP ScrollTrigger animations, pinned stages, and canvas sequences with @bsmnt/scrollytelling. Use when coding scrollytelling; for design use scroll-experience."
 license: MIT
 metadata:
   source: basementstudio/scrollytelling

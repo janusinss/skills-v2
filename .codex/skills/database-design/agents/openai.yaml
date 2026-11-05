@@ -1,4 +1,4 @@
 interface:
   display_name: "Database Design"
-  short_description: "Database design principles and decision-making. Schema..."
+  short_description: "Design relational and serverless database schemas, indexing..."
   default_prompt: "Use $database-design for the relevant part of this task."

@@ -1,6 +1,6 @@
 ---
 name: "copywriting"
-description: "Write rigorous, conversion-focused marketing copy for landing pages and emails. Enforces brief confirmation and strict no-fabrication rules."
+description: "Write conversion-focused copy for landing pages, headlines, CTAs, and emails with strict no-fabrication rules. Use when drafting new copy; for edits use copy-editing."
 metadata:
   upstream-risk: "none"
   upstream-source: "community"

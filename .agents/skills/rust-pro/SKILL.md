@@ -1,6 +1,6 @@
 ---
 name: rust-pro
-description: Master Rust 1.75+ with modern async patterns, advanced type system features, and production-ready systems programming.
+description: "Write idiomatic Rust 1.75+ with ownership, trait design, Tokio async concurrency, and zero-copy parsing. Use when building, optimizing, or reviewing Rust crates."
 risk: critical
 source: community
 date_added: '2026-02-27'

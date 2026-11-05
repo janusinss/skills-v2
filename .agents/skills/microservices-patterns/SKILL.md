@@ -1,6 +1,6 @@
 ---
 name: microservices-patterns
-description: "Master microservices architecture patterns including service boundaries, inter-service communication, data management, and resilience patterns for building distributed systems."
+description: "Design distributed microservices: service boundaries, saga choreography, circuit breakers, and outbox patterns. Use when decomposing monoliths or distributed APIs."
 risk: none
 source: community
 date_added: "2026-02-27"

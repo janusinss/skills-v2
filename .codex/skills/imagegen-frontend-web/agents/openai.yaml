@@ -1,4 +1,4 @@
 interface:
   display_name: "Imagegen Frontend Web"
-  short_description: "Generate website design reference images, one horizontal..."
+  short_description: "Generate horizontal section-by-section website design..."
   default_prompt: "Use $imagegen-frontend-web for the relevant part of this task."

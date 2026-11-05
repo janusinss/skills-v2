@@ -1,4 +1,4 @@
 interface:
   display_name: "Django Pro"
-  short_description: "Master Django 5.x with async views, DRF, Celery, and Django..."
+  short_description: "Build production Django 5.x apps with async views, Django..."
   default_prompt: "Use $django-pro for the relevant part of this task."

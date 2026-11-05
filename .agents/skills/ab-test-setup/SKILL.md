@@ -1,6 +1,6 @@
 ---
 name: ab-test-setup
-description: "Structured guide for setting up A/B tests with mandatory gates for hypothesis, metrics, and execution readiness."
+description: "Plan and configure A/B experiments with hypothesis, sample-size, and metric gates. Use when designing split tests, feature experiments, or conversion tests."
 risk: critical
 source: community
 date_added: "2026-02-27"

@@ -1,6 +1,6 @@
 ---
 name: agent-evaluation
-description: "Test and benchmark LLM agents: behavioral testing, capability assessment, reliability metrics and production monitoring. Use when evaluating agent quality, building agent test suites or measuring reliability."
+description: "Benchmark LLM agents across behavioral tests, capability suites, reliability metrics, and prod monitoring. Use when evaluating agent quality or test suites."
 ---
 
 # Agent Evaluation

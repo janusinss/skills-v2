@@ -6,8 +6,8 @@ useDefault = true
 [allowlist]
 description = "Allowlist SHA-256 integrity manifest digests and documentation prose false positives"
 paths = [
-  '''^\.codex/manifest\.json$''',
-  '''^\.claude/manifest\.json$''',
+  '''^\.codex[/\\]manifest\.json$''',
+  '''^\.claude[/\\]manifest\.json$''',
   '''^skills-lock\.json$''',
   '''^provenance\.json$''',
 ]

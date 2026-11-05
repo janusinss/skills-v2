@@ -1,6 +1,6 @@
 ---
 name: ai-agents-architect
-description: "Expert in designing and building autonomous AI agents. Masters tool use, memory systems, planning strategies, and multi-agent orchestration."
+description: "Design autonomous AI agents with tool use, memory systems, planning loops, and multi-agent orchestration. Use when architecting agent or tool-calling systems."
 ---
 
 # AI Agents Architect

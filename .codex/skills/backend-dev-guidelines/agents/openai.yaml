@@ -1,4 +1,4 @@
 interface:
   display_name: "Backend Dev Guidelines"
-  short_description: "You are a senior backend engineer operating production-grade..."
+  short_description: "Enforce layered backend architecture across routes,..."
   default_prompt: "Use $backend-dev-guidelines for the relevant part of this task."

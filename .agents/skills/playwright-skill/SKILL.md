@@ -1,6 +1,6 @@
 ---
 name: playwright-skill
-description: "Browser automation with Playwright: screenshots, responsive checks, login flows, link checks and UX validation, with dev-server auto-detection. Use when the user wants to test a website or automate browser interactions."
+description: "Automate browser checks with Playwright: screenshots, responsive layouts, login flows, and console/network audits. Use when verifying live web pages in a browser."
 license: MIT
 compatibility: Requires Node.js 20+, npm, and network access on first setup to install Playwright and Chromium.
 metadata:

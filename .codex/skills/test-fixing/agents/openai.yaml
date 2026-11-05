@@ -1,4 +1,4 @@
 interface:
   display_name: "Test Fixing"
-  short_description: "Systematically identify and fix all failing tests using..."
+  short_description: "Group, diagnose, and fix failing unit or integration tests..."
   default_prompt: "Use $test-fixing for the relevant part of this task."

@@ -1,6 +1,6 @@
 ---
 name: awesome-design-md
-description: "Browse and install one of 74+ DESIGN.md design systems from products like Linear, Stripe, Apple and Vercel. Use when choosing a visual ground truth, color tokens, typography or component styling for a greenfield project or redesign."
+description: "Browse and install 74+ DESIGN.md design systems from Linear, Stripe, Apple, and Vercel. Use when selecting design tokens or visual ground truth for a project."
 license: MIT
 metadata:
   version: "1.0.0"

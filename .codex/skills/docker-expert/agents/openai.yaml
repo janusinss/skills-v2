@@ -1,4 +1,4 @@
 interface:
   display_name: "Docker Expert"
-  short_description: "You are an advanced Docker containerization expert with..."
+  short_description: "Author optimized multi-stage Dockerfiles, hardened container..."
   default_prompt: "Use $docker-expert for the relevant part of this task."

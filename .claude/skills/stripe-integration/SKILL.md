@@ -1,6 +1,6 @@
 ---
 name: stripe-integration
-description: "Master Stripe payment processing integration for robust, PCI-compliant payment flows including checkout, subscriptions, webhooks, and refunds."
+description: "Integrate Stripe Checkout, Billing subscriptions, PaymentIntents, idempotent webhooks, and customer portals. Use when implementing Stripe payment or billing flows."
 ---
 
 # Stripe Integration

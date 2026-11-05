@@ -1,6 +1,6 @@
 ---
 name: archify
-description: "Create architecture, workflow, sequence, data-flow, ERD, class and timeline diagrams as explorable standalone HTML with SVG/PNG/WebM export, or turn an answer into a one-page explainer. Use when visualizing systems, pipelines or schemas, or when asked for an explainer page. Not for dashboards."
+description: "Render architecture, sequence, data-flow, and ERD diagrams or explainers as standalone HTML with SVG/PNG export. Use when visualizing systems or schemas."
 license: Apache-2.0
 ---
 

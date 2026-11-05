@@ -1,4 +1,4 @@
 interface:
   display_name: "Frontend Developer"
-  short_description: "Build React components, implement responsive layouts, and..."
+  short_description: "Implement React 19 and Next.js 15 components, client state,..."
   default_prompt: "Use $frontend-developer for the relevant part of this task."

@@ -1,6 +1,6 @@
 ---
 name: fastapi-templates
-description: "Create production-ready FastAPI projects with async patterns, dependency injection, and comprehensive error handling. Use when building new FastAPI applications or setting up backend API projects."
+description: "Scaffold production FastAPI services with async dependencies, Pydantic v2 schemas, and structured errors. Use when building or refactoring FastAPI backends."
 risk: critical
 source: community
 date_added: "2026-02-27"

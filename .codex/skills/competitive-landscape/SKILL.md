@@ -1,6 +1,6 @@
 ---
 name: "competitive-landscape"
-description: "Comprehensive frameworks for analyzing competition, identifying differentiation opportunities, and developing winning market positioning strategies."
+description: "Analyze market competitors, feature matrices, pricing tiers, and strategic positioning wedges. Use when conducting competitive research or market analysis."
 metadata:
   upstream-risk: "safe"
   upstream-source: "community"

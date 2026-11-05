@@ -1,6 +1,6 @@
 ---
 name: "image-to-code"
-description: "Generate section-specific design images first, analyze them, then build the website to match. Use when a web task is visually important and the user wants a design-image-driven build. For image-only comps use imagegen-frontend-web; not for quick tweaks."
+description: "Generate section design reference images first, analyze them, and build the matching website code. Use when the user wants an image-driven web build end to end."
 ---
 
 # CORE DIRECTIVE: IMAGE-FIRST WEBSITE DESIGN TO CODE

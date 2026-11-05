@@ -1,6 +1,6 @@
 ---
 name: ci-security-scanning-with-strix
-description: "Add diff-scoped Strix pentests to CI/CD (GitHub Actions, GitLab CI or any pipeline) that block vulnerable pull requests, with PR comments and SARIF upload. Use when the user asks for security scanning, SAST/DAST or automated security review in CI or a pre-merge gate."
+description: "Add diff-scoped Strix security scans to GitHub Actions or GitLab CI with SARIF upload and PR blocking. Use when adding automated security gates in CI/CD."
 license: Apache-2.0
 ---
 

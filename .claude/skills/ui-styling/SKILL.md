@@ -1,6 +1,6 @@
 ---
 name: ui-styling
-description: "Build accessible UIs with shadcn/ui (Radix + Tailwind), Tailwind utility styling, themes and dark mode. Use when creating components, responsive layouts, dialogs, dropdowns or forms, or establishing consistent styling patterns."
+description: "Build accessible UI components with shadcn/ui (Radix + Tailwind), semantic theme tokens, and dark mode. Use when implementing dialogs, forms, or shadcn components."
 license: MIT
 ---
 

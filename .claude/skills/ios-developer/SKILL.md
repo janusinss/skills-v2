@@ -1,6 +1,6 @@
 ---
 name: ios-developer
-description: "Develop native iOS applications with Swift/SwiftUI. Masters iOS 18, SwiftUI, UIKit integration, Core Data, networking, and App Store optimization."
+description: "Build native iOS 18 apps with Swift 6, SwiftUI, UIKit interop, SwiftData, and App Store best practices. Use when developing or debugging native iOS apps."
 ---
 
 ## Use this skill when

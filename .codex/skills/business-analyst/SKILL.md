@@ -1,6 +1,6 @@
 ---
 name: "business-analyst"
-description: "Master modern business analysis with AI-powered analytics, real-time dashboards, and data-driven insights. Build comprehensive KPI frameworks, predictive models, and strategic recommendations."
+description: "Build KPI frameworks, metric trees, cohort models, and data-driven strategic recommendations. Use when analyzing business metrics, forecasting, or defining KPIs."
 metadata:
   upstream-risk: "safe"
   upstream-source: "community"

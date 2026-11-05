@@ -1,6 +1,6 @@
 ---
 name: "concise-planning"
-description: "Use when a user asks for a plan for a coding task, to generate a clear, actionable, and atomic checklist."
+description: "Produce clear, atomic, numbered implementation checklists with verification steps before coding. Use when the user asks for an actionable plan for a coding task."
 metadata:
   upstream-risk: "safe"
   upstream-source: "community"

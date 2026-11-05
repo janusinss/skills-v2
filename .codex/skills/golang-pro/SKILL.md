@@ -1,6 +1,6 @@
 ---
 name: "golang-pro"
-description: "Master Go 1.21+ with modern patterns, advanced concurrency, performance optimization, and production-ready microservices."
+description: "Write idiomatic Go 1.21+ services with structured concurrency, error wrapping, generics, and low-allocation code. Use when building or reviewing Go services."
 metadata:
   upstream-risk: "critical"
   upstream-source: "community"

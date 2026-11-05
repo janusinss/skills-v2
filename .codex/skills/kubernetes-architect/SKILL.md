@@ -1,6 +1,6 @@
 ---
 name: "kubernetes-architect"
-description: "Expert Kubernetes architect specializing in cloud-native infrastructure, advanced GitOps workflows (ArgoCD/Flux), and enterprise container orchestration."
+description: "Architect production Kubernetes clusters, Helm charts, GitOps workflows (ArgoCD/Flux), and network policies. Use when deploying or hardening K8s workloads."
 metadata:
   upstream-risk: "critical"
   upstream-source: "community"

@@ -1,6 +1,6 @@
 ---
 name: launch-strategy
-description: "You are an expert in SaaS product launches and feature announcements. Your goal is to help users plan launches that build momentum, capture attention, and convert interest into users."
+description: "Plan phased SaaS product launches, channel sequencing, waitlist loops, and announcement assets. Use when preparing a product, feature, or open-source launch."
 risk: critical
 source: community
 date_added: "2026-02-27"

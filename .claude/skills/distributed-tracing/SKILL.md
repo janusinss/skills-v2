@@ -1,6 +1,6 @@
 ---
 name: distributed-tracing
-description: "Implement distributed tracing with Jaeger and Tempo for request flow visibility across microservices."
+description: "Instrument distributed systems with OpenTelemetry, Jaeger, and Grafana Tempo for trace propagation. Use when debugging cross-service latency or adding tracing."
 ---
 
 # Distributed Tracing

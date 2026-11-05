@@ -1,6 +1,6 @@
 ---
 name: flutter-expert
-description: "Master Flutter development with Dart 3, advanced widgets, and multi-platform deployment."
+description: "Build cross-platform iOS, Android, web, and desktop apps with Flutter and Dart 3. Use when developing Flutter widgets, state management, or native channels."
 ---
 
 ## Use this skill when

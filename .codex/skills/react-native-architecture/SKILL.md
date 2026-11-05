@@ -1,6 +1,6 @@
 ---
 name: "react-native-architecture"
-description: "Production-ready patterns for React Native development with Expo, including navigation, state management, native modules, and offline-first architecture."
+description: "Architect Expo and React Native apps with Expo Router, native modules, offline sync, and 60fps lists. Use when building cross-platform React Native mobile apps."
 metadata:
   upstream-risk: "safe"
   upstream-source: "community"

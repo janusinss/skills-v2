@@ -1,6 +1,6 @@
 ---
 name: kpi-dashboard-design
-description: "Comprehensive patterns for designing effective Key Performance Indicator (KPI) dashboards that drive business decisions."
+description: "Design actionable KPI dashboards with clear metric hierarchy, chart selection, and executive drill-downs. Use when specifying analytics dashboards or BI views."
 ---
 
 # KPI Dashboard Design

@@ -1,6 +1,6 @@
 ---
 name: postgres-best-practices
-description: "Postgres performance optimization and best practices from Supabase. Use this skill when writing, reviewing, or optimizing Postgres queries, schema designs, or database configurations."
+description: "Optimize PostgreSQL schemas, indexes, RLS policies, connection pooling, and query plans (Supabase guidelines). Use when writing or tuning Postgres queries."
 risk: safe
 source: community
 date_added: "2026-02-27"

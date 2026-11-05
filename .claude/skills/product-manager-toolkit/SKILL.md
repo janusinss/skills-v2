@@ -1,6 +1,6 @@
 ---
 name: product-manager-toolkit
-description: "Essential tools and frameworks for modern product management, from discovery to delivery."
+description: "Write PRDs, RICE prioritization matrices, user story maps, and customer discovery scripts. Use when scoping product features, roadmaps, or discovery interviews."
 ---
 
 # Product Manager Toolkit

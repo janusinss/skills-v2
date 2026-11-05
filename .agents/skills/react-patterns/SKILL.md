@@ -1,6 +1,6 @@
 ---
 name: react-patterns
-description: "Modern React patterns and principles. Hooks, composition, performance, TypeScript best practices."
+description: "Write idiomatic React with custom hooks, compound components, state colocation, and TypeScript props. Use for component patterns; for perf use react-best-practices."
 risk: safe
 source: community
 date_added: "2026-02-27"

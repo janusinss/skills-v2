@@ -1,4 +1,4 @@
 interface:
   display_name: "E2e Testing Patterns"
-  short_description: "Build reliable, fast, and maintainable end-to-end test..."
+  short_description: "Design deterministic Playwright and Cypress E2E test suites..."
   default_prompt: "Use $e2e-testing-patterns for the relevant part of this task."

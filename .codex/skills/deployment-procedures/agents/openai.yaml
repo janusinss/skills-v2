@@ -1,4 +1,4 @@
 interface:
   display_name: "Deployment Procedures"
-  short_description: "Production deployment principles and decision-making. Safe..."
+  short_description: "Plan zero-downtime production deployments, canary rollouts,..."
   default_prompt: "Use $deployment-procedures for the relevant part of this task."

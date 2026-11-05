@@ -1,6 +1,6 @@
 ---
 name: "frontend-security-coder"
-description: "Expert in secure frontend coding practices specializing in XSS prevention, output sanitization, and client-side security patterns."
+description: "Prevent XSS, CSRF, clickjacking, and DOM injection using CSP, Trusted Types, and output sanitization. Use when securing browser code or client-side inputs."
 metadata:
   upstream-risk: "critical"
   upstream-source: "community"

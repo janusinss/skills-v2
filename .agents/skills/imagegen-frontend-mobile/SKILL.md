@@ -1,6 +1,6 @@
 ---
 name: imagegen-frontend-mobile
-description: "Generate premium mobile app screen concepts and flows as images (iOS, Android) inside phone mockups; images only, no code. Use when the user wants app UI concept art or a multi-screen flow. For websites use imagegen-frontend-web."
+description: "Generate iOS and Android mobile app screen concepts and multi-screen flows inside phone mockups (images only). Use for mobile UI comps; for web use imagegen-frontend-web."
 ---
 
 # CORE DIRECTIVE: PREMIUM MOBILE APP IMAGE DIRECTION

@@ -1,6 +1,6 @@
 ---
 name: prompt-enhancer
-description: "Turn a raw product idea into a full spec: feature catalog, data model, P0-P3 priorities and an execution-ready master prompt. Use for general or full-stack concepts. For backend-only use prompt-enhancer-backend; for UI-only use prompt-enhancer-frontend."
+description: "Expand a raw product idea into a full-stack specification with data models, P0-P3 priorities, and master prompt. Use for full-stack specs; see -frontend/-backend for single-tier."
 ---
 
 # PROMPT ENHANCER (Universal Product & Systems Engine)

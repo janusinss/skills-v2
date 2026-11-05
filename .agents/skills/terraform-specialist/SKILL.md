@@ -1,6 +1,6 @@
 ---
 name: terraform-specialist
-description: Expert Terraform/OpenTofu specialist mastering advanced IaC automation, state management, and enterprise infrastructure patterns.
+description: "Author modular Terraform/OpenTofu infrastructure as code with remote state locks, workspaces, and policy checks. Use when provisioning or refactoring cloud IaC."
 risk: critical
 source: community
 date_added: '2026-02-27'

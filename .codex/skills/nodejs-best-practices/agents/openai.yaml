@@ -1,4 +1,4 @@
 interface:
   display_name: "Nodejs Best Practices"
-  short_description: "Node.js development principles and decision-making...."
+  short_description: "Build resilient Node.js backends with non-blocking streams,..."
   default_prompt: "Use $nodejs-best-practices for the relevant part of this task."

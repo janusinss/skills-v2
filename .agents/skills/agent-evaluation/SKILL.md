@@ -1,6 +1,6 @@
 ---
 name: agent-evaluation
-description: "Test and benchmark LLM agents: behavioral testing, capability assessment, reliability metrics and production monitoring. Use when evaluating agent quality, building agent test suites or measuring reliability."
+description: "Benchmark LLM agents across behavioral tests, capability suites, reliability metrics, and prod monitoring. Use when evaluating agent quality or test suites."
 risk: safe
 source: vibeship-spawner-skills (Apache 2.0)
 date_added: 2026-02-27

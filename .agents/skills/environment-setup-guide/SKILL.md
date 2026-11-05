@@ -1,6 +1,6 @@
 ---
 name: environment-setup-guide
-description: "Guide developers through setting up development environments with proper tools, dependencies, and configurations"
+description: "Configure reproducible local development environments, version managers, dotfiles, and devcontainers. Use when onboarding repos or standardizing toolchains."
 risk: critical
 source: community
 date_added: "2026-02-27"

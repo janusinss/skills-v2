@@ -1,4 +1,4 @@
 interface:
   display_name: "Rag Engineer"
-  short_description: "Expert in building Retrieval-Augmented Generation systems...."
+  short_description: "Build and tune Retrieval-Augmented Generation pipelines:..."
   default_prompt: "Use $rag-engineer for the relevant part of this task."

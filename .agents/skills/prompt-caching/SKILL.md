@@ -1,7 +1,6 @@
 ---
 name: prompt-caching
-description: Caching strategies for LLM prompts including Anthropic prompt
-  caching, response caching, and CAG (Cache Augmented Generation)
+description: "Reduce LLM latency and token cost using Anthropic/OpenAI prefix caching, semantic response caches, and CAG. Use when optimizing high-volume or long-prompt calls."
 risk: none
 source: vibeship-spawner-skills (Apache 2.0)
 date_added: 2026-02-27

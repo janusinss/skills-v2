@@ -1,4 +1,4 @@
 interface:
   display_name: "Competitor Alternatives"
-  short_description: "You are an expert in creating competitor comparison and..."
+  short_description: "Create '[Competitor] Alternative' and 'Us vs Competitor'..."
   default_prompt: "Use $competitor-alternatives for the relevant part of this task."

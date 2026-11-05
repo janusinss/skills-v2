@@ -1,6 +1,6 @@
 ---
 name: browser-automation
-description: "Browser automation for web testing, scraping and AI agent interactions: selectors, waiting strategies and anti-detection patterns. Use when building reliable browser scripts or debugging flaky automation."
+description: "Automate browsers for web testing, scraping, and agent flows with resilient selectors and waits. Use when writing browser scripts or fixing flaky automation."
 ---
 
 # Browser Automation

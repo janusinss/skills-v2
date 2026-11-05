@@ -1,6 +1,6 @@
 ---
 name: "security-audit"
-description: "Security review and vulnerability research for codebases, APIs, services and CLI tools. Use for security questions, focused reviews, audits or pen tests; run the full workflow only for explicit audit requests or report artifacts."
+description: "Perform code-level security reviews and vulnerability research across codebases, APIs, and CLI tools. Use for source audits; for active PoC exploit testing use penetration-testing-with-strix."
 ---
 
 # Security Audit

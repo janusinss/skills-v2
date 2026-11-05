@@ -1,6 +1,6 @@
 ---
 name: python-patterns
-description: "Python development principles and decision-making. Framework selection, async patterns, type hints, project structure. Teaches thinking, not copying."
+description: "Write idiomatic Python 3.12+ with strict type hints, dataclasses, protocols, packaging, and clean layout. Use when structuring or reviewing Python codebases."
 ---
 
 # Python Patterns

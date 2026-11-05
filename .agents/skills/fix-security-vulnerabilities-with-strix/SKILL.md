@@ -1,6 +1,6 @@
 ---
 name: fix-security-vulnerabilities-with-strix
-description: "Fix vulnerabilities reported by a Strix pentest in severity order, patching root causes and re-running Strix to prove each exploit is closed. Use after a Strix scan, or when asked to remediate issues from strix_runs, vulnerabilities.json or findings.sarif."
+description: "Patch vulnerabilities reported by Strix in severity order and re-run Strix to prove each exploit is closed. Use after a Strix scan or on vulnerabilities.json."
 license: Apache-2.0
 metadata:
   author: usestrix

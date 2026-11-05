@@ -1,4 +1,4 @@
 interface:
   display_name: "Api Security Best Practices"
-  short_description: "Implement secure API design patterns including..."
+  short_description: "Harden APIs with JWT/OAuth2 auth, RBAC, input validation,..."
   default_prompt: "Use $api-security-best-practices for the relevant part of this task."

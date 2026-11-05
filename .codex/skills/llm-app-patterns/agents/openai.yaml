@@ -1,4 +1,4 @@
 interface:
   display_name: "Llm App Patterns"
-  short_description: "Production-ready patterns for building LLM applications,..."
+  short_description: "Architect production LLM apps with RAG pipelines, prompt..."
   default_prompt: "Use $llm-app-patterns for the relevant part of this task."

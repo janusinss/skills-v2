@@ -13,8 +13,8 @@ jobs:
         profile: [minimal, all]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
       - name: Install tool dependencies
@@ -33,16 +33,23 @@ jobs:
       - name: Check README is generated from the repo
         run: node tools/readme-sync.mjs --check
       - name: Install Codex edition (${{ matrix.profile }})
-        run: node tools/codex/install.mjs --target "${{ runner.temp }}/codex-target" --profile ${{ matrix.profile }}
+        run: node tools/codex/install.mjs --target "${{ runner.temp }}/codex-${{ matrix.profile }}" --profile ${{ matrix.profile }}
       - name: Install Claude Code edition (${{ matrix.profile }})
-        run: node tools/claude/install.mjs --target "${{ runner.temp }}/claude-target" --profile ${{ matrix.profile }}
+        run: node tools/claude/install.mjs --target "${{ runner.temp }}/claude-${{ matrix.profile }}" --profile ${{ matrix.profile }}
+      - name: Verify remaining profiles on Ubuntu (core, web, backend, security)
+        if: matrix.os == 'ubuntu-latest' && matrix.profile == 'all'
+        run: |
+          for p in core web backend security; do
+            node tools/codex/install.mjs --target "${{ runner.temp }}/codex-$p" --profile "$p"
+            node tools/claude/install.mjs --target "${{ runner.temp }}/claude-$p" --profile "$p"
+          done
   commits:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
       - name: Check conventional commits (new commits only)
@@ -58,17 +65,17 @@ jobs:
   secrets:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
-      - uses: gitleaks/gitleaks-action@v2
+      - uses: gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7 # v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   drift:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
       - run: npm install --no-audit --no-fund

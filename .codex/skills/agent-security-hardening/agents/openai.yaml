@@ -1,4 +1,4 @@
 interface:
   display_name: "Agent Security Hardening"
-  short_description: "Harden AI agent frameworks that process untrusted content,..."
+  short_description: "Harden AI agent runtimes against prompt injection, untrusted..."
   default_prompt: "Use $agent-security-hardening for the relevant part of this task."

@@ -1,4 +1,4 @@
 interface:
   display_name: "Javascript Pro"
-  short_description: "Master modern JavaScript with ES6+, async patterns, and..."
+  short_description: "Write modern ES2024+ JavaScript across browsers and Node.js:..."
   default_prompt: "Use $javascript-pro for the relevant part of this task."

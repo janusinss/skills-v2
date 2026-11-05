@@ -1,6 +1,6 @@
 ---
 name: "nextjs-app-router-patterns"
-description: "Next.js 14+ App Router architecture: Server Components, routing, streaming and caching patterns. Use when designing the App Router structure of a Next.js app. For concise principles and checklists use nextjs-best-practices."
+description: "Architect Next.js 14+ App Router apps with parallel routes, streaming Suspense, and cache boundaries. Use for App Router architecture; for quick rules use nextjs-best-practices."
 metadata:
   upstream-risk: "safe"
   upstream-source: "community"

@@ -1,6 +1,6 @@
 ---
 name: ai-regression-testing
-description: "Regression testing for AI-assisted code: sandbox-mode API tests without a database and automated bug-check workflows. Use when adding regression coverage to AI-written code or when the same model wrote and reviewed a change."
+description: "Build sandbox-mode API and regression tests for AI-assisted code without external DB dependencies. Use when adding regression coverage to AI-written changes."
 ---
 
 # AI Regression Testing

@@ -1,6 +1,6 @@
 ---
 name: "avoid-ai-writing"
-description: "Audit and rewrite text to remove AI writing patterns (AI-isms), in detect-only or edit-in-place mode with optional voice profiles. Use when asked to remove AI-isms, clean up AI writing or make text sound less like AI."
+description: "Audit and rewrite prose to remove AI writing patterns (AI-isms) with optional voice profiles. Use when asked to clean up AI-isms or make copy sound human."
 license: "MIT"
 compatibility: "Any AI coding assistant that supports agentskills.io SKILL.md format (Claude Code, Cursor, VS Code Copilot, Hermes Agent, OpenHands, etc.) or OpenClaw. No external tools or APIs required."
 metadata:

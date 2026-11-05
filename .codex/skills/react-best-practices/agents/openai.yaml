@@ -1,4 +1,4 @@
 interface:
   display_name: "React Best Practices"
-  short_description: "Comprehensive performance optimization guide for React and..."
+  short_description: "Optimize React and Next.js performance using Vercel rules..."
   default_prompt: "Use $react-best-practices for the relevant part of this task."

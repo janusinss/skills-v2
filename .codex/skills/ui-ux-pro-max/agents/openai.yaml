@@ -1,4 +1,4 @@
 interface:
   display_name: "Ui Ux Pro Max"
-  short_description: "UI/UX design intelligence for web, mobile and desktop:..."
+  short_description: "Searchable UI/UX intelligence database: palettes, font..."
   default_prompt: "Use $ui-ux-pro-max for the relevant part of this task."

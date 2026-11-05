@@ -1,4 +1,4 @@
 interface:
   display_name: "3d Web Experience"
-  short_description: "Expert in building 3D experiences for the web - Three.js,..."
+  short_description: "Build interactive 3D web scenes with Three.js, React Three..."
   default_prompt: "Use $3d-web-experience for the relevant part of this task."

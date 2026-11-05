@@ -1,6 +1,6 @@
 ---
 name: "bash-linux"
-description: "Bash/Linux terminal patterns. Critical commands, piping, error handling, scripting. Use when working on macOS or Linux systems."
+description: "Write reliable Bash and Linux shell scripts with strict error handling, pipelines, and process control. Use when scripting or automating on Linux or macOS."
 metadata:
   upstream-risk: "critical"
   upstream-source: "community"
