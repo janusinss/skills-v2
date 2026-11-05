@@ -36,10 +36,10 @@ jobs:
         run: node tools/codex/install.mjs --target "${{ runner.temp }}/codex-${{ matrix.profile }}" --profile ${{ matrix.profile }}
       - name: Install Claude Code edition (${{ matrix.profile }})
         run: node tools/claude/install.mjs --target "${{ runner.temp }}/claude-${{ matrix.profile }}" --profile ${{ matrix.profile }}
-      - name: Verify remaining profiles on Ubuntu (core, web, backend, security)
+      - name: Verify remaining profiles on Ubuntu (frontend, backend, security, fullstack)
         if: matrix.os == 'ubuntu-latest' && matrix.profile == 'all'
         run: |
-          for p in core web backend security; do
+          for p in frontend backend security fullstack; do
             node tools/codex/install.mjs --target "${{ runner.temp }}/codex-$p" --profile "$p"
             node tools/claude/install.mjs --target "${{ runner.temp }}/claude-$p" --profile "$p"
           done
