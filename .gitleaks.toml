@@ -1,0 +1,17 @@
+title = "skills-v2 gitleaks configuration"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Allowlist SHA-256 integrity manifest digests and documentation prose false positives"
+paths = [
+  '''^\.codex/manifest\.json$''',
+  '''^\.claude/manifest\.json$''',
+  '''^skills-lock\.json$''',
+  '''^provenance\.json$''',
+]
+regexes = [
+  '''^Organizational$''',
+  '''^1950a258-227b-4e31-a9cf-717495945fc2$''',
+]
