@@ -1,0 +1,949 @@
+{
+  "version": 1,
+  "skills": {
+    "3d-web-experience": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "5bd860e3aea2fc0c75a1bfb4d1f2ecaf35740f99a8be178a40154b3259eb2cee"
+    },
+    "ab-test-setup": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "2b60ce090d3fc9812f3bcacb33b360372feee7663fb242ff5f55e4e09bbdd1b5"
+    },
+    "agent-evaluation": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": "SKILL.md split into references/ (verbatim, skills-v2 phase 4)",
+      "contentHash": "eab4bf942ab40e8ec77d1cd754942156af9d2ef568ae5b63e9dc95445d73a51f"
+    },
+    "agent-security-hardening": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "9de286c90c9f2100b9d0b8dfbe13d587df6e810927c577aebedc00666a595e4a"
+    },
+    "agent-self-evaluation": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "0d8afcaad1ed82f81a2b6661fba49896efe1c13d09284b9e50c6377e47806b02"
+    },
+    "agentic-engineering": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "69856c5c2f1181abd6a0134c4c90c8ecc431f40f6595584926759d6f794f52d3"
+    },
+    "ai-agents-architect": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "febbdeca16e9d711dbe36ec3e82ea077fc5a5355aa79ddb5f7728bfa517b4654"
+    },
+    "ai-regression-testing": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "fa24a6916d99d14cdae17b70a2b58b558f0d780cd3479af0b95c5e54e3353032"
+    },
+    "analytics-tracking": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "c9a23a85fb07065d4b284bb69dff2448fe102f682f6ca9cc9b013f4701c631f4"
+    },
+    "api-patterns": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "15c4de8d4136caac6c648f78f18c47460850f3068b18585dfef1c98e64a9e925"
+    },
+    "api-security-best-practices": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "3bf7bbfde45d78f31d56cbcf047cc04d1a9278e75caa3abf72230e9000baf986"
+    },
+    "application-security-testing": {
+      "source": "usestrix/strix",
+      "sourceType": "github",
+      "commit": null,
+      "license": "Apache-2.0",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "cc56642746c96159b9e5cf5e99ca3db33fb6a2d17ce76cbf7aebb7e9e356b1d5"
+    },
+    "archify": {
+      "source": "tt-a1i/archify",
+      "sourceType": "github",
+      "commit": null,
+      "license": "Apache-2.0",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "f2915436c0a8a8d68a238c939afce277e5ccff2adb5f723f679da9100711a172"
+    },
+    "architecture-decision-records": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "7c65856956bdc49d4860470b9ce6617e8f6a217e95063ebfcff19c866dc76c80"
+    },
+    "architecture-patterns": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "01588b53c906ea052b1f07aaeb1feb282e2ffe902cca966f27042a9f30ec2a7e"
+    },
+    "async-python-patterns": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "7250083f66cb48fbc8928775cda81b3e8b2b5e2cdf6819f0dc1f03ddc1b09754"
+    },
+    "auth-implementation-patterns": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "0347aacc24c71f748ae5849267bc43641a2c6e0e6004dda0e7acbafa4e7aa34e"
+    },
+    "avoid-ai-writing": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "MIT",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "0d306b89bb6da7fe02001dccdbddc8ea73e3e066e49e9471295158c838a7db10"
+    },
+    "awesome-design-md": {
+      "source": "VoltAgent/awesome-design-md",
+      "sourceType": "github",
+      "commit": null,
+      "license": "MIT",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "19a9d0acb3c017e86f55d1f296455faa438d5977d912bd608163950c67717268"
+    },
+    "aws-serverless": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": "SKILL.md split into references/ (verbatim, skills-v2 phase 4)",
+      "contentHash": "bc9fa1de18c8497c84f16080997fa0e7165b404825e8c7ecfbd95638cdda1a5e"
+    },
+    "backend-dev-guidelines": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "ce07a656af4794bf14fbf8097bf1375e62d6f7eca6d10a05362de5ee87140682"
+    },
+    "bash-linux": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "396645d75b62bc774963f2754b6ce1b8dd12034e530d8b4f1a3dd84df3506192"
+    },
+    "brand": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "65d1a6011f4a10b78d6ca21e8231f6eadec61414176a9b88ea3ebf12da2a39c4"
+    },
+    "brandkit": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "8d94358786fc01baa9c9e70faeec8617135396f8d87391258917bf9c0af29cea"
+    },
+    "browser-automation": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": "SKILL.md split into references/ (verbatim, skills-v2 phase 4)",
+      "contentHash": "df4f06c08a82f5efc9307b70b43cad8b255615269d88115b20e70fe10367f51a"
+    },
+    "business-analyst": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "7e1573645064e62dc71a892392ce168a50150987c456ff089dbf3e4ac1949a9e"
+    },
+    "ci-security-scanning-with-strix": {
+      "source": "usestrix/strix",
+      "sourceType": "github",
+      "commit": null,
+      "license": "Apache-2.0",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "05074096544ef31f99e5cae0ba6c63edae8d3d92509e7d3c992bd752cb2a60e7"
+    },
+    "claude-d3js-skill": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "97ff8368bcc0aabbbd01dee4e1304c44b7fcdef0ac87451c99a38eb994046db4"
+    },
+    "code-review-checklist": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "cdc3fdfec3b2c4ce62f7bff53e38ed3223a749fd042f6cb518405e20dd77fdca"
+    },
+    "competitive-landscape": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "1e86cdbc484a592965268dfdd7aa05ad5f35752c3d27d97d3491ea29ad8a9463"
+    },
+    "competitor-alternatives": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "173422cd1118c3a4801c359de55c9544245ea5356f33350b6c3942d8a855d48c"
+    },
+    "concise-planning": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "dab877684126a646ac394b84484cc9a89f77cb78dc0efb6d21800c209a6bbcff"
+    },
+    "content-creator": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "0ee51d6edf59e6a34bb905dbaa2212daee3b0c350e2d80e6f7b1896feee4d48e"
+    },
+    "context-window-management": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "03bcb5966ab12fa5e1592b7bf031c6bd261118f56aae6dcf7fcf032a00df97a6"
+    },
+    "continuous-agent-loop": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "aea0874df50f678ecdc55a534da2eced2367d67112b58bac9a92ec1bff152cc7"
+    },
+    "copy-editing": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "97a0ad5248f8509abc6be7640d754442ebab0d06ba2332f503b1e0931552d8c2"
+    },
+    "copywriting": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "cd3080fe14bfb46671d7fc70bd9df821e59f58ae69fe87aa127ce5bdba032a49"
+    },
+    "cpp-pro": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "e3bc9b5ed6cfe26797bad2afd35e00092079bb2d39c57c309a3e5572c3ed0792"
+    },
+    "database-design": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "7c17864fd7a8e1d27578684dc000ecb7a726dc680539a0ed193500abf9b534f0"
+    },
+    "deployment-procedures": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "a65bc4f64c5780f0ee1f7796776b39c1cf39ae873cbff86fbb9203ceccbc4866"
+    },
+    "design": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "MIT",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "7b8391ffe2ed4cc7e25ec2cf276a25838fdeea99df8bf2ce26023e4c97e73d64"
+    },
+    "design-system": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "MIT",
+      "modified": null,
+      "contentHash": "ddf2bd2d64b167aabe47cb4ef8b38deebd1fab66a3bc106cb7a92bc642635eb0"
+    },
+    "design-taste-frontend": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "85ef983b4d1a4f45aeb8310e52b1b9a66bcba33161be589d6cd25a87160f4bbd"
+    },
+    "distributed-tracing": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "cdf418fa4fea2439a83b32abc7de39056379b2fe985256bd932b8e5a2fa1cee0"
+    },
+    "django-pro": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "532d7aef16f16ba7b597605148bd69058e7c2a40806faf4578aaaaaf37a61b4b"
+    },
+    "docker-expert": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "0cbc570a18216e64a930f6954454cf294fe80fa6f41a3fc7df80a98476f6ba14"
+    },
+    "e2e-testing-patterns": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "4f44bb3f894232de1806750bbba87ba6f836bbb46d4fc726471d62757823662e"
+    },
+    "embedding-strategies": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "ee2cdbf05da2098cd8b3dfa9407b0c767a5f518029216803c08686299ea08afc"
+    },
+    "environment-setup-guide": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "f1c1ace505f38faa8c9113db275ed9174eca6ef804908594ea77ce11382314d3"
+    },
+    "ethical-hacking-methodology": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "3962d9708fea44193a236ac57487550c3cf38e56f918603c6e1e6d105b845c98"
+    },
+    "event-sourcing-architect": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "086d13f0480a1b41aa6e881ba346405e64022cfa877f52abfb928e753d63aa85"
+    },
+    "fastapi-templates": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "7407e3b3f765b54d8a56960fc789c6b6ffc4e579640e259f7ffc5ad289ffa476"
+    },
+    "fix-security-vulnerabilities-with-strix": {
+      "source": "usestrix/strix",
+      "sourceType": "github",
+      "commit": null,
+      "license": "Apache-2.0",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "f12a0cd15d52f769e63f00396e59a293e1210dbad2c8dd58573f4c2917680af1"
+    },
+    "flutter-expert": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "6937caaddef5858090791bd1cc2932945e9137d9eab2c95ef5f660e39ff30302"
+    },
+    "form-cro": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "bcdf634a47ae2d0962227f52bb85e5c3129bedfd2588619f6514ee3626a429b1"
+    },
+    "frontend-developer": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "bac2b7b502f4d672783b7b11202330415028a905386cb32ba7a22d3e5fe86456"
+    },
+    "frontend-security-coder": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "1e9fd593355063722ad85b849516debfe71cdd298bf7f8dfea3b559a7fa78c19"
+    },
+    "full-output-enforcement": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "86d1525418785332386699d161ddb4b37fe949b3fd84f2142d2969f9dae6ca2f"
+    },
+    "git-pushing": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "63cd21105af625e9690933b44a06994dc34e97fdb320735877d37cc2845a26da"
+    },
+    "go-concurrency-patterns": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "9b141d3e9ed23c77e993c23ce742fdf5fb9c512289e1c2af69d6e066a8912d89"
+    },
+    "golang-pro": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "c83e4c273279e01e53bf3feb84fbe3eb2f746f66322c59f94263c86e3c3bb58b"
+    },
+    "image-to-code": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4); SKILL.md split into references/ (verbatim, skills-v2 phase 4)",
+      "contentHash": "25102976cd677f5fb57492a1c4c96ad89839c0790a60d29c5f1353afe75ad36f"
+    },
+    "imagegen-frontend-mobile": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4); SKILL.md split into references/ (verbatim, skills-v2 phase 4)",
+      "contentHash": "cdae624bbafe90d1a66b874cee25dfb63cd137d5fdd9f8c4a64de011aee51677"
+    },
+    "imagegen-frontend-web": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "0915af4c839485b0fe6a644efb6201dbb92d2d728def12c39e551971937f5d66"
+    },
+    "impeccable": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "f950890e1a15692859b5be9a14235e0e02aee9f98c3bb6f8dc583670e184739b"
+    },
+    "interactive-portfolio": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "17893d7d1e1e36cfdeb4424e454290eccd4806652bacd45842dc36b5b2ce8929"
+    },
+    "ios-developer": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "87015e15a0269ec7b615a856d2171e8e33a316c9b062b72b2e53a8298be5f707"
+    },
+    "javascript-pro": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "05dd011f9af9e4c2b6278a4609b78b3b135ddad1e47e03b99343e4a83d92d10f"
+    },
+    "kaizen": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "41e2763743fcf36ac9c962fc546585bb6a4aeb977ebb5c1b3e1fc68248f5a042"
+    },
+    "kpi-dashboard-design": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "2ca8f0dd4a786f1f45cf6268744eed512ba8489678852ab5d1790f9a8f64d2e8"
+    },
+    "kubernetes-architect": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "f3098289bafaa31ac9636ef41d3c8014fbec5dd8c7dc617eb8e3caec0ab74bb7"
+    },
+    "langfuse": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "675646b6eb60be4a31bd633ec5241ef6863bbceb0a0090ddd37b46481b76efa5"
+    },
+    "langgraph": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "47f5d1440c3fc80ae8bd0b5a81a6a663af96282cfd5db336f0736cee24708031"
+    },
+    "launch-strategy": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "0832ce6829b01037bcb0473cc46b82214f7230bcab72abe53f6f8a716854981f"
+    },
+    "lint-and-validate": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "9c20317872e77adb31f76cf9d91de996929742d7329a999b66581b75f98584fb"
+    },
+    "llm-app-patterns": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "bda230fef09dbecbe565ec4ffcdd360cd772bae8fde6f86942cc017f8571291d"
+    },
+    "mcp-builder": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "Apache-2.0",
+      "modified": null,
+      "contentHash": "ca3d7c98ac9560f4e4e0e6e633514acbe88df663b3fb9800eaad9f7013a7c8af"
+    },
+    "memory-safety-patterns": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "a428e2e85341ac3a1d160a40b496a195210b2069961993b6a1ef3c52f3d69a72"
+    },
+    "microservices-patterns": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "190c36bb6383980e2da00ccdf128735442b1705d59063c93d66c324c98ea6b45"
+    },
+    "mobile-design": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "795c56c26c24d55258800acc941feed675bba9a9d915335ed59829371acd1c6e"
+    },
+    "nextjs-app-router-patterns": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "21552df374cf4823fb7845d13992663300b6fb5760139d3692a490ca587e3b14"
+    },
+    "nextjs-best-practices": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "f173b15e2c0a581188ed814ac9e6778d4ad2bcd6b0e7c34997b7368a1a4242f9"
+    },
+    "nodejs-best-practices": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "2c543ab51c9c4093c8a94aa615f39ca55d93835816aeeaa5bbd89261d85c584c"
+    },
+    "observability-engineer": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "f62f1de6a338134bcbef3e81c8c7ab0a45d670f7cd93584597ac10909826aa33"
+    },
+    "pci-compliance": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "5c2a007afe602b63ec88e518d767c317be0b544623f73801b6c0e2121fb8084c"
+    },
+    "penetration-testing-with-strix": {
+      "source": "usestrix/strix",
+      "sourceType": "github",
+      "commit": null,
+      "license": "Apache-2.0",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "5402859276e5eec0f14e42d2d449ba2c9e3de8df531ba54115e827d4f2b0528b"
+    },
+    "performance-engineer": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "6f4d573fd750471cf2993c55c52a33b33f53bbea03bfcee355dd6c3545b85a2d"
+    },
+    "playwright-skill": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "MIT",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "5b88a9fdbf7af026f31e206fc8367d8623b3550f7111af912144fa0ca8e62ad0"
+    },
+    "postgres-best-practices": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "af69f2d08150e2803c4cf8c14be404a83ff832a32a327c6e119a8e393aed3b9b"
+    },
+    "product-manager-toolkit": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "3e967afdbbba86c1b376404738c30549c22b8bb2822bf9bacb07f1b6109768f9"
+    },
+    "programmatic-seo": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "c1db43d9c0964850548e67c874a04b6cd3ad0354b8ea324b4b326dadbe0147b7"
+    },
+    "prompt-caching": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "aa38427bab9bc039abae27e8268bafd1d9addb64db0afb7b84e20177e84fadf7"
+    },
+    "prompt-engineering": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "9ca0453b50838577523d5d2061edf979929b90cd196736591912fc76c15b9983"
+    },
+    "prompt-enhancer": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "9c62230353c28e164859e41e69b30bbb6686dcb66d0aea6cd566e217aaf48ed5"
+    },
+    "prompt-enhancer-backend": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "7b05faed968e975bf49c2ebf8d5f3ef17cc547c4b32ff7f883f9e6c969719429"
+    },
+    "prompt-enhancer-frontend": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "1886cc7963a62e6e8995466541f0466f29dcd9f07328822f87ed57de710d5ac0"
+    },
+    "python-patterns": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "b3af1ee16163cae615c85fdfa1ac6a8d5298dfb38cd2e56c67d85484dd78b74a"
+    },
+    "python-testing-patterns": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "4deb0f86ee11391cdf9e28e3b3b920d7befab60b977e8a0ca4f945b687ba003c"
+    },
+    "rag-engineer": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "f5086adfc35bfd287baa238a483738d62b28cf86321fea2da83c56dd8e512f2c"
+    },
+    "react-best-practices": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "7e0118ccd7e62873afcb6f992740fcdbb5c3d7504fed5168168960528e4165a5"
+    },
+    "react-native-architecture": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "521bc92e64917efc9a8375a1af91795844549a1c6be32f67dfc592c8f97f3f9b"
+    },
+    "react-patterns": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "9732da84c41289289fa82999a5c2ce43a62b9a1735f50e8702cbb2cd0a404d76"
+    },
+    "redesign-existing-projects": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "85657eb4f5a3e7483c469716e62a5cadc98492a7d608fa2c37516ceb1fd91bfb"
+    },
+    "rust-pro": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "4ffaf98de6215ad09d8a2e23103bab065f0bc4e910bfc0ac8fa5cf48540be4f3"
+    },
+    "scroll-experience": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "713840fac35887fe2d05ab019b6725c2193aa575996458f4c9183d094fa4cd76"
+    },
+    "scrollytelling": {
+      "source": "basementstudio/scrollytelling",
+      "sourceType": "github",
+      "commit": null,
+      "license": "MIT",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "d1e0a29f44a1f6654d1af953ce7d2f1a39b7dee535e6f3abc1bf3973fd75883d"
+    },
+    "security-audit": {
+      "source": "cloudflare/security-audit-skill",
+      "sourceType": "github",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "8588c9c3888794e1fbe0cd86805b4237d05defcd430de21971a48ab6d19c6947"
+    },
+    "seo-audit": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "7391d2c48907fc089232e62767105899dfd55d8b75a96e6267b8be62036571f8"
+    },
+    "stripe-integration": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "7278dfedabc04c17b465efb9c472c62f43406a35f83ed9b3fa829789b9852a33"
+    },
+    "systematic-debugging": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "4533b4fe85edc0147fedfde6cdac1823f5e822dd956c82a2571333d387e8285f"
+    },
+    "tailwind-patterns": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "45803f27daf38cc0b18bc1a7e91269c20e6e172bc5b4263eb8e35c27b3177690"
+    },
+    "terraform-specialist": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "d0b5c7456ed8665d137531d78f29d2ae62dadb46455aeb5494dccc2519980732"
+    },
+    "test-driven-development": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "fadf98f02abe6a44c4156b3914af26196126e5a8787b77dfdbe91aebaccc31f3"
+    },
+    "test-fixing": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "359742ec3bfa1fa1560786a06ca751b1f33c4b44cf046229f2aa27e116a5c4bc"
+    },
+    "top-web-vulnerabilities": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "696b0fc47a45264d9503b0b42a3a5f707b389defd1ef7f01042aad73652f0414"
+    },
+    "typescript-expert": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": null,
+      "contentHash": "858dfa3bc191aa226d06406e6d9e076217862585f99495e03b5e0b2f432ca189"
+    },
+    "ui-styling": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "MIT",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "6868605d8f6b7a8fe525aab7d93d19c874c80b123bc752c7367704b5d324492a"
+    },
+    "ui-ux-pro-max": {
+      "source": "unknown",
+      "sourceType": "unknown",
+      "commit": null,
+      "license": "unverified",
+      "modified": "description rewritten (skills-v2 phase 4)",
+      "contentHash": "6bc4a90c16dfe6e19cc789f23075173611adfba0baa85d5fc343d0c4d9fcc523"
+    }
+  }
+}

@@ -14,6 +14,7 @@ import {
   writeIfChanged,
   assertNoSymlinkAncestors,
   snapshotSource,
+  isBundleExcluded,
   parseFrontmatter
 } from './lib.mjs';
 import { convertSkill, convertAgent, adaptMarkdown, generateClaudeMd } from './convert.mjs';
@@ -85,7 +86,7 @@ export function buildClaudeBundle() {
   // 1. Process all source files from .agents
   for (const source of sourceFiles) {
     const originalRelative = slash(path.relative(sourceRoot, source));
-    if (originalRelative === 'hooks.json') continue;
+    if (originalRelative === 'hooks.example.json' || isBundleExcluded(originalRelative)) continue;
 
     // Convert Skills
     if (duplicates.has(source)) {

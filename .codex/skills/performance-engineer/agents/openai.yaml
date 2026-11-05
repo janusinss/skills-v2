@@ -1,4 +1,4 @@
 interface:
   display_name: "Performance Engineer"
-  short_description: "Expert performance engineer specializing in modern..."
+  short_description: "Diagnose and fix performance bottlenecks across backend,..."
   default_prompt: "Use $performance-engineer for the relevant part of this task."

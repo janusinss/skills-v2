@@ -1,6 +1,6 @@
 ---
 name: test-driven-development
-description: "Use when implementing any feature or bugfix, before writing implementation code"
+description: "Write the failing test first, then the minimal code to pass. Use when implementing any feature or bugfix, before writing implementation code."
 risk: critical
 source: community
 date_added: "2026-02-27"

@@ -72,9 +72,9 @@ __pycache__/
 *$py.class
 *.so
 .Python
-build/
+/build/
 develop-eggs/
-dist/
+/dist/
 downloads/
 eggs/
 .eggs/
@@ -131,3 +131,6 @@ strix_runs/
 *.db
 sec_test_cookies*.txt
 verify_cookie*.txt
+
+# Downloaded impeccable engine binaries are never committed (launcher fetches and verifies them)
+**/impeccable/scripts/bin/

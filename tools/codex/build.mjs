@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { bundleRoot, sourceRoot, repoRoot, filesIn, parseSkill, snapshotSource, slash, json, sha256, payloadData, payloadHash, writeIfChanged, assertNoSymlinkAncestors } from './lib.mjs';
+import { bundleRoot, sourceRoot, repoRoot, filesIn, parseSkill, snapshotSource, slash, json, sha256, payloadData, payloadHash, writeIfChanged, assertNoSymlinkAncestors, isBundleExcluded } from './lib.mjs';
 import { convertSkill, openaiMetadata, yamlText, readOriginalMetadata, adaptMarkdown, adaptPlaywrightRunner } from './convert.mjs';
 import { localCodexIgnoreEntries } from './gitignore.mjs';
 
@@ -39,7 +39,7 @@ export function buildBundle() {
 
   for (const source of sourceFiles) {
     const originalRelative = slash(path.relative(sourceRoot, source));
-    if (originalRelative === 'hooks.json' || originalRelative.startsWith('rules/')) continue;
+    if (originalRelative === 'hooks.example.json' || originalRelative.startsWith('rules/') || isBundleExcluded(originalRelative)) continue;
     if (/\/agents\/openai\.yaml$/.test(originalRelative) && skillFiles.includes(path.resolve(path.dirname(source), '../SKILL.md'))) continue;
     if (duplicates.has(source)) {
       const { text } = convertSkill(fs.readFileSync(source, 'utf8'), source, duplicates);
@@ -79,8 +79,8 @@ export function buildBundle() {
   add('AGENTS.md', installedPolicy, agentsPolicy);
   const projectIgnore = path.join(repoRoot, '.gitignore');
   add('project.gitignore', '# Local Codex skills, instructions, and workflow artifacts\n' + localCodexIgnoreEntries.join('\n') + '\n\n' + fs.readFileSync(projectIgnore, 'utf8'), projectIgnore);
-  const hooks = JSON.parse(fs.readFileSync(path.join(sourceRoot, 'hooks.json'), 'utf8'));
-  add('hooks.example.json', json({ description: 'Optional Impeccable hooks. Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks }).replaceAll('.agents/skills/', '.codex/skills/'), path.join(sourceRoot, 'hooks.json'));
+  const hooks = JSON.parse(fs.readFileSync(path.join(sourceRoot, 'hooks.example.json'), 'utf8'));
+  add('hooks.example.json', json({ description: 'Optional Impeccable hooks. Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks }).replaceAll('.agents/skills/', '.codex/skills/'), path.join(sourceRoot, 'hooks.example.json'));
 
   // Preflight every generated destination before writing any files. Refuse to
   // overwrite manually edited generated files. The retired instruction
@@ -99,7 +99,8 @@ export function buildBundle() {
     if (outputs.has(old)) continue;
     const sourcePath = previous.files[old]?.source ? path.resolve(repoRoot, previous.files[old].source) : null;
     const isSourceRemoved = sourcePath && !fs.existsSync(sourcePath);
-    if (!isSourceRemoved && old !== 'AGENTS.template.md') throw new Error(`Stale generated file ${old}; review it before rebuilding. No files were removed.`);
+    const isExcluded = sourcePath && isBundleExcluded(slash(path.relative(sourceRoot, sourcePath)));
+    if (!isSourceRemoved && !isExcluded && old !== 'AGENTS.template.md') throw new Error(`Stale generated file ${old}; review it before rebuilding. No files were removed.`);
     const absolute = path.join(bundleRoot, old);
     assertNoSymlinkAncestors(absolute);
     if (fs.existsSync(absolute)) {

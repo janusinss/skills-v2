@@ -15,6 +15,8 @@ export const supportedFields = new Set(['name', 'description', 'license', 'compa
 const skippedDirectories = new Set(['.git', 'node_modules', '__pycache__', '.venv', 'venv', '.cache']);
 
 export const slash = value => value.split(path.sep).join('/');
+// Test and eval material never needed by an agent; kept in the .agents source, left out of generated bundles.
+export const isBundleExcluded = relative => /(^|\/)evals\//.test(relative) || /\.test\.(?:js|mjs|cjs)$/.test(relative);
 export const sha256 = value => crypto.createHash('sha256').update(value).digest('hex');
 export const json = value => JSON.stringify(value, null, 2) + '\n';
 export const isRecord = value => value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -128,7 +130,7 @@ export function snapshotSource() {
   // Include checked-out resource submodules, but exclude dependencies, secrets,
   // and embedded Git administration. The exporter also works from a ZIP checkout.
   const names = filesIn(sourceRoot).map(file => slash(path.relative(repoRoot, file)));
-  names.push(...['AGENTS.md', 'README.md', 'skills-lock.json', '.gitignore'].filter(name => fs.existsSync(path.join(repoRoot, name))));
+  names.push(...['AGENTS.md', 'skills-lock.json', '.gitignore'].filter(name => fs.existsSync(path.join(repoRoot, name))));
   const files = Object.fromEntries(names.sort().map(name => [name, payloadHash(fs.readFileSync(path.join(repoRoot, name)))]));
   return { digest: sha256(json(files)), files };
 }

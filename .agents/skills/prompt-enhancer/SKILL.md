@@ -1,6 +1,6 @@
 ---
 name: prompt-enhancer
-description: Universal prompt enhancement engine that deconstructs raw concepts into domain-adaptive product architecture, exhaustive feature catalogs, data models, priority tiers (P0-P3), and execution-ready Master Prompts for AI coding agents.
+description: "Turn a raw product idea into a full spec: feature catalog, data model, P0-P3 priorities and an execution-ready master prompt. Use for general or full-stack concepts. For backend-only use prompt-enhancer-backend; for UI-only use prompt-enhancer-frontend."
 ---
 
 # PROMPT ENHANCER (Universal Product & Systems Engine)

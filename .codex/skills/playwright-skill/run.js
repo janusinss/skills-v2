@@ -46,7 +46,8 @@ function ensurePlaywright() {
     }
   }
 
-  console.error('Playwright is unavailable. Install the dependencies and browser for this skill with npm run setup, then retry.');
+  // Dependencies are never installed implicitly; setup is an explicit step.
+  console.error(`Playwright is not installed. Run \`npm ci\` in ${skillDir}, then \`npx playwright install chromium\` (or install a system Chrome/Edge).`);
   process.exit(1);
 }
 

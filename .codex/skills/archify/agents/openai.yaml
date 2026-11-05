@@ -1,4 +1,4 @@
 interface:
   display_name: "Archify"
-  short_description: "Create validated architecture, workflow, sequence,..."
+  short_description: "Create architecture, workflow, sequence, data-flow, ERD,..."
   default_prompt: "Use $archify for the relevant part of this task."

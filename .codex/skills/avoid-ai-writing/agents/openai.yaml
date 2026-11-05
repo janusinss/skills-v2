@@ -1,4 +1,4 @@
 interface:
   display_name: "Avoid Ai Writing"
-  short_description: "Audit and rewrite content to remove AI writing patterns..."
+  short_description: "Audit and rewrite text to remove AI writing patterns..."
   default_prompt: "Use $avoid-ai-writing for the relevant part of this task."

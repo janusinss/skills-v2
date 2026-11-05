@@ -1,13 +1,6 @@
 ---
 name: scrollytelling
-description: >
-  Build declarative, component-based scroll-driven animations, pinned storytelling stages,
-  parallax layers, staggered reveals, waypoint triggers, canvas frame sequences, and
-  scroll-scrubbed 3D/WebGL scenes using Basement Studio's `@bsmnt/scrollytelling` library
-  (React + GSAP ScrollTrigger). Free, open-source replacement for paid AI-video scroll worlds.
-  Use when the user wants scrollytelling, a scroll-driven product tour, pinned narrative
-  sections, horizontal scroll galleries, image sequence canvas scrubbing, or React Three Fiber
-  scroll-scrubbed 3D camera flights.
+description: "Build scroll-driven animations, pinned stages, parallax and canvas frame sequences with @bsmnt/scrollytelling (React + GSAP ScrollTrigger). Use when the user wants scrollytelling, a pinned product tour, scroll-scrubbed 3D or horizontal scroll galleries."
 license: MIT
 metadata:
   source: basementstudio/scrollytelling

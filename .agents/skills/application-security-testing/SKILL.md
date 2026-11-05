@@ -1,6 +1,6 @@
 ---
 name: application-security-testing
-description: Application security testing (AppSec) across a whole product with Strix — decide which asset needs which test (source code, running web app, API, CI pipeline), run it, and turn the results into a ranked remediation plan. Autonomous agents exploit and prove each issue instead of emitting static-analysis alerts, so the plan is ordered by what is actually reachable. Use when the user asks for an application security review or audit, an appsec assessment, vulnerability scanning across their stack, a security review before a launch or a customer security questionnaire, or does not yet know which kind of security test they need.
+description: "Plan and run whole-product AppSec testing with Strix across source, web app, API and CI, then produce a ranked remediation plan. Use when the user asks for a security review, audit or pre-launch scan, or does not know which security test they need."
 license: Apache-2.0
 metadata:
   author: usestrix

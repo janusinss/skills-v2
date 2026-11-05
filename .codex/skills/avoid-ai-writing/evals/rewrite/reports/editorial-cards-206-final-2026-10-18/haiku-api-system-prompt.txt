@@ -1,1 +1,0 @@
-Execute the supplied writing tasks using the supplied skill. No tools are available. Return the requested complete responses, without grading yourself.

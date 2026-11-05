@@ -1,6 +1,0 @@
-﻿<tool_call>
-<tool=read>
-<parameter=filePath>[isolated-temp]/behavior-prompt.txt</parameter>
-<parameter=offset>548</parameter>
-</function>
-</tool_call>

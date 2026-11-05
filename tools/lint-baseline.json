@@ -1,0 +1,367 @@
+{
+  "3d-web-experience": {
+    "descLength": 222,
+    "lines": 409,
+    "hasTrigger": false
+  },
+  "ab-test-setup": {
+    "descLength": 112,
+    "lines": 258,
+    "hasTrigger": false
+  },
+  "ai-agents-architect": {
+    "descLength": 140,
+    "lines": 341,
+    "hasTrigger": false
+  },
+  "analytics-tracking": {
+    "descLength": 97,
+    "lines": 411,
+    "hasTrigger": false
+  },
+  "api-patterns": {
+    "descLength": 119,
+    "lines": 91,
+    "hasTrigger": false
+  },
+  "api-security-best-practices": {
+    "descLength": 160,
+    "lines": 916,
+    "hasTrigger": false
+  },
+  "architecture-decision-records": {
+    "descLength": 178,
+    "lines": 450,
+    "hasTrigger": false
+  },
+  "architecture-patterns": {
+    "descLength": 177,
+    "lines": 51,
+    "hasTrigger": false
+  },
+  "async-python-patterns": {
+    "descLength": 189,
+    "lines": 48,
+    "hasTrigger": false
+  },
+  "auth-implementation-patterns": {
+    "descLength": 123,
+    "lines": 48,
+    "hasTrigger": false
+  },
+  "brandkit": {
+    "descLength": 230,
+    "lines": 799,
+    "hasTrigger": true
+  },
+  "business-analyst": {
+    "descLength": 192,
+    "lines": 186,
+    "hasTrigger": false
+  },
+  "claude-d3js-skill": {
+    "descLength": 101,
+    "lines": 829,
+    "hasTrigger": false
+  },
+  "code-review-checklist": {
+    "descLength": 127,
+    "lines": 453,
+    "hasTrigger": false
+  },
+  "competitive-landscape": {
+    "descLength": 148,
+    "lines": 38,
+    "hasTrigger": false
+  },
+  "competitor-alternatives": {
+    "descLength": 218,
+    "lines": 762,
+    "hasTrigger": false
+  },
+  "content-creator": {
+    "descLength": 100,
+    "lines": 252,
+    "hasTrigger": false
+  },
+  "context-window-management": {
+    "descLength": 112,
+    "lines": 324,
+    "hasTrigger": false
+  },
+  "copy-editing": {
+    "descLength": 195,
+    "lines": 448,
+    "hasTrigger": false
+  },
+  "copywriting": {
+    "descLength": 140,
+    "lines": 255,
+    "hasTrigger": false
+  },
+  "cpp-pro": {
+    "descLength": 153,
+    "lines": 63,
+    "hasTrigger": false
+  },
+  "database-design": {
+    "descLength": 118,
+    "lines": 63,
+    "hasTrigger": false
+  },
+  "deployment-procedures": {
+    "descLength": 150,
+    "lines": 252,
+    "hasTrigger": false
+  },
+  "design-taste-frontend": {
+    "descLength": 258,
+    "lines": 533,
+    "hasTrigger": true
+  },
+  "distributed-tracing": {
+    "descLength": 101,
+    "lines": 459,
+    "hasTrigger": false
+  },
+  "django-pro": {
+    "descLength": 152,
+    "lines": 184,
+    "hasTrigger": false
+  },
+  "docker-expert": {
+    "descLength": 260,
+    "lines": 419,
+    "hasTrigger": false
+  },
+  "e2e-testing-patterns": {
+    "descLength": 145,
+    "lines": 50,
+    "hasTrigger": false
+  },
+  "embedding-strategies": {
+    "descLength": 82,
+    "lines": 500,
+    "hasTrigger": false
+  },
+  "environment-setup-guide": {
+    "descLength": 112,
+    "lines": 493,
+    "hasTrigger": false
+  },
+  "ethical-hacking-methodology": {
+    "descLength": 254,
+    "lines": 487,
+    "hasTrigger": false
+  },
+  "event-sourcing-architect": {
+    "descLength": 294,
+    "lines": 72,
+    "hasTrigger": false
+  },
+  "flutter-expert": {
+    "descLength": 88,
+    "lines": 208,
+    "hasTrigger": false
+  },
+  "form-cro": {
+    "descLength": 157,
+    "lines": 449,
+    "hasTrigger": false
+  },
+  "frontend-developer": {
+    "descLength": 158,
+    "lines": 175,
+    "hasTrigger": false
+  },
+  "frontend-security-coder": {
+    "descLength": 130,
+    "lines": 174,
+    "hasTrigger": false
+  },
+  "full-output-enforcement": {
+    "descLength": 203,
+    "lines": 50,
+    "hasTrigger": false
+  },
+  "golang-pro": {
+    "descLength": 121,
+    "lines": 182,
+    "hasTrigger": false
+  },
+  "imagegen-frontend-web": {
+    "descLength": 271,
+    "lines": 988,
+    "hasTrigger": true
+  },
+  "interactive-portfolio": {
+    "descLength": 254,
+    "lines": 531,
+    "hasTrigger": false
+  },
+  "ios-developer": {
+    "descLength": 146,
+    "lines": 223,
+    "hasTrigger": false
+  },
+  "javascript-pro": {
+    "descLength": 132,
+    "lines": 61,
+    "hasTrigger": false
+  },
+  "kaizen": {
+    "descLength": 173,
+    "lines": 738,
+    "hasTrigger": true
+  },
+  "kpi-dashboard-design": {
+    "descLength": 120,
+    "lines": 449,
+    "hasTrigger": false
+  },
+  "kubernetes-architect": {
+    "descLength": 153,
+    "lines": 171,
+    "hasTrigger": false
+  },
+  "langfuse": {
+    "descLength": 260,
+    "lines": 503,
+    "hasTrigger": false
+  },
+  "langgraph": {
+    "descLength": 259,
+    "lines": 506,
+    "hasTrigger": false
+  },
+  "launch-strategy": {
+    "descLength": 183,
+    "lines": 356,
+    "hasTrigger": false
+  },
+  "lint-and-validate": {
+    "descLength": 119,
+    "lines": 57,
+    "hasTrigger": false
+  },
+  "llm-app-patterns": {
+    "descLength": 140,
+    "lines": 769,
+    "hasTrigger": false
+  },
+  "mcp-builder": {
+    "descLength": 225,
+    "lines": 247,
+    "hasTrigger": false
+  },
+  "memory-safety-patterns": {
+    "descLength": 119,
+    "lines": 42,
+    "hasTrigger": false
+  },
+  "microservices-patterns": {
+    "descLength": 176,
+    "lines": 44,
+    "hasTrigger": false
+  },
+  "nextjs-best-practices": {
+    "descLength": 225,
+    "lines": 214,
+    "hasTrigger": false
+  },
+  "nodejs-best-practices": {
+    "descLength": 147,
+    "lines": 344,
+    "hasTrigger": false
+  },
+  "observability-engineer": {
+    "descLength": 168,
+    "lines": 241,
+    "hasTrigger": false
+  },
+  "pci-compliance": {
+    "descLength": 135,
+    "lines": 489,
+    "hasTrigger": false
+  },
+  "product-manager-toolkit": {
+    "descLength": 89,
+    "lines": 363,
+    "hasTrigger": false
+  },
+  "programmatic-seo": {
+    "descLength": 123,
+    "lines": 368,
+    "hasTrigger": false
+  },
+  "prompt-caching": {
+    "descLength": 125,
+    "lines": 486,
+    "hasTrigger": false
+  },
+  "python-patterns": {
+    "descLength": 149,
+    "lines": 452,
+    "hasTrigger": false
+  },
+  "rag-engineer": {
+    "descLength": 172,
+    "lines": 342,
+    "hasTrigger": false
+  },
+  "react-native-architecture": {
+    "descLength": 153,
+    "lines": 42,
+    "hasTrigger": false
+  },
+  "react-patterns": {
+    "descLength": 97,
+    "lines": 217,
+    "hasTrigger": false
+  },
+  "redesign-existing-projects": {
+    "descLength": 225,
+    "lines": 179,
+    "hasTrigger": false
+  },
+  "rust-pro": {
+    "descLength": 118,
+    "lines": 182,
+    "hasTrigger": false
+  },
+  "scroll-experience": {
+    "descLength": 237,
+    "lines": 638,
+    "hasTrigger": false
+  },
+  "seo-audit": {
+    "descLength": 100,
+    "lines": 493,
+    "hasTrigger": false
+  },
+  "stripe-integration": {
+    "descLength": 142,
+    "lines": 467,
+    "hasTrigger": false
+  },
+  "tailwind-patterns": {
+    "descLength": 115,
+    "lines": 280,
+    "hasTrigger": false
+  },
+  "terraform-specialist": {
+    "descLength": 129,
+    "lines": 168,
+    "hasTrigger": false
+  },
+  "top-web-vulnerabilities": {
+    "descLength": 280,
+    "lines": 562,
+    "hasTrigger": false
+  },
+  "typescript-expert": {
+    "descLength": 168,
+    "lines": 432,
+    "hasTrigger": false
+  }
+}

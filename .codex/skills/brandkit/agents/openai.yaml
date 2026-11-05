@@ -1,4 +1,4 @@
 interface:
   display_name: "Brandkit"
-  short_description: "Premium brand-kit image generation skill for creating..."
+  short_description: "Generate premium brand-guideline boards, logo systems and..."
   default_prompt: "Use $brandkit for the relevant part of this task."

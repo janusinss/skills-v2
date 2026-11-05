@@ -1,4 +1,4 @@
 interface:
   display_name: "Ai Regression Testing"
-  short_description: "Regression testing strategies for AI-assisted development...."
+  short_description: "Regression testing for AI-assisted code: sandbox-mode API..."
   default_prompt: "Use $ai-regression-testing for the relevant part of this task."

@@ -1,4 +1,4 @@
 interface:
   display_name: "Image To Code"
-  short_description: "Elite website image-to-code skill for Codex. For visually..."
+  short_description: "Generate section-specific design images first, analyze them,..."
   default_prompt: "Use $image-to-code for the relevant part of this task."

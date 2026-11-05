@@ -1,0 +1,81 @@
+name: ci
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        profile: [minimal, all]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install tool dependencies
+        run: npm install --no-audit --no-fund
+        working-directory: tools/codex
+      - name: Validate Codex edition
+        run: node tools/codex/validate.mjs --source
+      - name: Validate Claude Code edition
+        run: node tools/claude/validate.mjs --source
+      - name: Check provenance
+        run: node tools/provenance.mjs --check
+      - name: Scan skills for remote-execution patterns
+        run: node tools/scan-skills.mjs
+      - name: Lint skill descriptions and length
+        run: node tools/lint-skills.mjs
+      - name: Check README is generated from the repo
+        run: node tools/readme-sync.mjs --check
+      - name: Install Codex edition (${{ matrix.profile }})
+        run: node tools/codex/install.mjs --target "${{ runner.temp }}/codex-target" --profile ${{ matrix.profile }}
+      - name: Install Claude Code edition (${{ matrix.profile }})
+        run: node tools/claude/install.mjs --target "${{ runner.temp }}/claude-target" --profile ${{ matrix.profile }}
+  commits:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check conventional commits (new commits only)
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            RANGE="${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
+          elif [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
+            RANGE="HEAD~1..HEAD"
+          else
+            RANGE="${{ github.event.before }}..${{ github.sha }}"
+          fi
+          node tools/check-commits.mjs "$RANGE"
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+        working-directory: tools/codex
+      - name: Rebuild bundles
+        run: |
+          node tools/codex/build.mjs
+          node tools/claude/build.mjs
+      - name: Fail on committed-bundle drift
+        run: git diff --exit-code

@@ -1,0 +1,8 @@
+[
+  { "file": ".agents/agents/agent-evaluator.md", "contains": "Forbidden: `rm`", "reason": "lists curl|sh as a forbidden command" },
+  { "file": ".agents/skills/avoid-ai-writing/README.md", "contains": "avoid-ai-writing-mcp@0.1.0", "reason": "version-pinned" },
+  { "file": ".agents/skills/awesome-design-md/design-md/ollama/DESIGN.md", "contains": "curl -fsSL https://ollama.com/install.sh", "reason": "UI description text, not an instruction" },
+  { "file": ".agents/skills/awesome-design-md/design-md/opencode.ai/DESIGN.md", "contains": "curl -fsSL https://opencode.ai/install", "reason": "UI description text, not an instruction" },
+  { "file": ".agents/skills/ci-security-scanning-with-strix/SKILL.md", "contains": "curl -sSL https://strix.ai/install | bash", "reason": "upstream Strix install instruction; reviewed" },
+  { "file": ".agents/skills/penetration-testing-with-strix/SKILL.md", "contains": "curl -sSL https://strix.ai/install | bash", "reason": "upstream Strix install instruction; reviewed" }
+]

@@ -4,9 +4,14 @@
   "private": true,
   "type": "module",
   "description": "Convert, build, and export a native Anthropic Claude Code edition of this skills collection.",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "node build.mjs",
     "validate": "node validate.mjs"
+  },
+  "dependencies": {
+    "yaml": "2.9.0"
   }
 }

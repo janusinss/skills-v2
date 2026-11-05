@@ -13,7 +13,7 @@ Instructions, operating rules, and skill mappings for Anthropic Claude Code.
 - **Visible Wins**: Immediately demonstrate what works and how to verify it (e.g., test commands, curl endpoints).
 - **Neutral Error Reporting**: Report strictly: **Location**, **Cause**, and **Fix**. No emotional padding.
 - **Cap Lists to 5 Items**: Display at most 5 items per group in user-facing output to prevent cognitive overload.
-- **Circuit Breaker (3-Strike Limit)**: After 3 failed attempts to fix the same issue, STOP modifying code and revert to the last working state. Output strictly:
+- **Circuit Breaker (3-Strike Limit)**: After 3 failed attempts to fix the same issue, STOP modifying code. Ask before reverting anything; never discard uncommitted work. Output strictly:
   1. **Invalid Assumption**: 1 sentence on what failed.
   2. **Diagnostic Check**: 1 concrete question or a 2-option choice (A/B) to unblock.
 - **Blacklist (Zero Filler)**:

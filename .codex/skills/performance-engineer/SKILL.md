@@ -1,6 +1,6 @@
 ---
 name: "performance-engineer"
-description: "Expert performance engineer specializing in modern observability,"
+description: "Diagnose and fix performance bottlenecks across backend, frontend and infrastructure using profiling, observability and load testing. Use when investigating slow responses, high latency, memory growth or scaling limits."
 metadata:
   upstream-risk: "critical"
   upstream-source: "community"

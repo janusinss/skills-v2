@@ -1,4 +1,4 @@
 interface:
   display_name: "Awesome Design Md"
-  short_description: "Curated collection of 74+ production-grade DESIGN.md..."
+  short_description: "Browse and install one of 74+ DESIGN.md design systems from..."
   default_prompt: "Use $awesome-design-md for the relevant part of this task."

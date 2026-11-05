@@ -3,7 +3,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const os = require('node:os');
-const { spawn, execSync } = require('node:child_process');
+const { spawn } = require('node:child_process');
 
 const skillDir = __dirname;
 
@@ -51,18 +51,9 @@ function ensurePlaywright() {
     }
   }
 
-  // If not found in any candidate path, attempt automatic setup
-  try {
-    console.log('[playwright-skill] Installing Playwright dependencies...');
-    execSync('npm install --no-audit --prefer-offline', { cwd: skillDir, stdio: 'inherit' });
-    const localMod = path.join(skillDir, 'node_modules');
-    require.resolve('playwright', { paths: [localMod] });
-    activeNodeModules = localMod;
-    return;
-  } catch (err) {
-    console.error('Playwright is not installed. Run `npm install -g playwright && npx playwright install chromium` or `npm run setup` in the skill directory.');
-    process.exit(1);
-  }
+  // Dependencies are never installed implicitly; setup is an explicit step.
+  console.error(`Playwright is not installed. Run \`npm ci\` in ${skillDir}, then \`npx playwright install chromium\` (or install a system Chrome/Edge).`);
+  process.exit(1);
 }
 
 function saveScript(file) {

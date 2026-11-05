@@ -31,7 +31,19 @@ export function planExport({ target, profile = 'all', includeHooks = false }, ro
     entries.push({ source, destination: output, relative });
   };
   add(path.join(root, 'AGENTS.md'), 'AGENTS.md');
-  for (const area of ['rules', 'resources', 'agents']) for (const source of filesIn(path.join(root, area))) add(source, slash(path.join('.codex', area, path.relative(path.join(root, area), source))));
+  for (const area of ['rules', 'agents']) for (const source of filesIn(path.join(root, area))) add(source, slash(path.join('.codex', area, path.relative(path.join(root, area), source))));
+  // Resource libraries are installed with the `all` profile, or when a selected skill references them.
+  const resourcesDir = path.join(root, 'resources');
+  if (fs.existsSync(resourcesDir)) {
+    const skillText = selected.flatMap(skill => filesIn(path.join(root, 'skills', skill)).filter(file => /\.(?:md|js|mjs|json|txt)$/.test(file)).map(file => fs.readFileSync(file, 'utf8'))).join('\n');
+    for (const entry of fs.readdirSync(resourcesDir, { withFileTypes: true })) {
+      const absolute = path.join(resourcesDir, entry.name);
+      if (entry.isFile()) add(absolute, slash(path.join('.codex/resources', entry.name)));
+      else if (entry.isDirectory() && (profile === 'all' || skillText.includes(`resources/${entry.name}`))) {
+        for (const source of filesIn(absolute)) add(source, slash(path.join('.codex/resources', entry.name, path.relative(absolute, source))));
+      }
+    }
+  }
   for (const skill of selected) {
     if (!all.includes(skill)) throw new Error(`Missing skill ${skill} in profile ${profile}`);
     const directory = path.join(root, 'skills', skill);

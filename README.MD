@@ -1,6 +1,8 @@
 # Agent Skills & Workspace Configurations
 
-A curated collection of **118 top-level AI agent skills**, 30 specialized subagents, 9 architectural rules, and multi-profile installers across three dedicated editions: **AGY / Gemini**, **GPT / Codex**, and **Anthropic / Claude Code**.
+<!-- generated:counts -->
+A curated collection of **118 top-level AI agent skills**, 30 specialized subagents, 9 architectural rules and 5 Claude Code slash commands, with multi-profile installers across three editions: **AGY / Gemini**, **GPT / Codex** and **Anthropic / Claude Code**.
+<!-- /generated:counts -->
 
 ---
 
@@ -16,7 +18,10 @@ A curated collection of **118 top-level AI agent skills**, 30 specialized subage
 ├── AGENTS.md              # Universal agent policy: ADHD Mode, local rules, and browser verification
 ├── CLAUDE.md              # Claude Code workspace memory (synchronized from AGENTS.md)
 ├── INSTALL.md             # Shared installer router for all three editions
-├── skills-lock.json       # Upstream dependency lockfile
+├── skills-lock.json       # Upstream dependency lockfile (managed by `npx skills`)
+├── provenance.json        # Per-skill source, license, modified note and content hash
+├── LICENSE                # MIT (original material only); see THIRD_PARTY_NOTICES.md
+├── CONTRIBUTING.md        # Workflow: edit .agents/, rebuild, run the CI checks
 └── .gitignore             # Root ignore rules
 ```
 
@@ -58,14 +63,16 @@ node tools/claude/install.mjs --target "C:/Projects/my-project" --profile all
 
 Both the Codex and Claude Code installers accept `--profile <name>` to install targeted subsets:
 
-| Profile | Skills | Scope & Description |
+<!-- generated:profiles -->
+| Profile | Skills | Contents |
 | :--- | :---: | :--- |
-| **`all`** *(default)* | 118 | Complete toolkit across all 10 engineering domains, subagents, and tools. |
-| **`minimal`** | 8 | Core essentials for rapid onboarding (planning, debugging, TDD, linting). |
-| **`frontend`** | 31 | UI/UX, design tokens, components, responsive layout, motion physics, and Playwright QA. |
-| **`backend`** | 29 | Persistence standards, schema design, database optimization, FastAPI, Go, and Rust. |
-| **`security`** | 15 | Strix penetration testing, exploit remediation, auth patterns, and API security. |
-| **`fullstack`** | 52 | Combined frontend and backend profiles for end-to-end product development. |
+| **`all`** | 118 | Every skill, rule and subagent. |
+| **`minimal`** | 8 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `ui-styling`, +3 more |
+| **`frontend`** | 31 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +26 more |
+| **`backend`** | 29 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +24 more |
+| **`security`** | 15 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `security-audit`, +10 more |
+| **`fullstack`** | 52 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +47 more |
+<!-- /generated:profiles -->
 
 ---
 
@@ -73,17 +80,40 @@ Both the Codex and Claude Code installers accept `--profile <name>` to install t
 
 Domain-specific subagents configured for background task delegation:
 
-| Subagent | Role & Capabilities | Lifecycle Phase |
-| :--- | :--- | :--- |
-| **`planner`** | Deconstructs features into atomic, numbered, verb-first checklists. | Phase 1: Planning & Scope |
-| **`code-architect`** | Establishes modular service boundaries, repository patterns, and data flow. | Phase 1: Architecture |
-| **`tdd-guide`** | Authors failing unit and integration test specifications before implementation. | Phase 2: Test Specification |
-| **`build-error-resolver`** | Surgical TypeScript, bundler, and build failure repairs with minimal diffs. | Phase 3: Repair |
-| **`silent-failure-hunter`** | Detects swallowed exceptions, empty catch blocks, bad fallbacks, and missing telemetry. | Phase 4: Defensive Audit |
-| **`security-auditor`** | Pre-commit security audits (SSRF, injection, auth boundaries, IDOR, ReDoS). | Phase 4: Security Audit |
-| **`penetration-tester`** | Autonomous exploit scanning (Strix) and 5-state functional UI testing. | Phase 4: Pentest & QA |
-| **`typescript-reviewer`** | Reviews TypeScript/JavaScript for type safety, async correctness, and edge checks. | Code Review Gate |
-| **`agent-evaluator`** | Grades delivery against 5-axis quality rubric (accuracy, completeness, clarity, actionability, conciseness). | Phase 5: Verification Gate |
+<!-- generated:agents -->
+| Subagent | Role |
+| :--- | :--- |
+| **`a11y-architect`** | Accessibility Architect specializing in WCAG 2.2 compliance for Web and Native platforms. |
+| **`agent-evaluator`** | Evaluates agent output against 5-axis quality rubric (accuracy, completeness, clarity, actionability, conciseness). |
+| **`architect`** | Software architecture specialist for system design, scalability, and technical decision-making. |
+| **`build-error-resolver`** | Build and TypeScript error resolution specialist. |
+| **`code-architect`** | Designs feature architectures by analyzing existing codebase patterns and conventions, then providing implementation blueprints with concrete files, interfaces, data flow, and build order. |
+| **`code-reviewer`** | Expert code review specialist. |
+| **`code-simplifier`** | Simplifies and refines code for clarity, consistency, and maintainability while preserving behavior. |
+| **`cpp-build-resolver`** | C++ build, CMake, and compilation error resolution specialist. |
+| **`database-reviewer`** | PostgreSQL database specialist for query optimization, schema design, security, and performance. |
+| **`django-build-resolver`** | Django/Python build, migration, and dependency error resolution specialist. |
+| **`e2e-runner`** | End-to-end testing specialist using Vercel Agent Browser (preferred) with Playwright fallback. |
+| **`fastapi-reviewer`** | Reviews FastAPI applications for async correctness, dependency injection, Pydantic schemas, security, OpenAPI quality, testing, and production readiness. |
+| **`go-build-resolver`** | Go build, vet, and compilation error resolution specialist. |
+| **`go-reviewer`** | Expert Go code reviewer specializing in idiomatic Go, concurrency patterns, error handling, and performance. |
+| **`penetration-tester`** | Specialist subagent for executing penetration testing, vulnerability validation, security test suites, and functional web-flow verification based on penetrating-and-testing.md. |
+| **`performance-optimizer`** | Performance analysis and optimization specialist. |
+| **`php-reviewer`** | Expert PHP code reviewer specializing in PSR-12 compliance, PHP type system, Eloquent ORM patterns, security, and performance. |
+| **`planner`** | Expert planning specialist for complex features and refactoring. |
+| **`pytorch-build-resolver`** | PyTorch runtime, CUDA, and training error resolution specialist. |
+| **`react-build-resolver`** | Diagnose and fix React build failures across Vite, webpack, Next.js, CRA, Parcel, esbuild, and Bun. |
+| **`react-reviewer`** | Expert React/JSX code reviewer specializing in hook correctness, render performance, server/client component boundaries, accessibility, and React-specific security. |
+| **`refactor-cleaner`** | Dead code cleanup and consolidation specialist. |
+| **`rust-build-resolver`** | Rust build, compilation, and dependency error resolution specialist. |
+| **`rust-reviewer`** | Expert Rust code reviewer specializing in ownership, lifetimes, error handling, unsafe usage, and idiomatic patterns. |
+| **`security-auditor`** | Specialist subagent for conducting adversarial pre-commit security audits, vulnerability detection, and exploit defense reviews based on security.md. |
+| **`silent-failure-hunter`** | Review code for silent failures, swallowed errors, bad fallbacks, and missing error propagation. |
+| **`spec-miner`** | Extracts behavioral specs from existing codebases for OpenSpec. |
+| **`tdd-guide`** | Test-Driven Development specialist enforcing write-tests-first methodology. |
+| **`typescript-reviewer`** | Expert TypeScript/JavaScript code reviewer specializing in type safety, async correctness, Node/web security, and idiomatic patterns. |
+| **`vue-reviewer`** | Expert Vue.js code reviewer specializing in Composition API correctness, reactivity pitfalls, component architecture, template security, and Vue-specific performance. |
+<!-- /generated:agents -->
 
 ### Claude Code Slash Commands (`.claude/commands/`)
 
@@ -145,7 +175,14 @@ node tools/claude/validate.mjs --source
 # Update target workspace .gitignore or re-verify installation
 node tools/codex/install.mjs --target "C:/Projects/my-project" --resume
 node tools/claude/install.mjs --target "C:/Projects/my-project" --resume
+
+# Repository checks (also run in CI)
+node tools/lint-skills.mjs        # description length/trigger wording, SKILL.md <= 500 lines (baseline-gated)
+node tools/scan-skills.mjs        # remote-execution patterns
+node tools/provenance.mjs --check # per-skill source/license/hash record
 ```
+
+Skills with a non-null `modified` in [provenance.json](provenance.json) diverge from upstream. Do not run `npx skills update` on them without reviewing the diff.
 
 ---
 
@@ -156,3 +193,10 @@ The automated installers merge project rules into the target's `.gitignore` whil
 - **Codex**: Ignores `/.codex/*` while preserving `!/.codex/rules/` and `!/.codex/agents/`.
 - **Claude Code**: Ignores `/.claude/*` while preserving `!/.claude/rules/`, `!/.claude/agents/`, and `!/.claude/commands/`.
 - **Antigravity**: Ignores `.agents/*` while preserving `!.agents/rules/`.
+
+---
+
+## ?? License & Provenance
+
+Original material is MIT-licensed ([LICENSE](LICENSE)). Vendored third-party skills keep their own licenses: see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and [provenance.json](provenance.json). Run `node tools/provenance.mjs --check` to verify.
+

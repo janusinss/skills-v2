@@ -1,6 +1,6 @@
 ---
 name: mobile-design
-description: "(Mobile-First · Touch-First · Platform-Respectful)"
+description: "Mobile-first, touch-first UI/UX guidance covering iOS and Android platform conventions, offline behavior and battery use. Use when designing or reviewing mobile app screens, navigation, gestures or touch targets."
 ---
 # Mobile Design System
 

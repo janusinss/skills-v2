@@ -1,6 +1,6 @@
 ---
 name: prompt-enhancer-frontend
-description: Frontend & UX prompt enhancement engine. Deconstructs raw concepts into exhaustive UI architecture, page/component taxonomy, interaction design, user journeys, information architecture, responsive behavior, accessibility, and generates AI-feedable Master Prompts for frontend coding agents.
+description: "Turn a raw concept into a UI and UX spec: page and component taxonomy, interactions, journeys, responsive and accessibility rules and a master prompt for frontend agents. Use for UI-only work. For full product scope use prompt-enhancer."
 ---
 
 # PROMPT ENHANCER — FRONTEND & UX

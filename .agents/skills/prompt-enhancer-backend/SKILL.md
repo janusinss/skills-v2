@@ -1,6 +1,6 @@
 ---
 name: prompt-enhancer-backend
-description: Backend & data layer prompt enhancement engine. Deconstructs raw concepts into exhaustive API architecture, database schemas, entity relationships, state machines, auth flows, service boundaries, queue/job systems, and generates AI-feedable Master Prompts for backend coding agents.
+description: "Turn a raw concept into an API and data-layer spec: schemas, entities, auth flows, service boundaries, queues and a master prompt for backend agents. Use for backend-only work. For full product scope use prompt-enhancer."
 ---
 
 # PROMPT ENHANCER — BACKEND & DATA

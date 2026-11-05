@@ -1,6 +1,6 @@
 ---
 name: awesome-design-md
-description: "Curated collection of 74+ production-grade DESIGN.md specifications from iconic products (Linear, Stripe, Apple, Vercel, Supabase, Raycast, Claude, etc.). Use to browse, select, and install instant design systems, color tokens, typography scales, and component styling as the visual ground truth for greenfield projects and redesigns."
+description: "Browse and install one of 74+ DESIGN.md design systems from products like Linear, Stripe, Apple and Vercel. Use when choosing a visual ground truth, color tokens, typography or component styling for a greenfield project or redesign."
 license: MIT
 ---
 
