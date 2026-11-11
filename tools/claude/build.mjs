@@ -44,6 +44,26 @@ Please invoke @typescript-reviewer (or @code-reviewer) to perform a thorough cod
 description: Grade task delivery against 5-axis quality rubric using @agent-evaluator
 ---
 Please invoke the @agent-evaluator subagent to evaluate task delivery across accuracy, completeness, clarity, actionability, and conciseness.
+`,
+  'contract.md': `---
+description: Initialize a pre-flight task contract and adaptive worktree using harness.mjs
+---
+Initialize a scoped task contract before editing files for: $ARGUMENTS. First use @explorer (fast reconnaissance) and @planner or @code-architect to identify exact allowed file globs and acceptance commands, then execute \`node .claude/skills/continuous-agent-loop/scripts/harness.mjs contract init --task <id> --allow "<globs>" --cmd "<commands>"\`.
+`,
+  'verify.md': `---
+description: Run deterministic receipt verification and cold-context @skeptic evaluation
+---
+Execute deterministic receipt verification and cold-context Skeptic review for: $ARGUMENTS.
+1. Run \`node .claude/skills/continuous-agent-loop/scripts/harness.mjs verify run --task <id>\`.
+2. Generate the sanitized brief via \`node .claude/skills/continuous-agent-loop/scripts/harness.mjs skeptic-packet --task <id>\`.
+3. Invoke the @skeptic subagent on \`.harness/context/<id>-brief.json\` (Contract + Raw Diff + Receipt only, zero author commentary) and stamp its verdict via \`node .claude/skills/continuous-agent-loop/scripts/harness.mjs stamp-skeptic --task <id> --verdict <APPROVE|REJECT>\`.
+`,
+  'flywheel.md': `---
+description: Record a root-cause invariant into the Calibrated Dual-Store Memory Flywheel and checkpoint progress
+---
+Record a failure root cause or invariant and checkpoint task progress for: $ARGUMENTS.
+1. Execute \`node .claude/skills/continuous-agent-loop/scripts/harness.mjs flywheel record --task <id> --source <skeptic|verify|user> --domain <domain> --cause "<root_cause>" --rule "<guardrail_rule>" --promote\` to stage into \`.harness/evals/regressions.jsonl\` and promote deduplicated guardrails to \`.claude/rules/learned-invariants.md\`.
+2. Update \`.harness/PROGRESS.md\` via \`node .claude/skills/continuous-agent-loop/scripts/harness.mjs checkpoint --task <id> --step "<completed_step>"\`.
 `
 };
 
@@ -133,6 +153,18 @@ export function buildClaudeBundle() {
   const gitignoreSource = path.join(path.dirname(fileURLToPath(import.meta.url)), 'project.gitignore');
   if (fs.existsSync(gitignoreSource)) {
     add('project.gitignore', fs.readFileSync(gitignoreSource), gitignoreSource);
+  }
+  const hooksSource = path.join(sourceRoot, 'hooks.example.json');
+  if (fs.existsSync(hooksSource)) {
+    const hooks = JSON.parse(fs.readFileSync(hooksSource, 'utf8'));
+    add(
+      'hooks.example.json',
+      json({
+        description: 'Optional harness and Impeccable hooks. Install at .claude/hooks.json in a trusted target project and review them in Claude Code before use.',
+        ...hooks
+      }).replaceAll('.agents/', '.claude/'),
+      hooksSource
+    );
   }
 
   // 4. Generate root CLAUDE.md from AGENTS.md

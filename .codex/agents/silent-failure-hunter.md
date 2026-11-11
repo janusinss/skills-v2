@@ -1,6 +1,9 @@
 ---
 name: silent-failure-hunter
 description: "Review code for silent failures, swallowed errors, bad fallbacks, and missing error propagation."
+tier: brain
+model_tier: reasoning
+reasoning_effort: high
 tools:
   - view_file
   - grep_search

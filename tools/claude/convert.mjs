@@ -72,6 +72,12 @@ export function convertSkill(text, sourceFile) {
   };
 }
 
+const tierModelMap = {
+  reflex: 'haiku',
+  builder: 'sonnet',
+  brain: 'opus'
+};
+
 export function convertAgent(text, sourceFile) {
   const { frontmatter, body } = parseFrontmatter(text, sourceFile);
   const name = frontmatter.name || path.basename(sourceFile, '.md');
@@ -90,18 +96,20 @@ export function convertAgent(text, sourceFile) {
     mappedTools.add('Glob');
   }
 
+  const tier = typeof frontmatter.tier === 'string' ? frontmatter.tier.trim().toLowerCase() : '';
+  const model = tierModelMap[tier] || 'sonnet';
   const toolsStr = [...mappedTools].join(', ');
   const yamlOut = [
     '---',
     `name: ${name}`,
     `description: ${JSON.stringify(description)}`,
-    `tools: ${toolsStr}`,
-    'model: sonnet',
-    '---'
+    `tools: ${toolsStr}`
   ];
+  if (tier) yamlOut.push(`tier: ${tier}`);
+  yamlOut.push(`model: ${model}`, '---');
 
   return {
-    frontmatter: { name, description, tools: toolsStr, model: 'sonnet' },
+    frontmatter: { name, description, tools: toolsStr, ...(tier ? { tier } : {}), model },
     text: `${yamlOut.join('\n')}\n${adaptMarkdown(body, sourceFile)}`
   };
 }

@@ -9,12 +9,13 @@ description: Ask GPT / CODEX or AGY / GEMINI before installing this collection. 
 
 This is the original AGY / GEMINI bootstrapper. Referencing `@install.md` or asking to install this skills repository does not select an edition. If the user has not already made an explicit choice for this installation, ask:
 
-> Which version would you like to install: GPT / CODEX or AGY / GEMINI?
+> Which version would you like to install: GPT / CODEX, AGY / GEMINI, or ANTHROPIC / CLAUDE CODE?
 
 Wait for the answer before copying files or running setup. Do not infer the edition from the current assistant. If the user already specified the edition, reuse their choice. Routine dependency setup in an existing installation does not require selecting the edition again.
 
-- **GPT / CODEX:** Read the source checkout's root `INSTALL.md`, then automatically read and execute its `.claude/rules/install.md` in the same request. Run `node tools/codex/install.mjs --target <absolute-project-path> --profile all` from that checkout. This installs the converted payload and root `AGENTS.md`, sets up local Playwright and Chromium, verifies the runner, and removes only the target's one-time Codex installation rule after success. Keep the source rule and do not run the AGY phases below.
-- **AGY / GEMINI:** Follow the original payload branch in the source checkout's `INSTALL.md`. When copying `AGENTS.md` into the target, write only the content before `<!-- source-repository-only -->` to cleanly remove source-only instructions. After copying the original `.agents/`, clean `AGENTS.md`, and `skills-lock.json` into the intended target, run the phases below from that target. If maintaining a target `.gitignore`, ignore skills while un-ignoring rules (`.agents/*` and `!.agents/rules/`) so rules autocomplete with `@`.
+- **GPT / CODEX:** Read the source checkout's root `INSTALL.md`, then automatically read and execute its `.claude/rules/install.md` in the same request. Run `node tools/codex/install.mjs --target <absolute-project-path> --profile all` from that checkout. This installs the converted payload, root `AGENTS.md`, and active `.codex/hooks.json` (plus `.git/hooks/pre-commit` when `.git` exists; pass `--no-hooks` to opt out), sets up local Playwright and Chromium, verifies the runner, and removes only the target's one-time Codex installation rule after success. Keep the source rule and do not run the AGY phases below.
+- **AGY / GEMINI:** Follow the original payload branch in the source checkout's `INSTALL.md`. When copying `AGENTS.md` into the target, write only the content before `<!-- source-repository-only -->` to cleanly remove source-only instructions. After copying the original `.agents/`, clean `AGENTS.md`, and `skills-lock.json` into the intended target, run the phases below from that target to install Playwright, activate `.agents/hooks.json`, and install the git pre-commit receipt gate. If maintaining a target `.gitignore`, ignore skills while un-ignoring rules (`.agents/*` and `!.agents/rules/`) so rules autocomplete with `@`.
+- **ANTHROPIC / CLAUDE CODE:** Run `node tools/claude/install.mjs --target <absolute-project-path> --profile all` from the source checkout. This installs `.claude/`, root `CLAUDE.md`, `.claude/hooks.json`, merges active `hooks` into `.claude/settings.json` (preserving existing user settings; pass `--no-hooks` to opt out), installs the `.git/hooks/pre-commit` receipt gate when `.git` exists, and verifies Playwright.
 
 Keep the source checkout and target paths distinct. Do not run self-cleanup in the source repository. Preserve existing user configuration and unrelated setup files.
 
@@ -48,6 +49,21 @@ Push-Location .claude\skills\playwright-skill; npm install --no-audit --prefer-o
 **macOS / Linux (Bash):**
 ```bash
 (cd .claude/skills/playwright-skill && npm install --no-audit --prefer-offline)
+```
+
+### 3. Automatic Harness & UI Hook Activation
+Activate `.agents/hooks.json` from `.agents/hooks.example.json` (preserving any existing `.agents/hooks.json`) and install the non-destructive `.git/hooks/pre-commit` receipt gate when `.git` is present:
+
+**Windows (PowerShell):**
+```powershell
+if (-not (Test-Path -LiteralPath '.agents/hooks.json')) { Copy-Item -LiteralPath '.agents/hooks.example.json' -Destination '.agents/hooks.json' }
+if (Test-Path -LiteralPath '.git') { node .claude/skills/continuous-agent-loop/scripts/harness.mjs install-git-hook }
+```
+
+**macOS / Linux (Bash):**
+```bash
+[ -f .agents/hooks.json ] || cp .agents/hooks.example.json .agents/hooks.json
+[ ! -d .git ] || node .claude/skills/continuous-agent-loop/scripts/harness.mjs install-git-hook
 ```
 
 ---
@@ -108,6 +124,6 @@ rm -f .claude/rules/install.md
 ## Phase 5: Final Report to User
 Report to the user:
 1. AGY / GEMINI was selected, with the absolute target path.
-2. Playwright and Chromium setup and in-memory verification results that actually ran.
+2. Playwright and Chromium setup, `.agents/hooks.json` and `.git/hooks/pre-commit` activation, and in-memory verification results that actually ran.
 3. The setup files removed, and whether optional global policy sync was requested.
 4. Any remaining dependency or host-discovery checks.

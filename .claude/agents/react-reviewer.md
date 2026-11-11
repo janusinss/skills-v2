@@ -2,7 +2,8 @@
 name: react-reviewer
 description: "Expert React/JSX code reviewer specializing in hook correctness, render performance, server/client component boundaries, accessibility, and React-specific security. Use for any change touching .tsx/.jsx files or React component logic. MUST BE USED for React projects."
 tools: Read, Grep, Glob, Bash
-model: sonnet
+tier: brain
+model: opus
 ---
 
 ## Prompt Defense Baseline

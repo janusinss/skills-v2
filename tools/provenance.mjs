@@ -6,7 +6,7 @@ const provenancePath = path.join(repoRoot, 'provenance.json');
 const skillsRoot = path.join(sourceRoot, 'skills');
 
 const KNOWN_UPSTREAMS = {
-  'avoid-ai-writing': { source: 'cbronsdon/avoid-ai-writing', sourceType: 'github', license: 'MIT' },
+  'avoid-ai-writing': { source: 'conorbronsdon/avoid-ai-writing', sourceType: 'github', license: 'MIT' },
   'impeccable': { source: 'pbakaus/impeccable', sourceType: 'github', license: 'Apache-2.0' },
   'mcp-builder': { source: 'anthropics/skills', sourceType: 'github', license: 'Apache-2.0' },
   'playwright-skill': { source: 'lackeyjb/playwright-skill', sourceType: 'github', license: 'MIT' },
@@ -43,16 +43,16 @@ function inferUpstream(name, directory, skillText, locked) {
   const fmAuthor = String(frontmatter.author || frontmatter.metadata?.author || '');
   const fmOrigin = String(frontmatter.origin || frontmatter.metadata?.origin || '');
   if (/vibeship-spawner-skills/i.test(fmSource)) {
-    return { source: 'vibeship/vibeship-spawner-skills', sourceType: 'github', license: 'Apache-2.0' };
+    return { source: 'vibeforge1111/vibeship-spawner-skills', sourceType: 'github', license: 'Apache-2.0' };
   }
   if (fmOrigin === 'ECC') {
     return { source: 'affaan-m/everything-claude-code', sourceType: 'github', license: 'MIT' };
   }
   if (fmAuthor === 'claudekit') {
-    return { source: 'claudekit/claudekit', sourceType: 'github', license: 'MIT' };
+    return { source: 'mrgoonie/claudekit-skills', sourceType: 'github', license: 'MIT' };
   }
   if (fmAuthor === 'zebbern') {
-    return { source: 'zebbern/claude-code-security-skills', sourceType: 'github', license: 'MIT' };
+    return { source: 'sickn33/antigravity-awesome-skills', sourceType: 'github', license: 'MIT' };
   }
   if (fmSource === 'community' || ('risk' in frontmatter && 'date_added' in frontmatter)) {
     return { source: 'sickn33/antigravity-awesome-skills', sourceType: 'github', license: 'MIT' };
@@ -83,10 +83,10 @@ export function buildProvenance() {
     const hash = folderHash(directory);
     const changedSincePrevious = kept.contentHash && kept.contentHash !== hash;
     skills[name] = {
-      source: kept.source && kept.source !== 'unknown' ? kept.source : inferred.source,
-      sourceType: kept.sourceType && kept.sourceType !== 'unknown' ? kept.sourceType : inferred.sourceType,
-      commit: kept.commit ?? null,
-      license: kept.license && kept.license !== 'unverified' ? kept.license : inferred.license,
+      source: inferred.source !== 'unknown' ? inferred.source : (kept.source || 'unknown'),
+      sourceType: inferred.sourceType !== 'unknown' ? inferred.sourceType : (kept.sourceType || 'unknown'),
+      commit: locked?.commit ?? kept.commit ?? null,
+      license: inferred.license !== 'unverified' ? inferred.license : (kept.license || 'unverified'),
       modified: kept.modified ?? (changedSincePrevious ? 'description/references updated in skills-v2' : null),
       contentHash: hash,
     };

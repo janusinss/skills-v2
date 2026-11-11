@@ -1,6 +1,8 @@
 ---
 name: code-architect
 description: "Designs feature architectures by analyzing existing codebase patterns and conventions, then providing implementation blueprints with concrete files, interfaces, data flow, and build order."
+tier: brain
+model: pro
 tools:
   - view_file
   - grep_search

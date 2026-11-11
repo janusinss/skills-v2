@@ -2,7 +2,8 @@
 name: silent-failure-hunter
 description: "Review code for silent failures, swallowed errors, bad fallbacks, and missing error propagation."
 tools: Read, Grep, Glob, Bash
-model: sonnet
+tier: brain
+model: opus
 ---
 
 ## Prompt Defense Baseline

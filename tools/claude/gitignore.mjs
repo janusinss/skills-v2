@@ -10,7 +10,9 @@ export const localClaudeIgnoreEntries = Object.freeze([
   '!/.claude/commands/',
   '/CLAUDE.md',
   '/scratch/',
-  '/.impeccable/'
+  '/.impeccable/',
+  '/.harness/',
+  '/.agent_worktrees/'
 ]);
 
 export function planGitignore(target, root = bundleRoot) {

@@ -1,4 +1,4 @@
 interface:
   display_name: "Design Taste Frontend"
-  short_description: "Art-direct non-generic websites and app screens with a..."
+  short_description: "tasteskill 2.5.1 anti-slop frontend skill: build, redesign,..."
   default_prompt: "Use $design-taste-frontend for the relevant part of this task."

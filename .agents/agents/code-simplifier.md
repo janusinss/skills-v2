@@ -1,6 +1,8 @@
 ---
 name: code-simplifier
 description: "Simplifies and refines code for clarity, consistency, and maintainability while preserving behavior. Focus on recently modified code unless instructed otherwise."
+tier: builder
+model: inherit
 tools:
   - view_file
   - grep_search

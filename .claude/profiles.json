@@ -1,7 +1,8 @@
 {
   "minimal": [
     "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
-    "ui-styling", "backend-dev-guidelines", "api-security-best-practices", "playwright-skill"
+    "ui-styling", "backend-dev-guidelines", "api-security-best-practices", "playwright-skill",
+    "continuous-agent-loop"
   ],
   "frontend": [
     "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
@@ -9,7 +10,7 @@
     "frontend-developer", "frontend-security-coder", "impeccable", "ui-ux-pro-max", "ui-styling",
     "design-taste-frontend", "design-system", "awesome-design-md", "brandkit", "tailwind-patterns", "react-best-practices",
     "react-patterns", "nextjs-best-practices", "nextjs-app-router-patterns", "javascript-pro", "typescript-expert",
-    "redesign-existing-projects", "scroll-experience", "scrollytelling", "image-to-code", "imagegen-frontend-web", "avoid-ai-writing", "playwright-skill", "e2e-testing-patterns"
+    "scroll-experience", "scrollytelling", "image-to-code", "imagegen-frontend-web", "avoid-ai-writing", "playwright-skill", "e2e-testing-patterns"
   ],
   "backend": [
     "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",

@@ -53,8 +53,43 @@ export function openaiMetadata(original, skill) {
   return result;
 }
 
+const codexTierMap = {
+  reflex: { model_tier: 'mini', reasoning_effort: 'low' },
+  builder: { model_tier: 'codex', reasoning_effort: 'medium' },
+  brain: { model_tier: 'reasoning', reasoning_effort: 'high' },
+};
+
+function adaptCodexAgentFrontmatter(text) {
+  return text.replace(/^(---\r?\n[\s\S]*?\r?\n---)/, fm => {
+    const tierMatch = /^tier:\s*(reflex|builder|brain)\s*$/m.exec(fm);
+    if (!tierMatch) return fm;
+    const tier = tierMatch[1];
+    const mapped = codexTierMap[tier];
+    if (!mapped) return fm;
+    const cleaned = fm
+      .replace(/\r?\nmodel:\s*\S+/g, '')
+      .replace(/\r?\nmodel_tier:\s*\S+/g, '')
+      .replace(/\r?\nreasoning_effort:\s*\S+/g, '');
+    return cleaned.replace(
+      /^tier:\s*(reflex|builder|brain)\s*$/m,
+      `tier: ${tier}\nmodel_tier: ${mapped.model_tier}\nreasoning_effort: ${mapped.reasoning_effort}`
+    );
+  });
+}
+
 export function adaptMarkdown(text, sourceFile, duplicatePaths = new Map()) {
-  let result = text.replaceAll('~/.claude/skills/', '.agents/skills/').replaceAll('.claude/skills/', '.agents/skills/');
+  let result = text;
+  if (sourceFile && slash(path.relative(sourceRoot, sourceFile)).startsWith('agents/')) {
+    result = adaptCodexAgentFrontmatter(result);
+  }
+  if (sourceFile && path.basename(sourceFile) === 'AGENTS.md') {
+    result = result
+      .replace('(`tier:` frontmatter & 3-Edition Model Matrix)', '(`tier:`, `model_tier:` & `reasoning_effort:` frontmatter)')
+      .replace('**AGY / Gemini** `invoke_subagent` `Model`: `flash` or `flash_lite` (`model: flash`) · **GPT / Codex**: `model_tier: mini`, `reasoning_effort: low` · **Claude Code**: `model: haiku`', '**GPT / Codex**: `model_tier: mini`, `reasoning_effort: low`')
+      .replace('**AGY / Gemini** `invoke_subagent` `Model`: `inherit` (`model: inherit`) · **GPT / Codex**: `model_tier: codex`, `reasoning_effort: medium` · **Claude Code**: `model: sonnet`', '**GPT / Codex**: `model_tier: codex`, `reasoning_effort: medium`')
+      .replace('**AGY / Gemini** `invoke_subagent` `Model`: `pro` or `inherit` (`model: pro`) · **GPT / Codex**: `model_tier: reasoning`, `reasoning_effort: high` · **Claude Code**: `model: opus`', '**GPT / Codex**: `model_tier: reasoning`, `reasoning_effort: high`');
+  }
+  result = result.replaceAll('~/.claude/skills/', '.agents/skills/').replaceAll('.claude/skills/', '.agents/skills/');
   result = result.replaceAll('via `view_file`', 'using the available file-reading tool or shell');
   result = result.replaceAll('(`ask_question`)', '(when the existing user instructions leave a material choice unresolved)');
   result = result.replaceAll('AskUserQuestion', 'the available user-input tool');
@@ -85,6 +120,12 @@ export function convertSkill(text, sourceFile, duplicates) {
   const { frontmatter, body } = parseSkill(text, sourceFile);
   const normalized = normalizeFrontmatter(frontmatter);
   return { frontmatter: normalized, text: `---\n${yamlText(normalized)}---\n${adaptMarkdown(body, sourceFile, duplicates)}` };
+}
+
+export function convertAgent(text, sourceFile, duplicates = new Map()) {
+  const adapted = adaptMarkdown(text, sourceFile, duplicates);
+  const { frontmatter } = parseSkill(adapted, sourceFile);
+  return { frontmatter, text: adapted };
 }
 
 export function adaptPlaywrightRunner(text) {

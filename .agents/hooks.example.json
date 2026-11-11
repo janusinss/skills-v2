@@ -1,5 +1,19 @@
 {
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ ! -f \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" ] || node \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" sensor check-file",
+            "commandWindows": "if exist \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" (node \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" sensor check-file & exit /b)",
+            "timeout": 5,
+            "statusMessage": "Checking harness contract scope"
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Edit|Write|apply_patch",
@@ -10,6 +24,13 @@
             "commandWindows": "if exist \".agents/skills/impeccable/scripts/impeccable.cmd\" (\".agents/skills/impeccable/scripts/impeccable.cmd\" hook & exit /b)",
             "timeout": 5,
             "statusMessage": "Checking UI changes"
+          },
+          {
+            "type": "command",
+            "command": "[ ! -f \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" ] || node \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" sensor check-file",
+            "commandWindows": "if exist \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" (node \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" sensor check-file & exit /b)",
+            "timeout": 5,
+            "statusMessage": "Auditing post-edit scope boundary"
           }
         ]
       }
@@ -23,6 +44,13 @@
             "commandWindows": "if exist \".agents/skills/impeccable/scripts/impeccable.cmd\" (\".agents/skills/impeccable/scripts/impeccable.cmd\" hook & exit /b)",
             "timeout": 30,
             "statusMessage": "Design deep pass"
+          },
+          {
+            "type": "command",
+            "command": "[ ! -f \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" ] || node \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" verify status-check",
+            "commandWindows": "if exist \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" (node \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" verify status-check & exit /b)",
+            "timeout": 10,
+            "statusMessage": "Verifying harness receipt & progress checkpoint"
           }
         ]
       }

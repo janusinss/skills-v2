@@ -2,16 +2,16 @@
 
 This is the active Codex edition of the skills collection, stored in `.codex/`. The original AGY / Gemini skill payload remains in `.agents/`. The shared [INSTALL.md](../INSTALL.md) asks which edition to install when the user has not specified one.
 
-Codex CLI 0.159.2 was verified to discover all 124 converted manifests in this repository's `.codex/skills/`. Root [AGENTS.md](../AGENTS.md) contains the user's three-section policy: ADHD Mode, local rule selection, and inline Playwright verification. Source-only instructions below `<!-- source-repository-only -->` retain installation routing and maintenance guidance. Both edition catalogs are visible in this source collection; root instructions prefer the converted manifest when names match. The original `.agents/` files remain available for AGY / Gemini. Restart Codex to reload project instructions.
+Codex CLI 0.159.2 was verified to discover all 122 converted manifests in this repository's `.codex/skills/`. Root [AGENTS.md](../AGENTS.md) contains the user's five-section policy: ADHD Mode, local rule selection, inline Playwright verification, 3-tier cognitive subagent routing, and the 6-stage self-improving harness lifecycle. Source-only instructions below `<!-- source-repository-only -->` retain installation routing and maintenance guidance. Both edition catalogs are visible in this source collection; root instructions prefer the converted manifest when names match. The original `.agents/` files remain available for AGY / Gemini. Restart Codex to reload project instructions.
 
-For other projects, the exporter installs this edition directly as `.codex/` and copies the bundled [AGENTS.md](AGENTS.md) to the target's root `AGENTS.md`. The builder generates that file from the three policy sections before `<!-- source-repository-only -->` in root `AGENTS.md`; source installation and maintenance instructions are excluded, and there is no separate instruction template. Only the selected converted edition is copied. The local `.codex/skills/` layout was verified with Codex CLI 0.159.2; OpenAI's current guide also documents `.agents/skills/` for shared skill discovery. Check the installed catalog in the actual target client. See [OpenAI's skills guide](https://learn.chatgpt.com/docs/build-skills).
+For other projects, the exporter installs this edition directly as `.codex/` and copies the bundled [AGENTS.md](AGENTS.md) to the target's root `AGENTS.md`. The builder generates that file from the policy sections before `<!-- source-repository-only -->` in root `AGENTS.md`; source installation and maintenance instructions are excluded, and there is no separate instruction template. Only the selected converted edition is copied. The local `.codex/skills/` layout was verified with Codex CLI 0.159.2; OpenAI's current guide also documents `.agents/skills/` for shared skill discovery. Check the installed catalog in the actual target client. See [OpenAI's skills guide](https://learn.chatgpt.com/docs/build-skills).
 
 ## What is included
 
-- 118 top-level skills and 6 distinct nested skills: 124 discoverable manifests with valid YAML and optional `agents/openai.yaml` metadata.
-- Eight ongoing workspace rules adapted for Codex and one installation rule removed from the target after setup succeeds, plus the Codex `AGENTS.md` policy that selects relevant guidance.
+- 116 top-level skills and 6 distinct nested skills: 122 discoverable manifests with valid YAML and optional `agents/openai.yaml` metadata.
+- Ten ongoing workspace rules adapted for Codex and one installation rule removed from the target after setup succeeds, plus 32 specialized subagents with Codex-native `model_tier` and `reasoning_effort` metadata, and the Codex `AGENTS.md` policy that selects relevant guidance.
 - Original scripts, references, assets, licenses, and checked-out creative libraries. Two additional manifests sharing the name `avoid-ai-writing` are preserved as `REFERENCE.md` files, with their local callers updated.
-- Optional Impeccable hooks, profile selection, and file hashes for the generated edition.
+- Active harness and Impeccable lifecycle hooks (`.codex/hooks.json` and `.codex/hooks.example.json`), profile selection, and file hashes for the generated edition.
 
 See [CONVERSION_REVIEW.md](CONVERSION_REVIEW.md) for the findings against the proposed conversion plan. Run `node tools/codex/audit.mjs` to inspect the source inventory in the terminal.
 
@@ -25,7 +25,7 @@ Automatically read and execute [rules/install.md](rules/install.md) after that c
 node tools/codex/install.mjs --target "C:/Projects/my-codex-project" --profile all
 ```
 
-The installer copies `AGENTS.md`, `.codex/skills/`, `.codex/rules/`, and `.codex/resources/` directly into that target. It creates a root `.gitignore`, or merges missing rules from [project.gitignore](project.gitignore) while preserving existing contents. The defaults include the supplied OS, secrets, editor, dependency, test, cache, agent-runtime, and audit rules, plus `/.codex/`, `/AGENTS.md`, `/scratch/`, and `/.impeccable/`. Environment example/template and VS Code exceptions remain after their exclusions. The builder generates these defaults from the collection's root `.gitignore` plus the local Codex entries. It checks every generated payload file against the prebuilt manifest, with LF/CRLF equivalence for UTF-8 text and exact hashes for binary files. `.gitattributes` also pins release text to LF. Installed hashes describe payload bytes; shared `.gitignore` entries are recorded separately so project edits remain valid.
+The installer copies `AGENTS.md`, `.codex/skills/`, `.codex/rules/`, and `.codex/resources/` directly into that target. It creates a root `.gitignore`, or merges missing rules from [project.gitignore](project.gitignore) while preserving existing contents. The defaults include the supplied OS, secrets, editor, dependency, test, cache, agent-runtime, and audit rules, plus `/.codex/`, `/AGENTS.md`, `/scratch/`, `/.impeccable/`, `/.harness/`, and `/.agent_worktrees/`. Environment example/template and VS Code exceptions remain after their exclusions. The builder generates these defaults from the collection's root `.gitignore` plus the local Codex entries. It checks every generated payload file against the prebuilt manifest, with LF/CRLF equivalence for UTF-8 text and exact hashes for binary files. `.gitattributes` also pins release text to LF. Installed hashes describe payload bytes; shared `.gitignore` entries are recorded separately so project edits remain valid.
 
 When the selected profile includes `playwright-skill`, it installs local dependencies with `npm ci --no-audit --no-fund --prefer-offline`, installs Chromium with the local Playwright CLI, then verifies the installed runner with a real headless browser. The included lockfile pins Playwright, and cached packages and browsers are reused when available. After successful setup, it deletes only the target's `.codex/rules/install.md` and records the remaining files and setup completion in `.codex/codex-install.json`. The source rule remains available. Profiles without that skill skip browser setup. Add `--dry-run` for a preview with no copying, dependency installation, or deletion.
 
@@ -33,7 +33,7 @@ Failed setup keeps the installed rule. Retry from the source checkout with `node
 
 The exporter refuses existing payload files, symlink destinations, and installation over this collection; an existing `.gitignore` is merged safely. Merge existing instructions manually or export into an empty staging directory first. Do not rename or rewrite the installed payload afterward.
 
-No global configuration, global npm packages, model settings, API accounts, or hooks are installed by default. Chromium uses Playwright's normal browser cache. Keep `tools/codex/` alongside this edition when using the automated installer. `export.mjs` remains a copy-only staging command and does not run dependency setup or remove the installation rule.
+No global configuration, global npm packages, model settings, or API accounts are installed by default. Active project hooks (`.codex/hooks.json` and `.codex/hooks.example.json`) and the non-destructive `.git/hooks/pre-commit` receipt gate (when `.git` exists) are enabled by default; pass `--no-hooks` to opt out. Chromium uses Playwright's normal browser cache. Keep `tools/codex/` alongside this edition when using the automated installer. `export.mjs` remains a copy-only staging command and does not run dependency setup or remove the installation rule.
 
 Do not run the converter, conversion-tool dependency setup, source auditing, or AGY submodule initialization during normal installation. `.codex/` contains the complete committed release even when the original AGY source submodule is empty in a clone. Integrity failures should be reported and resolved with a fresh complete release rather than changing hashes or rebuilding at install time.
 
@@ -43,8 +43,8 @@ Profiles select which top-level folders are copied. Their nested resources come 
 
 | Profile | Purpose |
 | --- | --- |
-| `all` | Entire collection; 118 top-level folders and 124 distinct manifests |
-| `minimal` | Eight general implementation and verification skills |
+| `all` | Entire collection; 116 top-level folders and 122 distinct manifests |
+| `minimal` | Nine general implementation and verification skills |
 | `frontend` | UI, design, React, Next.js, and browser verification |
 | `backend` | APIs, persistence, languages, architecture, and backend checks |
 | `security` | Security review, Strix, authentication, and relevant verification |
@@ -64,9 +64,9 @@ For a client that supports local skills and `@` selection, choose the installed 
 
 The one-time installer sets up Playwright for profiles that include it. Set up Strix, Impeccable, connectors, and hosted providers when their workflows require them. Existing scripts that call Gemini still use their real Gemini API configuration. The changed `playwright-skill` runner resolves its installed location, avoids this author's hardcoded machine path, and reports a missing dependency instead of silently running npm installation during normal workflow execution.
 
-## Optional hooks
+## Automatic hooks
 
-Add `--include-hooks` to an export whose profile includes `impeccable`, such as `all` or `frontend`. This places the example at `.codex/hooks.json`. Review the exact hook definitions in Codex and verify the Impeccable dependency before enabling them; its launcher may download an engine on first use. Hook configuration requires host trust and review. See [OpenAI's hook documentation](https://learn.chatgpt.com/docs/hooks).
+Active project hooks (`.codex/hooks.json` and `.codex/hooks.example.json`) are installed by default (pass `--no-hooks` to opt out). Review the exact hook definitions in Codex and verify the Impeccable dependency when using Impeccable hooks; its launcher may download an engine on first use. See [OpenAI's hook documentation](https://learn.chatgpt.com/docs/hooks).
 
 ## Validate and maintain
 
@@ -81,4 +81,4 @@ These are maintainer commands and require the full original source, including it
 
 Edit root `AGENTS.md` for the Codex policy; edit conversion logic or rule templates in `tools/codex/` for other converted guidance, then rebuild. The builder refuses to overwrite a manually edited generated file. The reviewed replacement of the old instruction template is the sole automatic stale-file removal; other stale files still require review. `profiles.json`, this README, and the review are maintained directly. The original updater lockfile is not copied to targets: its hashes describe upstream skills and do not represent these converted files.
 
-Validation covers parsed frontmatter, naming, metadata, unique skill names, local instruction/reference links, generated-file hashes, and preservation of the original source. Parsing, metadata normalization, deterministic generation, overwrite protection, profile selection, and full native exports were tested during conversion. Live model routing and the 124 individual tool workflows have not been exercised; verify the relevant workflow in its target host after installation.
+Validation covers parsed frontmatter, naming, metadata, unique skill names, local instruction/reference links, generated-file hashes, and preservation of the original source. Parsing, metadata normalization, deterministic generation, overwrite protection, profile selection, and full native exports were tested during conversion. Live model routing and the 122 individual tool workflows have not been exercised; verify the relevant workflow in its target host after installation.

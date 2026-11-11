@@ -1,6 +1,9 @@
 ---
 name: tdd-guide
 description: "Test-Driven Development specialist enforcing write-tests-first methodology. Use PROACTIVELY when writing new features, fixing bugs, or refactoring code. Ensures 80%+ test coverage."
+tier: builder
+model_tier: codex
+reasoning_effort: medium
 tools:
   - view_file
   - grep_search

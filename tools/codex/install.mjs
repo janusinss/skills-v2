@@ -8,6 +8,7 @@ import { planGitignore, applyGitignore } from './gitignore.mjs';
 
 const installRule = '.codex/rules/install.md';
 const playwrightRunner = '.codex/skills/playwright-skill/run.js';
+const harnessRunner = '.codex/skills/continuous-agent-loop/scripts/harness.mjs';
 const verificationMarker = 'PLAYWRIGHT_VERIFIED_OK';
 const verificationScript = `const browser = await helpers.launchBrowser('chromium', { headless: true }); try { const page = await browser.newPage(); await page.setContent('<title>Codex setup</title>'); if (await page.title() !== 'Codex setup') throw new Error('Browser verification failed'); console.log('${verificationMarker}'); } finally { await browser.close(); }`;
 
@@ -36,7 +37,28 @@ function verifyRunner(execute, target, runnerPath) {
   return execute(process.execPath, [path.join(target, runnerPath), '-e', verificationScript], { cwd: target, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
 }
 
-function finishSetup(target, manifestPath, manifest, playwright) {
+function installGitPreCommitHook(execute, target, manifest) {
+  if (manifest.hooksIncluded === false) return 'disabled';
+  const gitDir = path.join(target, '.git');
+  if (!fs.existsSync(gitDir)) return 'skipped (no .git directory)';
+  const harnessPath = path.join(target, harnessRunner);
+  if (!fs.existsSync(harnessPath)) return 'skipped (continuous-agent-loop not in profile)';
+  const preCommitPath = path.join(gitDir, 'hooks', 'pre-commit');
+  assertNoSymlinkAncestors(preCommitPath);
+  if (fs.existsSync(preCommitPath)) {
+    const existing = fs.readFileSync(preCommitPath, 'utf8');
+    if (existing.includes('pre-commit-check')) return 'active';
+    if (!existing.includes('# Installed by Self-Improving Agent Harness')) {
+      const chained = `${existing.trimEnd()}\n\n# Installed by Self-Improving Agent Harness (harness.mjs install-git-hook)\nnode "${harnessRunner}" pre-commit-check\n`;
+      fs.writeFileSync(preCommitPath, chained, { encoding: 'utf8', mode: 0o755 });
+      return 'chained';
+    }
+  }
+  runStep(execute, process.execPath, [harnessPath, 'install-git-hook', '--cwd', target], { cwd: target, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }, 'Harness git pre-commit hook setup');
+  return 'installed';
+}
+
+function finishSetup(target, manifestPath, manifest, playwright, gitHook) {
   assertNoSymlinkAncestors(manifestPath);
   const onDisk = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
   if (json(onDisk) !== json(manifest)) throw new Error('Installation record changed during setup');
@@ -45,7 +67,7 @@ function finishSetup(target, manifestPath, manifest, playwright) {
     throw new Error(`Installed file changed or missing: ${installRule}. Preserve it before retrying setup.`);
   }
   const ruleData = fs.readFileSync(rulePath);
-  const completed = { ...manifest, files: { ...manifest.files }, setup: { status: 'complete', playwright, removedFiles: [installRule] } };
+  const completed = { ...manifest, files: { ...manifest.files }, setup: { status: 'complete', playwright, hooks: manifest.hooksIncluded !== false ? 'active' : 'disabled', gitHook, removedFiles: [installRule] } };
   delete completed.files[installRule];
   const temporary = `${manifestPath}.setup.tmp`;
   assertNoSymlinkAncestors(temporary);
@@ -73,7 +95,7 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
   const installation = readInstallation(target);
   const manifestPath = installation.manifestPath;
   let manifest = installation.manifest;
-  if (options.resume && ((options.profile && options.profile !== manifest.profile) || (options.includeHooks && !manifest.hooksIncluded))) throw new Error('--resume uses the installed profile and hook selection');
+  if (options.resume && ((options.profile && options.profile !== manifest.profile) || (options.includeHooks !== undefined && options.includeHooks !== Boolean(manifest.hooksIncluded)))) throw new Error('--resume uses the installed profile and hook selection');
   let gitignore = exported?.gitignore;
   if (!gitignore) {
     const ignorePlan = planGitignore(target, root);
@@ -127,7 +149,8 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
         playwright = 'verified';
       }
     }
-    const completed = finishSetup(target, manifestPath, manifest, playwright);
+    const gitHook = installGitPreCommitHook(execute, target, manifest);
+    const completed = finishSetup(target, manifestPath, manifest, playwright, gitHook);
     return { target, profile: completed.profile, topLevelSkills: completed.topLevelSkills, files: Object.keys(completed.files).length + 2, gitignore, dryRun: false, setup: completed.setup };
   } catch (error) {
     throw new Error(`${error.message}\nSetup is incomplete; the installed ${installRule} is retained. Retry from the source checkout with node tools/codex/install.mjs --target ${JSON.stringify(target)} --resume.`, { cause: error });

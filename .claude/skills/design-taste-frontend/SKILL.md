@@ -1,398 +1,366 @@
 ---
 name: design-taste-frontend
-description: "Art-direct non-generic websites and app screens with a strict anti-slop house style and visual QA loop. Use when building UI that must not look AI-generated."
+description: "tasteskill 2.5.1 anti-slop frontend skill: build, redesign, restyle, or review company websites and product UIs with real browser layout, copy, and consistency gates. Use when building or redesigning UI that must not look generic or AI-generated."
+license: MIT
 ---
 
-# tasteskill v2
-
-A page built by a model usually looks like the average of every page the model has seen: a centred
-headline over three lines, a little label above it, a row of icon cards, a soft gradient, a few thin
-rules and a monospace caption. Nothing in it is wrong and nothing in it was decided.
-
-This skill replaces those defaults with decisions, in four ways:
-
-1. **A script deals the directions, you choose among them.** Asked to invent a look, a model picks
-   the category default every time. `scripts/draw.mjs` deals three of twenty researched directions;
-   you choose the one that carries the subject's idea, and the script then deals its type system,
-   palette, hero and section compositions from a library distilled from 247 real sites.
-2. **The idea comes from the subject.** In the study, what separated the best sites from the forgettable
-   ones was a concept taken from the thing itself, not the styling.
-3. **A house style with no ornaments,** measured in a real browser by `scripts/inspect.mjs`, so the
-   rules are checked rather than hoped for.
-4. **You look at what you made.** Screenshots at three widths, a juror's rubric, fix, look again.
-
-One warning learned in testing. Taking the ornaments away is only half the job; a page that has lost its
-labels, rules and cards and gained nothing in their place reads as thin, and blind jurors rightly prefer
-a richer page with tells over an empty page without them. The other half is substance: type set
-larger, whole fields of colour, real pictures of this subject's world (found or drawn), and every
-section carrying its full content. The skill is built to give you that; do not trade it for restraint.
-
-In the commands below `<skill>` is this skill's folder. Run them from the project's root, so the
-working files land in `.taste-skill/` there. The scripts need Node 22+ and an installed Chrome, Edge
-or Chromium, and install nothing. `assets.mjs` also needs network access; it uses no API keys.
-
-## Page or app screen
-
-Decide first which of two kinds of work this is.
-
-- **A page** is read and scrolled: a landing page, a marketing or product site, a portfolio, an
-  event, a restaurant, a one-pager. It follows **the run** below.
-- **An app screen** is worked in: a dashboard, an admin or analytics view, settings, billing, an inbox
-  or queue to work through, a wallet, a list with filters, an editor or builder. It follows
-  **`references/app-screens.md`**: its own run, its own draw (`draw.mjs --app`), its own house rules
-  (quiet borders, small labels and repeated panels are normal there; gradients, glows, icons in tinted
-  squares, rainbow charts and invented vanity numbers are not) and `inspect.mjs --app`. Read that file
-  whole before you start; the page run below does not apply.
-
-A product site that shows its app is a page; the interface fragments on it follow the app-screen
-rules for their insides. Deal the product's app style once, in its own folder, with the page's colours
-and type kept:
-
-```bash
-node <skill>/scripts/draw.mjs --app --kind <kind> --brief "<the product>" --keep palette,type --out .taste-skill/app
-```
-
-and build every fragment the page shows (the hero's live screen, a feature's crop, a chart) as a real
-piece of that app: `assets/app.css` for its panels, tables and controls, `assets/charts.js` for its
-charts, real data that adds up, one finding stated, cropped and scaled the way the page's blueprint
-treats a picture. A fragment that looks like a working product is the strongest picture a software page
-has; grey bars and lorem numbers are the weakest. When a request mixes both (a landing page and the
-dashboard behind it), build each with its own run and one shared palette and typeface.
-
-## The run
-
-Do these in order. Steps 1–5 take a few minutes and decide whether the page is any good.
-
-### 1. Read the brief and the project
-
-Find out what is real: the subject, the audience, the one thing the page must get someone to do, the
-stack, any existing brand (colours, fonts, logo), and above all **what imagery truly exists**: the
-project's own photographs or product shots, a real interface that can be shown, an image generation
-tool you can call, or nothing. Do not plan around pictures you do not have. Nothing of its own is
-rarely nothing at all: the subject's city, street, materials and history are in open archives and
-museums, free to use with a credit (step 6, `scripts/assets.mjs`).
-
-If the request is vague, decide and state your reading in one line instead of asking. Ask only when a
-missing fact blocks the work (for example, no product name).
-
-Then **inventory the subject** in your notes: eight to twelve things that belong to this client and to
-no competitor. Look for its name and what the name means; its address, door number, street and
-neighbourhood, and what that place looks like (its tiles, signs, paint colours, typefaces on its shop
-fronts, its light, its weather); the numbers in the brief (seats, rooms, minutes to the sea, the
-price, the year); the constraint it lives with (only one batch a month, closed in winter, by
-appointment); its materials and colours; its rituals and hours (the oven lit at five, the ferry at
-seven); the printed things of its world (a timetable, a label, a ticket, a sign). This list is where
-the idea comes from in step 4. In blind tests, the page that won each brief was built from an item on
-such a list (the client's name and what it means, the street it stands in, the one constraint that
-makes it what it is), and the pages that lost had a good composition with a category idea. The list
-is also your picture search: each place, material and printed thing on it is a query for step 6.
-
-### 2. Write the argument
-
-Before any design, list the page as claims with their proof, one line per section, the way
-`references/copy.md` §1 shows. The claims decide which sections exist and in what order. Delete any
-section that has no claim. This is how you avoid the stock sequence of hero, logos, three features,
-testimonial, pricing, call to action.
-
-### 3. Draw the direction
-
-```bash
-node <skill>/scripts/draw.mjs --sector <sector> --brief "<one line about the subject>" \
-  --sections <roles in the order of your argument> [--tone <tone>] [--have <assets>] [--keep palette,type] \
-  --options 3
-```
-
-This deals three directions and prints a short summary of each. Hold each one against your inventory:
-which way of composing can carry something only this client has? Choose that one, not the most
-familiar, and write one line in your notes on why. In testing, a single random direction that did not
-suit the subject was the commonest cause of a weak page. Then deal the full sheet:
-
-```bash
-node <skill>/scripts/draw.mjs <the same arguments, without --options> --direction <chosen id>
-```
-
-- `--sector`: `node <skill>/scripts/draw.mjs --list sectors`. Pick the closest.
-- `--sections`: roles from `--list roles` (features, showcase, how-it-works, testimonial, proof, stats,
-  pricing, faq, cta, footer, intro, about, work, gallery, list, contact). The hero is implied.
-- `--tone` (optional): quiet, bold, warm, technical, playful, luxury, editorial. Only pass it when the
-  brief clearly asks for one.
-- `--have`: assets that really exist, comma-separated: `photography` (the project's own photographs of
-  the place, people or work), `product-photo` (photographs of the specific product, or an image tool
-  that can make them), `product-ui` (real screenshots), `illustration`, `video`. Leave it out if you
-  have none: the draw then avoids compositions that depend on them and the sheet says how to fill
-  picture slots honestly (software shows its own interface built in HTML; a product with no photographs
-  is drawn and set among real pictures of its world, never a fake product shot). Pictures you will
-  find in the open collections are not the project's own; leave them out of `--have`.
-- `--keep palette,type`: when the brand already fixes colours or typefaces. The draw then deals only
-  the composition, and you map the brand's values onto the roles.
-
-The command prints a **direction sheet**. It is the art direction for this build:
-
-- **Adopt it.** Do not blend it with the layout you would have made anyway. If it feels unfamiliar,
-  good: the familiar layout is the one this skill exists to prevent.
-- Redraw one slot (`--redraw hero | type | palette | photos | scenes | section:<role> | direction`) only for a
-  reason you can state: it contradicts a stated brand constraint, needs an asset that does not exist,
-  or is a section that cannot hold the real content (next point). Never redraw to get something more
-  comfortable. Record every redraw in your report.
-- When a dealt section cannot hold the real content (it compares three plans and there is one price;
-  it wants five quotations and there are none), do not bend the content to fit. List the others with
-  `--alternatives <role>`, pick the one whose assumptions match the content, and take it with
-  `--redraw section:<role>=<id>`.
-- **Check the palette against the subject.** A dealt palette is a set of proportions (one ground, one
-  ink, one accent, fields) as much as a set of colours. If its colours fight the subject's own material
-  (candy pastels for a peat whisky, neon for a mountain hut), redraw the palette once; if the subject
-  has unmistakable colours of its own (its material, the paint of its street, the landscape outside
-  its windows), keep the dealt proportions and take the colours from the subject instead, and say so
-  in the report.
-- Reprint it any time with `node <skill>/scripts/draw.mjs --show`. In a long session, re-read it before each
-  section you build.
-
-### 4. Find the idea
-
-The direction is a way of composing. The idea is what makes the page belong to this subject and no
-other. Write this sentence in your notes and do not start building until both blanks are filled from
-the subject itself:
-
-> On this page, **[something that belongs to the subject]** becomes **[the device the direction calls for]**.
-
-Places to look for the first blank:
-
-- **Its output.** What does the thing produce? Put the real output on the page as material. (A camera
-  that prints poems delivered its copy as paper slips.)
-- **Its object or shape.** What does it physically look like, in cross-section, in silhouette?
-  Enlarge it, crop it, make it the frame or the one motif.
-- **Its name.** Can the letters hold a photograph, stack into a wall, split to two corners?
-- **Its place.** Is there one view that makes someone want to be there?
-- **Its ritual.** Is there a sequence the page can perform as it scrolls?
-- **Its artefact.** What printed thing already exists in its world: ticket, menu, label, receipt,
-  invitation, folder, manual?
-- **Its opposite.** Which other category owns the feeling this one lacks?
-
-Fill the first blank from your inventory (step 1), not from the category. **The competitor test:** put
-the nearest real competitor in the sentence (the bakery two streets away, another oak furniture maker,
-another hut on the same mountain). If the sentence still works, the idea belongs to the category: a
-loaf of bread is every bakery; the seven doors of the street this one is named after are only this one.
-"Clean and modern" is not an idea. The sites the study's panel scored lowest were the ones whose idea
-was recorded as "none beyond the standard formula".
-
-**One live thing.** Give the page one thing the visitor can do, or that is different for each visit,
-made from the idea: pick a wood and see the chair in it; type your name and see it cut in the
-foundry's letters; set the loan and read the real monthly figure; see whether the hut's stove is lit
-right now and how long until the last ferry; choose a size and see it against the room. In blind tests every winning page had one and the jurors named it first. Rules: it uses the subject's real content, it works on a phone with a thumb, it has a plain
-fallback without script, it never blocks reading, and it is one thing, not a playground. It is
-built in step 6 as part of the page, not added as motion in step 9.
-
-**The scenes carry the idea too.** The scroll scenes on the sheet are devices waiting for a subject.
-Decide what each one shows from your inventory before building: the fly-through passes through this
-studio's own title cards, the route is the road this shipment really takes, the picture that opens to
-the whole screen is the room the guest will wake up in. A scene filled with pictures that could belong
-to anyone is a screensaver.
-
-### 5. Write the words
-
-Write the whole page as a copy deck (plain text) before markup, following `references/copy.md`:
-
-- **Every headline fits in two lines or fewer at every width.** Do the arithmetic in copy.md §2 before
-  committing to a sentence: about 32 characters is safe everywhere at a confident size. The studied
-  gallery heroes have a median of 5 words and 32 characters.
-- One supporting sentence, directly under the headline (32–48px below it) and shown with it, never
-  docked at the foot of the first screen or held back by an animation. When the headline is a name or
-  a figure of speech, this sentence says plainly what the thing is. One primary action, named for what
-  it does, as a real button on the first screen.
-- **The first screen answers the visitor's first question in large type.** For an event: what it is,
-  when and where (the dates belong in the headline or at the second size, never only in small text).
-  For a product: what it is and what it costs or does. For a person: who and what they do. Every
-  section the visitor came for (the line-up, the menu, the rooms, the price) has its own heading and
-  its own place in the navigation.
-- **Write the full content.** Every section the brief asks for delivers its information completely:
-  the whole menu with prices, each room with its own details, every speaker and talk, the price with
-  what it includes, an answer for each real question. Thin sections are the commonest reason a clean
-  page loses to a busier one.
-- Sample details are expected where the brief leaves gaps (dish names, room names and rates, project
-  titles) so the design is seen at full density; list them in the report for the client to confirm.
-  Proof is never invented: no customers, quotes, reviews, press, logos or business statistics.
-
-### 6. Build it, still
-
-Build the page with motion switched off in your head; a page that needs animation to look finished is
-not finished. Order of work:
-
-1. **Tokens.** Colour and type roles from the sheet as CSS custom properties. Everything downstream
-   references tokens only. `<skill>/assets/base.css` is a neutral foundation you may start from (reset, token
-   names, fluid type steps, grid, focus and selection styles, the motion helpers); it has no look of
-   its own.
-2. **The hero, exactly as the blueprint describes it,** at desktop and at phone width. Get the big
-   thing big and the small things small before anything else exists.
-3. **Each section from its blueprint,** with this project's content. Keep the geometry, change the
-   subject. Neighbouring sections must not share a layout. **Carry the idea into every section,**
-   pricing, FAQ and footer included: the commonest failure in the study, even among good sites, is a
-   distinctive first screen followed by stock blocks.
-4. **Imagery,** in this order of preference:
-   1. the project's own;
-   2. generated, if you have an image tool;
-   3. **real pictures of the subject's world from the open collections,** whenever an honest one
-      exists. Search them with `node <skill>/scripts/assets.mjs "<query>"` (Openverse, Wikimedia
-      Commons, the Art Institute of Chicago and the Met; only licences that allow commercial use, by
-      default). Search the inventory, not the category: its street in old postcards, an old map of the
-      neighbourhood, its material up close, its trade in engravings, a museum object of its kind, a
-      botanical plate, a star chart. Use them large and with intent: one archival photograph as the
-      hero, an engraving enlarged into the page's motif, the real map of the street as the contact
-      section. Look at each before choosing; `--get <ref>` downloads it into `assets/` and records
-      its source and licence, and `--credits` prints the credit line for the footer. A found picture
-      shows the world around the client and is never presented as the client's own product, room,
-      dish, person or team;
-   4. **drawn in code from the subject itself,** for what no honest picture exists of (its objects,
-      its tiles, its windows, its product's interface, made as one consistent flat graphic language in
-      the palette's real colours);
-   5. the photographs dealt on the sheet, only where an honestly generic picture fits (the sea for a
-      sea house), never as a stand-in for the subject;
-   6. type and colour alone.
-
-   When the project has footage or a real picture of its own process or product, the first screen
-   shows it, large (about 40% of the screen or more). Never write a sentence on the page about where
-   the pictures come from or what they are not ("none of these shows our bar"): a caption says what
-   the picture is, and the credit line sits small in the footer. A portfolio whose work is invented
-   for the brief draws each piece as a finished still of that work (its title card with its own type,
-   an end frame, a poster), with real detail, never as a pictogram of the client's product.
-
-   **The floor, which the inspector checks:** at least four real pictures on the page, usually six to
-   twelve (photographs, archival images, maps, engravings, footage, raster artwork; for software, its
-   cropped interface fragments count too). SVG drawings do not count toward the floor: draw what no
-   picture exists of, and still carry real pictures. Add one moving picture wherever an honest clip
-   exists: search it with `assets.mjs --video "<query>"` and use it as a muted loop with a poster
-   frame. Models skip pictures and footage because finding them is work; the page fails without them.
-
-   `references/imagery.md` covers searching, licences and credits, video, drawing, crops and treatments.
-5. **The live thing** from step 4, built into the section where it proves the claim (often the hero
-   or the booking), with real content, a thumb-sized phone version and a plain fallback.
-6. **The scroll scenes,** when the sheet deals them (section 9), each with the section it carries: the page's big
-   moments, the camera that flies through the work, the picture that opens to the whole screen, the
-   word that buckles under the scroll. Copy the shared stage and the scene's files from
-   `<skill>/assets/scenes/`, fill the scene with this project's own pictures and words, and set the
-   page's tokens so it takes the page's look. A scene is composition: it decides how long the page is
-   and what each screen shows, so it is built now and seen in every look round, not added at the end.
-   `references/scenes.md` says how to put one on a page, fill it, fit it and check it;
-   `assets/scenes/demo/<id>.html` is a working example of each.
-7. **Fullness.** Look at each desktop screen as a poster: one dominant thing and the content it
-   carries. A screen that is mostly empty ground is an underbuilt section, not a rest; one deliberate
-   rest per page is the limit, and the inspector fails a page with two or more near-empty screens.
-   Running text is in the full ink at 16px or more; grey is for secondary notes.
-8. **The frame.** The page has one pair of equal outer margins at every width, and every section uses
-   the width the page has set up: when its text sits in the left half, the right half holds its
-   picture, its second column, its list or its figure, never nothing. Asymmetry lives inside the grid,
-   never in the frame: a void is placed only when something closes it on the far side. No stretch of
-   the page taller than about half a screen holds nothing at all; sections are 120–240px apart on
-   desktop. Every section the visitor came for opens with a heading that names it, and the first
-   screen carries the page's title in an `h1`. These are what readers name first when a page looks
-   wrong ("no clear title", "random empty space", "everything is pushed to one side"), and the
-   inspector measures each of them.
-9. **States and semantics.** Real links and buttons, visible focus, alt text, a phone layout that is
-   its own composition. Every control, the live thing included, works from the keyboard alone in
-   reading order and has an accessible name: its visible label, or `aria-label` when it shows only an
-   icon.
-
-Read `references/type.md`, `references/colour.md` and `references/layout.md` when you need the detail
-behind a decision; the laws below are the short form.
-
-### 7. Gate
-
-```bash
-node <skill>/scripts/lint.mjs <source files or folder>
-node <skill>/scripts/inspect.mjs <url or path/to/index.html>
-node <skill>/scripts/scenes.mjs <url or path/to/index.html>     # when the page has scroll scenes
-```
-
-`scenes.mjs` photographs every scroll scene at 0, 10 … 100% of its hold, on desktop and on a phone,
-and the reduced-motion page; with scenes on the sheet, `inspect.mjs` also films the whole scroll
-(`desktop-film-NN.jpg`). A scene that never started or rests on desktop is a `FAIL`.
-
-`lint.mjs` scans source for banned patterns and stock phrases. `inspect.mjs` opens the page in a real
-browser at 1440, 768 and 390 pixels, measures it (headline line counts, type sizes, fonts actually
-loaded, colours, rules, shadows, gradients, contrast, overflow, and the frame: equal margins, sections
-huddled on one side, blank stretches, the title, untitled sections, text against the screen edge) and
-saves screenshots to `.taste-skill/inspect/`. Fix every `FAIL`. Treat each `WARN` as wrong unless you can defend it to a
-designer in one sentence. Re-run until there are no `FAIL`s. Do not argue with the meter and do not
-hide things from it. The inspector serves local files over a throwaway local server; if the page must
-also open straight from the file system, open `index.html` that way once before you finish.
-
-Inspect what the visitor receives. With a build step, run the last gate on the production build
-(`vite build && vite preview`, `next build && next start`, or the built `index.html`), not only on the
-dev server: minifiers and bundlers change what ships (one dropped a `backdrop-filter` that the dev
-server showed). The inspector warns when it is looking at a dev server.
-
-### 8. Look
-
-Passing the gate means nothing banned was measured. It does not mean the page is good. Open the
-screenshots the inspector lists (every viewport, with your image viewer or Read tool) and critique them
-with `references/critique.md`: the fourteen passes, the Awwwards-weighted score, the caps. Write the critique
-down in its format, fix the top three problems, run the inspector again, look again. Three rounds at
-most.
-
-Judge only the pictures. If a problem is visible in a screenshot, it is real, whatever the code says.
-
-### 9. Move
-
-Now build the motion layer. It is required, and it is more than one fade: the inspector counts the
-elements that really move while the page loads and is scrolled, and fails a page under eight (it warns
-under sixteen). Any scroll scenes are already built (step 6); around them the layer has four parts:
-
-1. **The signature move** named on the sheet: one, done well (a dealt scene can be it).
-2. **An entrance for the parts of every section:** the heading, then the text, then the picture,
-   staggered by 60–90ms, rising 16–32px with opacity, triggered once as the section enters. Not one
-   fade for the whole block, and never content that stays hidden if the script fails.
-3. **Feedback on every control:** press, hover and focus on buttons, links, cards and the live thing.
-4. **One moving picture:** a found clip as a muted loop, a slow scale or drift on a photograph, or a
-   scroll-linked move on the hero picture.
-
-Transform and opacity only; every move has a `prefers-reduced-motion` fallback that keeps the content
-and drops the travel. A move that changes the colour or the layout of whole screens (colour by
-chapter, a pinned story) is part of the composition, so build it in step 6 and let every look round see
-it. `references/motion.md` has the tokens and tested recipes. Then run the inspector once more and check
-every screenshot for content that failed to appear.
-
-### 10. Report
-
-Do not report until all of these are true; each one was skipped in a test run that came out badly:
-
-- `inspect.mjs` shows **0 FAIL** at 1440, 768 and 390, on the final version of the page.
-- You opened every screenshot it listed after the last change, not only the first screen.
-- With scroll scenes: `scenes.mjs` ran on the final page with no problems, and you read every sheet
-  (desktop, phone, reduced motion).
-- A stranger reading the first screen for five seconds can say what this is and what to do.
-- Every section has a heading; the margins match on both sides; no stretch of the page is empty.
-- The critique of your last round is written down in the shape of `references/critique.md` §4.
-
-Tell the user, briefly: the direction dealt (name and seed) and any redraws with reasons; the idea
-sentence and the live thing; the final scores from your last critique round and what still falls short;
-every found picture and clip with its title, creator, licence and source page (`assets.mjs --credits` prints
-the list) and where its credit sits on the page; which bundled photographs and which drawings stand in
-for photography (so they can be replaced); and any sample content that must be swapped before launch.
-Do not claim a check you did not run.
-
-## House rules, Laws of the craft & Special cases
-
-See [House Rules, Laws of the Craft & Special Cases](references/house-rules-and-craft.md) for full typography, color, layout, motion, and domain-specific craft laws.
-
-## Files
-
-| File | Read it when |
-| --- | --- |
-| `references/app-screens.md` | Any dashboard, admin, settings or other app screen: its own run, rules, tokens and checks. |
-| `references/copy.md` | Writing the argument and the copy deck (steps 2 and 5). The two-line arithmetic. |
-| `references/type.md` | Setting type: scales, tracking, measure, loading fonts, pairing. |
-| `references/colour.md` | Applying the palette: roles, proportions, tone steps, dark pages, contrast. |
-| `references/layout.md` | Grid, margins, rhythm, section variety, navigation, footer, the phone composition. |
-| `references/imagery.md` | Choosing, finding, crediting, cropping and treating pictures; what to do with none. |
-| `references/motion.md` | Step 9. Budget, tokens, recipes, reduced motion. |
-| `references/scenes.md` | Step 6, when the sheet deals scroll scenes: putting one on a page, filling, fitting, the phone, checking, the catalogue. |
-| `references/critique.md` | Step 8. How to look, how to score, what to fix first. |
-| `references/tells.md` | The dated registry of generated-page tells and what each is replaced by. |
-| `references/research.md` | The study: method, numbers, what the best and worst sites do. Cite it, do not guess. |
-| `scripts/draw.mjs` | Deals and reprints the direction; `--photos`, `--site <id>` for more references; `--app` deals an app style instead. |
-| `scripts/assets.mjs` | Step 6: searches open collections for real pictures of the subject's world; `--get` downloads with the credit, `--credits` prints them. |
-| `scripts/lint.mjs` · `scripts/inspect.mjs` | The gate. |
-| `scripts/scenes.mjs` | The gate for scroll scenes: each scene at 0-100% of its hold, desktop, phone, reduced motion. |
-| `assets/base.css` · `assets/base.js` | An optional neutral foundation to build on. |
-| `assets/scenes/` | The scroll scenes: the shared stage (`stage.js`, `stage.css`) and, for each scene in the library, its `.js`, `.css` and a working demo page in `demo/`. |
-| `assets/app.css` · `assets/charts.js` | For app screens: a neutral shell, panels, tables and controls, and small SVG charts drawn to the app rules. |
-| `library/` | The data the draw reads: directions, heroes, sections, type systems, palettes, photographs, studied sites, motions, scroll scenes (`scenes.json`), and the app styles, shells and screen patterns (`app.json`). Do not read it whole; use the script. |
+# tasteskill 2.5
+
+Build the website a good company would ship: it says plainly what is sold, shows the real thing on
+every screen, and looks made for this client, not from a template and not like an art piece.
+figma.com and x.ai are the bar (in words: `layout-v4.md` section 1).
+
+`<skill>` is this folder. It needs Node 22+ and Chrome, Edge or Chromium (ffmpeg optional).
+
+## House rules
+
+These nine win over everything else in this skill.
+
+1. **No caption or description under any image, render or visual.** Licence credits go in one
+   footer line.
+2. **Every visual renders, never an empty ground,** at 1440, 1024, 768 and 390.
+3. **One section per screen:** the hero alone on the first screen, every section exactly one or
+   two screens tall at 1440x900, no second section heading peeking in. The one exception is a
+   live `photo-chapters` section, three or four screens, set by the moment.
+4. **Equal left and right content edges.**
+5. **Hover micro-animations:** a linked card lifts 2px, a photo zooms 1.02-1.03 inside its frame,
+   buttons step on hover and press on click, underlines draw, card loops cycle in 2.5-4 s, repeat
+   and restart on hover. The motion layer does it; never strip or override it. No tilt, carousels
+   or timed tabs. Every hero enters once on load (`data-enter`), and every page carries one dealt
+   moment, two on a long page (the gate holds both).
+6. **More and better real photographs where they fit;** nicer backgrounds; better heroes, layouts
+   and fonts.
+7. **Real full-colour icons** (a known product's real icon, never a drawn one); small diagram
+   visuals in cards (a hub with branches; one input, a main processor, three parallel lanes;
+   pulses running along the lines).
+8. **The big award-site scenes and creative moments are part of the skill:** every page deals its
+   moments (photo- and type-led off tech), but shader effects and scenes only where the trade has a
+   technical subject (tech, AI, developer tools, gaming, fintech, hardware), never on a local cafe,
+   bakery, guesthouse or shop: those get photographs.
+9. **Addresses:** street and district only (no street given: the district), no house number, postcode or coordinates; no register
+   or VAT numbers; no phone in a real format; contacts on `.example`.
+
+## 1. The kind of business decides everything
+
+Write the kind on the plan's first line and declare it on the page: the page type on
+`<html data-type>` and `<meta name="page-type">` (the same value), and `<meta name="site-kind">`;
+a place adds `<meta name="page-kind" content="place">`. The dealers take the last column
+(`start.mjs --page`, `moments.mjs --page`), the hero dealer the page type; `consistency.mjs` reads
+the metas.
+
+| Brief | page type | site-kind | kind |
+|---|---|---|---|
+| App, SaaS, AI, developer tool, fintech or banking app, a studio selling its own software | software | software | software |
+| A game, a studio launching its game | software | gaming | gaming |
+| Hardware or a tech device (a drone, a robot arm, a keyboard) | product | tech | tech |
+| Any other physical product or brand (a chair, a bike, coffee beans sold online) | product | other | product |
+| People are hired: clinic, law firm, agency, creative studio, trade | service | other | service |
+| People come to it: cafe, bar, bakery, restaurant, guesthouse, small hotel, shop, florist, bike shop, gym, local studio | place | other | place |
+
+A maker that also opens its door or teaches (a ceramics studio, a bakery with a web shop) is a
+**place**; its web shop becomes the goods section. It is a product only when nothing happens at the door.
+
+"Tech" below means site-kind software, gaming or tech; "other" is everything else. Effects,
+scenes, loops, counts, CSS grounds, dark pages and dark heroes are tech only. An other page is
+photographs, flat colour, type, real icons, the hero's entrance, its dealt moment (photo- or
+type-led, `moments.md`) and the hover layer.
+
+## 2. The page plan by kind
+
+The full plans, deal lists and section order: `references/sections.md`.
+
+- **Place** (a cafe, bakery, guesthouse, shop). Photographs lead: 12 to 20 on the full page, 8 to
+  12 compact, under 8 frames the 3-screen short page, whatever the trade; no client photographs:
+  the draft path and a live search (`photos.md`), then count; the palette dealt by trade. The hero
+  a photograph whenever a frame fits (a remote place: its region's landscape), the visit block on
+  screen two, the offer, the place, orders or booking.
+  **Variety without effects** (`sections.md` section 4): the offer and the place deal different
+  compositions, never two sections round one picture; one type moment (the address or name set large); one main action a screen; list text 16px. Flat grounds, square
+  photographs, one button style, the phone bar, the dealt moments; no effect, ground, loop,
+  fragment, diagram or tab.
+- **Product and service** (site-kind other). Photographs lead: the product, the people, the rooms,
+  the work, two or more a screen on a product page. Real icons for the tools a studio uses; one
+  still diagram at most; flat grounds and one brand band. No shader effect, print, grain, gradient,
+  scene or loop (the dealt moments only); WebGL only for a product render the brief asks for. **A
+  physical product with no photographs is shown in photographs:** stand-ins of the same kind of
+  thing from `photos.mjs search`, each listed in the report, on the full product page; a render
+  (`assets/objects/product-render`, stills) only when the brief asks for 3D or a render; never a
+  drawing, mood stock or a set of props (`sections.md`, Product).
+- **Every product page** (photographed, in stand-ins or rendered on a 3D ask, hardware too; the bar is Figure and 1X;
+  `sections.md`, Product): the product **big** where it stands
+  whole (most of its frame, or on the ground at anchor scale), never mid-size in a grey rounded
+  panel on a grey ground; **a different picture each section**, never one view twice; **every headline promise pictured** (a family bike shows the child bench); dealt
+  compositions, no structure twice, one contrasting ground; the **swatch changes the picture**,
+  every colour shown once; **no fact twice**; buttons step and press (rule 5).
+- **Tech** (software, gaming, hardware). The client's own subject leads at true size. Software: its
+  own UI as live HTML showing what it works on (a code-review tool: a red and green diff with its
+  Accept action) in one `app-frame`, never a generic dashboard or only fragments on panels; cards:
+  fragments on lit panels, pulsing diagrams, real icons. Hardware: its photographs, else stand-in
+  photographs of its kind (a render only when the brief asks for 3D), never a split hero of only
+  an order form or a drawn SVG. A game: its name in the h1, a launch line, its world as full-bleed
+  key art (else its name set large over stand-in photographs of its setting), an effect never in
+  its place (`sections.md`, Gaming). **60 to 80 words a screen** outside UI mocks (`copy.md`). By
+  deal: **one effect** (a shader ground in the hero or the one `[data-visual]` frame, a WebGL
+  part, an object or one big scene) and **one or two moments** in their own sections; four live
+  WebGL contexts at most; no card moves with the scroll (`effects-usage.md`).
+- **One object never carries the page.** The product or hero object whole leads the hero and **two more sections at
+  most**; another kind of visual the brief supports carries the rest (`sections.md` section 1,
+  its table): a game's world and crew; hardware's use at the bench, its parts close up; a still
+  diagram card, a type moment, a context photograph where the trade allows.
+- **The client's own assets get slots.** A trailer, key art, screenshots, CAD renders or a motion
+  video the brief names each get a frame that reads finished now (a real `<video>` with a stand-in
+  poster, a play control only when there is a page or file to play, three to five stand-in
+  photographs of the world, a CAD frame), named in a comment for the client's file, never empty
+  (`sections-library.md`, client-slots).
+
+## 3. What serves which page
+
+Open the reference of every asset family the page uses first. A dash means never.
+
+| Need | Asset | Software, gaming | Hardware | Product, service | Place | Reference |
+|---|---|---|---|---|---|---|
+| Heights, edges, heroes, type | `system.css`, `assets/layout` | dealt hero | dealt hero | dealt hero | place hero | `layout-v4.md` |
+| Sections and recipes | `starter.html` | its plan | product plan | its plan | place plan | `sections.md`, `sections-library.md` |
+| Tokens, grid, buttons, nav, footer, colour | `system.css`, `system.js` | yes | yes | yes | place tokens | `system.md` |
+| Forms, keyboard, head and share tags | `starter.html`, `system.css`, `system.js` | yes | yes | yes | yes | `system.md` |
+| Copy, contacts, credits | `scripts/copy-lint.mjs` | yes | yes | yes | yes | `copy.md`, `copy-voice.md` |
+| Hero entrance, hover, press, focus, nav, tabs | `assets/motion` | yes | yes | yes | yes | `motion.md` |
+| Card loops, a count | `assets/motion`, `assets/ui` | yes | yes | - | - | `motion.md`, `cards.md` |
+| Photographs | `scripts/photos.mjs` | people, customers; a game's art, else stand-ins of its setting | lead | lead | lead, 12-20 | `photos.md` |
+| Real tool, app and file icons | `scripts/icons.mjs` | yes | yes | tools really used | - | `icons.md` |
+| Feature cards, UI fragments | `assets/ui` | lead (gaming: none) | its app | an app the client runs | - | `cards.md` |
+| Diagram cards (hub, lanes, pulses) | `assets/diagrams` | 0-2, pulsing | 0-2, pulsing | 0-1, still | - | `diagrams.md` |
+| CSS grounds | `assets/backgrounds` | 0-2 dealt | 0-2 dealt | flat tokens | flat tokens | `backgrounds.md` |
+| Shader grounds | `assets/effects` | the one effect | the one effect | - | - | `effects-usage.md` |
+| Creative parts (`fx-*`) | `assets/components` | yes | yes | `fx-photo` plain, `fx-map` still | `fx-map` still | `effects-creative.md` |
+| Objects and prints | `assets/objects` | one, as the effect; a render when the brief asks for 3D | its render when the brief asks for 3D | its render when the brief asks for 3D | - | `effects-objects.md` |
+| Award-site moments | `assets/moments` | 1-2 | 1-2 | 1-2 (photo, type) | 1-2 (photo, type) | `moments.md` |
+| Big scenes | `assets/scenes` | 0-1 | 0-1 | - | - | `scenes.md` |
+| Speed and weight | `scripts/perf.mjs` | yes | yes | yes | yes | `perf.md` |
+
+Read `copy.md`, `copy-voice.md`, `system.md`, `layout-v4.md` and `sections.md` in full before the first page.
+
+## 4. The run
+
+0. **The stack.** An empty folder builds a static page: copy `<skill>/assets` into `assets` and
+   start from `assets/starter.html`. An existing project builds in its own stack, its components
+   taking the starter's markup and classes, with the kit copied into its public folder
+   (`public/assets`) and loaded from there as plain files. A brief that asks for Next.js builds a
+   static export (`output: 'export'`), checked on its built page (`--root out`).
+
+1. **Read the brief.** Write down the kind (section 1), what is sold, who buys it, the one main
+   action (the transaction: Book a room, Order a cake, Start a free trial; a place with neither:
+   Get directions) and the real material: logo, screens, photographs, prices, address, hours.
+   Then arm the finish gate, before any page exists:
+
+   ```bash
+   node <skill>/scripts/gate.mjs --start index.html --kind <kind> --category "<what is sold>" --primary "<main action>"
+   ```
+
+   A framework build names its dev server's URL (`--start http://localhost:5173/`) or its built page
+   (`--start dist/index.html --root dist`; a Next.js export: `out`) in place of `index.html`, and
+   rebuilds before every gate run.
+
+2. **Write all the copy first,** with the copy layer (`copy-voice.md`: the fact sheet, the voice
+   card on the plan, the page's shape, the device budget; a register from `copy-registers.md`, the
+   moves of `copy-moves.md`) within the rules of `copy.md`: the h1 names the category and the buyer or the place (a game: its name and genre),
+   one hard fact on the first screen, a noun in every heading, buttons as a verb and an object.
+   Nothing is invented but a coined brand name (searched first, the result kept in `names.json`
+   beside the page) and, on a place, plausible hours and prices, each marked `data-assumed`
+   (`copy.md`, What may be assumed). A draft kept in a `.md` file lints the same way as the page
+   (the voice card and part labels are skipped).
+
+3. **Plan the page as screens.** Line 1: the kind. Line 2: the deal (step 4), with one sentence on
+   why the palette fits the trade. Then one line per
+   section: its id, its one idea, its picture and its kind (object, use, parts, world, slot, diagram, type; three object lines at most), its
+   screens (1 or 2, from its content height, `layout-v4.md` section 2), which section holds a
+   moment and why it moves (on tech also the effect or the scene). Pick the photographs now (`photos.md`); their count,
+   stand-ins included, sets a place's length (section 2). Then read `cards.md` and the recipe of
+   every id you use in `sections-library.md`.
+
+4. **Deal, never choose by taste.** Each command keeps a history, so pages differ:
+
+   ```bash
+   node <skill>/assets/layout/deal.mjs --type <page type> --has <photo,ui,film,object,setting> --history .taste-skill/layout-history.json   # the hero; a game adds --kind gaming, hardware --kind tech
+   node <skill>/scripts/start.mjs deal --page <kind> --trade <trade> --history .taste-skill/history.json    # three palettes made for the trade, three pairings: take the first; add --axis after a word or editorial hero
+   node <skill>/scripts/start.mjs css --page <kind> --palette <id> --type <id> --radius soft --history .taste-skill/history.json
+   node <skill>/scripts/start.mjs brand --page place --bg "#.." --ink "#.." --accent "#.." [--surface "#.."] [--muted "#.."] --type <id> --radius soft   # the client's own colours (a logo, a painted shopfront), in place of css
+   node <skill>/scripts/moments.mjs pick --page <kind> --count 1|2 --fits section,statement --photo --history .taste-skill/history.json   # every kind
+   node -e "for(const l of process.argv.slice(1)){const o=l.split('|');console.log(o[Math.floor(Math.random()*o.length)])}" <the kind's lists, below>
+   ```
+
+   Run every command from the project folder (the deal arms the gate in the folder it runs in, or
+   joins the build already open one or two folders up). The
+   lists, in order nav, footer, close, rhythm, buttons, mark (`sections.md` sections 2 and 3):
+   - software: `"nav-mega|nav-cards|nav-centre" "footer-dark|footer-statement|footer-columns" "close-type|close-word" "dark-band|surface-pairs|space" "solid|pill|tonal|arrow" "wordmark|initial|arc|ring|stack|dots"`
+   - gaming: `"nav-mega|nav-centre|nav-cards" "footer-dark|footer-statement" "close-word|close-type" "dark-band|media-band|space" "solid|pill|block" "wordmark|initial|arc|ring|stack|dots"`
+   - product and hardware: `"nav-cards|nav-split|nav-mega" "footer-columns|footer-dark" "close-photo|close-type|close-word" "dark-band|brand-band" "arrow|solid|block|pill" "wordmark|initial|arc|ring|stack|dots"`
+   - service: `"nav-mega|nav-split|nav-centre" "footer-visit|footer-dark|footer-columns" "close-type|close-photo" "surface-pairs|dark-band|space" "solid|tonal|block|arrow" "wordmark|initial|arc|ring|stack|dots"`
+   - place: the whole line in `sections.md` section 4, Place (The deal), read in its order.
+
+   A product or hardware with no photographs deals with `--has photo` for its stand-ins;
+   `--has object` only for a cut-out or a render the brief asks for (always the `product` hero, its
+   widest view across the wrap, no box); a game without art files passes `--has setting` (the
+   `photo` hero, its name over a stand-in of its setting; a game always passes `--has`). A product
+   page is dealt only the product, photo and film heroes. A place's hero is printed, never dealt (`--type
+   place`). A dealt part that needs a photograph the page lacks is dealt again (`sections.md` section 2). Take the
+   first palette and the first pairing printed (the next only when the first clashes with the
+   client's own logo or photographs, or the pairing fails `hero-lines`, said on plan line 2); the client's own colours go through
+   `start.mjs brand` instead (`sections.md` section 4, Look); never violet: deal again. Keep the `:root` block as printed. Radius: `sharp` for fintech and developer tools, `soft` by default,
+   `round` for consumer apps, square on a place. On tech only: the lit ground (`<html data-ground>`:
+   `sand|sky|sage` through the one-liner), the CSS grounds (`backgrounds.md`) and the one effect
+   (`effects-usage.md`). Write every result on plan line 2 and in
+   the comment at the top of `<body>`, and build exactly that (a short page drops what it has no section for: `sections.md` section 4).
+
+5. **Build.** In `starter.html`: set `<html lang data-type data-radius data-buttons data-motion>`
+   (lang: the brief's language), the three metas, the head block (title, description, og, icon,
+   theme-color: `system.md`, Head) and the nav class; keep the skip link and the `m-enter` head
+   line; copy only the `<section class="hero …" data-enter>` of
+   `assets/layout/hero-<id>.html` (never its nav, other sections, footer or credit line; every word
+   and picture becomes the client's); move the dealt close and footer out of their `<template>`s
+   and delete the rest. Every section is `main > section` with
+   one `.wrap`, its h2 first, `--h: 1` or `2`. Build each to its recipe with the system's classes
+   and tokens; write page CSS only where a reference says page CSS (inside a visual, `--p-h`,
+   `.wall`, `.rail`, `.device`). Paste UI from `assets/ui/<name>/fragment.html` and rewrite every
+   name, number and logo to the client's (kit icons become `data-icon`, `cards.md`); a diagram card is `data-diagram="<preset>"`
+   with the client's labels; run `icons.mjs scan index.html --out assets/icons --colour` last, so every icon
+   the page names is a local file. Mount an effect, object, moment or scene exactly as its
+   reference says, never from your own script. A moment's section is copied from
+   `assets/moments/_demo/in-page.html` (place: photo-chapters, word-highlight) or
+   `in-page-service.html` (pinned-chapters, picture-develops film); a moment's own `demo.html` shows
+   it alone and is not a page model. A form is the starter's `booking-form` (`system.md`,
+   Forms). Credits: the one footer line from `photos.mjs credits`, once the markup uses the
+   photographs (it reads the page). Copy the hero's tile from `shoot.mjs` beside the page as `share.jpg`.
+
+6. **Check and look.** Only the skill's scripts, each running one headless Chrome with WebGL on the
+   CPU, closed by its own PID, one at a time in the foreground with a 10-minute timeout; never in
+   the background, a windowed browser or a browser tool.
+   Each serves the page file itself over http on 127.0.0.1 (never `file://`), so no server is needed;
+   for a built page whose links start at the site root (`/_astro/page.css`), pass `--root` with the build folder (`dist`).
+   `--profile <dir>` is the Chrome profile: a folder of its own in the OS temp folder or in the
+   project's `.taste-skill` folder (`.taste-skill/chrome-check`), never outside the project (no
+   `../`); a relative one that leads out of it is replaced by `.taste-skill/chrome-<script>`. Then:
+
+   ```bash
+   node <skill>/scripts/copy-lint.mjs index.html --kind <kind>
+   node <skill>/scripts/consistency.mjs index.html --widths 1440,1024,820,768,390 --rhythm-widths 1440,820,768,390 --profile <dir> --page <kind> --category "<what is sold>" --primary "<main action>"
+   node <skill>/assets/layout/check.mjs --url index.html --profile <dir> --sizes 1440x900,1024x768,820x1180,768x1024,390x844 --shots shots/layout
+   node <skill>/scripts/shoot.mjs --url index.html --w 1440 --out shots/1440.png --profile <dir>
+   node <skill>/scripts/perf.mjs index.html --profile <dir>
+   ```
+
+   Shoot 1024, 820x1180, 768x1024 and 390 as well. Every `check.mjs` finding fails the page (no `--no-stress`).
+   copy-lint opens no browser and takes under a second. Fix every FAIL (a copy-lint WARN too, or say
+   why it stays) and read the copy aloud (`copy-voice.md` section 6); shoot again and read every
+   screenshot against the checklist. In the fix rounds run `consistency.mjs --quick --widths
+   1440,390`. Then the gate, which runs the checker at 1440 and 390 every time, walks the page at 320
+   for overflow, collide and tap-size, and runs copy-lint, whose FAILs block like the checker's:
+
+   ```bash
+   node <skill>/scripts/gate.mjs index.html
+   ```
+
+   Fix what it lists and run it again until its last line is `GATE: PASS` or `GATE: OPEN`, three
+   rounds at most (in Claude Code it also runs when you finish; a stop before your first gate run is
+   no round, and to ask the user something after a block, just stop again). When the user tells you
+   to stop, or to ship the page as it is, run `gate.mjs --done "<what they said>"` (`GATE: DONE`)
+   and report the open FAILs.
+   `GATE: SETUP` (no page yet, a framework's source shell, a page that is not local): arm what a
+   browser can open (step 1) and run it again. `GATE: ERROR` (the checks could not run) or
+   `GATE: OFF`: put the line in the report and finish; do not rerun. Never edit
+   the kit's files or hide anything from the checker. A FAIL you judge false is waived in
+   `.taste-skill/waivers.json` with its reason, never fixed by gaming the check (`references/gate.md`);
+   a word from the client's own copy that copy-lint FAILs is waived hit by hit, the brief as the reason
+   (a word inside the client's name, as the logo or the title writes it, is not counted: one WARN).
+
+7. **Report:** the `GATE:` line first, then every waiver with its reason and every open FAIL; the
+   kind, the deal (palette and why it fits, pairing, hero, grounds, effect, moments, scene); the
+   voice card in one line and every copy-lint WARN kept, with why; the checker, layout and perf
+   results; what you could not check; every assumed fact (the checker's `assumed` list) and the
+   coined name's search; the form's `.example` stand-in and the canonical domain still to come; the photographs and art the client must supply, every
+   stand-in frame among them (library and live search); every client slot, its file and its stand-in.
+
+## 5. Checklist
+
+Each line names its checks: `consistency.mjs` ids in brackets, `check.mjs` findings in braces,
+`perf.mjs` rows. The last line is for your eyes.
+
+- **First screen:** says what is sold, for whom or where, with one hard fact [copy-headline,
+  copy-fact]; the hero fills it alone at every width, its main button inside it [hero-screen,
+  hero-fill, fold-action, fold-cut] {hero-fold}.
+- **One section per screen:** every section 1 or 2 screens, its h2 first and top-aligned, no
+  neighbour's heading or picture in its tile, nothing sparse, no section half empty [section-height, one-section,
+  one-heading, section-air, one-screen, section-gaps, empty-area] {screen-short, screen-height, sparse,
+  neighbour, neighbour-ground}.
+- **Equal edges:** every block on the `.wrap` lines or the grid's columns, nothing out to one side,
+  no sideways scroll [container-edges, row-lines, split-pair, off-grid, right-edge, col-edge,
+  spill, off-viewport, stagger, top-stagger] {edge-left, edge-right, spill, bleed-one-side,
+  one-sided, lines}.
+- **Every visual draws** at 1440, 1024, 768 and 390; a refused effect shows its still fallback
+  [visual-empty, empty-visual, gl-fallback, shader-lint, no-visual, photo-weight].
+- **No caption** explains, apologises for or labels a picture; credits in one footer line
+  [visual-caption, caption, credit-wall, photo-credit]; no placeholder, sample note or printed
+  `.example` address [placeholder, sample-label].
+- **The right things for the kind:** outside tech no effect ground, print or scene, only the
+  dealt photo- or type-led moments (WebGL only for a product render the brief asked for)
+  [effect-kind, effects-fit, photo-print]; the subject itself
+  shows: the product big, whole in three sections at most, a new picture each [product-shown,
+  same-object, photo-repeat]; each asset the brief names in its slot; a game's name and its world as key art,
+  the diff of a code-review tool, software's `app-frame`;
+  real photographs where they fit, none twice [photo-set, photo-repeat, photo-upscale]; real icons in their own
+  colours; flat grounds on other [grounds]; a place deals two different compositions and one type
+  moment.
+- **Motion:** every button, link, linked card and linked photograph visibly answers the pointer,
+  nothing tilts [motion-layer, hover, hover-move, tilt]; the hero enters once on load
+  [hero-enter]; one or two dealt moments [moment-none]; card loops cycle in 2.5-4 s [loop-cycle]; nothing moves because the page scrolled
+  except a dealt moment inside its own section (every kind) or the big scene (tech)
+  [scroll-linked, scroll-reveal, pinned: expected only there]; anything
+  moving past 5 s has a pause button [loop-pause]; under reduced motion everything rests and nothing
+  stays hidden [reduced-motion, hidden-content]; at most four live contexts [webgl].
+- **Contacts** as rule 9 [street-number, postcode, coordinates, company-number, phone-number];
+  Get directions only with a street, "See the area" with a district, no map link with a town only [map-link].
+- **Keyboard and head:** every control named, alt on pictures, labels you can see, headings one
+  level at a time, no tabindex above 0; Tab reaches the skip link first, its ring shows at once and
+  never under the header; the menu button says its state; lang, title, description and share tags
+  [a11y-name, img-alt, field-label, heading-order, tabindex, skip-link, focus-ring, focus-visible,
+  focus-hidden, menu-toggle, lang, page-meta, share-meta].
+- **One system:** one button pair, one card style, one radius scale, one link look [button-styles,
+  button-shape, card-family, card-layout, link-styles]; two boxes deep at most [nesting]; one
+  heading scale, its faces loaded [heading-scale, font-load]; text contrast [text-contrast,
+  contrast].
+- **Copy and links:** headings name things, buttons a verb and an object, at most two hero actions
+  [copy-headings, copy-buttons, copy-actions, action-count]; one action twice a screen at most
+  [action-repeat]; a heading's grey half is its own sentence [run-on]; one fact, one wording
+  [fact-agree]; assumed facts marked, never an open-now line from them [assumed, open-now]; every
+  link lands, forms send, a confirmation only after a real send, each error under its own field
+  [links, forms, form-send, form-fields]; no slop word, stock line, leftover or device used as a
+  tic, a voice of its own (copy-lint's ids: copy-residue, copy-slop-word, copy-stock-phrase,
+  copy-two-fragment, copy-virtue, ...; `copy-voice.md`).
+- **Fast:** no FAIL row in `perf.mjs` (image weight, contexts, layout shift).
+- **820, 768, 390 and 320:** sections on their screens [section-height]; on a phone a section is at
+  least its screens and grows with what it holds, so nothing lies on anything else or under a fixed
+  bar [collide]; every link and control outside running text 44px tall [tap-size] (a FAIL when
+  another target is under 8px away); nothing past the screen at 320 [off-viewport], and nothing
+  lies on anything else there either [collide]; the first screen ending whole or on a clear bleed [fold-card]
+  (`layout-v4.md`); splits stack text first, no row half empty; one column at 390, buttons full
+  width, a full-screen menu; the place action bar.
+- **Your eyes:** beside the figma.com and x.ai frames it reads as a professional company site;
+  nothing tilted, staggered, cut or overlapping; the hero is the work, not a mood.
+
+## 6. Never
+
+- A card, row or tile that fades in on scroll; a fade-in on every section; parallax on text;
+  scroll-jacking; random blinking.
+- Stock photographs passed off as the client's product, people or place (a stand-in is listed in
+  the report as one, never shown with another maker's name or logo); a product page that never
+  shows the product.
+- A drawn look-alike of a real logo; invented reviews, quotes, customers or figures.
+- Violet or lavender in the page's own design: accent, ground, gradient, effect colour or tint (a
+  real third-party logo keeps its own colours, `icons.md`).
+- Copying a reference site's code, copy, pictures or signature effect.
+- Deleting or editing the kit's own files (`assets/`, `scripts/`) to clear a check: a check that
+  flags a kit file is reported, and the page is checked again after any change.
+
+## References
+
+All in `references/`; section 3 names the one each asset needs.

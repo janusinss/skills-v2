@@ -1,6 +1,9 @@
 ---
 name: fastapi-reviewer
 description: "Reviews FastAPI applications for async correctness, dependency injection, Pydantic schemas, security, OpenAPI quality, testing, and production readiness."
+tier: brain
+model_tier: reasoning
+reasoning_effort: high
 tools:
   - view_file
   - grep_search

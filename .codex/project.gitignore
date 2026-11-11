@@ -5,6 +5,8 @@
 /AGENTS.md
 /scratch/
 /.impeccable/
+/.harness/
+/.agent_worktrees/
 
 # Operating System Files
 .DS_Store
@@ -122,6 +124,8 @@ scratch/
 
 # Ephemeral Skill Runtime & Review Artifacts
 .impeccable/
+/.harness/
+/.agent_worktrees/
 
 # Security Scans, Pentest Targets & Audit Artifacts
 targets/

@@ -1,6 +1,7 @@
 ---
 name: imagegen-frontend-mobile
 description: "Generate iOS and Android mobile app screen concepts and multi-screen flows inside phone mockups (images only). Use for mobile UI comps; for web use imagegen-frontend-web."
+license: MIT
 ---
 
 # CORE DIRECTIVE: PREMIUM MOBILE APP IMAGE DIRECTION

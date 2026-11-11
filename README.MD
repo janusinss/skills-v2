@@ -1,7 +1,7 @@
 # Agent Skills & Workspace Configurations
 
 <!-- generated:counts -->
-A curated collection of **118 top-level AI agent skills**, 30 specialized subagents, 9 architectural rules and 5 Claude Code slash commands, with multi-profile installers across three editions: **AGY / Gemini**, **GPT / Codex** and **Anthropic / Claude Code**.
+A curated collection of **116 top-level AI agent skills**, 32 specialized subagents, 10 architectural rules and 8 Claude Code slash commands, with multi-profile installers across three editions: **AGY / Gemini**, **GPT / Codex** and **Anthropic / Claude Code**.
 <!-- /generated:counts -->
 
 ---
@@ -66,12 +66,12 @@ Both the Codex and Claude Code installers accept `--profile <name>` to install t
 <!-- generated:profiles -->
 | Profile | Skills | Contents |
 | :--- | :---: | :--- |
-| **`all`** | 118 | Every skill, rule and subagent. |
-| **`minimal`** | 8 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `ui-styling`, +3 more |
-| **`frontend`** | 31 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +26 more |
+| **`all`** | 116 | Every skill, rule and subagent. |
+| **`minimal`** | 9 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `ui-styling`, +4 more |
+| **`frontend`** | 30 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +25 more |
 | **`backend`** | 29 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +24 more |
 | **`security`** | 15 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `security-audit`, +10 more |
-| **`fullstack`** | 52 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +47 more |
+| **`fullstack`** | 51 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +46 more |
 <!-- /generated:profiles -->
 
 ---
@@ -94,6 +94,7 @@ Domain-specific subagents configured for background task delegation:
 | **`database-reviewer`** | PostgreSQL database specialist for query optimization, schema design, security, and performance. |
 | **`django-build-resolver`** | Django/Python build, migration, and dependency error resolution specialist. |
 | **`e2e-runner`** | End-to-end testing specialist using Vercel Agent Browser (preferred) with Playwright fallback. |
+| **`explorer`** | Fast Reflex-tier reconnaissance subagent for rapid file discovery, symbol localization, and call-site mapping. |
 | **`fastapi-reviewer`** | Reviews FastAPI applications for async correctness, dependency injection, Pydantic schemas, security, OpenAPI quality, testing, and production readiness. |
 | **`go-build-resolver`** | Go build, vet, and compilation error resolution specialist. |
 | **`go-reviewer`** | Expert Go code reviewer specializing in idiomatic Go, concurrency patterns, error handling, and performance. |
@@ -109,6 +110,7 @@ Domain-specific subagents configured for background task delegation:
 | **`rust-reviewer`** | Expert Rust code reviewer specializing in ownership, lifetimes, error handling, unsafe usage, and idiomatic patterns. |
 | **`security-auditor`** | Specialist subagent for conducting adversarial pre-commit security audits, vulnerability detection, and exploit defense reviews based on security.md. |
 | **`silent-failure-hunter`** | Review code for silent failures, swallowed errors, bad fallbacks, and missing error propagation. |
+| **`skeptic`** | Cold-Context Adversarial Skeptic for independent pre-merge verification. |
 | **`spec-miner`** | Extracts behavioral specs from existing codebases for OpenSpec. |
 | **`tdd-guide`** | Test-Driven Development specialist enforcing write-tests-first methodology. |
 | **`typescript-reviewer`** | Expert TypeScript/JavaScript code reviewer specializing in type safety, async correctness, Node/web security, and idiomatic patterns. |
@@ -123,6 +125,9 @@ In Claude Code, engineering phases are triggered directly via native slash comma
 - `/audit`: Invoke `@security-auditor` and `@silent-failure-hunter` for defense-in-depth audits.
 - `/review`: Invoke `@typescript-reviewer` or `@code-reviewer` for code quality checks.
 - `/eval`: Invoke `@agent-evaluator` to grade delivery quality on a 1–5 scale.
+- `/contract <task>`: Initialize a pre-flight task contract and adaptive worktree via `harness.mjs`.
+- `/verify <task>`: Run deterministic receipt verification (`harness.mjs`) and cold-context `@skeptic` evaluation.
+- `/flywheel <task>`: Record a root-cause invariant into the Calibrated Dual-Store Memory Flywheel and checkpoint progress.
 
 ---
 
@@ -140,15 +145,16 @@ Foundational architectural guidelines enforced automatically across all editions
 | [`backend.md`](.agents/rules/backend.md) | Data Layer | Service/repository separation, connection pooling, schema integrity, atomic transaction boundaries. |
 | [`security.md`](.agents/rules/security.md) | Auth & APIs | 7 defensive hardening phases, Argon2id/bcrypt, CSRF tokens, strict CORS, error suppression. |
 | [`penetrating-and-testing.md`](.agents/rules/penetrating-and-testing.md) | Pentest & QA | Strix autonomous exploit verification with PoCs, `vulnerabilities.json` reporting, 5-state UI tests. |
+| [`learned-invariants.md`](.agents/rules/learned-invariants.md) | Memory Flywheel | Calibrated dual-store promoted root-cause invariants and anti-regression guardrails. |
 | [`install.md`](.agents/rules/install.md) | Onboarding | Interactive setup router supporting GPT / Codex, AGY / Gemini, and Claude Code. |
 
 ---
 
-## 🛠️ Included Skill Domains (118 Skills)
+## 🛠️ Included Skill Domains (116 Skills)
 
 | Domain | Count | Key Skills |
 | :--- | :---: | :--- |
-| **🎨 Frontend & UI/UX** | 21 | `ui-ux-pro-max`, `impeccable`, `design-taste-frontend`, `awesome-design-md`, `ui-styling`, `react-best-practices`, `nextjs-best-practices`, `tailwind-patterns` |
+| **🎨 Frontend & UI/UX** | 20 | `ui-ux-pro-max`, `impeccable`, `design-taste-frontend`, `awesome-design-md`, `ui-styling`, `react-best-practices`, `nextjs-best-practices`, `tailwind-patterns` |
 | **📱 Mobile Development** | 5 | `flutter-expert`, `ios-developer`, `react-native-architecture`, `mobile-design`, `imagegen-frontend-mobile` |
 | **⚙️ Backend & Persistence** | 18 | `backend-dev-guidelines`, `database-design`, `postgres-best-practices`, `fastapi-templates`, `api-patterns`, `django-pro`, `golang-pro`, `rust-pro` |
 | **🔒 Security & Pentesting** | 10 | `penetration-testing-with-strix`, `security-audit`, `api-security-best-practices`, `auth-implementation-patterns`, `top-web-vulnerabilities`, `fix-security-vulnerabilities-with-strix` |
@@ -157,7 +163,7 @@ Foundational architectural guidelines enforced automatically across all editions
 | **🤖 AI & Autonomous Agents** | 15 | `ai-agents-architect`, `agentic-engineering`, `agent-evaluation`, `agent-self-evaluation`, `rag-engineer`, `langgraph`, `langfuse`, `llm-app-patterns` |
 | **📈 Product & Growth** | 18 | `prompt-enhancer`, `copywriting`, `copy-editing`, `avoid-ai-writing`, `content-creator`, `brandkit`, `product-manager-toolkit`, `launch-strategy` |
 | **🎮 Creative, Motion & 3D** | 5 | `scrollytelling`, `scroll-experience`, `3d-web-experience`, `claude-d3js-skill`, `archify` |
-| **🛠️ Core Engineering** | 9 | `concise-planning`, `code-review-checklist`, `architecture-decision-records`, `full-output-enforcement`, `git-pushing`, `stripe-integration` |
+| **🛠️ Core Engineering** | 8 | `concise-planning`, `code-review-checklist`, `architecture-decision-records`, `git-pushing`, `stripe-integration`, `kaizen` |
 
 ---
 

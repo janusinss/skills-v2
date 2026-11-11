@@ -2,6 +2,7 @@
 name: django-build-resolver
 description: "Django/Python build, migration, and dependency error resolution specialist. Fixes pip/Poetry errors, migration conflicts, import errors, Django configuration issues, and collectstatic failures with minimal changes. Use when Django setup or startup fails."
 tools: Read, Grep, Glob, Write, Edit, Bash
+tier: builder
 model: sonnet
 ---
 

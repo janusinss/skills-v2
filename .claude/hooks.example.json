@@ -1,0 +1,60 @@
+{
+  "description": "Optional harness and Impeccable hooks. Install at .claude/hooks.json in a trusted target project and review them in Claude Code before use.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ ! -f \".claude/skills/continuous-agent-loop/scripts/harness.mjs\" ] || node \".claude/skills/continuous-agent-loop/scripts/harness.mjs\" sensor check-file",
+            "commandWindows": "if exist \".claude/skills/continuous-agent-loop/scripts/harness.mjs\" (node \".claude/skills/continuous-agent-loop/scripts/harness.mjs\" sensor check-file & exit /b)",
+            "timeout": 5,
+            "statusMessage": "Checking harness contract scope"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ ! -f \".claude/skills/impeccable/scripts/impeccable\" ] || \".claude/skills/impeccable/scripts/impeccable\" hook",
+            "commandWindows": "if exist \".claude/skills/impeccable/scripts/impeccable.cmd\" (\".claude/skills/impeccable/scripts/impeccable.cmd\" hook & exit /b)",
+            "timeout": 5,
+            "statusMessage": "Checking UI changes"
+          },
+          {
+            "type": "command",
+            "command": "[ ! -f \".claude/skills/continuous-agent-loop/scripts/harness.mjs\" ] || node \".claude/skills/continuous-agent-loop/scripts/harness.mjs\" sensor check-file",
+            "commandWindows": "if exist \".claude/skills/continuous-agent-loop/scripts/harness.mjs\" (node \".claude/skills/continuous-agent-loop/scripts/harness.mjs\" sensor check-file & exit /b)",
+            "timeout": 5,
+            "statusMessage": "Auditing post-edit scope boundary"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ ! -f \".claude/skills/impeccable/scripts/impeccable\" ] || \".claude/skills/impeccable/scripts/impeccable\" hook",
+            "commandWindows": "if exist \".claude/skills/impeccable/scripts/impeccable.cmd\" (\".claude/skills/impeccable/scripts/impeccable.cmd\" hook & exit /b)",
+            "timeout": 30,
+            "statusMessage": "Design deep pass"
+          },
+          {
+            "type": "command",
+            "command": "[ ! -f \".claude/skills/continuous-agent-loop/scripts/harness.mjs\" ] || node \".claude/skills/continuous-agent-loop/scripts/harness.mjs\" verify status-check",
+            "commandWindows": "if exist \".claude/skills/continuous-agent-loop/scripts/harness.mjs\" (node \".claude/skills/continuous-agent-loop/scripts/harness.mjs\" verify status-check & exit /b)",
+            "timeout": 10,
+            "statusMessage": "Verifying harness receipt & progress checkpoint"
+          }
+        ]
+      }
+    ]
+  }
+}

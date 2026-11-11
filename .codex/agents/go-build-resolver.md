@@ -1,6 +1,9 @@
 ---
 name: go-build-resolver
 description: "Go build, vet, and compilation error resolution specialist. Fixes build errors, go vet issues, and linter warnings with minimal changes. Use when Go builds fail."
+tier: builder
+model_tier: codex
+reasoning_effort: medium
 tools:
   - view_file
   - grep_search

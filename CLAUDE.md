@@ -13,9 +13,12 @@ Instructions, operating rules, and skill mappings for Anthropic Claude Code.
 - **Visible Wins**: Immediately demonstrate what works and how to verify it (e.g., test commands, curl endpoints).
 - **Neutral Error Reporting**: Report strictly: **Location**, **Cause**, and **Fix**. No emotional padding.
 - **Cap Lists to 5 Items**: Display at most 5 items per group in user-facing output to prevent cognitive overload.
-- **Circuit Breaker (3-Strike Limit)**: After 3 failed attempts to fix the same issue, STOP modifying code. Ask before reverting anything; never discard uncommitted work. Output strictly:
-  1. **Invalid Assumption**: 1 sentence on what failed.
-  2. **Diagnostic Check**: 1 concrete question or a 2-option choice (A/B) to unblock.
+- **Compounding Invariants & Progress Ledger**: Read [.claude/rules/learned-invariants.md](.claude/rules/learned-invariants.md) and `.harness/PROGRESS.md` (when present) before editing code. Record failed hypotheses and verified checkpoints into `.harness/PROGRESS.md` via `node .claude/skills/continuous-agent-loop/scripts/harness.mjs checkpoint` so context compaction never loses negative knowledge.
+- **2-Strike Escalation & 3-Strike Circuit Breaker**:
+  - **Strike 2 (Model / Architect Escalation)**: After 2 consecutive failed verification receipts or Skeptic rejections on the same issue, escalate from `builder` tier to `brain` tier ([.claude/agents/code-architect.md](.claude/agents/code-architect.md) or higher-reasoning model) for root-cause re-architecture.
+  - **Strike 3 (Circuit Breaker)**: After 3 failed attempts to fix the same issue, STOP modifying code. Ask before reverting anything; never discard uncommitted work. Output strictly:
+    1. **Invalid Assumption**: 1 sentence on what failed.
+    2. **Diagnostic Check**: 1 concrete question or a 2-option choice (A/B) to unblock.
 - **Blacklist (Zero Filler)**:
   - **Forbidden Openers**: "Sure!", "Great question", "Let me...", "I'll...", "Looking at your...", "To answer your question...", "Certainly".
   - **Forbidden Closers**: "Hope this helps!", "Let me know if you need anything else", "Happy coding!", "Feel free to ask".
@@ -38,6 +41,7 @@ Read and apply the active workspace's local rules before choosing generic skills
   - **Backend Architecture, Data Layer & APIs**: [.claude/rules/backend.md](.claude/rules/backend.md)
   - **Application Security & Exploit Defense**: [.claude/rules/security.md](.claude/rules/security.md)
   - **Penetration Testing, Strix & Functional Flow QA**: [.claude/rules/penetrating-and-testing.md](.claude/rules/penetrating-and-testing.md)
+  - **Compounding Guardrails & Learned Invariants**: [.claude/rules/learned-invariants.md](.claude/rules/learned-invariants.md)
 
 ---
 
@@ -53,38 +57,45 @@ Follow [.claude/rules/UI_Always.md](.claude/rules/UI_Always.md#8-browser-verific
 
 ---
 
-## 4. Subagents & Specialized Roles
+## 4. Subagents & Specialized Roles (3-Tier Cognitive Routing)
 
 Delegate specialized lifecycle tasks to the agents defined under [.claude/agents/](.claude/agents/) using `@agent-name`:
 
-- **Planning & Architecture**:
-  - Implementation Planning: [.claude/agents/planner.md](.claude/agents/planner.md)
-  - Domain & System Architecture: [.claude/agents/code-architect.md](.claude/agents/code-architect.md)
-  - Web Accessibility (WCAG 2.2): [.claude/agents/a11y-architect.md](.claude/agents/a11y-architect.md)
-  - Test-Driven Specification: [.claude/agents/tdd-guide.md](.claude/agents/tdd-guide.md)
-- **Quality Gates & Failure Hunting**:
-  - Swallowed Exception & Fallback Audits: [.claude/agents/silent-failure-hunter.md](.claude/agents/silent-failure-hunter.md)
-  - Code Simplification & Dead Weight Removal: [.claude/agents/code-simplifier.md](.claude/agents/code-simplifier.md)
-  - Pre-Delivery Verification: [.claude/agents/agent-evaluator.md](.claude/agents/agent-evaluator.md)
+- **Cognitive Routing Tiers (`tier:` frontmatter & 3-Edition Model Matrix)**:
+  - **`reflex`** (Fast/Read-Only Reconnaissance — **AGY / Gemini** `invoke_subagent` `Model`: `flash` or `flash_lite` (`model: flash`) · **GPT / Codex**: `model_tier: mini`, `reasoning_effort: low` · **Claude Code**: `model: haiku`): [.claude/agents/explorer.md](.claude/agents/explorer.md) — locates files, symbols, and call-sites rapidly; never concludes, plans, or edits files.
+  - **`builder`** (Scoped Workhorse Implementation & Repair — **AGY / Gemini** `invoke_subagent` `Model`: `inherit` (`model: inherit`) · **GPT / Codex**: `model_tier: codex`, `reasoning_effort: medium` · **Claude Code**: `model: sonnet`): `tdd-guide`, `e2e-runner`, `code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `penetration-tester`, and `*-build-resolver` agents.
+  - **`brain`** (High-Reasoning Architecture, Audit & Cold-Context Skepticism — **AGY / Gemini** `invoke_subagent` `Model`: `pro` or `inherit` (`model: pro`) · **GPT / Codex**: `model_tier: reasoning`, `reasoning_effort: high` · **Claude Code**: `model: opus`): `planner`, `architect`, `code-architect`, `a11y-architect`, `spec-miner`, `skeptic`, `security-auditor`, `silent-failure-hunter`, `agent-evaluator`, and `*-reviewer` agents (all reviewers, auditors, and skeptics are strictly read-only).
+- **Reconnaissance, Planning & Architecture**:
+  - Fast Codebase Reconnaissance (`reflex`): [.claude/agents/explorer.md](.claude/agents/explorer.md)
+  - Implementation Planning (`brain`): [.claude/agents/planner.md](.claude/agents/planner.md)
+  - Domain & System Architecture (`brain`): [.claude/agents/code-architect.md](.claude/agents/code-architect.md)
+  - Web Accessibility (WCAG 2.2) (`brain`): [.claude/agents/a11y-architect.md](.claude/agents/a11y-architect.md)
+  - Test-Driven Specification (`builder`): [.claude/agents/tdd-guide.md](.claude/agents/tdd-guide.md)
+- **Quality Gates, Cold-Context Skeptic & Failure Hunting**:
+  - Cold-Context Adversarial Skeptic (`brain`, read-only): [.claude/agents/skeptic.md](.claude/agents/skeptic.md)
+  - Swallowed Exception & Fallback Audits (`brain`, read-only): [.claude/agents/silent-failure-hunter.md](.claude/agents/silent-failure-hunter.md)
+  - Code Simplification & Dead Weight Removal (`builder`): [.claude/agents/code-simplifier.md](.claude/agents/code-simplifier.md)
+  - Pre-Delivery Verification (`brain`, read-only): [.claude/agents/agent-evaluator.md](.claude/agents/agent-evaluator.md)
 - **Security & Penetration Testing**:
-  - Pre-Commit Security & Invariant Audits: [.claude/agents/security-auditor.md](.claude/agents/security-auditor.md)
-  - Exploit Validation & Penetration QA: [.claude/agents/penetration-tester.md](.claude/agents/penetration-tester.md)
-- **Code Review Specialists**:
+  - Pre-Commit Security & Invariant Audits (`brain`, read-only): [.claude/agents/security-auditor.md](.claude/agents/security-auditor.md)
+  - Exploit Validation & Penetration QA (`builder`): [.claude/agents/penetration-tester.md](.claude/agents/penetration-tester.md)
+- **Code Review Specialists (`brain`, read-only)**:
   - TypeScript / JS: [.claude/agents/typescript-reviewer.md](.claude/agents/typescript-reviewer.md) · React: [.claude/agents/react-reviewer.md](.claude/agents/react-reviewer.md)
   - Backend & Databases: [.claude/agents/database-reviewer.md](.claude/agents/database-reviewer.md) · FastAPI: [.claude/agents/fastapi-reviewer.md](.claude/agents/fastapi-reviewer.md)
   - Systems & Stacks: [.claude/agents/go-reviewer.md](.claude/agents/go-reviewer.md) · [.claude/agents/rust-reviewer.md](.claude/agents/rust-reviewer.md) · [.claude/agents/php-reviewer.md](.claude/agents/php-reviewer.md) · [.claude/agents/vue-reviewer.md](.claude/agents/vue-reviewer.md)
-- **Closed-Loop Build & Error Repair**:
+- **Closed-Loop Build & Error Repair (`builder`)**:
   - TypeScript & Generic Build Repair: [.claude/agents/build-error-resolver.md](.claude/agents/build-error-resolver.md)
   - Framework Resolvers: [.claude/agents/react-build-resolver.md](.claude/agents/react-build-resolver.md), [.claude/agents/go-build-resolver.md](.claude/agents/go-build-resolver.md), [.claude/agents/rust-build-resolver.md](.claude/agents/rust-build-resolver.md), [.claude/agents/django-build-resolver.md](.claude/agents/django-build-resolver.md), [.claude/agents/cpp-build-resolver.md](.claude/agents/cpp-build-resolver.md), [.claude/agents/pytorch-build-resolver.md](.claude/agents/pytorch-build-resolver.md)
 
 ---
 
-## 5. Standard Engineering Lifecycle & Loop Execution
+## 5. 6-Stage Self-Improving Harness Lifecycle
 
-For non-trivial features, refactoring, or multi-file changes, route through the bounded five-stage lifecycle:
+For non-trivial features, refactoring, or multi-file changes, execute the deterministic 6-stage harness defined in [.claude/skills/continuous-agent-loop/SKILL.md](.claude/skills/continuous-agent-loop/SKILL.md) via `node .claude/skills/continuous-agent-loop/scripts/harness.mjs`:
 
-1. **Phase 1: Planning & Scope**: Delegate to [.claude/agents/planner.md](.claude/agents/planner.md) (or [.claude/agents/code-architect.md](.claude/agents/code-architect.md) for boundaries) to produce numbered atomic checklists before writing code.
-2. **Phase 2: Test Specification (TDD)**: Delegate to [.claude/agents/tdd-guide.md](.claude/agents/tdd-guide.md) to author failing unit or integration tests verifying invariants before implementation.
-3. **Phase 3: Implementation & Repair**: Implement minimal code to turn tests green; on compiler/type failure, delegate strictly to [.claude/agents/build-error-resolver.md](.claude/agents/build-error-resolver.md) for micro-patches.
-4. **Phase 4: Defensive Audit**: Delegate to [.claude/agents/silent-failure-hunter.md](.claude/agents/silent-failure-hunter.md) for swallowed errors and [.claude/agents/security-auditor.md](.claude/agents/security-auditor.md) for boundary defenses.
-5. **Phase 5: Verification & Gate Evaluation**: Run tests and Playwright audits, then evaluate output completeness with [.claude/agents/agent-evaluator.md](.claude/agents/agent-evaluator.md) and [.claude/skills/agent-self-evaluation/SKILL.md](.claude/skills/agent-self-evaluation/SKILL.md).
+1. **Stage 1: Pre-Flight Contract & Adaptive Worktree**: Use [.claude/agents/explorer.md](.claude/agents/explorer.md) (`reflex`) for fast file discovery and [.claude/agents/planner.md](.claude/agents/planner.md) / [.claude/agents/code-architect.md](.claude/agents/code-architect.md) (`brain`) to initialize a scoped contract (`node .claude/skills/continuous-agent-loop/scripts/harness.mjs contract init --task <id> --allow "<globs>" --cmd "<commands>"`). Use `worktree spawn --task <id>` for multi-file or parallel work (adaptive mode allows `<20` lines single-file edits in-tree).
+2. **Stage 2: TDD & Scoped Implementation**: Delegate to [.claude/agents/tdd-guide.md](.claude/agents/tdd-guide.md) (`builder`) to write failing tests first, then implement minimal passing code within `allowed_paths` enforced by `harness.mjs sensor check-file`. On compiler/type failure, delegate to [.claude/agents/build-error-resolver.md](.claude/agents/build-error-resolver.md).
+3. **Stage 3: Deterministic Receipt Gate**: Execute `node .claude/skills/continuous-agent-loop/scripts/harness.mjs verify run --task <id>` to validate scope compliance, run all `acceptance_commands`, hash `git diff HEAD` (`diff_sha256`), and write `.harness/receipts/<id>.json`.
+4. **Stage 4: Cold-Context Adversarial Skeptic**: Generate a sanitized context packet (`node .claude/skills/continuous-agent-loop/scripts/harness.mjs skeptic-packet --task <id>`) containing **only** Contract + Raw Diff + Receipt (zero author rationalization), then invoke [.claude/agents/skeptic.md](.claude/agents/skeptic.md) (plus [.claude/agents/silent-failure-hunter.md](.claude/agents/silent-failure-hunter.md) and [.claude/agents/security-auditor.md](.claude/agents/security-auditor.md) for security surfaces) in a fresh cold context and stamp the verdict (`harness.mjs stamp-skeptic`).
+5. **Stage 5: Browser/E2E Verification**: For UI or user-flow changes, run the canonical Playwright layout and functional audit per Section 3 and evaluate output quality with [.claude/agents/agent-evaluator.md](.claude/agents/agent-evaluator.md) and [.claude/skills/agent-self-evaluation/SKILL.md](.claude/skills/agent-self-evaluation/SKILL.md).
+6. **Stage 6: Calibrated Memory Flywheel & Progress Compaction**: On any verification failure, Skeptic `REJECT`, or user correction, record the root cause via `node .claude/skills/continuous-agent-loop/scripts/harness.mjs flywheel record` (staging into `.harness/evals/regressions.jsonl` and promoting verified invariants to [.claude/rules/learned-invariants.md](.claude/rules/learned-invariants.md)), and checkpoint state into `.harness/PROGRESS.md` via `harness.mjs checkpoint`.

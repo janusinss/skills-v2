@@ -1,6 +1,7 @@
 ---
 name: "image-to-code"
 description: "Generate section design reference images first, analyze them, and build the matching website code. Use when the user wants an image-driven web build end to end."
+license: "MIT"
 ---
 
 # CORE DIRECTIVE: IMAGE-FIRST WEBSITE DESIGN TO CODE

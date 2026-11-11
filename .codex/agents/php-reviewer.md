@@ -1,6 +1,9 @@
 ---
 name: php-reviewer
 description: "Expert PHP code reviewer specializing in PSR-12 compliance, PHP type system, Eloquent ORM patterns, security, and performance. Use for all PHP code changes. MUST BE USED for PHP projects."
+tier: brain
+model_tier: reasoning
+reasoning_effort: high
 tools:
   - view_file
   - grep_search

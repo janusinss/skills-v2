@@ -8,6 +8,7 @@ import {
   checkSkill,
   checkClaudeAgent,
   snapshotSource,
+  payloadHash,
   slash,
   json,
   isRecord,
@@ -101,6 +102,18 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
   }
 
   // 4. Validate Rules and Instruction Files
+  const installationPath = path.join(dataRoot, 'claude-install.json');
+  let installed = null;
+  if (fs.existsSync(installationPath)) {
+    try {
+      const parsed = JSON.parse(fs.readFileSync(installationPath, 'utf8'));
+      if (!isRecord(parsed)) errors.push('claude-install.json must be a JSON object');
+      else installed = parsed;
+    } catch (error) {
+      errors.push(`claude-install.json: ${error.message}`);
+    }
+  }
+  const partialProfile = Boolean(installed?.profile && installed.profile !== 'all');
   const instructionFiles = [
     ...filesIn(path.join(dataRoot, 'rules')).filter(file => file.endsWith('.md')),
     path.join(root, 'CLAUDE.md')
@@ -111,7 +124,11 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
       continue;
     }
     for (const target of missingLinks(fs.readFileSync(file, 'utf8'), file, dataRoot)) {
-      errors.push(`${slash(path.relative(root, file))}: missing instruction link ${target}`);
+      if (partialProfile && /^(?:\.\.\/|\.claude\/|\.codex\/|\.agents\/)?skills\//.test(target)) {
+        warnings.push(`${slash(path.relative(root, file))}: out-of-profile skill link ${target}`);
+      } else {
+        errors.push(`${slash(path.relative(root, file))}: missing instruction link ${target}`);
+      }
     }
   }
 
@@ -160,6 +177,53 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
     }
   }
 
+  if (checkManifest && installed) {
+    if (installed.gitignore !== undefined) {
+      if (!isRecord(installed.gitignore) || installed.gitignore.path !== '.gitignore' || !Array.isArray(installed.gitignore.entries) || installed.gitignore.entries.some(entry => typeof entry !== 'string')) {
+        errors.push('Invalid project .gitignore record');
+      } else if (!fs.existsSync(path.join(root, '.gitignore')) || !fs.statSync(path.join(root, '.gitignore')).isFile()) {
+        errors.push('Missing project .gitignore');
+      }
+    }
+    if (installed.files !== undefined && !isRecord(installed.files)) {
+      errors.push('Invalid installation files record');
+    } else {
+      for (const [relative, hash] of Object.entries(installed.files || {})) {
+        const absolute = path.join(root, relative);
+        if (!fs.existsSync(absolute) || payloadHash(fs.readFileSync(absolute)) !== hash) {
+          errors.push(`Installed file differs from manifest: ${relative}`);
+        }
+      }
+    }
+    if (installed.hooksIncluded) {
+      for (const relHook of ['hooks.json', 'settings.json']) {
+        const hookFile = path.join(dataRoot, relHook);
+        if (!fs.existsSync(hookFile)) {
+          errors.push(`Missing .claude/${relHook} in hooks-enabled installation`);
+        } else {
+          try {
+            const parsed = JSON.parse(fs.readFileSync(hookFile, 'utf8'));
+            if (!isRecord(parsed.hooks)) errors.push(`.claude/${relHook} must contain hooks`);
+          } catch (error) {
+            errors.push(`.claude/${relHook}: ${error.message}`);
+          }
+        }
+      }
+    }
+  }
+
+  for (const hookCandidate of [path.join(root, 'hooks.example.json'), path.join(dataRoot, 'hooks.example.json')]) {
+    if (fs.existsSync(hookCandidate)) {
+      try {
+        const hooks = JSON.parse(fs.readFileSync(hookCandidate, 'utf8'));
+        if (!isRecord(hooks.hooks)) errors.push('hooks.example.json must contain hooks');
+      } catch (error) {
+        errors.push(`hooks.example.json: ${error.message}`);
+      }
+      break;
+    }
+  }
+
   return {
     skills: skills.length,
     topLevelSkills: manifests.filter(file => path.dirname(path.dirname(file)) === skillsRoot).length,
@@ -175,8 +239,16 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const args = process.argv.slice(2);
-    if (args.some(arg => arg !== '--source')) throw new Error('Usage: node tools/claude/validate.mjs [--source]');
-    const result = validateClaudeBundle(bundleRoot, { checkSource: args.includes('--source') });
+    let targetRoot = bundleRoot;
+    let checkSource = false;
+    for (let i = 0; i < args.length; i++) {
+      if (args[i] === '--source') checkSource = true;
+      else if (args[i] === '--target') {
+        if (!args[i + 1] || args[i + 1].startsWith('--')) throw new Error('--target requires a path');
+        targetRoot = path.resolve(args[++i]);
+      } else throw new Error('Usage: node tools/claude/validate.mjs [--source] [--target <path>]');
+    }
+    const result = validateClaudeBundle(targetRoot, { checkSource });
     console.log(json({ ...result, warnings: result.warnings.slice(0, 12), warningCount: result.warnings.length }));
     if (result.errors.length) process.exitCode = 1;
   } catch (error) {

@@ -1,10 +1,11 @@
 ---
 name: security-auditor
 description: "Specialist subagent for conducting adversarial pre-commit security audits, vulnerability detection, and exploit defense reviews based on security.md."
+tier: brain
+model_tier: reasoning
+reasoning_effort: high
 tools:
   - view_file
-  - write_to_file
-  - replace_file_content
   - grep_search
   - find_by_name
   - list_dir

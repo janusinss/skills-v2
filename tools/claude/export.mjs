@@ -11,6 +11,7 @@ import {
   sha256,
   slash,
   json,
+  isRecord,
   verifyBundleFiles
 } from './lib.mjs';
 import { planGitignore, applyGitignore } from './gitignore.mjs';
@@ -31,7 +32,42 @@ export function resolveTarget(target, root = bundleRoot) {
   return destination;
 }
 
-export function planExport({ target, profile = 'all' }, root = bundleRoot) {
+export function applyClaudeSettingsHooks(target, root = bundleRoot) {
+  const hooksFile = path.join(root, 'hooks.example.json');
+  if (!fs.existsSync(hooksFile)) return { path: '.claude/settings.json', action: 'skipped' };
+  const parsedHooksFile = JSON.parse(fs.readFileSync(hooksFile, 'utf8'));
+  const bundleHooks = parsedHooksFile.hooks || {};
+  const settingsPath = path.join(target, '.claude/settings.json');
+  assertNoSymlinkAncestors(settingsPath);
+  fs.mkdirSync(path.dirname(settingsPath), { recursive: true });
+  let existing = {};
+  let action = 'created';
+  if (fs.existsSync(settingsPath)) {
+    const raw = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
+    if (!isRecord(raw)) throw new Error('Existing .claude/settings.json must be a JSON object');
+    existing = raw;
+    action = 'merged';
+  }
+  const existingHooks = isRecord(existing.hooks) ? { ...existing.hooks } : {};
+  for (const [event, entries] of Object.entries(bundleHooks)) {
+    if (!Array.isArray(entries)) continue;
+    const currentList = Array.isArray(existingHooks[event]) ? [...existingHooks[event]] : [];
+    const seen = new Set(currentList.map(item => JSON.stringify(item)));
+    for (const item of entries) {
+      const serialized = JSON.stringify(item);
+      if (!seen.has(serialized)) {
+        currentList.push(item);
+        seen.add(serialized);
+      }
+    }
+    existingHooks[event] = currentList;
+  }
+  const merged = { ...existing, hooks: existingHooks };
+  fs.writeFileSync(settingsPath, json(merged), 'utf8');
+  return { path: '.claude/settings.json', action };
+}
+
+export function planExport({ target, profile = 'all', includeHooks = true }, root = bundleRoot) {
   const destination = resolveTarget(target, root);
   const profiles = JSON.parse(fs.readFileSync(path.join(root, 'profiles.json'), 'utf8'));
   const all = fs.readdirSync(path.join(root, 'skills'), { withFileTypes: true })
@@ -71,6 +107,9 @@ export function planExport({ target, profile = 'all' }, root = bundleRoot) {
     }
   }
 
+  add(path.join(root, 'hooks.example.json'), '.claude/hooks.example.json');
+  if (includeHooks) add(path.join(root, 'hooks.example.json'), '.claude/hooks.json');
+
   const installManifest = path.join(destination, '.claude/claude-install.json');
   assertNoSymlinkAncestors(installManifest);
   if (fs.existsSync(installManifest)) throw new Error(`Destination already exists: ${installManifest}`);
@@ -79,6 +118,7 @@ export function planExport({ target, profile = 'all' }, root = bundleRoot) {
     target: destination,
     profile,
     topLevelSkills: selected.length,
+    includeHooks,
     entries,
     installManifest,
     gitignore: planGitignore(destination, root)
@@ -114,6 +154,7 @@ export function exportBundle(options, root = bundleRoot) {
   }
 
   const gitignore = applyGitignore(plan.gitignore);
+  if (plan.includeHooks) applyClaudeSettingsHooks(plan.target, root);
   fs.writeFileSync(
     plan.installManifest,
     json({
@@ -122,6 +163,7 @@ export function exportBundle(options, root = bundleRoot) {
       hashing: 'sha256-lf-text',
       profile: plan.profile,
       topLevelSkills: plan.topLevelSkills,
+      hooksIncluded: plan.includeHooks,
       gitignore: plan.gitignore.record,
       files: hashes
     }),
@@ -147,6 +189,10 @@ export function parseArgs(args) {
       options[value.slice(2)] = args[++index];
     } else if (value === '--dry-run') {
       options.dryRun = true;
+    } else if (value === '--include-hooks') {
+      options.includeHooks = true;
+    } else if (value === '--no-hooks') {
+      options.includeHooks = false;
     } else {
       throw new Error(`Unknown option ${value}`);
     }

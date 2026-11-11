@@ -1,8 +1,9 @@
 ---
 name: security-auditor
 description: "Specialist subagent for conducting adversarial pre-commit security audits, vulnerability detection, and exploit defense reviews based on security.md."
-tools: Read, Write, Edit, Grep, Glob, Bash
-model: sonnet
+tools: Read, Grep, Glob, Bash
+tier: brain
+model: opus
 ---
 
 # Security Auditor Persona

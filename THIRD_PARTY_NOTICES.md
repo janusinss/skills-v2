@@ -11,20 +11,21 @@ Per-skill provenance lives in [provenance.json](provenance.json) (`source`, `sou
 
 | Upstream Source | Skill Count | License | Representative Skills |
 | :--- | ---: | :--- | :--- |
-| `sickn33/antigravity-awesome-skills` | 73 | MIT | `ab-test-setup`, `api-patterns`, `architecture-patterns`, `database-design`, `docker-expert`, `kaizen`, `python-patterns`, `react-patterns`, `tailwind-patterns` |
-| `vibeship/vibeship-spawner-skills` | 12 | Apache-2.0 | `3d-web-experience`, `agent-evaluation`, `ai-agents-architect`, `aws-serverless`, `browser-automation`, `context-window-management`, `interactive-portfolio`, `langfuse`, `langgraph`, `prompt-caching`, `rag-engineer`, `scroll-experience` |
-| `Leonxlnx/taste-skill` | 7 | **unverified** | `brandkit`, `design-taste-frontend`, `full-output-enforcement`, `image-to-code`, `imagegen-frontend-mobile`, `imagegen-frontend-web`, `redesign-existing-projects` |
+| `sickn33/antigravity-awesome-skills` | 75 | MIT | `ab-test-setup`, `api-patterns`, `architecture-patterns`, `database-design`, `docker-expert`, `ethical-hacking-methodology`, `kaizen`, `python-patterns`, `react-patterns`, `tailwind-patterns`, `top-web-vulnerabilities` |
+| `vibeforge1111/vibeship-spawner-skills` | 12 | Apache-2.0 | `3d-web-experience`, `agent-evaluation`, `ai-agents-architect`, `aws-serverless`, `browser-automation`, `context-window-management`, `interactive-portfolio`, `langfuse`, `langgraph`, `prompt-caching`, `rag-engineer`, `scroll-experience` |
 | `affaan-m/everything-claude-code` | 5 | MIT | `agent-security-hardening`, `agent-self-evaluation`, `agentic-engineering`, `ai-regression-testing`, `continuous-agent-loop` |
-| `claudekit/claudekit` | 4 | MIT | `brand`, `design`, `design-system`, `ui-styling` |
+| `Leonxlnx/imagegen-skills` | 4 | MIT | `brandkit`, `image-to-code`, `imagegen-frontend-mobile`, `imagegen-frontend-web` |
+| `mrgoonie/claudekit-skills` | 4 | MIT | `brand`, `design`, `design-system`, `ui-styling` |
 | `usestrix/strix` | 4 | Apache-2.0 | `application-security-testing`, `ci-security-scanning-with-strix`, `fix-security-vulnerabilities-with-strix`, `penetration-testing-with-strix` |
 | `original` (`janusinss/skills-v2`) | 3 | MIT | `prompt-enhancer`, `prompt-enhancer-backend`, `prompt-enhancer-frontend` |
-| `zebbern/claude-code-security-skills` | 2 | MIT | `ethical-hacking-methodology`, `top-web-vulnerabilities` |
+| `Leonxlnx/taste-skill` | 1 | MIT | `design-taste-frontend` |
 | `anthropics/skills` | 1 | Apache-2.0 | `mcp-builder` |
 | `basementstudio/scrollytelling` | 1 | MIT | `scrollytelling` |
-| `cbronsdon/avoid-ai-writing` | 1 | MIT | `avoid-ai-writing` |
+| `conorbronsdon/avoid-ai-writing` | 1 | MIT | `avoid-ai-writing` |
 | `cloudflare/security-audit-skill` | 1 | **unverified** | `security-audit` |
 | `lackeyjb/playwright-skill` | 1 | MIT | `playwright-skill` |
 | `nextlevelbuilder/ui-ux-pro-max-skill` | 1 | MIT | `ui-ux-pro-max` |
+| `pbakaus/impeccable` | 1 | Apache-2.0 | `impeccable` |
 | `supabase/agent-skills` | 1 | MIT | `postgres-best-practices` |
 | `tt-a1i/archify` | 1 | Apache-2.0 | `archify` |
 | `vercel-labs/agent-skills` | 1 | MIT | `react-best-practices` |

@@ -84,12 +84,37 @@ export function validateBundle(root = bundleRoot, { checkSource = false, checkMa
       const absolute = path.join(root, relative);
       if (!fs.existsSync(absolute) || payloadHash(fs.readFileSync(absolute)) !== hash) errors.push(`Installed file differs from manifest: ${relative}`);
     }
+    if (installed.hooksIncluded) {
+      const activeHooksPath = path.join(dataRoot, 'hooks.json');
+      if (!fs.existsSync(activeHooksPath)) errors.push('Missing active .codex/hooks.json in hooks-enabled installation');
+      else {
+        try {
+          const parsedHooks = JSON.parse(fs.readFileSync(activeHooksPath, 'utf8'));
+          if (!isRecord(parsedHooks.hooks)) errors.push('.codex/hooks.json must contain hooks');
+        } catch (error) { errors.push(`.codex/hooks.json: ${error.message}`); }
+      }
+    }
   }
-  if (fs.existsSync(path.join(root, 'hooks.example.json'))) {
-    try {
-      const hooks = JSON.parse(fs.readFileSync(path.join(root, 'hooks.example.json'), 'utf8'));
-      if (!isRecord(hooks.hooks)) errors.push('hooks.example.json must contain hooks');
-    } catch (error) { errors.push(`hooks.example.json: ${error.message}`); }
+  const agentsDir = path.join(dataRoot, 'agents');
+  if (fs.existsSync(agentsDir)) {
+    for (const agentFile of filesIn(agentsDir).filter(file => file.endsWith('.md'))) {
+      const rel = slash(path.relative(root, agentFile));
+      try {
+        const { frontmatter } = parseSkill(fs.readFileSync(agentFile, 'utf8'), agentFile);
+        if (!['mini', 'codex', 'reasoning'].includes(frontmatter.model_tier)) errors.push(`${rel}: missing or invalid Codex model_tier`);
+        if (!['low', 'medium', 'high'].includes(frontmatter.reasoning_effort)) errors.push(`${rel}: missing or invalid Codex reasoning_effort`);
+        if (['haiku', 'sonnet', 'opus'].includes(frontmatter.model)) errors.push(`${rel}: Codex agent must not use Claude model name ${frontmatter.model}`);
+      } catch (error) { errors.push(`${rel}: ${error.message}`); }
+    }
+  }
+  for (const hookCandidate of [path.join(root, 'hooks.example.json'), path.join(dataRoot, 'hooks.example.json')]) {
+    if (fs.existsSync(hookCandidate)) {
+      try {
+        const hooks = JSON.parse(fs.readFileSync(hookCandidate, 'utf8'));
+        if (!isRecord(hooks.hooks)) errors.push('hooks.example.json must contain hooks');
+      } catch (error) { errors.push(`hooks.example.json: ${error.message}`); }
+      break;
+    }
   }
   return {
     skills: skills.length, topLevelSkills: manifests.filter(file => path.dirname(path.dirname(file)) === skillsRoot).length,
@@ -103,8 +128,16 @@ export function validateBundle(root = bundleRoot, { checkSource = false, checkMa
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const args = process.argv.slice(2);
-    if (args.some(arg => arg !== '--source')) throw new Error('Usage: node tools/codex/validate.mjs [--source]');
-    const result = validateBundle(bundleRoot, { checkSource: args.includes('--source') });
+    let targetRoot = bundleRoot;
+    let checkSource = false;
+    for (let i = 0; i < args.length; i++) {
+      if (args[i] === '--source') checkSource = true;
+      else if (args[i] === '--target') {
+        if (!args[i + 1] || args[i + 1].startsWith('--')) throw new Error('--target requires a path');
+        targetRoot = path.resolve(args[++i]);
+      } else throw new Error('Usage: node tools/codex/validate.mjs [--source] [--target <path>]');
+    }
+    const result = validateBundle(targetRoot, { checkSource });
     console.log(json({ ...result, warnings: result.warnings.slice(0, 12), warningCount: result.warnings.length }));
     if (result.errors.length) process.exitCode = 1;
   } catch (error) { console.error(error.message); process.exitCode = 1; }

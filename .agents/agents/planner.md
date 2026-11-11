@@ -1,6 +1,8 @@
 ---
 name: planner
 description: "Expert planning specialist for complex features and refactoring. Use PROACTIVELY when users request feature implementation, architectural changes, or complex refactoring. Automatically activated for planning tasks."
+tier: brain
+model: pro
 tools:
   - view_file
   - grep_search

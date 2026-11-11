@@ -2,7 +2,7 @@
   "version": 1,
   "skills": {
     "3d-web-experience": {
-      "source": "vibeship/vibeship-spawner-skills",
+      "source": "vibeforge1111/vibeship-spawner-skills",
       "sourceType": "github",
       "commit": null,
       "license": "Apache-2.0",
@@ -18,7 +18,7 @@
       "contentHash": "1ff6b82ffdd5afcd49c59d7419af2fcb2f65e650ef35032a40a770331b263ef6"
     },
     "agent-evaluation": {
-      "source": "vibeship/vibeship-spawner-skills",
+      "source": "vibeforge1111/vibeship-spawner-skills",
       "sourceType": "github",
       "commit": null,
       "license": "Apache-2.0",
@@ -50,7 +50,7 @@
       "contentHash": "6abbfbe7c620f0d4206059a5429e688d3e45731bca5a6ebc6de558c1c1e6c6bd"
     },
     "ai-agents-architect": {
-      "source": "vibeship/vibeship-spawner-skills",
+      "source": "vibeforge1111/vibeship-spawner-skills",
       "sourceType": "github",
       "commit": null,
       "license": "Apache-2.0",
@@ -138,7 +138,7 @@
       "contentHash": "cbf9b92923e4181431f0b8ba5bae6fe8f60e21b7422ad139b3e22f9fb9e36835"
     },
     "avoid-ai-writing": {
-      "source": "cbronsdon/avoid-ai-writing",
+      "source": "conorbronsdon/avoid-ai-writing",
       "sourceType": "github",
       "commit": null,
       "license": "MIT",
@@ -154,7 +154,7 @@
       "contentHash": "16ac46fb0ed0abc537394afe5e1f8b68a2bf6062ff477972c626031e3b019e90"
     },
     "aws-serverless": {
-      "source": "vibeship/vibeship-spawner-skills",
+      "source": "vibeforge1111/vibeship-spawner-skills",
       "sourceType": "github",
       "commit": null,
       "license": "Apache-2.0",
@@ -178,7 +178,7 @@
       "contentHash": "c96ff3896d273836146cce5f4aca462b5ea1e5466a6e5d959112f10343811ca5"
     },
     "brand": {
-      "source": "claudekit/claudekit",
+      "source": "mrgoonie/claudekit-skills",
       "sourceType": "github",
       "commit": null,
       "license": "MIT",
@@ -186,15 +186,15 @@
       "contentHash": "94f71cabe57a39c1c599c42a153dafc513cc880b4ec6e90d4d7d194f5f4ca0db"
     },
     "brandkit": {
-      "source": "Leonxlnx/taste-skill",
+      "source": "Leonxlnx/imagegen-skills",
       "sourceType": "github",
-      "commit": null,
-      "license": "unverified",
+      "commit": "beb16b0d0f4dae9a6f5cb04ea41e97b93a54ab8e",
+      "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "7d0e1270530c257509de69d423c9f687d350d20ab4881be6901e1867fba89c60"
+      "contentHash": "8fa6184c27c166f8b5f85056dc7562ce8f683ec61e4436b48e36361f26d24646"
     },
     "browser-automation": {
-      "source": "vibeship/vibeship-spawner-skills",
+      "source": "vibeforge1111/vibeship-spawner-skills",
       "sourceType": "github",
       "commit": null,
       "license": "Apache-2.0",
@@ -266,7 +266,7 @@
       "contentHash": "1f8ee8ed00391df4da227736fbcf036231d2f07d57e4883b29f1081a05957acb"
     },
     "context-window-management": {
-      "source": "vibeship/vibeship-spawner-skills",
+      "source": "vibeforge1111/vibeship-spawner-skills",
       "sourceType": "github",
       "commit": null,
       "license": "Apache-2.0",
@@ -279,7 +279,7 @@
       "commit": null,
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "effdfb77d904b513c85ff5e43ca5de8a4e7b2784f53a6dfce1d9f01f4ffc57ae"
+      "contentHash": "8d7cc615a060e1e9a80be642f866c83d25f06aad09b35398542e8e127565d168"
     },
     "copy-editing": {
       "source": "sickn33/antigravity-awesome-skills",
@@ -322,7 +322,7 @@
       "contentHash": "e2c91d30fd90b7715d20f24f524a953c9c40280c4ac87e596298a2f6b902d1ce"
     },
     "design": {
-      "source": "claudekit/claudekit",
+      "source": "mrgoonie/claudekit-skills",
       "sourceType": "github",
       "commit": null,
       "license": "MIT",
@@ -330,7 +330,7 @@
       "contentHash": "71ca657ceb10ecd4c5841863a44ee022e3854f02c1ff5227e0a98a639af4ec2c"
     },
     "design-system": {
-      "source": "claudekit/claudekit",
+      "source": "mrgoonie/claudekit-skills",
       "sourceType": "github",
       "commit": null,
       "license": "MIT",
@@ -340,10 +340,10 @@
     "design-taste-frontend": {
       "source": "Leonxlnx/taste-skill",
       "sourceType": "github",
-      "commit": null,
-      "license": "unverified",
+      "commit": "f6b76575f949707b4e3c37cd86cb44b0b98643e8",
+      "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "34c47874fa32eec648a5f7dc50ea26c45fbe47328d992648f7832bec63cb1936"
+      "contentHash": "8a07871c863c1c9dd64fe95a245e14b5004f500057a31afc787ba618ddbc0fd6"
     },
     "distributed-tracing": {
       "source": "sickn33/antigravity-awesome-skills",
@@ -394,7 +394,7 @@
       "contentHash": "24476ad86df6d0514361dc41be18c4221a2a7c1d2cc665989bd52321e0b77310"
     },
     "ethical-hacking-methodology": {
-      "source": "zebbern/claude-code-security-skills",
+      "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
       "commit": null,
       "license": "MIT",
@@ -457,14 +457,6 @@
       "modified": "description/references updated in skills-v2",
       "contentHash": "4270802773e38996088abd2ac2c918f10ce5d8081949f1104e49d8cc3fa14e15"
     },
-    "full-output-enforcement": {
-      "source": "Leonxlnx/taste-skill",
-      "sourceType": "github",
-      "commit": null,
-      "license": "unverified",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "3bef9c6b49b86c8d103d164ed65e63bae48fee913f60cc92f18d914a6e8e5108"
-    },
     "git-pushing": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
@@ -490,28 +482,28 @@
       "contentHash": "4fb496a220000802b8179c620936464f1d609176e49235a46cb48fd26ef70cd9"
     },
     "image-to-code": {
-      "source": "Leonxlnx/taste-skill",
+      "source": "Leonxlnx/imagegen-skills",
       "sourceType": "github",
-      "commit": null,
-      "license": "unverified",
+      "commit": "beb16b0d0f4dae9a6f5cb04ea41e97b93a54ab8e",
+      "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4); SKILL.md split into references/ (verbatim, skills-v2 phase 4)",
-      "contentHash": "1a8f8d57f9a0348f36e65a80f57c0872b6bf6e11486ec6dea49edbe37df1fafe"
+      "contentHash": "991b385603f3450e997829780f3c6ab22cc78037fa80112ecd99365a517447a7"
     },
     "imagegen-frontend-mobile": {
-      "source": "Leonxlnx/taste-skill",
+      "source": "Leonxlnx/imagegen-skills",
       "sourceType": "github",
-      "commit": null,
-      "license": "unverified",
+      "commit": "beb16b0d0f4dae9a6f5cb04ea41e97b93a54ab8e",
+      "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4); SKILL.md split into references/ (verbatim, skills-v2 phase 4)",
-      "contentHash": "577bddd2c576bf3144b5d76433fe014cf1a060b7ecaf29c18cf6b457e3ba95ef"
+      "contentHash": "11033825cbddf781d438a28b15adf84ce6d07731770f20b257e70eaac887ddc0"
     },
     "imagegen-frontend-web": {
-      "source": "Leonxlnx/taste-skill",
+      "source": "Leonxlnx/imagegen-skills",
       "sourceType": "github",
-      "commit": null,
-      "license": "unverified",
+      "commit": "beb16b0d0f4dae9a6f5cb04ea41e97b93a54ab8e",
+      "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "d6b64ed1a3df4fb6f3d263d0a09abb369924f97c4a5b93dffc4ff20d3cc17f10"
+      "contentHash": "6547001b40d9fa4889cede84e570808a72d01613a1a8106808eda76635215f70"
     },
     "impeccable": {
       "source": "pbakaus/impeccable",
@@ -522,7 +514,7 @@
       "contentHash": "8512c8cc454c03ed2f197bc82cba4ddf9960ae4cbd4ecf73cb135e6a9967711d"
     },
     "interactive-portfolio": {
-      "source": "vibeship/vibeship-spawner-skills",
+      "source": "vibeforge1111/vibeship-spawner-skills",
       "sourceType": "github",
       "commit": null,
       "license": "Apache-2.0",
@@ -570,7 +562,7 @@
       "contentHash": "05d487560a3da7a4e4dfc6998c7d050cce92dad63d03628d57104685a9540802"
     },
     "langfuse": {
-      "source": "vibeship/vibeship-spawner-skills",
+      "source": "vibeforge1111/vibeship-spawner-skills",
       "sourceType": "github",
       "commit": null,
       "license": "Apache-2.0",
@@ -578,7 +570,7 @@
       "contentHash": "06c89891a0064833a22b533984181f003cc1b053e1bf333cf52fe699bac8c575"
     },
     "langgraph": {
-      "source": "vibeship/vibeship-spawner-skills",
+      "source": "vibeforge1111/vibeship-spawner-skills",
       "sourceType": "github",
       "commit": null,
       "license": "Apache-2.0",
@@ -730,7 +722,7 @@
       "contentHash": "b1eaaa1de010a1f38f6a3f5ee8493a29a5349eecd1c4fa87221774ba6541c36a"
     },
     "prompt-caching": {
-      "source": "vibeship/vibeship-spawner-skills",
+      "source": "vibeforge1111/vibeship-spawner-skills",
       "sourceType": "github",
       "commit": null,
       "license": "Apache-2.0",
@@ -786,7 +778,7 @@
       "contentHash": "c16b1703e987e0d81a2cd2f829a00e3c8a9b015f49c275040bf146684d27f49a"
     },
     "rag-engineer": {
-      "source": "vibeship/vibeship-spawner-skills",
+      "source": "vibeforge1111/vibeship-spawner-skills",
       "sourceType": "github",
       "commit": null,
       "license": "Apache-2.0",
@@ -817,14 +809,6 @@
       "modified": "description/references updated in skills-v2",
       "contentHash": "4c0434e57b32ae7b76c2ed64086dbb955df3bbb3cbe0ee9b9fe99242292e6a1e"
     },
-    "redesign-existing-projects": {
-      "source": "Leonxlnx/taste-skill",
-      "sourceType": "github",
-      "commit": null,
-      "license": "unverified",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "ef1b063488509564243b74eccd72757e7c1ef89bdf08efb257cd78270e5a96b0"
-    },
     "rust-pro": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
@@ -834,7 +818,7 @@
       "contentHash": "9848dd29ea395f65584906c00a92866b2a7c7c2c93c481543ad1a66ef2781e2f"
     },
     "scroll-experience": {
-      "source": "vibeship/vibeship-spawner-skills",
+      "source": "vibeforge1111/vibeship-spawner-skills",
       "sourceType": "github",
       "commit": null,
       "license": "Apache-2.0",
@@ -914,7 +898,7 @@
       "contentHash": "af0e284a43ffdd83d3d0100a9c906d7412aa68086d8b15f93b0840f24fdb7030"
     },
     "top-web-vulnerabilities": {
-      "source": "zebbern/claude-code-security-skills",
+      "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
       "commit": null,
       "license": "MIT",
@@ -930,7 +914,7 @@
       "contentHash": "a3a6dc8fd6b06e60a668fedf42a4ced0c1902a80535cc646496b8b386ff63ab0"
     },
     "ui-styling": {
-      "source": "claudekit/claudekit",
+      "source": "mrgoonie/claudekit-skills",
       "sourceType": "github",
       "commit": null,
       "license": "MIT",

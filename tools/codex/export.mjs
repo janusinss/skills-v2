@@ -12,7 +12,7 @@ export function resolveTarget(target, root = bundleRoot) {
   return destination;
 }
 
-export function planExport({ target, profile = 'all', includeHooks = false }, root = bundleRoot) {
+export function planExport({ target, profile = 'all', includeHooks = true }, root = bundleRoot) {
   const destination = resolveTarget(target, root);
   const profiles = JSON.parse(fs.readFileSync(path.join(root, 'profiles.json'), 'utf8'));
   const all = fs.readdirSync(path.join(root, 'skills'), { withFileTypes: true }).filter(entry => entry.isDirectory() && fs.existsSync(path.join(root, 'skills', entry.name, 'SKILL.md'))).map(entry => entry.name);
@@ -21,7 +21,6 @@ export function planExport({ target, profile = 'all', includeHooks = false }, ro
   else if (profile === 'fullstack') selected = [...new Set([...profiles.frontend, ...profiles.backend])];
   else if (profiles[profile]) selected = profiles[profile];
   else throw new Error(`Unknown profile ${profile}. Choose all, minimal, frontend, backend, security, or fullstack.`);
-  if (includeHooks && !selected.includes('impeccable')) throw new Error('--include-hooks requires a profile containing impeccable');
   const entries = [];
   const add = (source, relative) => {
     const output = path.resolve(destination, relative);
@@ -49,6 +48,7 @@ export function planExport({ target, profile = 'all', includeHooks = false }, ro
     const directory = path.join(root, 'skills', skill);
     for (const source of filesIn(directory)) add(source, slash(path.join('.codex/skills', skill, path.relative(directory, source))));
   }
+  add(path.join(root, 'hooks.example.json'), '.codex/hooks.example.json');
   if (includeHooks) add(path.join(root, 'hooks.example.json'), '.codex/hooks.json');
   const installManifest = path.join(destination, '.codex/codex-install.json');
   assertNoSymlinkAncestors(installManifest);
@@ -88,6 +88,7 @@ export function parseArgs(args) {
       options[value.slice(2)] = args[++index];
     } else if (value === '--dry-run') options.dryRun = true;
     else if (value === '--include-hooks') options.includeHooks = true;
+    else if (value === '--no-hooks') options.includeHooks = false;
     else throw new Error(`Unknown option ${value}`);
   }
   return options;

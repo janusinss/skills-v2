@@ -1,6 +1,8 @@
 ---
 name: penetration-tester
 description: "Specialist subagent for executing penetration testing, vulnerability validation, security test suites, and functional web-flow verification based on penetrating-and-testing.md."
+tier: builder
+model: inherit
 tools:
   - view_file
   - write_to_file
