@@ -37,23 +37,27 @@ Read and apply the active workspace's local rules before choosing generic skills
   - **Active UI Implementation**: [.claude/rules/frontend.md](.claude/rules/frontend.md)
   - **Layout & CSS Hygiene**: [.claude/rules/UI_Always.md](.claude/rules/UI_Always.md)
   - **Motion, Physics & Micro-Interactions**: [.claude/rules/MOTION.md](.claude/rules/MOTION.md) (and [.claude/skills/3d-web-experience/SKILL.md](.claude/skills/3d-web-experience/SKILL.md) for 3D/WebGL)
+  - **Anti-AI-Slop Enforcement**: [.claude/skills/anti-ai-slop/SKILL.md](.claude/skills/anti-ai-slop/SKILL.md) (paired with [.claude/skills/avoid-ai-writing/SKILL.md](.claude/skills/avoid-ai-writing/SKILL.md), [.claude/skills/impeccable/SKILL.md](.claude/skills/impeccable/SKILL.md), and [.claude/skills/design-taste-frontend/SKILL.md](.claude/skills/design-taste-frontend/SKILL.md))
+  - **SEO, Content & Comparison Pages**: [.claude/skills/seo-audit/SKILL.md](.claude/skills/seo-audit/SKILL.md), [.claude/skills/programmatic-seo/SKILL.md](.claude/skills/programmatic-seo/SKILL.md), [.claude/skills/competitor-alternatives/SKILL.md](.claude/skills/competitor-alternatives/SKILL.md), and [.claude/skills/content-creator/SKILL.md](.claude/skills/content-creator/SKILL.md)
 - **Backend, Security & QA**:
   - **Backend Architecture, Data Layer & APIs**: [.claude/rules/backend.md](.claude/rules/backend.md)
   - **Application Security & Exploit Defense**: [.claude/rules/security.md](.claude/rules/security.md)
   - **Penetration Testing, Strix & Functional Flow QA**: [.claude/rules/penetrating-and-testing.md](.claude/rules/penetrating-and-testing.md)
   - **Compounding Guardrails & Learned Invariants**: [.claude/rules/learned-invariants.md](.claude/rules/learned-invariants.md)
+  - **Architecture Diagrams & ERDs**: [.claude/skills/archify/SKILL.md](.claude/skills/archify/SKILL.md)
+  - **Codebase Untangling & Refactoring**: [.claude/skills/untangle-codebase/SKILL.md](.claude/skills/untangle-codebase/SKILL.md)
 
 ---
 
 ## 3. Playwright & Browser Verification Policy
 
-Follow [.claude/rules/UI_Always.md](.claude/rules/UI_Always.md#8-browser-verification-policy) for visual and responsive checks:
+Follow [.claude/rules/UI_Always.md](.claude/rules/UI_Always.md#7-browser-verification-policy) for visual, responsive, and interactive checks:
 
-- **Engine**: Use the bundled [playwright-skill](.claude/skills/playwright-skill/SKILL.md) through inline Node execution from the project root: `node .claude/skills/playwright-skill/run.js -e "..."`. Create no scratch `.js` files for these audits and do not delegate browser verification to subagents.
-- **Target URL**: Resolve the running application through `helpers.resolveTargetUrl()`. Respect a user-provided URL or project configuration; do not guess a port.
-- **Layout Audits**: Check 375px, 768px, and 1280px for accidental horizontal overflow (`document.documentElement.scrollWidth > window.innerWidth`), page exceptions, and console errors.
+- **Combined Engines**: Pair [playwright-skill](.claude/skills/playwright-skill/SKILL.md) (`node .claude/skills/playwright-skill/run.js --audit` or inline `-e "..."`) for deterministic viewport, overflow, console, and screenshot checks with [agent-browser](.claude/skills/agent-browser/SKILL.md) (`open`, `snapshot -i`, `click @e1`, `fill @e2`, `close`) for token-efficient semantic navigation, `@eN` accessibility-tree interaction, and multi-step flow testing. Create no scratch `.js` files and do not delegate browser verification to subagents.
+- **Target URL**: Resolve the running application via `node .claude/skills/playwright-skill/run.js --detect-url` or `helpers.resolveTargetUrl()`. Respect a user-provided URL or project configuration; do not guess a port.
+- **Layout Audits**: Run `node .claude/skills/playwright-skill/run.js --audit --screenshots scratch --touch-targets` to verify 375px, 768px, and 1280px for accidental horizontal overflow (`document.documentElement.scrollWidth > window.innerWidth`), mobile `< 44x44px` interactive targets, page exceptions, and console errors.
+- **Interactive Flows**: Run isolated `agent-browser` sessions (`agent-browser session id --scope worktree --prefix ui`, `--session <sid>`, `open`, `snapshot -i`, `fill`/`click @eN`, `close`) for multi-step flows or use `helpers.agentBrowser(...)` inside `playwright-skill`.
 - **Artifacts**: Save screenshots and temporary browser diagnostics in the project's git-ignored `scratch/` directory.
-- **Execution Script**: Start with the canonical inline layout audit in `UI_Always.md`.
 
 ---
 

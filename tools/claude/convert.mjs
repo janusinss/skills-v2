@@ -132,3 +132,17 @@ export function generateClaudeMd(agentsMdText) {
 
   return result + '\n';
 }
+
+export function formatDesignerPolicy(text) {
+  let result = text.replace(/\r\n/g, '\n');
+  result = result.replace(
+    /^- \*\*Compounding Invariants & Progress Ledger\*\*: Read \[\.(agents|codex|claude)\/rules\/learned-invariants\.md\]\(\.\1\/rules\/learned-invariants\.md\)[^\n]*$/m,
+    (_, dir) => `- **Compounding Invariants**: Read [.${dir}/rules/learned-invariants.md](.${dir}/rules/learned-invariants.md) (when present) before editing code to enforce project-specific guardrails and prevent known regressions.`
+  );
+  result = result.replace(
+    /After 2 consecutive failed verification receipts or Skeptic rejections on the same issue/g,
+    'After 2 consecutive failed verification checks or audits on the same issue'
+  );
+  result = result.replace(/\n---\n\n## 5\. 6-Stage Self-Improving Harness Lifecycle[\s\S]*$/, '');
+  return result.trimEnd() + '\n';
+}

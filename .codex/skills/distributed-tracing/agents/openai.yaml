@@ -1,4 +1,0 @@
-interface:
-  display_name: "Distributed Tracing"
-  short_description: "Instrument distributed systems with OpenTelemetry, Jaeger,..."
-  default_prompt: "Use $distributed-tracing for the relevant part of this task."

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Langfuse"
-  short_description: "Instrument LLM apps with Langfuse tracing, prompt..."
-  default_prompt: "Use $langfuse for the relevant part of this task."

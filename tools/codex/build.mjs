@@ -2,8 +2,42 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { bundleRoot, sourceRoot, repoRoot, filesIn, parseSkill, snapshotSource, slash, json, sha256, payloadData, payloadHash, writeIfChanged, assertNoSymlinkAncestors, isBundleExcluded } from './lib.mjs';
-import { convertSkill, openaiMetadata, yamlText, readOriginalMetadata, adaptMarkdown, adaptPlaywrightRunner } from './convert.mjs';
+import { convertSkill, openaiMetadata, yamlText, readOriginalMetadata, adaptMarkdown, adaptPlaywrightRunner, formatDesignerPolicy } from './convert.mjs';
 import { localCodexIgnoreEntries } from './gitignore.mjs';
+
+/** Recursively remove empty subdirectories bottom-up under dir, preserving dir itself. */
+function pruneEmptyDirs(dir, isRoot = true) {
+  if (!fs.existsSync(dir)) return false;
+  let hasRemaining = false;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (entry.isDirectory()) {
+      if (!pruneEmptyDirs(path.join(dir, entry.name), false)) hasRemaining = true;
+    } else {
+      hasRemaining = true;
+    }
+  }
+  if (!isRoot && !hasRemaining) {
+    fs.rmdirSync(dir);
+    return true;
+  }
+  return false;
+}
+
+/** Keep only hook entries that do not invoke harness.mjs, dropping empty matcher groups and events. */
+function filterNonHarnessHooks(hooksMap = {}) {
+  const filtered = {};
+  for (const [event, groups] of Object.entries(hooksMap)) {
+    if (!Array.isArray(groups)) continue;
+    const keptGroups = [];
+    for (const group of groups) {
+      if (!group || typeof group !== 'object' || !Array.isArray(group.hooks)) continue;
+      const keptHooks = group.hooks.filter(entry => !`${entry?.command ?? ''}\n${entry?.commandWindows ?? ''}`.includes('harness.mjs'));
+      if (keptHooks.length > 0) keptGroups.push({ ...group, hooks: keptHooks });
+    }
+    if (keptGroups.length > 0) filtered[event] = keptGroups;
+  }
+  return filtered;
+}
 
 export function buildBundle() {
   assertNoSymlinkAncestors(bundleRoot);
@@ -39,7 +73,7 @@ export function buildBundle() {
 
   for (const source of sourceFiles) {
     const originalRelative = slash(path.relative(sourceRoot, source));
-    if (originalRelative === 'hooks.example.json' || originalRelative.startsWith('rules/') || isBundleExcluded(originalRelative)) continue;
+    if (originalRelative === 'hooks.example.json' || originalRelative === 'hooks.impeccable.example.json' || originalRelative === 'hooks.json' || originalRelative.startsWith('rules/') || isBundleExcluded(originalRelative)) continue;
     if (/\/agents\/openai\.yaml$/.test(originalRelative) && skillFiles.includes(path.resolve(path.dirname(source), '../SKILL.md'))) continue;
     if (duplicates.has(source)) {
       const { text } = convertSkill(fs.readFileSync(source, 'utf8'), source, duplicates);
@@ -61,6 +95,7 @@ export function buildBundle() {
   }
 
   for (const original of filesIn(path.join(sourceRoot, 'rules'))) {
+    if (isBundleExcluded(slash(path.relative(sourceRoot, original)))) continue;
     const name = path.basename(original);
     const override = path.join(templates, 'rules', name);
     const input = fs.existsSync(override) ? override : original;
@@ -77,10 +112,13 @@ export function buildBundle() {
   const rawInstalledPolicy = fs.readFileSync(agentsPolicy, 'utf8').split('\n<!-- source-repository-only -->')[0].trimEnd() + '\n';
   const installedPolicy = adaptMarkdown(rawInstalledPolicy, agentsPolicy, duplicates);
   add('AGENTS.md', installedPolicy, agentsPolicy);
+  add('AGENTS.designer.md', formatDesignerPolicy(installedPolicy), agentsPolicy);
   const projectIgnore = path.join(repoRoot, '.gitignore');
   add('project.gitignore', '# Local Codex skills, instructions, and workflow artifacts\n' + localCodexIgnoreEntries.join('\n') + '\n\n' + fs.readFileSync(projectIgnore, 'utf8'), projectIgnore);
-  const hooks = JSON.parse(fs.readFileSync(path.join(sourceRoot, 'hooks.example.json'), 'utf8'));
-  add('hooks.example.json', json({ description: 'Optional Impeccable hooks. Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks }).replaceAll('.agents/skills/', '.codex/skills/'), path.join(sourceRoot, 'hooks.example.json'));
+  const hooksSource = path.join(sourceRoot, 'hooks.example.json');
+  const hooks = JSON.parse(fs.readFileSync(hooksSource, 'utf8'));
+  add('hooks.example.json', json({ description: 'Optional Impeccable hooks. Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks }).replaceAll('.agents/skills/', '.codex/skills/').replaceAll('--hook antigravity', '--hook codex'), hooksSource);
+  add('hooks.impeccable.example.json', json({ description: 'Optional Impeccable hooks (Designer mode, without Harness hooks). Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks, hooks: filterNonHarnessHooks(hooks.hooks) }).replaceAll('.agents/skills/', '.codex/skills/').replaceAll('--hook antigravity', '--hook codex'), hooksSource);
 
   // Preflight every generated destination before writing any files. Refuse to
   // overwrite manually edited generated files. The retired instruction
@@ -112,12 +150,13 @@ export function buildBundle() {
   }
   for (const [relative, data] of outputs) writeIfChanged(path.join(bundleRoot, relative), data);
   for (const file of retired) fs.unlinkSync(file);
+  pruneEmptyDirs(bundleRoot);
   const after = snapshotSource();
   if (before.digest !== after.digest) throw new Error('Original source changed during conversion');
   const manifest = {
     generatedBy: 'tools/codex/build.mjs', formatVersion: 2, hashing: 'sha256-lf-text', checkedOn: '2026-10-01',
     originalSnapshot: before, originalPreserved: true,
-    summary: { topLevelSkills, discoverableSkills, duplicatesPreservedAsReferences: duplicates.size, rules: filesIn(path.join(sourceRoot, 'rules')).filter(f => f.endsWith('.md')).length, generatedFiles: outputs.size },
+    summary: { topLevelSkills, discoverableSkills, duplicatesPreservedAsReferences: duplicates.size, rules: filesIn(path.join(sourceRoot, 'rules')).filter(f => f.endsWith('.md') && !isBundleExcluded(slash(path.relative(sourceRoot, f)))).length, generatedFiles: outputs.size },
     duplicateReferences: Object.fromEntries([...duplicates].map(([from, to]) => [slash(path.relative(sourceRoot, from)), slash(path.relative(sourceRoot, to))])),
     files: records,
   };

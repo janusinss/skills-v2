@@ -8,288 +8,208 @@ date_added: "2026-02-27"
 
 # API Security Best Practices
 
-## Overview
+Review the request boundary from caller identity through authorization, validated
+input, storage and observable response. Preserve the application's actual identity
+provider and data model rather than introducing a second authentication system.
 
-Guide developers in building secure APIs by implementing authentication, authorization, input validation, rate limiting, and protection against common vulnerabilities. This skill covers security patterns for REST, GraphQL, and WebSocket APIs.
+## When to Use
 
-## When to Use This Skill
+Use when adding a protected endpoint, reviewing object access, replacing permissive
+request parsing, or investigating an API abuse path. For a concrete defect, start
+with the failing route and its callers; do not deploy unrelated security infrastructure.
 
-- Use when designing new API endpoints
-- Use when securing existing APIs
-- Use when implementing authentication and authorization
-- Use when protecting against API attacks (injection, DDoS, etc.)
-- Use when conducting API security reviews
-- Use when preparing for security audits
-- Use when implementing rate limiting and throttling
-- Use when handling sensitive data in APIs
+## Inputs and prerequisites
 
-## How It Works
+Record the routes, caller/tenant model, identity provider, token contract, runtime and
+locked dependency versions, database schema, proxy topology and authorized test scope.
+Use synthetic identities in a test environment. Existing task authorization carries
+forward; production scans, account writes and message sends need their own authority.
+The Node examples below are integration sketches for Express, jsonwebtoken and Zod;
+application/database adapters are deliberately named rather than presented as a full
+runnable service. Confirm APIs against the installed versions before integrating.
 
-### Step 1: Authentication & Authorization
+## 1. Authenticate the exact token contract
 
-I'll help you implement secure authentication:
-- Choose authentication method (JWT, OAuth 2.0, API keys)
-- Implement token-based authentication
-- Set up role-based access control (RBAC)
-- Secure session management
-- Implement multi-factor authentication (MFA)
+Prefer the established provider/session middleware. When the service owns an HMAC
+JWT contract, require a strong server-owned key, a fixed algorithm, exact issuer and
+audience, and required runtime claims. Do not infer permissions from a decoded token
+before signature verification. Never accept a caller-selected verification algorithm.
 
-### Step 2: Input Validation & Sanitization
+```javascript
+const jwt = require('jsonwebtoken');
 
-Protect against injection attacks:
-- Validate all input data
-- Sanitize user inputs
-- Use parameterized queries
-- Implement request schema validation
-- Prevent SQL injection, XSS, and command injection
+// Illustrative first-party access-token contract; not a third-party OAuth adapter.
+const ACCESS_POLICY = {
+  algorithms: ['HS256'], issuer: 'example-auth', audience: 'example-api'
+};
+function verifyAccessToken(token, signingKey) {
+  const claims = jwt.verify(token, signingKey, ACCESS_POLICY);
+  if (!claims || typeof claims !== 'object' ||
+      typeof claims.sub !== 'string' || !claims.sub ||
+      typeof claims.tenantId !== 'string' || !claims.tenantId ||
+      !Number.isSafeInteger(claims.exp) || !Number.isSafeInteger(claims.iat) ||
+      claims.exp <= claims.iat) {
+    throw new Error('Invalid access claims');
+  }
+  return { subject: claims.sub, tenantId: claims.tenantId };
+}
+function readBearer(header) {
+  if (typeof header !== 'string' || header.length > 8192) return null;
+  const match = /^Bearer ([A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)$/i.exec(header);
+  return match ? match[1] : null;
+}
+```
 
-### Step 3: Rate Limiting & Throttling
+Issue access tokens with the same issuer/audience/algorithm and a short application-
+approved expiration. Handle verification failure as a generic 401 without echoing the
+token or exception. Expiration alone does not revoke a token; define revocation or
+short-lived sessions according to the actual threat model. A service using asymmetric
+provider keys needs the provider's discovery/JWKS validation and key-rotation policy,
+not this HMAC example. Never reuse an access token as a refresh token.
 
-Prevent abuse and DDoS attacks:
-- Implement rate limiting per user/IP
-- Set up API throttling
-- Configure request quotas
-- Handle rate limit errors gracefully
-- Monitor for suspicious activity
+### Refresh sessions
 
-### Step 4: Data Protection
+Use the provider's supported session flow or a server-side opaque refresh design:
+store only a digest, expiry, user/session family and revocation state. In one atomic
+transaction consume the old active token and create the replacement. Concurrent reuse
+must not issue two successors; defined reuse handling revokes the affected family.
+Check current user status and permissions when issuing new access tokens. Bind refresh
+to the intended client/session and protect cookie-based requests against CSRF. Do not
+log tokens, store them plaintext in a database, or return a refresh token through a URL.
+Test simultaneous refresh, expiry, replay, revocation and transaction failure before
+calling the flow complete. No database transaction adapter is bundled here.
 
-Secure sensitive data:
-- Encrypt data in transit (HTTPS/TLS)
-- Encrypt sensitive data at rest
-- Implement proper error handling (no data leaks)
-- Sanitize error messages
-- Use secure headers
+## 2. Authorize the resource and operation
 
-### Step 5: API Security Testing
+Authentication identifies the caller; authorization decides the exact operation on
+an object and tenant. A role name does not automatically grant cross-tenant access.
+Apply the owner/tenant predicate in the database mutation to avoid a check-then-write
+race, and allowlist writable properties. Use 404/403 consistently with the product's
+resource-disclosure policy.
 
-Verify security implementation:
-- Test authentication and authorization
-- Perform penetration testing
-- Check for common vulnerabilities (OWASP API Top 10)
-- Validate input handling
-- Test rate limiting
+```javascript
+// Prisma-style sketch; id and tenant types must match your actual schema.
+async function deleteOwnedPost(prisma, postId, principal) {
+  const result = await prisma.post.deleteMany({
+    where: { id: postId, userId: principal.subject, tenantId: principal.tenantId }
+  });
+  return result.count === 1;
+}
+```
 
+An administrator path needs an explicit separate policy and audit event; do not add
+an implicit admin bypass to every owner check. Test a valid user accessing another
+user's object, the same ID in another tenant, deleted memberships and bulk endpoints.
 
-## Examples
+## 3. Parse once, then use the validated value
 
-See [Implementation Examples (JWT Auth, Input Validation & Rate Limiting)](references/examples.md) for complete production code examples.
+Reject partial numeric parses (`12abc` is not ID 12), unsafe integers, unexpected
+properties and oversized requests. Use parameterized database queries. An ORM does
+not provide business authorization or make unsafe raw SQL safe.
 
-## Best Practices
-
-### ✅ Do This
-
-- **Use HTTPS Everywhere** - Never send sensitive data over HTTP
-- **Implement Authentication** - Require authentication for protected endpoints
-- **Validate All Inputs** - Never trust user input
-- **Use Parameterized Queries** - Prevent SQL injection
-- **Implement Rate Limiting** - Protect against brute force and DDoS
-- **Hash Passwords** - Use bcrypt with salt rounds >= 10
-- **Use Short-Lived Tokens** - JWT access tokens should expire quickly
-- **Implement CORS Properly** - Only allow trusted origins
-- **Log Security Events** - Monitor for suspicious activity
-- **Keep Dependencies Updated** - Regularly update packages
-- **Use Security Headers** - Implement Helmet.js
-- **Sanitize Error Messages** - Don't leak sensitive information
-
-### ❌ Don't Do This
-
-- **Don't Store Passwords in Plain Text** - Always hash passwords
-- **Don't Use Weak Secrets** - Use strong, random JWT secrets
-- **Don't Trust User Input** - Always validate and sanitize
-- **Don't Expose Stack Traces** - Hide error details in production
-- **Don't Use String Concatenation for SQL** - Use parameterized queries
-- **Don't Store Sensitive Data in JWT** - JWTs are not encrypted
-- **Don't Ignore Security Updates** - Update dependencies regularly
-- **Don't Use Default Credentials** - Change all default passwords
-- **Don't Disable CORS Completely** - Configure it properly instead
-- **Don't Log Sensitive Data** - Sanitize logs
-
-## Common Pitfalls
-
-### Problem: JWT Secret Exposed in Code
-**Symptoms:** JWT secret hardcoded or committed to Git
-**Solution:**
-\`\`\`javascript
-// ❌ Bad
-const tokenSigningKey = '[redacted weak value]';
-
-// ✅ Good
-const JWT_SECRET = process.env.JWT_SECRET;
-if (!JWT_SECRET) {
-  throw new Error('JWT_SECRET environment variable is required');
+```javascript
+function parsePositiveId(raw) {
+  if (typeof raw !== 'string' || !/^[1-9][0-9]{0,15}$/.test(raw)) return null;
+  const value = Number(raw);
+  return Number.isSafeInteger(value) && value > 0 ? value : null;
 }
 
-// Generate strong secret
-// node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
-\`\`\`
-
-### Problem: Weak Password Requirements
-**Symptoms:** Users can set weak passwords like "password123"
-**Solution:**
-\`\`\`javascript
-const passwordSchema = z.string()
-  .min(12, 'Password must be at least 12 characters')
-  .regex(/[A-Z]/, 'Must contain uppercase letter')
-  .regex(/[a-z]/, 'Must contain lowercase letter')
-  .regex(/[0-9]/, 'Must contain number')
-  .regex(/[^A-Za-z0-9]/, 'Must contain special character');
-
-// Or use a password strength library
-const zxcvbn = require('zxcvbn');
-const result = zxcvbn(password);
-if (result.score < 3) {
-  return res.status(400).json({
-    error: 'Password too weak',
-    suggestions: result.feedback.suggestions
-  });
-}
-\`\`\`
-
-### Problem: Missing Authorization Checks
-**Symptoms:** Users can access resources they shouldn't
-**Solution:**
-\`\`\`javascript
-// ❌ Bad: Only checks authentication
-app.delete('/api/posts/:id', authenticateToken, async (req, res) => {
-  await prisma.post.delete({ where: { id: req.params.id } });
-  res.json({ success: true });
-});
-
-// ✅ Good: Checks both authentication and authorization
-app.delete('/api/posts/:id', authenticateToken, async (req, res) => {
-  const post = await prisma.post.findUnique({
-    where: { id: req.params.id }
-  });
-  
-  if (!post) {
-    return res.status(404).json({ error: 'Post not found' });
-  }
-  
-  // Check if user owns the post or is admin
-  if (post.userId !== req.user.userId && req.user.role !== 'admin') {
-    return res.status(403).json({ 
-      error: 'Not authorized to delete this post' 
-    });
-  }
-  
-  await prisma.post.delete({ where: { id: req.params.id } });
-  res.json({ success: true });
-});
-\`\`\`
-
-### Problem: Verbose Error Messages
-**Symptoms:** Error messages reveal system details
-**Solution:**
-\`\`\`javascript
-// ❌ Bad: Exposes database details
-app.post('/api/users', async (req, res) => {
-  try {
-    const user = await prisma.user.create({ data: req.body });
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-    // Error: "Unique constraint failed on the fields: (`email`)"
-  }
-});
-
-// ✅ Good: Generic error message
-app.post('/api/users', async (req, res) => {
-  try {
-    const user = await prisma.user.create({ data: req.body });
-    res.json(user);
-  } catch (error) {
-    console.error('User creation error:', error); // Log full error
-    
-    if (error.code === 'P2002') {
-      return res.status(400).json({ 
-        error: 'Email already exists' 
-      });
+const { z } = require('zod');
+const profileUpdate = z.object({
+  displayName: z.string().trim().min(1).max(100)
+}).strict();
+function validateBody(schema) {
+  return (req, res, next) => {
+    const parsed = schema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({ error: 'Invalid request' });
     }
-    
-    res.status(500).json({ 
-      error: 'An error occurred while creating user' 
-    });
-  }
-});
-\`\`\`
+    req.validatedBody = parsed.data; // Defaults/transforms must reach the handler.
+    next();
+  };
+}
+// Handler uses req.validatedBody, never the original body or an arbitrary spread.
+```
 
-## Security Checklist
+Set body limits before parsing. Zod shape validation is only one layer: check current
+ownership, allowed transitions and uniqueness in the transaction. For HTML allow only
+needed tags/attributes with a maintained sanitizer, then render with the destination's
+safe output API. For plain comments prefer plain text; sanitizing a string does not
+make it safe in every JavaScript, URL or HTML context. Validate upstream API responses
+as untrusted input too.
 
-### Authentication & Authorization
-- [ ] Implement strong authentication (JWT, OAuth 2.0)
-- [ ] Use HTTPS for all endpoints
-- [ ] Hash passwords with bcrypt (salt rounds >= 10)
-- [ ] Implement token expiration
-- [ ] Add refresh token mechanism
-- [ ] Verify user authorization for each request
-- [ ] Implement role-based access control (RBAC)
+For outbound URLs, define the allowed scheme/hosts, redirect behavior, resolved IP
+ranges, credentials policy, timeout and response size. A regex or a URL parser alone
+does not prevent SSRF or DNS rebinding. File uploads likewise need type/content checks,
+size limits, isolated storage and authorization on reads.
 
-### Input Validation
-- [ ] Validate all user inputs
-- [ ] Use parameterized queries or ORM
-- [ ] Sanitize HTML content
-- [ ] Validate file uploads
-- [ ] Implement request schema validation
-- [ ] Use allowlists, not blocklists
+## 4. Control abuse without claiming DDoS protection
 
-### Rate Limiting & DDoS Protection
-- [ ] Implement rate limiting per user/IP
-- [ ] Add stricter limits for auth endpoints
-- [ ] Use Redis for distributed rate limiting
-- [ ] Return proper rate limit headers
-- [ ] Implement request throttling
+Use the existing gateway and maintained rate-limit store. Authenticate before deriving
+an authenticated-user key, and never trust a user-supplied tier. For anonymous traffic,
+use the library's supported IPv6-aware IP key handling and configure Express trust
+proxy to the actual trusted hops; do not blindly enable it for all callers.
 
-### Data Protection
-- [ ] Use HTTPS/TLS for all traffic
-- [ ] Encrypt sensitive data at rest
-- [ ] Don't store sensitive data in JWT
-- [ ] Sanitize error messages
-- [ ] Implement proper CORS configuration
-- [ ] Use security headers (Helmet.js)
+For a distributed quota, use an atomic counter-plus-expiration implementation with
+defined store-outage behavior. Avoid a handwritten `INCR` followed by `EXPIRE`: a crash
+between them can leave a permanent key. Distinguish per-user quotas, per-IP abuse
+controls, concurrency limits and upstream service budgets. Record actual window/reset
+semantics and send an accurate Retry-After rather than a hardcoded full-window value.
+An in-memory limiter is per-process unless a shared store is configured.
 
-### Monitoring & Logging
-- [ ] Log security events
-- [ ] Monitor for suspicious activity
-- [ ] Set up alerts for failed auth attempts
-- [ ] Track API usage patterns
-- [ ] Don't log sensitive data
+Test concurrent requests, IPv4/IPv6, forged forwarding headers, unknown tiers, absent
+identity, Redis failure and expiration. Application rate limits cannot absorb network
+saturation. Helmet configures HTTP response headers; it is not DDoS protection, access
+control or a substitute for upstream capacity controls. Roll out CSP/HSTS against the
+actual deployment and subdomain policy; do not copy preload settings blindly.
 
-## OWASP API Security Top 10
+## 5. Passwords, secrets and logging
 
-1. **Broken Object Level Authorization** - Always verify user can access resource
-2. **Broken Authentication** - Implement strong authentication mechanisms
-3. **Broken Object Property Level Authorization** - Validate which properties user can access
-4. **Unrestricted Resource Consumption** - Implement rate limiting and quotas
-5. **Broken Function Level Authorization** - Verify user role for each function
-6. **Unrestricted Access to Sensitive Business Flows** - Protect critical workflows
-7. **Server Side Request Forgery (SSRF)** - Validate and sanitize URLs
-8. **Security Misconfiguration** - Use security best practices and headers
-9. **Improper Inventory Management** - Document and secure all API endpoints
-10. **Unsafe Consumption of APIs** - Validate data from third-party APIs
+Use the established identity provider where possible. For stored passwords, use a
+maintained password-hashing scheme with calibrated parameters (prefer Argon2id for
+new designs). Check breached/common passwords and support passphrases. Do not impose
+arbitrary uppercase/symbol composition rules or silently truncate long passwords.
+Legacy bcrypt has an input-byte limit that must be accounted for explicitly during
+migration; password length in characters and UTF-8 bytes are different.
 
-## Related Skills
+Keep secrets in the approved secret mechanism, check required configuration at startup
+without printing values, and rotate exposed credentials. Never include raw tokens,
+passwords, request bodies or complete database exceptions in routine logs. Log bounded
+event names, request correlation and safe status/error classes under an appropriate
+retention/access policy. Sanitized errors should not return mass-assigned user objects.
+CORS controls browser cross-origin access; it is not API authentication or CSRF protection.
 
-- `@ethical-hacking-methodology` - Security testing perspective
-- `@sql-injection-testing` - Testing for SQL injection
-- `@xss-html-injection` - Testing for XSS vulnerabilities
-- `@broken-authentication` - Authentication vulnerabilities
-- `@backend-dev-guidelines` - Backend development standards
-- `@systematic-debugging` - Debug security issues
+## Worked example: a profile update boundary
 
-## Additional Resources
+Given `PATCH /users/:id` with a string ID and an editable display name:
 
-- [OWASP API Security Top 10](https://owasp.org/www-project-api-security/)
-- [JWT Best Practices](https://tools.ietf.org/html/rfc8725)
-- [Express Security Best Practices](https://expressjs.com/en/advanced/best-practice-security.html)
-- [Node.js Security Checklist](https://blog.risingstack.com/node-js-security-checklist/)
-- [API Security Checklist](https://github.com/shieldfy/API-Security-Checklist)
+1. Record the authorized caller/tenant and current endpoint behavior in fixtures.
+2. Check missing/expired/wrong-audience tokens return 401 before storage access.
+3. Send `12abc`, an unsafe integer, an empty name and an extra `role` field; expect 400
+   and no database mutation. Send a padded valid name; confirm only the parsed trimmed
+   value reaches the owner-and-tenant-scoped update.
+4. Try a different user's valid ID and a cross-tenant ID; expect the documented denial
+   and no mutation. A valid owner request updates only the allowed property.
+5. Exercise quota/store failure and confirm logs contain no request token or name.
 
----
-
-**Pro Tip:** Security is not a one-time task - regularly audit your APIs, keep dependencies updated, and stay informed about new vulnerabilities!
+Return the route policy, reproduced failure cases, exact test command/output and
+remaining gaps. These are expected checks to execute in the target application, not
+claims that this repository has tested a deployed API.
 
 ## Limitations
-- Use this skill only when the task clearly matches the scope described above.
-- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
-- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.
+
+This guide is not a full identity service, certified security audit or penetration
+test. Snippets omit application adapters and integration error middleware. Unit tests
+of a parser do not verify database transactions, proxy behavior or provider sessions.
+Report any untested route, tenant path and failure mode explicitly. Do not infer a
+clean security posture from passing structural checks or from a risk metadata label.
+
+## References
+
+- [OWASP API Security](https://owasp.org/www-project-api-security/)
+- [JWT best current practices, RFC 8725](https://www.rfc-editor.org/rfc/rfc8725)
+- [OWASP Session Management](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html)
+- [OWASP Password Storage](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)
+- [Express production security](https://expressjs.com/en/advanced/best-practice-security.html)
+- [Zod basic parsing](https://zod.dev/basics)
+- Related skills: `auth-implementation-patterns`, `api-patterns`, `systematic-debugging`.

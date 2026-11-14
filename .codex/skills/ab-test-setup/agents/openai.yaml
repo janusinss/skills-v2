@@ -1,4 +1,0 @@
-interface:
-  display_name: "Ab Test Setup"
-  short_description: "Plan and configure A/B experiments with hypothesis,..."
-  default_prompt: "Use $ab-test-setup for the relevant part of this task."

@@ -32,8 +32,26 @@ export function resolveTarget(target, root = bundleRoot) {
   return destination;
 }
 
-export function applyClaudeSettingsHooks(target, root = bundleRoot) {
-  const hooksFile = path.join(root, 'hooks.example.json');
+export function normalizeMode(mode = 'harness') {
+  if (typeof mode !== 'string') throw new Error('Invalid --mode. Choose harness or designer.');
+  const normalized = mode.trim().toLowerCase();
+  if (normalized === 'normal') return 'designer';
+  if (normalized !== 'harness' && normalized !== 'designer') throw new Error(`Unknown mode ${mode}. Choose harness or designer.`);
+  return normalized;
+}
+
+export function resolveHooksSourceFile(mode = 'harness', root = bundleRoot) {
+  return normalizeMode(mode) === 'designer'
+    ? path.join(root, 'hooks.impeccable.example.json')
+    : path.join(root, 'hooks.example.json');
+}
+
+export function applyClaudeSettingsHooks(target, root = bundleRoot, modeOrOptions = 'harness') {
+  const opts = typeof modeOrOptions === 'string' ? { mode: modeOrOptions } : (modeOrOptions || {});
+  const mode = normalizeMode(opts.mode || 'harness');
+  const hooksFile = opts.hooksFile
+    ? (path.isAbsolute(opts.hooksFile) ? opts.hooksFile : path.join(root, opts.hooksFile))
+    : resolveHooksSourceFile(mode, root);
   if (!fs.existsSync(hooksFile)) return { path: '.claude/settings.json', action: 'skipped' };
   const parsedHooksFile = JSON.parse(fs.readFileSync(hooksFile, 'utf8'));
   const bundleHooks = parsedHooksFile.hooks || {};
@@ -67,8 +85,10 @@ export function applyClaudeSettingsHooks(target, root = bundleRoot) {
   return { path: '.claude/settings.json', action };
 }
 
-export function planExport({ target, profile = 'all', includeHooks = true }, root = bundleRoot) {
+export function planExport({ target, profile = 'all', includeHooks = true, mode = 'harness' }, root = bundleRoot) {
   const destination = resolveTarget(target, root);
+  const resolvedMode = normalizeMode(mode);
+  const hookSet = !includeHooks ? 'none' : resolvedMode === 'designer' ? 'impeccable' : 'all';
   const profiles = JSON.parse(fs.readFileSync(path.join(root, 'profiles.json'), 'utf8'));
   const all = fs.readdirSync(path.join(root, 'skills'), { withFileTypes: true })
     .filter(entry => entry.isDirectory() && fs.existsSync(path.join(root, 'skills', entry.name, 'SKILL.md')))
@@ -89,7 +109,10 @@ export function planExport({ target, profile = 'all', includeHooks = true }, roo
     entries.push({ source, destination: output, relative });
   };
 
-  add(path.join(root, 'CLAUDE.md'), 'CLAUDE.md');
+  const claudeMdSource = resolvedMode === 'designer' && fs.existsSync(path.join(root, 'CLAUDE.designer.md'))
+    ? path.join(root, 'CLAUDE.designer.md')
+    : path.join(root, 'CLAUDE.md');
+  add(claudeMdSource, 'CLAUDE.md');
   for (const area of ['rules', 'agents', 'commands']) {
     const dir = path.join(root, area);
     if (fs.existsSync(dir)) {
@@ -108,7 +131,17 @@ export function planExport({ target, profile = 'all', includeHooks = true }, roo
   }
 
   add(path.join(root, 'hooks.example.json'), '.claude/hooks.example.json');
-  if (includeHooks) add(path.join(root, 'hooks.example.json'), '.claude/hooks.json');
+  const impeccableHooksExample = path.join(root, 'hooks.impeccable.example.json');
+  if (fs.existsSync(impeccableHooksExample)) {
+    add(impeccableHooksExample, '.claude/hooks.impeccable.example.json');
+  }
+  if (includeHooks) {
+    const activeHooksSource = resolveHooksSourceFile(resolvedMode, root);
+    if (!fs.existsSync(activeHooksSource)) {
+      throw new Error(`Missing ${path.basename(activeHooksSource)} in Claude bundle at ${root}. Rebuild the bundle or use a complete release checkout.`);
+    }
+    add(activeHooksSource, '.claude/hooks.json');
+  }
 
   const installManifest = path.join(destination, '.claude/claude-install.json');
   assertNoSymlinkAncestors(installManifest);
@@ -117,8 +150,10 @@ export function planExport({ target, profile = 'all', includeHooks = true }, roo
   return {
     target: destination,
     profile,
+    mode: resolvedMode,
     topLevelSkills: selected.length,
     includeHooks,
+    hookSet,
     entries,
     installManifest,
     gitignore: planGitignore(destination, root)
@@ -137,7 +172,10 @@ export function exportBundle(options, root = bundleRoot) {
     return {
       target: plan.target,
       profile: plan.profile,
+      mode: plan.mode,
       topLevelSkills: plan.topLevelSkills,
+      includeHooks: plan.includeHooks,
+      hookSet: plan.hookSet,
       files: plan.entries.length + 2,
       gitignore: { ...plan.gitignore.record, action: plan.gitignore.action },
       dryRun: true
@@ -154,7 +192,7 @@ export function exportBundle(options, root = bundleRoot) {
   }
 
   const gitignore = applyGitignore(plan.gitignore);
-  if (plan.includeHooks) applyClaudeSettingsHooks(plan.target, root);
+  if (plan.includeHooks) applyClaudeSettingsHooks(plan.target, root, { mode: plan.mode });
   fs.writeFileSync(
     plan.installManifest,
     json({
@@ -162,8 +200,10 @@ export function exportBundle(options, root = bundleRoot) {
       formatVersion: 1,
       hashing: 'sha256-lf-text',
       profile: plan.profile,
+      mode: plan.mode,
       topLevelSkills: plan.topLevelSkills,
       hooksIncluded: plan.includeHooks,
+      hookSet: plan.hookSet,
       gitignore: plan.gitignore.record,
       files: hashes
     }),
@@ -173,7 +213,10 @@ export function exportBundle(options, root = bundleRoot) {
   return {
     target: plan.target,
     profile: plan.profile,
+    mode: plan.mode,
     topLevelSkills: plan.topLevelSkills,
+    includeHooks: plan.includeHooks,
+    hookSet: plan.hookSet,
     files: plan.entries.length + 2,
     gitignore,
     dryRun: false
@@ -184,9 +227,11 @@ export function parseArgs(args) {
   const options = {};
   for (let index = 0; index < args.length; index++) {
     const value = args[index];
-    if (value === '--target' || value === '--profile') {
+    if (value === '--target' || value === '--profile' || value === '--mode') {
       if (!args[index + 1] || args[index + 1].startsWith('--')) throw new Error(`${value} requires a value`);
-      options[value.slice(2)] = args[++index];
+      const nextValue = args[++index];
+      if (value === '--mode') options.mode = normalizeMode(nextValue);
+      else options[value.slice(2)] = nextValue;
     } else if (value === '--dry-run') {
       options.dryRun = true;
     } else if (value === '--include-hooks') {

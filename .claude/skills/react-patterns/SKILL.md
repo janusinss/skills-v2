@@ -42,7 +42,7 @@ description: "Write idiomatic React with custom hooks, compound components, stat
 
 ### Hook Rules
 
-- Hooks at top level only
+- Hooks at top level only; React’s `use` API is an exception that can be called in loops/conditions inside a component or Hook (not in try/catch); see [use](https://react.dev/reference/react/use)
 - Same order every render
 - Custom hooks start with "use"
 - Clean up effects on unmount
@@ -80,6 +80,8 @@ description: "Write idiomatic React with custom hooks, compound components, stat
 | **use** | Read resources in render |
 
 ### Compiler Benefits
+
+These apply when React Compiler is installed and enabled in the build, not automatically on upgrading to React 19; see [installation](https://react.dev/learn/react-compiler/installation).
 
 - Automatic memoization
 - Less manual useMemo/useCallback
@@ -188,7 +190,7 @@ description: "Write idiomatic React with custom hooks, compound components, stat
 |----------|-------|
 | Prop drilling deep | Use context |
 | Giant components | Split smaller |
-| useEffect for everything | Server components |
+| useEffect for everything | Derive values during render; reserve effects for external synchronization and use server components only in a supporting framework |
 | Premature optimization | Profile first |
 | Index as key | Stable unique ID |
 
@@ -206,6 +208,12 @@ Use this image as a reference for a better file structure of the project
 
 ## When to Use
 This skill is applicable to execute the workflow or actions described in the overview.
+
+## Example
+
+**User request:**
+
+> Use @react-patterns for this task: Modern React patterns and principles.
 
 ## Limitations
 - Use this skill only when the task clearly matches the scope described above.

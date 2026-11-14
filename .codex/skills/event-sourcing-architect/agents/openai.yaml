@@ -1,4 +1,0 @@
-interface:
-  display_name: "Event Sourcing Architect"
-  short_description: "Design event-sourced and CQRS systems with append-only event..."
-  default_prompt: "Use $event-sourcing-architect for the relevant part of this task."

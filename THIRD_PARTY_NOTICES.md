@@ -11,23 +11,24 @@ Per-skill provenance lives in [provenance.json](provenance.json) (`source`, `sou
 
 | Upstream Source | Skill Count | License | Representative Skills |
 | :--- | ---: | :--- | :--- |
-| `sickn33/antigravity-awesome-skills` | 75 | MIT | `ab-test-setup`, `api-patterns`, `architecture-patterns`, `database-design`, `docker-expert`, `ethical-hacking-methodology`, `kaizen`, `python-patterns`, `react-patterns`, `tailwind-patterns`, `top-web-vulnerabilities` |
-| `vibeforge1111/vibeship-spawner-skills` | 12 | Apache-2.0 | `3d-web-experience`, `agent-evaluation`, `ai-agents-architect`, `aws-serverless`, `browser-automation`, `context-window-management`, `interactive-portfolio`, `langfuse`, `langgraph`, `prompt-caching`, `rag-engineer`, `scroll-experience` |
-| `affaan-m/everything-claude-code` | 5 | MIT | `agent-security-hardening`, `agent-self-evaluation`, `agentic-engineering`, `ai-regression-testing`, `continuous-agent-loop` |
-| `Leonxlnx/imagegen-skills` | 4 | MIT | `brandkit`, `image-to-code`, `imagegen-frontend-mobile`, `imagegen-frontend-web` |
-| `mrgoonie/claudekit-skills` | 4 | MIT | `brand`, `design`, `design-system`, `ui-styling` |
+| `sickn33/antigravity-awesome-skills` | 39 | MIT | Representative active skills: `api-patterns`, `architecture-patterns`, `database-design`, `docker-expert`, `ethical-hacking-methodology`, `python-patterns`, `react-patterns`, `tailwind-patterns`, `top-web-vulnerabilities`, `seo-audit` |
+| `original` (`janusinss/skills-v2`) | 4 | MIT | `anti-ai-slop`, `prompt-enhancer`, `prompt-enhancer-backend`, `prompt-enhancer-frontend` |
 | `usestrix/strix` | 4 | Apache-2.0 | `application-security-testing`, `ci-security-scanning-with-strix`, `fix-security-vulnerabilities-with-strix`, `penetration-testing-with-strix` |
-| `original` (`janusinss/skills-v2`) | 3 | MIT | `prompt-enhancer`, `prompt-enhancer-backend`, `prompt-enhancer-frontend` |
+| `nextlevelbuilder/ui-ux-pro-max-skill` | 4 | MIT | `ui-ux-pro-max`, plus `design`, `design-system`, `ui-styling` (derived from `mrgoonie/claudekit-skills`) |
+| `Leonxlnx/imagegen-skills` | 3 | MIT | `brandkit`, `image-to-code`, `imagegen-frontend-web` |
+| `vibeforge1111/vibeship-spawner-skills` | 2 | Apache-2.0 | `3d-web-experience`, `scroll-experience` |
+| `affaan-m/everything-claude-code` | 2 | MIT | `agent-self-evaluation`, `continuous-agent-loop` |
+| `caldoai/skills` | 1 | MIT | `untangle-codebase` |
 | `Leonxlnx/taste-skill` | 1 | MIT | `design-taste-frontend` |
 | `anthropics/skills` | 1 | Apache-2.0 | `mcp-builder` |
 | `basementstudio/scrollytelling` | 1 | MIT | `scrollytelling` |
 | `conorbronsdon/avoid-ai-writing` | 1 | MIT | `avoid-ai-writing` |
-| `cloudflare/security-audit-skill` | 1 | **unverified** | `security-audit` |
+| `cloudflare/security-audit-skill` | 1 | MIT | `security-audit` |
 | `lackeyjb/playwright-skill` | 1 | MIT | `playwright-skill` |
-| `nextlevelbuilder/ui-ux-pro-max-skill` | 1 | MIT | `ui-ux-pro-max` |
 | `pbakaus/impeccable` | 1 | Apache-2.0 | `impeccable` |
 | `supabase/agent-skills` | 1 | MIT | `postgres-best-practices` |
 | `tt-a1i/archify` | 1 | Apache-2.0 | `archify` |
+| `vercel-labs/agent-browser` | 1 | Apache-2.0 | `agent-browser` |
 | `vercel-labs/agent-skills` | 1 | MIT | `react-best-practices` |
 | `VoltAgent/awesome-design-md` | 1 | MIT | `awesome-design-md` |
 
@@ -41,6 +42,7 @@ Per-skill provenance lives in [provenance.json](provenance.json) (`source`, `sou
 | `.agents/skills/awesome-design-md/` | `LICENSE` (MIT) |
 | `.agents/skills/mcp-builder/` | `LICENSE.txt` (Apache-2.0) |
 | `.agents/skills/ui-styling/` | `LICENSE.txt` (MIT) |
+| `.agents/skills/untangle-codebase/` | `LICENSE` (MIT) |
 | `.agents/resources/creative-libraries/lenis/` | `LICENSE` (MIT) |
 
 The same files exist in converted bundles where exported (`.codex/` and `.claude/`).

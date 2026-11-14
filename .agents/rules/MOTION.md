@@ -36,7 +36,7 @@ When implementing motion, choose the right technique for the specific job or sta
 | **6** | **Keyframes** | Choreograph deterministic sequences | Multi-step intro reveals, progress cycles | Timeline steps (0%, 50%, 100%), easings |
 | **7** | **Rive / Lottie** | Embed authored vector motion | Character acting, complex interactive icons | State machines, inputs, ViewModels |
 | **8** | **Particles** | Celebrate milestones & actions | Confetti bursts, sparkles, achievement star showers | Emission rate, particle lifetime, spread |
-| **9** | **Shaders (GPU)** | Pixel-level dynamic rendering | Superellipse squircles, refraction, caustics | WebGL/GLSL fragment uniforms, resolution |
+| **9** | **Shaders (GPU)** | Pixel-level dynamic rendering via [3d-web-experience](.agents/skills/3d-web-experience/SKILL.md) | Superellipse squircles, refraction, caustics | WebGL/GLSL fragment uniforms, resolution |
 | **10**| **Skeletal Rigs**| Pose connected multi-joint entities | Interactive mascots, puppet rigging | Joint hierarchies, skin weights, bone angles |
 | **11**| **Flipbooks / Sprites** | Frame-by-frame character flair | Expressive stickers, retro arcade effects | Frame rate (8–24 FPS), sprite sheets |
 | **12**| **Composition** | Stack layers for tactile depth | 2.5D parallax hero, masked tilt cards | Multi-plane z-index, SVG masks, specular sheen |
@@ -72,7 +72,7 @@ Every dynamic or interactive animated entity must follow a deterministic state m
 
 1. **The Rest-State Invariant**: Every entity must have a well-defined resting pose. When an animation completes, it must explicitly settle back into its neutral rest state.
 2. **Interruption & Re-entrancy**: If a new action triggers while an animation is playing, blend smoothly into the new action or immediately return along a settled arc. Never freeze or snap instantly.
-3. **Data Model Decoupling**: For tools like Rive, bind triggers to data models (`BohoControlsV2 ViewModel`, `ActionState`) rather than hardcoding scene timeline offsets.
+3. **Data Model Decoupling**: For tools like Rive, bind triggers to generic data models (`ViewModel`, `ActionState`) rather than hardcoding scene timeline offsets.
 
 ---
 
@@ -93,7 +93,7 @@ Scale motion behavior, travel distances, and hardware load to the viewport and i
 ### C. Laptop & Desktop (1280px+)
 - **Input**: Precision cursor hover, mouse wheel, trackpad inertia.
 - **Affordance**: Subtle cursor magnetic attraction on interactive buttons (max 4px pull).
-- **Scroll Storytelling**: Use scrubbed timelines (e.g. declarative React + GSAP ScrollTrigger timelines via [scrollytelling](.agents/skills/scrollytelling/SKILL.md) or [scroll-experience](.agents/skills/scroll-experience/SKILL.md)) pinned to viewport heights for deep product tours and 3D/canvas sequences.
+- **Scroll Storytelling & 3D Scenes**: Use scrubbed timelines (e.g. declarative React + GSAP ScrollTrigger timelines via [scrollytelling](.agents/skills/scrollytelling/SKILL.md) or [scroll-experience](.agents/skills/scroll-experience/SKILL.md)) and interactive WebGL/R3F scenes via [3d-web-experience](.agents/skills/3d-web-experience/SKILL.md) pinned to viewport heights for product tours and 3D/canvas sequences.
 - **Containment**: Clamp max travel distances inside centered container wrappers so ultrawide monitors (2560px+) do not create jarring long-distance motion.
 
 ---
@@ -105,7 +105,7 @@ Animations must never compromise responsiveness or drop below 60 FPS (target 120
 1. **Composite-Only Properties & Anti-Slop Scroll Discipline**:
    - Only animate `transform` (`translate3d`, `scale`, `rotate`) and `opacity`.
    - **Strictly Ban**: Never animate `top`, `left`, `right`, `bottom`, `width`, `height`, `margin`, or `padding` directly, and never use `transition: all`. Use the FLIP technique (invert geometry with transforms) for layout changes.
-   - **No Uniform Section Scroll Fade-Ups**: Never wrap every page section in identical `initial={{ opacity: 0, y: 20 }}` scroll-triggered fade-up entrances or continuous unrequested marquees that delay readability for fast scrollers. Render text content immediately visible and reserve scroll-linked motion for intentional storytelling.
+   - **Scroll & Marquee Anti-Slop Discipline**: Delegate uniform section scroll fade-up and continuous unrequested marquee rules to [anti-ai-slop](.agents/skills/anti-ai-slop/SKILL.md); render text visible immediately and reserve scroll-linked motion for intentional storytelling.
 2. **Hardware Level-of-Detail (LOD)**:
    - **Desktop**: Up to 150 simultaneous celebration particles; high-resolution WebGL fragment shader passes.
    - **Mobile**: Throttle to 30–40 particles; disable heavy refraction shaders; fall back to pre-rendered SVG or CSS borders if GPU load causes battery drain or frame stutter.
@@ -139,13 +139,5 @@ Respect system accessibility preferences without breaking application usability:
 
 ## 7. AI Steering & Visual Verification Protocol
 
-AI models often generate generic keyframes when given vague prompts. Follow these steering guardrails:
-
-1. **Prompt With Exact Physics**:
-   - Reject: *"Make this button animate."*
-   - Specify: *"Apply a snappy spring with stiffness 300, damping 20, scaling down to 0.95 on active click and bouncing back on release."*
-2. **Mandatory Human-in-the-Loop Visual Verification**:
-   - Unit and Playwright tests verify logic, DOM presence, and zero console errors.
-   - **Motion feel must be visually verified**: Check for edge clipping, jittery frame drops, unnatural easing, or awkward character acting.
-3. **Agent GUI Automation**:
-   - For graphical animation software without CLI APIs (e.g. Rive, Blender, After Effects), leverage desktop agent computer use with vision to build rigs, hierarchy structures, and state transitions.
+1. **Prompt With Exact Physics**: Reject vague requests (*"Make this button animate"*) and specify exact spring/easing targets (*"Apply a snappy spring with stiffness 300, damping 20, scaling to 0.95 on active click and settling within 300ms"*).
+2. **Visual & Browser Verification**: Pair automated checks with visual inspection per [UI_Always.md](.agents/rules/UI_Always.md#7-browser-verification-policy) to catch edge clipping, frame drops, unnatural easing, or interrupted-transition snaps.

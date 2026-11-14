@@ -1,4 +1,0 @@
-interface:
-  display_name: "Pci Compliance"
-  short_description: "Design PCI DSS 4.0 compliant payment flows: cardholder data..."
-  default_prompt: "Use $pci-compliance for the relevant part of this task."

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Aws Serverless"
-  short_description: "Build AWS serverless apps with Lambda, API Gateway,..."
-  default_prompt: "Use $aws-serverless for the relevant part of this task."

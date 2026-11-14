@@ -1,16 +1,17 @@
 {
   "minimal": [
     "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
-    "ui-styling", "backend-dev-guidelines", "api-security-best-practices", "playwright-skill",
-    "continuous-agent-loop"
+    "ui-styling", "anti-ai-slop", "backend-dev-guidelines", "api-security-best-practices", "playwright-skill", "agent-browser",
+    "continuous-agent-loop", "archify", "untangle-codebase", "git-pushing"
   ],
   "frontend": [
     "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
     "prompt-enhancer", "prompt-enhancer-frontend", "3d-web-experience",
     "frontend-developer", "frontend-security-coder", "impeccable", "ui-ux-pro-max", "ui-styling",
-    "design-taste-frontend", "design-system", "awesome-design-md", "brandkit", "tailwind-patterns", "react-best-practices",
+    "anti-ai-slop", "design-taste-frontend", "design-system", "awesome-design-md", "brandkit", "tailwind-patterns", "react-best-practices",
     "react-patterns", "nextjs-best-practices", "nextjs-app-router-patterns", "javascript-pro", "typescript-expert",
-    "scroll-experience", "scrollytelling", "image-to-code", "imagegen-frontend-web", "avoid-ai-writing", "playwright-skill", "e2e-testing-patterns"
+    "scroll-experience", "scrollytelling", "image-to-code", "imagegen-frontend-web", "avoid-ai-writing", "playwright-skill", "agent-browser", "e2e-testing-patterns",
+    "archify", "untangle-codebase", "seo-audit", "programmatic-seo", "competitor-alternatives", "content-creator"
   ],
   "backend": [
     "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
@@ -19,13 +20,14 @@
     "postgres-best-practices", "auth-implementation-patterns", "nodejs-best-practices", "typescript-expert",
     "javascript-pro", "python-patterns", "python-testing-patterns", "async-python-patterns",
     "fastapi-templates", "django-pro", "golang-pro", "go-concurrency-patterns", "observability-engineer", "test-driven-development",
-    "test-fixing", "docker-expert", "playwright-skill"
+    "test-fixing", "docker-expert", "playwright-skill", "agent-browser",
+    "archify", "untangle-codebase", "mcp-builder", "git-pushing"
   ],
   "security": [
     "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
     "security-audit", "frontend-security-coder", "api-security-best-practices",
     "auth-implementation-patterns", "ethical-hacking-methodology", "top-web-vulnerabilities",
     "penetration-testing-with-strix", "application-security-testing",
-    "fix-security-vulnerabilities-with-strix", "ci-security-scanning-with-strix", "playwright-skill"
+    "fix-security-vulnerabilities-with-strix", "ci-security-scanning-with-strix", "playwright-skill", "agent-browser"
   ]
 }

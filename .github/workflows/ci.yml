@@ -43,6 +43,13 @@ jobs:
             node tools/codex/install.mjs --target "${{ runner.temp }}/codex-$p" --profile "$p"
             node tools/claude/install.mjs --target "${{ runner.temp }}/claude-$p" --profile "$p"
           done
+      - name: Verify Designer mode and unified install.mjs on Ubuntu
+        if: matrix.os == 'ubuntu-latest' && matrix.profile == 'all'
+        run: |
+          node tools/codex/install.mjs --target "${{ runner.temp }}/codex-designer" --profile minimal --mode designer
+          node tools/claude/install.mjs --target "${{ runner.temp }}/claude-designer" --profile minimal --mode designer
+          node install.mjs --edition agy --mode designer --target "${{ runner.temp }}/agy-designer" --dry-run
+          node -e "const fs=require('fs'),p=require('path'),t=process.env.RUNNER_TEMP; for(const [m,r] of [['codex-designer/.codex/codex-install.json','codex-designer/AGENTS.md'],['claude-designer/.claude/claude-install.json','claude-designer/CLAUDE.md']]){const j=JSON.parse(fs.readFileSync(p.join(t,m),'utf8')); if(j.mode!=='designer') throw new Error(m+' mode='+j.mode); if(fs.readFileSync(p.join(t,r),'utf8').includes('6-Stage Self-Improving Harness Lifecycle')) throw new Error(r+' contains Harness lifecycle');}"
   commits:
     runs-on: ubuntu-latest
     steps:

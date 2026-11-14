@@ -1,4 +1,0 @@
-interface:
-  display_name: "Competitive Landscape"
-  short_description: "Analyze market competitors, feature matrices, pricing tiers,..."
-  default_prompt: "Use $competitive-landscape for the relevant part of this task."

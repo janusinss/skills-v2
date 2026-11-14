@@ -2,6 +2,25 @@
 
 All notable changes are recorded here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [Semantic Versioning](https://semver.org/).
 
+## [2.1.0] - 2026-11-14
+
+### Added
+- `untangle-codebase` (`caldoai/skills`, MIT) for structural codebase untangling and refactoring, plus dedicated `.agents/skills/untangle-codebase/LICENSE`.
+- `agent-browser` (`vercel-labs/agent-browser`, Apache-2.0) for token-efficient `@eN` accessibility-tree browser automation, paired with upgraded `playwright-skill` (`--audit`, `--detect-url`, `helpers.auditLayout()`, and `helpers.agentBrowser()`).
+- Extracted `anti-ai-slop` (`original`, MIT) into a standalone skill consolidating all visual, structural, palette, typography, motion, copywriting, and automated gate standards.
+- Unified root installer (`install.mjs`) with sequential two-question flow (Edition: `AGY` / `CODEX` / `CLAUDE` + Hook Mode: `HARNESS MODE` vs `DESIGNER MODE`, plus `--no-hooks`), mode-specific `AGENTS.designer.md` / `CLAUDE.designer.md`, and `hooks.impeccable.example.json`.
+- AGY-only `/swarm` orchestration and model routing rule (`.agents/rules/swarm.md`), excluded from `.codex/` and `.claude/` bundles.
+
+### Changed
+- Curated the skill catalog from 117 to 71 top-level skills (77 discoverable manifests), preserving SEO skills, `mcp-builder`, `git-pushing`, `archify`, and `untangle-codebase`.
+- Integrated `archify` and `untangle-codebase` across workspace rules, subagents, `AGENTS.md`, and installer profiles, and updated `awesome-design-md` references to `84+` brand design systems.
+- Centralized the Frontend Skill Dispatch Matrix, Design Synthesis & Design Read contract, and Standard Layout Archetypes (`Archetype A` / `Archetype B`) in `frontend.md` (and `tools/codex/templates/rules/frontend.md`), deduplicating rules (`-82` lines across rules) and reconciling `penetrating-and-testing.md` with the 8 interactive states + `Empty`/`403` + `agent-browser` workflow.
+- Pruned empty bundle subdirectories in `tools/codex/build.mjs` and `tools/claude/build.mjs` (`0` empty dirs in `.codex/skills/` and `.claude/skills/`).
+
+### Fixed
+- Updated `THIRD_PARTY_NOTICES.md`, `SECURITY.md`, `.codex/README.md`, and `README.MD` (including `## ⚖️ License & Provenance`, `.gitignore` rules, and unified install instructions).
+- Replaced dead `brand` and `imagegen-frontend-mobile` cross-references inside `design` and `imagegen-frontend-web`.
+
 ## [2.0.0] - 2026-11-06
 
 ### Fixed

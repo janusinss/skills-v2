@@ -1,4 +1,0 @@
-interface:
-  display_name: "Bash Linux"
-  short_description: "Write reliable Bash and Linux shell scripts with strict..."
-  default_prompt: "Use $bash-linux for the relevant part of this task."

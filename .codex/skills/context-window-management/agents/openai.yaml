@@ -1,4 +1,0 @@
-interface:
-  display_name: "Context Window Management"
-  short_description: "Manage LLM context budgets via summarization, sliding..."
-  default_prompt: "Use $context-window-management for the relevant part of this task."

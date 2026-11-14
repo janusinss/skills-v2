@@ -1,13 +1,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import readline from 'node:readline/promises';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { exportBundle, parseArgs as parseExportArgs, resolveTarget } from './export.mjs';
+import { exportBundle, normalizeMode, parseArgs as parseExportArgs, resolveTarget } from './export.mjs';
 import { bundleRoot, assertNoSymlinkAncestors, within, payloadHash, json, isRecord } from './lib.mjs';
 import { planGitignore, applyGitignore } from './gitignore.mjs';
 
 const installRule = '.codex/rules/install.md';
 const playwrightRunner = '.codex/skills/playwright-skill/run.js';
+const agentBrowserSkill = '.codex/skills/agent-browser/SKILL.md';
 const harnessRunner = '.codex/skills/continuous-agent-loop/scripts/harness.mjs';
 const verificationMarker = 'PLAYWRIGHT_VERIFIED_OK';
 const verificationScript = `const browser = await helpers.launchBrowser('chromium', { headless: true }); try { const page = await browser.newPage(); await page.setContent('<title>Codex setup</title>'); if (await page.title() !== 'Codex setup') throw new Error('Browser verification failed'); console.log('${verificationMarker}'); } finally { await browser.close(); }`;
@@ -39,6 +41,8 @@ function verifyRunner(execute, target, runnerPath) {
 
 function installGitPreCommitHook(execute, target, manifest) {
   if (manifest.hooksIncluded === false) return 'disabled';
+  const mode = normalizeMode(manifest.mode || 'harness');
+  if (mode === 'designer') return 'skipped (designer mode)';
   const gitDir = path.join(target, '.git');
   if (!fs.existsSync(gitDir)) return 'skipped (no .git directory)';
   const harnessPath = path.join(target, harnessRunner);
@@ -58,7 +62,54 @@ function installGitPreCommitHook(execute, target, manifest) {
   return 'installed';
 }
 
-function finishSetup(target, manifestPath, manifest, playwright, gitHook) {
+function runPlatformCmd(execute, command, args, options) {
+  if (process.platform === 'win32') {
+    const cmdLine = [command, ...args].join(' ');
+    return execute(process.env.ComSpec || 'cmd.exe', ['/d', '/s', '/c', cmdLine], { windowsHide: true, ...options });
+  }
+  return execute(command, args, { windowsHide: true, ...options });
+}
+
+export function setupAgentBrowser(execute, target) {
+  try {
+    const checkOpts = { cwd: target, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] };
+    let version = runPlatformCmd(execute, 'agent-browser', ['--version'], checkOpts);
+    if (!version || version.error || version.status !== 0) {
+      console.error('agent-browser CLI not found. Installing globally via npm...');
+      const npmInstall = runPlatformCmd(execute, 'npm', ['install', '-g', 'agent-browser', '--no-audit', '--no-fund'], { cwd: target, stdio: 'inherit' });
+      if (!npmInstall || npmInstall.error || npmInstall.status !== 0) {
+        console.error(`agent-browser global install warning: ${npmInstall?.error?.message || npmInstall?.stderr?.trim() || `exit ${npmInstall?.status ?? 1}`}`);
+        return 'unavailable';
+      }
+      version = runPlatformCmd(execute, 'agent-browser', ['--version'], checkOpts);
+      if (!version || version.error || version.status !== 0) {
+        console.error('agent-browser CLI still unavailable after npm install -g agent-browser.');
+        return 'unavailable';
+      }
+    }
+
+    const precheck = runPlatformCmd(execute, 'agent-browser', ['doctor', '--offline', '--quick', '--json'], checkOpts);
+    if (precheck && !precheck.error && precheck.status === 0) {
+      console.error('Working agent-browser CLI and browser detected. Skipping agent-browser install.');
+      return 'verified';
+    }
+
+    console.error('Installing browser runtime for agent-browser...');
+    const installRes = runPlatformCmd(execute, 'agent-browser', ['install'], { cwd: target, stdio: 'inherit' });
+    const recheck = runPlatformCmd(execute, 'agent-browser', ['doctor', '--offline', '--quick', '--json'], checkOpts);
+    if (recheck && !recheck.error && recheck.status === 0) {
+      return 'verified';
+    }
+    const reason = installRes?.error?.message || recheck?.stderr?.trim() || `exit ${recheck?.status ?? installRes?.status ?? 1}`;
+    console.error(`agent-browser browser check warning: ${reason}`);
+    return 'cli-only';
+  } catch (error) {
+    console.error(`agent-browser setup warning: ${error.message}`);
+    return 'unavailable';
+  }
+}
+
+function finishSetup(target, manifestPath, manifest, playwright, gitHook, agentBrowser = 'not included in selected profile') {
   assertNoSymlinkAncestors(manifestPath);
   const onDisk = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
   if (json(onDisk) !== json(manifest)) throw new Error('Installation record changed during setup');
@@ -67,7 +118,9 @@ function finishSetup(target, manifestPath, manifest, playwright, gitHook) {
     throw new Error(`Installed file changed or missing: ${installRule}. Preserve it before retrying setup.`);
   }
   const ruleData = fs.readFileSync(rulePath);
-  const completed = { ...manifest, files: { ...manifest.files }, setup: { status: 'complete', playwright, hooks: manifest.hooksIncluded !== false ? 'active' : 'disabled', gitHook, removedFiles: [installRule] } };
+  const mode = normalizeMode(manifest.mode || 'harness');
+  const hooks = manifest.hooksIncluded === false ? 'disabled' : mode === 'designer' ? 'impeccable' : 'active';
+  const completed = { ...manifest, files: { ...manifest.files }, setup: { status: 'complete', playwright, agentBrowser, mode, hooks, gitHook, removedFiles: [installRule] } };
   delete completed.files[installRule];
   const temporary = `${manifestPath}.setup.tmp`;
   assertNoSymlinkAncestors(temporary);
@@ -95,7 +148,16 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
   const installation = readInstallation(target);
   const manifestPath = installation.manifestPath;
   let manifest = installation.manifest;
-  if (options.resume && ((options.profile && options.profile !== manifest.profile) || (options.includeHooks !== undefined && options.includeHooks !== Boolean(manifest.hooksIncluded)))) throw new Error('--resume uses the installed profile and hook selection');
+  if (
+    options.resume &&
+    ((options.profile && options.profile !== manifest.profile) ||
+      (options.includeHooks !== undefined && options.includeHooks !== Boolean(manifest.hooksIncluded)) ||
+      (options.mode && normalizeMode(options.mode) !== normalizeMode(manifest.mode || 'harness')))
+  ) {
+    throw new Error('--resume uses the installed profile, mode, and hook selection');
+  }
+  const installedMode = normalizeMode(manifest.mode || 'harness');
+  const installedHookSet = manifest.hookSet || (manifest.hooksIncluded === false ? 'none' : installedMode === 'designer' ? 'impeccable' : 'all');
   let gitignore = exported?.gitignore;
   if (!gitignore) {
     const ignorePlan = planGitignore(target, root);
@@ -112,8 +174,9 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
     finally { if (fs.existsSync(temporary)) fs.unlinkSync(temporary); }
     manifest = updated;
   }
-  if (options.dryRun || manifest.setup?.status === 'complete') return { target, profile: manifest.profile, topLevelSkills: manifest.topLevelSkills, files: Object.keys(manifest.files).length + 2, gitignore, dryRun: Boolean(options.dryRun), setup: manifest.setup?.status || 'pending' };
+  if (options.dryRun || manifest.setup?.status === 'complete') return { target, profile: manifest.profile, mode: installedMode, hookSet: installedHookSet, topLevelSkills: manifest.topLevelSkills, files: Object.keys(manifest.files).length + 2, gitignore, dryRun: Boolean(options.dryRun), setup: manifest.setup?.status || 'pending' };
   let playwright = 'not included in selected profile';
+  let agentBrowser = 'not included in selected profile';
   try {
     if (manifest.files[playwrightRunner]) {
       const skillDirectory = path.dirname(path.join(target, playwrightRunner));
@@ -149,9 +212,13 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
         playwright = 'verified';
       }
     }
+    if (manifest.files[playwrightRunner] || manifest.files[agentBrowserSkill]) {
+      agentBrowser = setupAgentBrowser(execute, target);
+    }
     const gitHook = installGitPreCommitHook(execute, target, manifest);
-    const completed = finishSetup(target, manifestPath, manifest, playwright, gitHook);
-    return { target, profile: completed.profile, topLevelSkills: completed.topLevelSkills, files: Object.keys(completed.files).length + 2, gitignore, dryRun: false, setup: completed.setup };
+    const completed = finishSetup(target, manifestPath, manifest, playwright, gitHook, agentBrowser);
+    const resolvedCompletedMode = normalizeMode(completed.mode || 'harness');
+    return { target, profile: completed.profile, mode: resolvedCompletedMode, hookSet: completed.hookSet || (completed.hooksIncluded === false ? 'none' : resolvedCompletedMode === 'designer' ? 'impeccable' : 'all'), topLevelSkills: completed.topLevelSkills, files: Object.keys(completed.files).length + 2, gitignore, dryRun: false, setup: completed.setup };
   } catch (error) {
     throw new Error(`${error.message}\nSetup is incomplete; the installed ${installRule} is retained. Retry from the source checkout with node tools/codex/install.mjs --target ${JSON.stringify(target)} --resume.`, { cause: error });
   }
@@ -161,9 +228,43 @@ export function parseArgs(args) {
   return { ...parseExportArgs(args.filter(value => value !== '--resume')), resume: args.includes('--resume') };
 }
 
+async function resolveInteractiveCliOptions(options) {
+  if (!process.stdin.isTTY || !process.stdout.isTTY) return options;
+  const needMode = !options.mode && !options.resume && options.includeHooks !== false;
+  const needTarget = !options.target;
+  if (!needMode && !needTarget) return options;
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  try {
+    const resolved = { ...options };
+    if (needMode) {
+      console.error('\nSelect hook mode:');
+      console.error('  1) HARNESS MODE (default) - Installs all hooks (Harness + Impeccable + design-taste-frontend + avoid-ai-writing), .git/hooks/pre-commit, and full Harness lifecycle in AGENTS.md');
+      console.error('  2) DESIGNER MODE          - Activates non-harness hooks (Impeccable, design-taste-frontend, avoid-ai-writing), skips Harness hooks/.git pre-commit, and installs Designer AGENTS.md');
+      for (;;) {
+        const answer = (await rl.question('Enter choice [1-2 or harness/designer, default: harness]: ')).trim().toLowerCase();
+        if (!answer || answer === '1' || answer === 'harness') { resolved.mode = 'harness'; break; }
+        if (answer === '2' || answer === 'designer' || answer === 'normal') { resolved.mode = 'designer'; break; }
+        console.error('Invalid selection. Choose 1 (harness) or 2 (designer).');
+      }
+    }
+    if (needTarget) {
+      for (;;) {
+        const answer = (await rl.question('Enter target project directory (absolute path): ')).trim();
+        if (answer) { resolved.target = path.resolve(answer); break; }
+        console.error('Target directory cannot be empty.');
+      }
+    }
+    return resolved;
+  } finally {
+    rl.close();
+  }
+}
+
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  try { console.log(json(installBundle(parseArgs(process.argv.slice(2))))); }
-  catch (error) {
+  try {
+    const cliOptions = await resolveInteractiveCliOptions(parseArgs(process.argv.slice(2)));
+    console.log(json(installBundle(cliOptions)));
+  } catch (error) {
     console.error(error.stack || error.message);
     if (error.cause) console.error('Caused by:', error.cause.stack || error.cause.message || error.cause);
     process.exitCode = 1;

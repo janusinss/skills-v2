@@ -1,4 +1,0 @@
-interface:
-  display_name: "Agentic Engineering"
-  short_description: "Execute engineering tasks with eval-first loops, task..."
-  default_prompt: "Use $agentic-engineering for the relevant part of this task."

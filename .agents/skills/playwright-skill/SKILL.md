@@ -1,6 +1,6 @@
 ---
 name: playwright-skill
-description: "Automate browser checks with Playwright: screenshots, responsive layouts, login flows, and console/network audits. Use when verifying live web pages in a browser."
+description: "Automate browser checks with Playwright and Agent Browser CLI: layout audits, responsive screenshots, console monitoring, and flow verification. Use when verifying live web pages in a browser."
 license: MIT
 compatibility: Requires Node.js 20+, npm, and network access on first setup to install Playwright and Chromium.
 metadata:
@@ -36,21 +36,23 @@ Common installation paths:
 
 ## Workflow
 
-1. **Zero-Scratch Inline Execution Mandate**: Always execute Playwright inline in-memory via Node:
+1. **Responsive Layout & Console Audit (`--audit`)**: Run built-in multi-viewport checks (375x667, 768x1024, 1280x800) with zero inline quoting overhead:
+   ```bash
+   node "$SKILL_DIR/run.js" --audit --screenshots scratch --touch-targets
+   node "$SKILL_DIR/run.js" --audit http://localhost:3000
+   ```
+   Checks horizontal overflow (`scrollWidth > innerWidth`), `pageerror` / `console.error`, optional mobile `< 44x44px` interactive targets (`--touch-targets`), and optional viewport screenshots (`--screenshots <dir>`), exiting non-zero on failure.
+2. **Inline Playwright Execution (`-e`)**: Execute custom DOM/network assertions inline in-memory via Node (never write scratch `.js` files):
    ```bash
    node "$SKILL_DIR/run.js" -e "const browser = await chromium.launch({ headless: true }); try { const page = await browser.newPage(); await page.goto('http://localhost:3000'); console.log(await page.title()); } finally { await browser.close(); }"
    ```
-   - **Never generate scratch `.js` test files on disk.** Inline execution eliminates disk I/O latency, bypasses OS file-scanning overhead, runs in under 1 second (~500ms), and prevents workspace clutter.
-   - `run.js -e` automatically pre-injects `chromium`, `firefox`, `webkit`, `devices`, and `helpers` with top-level `await` and safe process exit flushing.
-2. **Direct Node Invocations**: Alternatively, run directly via Node:
+   `run.js -e` pre-injects `chromium`, `firefox`, `webkit`, `devices`, and `helpers` with top-level `await` and safe stdout/stderr flushing.
+3. **Localhost Server & Target Detection (`--detect-url`)**: Probe `localhost` and `127.0.0.1` across common dev/Apache ports (`3000-3002`, `4321`, `5173`, `5174`, `8080`, `8000`, `8787`, `4200`, `5000`, `9000`, `1234`, `80`):
    ```bash
-   node -e "const { chromium } = require('./.agents/skills/playwright-skill/node_modules/playwright'); (async () => { const b = await chromium.launch({ headless: true }); const p = await b.newPage(); await p.goto('http://localhost:3000'); await b.close(); })();"
+   node "$SKILL_DIR/run.js" --detect-url
    ```
-3. **Localhost Server & Target Detection**: Detect running servers automatically using helpers:
-   ```bash
-   node "$SKILL_DIR/run.js" -e "const url = await helpers.resolveTargetUrl(); console.log(url);"
-   ```
-4. **Artifacts Policy**: Save screenshots strictly to `./scratch/*.png` or artifacts directory. Never write temporary `.js` scripts.
+4. **Interactive Flow Testing with `agent-browser`**: Pair Playwright `--audit` (visual/layout/console metrics) with `agent-browser` (`open`, `snapshot -i`, `click @e1`, `fill @e2`, `close`) for token-efficient `@eN` accessibility-tree navigation and multi-step interactive flows (see the `agent-browser` skill).
+5. **Artifacts Policy**: Save screenshots strictly to `./scratch/*.png` or artifacts directory. Never write temporary `.js` scripts.
 
 ## Setup
 
@@ -185,6 +187,15 @@ unless the user explicitly asks; a connected browser has the user's access.
 ```javascript
 const helpers = require(`${process.env.PW_SKILL_DIR}/lib/helpers`);
 
+const url = await helpers.resolveTargetUrl();
+const report = await helpers.auditLayout({ url, screenshotDir: 'scratch', checkTouchTargets: true });
+
+if (helpers.hasAgentBrowser()) {
+  const res = helpers.agentBrowser(['open', url]);
+  console.log(res.stdout);
+  helpers.agentBrowser(['close']);
+}
+
 const servers = await helpers.detectDevServers();
 const browser = await helpers.launchBrowser('chromium');
 const context = await helpers.createContext(browser);
@@ -193,10 +204,14 @@ await helpers.handleCookieBanner(page);
 await helpers.takeScreenshot(page, 'result');
 ```
 
-Available helpers are `detectDevServers`, `getExtraHeadersFromEnv`,
-`launchBrowser`, `createContext`, `handleCookieBanner`, and `takeScreenshot`.
-Use Playwright locators and assertions directly for actions, waits, extraction,
-authentication, tables, and retries.
+Available helpers are `auditLayout`, `agentBrowser`, `hasAgentBrowser`,
+`resolveAgentBrowserBinary`, `detectDevServers`, `resolveTargetUrl`,
+`getExtraHeadersFromEnv`, `launchBrowser`, `createContext`,
+`handleCookieBanner`, and `takeScreenshot`.
+- `auditLayout(options)`: resolves `url`, launches headless Chromium across `viewports` (default 375x667, 768x1024, 1280x800), detects horizontal overflow and console/page errors, optionally checks `<44x44px` mobile touch targets (`checkTouchTargets: true`) and saves screenshots (`screenshotDir`), sets `process.exitCode = 1` on failure, and returns `{ url, passed, viewports, consoleErrors, pageErrors }`.
+- `agentBrowser(args, options)`: invokes the `agent-browser` CLI synchronously without Windows stdio pipe hangs, auto-scoping `--session` via `agent-browser session id --scope worktree --prefix task` unless `options.session` is provided or `false`, returning `{ status, stdout, stderr }`.
+
+Use Playwright locators and assertions for DOM/network/viewport audits, and `agent-browser` for `@eN` accessibility-tree interactions and multi-step flows.
 
 ## Configuration
 

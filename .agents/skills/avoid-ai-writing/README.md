@@ -39,6 +39,7 @@ The [glossary](GLOSSARY.md) defines the terms these docs use: word tiers, severi
     * [Install the complete skill directory](#install-the-complete-skill-directory)
     * [Claude Code](#claude-code)
     * [Claude Cowork — install as a plugin](#claude-cowork--install-as-a-plugin)
+    * [Google Antigravity](#google-antigravity)
     * [OpenClaw](#openclaw)
     * [Cursor](#cursor)
     * [Hermes](#hermes)
@@ -67,6 +68,7 @@ The [glossary](GLOSSARY.md) defines the terms these docs use: word tiers, severi
 - [More from me](#more-from-me)
 - [Credits](#credits)
 - [Community / Multilingual](#community--multilingual)
+- [Official sources and sponsorship](#official-sources-and-sponsorship)
 - [Disclaimer](#disclaimer)
 - [License](#license)
 
@@ -92,7 +94,7 @@ A one-shot "make this sound human" prompt catches the obvious stuff. This skill 
 - **112-entry word replacement table across 3 tiers + 10 Tier 3 phrases** — not vibes-based. Every flagged word has a specific, plainer alternative. "Leverage" → "use." "Commence" → "start." Tier 1 matches flag unless a listed exception applies, Tier 2 words flag when they cluster, Tier 3 words flag only at high density. Tier 1 itself splits into **1A frequency markers** (`delve`, `tapestry`) and **1B clarity edits** (`in order to`, `utilize`) — same fix, but only 1A is evidence about how a passage was produced, and 1B is weighted lower so a wordiness fix cannot push a document toward an AI classification. Tier 3 *phrases* (multi-word boilerplate like "the integration of," "decentralized compute") flag on per-phrase repetition or when 3+ distinct phrases stack in one piece — the LLM-self-varies-boilerplate shape.
 - **74 pattern categories** — representative examples below, each with before/after. Includes structural detection (hashtag stuffing, bare-NP bullet lists, hedge-stacked predictions), AI-tool fingerprints (placeholders, citation markup, UTM params), rhythm/uniformity checks, conversational-register tells, and writer-side tests. The full catalog lives in [`references/patterns.md`](./references/patterns.md); this count is enforced against it in CI.
 - **Detect mode** — flag patterns without rewriting. See which flags are real problems vs. judgment calls. Useful when patterns might be intentional or you're auditing content you don't want altered.
-- **Works across platforms** — a directory-based skill runs in Claude Code, Cowork (as a plugin), OpenClaw, Cursor (as a ported rule), and other directory-aware agents. See the install paths below.
+- **Works across platforms** — a directory-based skill runs in Claude Code, Cowork (as a plugin), Google Antigravity (as a plugin), OpenClaw, Cursor (as a ported rule), and other directory-aware agents. See the install paths below.
 
 ## Installation & Usage
 
@@ -151,6 +153,34 @@ In the Cowork desktop app, do the same from **Customize → Plugins → Add mark
 The same plugin install works in Claude Code if you'd rather have a versioned, updatable plugin than the file clone above.
 
 > Prefer not to install a plugin? Copy `dist/avoid-ai-writing.md` into a folder connected to your Cowork session and tell the agent to follow `./avoid-ai-writing.md` — works as a one-off, no auto-trigger.
+
+### Google Antigravity
+
+With the [Antigravity CLI](https://antigravity.google/docs/plugins?tab=cli)
+installed, clone this repository and install its bundled plugin directory:
+
+```bash
+git clone https://github.com/conorbronsdon/avoid-ai-writing
+cd avoid-ai-writing
+agy plugin validate plugins/avoid-ai-writing
+agy plugin install ./plugins/avoid-ai-writing
+agy plugin list
+```
+
+The Antigravity manifest lives in
+`plugins/avoid-ai-writing/.antigravity-plugin/plugin.json`; install
+`plugins/avoid-ai-writing` rather than the repository root. Check that
+`avoid-ai-writing` is enabled in `agy plugin list`; if disabled, run
+`agy plugin enable avoid-ai-writing`. Then ask the agent to audit or rewrite
+a draft using the avoid-ai-writing skill.
+
+**Without the CLI (Antigravity app or IDE):** copy the
+`plugins/avoid-ai-writing` folder from a clone into `.agents/plugins/` at
+the root of a workspace (that project only) or into
+`~/.gemini/config/plugins/` (every workspace). See
+[manual plugin installation](https://antigravity.google/docs/plugins). In
+the IDE, the Customizations dropdown in the agent side panel shows whether
+the plugin's skill loaded.
 
 ### OpenClaw
 
@@ -630,8 +660,9 @@ This skill removes AI-writing tells. Enforcing a published style guide is the
 different job: it doesn't do that, and it ships no style guides of its own. The
 optional `--style` input takes a house-style config you supply: a `register` list
 the model applies, and a `mechanics` object whose checkable rules
-`scripts/check-style.js` verifies deterministically (quote form and Latin
-abbreviations gate the exit code; heading case, em-dash rate, and number spelling
+`scripts/check-style.js` verifies deterministically (quote form, Latin
+abbreviations, and the `colons`, `semicolons`, and `emDash: "never"` bans gate the
+exit code; heading case, the `emDash: "sparing"` rate, and number spelling
 are advisory). This script requires a cloned checkout. [`examples/`](./examples/) has the schema. You can skip the input
 entirely and put your guide in your agent's context alongside a
 [voice profile](./references/patterns.md#voice-profiles), as instructions rather than as a checked
@@ -696,6 +727,21 @@ Community-maintained adaptations are linked here for discovery. Their authors ow
 - **[evitar-escrita-ia](https://github.com/mariorabeloneto/evitar-escrita-ia)** by [Mário Rabelo Neto](https://github.com/mariorabeloneto) — European Portuguese adaptation with dialect and formal-register guidance. Its vocabulary tables are editorial hypotheses, not corpus measurements.
 
 Built an adaptation? See the [language adaptation guidance](CONTRIBUTING.md#language-adaptations), then open an issue with the language, dialect, maintainer, evidence, limitations, and link. We can link independent versions without taking over their maintenance.
+
+## Official sources and sponsorship
+
+I publish this project through these channels only:
+
+- This repository, [`conorbronsdon/avoid-ai-writing`](https://github.com/conorbronsdon/avoid-ai-writing), including its [releases](https://github.com/conorbronsdon/avoid-ai-writing/releases) and the Claude plugin marketplace it hosts
+- [ClawHub](https://clawhub.ai/conorbronsdon/avoid-ai-writing)
+- The [OpenAI Plugins Directory](https://chatgpt.com/plugins/plugins_6a9b77b18b8881918efa9c1255868164)
+- npm: [`avoid-ai-writing-detector`](https://www.npmjs.com/package/avoid-ai-writing-detector) and [`avoid-ai-writing-mcp`](https://www.npmjs.com/package/avoid-ai-writing-mcp)
+
+Skill directories and catalogs that copy `SKILL.md` from this repository are run by other people. They can fall behind the latest release, so compare the `version` in their copy's frontmatter with the [latest release](https://github.com/conorbronsdon/avoid-ai-writing/releases/latest). I don't control those pages and can't sell space on them.
+
+**No paid placements.** The skill, pattern catalog, detector, and docs contain no paid mentions, links, or product recommendations, and I decline requests to add them.
+
+**Sponsorship.** If this project saves you or your team time, you can support it through [GitHub Sponsors](https://github.com/sponsors/conorbronsdon). Company sponsors get a disclosed acknowledgment in this README. Sponsorship buys no say over rules, categories, detector output, or recommendations. Products whose main purpose is AI-text detection or getting past detectors aren't a fit, because the skill's flags are signals, not proof of authorship.
 
 ---
 

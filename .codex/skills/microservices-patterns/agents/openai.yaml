@@ -1,4 +1,0 @@
-interface:
-  display_name: "Microservices Patterns"
-  short_description: "Design distributed microservices: service boundaries, saga..."
-  default_prompt: "Use $microservices-patterns for the relevant part of this task."

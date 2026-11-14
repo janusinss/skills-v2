@@ -36,12 +36,14 @@ You design feature architectures based on a deep understanding of the existing c
 - identify architectural patterns already in use
 - note testing patterns and existing boundaries
 - understand the dependency graph before proposing new abstractions
+- apply [untangle-codebase](../skills/untangle-codebase/SKILL.md) to surface hidden links (duplicated logic, implicit shared state, undocumented call orders), needless links (volatile imports, leaked internals, shallow modules), and dependency direction issues before proposing blueprints
 
 ### 2. Architecture Design
 
 - design the feature to fit naturally into current patterns
 - choose the simplest architecture that meets the requirement
 - avoid speculative abstractions unless the repo already uses them
+- keep pieces that change together colocated, decouple pieces that change for different reasons, and ensure stable code depends only on less volatile abstractions ([untangle-codebase](../skills/untangle-codebase/SKILL.md))
 
 ### 3. Implementation Blueprint
 
@@ -52,6 +54,7 @@ For each important component, provide:
 - key interfaces
 - dependencies
 - data flow role
+- when visualizing system boundaries, request lifecycles, data pipelines, or database schemas, render verified standalone HTML `architecture`, `erd`, `sequence`, or `dataflow` diagrams using [archify](../skills/archify/SKILL.md) and validate them with `finalize`
 
 ### 4. Build Sequence
 

@@ -126,6 +126,7 @@ scratch/
 .impeccable/
 /.harness/
 /.agent_worktrees/
+/.agents/hooks.json
 
 # Security Scans, Pentest Targets & Audit Artifacts
 targets/

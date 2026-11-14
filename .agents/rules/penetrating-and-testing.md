@@ -16,9 +16,10 @@ Execute this rule when conducting authorized penetration testing, vulnerability 
 Before initiating any security or functional test:
 
 1. **Skill Discovery Verification**:
-   - Verify that target Strix skills exist in `.agents/skills/` (inspect only the 1–2 skills matching the active target surface):
-     - Core Pentesting: [`penetration-testing-with-strix`](.agents/skills/penetration-testing-with-strix/SKILL.md)
+   - Verify that target security and QA skills exist in `.agents/skills/` (inspect only the 1–2 skills matching the active target surface):
+     - Core Pentesting & AppSec: [`penetration-testing-with-strix`](.agents/skills/penetration-testing-with-strix/SKILL.md) · [`application-security-testing`](.agents/skills/application-security-testing/SKILL.md) · [`ethical-hacking-methodology`](.agents/skills/ethical-hacking-methodology/SKILL.md)
      - Compliance & Patching: [`fix-security-vulnerabilities-with-strix`](.agents/skills/fix-security-vulnerabilities-with-strix/SKILL.md) · [`ci-security-scanning-with-strix`](.agents/skills/ci-security-scanning-with-strix/SKILL.md)
+     - E2E & Browser QA: [`e2e-testing-patterns`](.agents/skills/e2e-testing-patterns/SKILL.md) · [`playwright-skill`](.agents/skills/playwright-skill/SKILL.md) · [`agent-browser`](.agents/skills/agent-browser/SKILL.md)
    - *Limitation Protocol*: If Strix skills are missing, report that Strix automation is unavailable and fall back to manual checklist verification. Never claim an automated exploit was validated if Strix did not execute.
 2. **Safety & Data Protection**:
    - **Environment Isolation**: Test local containers (`localhost`, `host.docker.internal`) or dedicated staging domains.
@@ -83,19 +84,17 @@ Before executing functional tests, build an explicit inventory:
 - **Critical End-to-End Journeys**: Registration → email verification → login → core workflow → settings update → logout.
 
 ### Step 2.2: Interactive Element & State Verification
-Audit every interactive component across 5 mandatory operational states:
+Audit every interactive component across all 8 interactive primitive states and key screen states per [UI_Always.md](.agents/rules/UI_Always.md):
 1. **Interactive Elements**:
-   - Test every link, button, menu item, dropdown, modal trigger, and tab.
+   - Test every link, button, menu item, dropdown, modal trigger, and tab using isolated `@eN` sessions in [`agent-browser`](.agents/skills/agent-browser/SKILL.md).
    - Verify clicking initiates expected action; flag dead buttons or interactions that do nothing.
    - Verify redirects (unauthenticated `/dashboard` access redirects to `/login` with `returnUrl`).
 2. **Form & Data Validation**:
    - Verify client and server validation error messages on empty inputs, invalid formats, and boundary lengths.
-3. **The 5 UI States**:
-   - **Success State**: Valid submissions display affirmative feedback (toasts, success banners, updated tables).
-   - **Failure State**: Inline field-level error messages display without breaking layout.
-   - **Empty State**: Zero-data screens display helpful empty state illustrations and clear call-to-actions.
-   - **Loading State**: Spinners or skeleton loaders display during in-flight requests; submit buttons disable.
-   - **Permission-Denied State**: Graceful `403 Forbidden` screens or redirects when attempting unauthorized actions.
+3. **8 Interactive States + Screen States**:
+   - **8 Interactive Primitive States**: Verify `Default`, `Hover`, `Focus-Visible`, `Active`, `Loading` (spinners/locked width, disabled submit), `Error` (inline errors + `aria-invalid="true"` without breaking layout), `Success` (affirmative toasts/banners/updated tables), and `Disabled` (`disabled` + `not-allowed`).
+   - **Empty (Zero-Data) State**: Screens with no records display helpful empty-state guidance and clear call-to-actions.
+   - **Permission-Denied (403) State**: Graceful `403 Forbidden` screens or redirects when attempting unauthorized actions.
 
 ### Step 2.3: Error & Console Telemetry Audits
 - **Zero Broken Routes (404s)**: Crawl all internal links to verify zero broken anchors (`href="#"` or broken URLs).
@@ -103,54 +102,29 @@ Audit every interactive component across 5 mandatory operational states:
 - **Zero Unhandled Network Failures**: Ensure failed API calls (`500`, `502`) render user-facing retry states instead of infinite loaders.
 
 ### Step 2.4: Layout Integrity & Accessibility
-- Follow [UI_Always.md](.agents/rules/UI_Always.md) standard via inline Playwright audit across 375px (mobile), 768px (tablet), and 1280px (desktop):
+- Pair [`playwright-skill`](.agents/skills/playwright-skill/SKILL.md) (`node .agents/skills/playwright-skill/run.js --audit --screenshots scratch --touch-targets`) with [`agent-browser`](.agents/skills/agent-browser/SKILL.md) isolated `@eN` multi-step flow testing per [UI_Always.md](.agents/rules/UI_Always.md#7-browser-verification-policy) across 375px (mobile), 768px (tablet), and 1280px (desktop):
   - Check zero horizontal overflow (`scrollWidth > innerWidth`).
   - Check minimum 44×44px touch targets on mobile.
   - Check keyboard navigation (Tab order, visible `:focus-visible` rings, Escape closes modals).
 
 ---
 
-## 4. Standardized Reporting Format
-Every execution must produce a structured Markdown audit report:
+## 4. Sign-Off & Completion Criteria
+Produce a structured Markdown audit report; a cycle is complete only when evidence is recorded for every passed flow and confirmed finding, vulnerabilities are patched per [security.md](.agents/rules/security.md) and re-tested, and untested or blocked paths are cataloged:
 
 ```markdown
 # Penetrating & Functional Testing Report
-
 ## 1. Scope & Tooling
-- **Target**: [URL or Local Path] | **Environment**: [Staging / Local Container]
-- **Scope**: [In-Scope Routes & Personas] | Excluded: [Out-of-Scope Paths]
-- **Tooling Used**: [Strix / Playwright / Manual Checks]
-
+- **Target / Env**: [URL or Path] ([Staging / Local]) | **Tooling**: [Strix / Playwright / agent-browser]
+- **Scope**: [In-Scope Routes & Personas] | **Excluded / Untested**: [Out-of-Scope or Blocked Paths]
 ## 2. Functional & Web-Flow Matrix
-| Route / Flow | Persona | Success State | Error State | Loading / Empty | Responsive (375-1280px) | Status |
-| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
-| `/login` | Anonymous | PASS | PASS | N/A | OK (Zero overflow) | PASS |
-| `/dashboard` | User | PASS | PASS | PASS | OK | PASS |
-| `/admin/users` | Regular User | PASS (403 redirected) | PASS | N/A | OK | PASS |
-
-- **Untested / Blocked Routes**: [List any routes not tested due to missing credentials or unseeded data]
-
+| Route / Flow | Persona | States (8 + Empty/403) | Responsive (375–1280px) | Status |
+| :--- | :--- | :---: | :---: | :--- |
+| `/login` · `/dashboard` · `/admin/*` | Anon / User / Admin | PASS | OK (Zero overflow) | PASS |
 ## 3. Security Findings & Proof-of-Concept Log
-### [CONFIRMED] VULN-01: Cross-Tenant IDOR on GET /api/v1/orders/{id}
-- **Severity**: High (CVSS 8.1) | **CWE**: CWE-639
-- **Proof-of-Concept Request**: `curl -H "Authorization: Bearer <Tenant_B>" https://staging.example.com/api/v1/orders/101`
-- **Impact**: Tenant B retrieved order details belonging exclusively to Tenant A.
-- **Remediation**: Enforce `WHERE id = :id AND organization_id = :auth_org_id` in repository.
-- **Re-Test Verification**: Verified fixed via diff-scan in run `strix_runs/run-102`.
-
-### [SUSPECTED] SUSP-01: Potential Missing Rate Limit on Password Reset
-- **Severity**: Medium | **Status**: Theoretical (unvalidated in quick mode).
-
+- **[CONFIRMED] VULN-01 (High, CWE-639)**: `GET /api/v1/orders/{id}` IDOR — PoC: `curl -H "Authorization: Bearer <Tenant_B>" .../101` | Fix: tenant filter | Re-test: PASS (`strix_runs/run-102`).
+- **[SUSPECTED] SUSP-01 (Medium)**: Potential missing rate limit on password reset (theoretical).
 ## 4. Sign-Off & Completion Criteria
-- [x] All high/critical confirmed vulnerabilities resolved and re-tested.
-- [x] Zero console errors across all audited functional journeys.
-- [x] Zero horizontal layout overflow across 375px, 768px, and 1280px viewports.
+- [x] **Evidence & Defensive Alignment**: Confirmed high/critical vulnerabilities patched per `security.md` and re-tested; flow telemetry recorded.
+- [x] **Browser & Traceability**: Zero console errors or 375–1280px overflow; blocked/untested routes cataloged above.
 ```
-
----
-
-## 5. Completion Criteria
-A testing cycle is complete only when:
-1. **Evidence Recorded**: Every passed flow and confirmed vulnerability has recorded test evidence. No blanket claims without telemetry.
-2. **Defensive Alignment**: Any discovered vulnerability is patched according to [security.md](.agents/rules/security.md) and verified with an exploit re-test.
-3. **Traceability**: Untested or blocked paths are explicitly cataloged in the report.

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Rust Pro"
-  short_description: "Write idiomatic Rust 1.75+ with ownership, trait design,..."
-  default_prompt: "Use $rust-pro for the relevant part of this task."

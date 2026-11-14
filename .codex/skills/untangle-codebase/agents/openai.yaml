@@ -1,0 +1,4 @@
+interface:
+  display_name: "Untangle Codebase"
+  short_description: "Untangle a whole codebase in one pass by removing hidden..."
+  default_prompt: "Use $untangle-codebase for the relevant part of this task."

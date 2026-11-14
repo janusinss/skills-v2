@@ -6,6 +6,13 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+### Added
+
+- Antigravity plugin manifest at `plugins/avoid-ai-writing/.antigravity-plugin/plugin.json`, enabling native discovery and installation in Google Antigravity alongside the Claude plugin manifest. Updated release checks and CI validation to maintain manifest parity.
+- A Vale style, `vale/AvoidAIWriting/`, generated from the detector's pattern tables by `scripts/build-vale.js`. `npm test` fails when the committed style is out of date. `vale/AvoidAIWriting/manifest.json` labels every detector type `verified`, `approximation`, `unsupported`, or `unassessed`; the style README's counts come from it. `scripts/vale-cases.test.js` runs a case that fires and a case that must not for every rule through Vale 3.26.0 and the detector, and records where they differ; CI installs that Vale version. `scripts/package-vale.py` builds a deterministic `AvoidAIWriting.zip` for a release (#94).
+- The detector exports `PATTERN_TABLES`: the pattern tables as recursively frozen plain data keyed by issue type, with regexes as `{ source, flags }` strings and a `schemaVersion`. Gated types carry a `gate` note. `analyzeText()` and the existing exports are unchanged. It replaces the draft sample export in `scripts/vale-export-sample.js`, which is removed (#94).
+- `--style` configs accept `colons: "never"`, `semicolons: "never"`, and `emDash: "never"`. `scripts/check-style.js` reports each as a hard violation in prose, so a house style that bans these marks gates the exit code. Clock times, ratios, URL schemes, table delimiter rows (including blockquotes), HTML entity syntax, and code are not flagged. Character references that render as banned punctuation still fail.
+
 ### Changed
 
 - Add editorial decision cards to selected existing rules, with stable IDs, partial detector mappings, applicability conditions, and edit/keep/gap examples. Preserve subjective judgments and report unresolved claim scope. Keep the full catalog mandatory in directory and portable installations; no detector API, loading default, or category count changes (#206).
@@ -14,6 +21,7 @@ All notable changes to this project are documented here.
 
 ### Fixed
 
+- The preservation validator's `stats.indentedBlocks` no longer counts indented lines inside fenced code or four-space paragraph continuations. Only indented blocks that follow a blank line outside a list are counted, as documented. Top-level fences end preceding list context; fences nested in a list preserve it.
 - Remove polynomial backtracking from the sentence-unit regex in `normalizeText()`. A long tab or space run after a Markdown table delimiter (`-|-`) or thematic break (`***`, `___`) made `analyzeText()` take seconds on a 64 KB input, before the word limit applied. Matching is unchanged; both shapes are now in the bounded-time test (CodeQL `js/polynomial-redos`).
 - Treat the smart-punctuation co-occurrence finding as a low-priority style check in plain mode and omit it in rendered-Markdown mode. House-style typography no longer changes authorship scores, probabilities, confidence, or classifications, including the separate classifier corroborator. Keep the public type and other pattern checks (#351).
 

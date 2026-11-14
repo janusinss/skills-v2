@@ -1,7 +1,7 @@
-# Writing Guidelines for Postgres Rules
+# Writing Guidelines for Postgres References
 
 This document provides guidelines for creating effective Postgres best
-practice rules that work well with AI agents and LLMs.
+practice references that work well with AI agents and LLMs.
 
 ## Key Principles
 
@@ -89,7 +89,7 @@ CREATE INDEX CONCURRENTLY USERS_EMAIL_IDX ON USERS(EMAIL) WHERE DELETED_AT IS NU
 
 **Default: SQL Only**
 
-Most rules should focus on pure SQL patterns. This keeps examples portable.
+Most references should focus on pure SQL patterns. This keeps examples portable.
 
 **Include Application Code When:**
 
@@ -155,7 +155,7 @@ Reference:
 
 ## Review Checklist
 
-Before submitting a rule:
+Before submitting a reference:
 
 - [ ] Title is clear and action-oriented
 - [ ] Impact level matches the performance gain
@@ -167,5 +167,4 @@ Before submitting a rule:
 - [ ] Comments explain _why_, not _what_
 - [ ] Trade-offs mentioned if applicable
 - [ ] Reference links included
-- [ ] `npm run validate` passes
-- [ ] `npm run build` generates correct output
+- [ ] `pnpm test` passes

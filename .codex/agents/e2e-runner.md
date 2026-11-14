@@ -39,21 +39,23 @@ You are an expert end-to-end testing specialist. Your mission is to ensure criti
 5. **CI/CD Integration** — Ensure tests run reliably in pipelines
 6. **Test Reporting** — Generate HTML reports and JUnit XML
 
-## Primary Tool: Agent Browser
+## Primary Tool: Agent Browser (+ `playwright-skill --audit`)
 
-**Prefer Agent Browser over raw Playwright** — Semantic selectors, AI-optimized, auto-waiting, built on Playwright.
+**Prefer Agent Browser for interactive flows** — Semantic `@eN` refs from accessibility snapshots, token-efficient snapshots, and isolated sessions. Pair with `node .codex/skills/playwright-skill/run.js --audit --screenshots scratch --touch-targets` for multi-viewport layout/overflow/console audits.
 
 ```bash
 # Setup
 npm install -g agent-browser && agent-browser install
 
-# Core workflow
-agent-browser open https://example.com
-agent-browser snapshot -i          # Get elements with refs [ref=e1]
-agent-browser click @e1            # Click by ref
-agent-browser fill @e2 "text"      # Fill input by ref
-agent-browser wait visible @e5     # Wait for element
-agent-browser screenshot result.png
+# Core workflow (isolated session)
+SESSION=$(agent-browser session id --scope worktree --prefix e2e)
+agent-browser --session "$SESSION" open https://example.com
+agent-browser --session "$SESSION" snapshot -i          # Get elements with refs [ref=e1]
+agent-browser --session "$SESSION" click @e1            # Click by ref
+agent-browser --session "$SESSION" fill @e2 "text"      # Fill input by ref
+agent-browser --session "$SESSION" wait @e5 --state visible
+agent-browser --session "$SESSION" screenshot scratch/result.png
+agent-browser --session "$SESSION" close
 ```
 
 ## Fallback: Playwright

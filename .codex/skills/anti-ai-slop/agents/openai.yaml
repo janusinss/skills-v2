@@ -1,0 +1,4 @@
+interface:
+  display_name: "Anti Ai Slop"
+  short_description: "Eliminate generic AI-generated visual, structural, motion,..."
+  default_prompt: "Use $anti-ai-slop for the relevant part of this task."

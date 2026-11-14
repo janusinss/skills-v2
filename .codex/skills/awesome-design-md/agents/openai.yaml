@@ -1,4 +1,4 @@
 interface:
   display_name: "Awesome Design Md"
-  short_description: "Browse and install 74+ DESIGN.md design systems from Linear,..."
+  short_description: "Browse and install 84+ DESIGN.md design systems from Linear,..."
   default_prompt: "Use $awesome-design-md for the relevant part of this task."

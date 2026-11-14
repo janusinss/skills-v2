@@ -40,6 +40,7 @@ Read individual rule files for detailed explanations and SQL examples:
 ```
 rules/query-missing-indexes.md
 rules/schema-partial-indexes.md
+rules/schema-constraints.md
 rules/_sections.md
 ```
 

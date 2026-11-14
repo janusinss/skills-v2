@@ -61,16 +61,17 @@ Generic polling function:
 ```typescript
 async function waitFor<T>(
   condition: () => T | undefined | null | false,
-  description: string,
+  description = "condition",
   timeoutMs = 5000
 ): Promise<T> {
-  const startTime = Date.now();
+  if (!Number.isFinite(timeoutMs) || timeoutMs < 0) throw new Error("Invalid timeout");
+  const startTime = performance.now();
 
   while (true) {
     const result = condition();
-    if (result) return result;
+    if (result !== undefined && result !== null && result !== false) return result;
 
-    if (Date.now() - startTime > timeoutMs) {
+    if (performance.now() - startTime >= timeoutMs) {
       throw new Error(`Timeout waiting for ${description} after ${timeoutMs}ms`);
     }
 
@@ -96,7 +97,7 @@ See `condition-based-waiting-example.ts` in this directory for complete implemen
 
 ```typescript
 // Tool ticks every 100ms - need 2 ticks to verify partial output
-await waitForEvent(manager, 'TOOL_STARTED'); // First: wait for condition
+await waitForEvent(manager, threadId, 'TOOL_CALL'); // First: wait for condition
 await new Promise(r => setTimeout(r, 200));   // Then: wait for timed behavior
 // 200ms = 2 ticks at 100ms intervals - documented and justified
 ```
@@ -108,8 +109,10 @@ await new Promise(r => setTimeout(r, 200));   // Then: wait for timed behavior
 
 ## Real-World Impact
 
-From debugging session (2025-10-03):
+Historical source report (2025-10-03), not re-executed by this skill:
 - Fixed 15 flaky tests across 3 files
 - Pass rate: 60% → 100%
 - Execution time: 40% faster
-- No more race conditions
+- The reported cases passed; other races remain possible
+
+The generic condition must be synchronous; an async predicate returns a Promise immediately and needs a separate awaited implementation. A polling deadline cannot interrupt a condition that blocks forever. The domain-specific TypeScript file imports external Lace types and is not standalone.

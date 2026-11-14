@@ -17,18 +17,21 @@ Before generating backend architecture, database schemas, or API code, inspect o
 | **API Contract & Scoping** | [prompt-enhancer-backend](.agents/skills/prompt-enhancer-backend/SKILL.md) · [api-patterns](.agents/skills/api-patterns/SKILL.md) |
 | **Architecture & Reliability** | [backend-dev-guidelines](.agents/skills/backend-dev-guidelines/SKILL.md) · [architecture-patterns](.agents/skills/architecture-patterns/SKILL.md) |
 | **Database Design & ORM** | [database-design](.agents/skills/database-design/SKILL.md) · [postgres-best-practices](.agents/skills/postgres-best-practices/SKILL.md) |
-| **PostgreSQL Optimization** | [postgres-best-practices](.agents/skills/postgres-best-practices/SKILL.md) |
+| **Runtimes & Frameworks (Node, Python, Go)** | [nodejs-best-practices](.agents/skills/nodejs-best-practices/SKILL.md) · [fastapi-templates](.agents/skills/fastapi-templates/SKILL.md) · [django-pro](.agents/skills/django-pro/SKILL.md) · [python-patterns](.agents/skills/python-patterns/SKILL.md) · [async-python-patterns](.agents/skills/async-python-patterns/SKILL.md) · [golang-pro](.agents/skills/golang-pro/SKILL.md) · [go-concurrency-patterns](.agents/skills/go-concurrency-patterns/SKILL.md) |
+| **MCP Servers, Containers & ADRs** | [mcp-builder](.agents/skills/mcp-builder/SKILL.md) · [docker-expert](.agents/skills/docker-expert/SKILL.md) · [architecture-decision-records](.agents/skills/architecture-decision-records/SKILL.md) |
 | **Observability & Logging** | [observability-engineer](.agents/skills/observability-engineer/SKILL.md) |
-| **Backend Testing & TDD** | [test-driven-development](.agents/skills/test-driven-development/SKILL.md) |
+| **Backend Testing & TDD** | [test-driven-development](.agents/skills/test-driven-development/SKILL.md) · [python-testing-patterns](.agents/skills/python-testing-patterns/SKILL.md) · [test-fixing](.agents/skills/test-fixing/SKILL.md) |
+| **System & Schema Visualization** | [archify](.agents/skills/archify/SKILL.md) |
+| **Structural Decoupling & Refactoring** | [untangle-codebase](.agents/skills/untangle-codebase/SKILL.md) |
 | **Security & Auth Defenses** | [security.md](.agents/rules/security.md) |
 
 ---
 
 ## Phase 0: System Contract & Infrastructure Scope
-> **Active Skill**: [prompt-enhancer-backend](.agents/skills/prompt-enhancer-backend/SKILL.md) & [architecture-patterns](.agents/skills/architecture-patterns/SKILL.md)
+> **Active Skill**: [prompt-enhancer-backend](.agents/skills/prompt-enhancer-backend/SKILL.md), [architecture-patterns](.agents/skills/architecture-patterns/SKILL.md) & [archify](.agents/skills/archify/SKILL.md)
 
 1. **System Scoping**:
-   - Before coding, document connection topologies, P0–P3 API matrices, database schemas, and service boundaries.
+   - Before coding, document connection topologies, P0–P3 API matrices, database schemas, and service boundaries, rendering verified HTML `architecture` diagrams via [archify](.agents/skills/archify/SKILL.md) for non-trivial topologies.
 2. **Environment & Secrets Hygiene**:
    - Keep production connection strings and secrets strictly inside `.env` (ensuring `.env` is in `.gitignore`).
    - Maintain non-sensitive template keys inside `.env.example`.
@@ -52,7 +55,7 @@ Before generating backend architecture, database schemas, or API code, inspect o
    - For read-heavy endpoints, define an application-level caching layer (Redis, in-memory LRU, or HTTP cache headers with `Cache-Control` / `ETag`). Never cache user-specific data in shared caches without key isolation.
 
 ### Stage 2: Schema Integrity & Relational Design
-> **Active Skill**: [database-design](.agents/skills/database-design/SKILL.md) & [postgres-best-practices](.agents/skills/postgres-best-practices/SKILL.md)
+> **Active Skill**: [database-design](.agents/skills/database-design/SKILL.md), [postgres-best-practices](.agents/skills/postgres-best-practices/SKILL.md) & [archify](.agents/skills/archify/SKILL.md)
 
 1. **Constraint Discipline**:
    - Define column nullability, unique keys, and explicit foreign key constraints with safe deletion cascades (`ON DELETE RESTRICT` or `CASCADE`).
@@ -60,6 +63,8 @@ Before generating backend architecture, database schemas, or API code, inspect o
    - Add targeted or composite indexes for columns frequently evaluated in `WHERE`, `JOIN`, or `ORDER BY` clauses. Avoid over-indexing high-write tables.
 3. **Foreign Key Enforcement**:
    - Disallow polymorphic relations that bypass database-level foreign key enforcement.
+4. **Schema Visualization**:
+   - Render verified HTML `erd` diagrams via [archify](.agents/skills/archify/SKILL.md) when documenting or reviewing multi-table relational schemas and foreign-key relationships.
 
 ### Stage 3: Atomic Mutation & Transaction Boundaries
 > **Active Skill**: [backend-dev-guidelines](.agents/skills/backend-dev-guidelines/SKILL.md) & [postgres-best-practices](.agents/skills/postgres-best-practices/SKILL.md)

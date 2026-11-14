@@ -4,5 +4,6 @@
   { "file": ".agents/skills/awesome-design-md/design-md/ollama/DESIGN.md", "contains": "curl -fsSL https://ollama.com/install.sh", "reason": "UI description text, not an instruction" },
   { "file": ".agents/skills/awesome-design-md/design-md/opencode.ai/DESIGN.md", "contains": "curl -fsSL https://opencode.ai/install", "reason": "UI description text, not an instruction" },
   { "file": ".agents/skills/ci-security-scanning-with-strix/SKILL.md", "contains": "curl -sSL https://strix.ai/install | bash", "reason": "upstream Strix install instruction; reviewed" },
+  { "file": ".agents/skills/mcp-builder/reference/node_mcp_server_v2.md", "contains": "npx -y {service}-mcp-server", "reason": "illustrative placeholder example in Anthropic MCP v2 reference" },
   { "file": ".agents/skills/penetration-testing-with-strix/SKILL.md", "contains": "curl -sSL https://strix.ai/install | bash", "reason": "upstream Strix install instruction; reviewed" }
 ]

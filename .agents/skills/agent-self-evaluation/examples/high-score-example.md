@@ -29,7 +29,7 @@ $ python -c "from src.api_client import ApiClient; c = ApiClient(); print(type(c
 - Connection timeouts (retry with backoff)
 - Rate limiting (429 → retry after delay)
 - Server errors (5xx → retry)
-- Client errors except 429 (no retry �� 4xx means the request is bad)
+- Client errors except 429 (no retry — 4xx means the request is bad)
 - Idempotency: GET, PUT, DELETE retry; POST does not (configurable)
 
 ### Merge: [PR #423](https://github.com/example/pr/423)

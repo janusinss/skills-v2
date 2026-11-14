@@ -12,7 +12,7 @@ Transform an existing frontend codebase into a validated, design-token-compliant
 ## Phase 0: Pre-Flight & Environment Setup
 Establish tooling before modifying any source files:
 1. **Package Manifest**: Verify `package.json` exists. If absent, run `npm init -y`. If present, preserve existing scripts.
-2. **Browser Verification Policy**: All browser inspections and responsive audits must strictly follow [UI_Always.md](UI_Always.md) (Section 8).
+2. **Browser Verification Policy**: All browser inspections and responsive audits must strictly follow [UI_Always.md](UI_Always.md) (Section 7).
 3. **Git Hygiene**: Verify `.gitignore` exists (create if absent) and includes:
    - `node_modules/`, `scratch/`, `test-results/`, `tests/screenshots/`
    - `.impeccable/*.png`, `.impeccable/live/`, `.impeccable/config.local.json`
@@ -28,6 +28,7 @@ Analyze existing code to establish the current design baseline:
    - Spacing scale, border-radius values, shadow definitions, and breakpoints.
    - Component patterns (cards, navbars, modals, forms) and their structural conventions.
 3. **Produce `DESIGN.md` Baseline**: Write the extracted tokens into `./DESIGN.md` under a `## Current State (Extracted)` section. This captures what exists — not what the target is.
+4. **Architecture Mapping & Structural Untangling**: Use [archify](../skills/archify/SKILL.md) (`architecture` / `dataflow` diagrams) to map existing component boundaries and data flows, and apply [untangle-codebase](../skills/untangle-codebase/SKILL.md) to identify hidden links, needless links, surplus wrappers, and special cases before redesigning.
 
 ---
 
@@ -59,50 +60,22 @@ Establish or confirm the product specification:
 
 ---
 
-## Phase 4: Aesthetic & Visitor-Mode Synthesis ([impeccable](../skills/impeccable/SKILL.md) & [design-taste-frontend](../skills/design-taste-frontend/SKILL.md))
-Synthesize `PRODUCT.md` and the target `DESIGN.md` into the formal configuration required by Stage 2 of [frontend.md](frontend.md) ([impeccable](../skills/impeccable/SKILL.md) primary visual craft and [design-taste-frontend](../skills/design-taste-frontend/SKILL.md) taste calibration):
-1. **Formulate Skill Input Specification**:
-   ```text
-   Primary Craft Engine: impeccable (Visitor Mode: [Persuade | Operate | Read | Experience])
-   Taste Calibration: design-taste-frontend
-   Page: [Redesign | Landing | Dashboard | Editorial | Portfolio]
-   Audience: [Target user group extracted from PRODUCT.md]
-   Vibe & Aesthetic: [Visual world & tone from target DESIGN.md]
-   References: [Chosen brand or extracted baseline + competitor inspirations]
-   Dials: DESIGN_VARIANCE [1-10], MOTION_INTENSITY [1-10], VISUAL_DENSITY [1-10]
-   Key Assets / Constraints: [Color tokens from DESIGN.md, existing brand assets, accessibility, dark/light mode]
-   ```
-2. **Declare Design Read**: Emit the mandatory one-line summary before generating code:
-   `"Reading this as: <page kind> for <audience>, with a <vibe> language, leaning toward <design system>."`
+## Phase 4: Aesthetic & Visitor-Mode Synthesis ([frontend.md](frontend.md) Stage 2)
+1. **Synthesize Configuration**: Map `PRODUCT.md` and the target `DESIGN.md` into the canonical `Skill Input Specification` (Visitor Mode, Page, Audience, Vibe, References, `DESIGN_VARIANCE`/`MOTION_INTENSITY`/`VISUAL_DENSITY` dials, and brand Assets/Constraints) defined in Stage 2 of [frontend.md](frontend.md).
+2. **Declare Design Read**: Emit the mandatory one-line `"Reading this as: <page kind> for <audience>, with a <vibe> language, leaning toward <design system>."` summary before generating code.
 
 ---
 
 ## Phase 5: Implementation & Code Assembly (via [impeccable](../skills/impeccable/SKILL.md) & [frontend.md](frontend.md))
-Apply the redesign strictly adhering to target `DESIGN.md` tokens, `PRODUCT.md` P0 features, and Stage 2 of [frontend.md](frontend.md) ([impeccable](../skills/impeccable/SKILL.md) visitor-mode composition and [craft-floor.md](../skills/impeccable/reference/craft-floor.md)):
-1. **Component Architecture & Visual Craft**: When integrating components, templates, or shaders, or authoring UI layouts, execute strictly following Stages 1–2 of [frontend.md](frontend.md).
-2. **Confirm Tech Stack**: For existing codebases, preserve the stack already in use unless the user requests a migration. When migrating or scaffolding new application modules, default to a modern tech stack (Next.js App Router + React 19 + TypeScript + Tailwind CSS + shadcn/ui + `@bsmnt/scrollytelling`, Vite + React + TypeScript + Tailwind CSS, Astro, or SvelteKit) — never migrate to or default to vanilla HTML/CSS/JS unless explicitly requested.
-3. **Standard Layout Archetypes**:
-   - **Archetype A: High-Conversion SaaS & Product Dashboard**:
-     - CSS Grid / Flexbox data tables with sticky headers and sortable columns.
-     - `prefers-color-scheme` media query for system dark/light modes.
-     - ≥16px body text, ≥44px interactive targets, and tactile hover/active micro-interactions governed by [MOTION.md](MOTION.md) (composite-only `transform`/`opacity`, settling ≤300ms).
-   - **Archetype B: Clean Editorial & Content Platform**:
-     - Asymmetrical CSS Grid layouts (e.g., `2fr 1fr` or `1fr 3fr`) with generous `clamp()`-based spacing.
-     - Typographic rhythm: distinct heading scale (1.333+ ratio), styled pull-quotes, and ≥1.6 line-height body.
-     - Image curation with `object-fit: cover`, art-directed `<picture>` sources, and lazy loading.
-   - **Tighter Hero Spacing Standard**: Set hero top padding strictly to `calc(var(--header-height, 4rem) + var(--space-lg, 1.5rem))` (24px inset below fixed header) to eliminate dead vertical whitespace and seat the hero headline and bento showcase immediately below the navigation bar.
-   - **Real Photography Sourcing (Strict: No AI Generation)**: Enforce Section 4 of [UI_Always.md](UI_Always.md): populate all hero showcase cards and product catalog cards with real, authentic photography sourced from the internet or template assets (Unsplash, Pexels, CDN) paired with `object-fit: cover` and contrast scrim overlays—**never use AI generation** for showcase or product imagery.
-4. **Ban Generic AI Clichés (Visual Slop & AI Writing)**:
-   - **Visual & Structural Slop**: Enforce Section 6 of [UI_Always.md](UI_Always.md) as the canonical anti-slop baseline (zero floating pill badges, icon-tile stacks, ghost cards, side-tab stripes, nested cards, unstyled fonts, or uncalibrated gradients).
-   - **Textual Slop (`avoid-ai-writing`)**: Enforce Section 7 of [UI_Always.md](UI_Always.md) as the canonical copy floor (zero Tier 1A machine vocabulary, hollow intensifiers, em dashes in headings/buttons, `"It's not X — it's Y"` tropes, or section header emojis).
-5. **Scope: P0 Delivery Only**: Build/refactor UI modules implementing the **P0 roadmap** from `PRODUCT.md`. P1–P3 features are cataloged in `PRODUCT.md` but deferred to iterative development cycles after this pipeline completes.
+Apply the redesign strictly adhering to target `DESIGN.md` tokens, `PRODUCT.md` P0 features, and Stages 1–2 of [frontend.md](frontend.md):
+1. **Component Architecture & Tech Stack**: Preserve the existing stack in use unless the user requests a migration; when migrating or scaffolding new modules, follow Stage 1 of [frontend.md](frontend.md) (never migrate to or default to vanilla HTML/CSS/JS unless requested). Apply the Stage 2 Standard Layout Archetypes (`Archetype A` or `Archetype B`) in [frontend.md](frontend.md), and enforce hero header clearance per [UI_Always.md](UI_Always.md) §1.
+2. **Anti-AI-Slop & Natural Voice Enforcement**: Load and apply [anti-ai-slop](../skills/anti-ai-slop/SKILL.md) (paired with [craft-floor.md](../skills/impeccable/reference/craft-floor.md) and [avoid-ai-writing](../skills/avoid-ai-writing/SKILL.md)) for all visual, structural, palette, typography, photography sourcing, scroll/marquee, and copy/domain-data rules.
+3. **Scope: P0 Delivery Only**: Build/refactor UI modules implementing the **P0 roadmap** from `PRODUCT.md`; defer P1–P3 features to iterative cycles after this pipeline completes.
+4. **Structural Debt Elimination**: When eliminating structural debt across coupled modules or legacy seams, apply [untangle-codebase](../skills/untangle-codebase/SKILL.md) to remove hidden links, needless links, surplus wrappers, and single-case special cases.
 
 ---
 
 ## Phase 6: Automated Verification & Handoff
 Validate the running application inside real Chromium viewports:
-1. **Browser Verification Mandate**: Execute browser inspection and multi-viewport responsive verification strictly following Section 8 of [UI_Always.md](UI_Always.md).
-2. **Quality & Token Compliance Check**:
-   - Verify 0 horizontal scroll overflows, 0 console errors, >=44px tap targets.
-   - Run `.claude/skills/impeccable/scripts/impeccable.cmd detect .` (or Unix `.claude/skills/impeccable/scripts/impeccable detect .`) to verify compliance against target `DESIGN.md` tokens.
-3. **Git Commit**: Verify ephemeral artifacts (`scratch/`, `.impeccable/`, `node_modules/`, `test-results/`) are in `.gitignore`. Commit `package.json`, `PRODUCT.md`, and `DESIGN.md`.
+1. **Audit & Chromium Verification**: Execute bounded quality audits per Stage 3 of [frontend.md](frontend.md) (`impeccable detect .` + anti-slop gates) and multi-viewport Chromium verification (`0` horizontal overflow, `0` console errors, `>=44x44px` targets) per Stage 4 of [frontend.md](frontend.md) and [UI_Always.md](UI_Always.md#7-browser-verification-policy).
+2. **Git Hygiene**: Verify ephemeral artifacts (`scratch/`, `.impeccable/`, `node_modules/`, `test-results/`) are in `.gitignore`, then commit `package.json`, `PRODUCT.md`, and `DESIGN.md`.

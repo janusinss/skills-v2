@@ -1,4 +1,0 @@
-interface:
-  display_name: "Ios Developer"
-  short_description: "Build native iOS 18 apps with Swift 6, SwiftUI, UIKit..."
-  default_prompt: "Use $ios-developer for the relevant part of this task."

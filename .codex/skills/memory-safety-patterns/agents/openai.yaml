@@ -1,4 +1,0 @@
-interface:
-  display_name: "Memory Safety Patterns"
-  short_description: "Prevent use-after-free, buffer overflows, and leaks using..."
-  default_prompt: "Use $memory-safety-patterns for the relevant part of this task."

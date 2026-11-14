@@ -1,4 +1,0 @@
-interface:
-  display_name: "Performance Engineer"
-  short_description: "Profile and eliminate latency, CPU, memory, and query..."
-  default_prompt: "Use $performance-engineer for the relevant part of this task."

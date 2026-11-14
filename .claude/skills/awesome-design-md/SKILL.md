@@ -1,12 +1,12 @@
 ---
 name: awesome-design-md
-description: "Browse and install 74+ DESIGN.md design systems from Linear, Stripe, Apple, and Vercel. Use when selecting design tokens or visual ground truth for a project."
+description: "Browse and install 84+ DESIGN.md design systems from Linear, Stripe, Apple, and Vercel. Use when selecting design tokens or visual ground truth for a project."
 license: MIT
 ---
 
 # Awesome DESIGN.md Library
 
-A curated repository of 74+ analyzed, production-grade `DESIGN.md` specifications extracted from industry-leading digital products and brand design systems.
+A curated repository of 84+ analyzed, production-grade `DESIGN.md` specifications extracted from industry-leading digital products and brand design systems.
 
 ---
 

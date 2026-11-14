@@ -1,4 +1,0 @@
-interface:
-  display_name: "Copywriting"
-  short_description: "Write conversion-focused copy for landing pages, headlines,..."
-  default_prompt: "Use $copywriting for the relevant part of this task."

@@ -1,0 +1,46 @@
+{
+  "description": "Optional Impeccable hooks (Designer mode, without Harness hooks). Install at .codex/hooks.json in a trusted target project and review them in Codex before use.",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ ! -f \".codex/skills/impeccable/scripts/impeccable\" ] || \".codex/skills/impeccable/scripts/impeccable\" hook",
+            "commandWindows": "if exist \".codex/skills/impeccable/scripts/impeccable.cmd\" (\".codex/skills/impeccable/scripts/impeccable.cmd\" hook & exit /b)",
+            "timeout": 5,
+            "statusMessage": "Checking UI changes"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ ! -f \".codex/skills/impeccable/scripts/impeccable\" ] || \".codex/skills/impeccable/scripts/impeccable\" hook",
+            "commandWindows": "if exist \".codex/skills/impeccable/scripts/impeccable.cmd\" (\".codex/skills/impeccable/scripts/impeccable.cmd\" hook & exit /b)",
+            "timeout": 30,
+            "statusMessage": "Design deep pass"
+          },
+          {
+            "type": "command",
+            "command": "[ ! -f \".codex/skills/design-taste-frontend/scripts/gate.mjs\" ] || node \".codex/skills/design-taste-frontend/scripts/gate.mjs\" --hook codex",
+            "commandWindows": "if exist \".codex/skills/design-taste-frontend/scripts/gate.mjs\" (node \".codex/skills/design-taste-frontend/scripts/gate.mjs\" --hook codex & exit /b)",
+            "timeout": 600,
+            "statusMessage": "Running tasteskill frontend gate"
+          },
+          {
+            "type": "command",
+            "command": "node -e \"const fs=require('fs'),path=require('path'),cp=require('child_process'),g='.codex/skills/avoid-ai-writing/bin/avoid-ai-writing-gate.js';if(fs.existsSync(g)){const r=cp.spawnSync('git',['status','--porcelain'],{encoding:'utf8'});if(r.status===0){const f=r.stdout.split(String.fromCharCode(10)).map(l=>l.replaceAll(String.fromCharCode(13),'').slice(3).split(' -> ').pop().trim().replaceAll(String.fromCharCode(34),'')).filter(p=>{const n=p.split(path.sep).join('/'),lo=n.toLowerCase();return(lo.endsWith('.md')||lo.endsWith('.mdx'))&&!['.agents','.codex','.claude'].some(x=>n.startsWith(x+'/'))&&fs.existsSync(p);});if(f.length)process.exit(require('./'+g).main(['--context','technical','--source-mode','rendered-markdown','--threshold','6','--',...f]));}}\"",
+            "commandWindows": "node -e \"const fs=require('fs'),path=require('path'),cp=require('child_process'),g='.codex/skills/avoid-ai-writing/bin/avoid-ai-writing-gate.js';if(fs.existsSync(g)){const r=cp.spawnSync('git',['status','--porcelain'],{encoding:'utf8'});if(r.status===0){const f=r.stdout.split(String.fromCharCode(10)).map(l=>l.replaceAll(String.fromCharCode(13),'').slice(3).split(' -> ').pop().trim().replaceAll(String.fromCharCode(34),'')).filter(p=>{const n=p.split(path.sep).join('/'),lo=n.toLowerCase();return(lo.endsWith('.md')||lo.endsWith('.mdx'))&&!['.agents','.codex','.claude'].some(x=>n.startsWith(x+'/'))&&fs.existsSync(p);});if(f.length)process.exit(require('./'+g).main(['--context','technical','--source-mode','rendered-markdown','--threshold','6','--',...f]));}}\"",
+            "timeout": 15,
+            "statusMessage": "Checking modified Markdown prose (avoid-ai-writing)"
+          }
+        ]
+      }
+    ]
+  }
+}

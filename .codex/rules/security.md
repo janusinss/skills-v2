@@ -12,9 +12,11 @@ Before generating security-sensitive code, inspect only the 1–2 skills matchin
 
 | Objective / Surface | Required Skill Link |
 | :--- | :--- |
-| **Code Vulnerabilities & Pentesting** | [penetration-testing-with-strix](../skills/penetration-testing-with-strix/SKILL.md) · [security-audit](../skills/security-audit/SKILL.md) |
+| **Code Vulnerabilities & Pentesting** | [penetration-testing-with-strix](../skills/penetration-testing-with-strix/SKILL.md) · [security-audit](../skills/security-audit/SKILL.md) · [ethical-hacking-methodology](../skills/ethical-hacking-methodology/SKILL.md) |
+| **Whole-Product AppSec (Source, API & CI)** | [application-security-testing](../skills/application-security-testing/SKILL.md) |
 | **APIs & OWASP API 2023** | [penetration-testing-with-strix](../skills/penetration-testing-with-strix/SKILL.md) · [api-security-best-practices](../skills/api-security-best-practices/SKILL.md) |
 | **Web Apps & OWASP Top 10** | [penetration-testing-with-strix](../skills/penetration-testing-with-strix/SKILL.md) · [top-web-vulnerabilities](../skills/top-web-vulnerabilities/SKILL.md) |
+| **Frontend & Browser Security (XSS, CSRF, CSP)** | [frontend-security-coder](../skills/frontend-security-coder/SKILL.md) |
 | **Auth, Sessions & IDOR** | [auth-implementation-patterns](../skills/auth-implementation-patterns/SKILL.md) · [api-security-best-practices](../skills/api-security-best-practices/SKILL.md) |
 | **Remediation & CI/CD Gates** | [fix-security-vulnerabilities-with-strix](../skills/fix-security-vulnerabilities-with-strix/SKILL.md) · [ci-security-scanning-with-strix](../skills/ci-security-scanning-with-strix/SKILL.md) |
 

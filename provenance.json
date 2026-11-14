@@ -4,95 +4,55 @@
     "3d-web-experience": {
       "source": "vibeforge1111/vibeship-spawner-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "70b2e1062fc6a38fce854226c27097a87732cb5f",
       "license": "Apache-2.0",
       "modified": "description/references updated in skills-v2",
       "contentHash": "f02e1f8d848b906cae7c63924a34ee103ee6b664c1c56628cd8b51c5b94fba2e"
     },
-    "ab-test-setup": {
-      "source": "sickn33/antigravity-awesome-skills",
+    "agent-browser": {
+      "source": "vercel-labs/agent-browser",
       "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "1ff6b82ffdd5afcd49c59d7419af2fcb2f65e650ef35032a40a770331b263ef6"
-    },
-    "agent-evaluation": {
-      "source": "vibeforge1111/vibeship-spawner-skills",
-      "sourceType": "github",
-      "commit": null,
+      "commit": "f18b8bb5275ea2be22fca5e6856886827468f41e",
       "license": "Apache-2.0",
-      "modified": "SKILL.md split into references/ (verbatim, skills-v2 phase 4)",
-      "contentHash": "9600e3f78d82f6cf344d7ce432b8b9d19c2a8bb34ba7a9a064790958ad27d3db"
-    },
-    "agent-security-hardening": {
-      "source": "affaan-m/everything-claude-code",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "8afd2d60689ba123cad0a3d81d2d78cca6e632557008f8259611cae46bf6d5e3"
+      "modified": null,
+      "contentHash": "3dc38ad635047198f3cda8ce5e6aa26ca77493051120ca9ecd753ce624b56fcd"
     },
     "agent-self-evaluation": {
       "source": "affaan-m/everything-claude-code",
       "sourceType": "github",
-      "commit": null,
+      "commit": "d2ef2680594f9a17526a6e1a2e18b3d242c5d17b",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "83300b264514467ce1bc414cda056524717e695d3df1c0b012a0aaa37ef0b59e"
+      "contentHash": "05c334699ad440485c8b5114bb322bbd087edff57e138dd489f5c874511cefb3"
     },
-    "agentic-engineering": {
-      "source": "affaan-m/everything-claude-code",
-      "sourceType": "github",
+    "anti-ai-slop": {
+      "source": "original",
+      "sourceType": "original",
       "commit": null,
       "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "6abbfbe7c620f0d4206059a5429e688d3e45731bca5a6ebc6de558c1c1e6c6bd"
-    },
-    "ai-agents-architect": {
-      "source": "vibeforge1111/vibeship-spawner-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "Apache-2.0",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "7f6ecf88b51b8291714428aebaf15e347fe0a77f81b16d3f37a13d17c0734424"
-    },
-    "ai-regression-testing": {
-      "source": "affaan-m/everything-claude-code",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "24f7b7002f8cc0893061771be777eb0f888b8a914ee79aef771e952f1f8ef169"
-    },
-    "analytics-tracking": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "66e38e06662ba443d1e49013df23f5a8a485d0f3c2ba609b5e0114463d42726a"
+      "modified": null,
+      "contentHash": "b091b3fe33ad176c4620b334a1dd49f293f14b9ac110be912c183479fe2f1f93"
     },
     "api-patterns": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "3df7ee30b7bc0d9dc91ca81772638d9450ef44360e2b0cebd37600c690270c6e"
+      "contentHash": "5d538e227107c5e609ec99ef5c404d6917a2bad2ac8459ed3b26887d890b846c"
     },
     "api-security-best-practices": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "a4693f4d568572bf5914392f10938f385f9e81738b9327ef56d892ab66afe6d2"
+      "contentHash": "77884120e31216a00a8dc11f6dec04859cb1c94e0c280d553e8f9558097c2135"
     },
     "application-security-testing": {
       "source": "usestrix/strix",
       "sourceType": "github",
-      "commit": null,
+      "commit": "4719329d1c3eb0db796714397551945c514a2301",
       "license": "Apache-2.0",
       "modified": "description rewritten (skills-v2 phase 4)",
       "contentHash": "f500b1b8da9f77c22183afbc6cc889f73eb85087c834f8ca198b9867497b1e7e"
@@ -100,90 +60,66 @@
     "archify": {
       "source": "tt-a1i/archify",
       "sourceType": "github",
-      "commit": null,
+      "commit": "e37848822238e3a61b12739185cdadd49843a620",
       "license": "Apache-2.0",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "1e07528583e77827156a89c1fdc1501e59a2011b6d808958be6d9e76e2552e4e"
+      "contentHash": "db5fd351c8562c8281f4d65efd1016690778fda83cb352c07bfb385e0b4ebc1f"
     },
     "architecture-decision-records": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "84b288ecf486ec80743e2f0787dbd15c8e2e06f23f5522da974acdff23864e38"
+      "contentHash": "c7a46458ee4abbf2bba7ea8672cff11c514756ed5a219f9bfd2eb0ad60d2db5a"
     },
     "architecture-patterns": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "7392922796260011b0f320a3173eac4e9b239cf605008ab240af89c4b7e9937c"
+      "contentHash": "797512763ae79934e959bc56ea8802793b8f6ecd2fed20753372f45a3a8becd6"
     },
     "async-python-patterns": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "5a94b44f97518b421664ff15b01f7d23e78d960b85f872e9203e8d490b7a16d8"
+      "contentHash": "0f7fe3b1ceff1036f3ac00150651a329ebb16627daa0724dc7d6e524a11faee0"
     },
     "auth-implementation-patterns": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "cbf9b92923e4181431f0b8ba5bae6fe8f60e21b7422ad139b3e22f9fb9e36835"
+      "contentHash": "e68dde25f9cebba35cf4ad240019548fc1d5e916c1b411da23175f2095de0e4d"
     },
     "avoid-ai-writing": {
       "source": "conorbronsdon/avoid-ai-writing",
       "sourceType": "github",
-      "commit": null,
+      "commit": "a04645a5d915d83ad1741a92d989dfc4bc6f1867",
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "56de42291ccb1a073960ebd785cb1e2304c7fb99a6cbfb8239a6ccdfc7e915bc"
+      "contentHash": "16a59a3c4cabe6e52ffec075e232bfc4a7b4f0fe5d966721236d41d49d00290e"
     },
     "awesome-design-md": {
       "source": "VoltAgent/awesome-design-md",
       "sourceType": "github",
-      "commit": null,
+      "commit": "fcc70284932276d085f01ef9f83edde90b1258cb",
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "16ac46fb0ed0abc537394afe5e1f8b68a2bf6062ff477972c626031e3b019e90"
-    },
-    "aws-serverless": {
-      "source": "vibeforge1111/vibeship-spawner-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "Apache-2.0",
-      "modified": "SKILL.md split into references/ (verbatim, skills-v2 phase 4)",
-      "contentHash": "468cc0199e8f7f80618d6a9852b22059933aafcf0fa01e4665ed9da5b92ce8b3"
+      "contentHash": "0220043fe5cb72e1ad9ca5b101f24034e92b3f8e9c3f189aff68e7a6a3b05b7b"
     },
     "backend-dev-guidelines": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "4855c5d68e7dea7f83e4cc90ae5d7d6be80ee9b83af360b62954668ea115b952"
-    },
-    "bash-linux": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "c96ff3896d273836146cce5f4aca462b5ea1e5466a6e5d959112f10343811ca5"
-    },
-    "brand": {
-      "source": "mrgoonie/claudekit-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "94f71cabe57a39c1c599c42a153dafc513cc880b4ec6e90d4d7d194f5f4ca0db"
+      "contentHash": "5f19ca5a0b4fc7c29cb04734d06177ccde390ac8b600fc85bab0e94378726107"
     },
     "brandkit": {
       "source": "Leonxlnx/imagegen-skills",
@@ -193,149 +129,77 @@
       "modified": "description rewritten (skills-v2 phase 4)",
       "contentHash": "8fa6184c27c166f8b5f85056dc7562ce8f683ec61e4436b48e36361f26d24646"
     },
-    "browser-automation": {
-      "source": "vibeforge1111/vibeship-spawner-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "Apache-2.0",
-      "modified": "SKILL.md split into references/ (verbatim, skills-v2 phase 4)",
-      "contentHash": "9e57bb1abf735d99cce2358b94b957aabf0a2dd94960335723d9b2cf921c59e3"
-    },
-    "business-analyst": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "ade5e08d9a072f1d2d7690baa16e3b863782c526f5d92955f401424a3d442aef"
-    },
     "ci-security-scanning-with-strix": {
       "source": "usestrix/strix",
       "sourceType": "github",
-      "commit": null,
+      "commit": "4719329d1c3eb0db796714397551945c514a2301",
       "license": "Apache-2.0",
       "modified": "description rewritten (skills-v2 phase 4)",
       "contentHash": "1feec070002f4e74a8f613f313b625def1eb02bee46b6a14d44fa5135fbca7ba"
     },
-    "claude-d3js-skill": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "2aed2e098292461d71210110809975a03186e9a795cf73b6d5383ada544ffbd1"
-    },
     "code-review-checklist": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "8a7fb8b26c1936ad8acbb62c1dfaebdaf0c9b5b42eb8604c26705d17e91a88d8"
-    },
-    "competitive-landscape": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "f5ad10979b6b4b19c64b5cc3beb04a6b6e4a931087ee51426b4562f485278a57"
+      "contentHash": "c9766a7f8e7affc3377a84ba9ad1fbb5dbe5785141924a1617d39aaced761b29"
     },
     "competitor-alternatives": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "9b0e754ad565bb5e0e69f14a68e2ad70c07e54ed7cd893ef1d1dd8a286cdf3dd"
+      "contentHash": "793f34fc6aae703d269fadc0af06b25ece1f8c7ca8345d7e9906d3b61860d7f4"
     },
     "concise-planning": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "cbac75f1088c18cd197cba3d4091a49dec02f559309eb0c976524ef58ce953e7"
+      "contentHash": "f26b1b12be3d5f00b04e798ec09363b066f9a5c710ae3200bb8c638a374f6eaa"
     },
     "content-creator": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "1f8ee8ed00391df4da227736fbcf036231d2f07d57e4883b29f1081a05957acb"
-    },
-    "context-window-management": {
-      "source": "vibeforge1111/vibeship-spawner-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "Apache-2.0",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "b3be15666dfe3ca0440b8fddd018ff989e3ec72fd63ff03984f6636b6736b0dd"
+      "contentHash": "a97f4dfddbd7503d4f6498af590e97b2995afcbea90f713af2ee8be3c1eb1dc6"
     },
     "continuous-agent-loop": {
       "source": "affaan-m/everything-claude-code",
       "sourceType": "github",
-      "commit": null,
+      "commit": "d2ef2680594f9a17526a6e1a2e18b3d242c5d17b",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
       "contentHash": "8d7cc615a060e1e9a80be642f866c83d25f06aad09b35398542e8e127565d168"
     },
-    "copy-editing": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "dea40aa61a1d1ae45dfa7e575482ab60c00861705a442912512c14919d196bdc"
-    },
-    "copywriting": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "01e0684a56dfad1a9d0dddaccda0ee509db3e5203fd77320562c92eceb605891"
-    },
-    "cpp-pro": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "179a0c387cd5620392dd355b3cbe4e31b52fd95374b89823e76cf8b2eb51da45"
-    },
     "database-design": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "00f2d30e18b559ff839d1e9cc5229c6a2feb4198295fe540740ddcae5e2f5c73"
-    },
-    "deployment-procedures": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "e2c91d30fd90b7715d20f24f524a953c9c40280c4ac87e596298a2f6b902d1ce"
+      "contentHash": "d4dd85bc0a20708c262fc3b5575fca864e087e7e3f59045ed1dc5cd3945a018c"
     },
     "design": {
-      "source": "mrgoonie/claudekit-skills",
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
       "sourceType": "github",
-      "commit": null,
+      "commit": "6ae86f61f520d6ca229d2f40e070410638c908c5",
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "71ca657ceb10ecd4c5841863a44ee022e3854f02c1ff5227e0a98a639af4ec2c"
+      "contentHash": "e9607e677ada397acdc27344378759d61f4671a3dab98abbf13a4bcbd75e68d8"
     },
     "design-system": {
-      "source": "mrgoonie/claudekit-skills",
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
       "sourceType": "github",
-      "commit": null,
+      "commit": "6ae86f61f520d6ca229d2f40e070410638c908c5",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "1b88bb4e9f0418a7c9e94beca13b4677d2286170a3823024a0e5157a7d87bcf3"
+      "contentHash": "872d4b55dca9c3b1dba2f88442db0821e469a50df97de39b0bcf83165a6510c5"
     },
     "design-taste-frontend": {
       "source": "Leonxlnx/taste-skill",
@@ -345,122 +209,74 @@
       "modified": "description rewritten (skills-v2 phase 4)",
       "contentHash": "8a07871c863c1c9dd64fe95a245e14b5004f500057a31afc787ba618ddbc0fd6"
     },
-    "distributed-tracing": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "c8205f3b3214fc27733f7d5c5a4fe22ad515db6ecdf9c2f618e5f2cba54c0657"
-    },
     "django-pro": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "5972b5ec5b22c04d70e17590c8cb455d580bfe350d4e4e082268c8229769940e"
+      "contentHash": "036f5735ca504310f7d0f94f1b9f36142a64a8b646654d41aea7d793bf5913b3"
     },
     "docker-expert": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "930f38a60a4b3833a6f2a1038eaa156cda67b13e6275e537584eed0e6190a20c"
+      "contentHash": "3c98d8cd97f16a9b44acebfd49686629762fe354847c440a1c646860a9c76a93"
     },
     "e2e-testing-patterns": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "f4d1098305fd8c3bcaeedd8db81dbd118c126930ac3ba3ded3ec810bb7b5e7ee"
-    },
-    "embedding-strategies": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "e801d5685f7cad6f4fb6d554b7912ec8385244a92186dfba9c4767ab5e99b0f4"
-    },
-    "environment-setup-guide": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "24476ad86df6d0514361dc41be18c4221a2a7c1d2cc665989bd52321e0b77310"
+      "contentHash": "66320c0f336c7dba3c076774767d3e0112df024a79cdca5578978cda9fe0db06"
     },
     "ethical-hacking-methodology": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "09cb4b359296bf83ee57e529c6ef7ce793399bd38811993783e81c89d837c540"
-    },
-    "event-sourcing-architect": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "8e03df8bad295a24da2776d9342c061ab3bfbc823c2fac74ac09fc66dbb37f6d"
+      "contentHash": "fa69b2f66b2fc2b2c85abae12fe6760b5abb7525447a12e8ae49e227cae9e758"
     },
     "fastapi-templates": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "4e2b510deff991adaa26bdc0e19dd30f80352162bbc8a9823aad156c037483c0"
+      "contentHash": "bc23bd71293b3505362aa232c4cc85e64518378a403fd14d5ad17a58d46e3a19"
     },
     "fix-security-vulnerabilities-with-strix": {
       "source": "usestrix/strix",
       "sourceType": "github",
-      "commit": null,
+      "commit": "4719329d1c3eb0db796714397551945c514a2301",
       "license": "Apache-2.0",
       "modified": "description rewritten (skills-v2 phase 4)",
       "contentHash": "edd7913158c857c941aa09ec793b9186398be030f3de17158bac18b33e51307b"
     },
-    "flutter-expert": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "7fe19ac061053990db132d8a549003b6940adddb7d48d80d0aaca8cd48b9b758"
-    },
-    "form-cro": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "8193f99126ae4f7e8db40b9d2b6ca9e69ac822e019cec9ee71464e1f30b59ba3"
-    },
     "frontend-developer": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "c38331ba3c74e5676c7c553a0aaf37decc33d0da0565845fbbead11a3997ad56"
+      "contentHash": "3d763cbb4aca068acbcf7b7f5153cdf749bc18870ef9d371a81addabdf1feba9"
     },
     "frontend-security-coder": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "4270802773e38996088abd2ac2c918f10ce5d8081949f1104e49d8cc3fa14e15"
+      "contentHash": "b5dbcb829f4ce8bb75032ac75eca8d33fe3bb962024d5ac8b94d9899bd5e50d8"
     },
     "git-pushing": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
       "contentHash": "5edd2e8e48b1f31e2ba1df7e3a29bf979675510716a3753b6d124cf20c07c533"
@@ -468,15 +284,15 @@
     "go-concurrency-patterns": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "cbd9195c183de5807f700b95e890225051deb87f6b54ebf641b341fa68686b9d"
+      "contentHash": "6ce75eff17a7f4547dc6038c62ab5766788963d411b7d06e83df03b55fa14e5c"
     },
     "golang-pro": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
       "contentHash": "4fb496a220000802b8179c620936464f1d609176e49235a46cb48fd26ef70cd9"
@@ -489,253 +305,109 @@
       "modified": "description rewritten (skills-v2 phase 4); SKILL.md split into references/ (verbatim, skills-v2 phase 4)",
       "contentHash": "991b385603f3450e997829780f3c6ab22cc78037fa80112ecd99365a517447a7"
     },
-    "imagegen-frontend-mobile": {
-      "source": "Leonxlnx/imagegen-skills",
-      "sourceType": "github",
-      "commit": "beb16b0d0f4dae9a6f5cb04ea41e97b93a54ab8e",
-      "license": "MIT",
-      "modified": "description rewritten (skills-v2 phase 4); SKILL.md split into references/ (verbatim, skills-v2 phase 4)",
-      "contentHash": "11033825cbddf781d438a28b15adf84ce6d07731770f20b257e70eaac887ddc0"
-    },
     "imagegen-frontend-web": {
       "source": "Leonxlnx/imagegen-skills",
       "sourceType": "github",
       "commit": "beb16b0d0f4dae9a6f5cb04ea41e97b93a54ab8e",
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "6547001b40d9fa4889cede84e570808a72d01613a1a8106808eda76635215f70"
+      "contentHash": "c7fd7ab57e8ed603f62741729269d2e113d4abf8fe4de53bd895d14f4bb0d2ac"
     },
     "impeccable": {
       "source": "pbakaus/impeccable",
       "sourceType": "github",
-      "commit": null,
+      "commit": "61e73eebd34a845df0bfef463eb0d31ed4eab581",
       "license": "Apache-2.0",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "8512c8cc454c03ed2f197bc82cba4ddf9960ae4cbd4ecf73cb135e6a9967711d"
-    },
-    "interactive-portfolio": {
-      "source": "vibeforge1111/vibeship-spawner-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "Apache-2.0",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "aeb6cf61c0c032ea2141bd3ec388a8e1819add6ab446bf524d8eb4924a313450"
-    },
-    "ios-developer": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "dc33b4e8f8eca83c0c123ca0b5a0db3273854101e6400b08dbccc158e0b6f0d8"
+      "contentHash": "343ce6ad3a6c65b215e37456d8816fa2d4aeef7b225f68bd30af941452993697"
     },
     "javascript-pro": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "b987d99a0a50221c6df87709790ff6e385c7b809c3221b9b87539925b871e630"
-    },
-    "kaizen": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "bb34b07990884dbff3c7ae4ded6027faa3f16c54dfabad8e407eff3bb07a04ca"
-    },
-    "kpi-dashboard-design": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "4dd5311fd595bc8c4369684bf8dddcc7b77629efef59ce52806c51c347bb7a57"
-    },
-    "kubernetes-architect": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "05d487560a3da7a4e4dfc6998c7d050cce92dad63d03628d57104685a9540802"
-    },
-    "langfuse": {
-      "source": "vibeforge1111/vibeship-spawner-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "Apache-2.0",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "06c89891a0064833a22b533984181f003cc1b053e1bf333cf52fe699bac8c575"
-    },
-    "langgraph": {
-      "source": "vibeforge1111/vibeship-spawner-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "Apache-2.0",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "f282f825ac43ce67f8f703ab430ae0f887fddbbaf4a064e3c694b162a5bc6cc9"
-    },
-    "launch-strategy": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "793360a02ab2745cffb0c8b61eff52b7bdc5612edd658fc49b7396c4ff3a0eaa"
+      "contentHash": "3f9bc970bad90ac745a6b33c52bc207e303d7160b37a8dcfb26caea23db324d1"
     },
     "lint-and-validate": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "d1cfff576bd8db4e6a5a3139c27da0ea00c0b0e3bf21d9eac37df85116ae15f4"
-    },
-    "llm-app-patterns": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "da99468fd787751a6f9d61fe52fd2b2d3a7e2f9f1980f9b96ff3f8e7c4516f22"
+      "contentHash": "52dcb931332cc37df4c776c6898eed1f216e6f390c97df4a1ca9cd106642fd8e"
     },
     "mcp-builder": {
       "source": "anthropics/skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "2c5958ecac7cee2b583967a2c4981d0f4a75c579",
       "license": "Apache-2.0",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "886a2fdf23bb478309f0212c8cc2bfc505bb4ab738628f93c097c60ee4e94c0a"
-    },
-    "memory-safety-patterns": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "6242d626db68085997ca838e5fbdedf9ee4128e53498f761ef28a9a9cb3d97df"
-    },
-    "microservices-patterns": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "51c722e399f3959d17ea22597727de244538fef0e06a36fe9de4c383c2050799"
-    },
-    "mobile-design": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "b7a5cd0b373746e8a61b1b56c85765b2dded249f90f12a79da11fada85583600"
+      "contentHash": "62890e2739a2d9f118301a14d9ecc1f1748dc1fc82d517477f4ff54f39cbf969"
     },
     "nextjs-app-router-patterns": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "2ce935e447f62045fd082f404711bb1e0f65f9dab1663cdcb63d5f2b17e39010"
+      "contentHash": "e251039fa920be078250cc6afa2d0db47be0248383b70f92da2777aabb07b93d"
     },
     "nextjs-best-practices": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "cbdbae5041339e02a369244825c616345411240ae29e3b22356096d87193d48d"
+      "contentHash": "0b2817e988df34bdc6574d9a92b37896481694facf12ee8c9039d1e2c262f45d"
     },
     "nodejs-best-practices": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "bd0bd81e1750cbcac286d22976b45097e8cd23644df5784f9ce7230a25dd3e2b"
+      "contentHash": "dd57b80ede0211535bc739aeed538c7731c20f16afa9d62a82bd7597f1d4e6e1"
     },
     "observability-engineer": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "a2158be798a7d2af7c1b8ef11ef98a12299acc8d5cc26c72a4b5048be987edeb"
-    },
-    "pci-compliance": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "328b8562b11851e7959ada2c5bf16091f9c11f9b848cc5c376de904b4de4a2f9"
+      "contentHash": "8910365f81d3a56194b2da83ebc7a28ee0e943d4f5f048f9e0830087469d98a8"
     },
     "penetration-testing-with-strix": {
       "source": "usestrix/strix",
       "sourceType": "github",
-      "commit": null,
+      "commit": "4719329d1c3eb0db796714397551945c514a2301",
       "license": "Apache-2.0",
       "modified": "description rewritten (skills-v2 phase 4)",
       "contentHash": "f0d42d6649f1a34a2b06b297d8d4a20e04927c140aa809f562b61a4be2d47f4f"
     },
-    "performance-engineer": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "42b77876779176c843ab46b19668bb0ce9f1a0ffe126e7c4c316e48b17edf621"
-    },
     "playwright-skill": {
       "source": "lackeyjb/playwright-skill",
       "sourceType": "github",
-      "commit": null,
+      "commit": "dd47a6a023e249eb1b36e9e943eab89d0900865d",
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "2c52d68ed19b17c5b7793750b73b2e5f6eaccfda50ba9fb330c0d3e98191e220"
+      "contentHash": "f84d772d36a76a650fa5c8b89d7338d9189a8af01e0ae040216cc2deca719182"
     },
     "postgres-best-practices": {
       "source": "supabase/agent-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "c9be0e931b7930f7d02126d04774d904c381e7d7",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "5cf11bf39cfc3f2a63551bffc2a3c234f3997a47ce6977c2e7a63afcfab5cf91"
-    },
-    "product-manager-toolkit": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "4420c4cb49e0029a3eaaf7a97a66a92feead421016a8209deb517275edaf55ea"
+      "contentHash": "075a83c4310b3a5e67d7b602827124a187fc5131a754bb60bcdefcc18c02c59c"
     },
     "programmatic-seo": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "b1eaaa1de010a1f38f6a3f5ee8493a29a5349eecd1c4fa87221774ba6541c36a"
-    },
-    "prompt-caching": {
-      "source": "vibeforge1111/vibeship-spawner-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "Apache-2.0",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "b77f383b08c0d219434ba3e79eb53a429f620e9679bc6d24678a9ebb66a416cf"
-    },
-    "prompt-engineering": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "17fd82ac115b9b2e0c3991f6f056deb949615bf5c66b10061ac804e858bcf678"
+      "contentHash": "def36bbf5cb3efd9cca68dea8d8c071b8ba4be11c2a6af59c217f089c84aeaf2"
     },
     "prompt-enhancer": {
       "source": "original",
@@ -743,7 +415,7 @@
       "commit": null,
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "6fce43893f479d06db16bc6e8a09397eb56cb3b3f0fcef241e856298e6fef105"
+      "contentHash": "5780781b038ebeebfba421792b6bf1fad33e90a613ff9797c7b4475023b541bc"
     },
     "prompt-enhancer-backend": {
       "source": "original",
@@ -759,68 +431,44 @@
       "commit": null,
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "df8eb7bdcbdfea470da192523884938ad002a56fef632a27f7b2a6ccd3bd9b9d"
+      "contentHash": "d8c96785ee90a38d1d8c956476e6c8390e77edde23826e73c74f9dc82130fcb3"
     },
     "python-patterns": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "3638bbadf1053dea7d3fd02521f64fd7cda8015f7e35809614b0bced7eed2083"
+      "contentHash": "28c245bcd7c8e92ab3c3739983cf6d7144026a8b57a1d89259ad54a0ce76daaf"
     },
     "python-testing-patterns": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "c16b1703e987e0d81a2cd2f829a00e3c8a9b015f49c275040bf146684d27f49a"
-    },
-    "rag-engineer": {
-      "source": "vibeforge1111/vibeship-spawner-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "Apache-2.0",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "3214862b3bafb38179f7266f299b4264b51bfe7ec4bb229ddaad97b80d60ea09"
+      "contentHash": "bbfcf7a3c7b619221ed902e8602cdae6e7f6bc856c5f55d627a350601aea7fbe"
     },
     "react-best-practices": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "176fd5caa9b588502e03ba127cc9d53c65e47057107db487815324e9928d5b20"
-    },
-    "react-native-architecture": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "7b1550052ffd25948c135a4c8b5fcd11d53c22292faf165e787d80217a048dec"
+      "contentHash": "2c78f5f5f5de713ce0dc2907be5fa13739308190e6e3c30724f0885727d5229e"
     },
     "react-patterns": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "4c0434e57b32ae7b76c2ed64086dbb955df3bbb3cbe0ee9b9fe99242292e6a1e"
-    },
-    "rust-pro": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "9848dd29ea395f65584906c00a92866b2a7c7c2c93c481543ad1a66ef2781e2f"
+      "contentHash": "2b93cde876531fe93d6c8fbb84b1cfa56ea215b141b72de5e449054166799d05"
     },
     "scroll-experience": {
       "source": "vibeforge1111/vibeship-spawner-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "70b2e1062fc6a38fce854226c27097a87732cb5f",
       "license": "Apache-2.0",
       "modified": "description/references updated in skills-v2",
       "contentHash": "496f7ae993564c47071c7821bc55a51d4e7067ffe011baff1ab33d0d2c3d2ef9"
@@ -828,7 +476,7 @@
     "scrollytelling": {
       "source": "basementstudio/scrollytelling",
       "sourceType": "github",
-      "commit": null,
+      "commit": "0c26959b106d9e81931c30af7dfeebfd83d0a379",
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
       "contentHash": "bc57682b5e6f7305e07f689d8d47989b1406743c1f9e1e6becfe59c30230f991"
@@ -836,98 +484,90 @@
     "security-audit": {
       "source": "cloudflare/security-audit-skill",
       "sourceType": "github",
-      "commit": null,
-      "license": "unverified",
+      "commit": "c1c8a8c1471069fb0e188eeaff69b8e8db6564a8",
+      "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
       "contentHash": "87553a4cd5fb6d2663cbd1988e00517461790cdcd01f83c0c6c9cdc82ccb40e7"
     },
     "seo-audit": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "c2af01e564c04ee381e949e53330256099e3594626f87343d00db351d5494a72"
-    },
-    "stripe-integration": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "73d24e83e9da564ffa91e3c8084360e04f3eecfe3d2093c8620472bed10a6e4b"
+      "contentHash": "b92bd63dc236a719fd4efb564f40a753ca4fd2c18254cbcb3283a8a2b1d2b90d"
     },
     "systematic-debugging": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "0a86bc208492df479d8803c476b69dda4130fce33cb8132d288410a565b95dcc"
+      "contentHash": "0ce1e520834cf69af378a33a67d6902f0b837adc0fa48d4934146c3e3aec1592"
     },
     "tailwind-patterns": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "d3a630225feb2ab28fb35d39e230b37331df5da9b96627b64d27f47c4e18d922"
-    },
-    "terraform-specialist": {
-      "source": "sickn33/antigravity-awesome-skills",
-      "sourceType": "github",
-      "commit": null,
-      "license": "MIT",
-      "modified": "description/references updated in skills-v2",
-      "contentHash": "a3f98ef3d39ba00f4f8a74a359894ff3216ba224f4aeb1d1d9cfdf3e4615c75e"
+      "contentHash": "70a5ee00a59d293808e306cf7334f87e706ad7698bbcdd5aa1db6fb0495d0b97"
     },
     "test-driven-development": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "731bf02117905323a0dfe25b1e6b4240074654f832fd45208058c6344c09968d"
+      "contentHash": "d5677eacbc4971fbf8c70049ba2fe4ef7ba2fd9a761c76c7f4187dbd61a2c976"
     },
     "test-fixing": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "af0e284a43ffdd83d3d0100a9c906d7412aa68086d8b15f93b0840f24fdb7030"
+      "contentHash": "21ee04b03ae2c58d814cbf2252577740c9751bdc09891ebb65021c22c6e38698"
     },
     "top-web-vulnerabilities": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "52da7f07e763da5ac90830d26078ed1f0a7e8e2fe601150eb0e481feea2b5339"
+      "contentHash": "a64b88813d31037d253fc57a587a0cd56024e9765abe28ecb3db06175bc23c99"
     },
     "typescript-expert": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
-      "commit": null,
+      "commit": "560b762c309d6b96315855d7968727d3bca7df20",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "a3a6dc8fd6b06e60a668fedf42a4ced0c1902a80535cc646496b8b386ff63ab0"
+      "contentHash": "3a0efd89b4677cf114f1f66a07820a08bcdecfa453f506427863b6311511f78d"
     },
     "ui-styling": {
-      "source": "mrgoonie/claudekit-skills",
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
       "sourceType": "github",
-      "commit": null,
+      "commit": "6ae86f61f520d6ca229d2f40e070410638c908c5",
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "f7318b980d48478e65791ded959a20cd33d5658d8dd4c784e03d2806881034ad"
+      "contentHash": "d4cee5ac94e7aabb3f0e2b376546f3fae913d9020bbf205406aacd0d6b080028"
     },
     "ui-ux-pro-max": {
       "source": "nextlevelbuilder/ui-ux-pro-max-skill",
       "sourceType": "github",
-      "commit": null,
+      "commit": "6ae86f61f520d6ca229d2f40e070410638c908c5",
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "fbb6bfca68d89d3560058023ad8754608f9f5e6cb8fe006c159ccea0045372d8"
+      "contentHash": "2caf23234c14a540077e008bcf76f1b9c38bb3f1443e779625f7342a0053d794"
+    },
+    "untangle-codebase": {
+      "source": "caldoai/skills",
+      "sourceType": "github",
+      "commit": "f3cf47774975a7d9fca45730babf4ff7ad765ada",
+      "license": "MIT",
+      "modified": null,
+      "contentHash": "361a5a76e5e9effff2a058e535326e23e31807d0a88ebc362e665d91ed621969"
     }
   }
 }

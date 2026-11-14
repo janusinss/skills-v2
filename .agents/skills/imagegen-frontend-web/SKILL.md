@@ -1,6 +1,6 @@
 ---
 name: imagegen-frontend-web
-description: "Generate horizontal section-by-section website design reference images with one cohesive palette (images only). Use for web design comps; for mobile use imagegen-frontend-mobile."
+description: "Generate horizontal section-by-section website design reference images with one cohesive palette (images only). Use when creating web design comps or section mockups."
 license: MIT
 ---
 

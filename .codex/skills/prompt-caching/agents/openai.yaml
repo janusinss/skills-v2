@@ -1,4 +1,0 @@
-interface:
-  display_name: "Prompt Caching"
-  short_description: "Reduce LLM latency and token cost using Anthropic/OpenAI..."
-  default_prompt: "Use $prompt-caching for the relevant part of this task."

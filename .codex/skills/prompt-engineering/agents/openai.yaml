@@ -1,4 +1,0 @@
-interface:
-  display_name: "Prompt Engineering"
-  short_description: "Design and tune system prompts, few-shot examples,..."
-  default_prompt: "Use $prompt-engineering for the relevant part of this task."

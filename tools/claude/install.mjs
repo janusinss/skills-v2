@@ -1,12 +1,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import readline from 'node:readline/promises';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { exportBundle, applyClaudeSettingsHooks, parseArgs as parseExportArgs, resolveTarget } from './export.mjs';
+import { exportBundle, applyClaudeSettingsHooks, normalizeMode, parseArgs as parseExportArgs, resolveTarget } from './export.mjs';
 import { bundleRoot, assertNoSymlinkAncestors, within, payloadHash, json, isRecord } from './lib.mjs';
 import { planGitignore, applyGitignore } from './gitignore.mjs';
+import { setupAgentBrowser } from '../codex/install.mjs';
 
 const playwrightRunner = '.claude/skills/playwright-skill/run.js';
+const agentBrowserSkill = '.claude/skills/agent-browser/SKILL.md';
 const harnessRunner = '.claude/skills/continuous-agent-loop/scripts/harness.mjs';
 const verificationMarker = 'PLAYWRIGHT_VERIFIED_OK';
 const verificationScript = `const browser = await helpers.launchBrowser('chromium', { headless: true }); try { const page = await browser.newPage(); await page.setContent('<title>Claude Code setup</title>'); if (await page.title() !== 'Claude Code setup') throw new Error('Browser verification failed'); console.log('${verificationMarker}'); } finally { await browser.close(); }`;
@@ -55,6 +58,8 @@ function verifyRunner(execute, target, runnerPath) {
 
 function installGitPreCommitHook(execute, target, manifest) {
   if (manifest.hooksIncluded === false) return 'disabled';
+  const mode = normalizeMode(manifest.mode || 'harness');
+  if (mode === 'designer') return 'skipped (designer mode)';
   const gitDir = path.join(target, '.git');
   if (!fs.existsSync(gitDir)) return 'skipped (no .git directory)';
   const harnessPath = path.join(target, harnessRunner);
@@ -80,16 +85,20 @@ function installGitPreCommitHook(execute, target, manifest) {
   return 'installed';
 }
 
-function finishSetup(target, manifestPath, manifest, playwright, gitHook) {
+function finishSetup(target, manifestPath, manifest, playwright, gitHook, agentBrowser = 'not included in selected profile') {
   assertNoSymlinkAncestors(manifestPath);
   const onDisk = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
   if (json(onDisk) !== json(manifest)) throw new Error('Installation record changed during setup');
+  const mode = normalizeMode(manifest.mode || 'harness');
+  const hooks = manifest.hooksIncluded === false ? 'disabled' : mode === 'designer' ? 'impeccable' : 'active';
   const completed = {
     ...manifest,
     setup: {
       status: 'complete',
       playwright,
-      hooks: manifest.hooksIncluded !== false ? 'active' : 'disabled',
+      agentBrowser,
+      mode,
+      hooks,
       gitHook
     }
   };
@@ -120,10 +129,13 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
   if (
     options.resume &&
     ((options.profile && options.profile !== manifest.profile) ||
-      (options.includeHooks !== undefined && options.includeHooks !== Boolean(manifest.hooksIncluded)))
+      (options.includeHooks !== undefined && options.includeHooks !== Boolean(manifest.hooksIncluded)) ||
+      (options.mode && normalizeMode(options.mode) !== normalizeMode(manifest.mode || 'harness')))
   ) {
-    throw new Error('--resume uses the installed profile and hook selection');
+    throw new Error('--resume uses the installed profile, mode, and hook selection');
   }
+  const installedMode = normalizeMode(manifest.mode || 'harness');
+  const installedHookSet = manifest.hookSet || (manifest.hooksIncluded === false ? 'none' : installedMode === 'designer' ? 'impeccable' : 'all');
 
   let gitignore = exported?.gitignore;
   if (!gitignore) {
@@ -152,6 +164,8 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
     return {
       target,
       profile: manifest.profile,
+      mode: installedMode,
+      hookSet: installedHookSet,
       topLevelSkills: manifest.topLevelSkills,
       files: Object.keys(manifest.files).length + 2,
       gitignore,
@@ -161,6 +175,7 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
   }
 
   let playwright = 'not included in selected profile';
+  let agentBrowser = 'not included in selected profile';
   try {
     if (manifest.files[playwrightRunner]) {
       const skillDirectory = path.dirname(path.join(target, playwrightRunner));
@@ -199,14 +214,19 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
         playwright = 'verified';
       }
     }
+    if (manifest.files[playwrightRunner] || manifest.files[agentBrowserSkill]) {
+      agentBrowser = setupAgentBrowser(execute, target);
+    }
     if (manifest.hooksIncluded !== false) {
-      applyClaudeSettingsHooks(target, root);
+      applyClaudeSettingsHooks(target, root, { mode: installedMode });
     }
     const gitHook = installGitPreCommitHook(execute, target, manifest);
-    const completed = finishSetup(target, manifestPath, manifest, playwright, gitHook);
+    const completed = finishSetup(target, manifestPath, manifest, playwright, gitHook, agentBrowser);
     return {
       target,
       profile: completed.profile,
+      mode: completed.mode || installedMode,
+      hookSet: completed.hookSet || installedHookSet,
       topLevelSkills: completed.topLevelSkills,
       files: Object.keys(completed.files).length + 2,
       gitignore,
@@ -225,9 +245,42 @@ export function parseArgs(args) {
   };
 }
 
+async function resolveInteractiveCliOptions(options) {
+  if (!process.stdin.isTTY || !process.stdout.isTTY) return options;
+  const needMode = !options.mode && !options.resume && options.includeHooks !== false;
+  const needTarget = !options.target;
+  if (!needMode && !needTarget) return options;
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  try {
+    const resolved = { ...options };
+    if (needMode) {
+      console.error('\nSelect hook mode:');
+      console.error('  1) HARNESS MODE (default) - Installs all hooks (Harness + Impeccable + design-taste-frontend + avoid-ai-writing), .git/hooks/pre-commit, and full Harness lifecycle in CLAUDE.md');
+      console.error('  2) DESIGNER MODE          - Activates non-harness hooks (Impeccable, design-taste-frontend, avoid-ai-writing), skips Harness hooks/.git pre-commit, and installs Designer CLAUDE.md');
+      for (;;) {
+        const answer = (await rl.question('Enter choice [1-2 or harness/designer, default: harness]: ')).trim().toLowerCase();
+        if (!answer || answer === '1' || answer === 'harness') { resolved.mode = 'harness'; break; }
+        if (answer === '2' || answer === 'designer' || answer === 'normal') { resolved.mode = 'designer'; break; }
+        console.error('Invalid selection. Choose 1 (harness) or 2 (designer).');
+      }
+    }
+    if (needTarget) {
+      for (;;) {
+        const answer = (await rl.question('Enter target project directory (absolute path): ')).trim();
+        if (answer) { resolved.target = path.resolve(answer); break; }
+        console.error('Target directory cannot be empty.');
+      }
+    }
+    return resolved;
+  } finally {
+    rl.close();
+  }
+}
+
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
-    console.log(json(installBundle(parseArgs(process.argv.slice(2)))));
+    const cliOptions = await resolveInteractiveCliOptions(parseArgs(process.argv.slice(2)));
+    console.log(json(installBundle(cliOptions)));
   } catch (error) {
     console.error(error.stack || error.message);
     if (error.cause) console.error('Caused by:', error.cause.stack || error.cause.message || error.cause);

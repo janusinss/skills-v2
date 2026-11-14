@@ -105,6 +105,47 @@ function run(args) {
 
 ensurePlaywright();
 
+function runInlineHelpers(source) {
+  const helpersPath = JSON.stringify(path.join(skillDir, 'lib/helpers'));
+  const prefix = `const playwright = require('playwright');\nconst { chromium, firefox, webkit, devices } = playwright;\nif (!chromium._origLaunch) chromium._origLaunch = chromium.launch.bind(chromium);\nconst helpers = require(${helpersPath});\nchromium.launch = (opts = {}) => helpers.launchBrowser('chromium', { headless: opts.headless ?? true, ...opts });\n`;
+  const exit = "async () => { for (const s of [process.stdout, process.stderr]) await new Promise(r => s.write('', r)); process.exit(process.exitCode ?? 0); }";
+  run(['-e', `${prefix}\n(async () => {\n  try {\n    ${source}\n  } catch (error) {\n    console.error(error.stack || error.message);\n    process.exitCode = 1;\n  }\n})().finally(${exit});`]);
+}
+
+function parseAuditOptions(argv) {
+  const options = {};
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    if (arg === '--audit') {
+      const next = argv[i + 1];
+      if (next && !next.startsWith('-')) {
+        options.url = next;
+        i++;
+      }
+    } else if (arg.startsWith('--audit=')) {
+      options.url = arg.slice('--audit='.length);
+    } else if (arg === '--screenshots' || arg === '--screenshot-dir') {
+      const next = argv[i + 1];
+      if (!next || next.startsWith('-')) {
+        console.error(`Missing directory value for ${arg}`);
+        process.exit(1);
+      }
+      options.screenshotDir = next;
+      i++;
+    } else if (arg.startsWith('--screenshots=') || arg.startsWith('--screenshot-dir=')) {
+      options.screenshotDir = arg.slice(arg.indexOf('=') + 1);
+    } else if (arg === '--touch-targets') {
+      options.checkTouchTargets = true;
+    } else if (!arg.startsWith('-') && !options.url) {
+      options.url = arg;
+    } else {
+      console.error(`Unknown option for --audit: ${arg}`);
+      process.exit(1);
+    }
+  }
+  return options;
+}
+
 const args = process.argv.slice(2);
 if (args[0] === '-e' || args[0] === '--eval') {
   const source = args.slice(1).join(' ');
@@ -112,10 +153,12 @@ if (args[0] === '-e' || args[0] === '--eval') {
     console.error('Usage: node run.js -e "await page.goto(\'https://example.com\')"');
     process.exit(1);
   }
-  const helpersPath = JSON.stringify(path.join(skillDir, 'lib/helpers'));
-  const prefix = `const playwright = require('playwright');\nconst { chromium, firefox, webkit, devices } = playwright;\nif (!chromium._origLaunch) chromium._origLaunch = chromium.launch.bind(chromium);\nconst helpers = require(${helpersPath});\nchromium.launch = (opts = {}) => helpers.launchBrowser('chromium', { headless: opts.headless ?? true, ...opts });\n`;
-  const exit = "async () => { for (const s of [process.stdout, process.stderr]) await new Promise(r => s.write('', r)); process.exit(process.exitCode ?? 0); }";
-  run(['-e', `${prefix}\n(async () => {\n  try {\n    ${source}\n  } catch (error) {\n    console.error(error.stack || error.message);\n    process.exitCode = 1;\n  }\n})().finally(${exit});`]);
+  runInlineHelpers(source);
+} else if (args[0] === '--detect-url') {
+  runInlineHelpers("const url = await helpers.resolveTargetUrl(); if (!url) { console.error('No target URL or active dev server found.'); process.exitCode = 1; } else { console.log(url); }");
+} else if (args.some(arg => arg === '--audit' || arg.startsWith('--audit='))) {
+  const auditOptions = parseAuditOptions(args);
+  runInlineHelpers(`const result = await helpers.auditLayout(${JSON.stringify(auditOptions)}); if (!result.passed) process.exitCode = 1;`);
 } else if (args[0]) {
   const file = path.resolve(args[0]);
   if (!fs.existsSync(file)) {
@@ -130,5 +173,7 @@ if (args[0] === '-e' || args[0] === '--eval') {
 } else {
   console.error('Usage: node run.js <script.js> [args...]');
   console.error('   or: node run.js -e "await page.goto(\'https://example.com\')"');
+  console.error('   or: node run.js --detect-url');
+  console.error('   or: node run.js --audit [url] [--screenshots <dir>] [--touch-targets]');
   process.exit(1);
 }

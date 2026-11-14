@@ -1,41 +1,64 @@
 ---
 trigger: manual
-description: Ask GPT / CODEX or AGY / GEMINI before installing this collection. The AGY branch bootstraps Playwright and verifies the installed runner.
+description: Ask edition (AGY, CODEX, or CLAUDE) and hook mode (HARNESS MODE or DESIGNER MODE) sequentially before installing this collection. The AGY branch bootstraps Playwright, activates mode-specific hooks, and verifies the installed runner.
 ---
 
 # One-Time Workspace Setup & Self-Destruct Installation Rule
 
-## Edition Selection Before Setup
+## Sequential Selection Before Setup
 
-This is the original AGY / GEMINI bootstrapper. Referencing `@install.md` or asking to install this skills repository does not select an edition. If the user has not already made an explicit choice for this installation, ask:
+Referencing `@install.md` or asking to install this skills repository selects neither an edition nor a hook mode. Ask these two questions in order and wait for each answer before copying files or running setup (skipping either only if the user already specified it explicitly):
 
-> Which version would you like to install: GPT / CODEX, AGY / GEMINI, or ANTHROPIC / CLAUDE CODE?
+### Question 1: Select edition
 
-Wait for the answer before copying files or running setup. Do not infer the edition from the current assistant. If the user already specified the edition, reuse their choice. Routine dependency setup in an existing installation does not require selecting the edition again.
+> Which edition would you like to install: **AGY** (`AGY / GEMINI`), **CODEX** (`GPT / CODEX`), or **CLAUDE** (`ANTHROPIC / CLAUDE CODE`)?
 
-- **GPT / CODEX:** Read the source checkout's root `INSTALL.md`, then automatically read and execute its `.claude/rules/install.md` in the same request. Run `node tools/codex/install.mjs --target <absolute-project-path> --profile all` from that checkout. This installs the converted payload, root `AGENTS.md`, and active `.codex/hooks.json` (plus `.git/hooks/pre-commit` when `.git` exists; pass `--no-hooks` to opt out), sets up local Playwright and Chromium, verifies the runner, and removes only the target's one-time Codex installation rule after success. Keep the source rule and do not run the AGY phases below.
-- **AGY / GEMINI:** Follow the original payload branch in the source checkout's `INSTALL.md`. When copying `AGENTS.md` into the target, write only the content before `<!-- source-repository-only -->` to cleanly remove source-only instructions. After copying the original `.agents/`, clean `AGENTS.md`, and `skills-lock.json` into the intended target, run the phases below from that target to install Playwright, activate `.agents/hooks.json`, and install the git pre-commit receipt gate. If maintaining a target `.gitignore`, ignore skills while un-ignoring rules (`.agents/*` and `!.agents/rules/`) so rules autocomplete with `@`.
-- **ANTHROPIC / CLAUDE CODE:** Run `node tools/claude/install.mjs --target <absolute-project-path> --profile all` from the source checkout. This installs `.claude/`, root `CLAUDE.md`, `.claude/hooks.json`, merges active `hooks` into `.claude/settings.json` (preserving existing user settings; pass `--no-hooks` to opt out), installs the `.git/hooks/pre-commit` receipt gate when `.git` exists, and verifies Playwright.
+Wait for the answer. Do not infer the edition from the current assistant.
+
+### Question 2: Select hook mode
+
+> Which hook mode would you like to install: **HARNESS MODE** (full Harness + Impeccable + `design-taste-frontend` + `avoid-ai-writing` hooks, `.git/hooks/pre-commit` receipt gate, and full Harness lifecycle in `AGENTS.md`/`CLAUDE.md`) or **DESIGNER MODE** (activates Impeccable, `design-taste-frontend`, and `avoid-ai-writing` hooks only, disables Harness hooks/git pre-commit, and installs Designer `AGENTS.md`/`CLAUDE.md`)?
+
+Wait for the answer. Routine dependency setup in an existing installation does not require re-asking these questions. (`--mode normal` is accepted as an alias for `--mode designer`.)
+
+## Edition & Mode Execution
+
+Or run the unified interactive installer directly in a TTY from the source checkout: `node install.mjs`.
+
+- **GPT / CODEX:** Read the source checkout's root `INSTALL.md`, then automatically read and execute its `.claude/rules/install.md` in the same request. Run from the source checkout:
+  - Harness mode: `node install.mjs --edition codex --mode harness --target <absolute-project-path> --profile all` (or `node tools/codex/install.mjs --target <absolute-project-path> --profile all --mode harness`)
+  - Designer mode: `node install.mjs --edition codex --mode designer --target <absolute-project-path> --profile all` (or `node tools/codex/install.mjs --target <absolute-project-path> --profile all --mode designer`)
+  Pass `--no-hooks` to disable all active hooks. Non-TTY invocations default to `harness` when `--mode` is omitted; interactive TTY invocations prompt if `--mode` is omitted. Keep the source rule and do not run the AGY phases below.
+- **AGY / GEMINI:** Preferred automated command from the source checkout:
+  - Harness mode: `node install.mjs --edition agy --mode harness --target <absolute-project-path>`
+  - Designer mode: `node install.mjs --edition agy --mode designer --target <absolute-project-path>`
+  For a manual installation, follow the AGY branch in root `INSTALL.md`: copy `.agents/`, clean `AGENTS.md` (content before `<!-- source-repository-only -->`, omitting Section 5 Harness lifecycle in `designer` mode), and `skills-lock.json` into the target, merge `.gitignore` (`/.agents/*`, `!/.agents/rules/`, `!/.agents/agents/`, `/AGENTS.md`), and run the phases below from that target according to your selected mode.
+- **ANTHROPIC / CLAUDE CODE:** Run from the source checkout:
+  - Harness mode: `node install.mjs --edition claude --mode harness --target <absolute-project-path> --profile all` (or `node tools/claude/install.mjs --target <absolute-project-path> --profile all --mode harness`)
+  - Designer mode: `node install.mjs --edition claude --mode designer --target <absolute-project-path> --profile all` (or `node tools/claude/install.mjs --target <absolute-project-path> --profile all --mode designer`)
+  In `designer` mode (`normal` alias), `CLAUDE.designer.md` is installed as `CLAUDE.md`, `.claude/hooks.impeccable.example.json` is copied to `.claude/hooks.json`, **only** `hooks.impeccable.example.json` is merged into `.claude/settings.json`, and `.git/hooks/pre-commit` is skipped. Pass `--no-hooks` to opt out of all hooks.
 
 Keep the source checkout and target paths distinct. Do not run self-cleanup in the source repository. Preserve existing user configuration and unrelated setup files.
 
 ---
 
+> Note: Phases 1–3 below are the manual-copy fallback when running without `node install.mjs --edition agy`.
+
 ## Phase 1: Environment & Dependency Installation
 
-Execute the following commands in order:
+Execute the following commands in order inside the AGY target workspace:
 
-### 1. Global Playwright & Browser Installation
-Install Playwright and Chromium globally so that all workspaces on this machine can run headless browser automation without duplicating packages:
+### 1. Global Playwright, `agent-browser` & Browser Installation
+Install Playwright, `agent-browser`, and Chromium globally so that all workspaces on this machine can run headless browser audits and `@eN` accessibility flows without duplicating packages:
 
 **Windows (PowerShell):**
 ```powershell
-npm install -g playwright; npx playwright install chromium
+npm install -g playwright agent-browser; npx playwright install chromium; agent-browser install
 ```
 
 **macOS / Linux (Bash):**
 ```bash
-npm install -g playwright && npx playwright install chromium
+npm install -g playwright agent-browser && npx playwright install chromium && agent-browser install
 ```
 
 ### 2. Local Skill Dependencies
@@ -51,8 +74,11 @@ Push-Location .claude\skills\playwright-skill; npm install --no-audit --prefer-o
 (cd .claude/skills/playwright-skill && npm install --no-audit --prefer-offline)
 ```
 
-### 3. Automatic Harness & UI Hook Activation
-Activate `.agents/hooks.json` from `.agents/hooks.example.json` (preserving any existing `.agents/hooks.json`) and install the non-destructive `.git/hooks/pre-commit` receipt gate when `.git` is present:
+### 3. Hook Activation by Selected Mode
+
+Run **only** the branch matching Question 2 (preserving any existing `.agents/hooks.json`):
+
+#### HARNESS MODE (Harness + Impeccable + design-taste-frontend + avoid-ai-writing hooks + git pre-commit receipt gate)
 
 **Windows (PowerShell):**
 ```powershell
@@ -66,42 +92,36 @@ if (Test-Path -LiteralPath '.git') { node .claude/skills/continuous-agent-loop/s
 [ ! -d .git ] || node .claude/skills/continuous-agent-loop/scripts/harness.mjs install-git-hook
 ```
 
----
-
-## Phase 2: Zero-Scratch Execution Verification
-
-Execute the following inline Playwright test to verify that the runner operates in-memory with zero errors and zero disk scratch files:
-
-```bash
-node .claude/skills/playwright-skill/run.js -e "const browser = await chromium.launch({ headless: true }); const page = await browser.newPage(); console.log('PLAYWRIGHT_VERIFIED_OK'); await browser.close();"
-```
-
-Verify that the output contains `PLAYWRIGHT_VERIFIED_OK`.
-
----
-
-## Phase 3: Global Policy Sync (Optional)
-
-Only if the user requests global Gemini instructions, sync `GEMINI.MD` to `~/.gemini/GEMINI.md` to apply this policy across projects. Preserve an existing global policy and review any merge rather than overwriting it automatically. The existence of `~/.gemini` alone does not authorize global synchronization.
-
-For a requested sync where the destination file is absent:
+#### DESIGNER MODE (Impeccable, design-taste-frontend, and avoid-ai-writing hooks only; Designer AGENTS.md without Harness lifecycle; disables all Harness hooks and skips git pre-commit)
 
 **Windows (PowerShell):**
 ```powershell
-$globalGeminiPolicy = Join-Path $env:USERPROFILE '.gemini/GEMINI.md'
-if ((Test-Path -LiteralPath (Split-Path -Parent $globalGeminiPolicy)) -and -not (Test-Path -LiteralPath $globalGeminiPolicy)) { Copy-Item -LiteralPath 'GEMINI.MD' -Destination $globalGeminiPolicy }
+if (-not (Test-Path -LiteralPath '.agents/hooks.json')) { Copy-Item -LiteralPath '.agents/hooks.impeccable.example.json' -Destination '.agents/hooks.json' }
 ```
 
 **macOS / Linux (Bash):**
 ```bash
-if [ -d "$HOME/.gemini" ] && [ ! -e "$HOME/.gemini/GEMINI.md" ]; then cp -n GEMINI.MD "$HOME/.gemini/GEMINI.md"; fi
+[ -f .agents/hooks.json ] || cp .agents/hooks.impeccable.example.json .agents/hooks.json
 ```
 
 ---
 
-## Phase 4: Self-Destruct & Ephemeral Cleanup
+## Phase 2: Zero-Scratch Execution Verification
 
-Once required setup is verified, delete only temporary setup artifacts created for this installation in the target. This installed rule may self-delete in the target; retain the source checkout's copy. Skip Phase 3 unless requested. Do not delete unrelated existing files merely because their names match the examples below.
+Execute the following inline Playwright test and `agent-browser` health check to verify that both runners operate with zero errors and zero disk scratch files:
+
+```bash
+node .claude/skills/playwright-skill/run.js -e "const browser = await chromium.launch({ headless: true }); const page = await browser.newPage(); console.log('PLAYWRIGHT_VERIFIED_OK'); await browser.close();"
+agent-browser --version && agent-browser doctor --offline --quick --json
+```
+
+Verify that the output contains `PLAYWRIGHT_VERIFIED_OK` and `agent-browser doctor` passes cleanly.
+
+---
+
+## Phase 3: Self-Destruct & Ephemeral Cleanup
+
+Once required setup is verified, delete only temporary setup artifacts created for this installation in the target. This installed rule may self-delete in the target; retain the source checkout's copy. Do not delete unrelated existing files merely because their names match the examples below.
 
 ### Eligible cleanup files:
 1. `install.ps1`, `install.sh`, or root `install.md`, only if created as temporary setup artifacts for this installation
@@ -121,9 +141,9 @@ rm -f .claude/rules/install.md
 
 ---
 
-## Phase 5: Final Report to User
+## Phase 4: Final Report to User
 Report to the user:
-1. AGY / GEMINI was selected, with the absolute target path.
-2. Playwright and Chromium setup, `.agents/hooks.json` and `.git/hooks/pre-commit` activation, and in-memory verification results that actually ran.
-3. The setup files removed, and whether optional global policy sync was requested.
+1. Selected edition and hook mode (`HARNESS MODE` or `DESIGNER MODE`), with the absolute target path.
+2. Playwright and Chromium setup, `.agents/hooks.json` (and `.git/hooks/pre-commit` when in `HARNESS MODE`) activation, and in-memory verification results that actually ran.
+3. The setup files removed.
 4. Any remaining dependency or host-discovery checks.

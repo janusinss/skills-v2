@@ -17,7 +17,7 @@ import {
   isBundleExcluded,
   parseFrontmatter
 } from './lib.mjs';
-import { convertSkill, convertAgent, adaptMarkdown, generateClaudeMd } from './convert.mjs';
+import { convertSkill, convertAgent, adaptMarkdown, generateClaudeMd, formatDesignerPolicy } from './convert.mjs';
 
 const customCommands = {
   'plan.md': `---
@@ -67,6 +67,40 @@ Record a failure root cause or invariant and checkpoint task progress for: $ARGU
 `
 };
 
+/** Recursively remove empty subdirectories bottom-up under dir, preserving dir itself. */
+function pruneEmptyDirs(dir, isRoot = true) {
+  if (!fs.existsSync(dir)) return false;
+  let hasRemaining = false;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (entry.isDirectory()) {
+      if (!pruneEmptyDirs(path.join(dir, entry.name), false)) hasRemaining = true;
+    } else {
+      hasRemaining = true;
+    }
+  }
+  if (!isRoot && !hasRemaining) {
+    fs.rmdirSync(dir);
+    return true;
+  }
+  return false;
+}
+
+/** Keep only hook entries that do not invoke harness.mjs, dropping empty matcher groups and events. */
+function filterNonHarnessHooks(hooksMap = {}) {
+  const filtered = {};
+  for (const [event, groups] of Object.entries(hooksMap)) {
+    if (!Array.isArray(groups)) continue;
+    const keptGroups = [];
+    for (const group of groups) {
+      if (!group || typeof group !== 'object' || !Array.isArray(group.hooks)) continue;
+      const keptHooks = group.hooks.filter(entry => !`${entry?.command ?? ''}\n${entry?.commandWindows ?? ''}`.includes('harness.mjs'));
+      if (keptHooks.length > 0) keptGroups.push({ ...group, hooks: keptHooks });
+    }
+    if (keptGroups.length > 0) filtered[event] = keptGroups;
+  }
+  return filtered;
+}
+
 export function buildClaudeBundle() {
   assertNoSymlinkAncestors(bundleRoot);
   const before = snapshotSource();
@@ -106,7 +140,7 @@ export function buildClaudeBundle() {
   // 1. Process all source files from .agents
   for (const source of sourceFiles) {
     const originalRelative = slash(path.relative(sourceRoot, source));
-    if (originalRelative === 'hooks.example.json' || isBundleExcluded(originalRelative)) continue;
+    if (originalRelative === 'hooks.example.json' || originalRelative === 'hooks.impeccable.example.json' || originalRelative === 'hooks.json' || isBundleExcluded(originalRelative)) continue;
 
     // Convert Skills
     if (duplicates.has(source)) {
@@ -162,16 +196,26 @@ export function buildClaudeBundle() {
       json({
         description: 'Optional harness and Impeccable hooks. Install at .claude/hooks.json in a trusted target project and review them in Claude Code before use.',
         ...hooks
-      }).replaceAll('.agents/', '.claude/'),
+      }).replaceAll('.agents/', '.claude/').replaceAll('--hook antigravity', '--hook claude'),
+      hooksSource
+    );
+    add(
+      'hooks.impeccable.example.json',
+      json({
+        description: 'Optional Impeccable hooks (Designer mode, without Harness hooks). Install at .claude/hooks.json in a trusted target project and review them in Claude Code before use.',
+        ...hooks,
+        hooks: filterNonHarnessHooks(hooks.hooks)
+      }).replaceAll('.agents/', '.claude/').replaceAll('--hook antigravity', '--hook claude'),
       hooksSource
     );
   }
 
-  // 4. Generate root CLAUDE.md from AGENTS.md
+  // 4. Generate root CLAUDE.md and CLAUDE.designer.md from AGENTS.md
   const agentsMdSource = path.join(repoRoot, 'AGENTS.md');
   const claudeMdContent = generateClaudeMd(fs.readFileSync(agentsMdSource, 'utf8'));
   writeIfChanged(path.join(repoRoot, 'CLAUDE.md'), claudeMdContent);
   add('CLAUDE.md', claudeMdContent, agentsMdSource);
+  add('CLAUDE.designer.md', formatDesignerPolicy(claudeMdContent), agentsMdSource);
 
   // 5. Handle retired files from previous bundle
   const retired = [];
@@ -189,6 +233,7 @@ export function buildClaudeBundle() {
   for (const file of retired) {
     fs.unlinkSync(file);
   }
+  pruneEmptyDirs(bundleRoot);
 
   // 7. Write manifest
   const manifest = {
@@ -203,7 +248,7 @@ export function buildClaudeBundle() {
       discoverableSkills,
       duplicatesPreservedAsReferences: duplicates.size,
       discoverableAgents,
-      rules: filesIn(path.join(sourceRoot, 'rules')).filter(f => f.endsWith('.md')).length,
+      rules: filesIn(path.join(sourceRoot, 'rules')).filter(f => f.endsWith('.md') && !isBundleExcluded(slash(path.relative(sourceRoot, f)))).length,
       customCommands: Object.keys(customCommands).length,
       generatedFiles: outputs.size
     },
