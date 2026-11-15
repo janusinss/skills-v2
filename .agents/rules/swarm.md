@@ -45,3 +45,13 @@ Every swarm worker — including specialized implementation/audit workers and th
 - **Hard Stop on Unavailability / Quota Exhaustion**:
   - If a worker hits quota exhaustion on one allowed Hydrogen tier, you may switch it only to the other allowed Hydrogen tier (`gemini-4-hydrogen-high` <-> `gemini-4-hydrogen-xhigh`) via `swarm{action:"model", name:"<worker>", model:"<target>"}` with an explanation.
   - If **both** `gemini-4-hydrogen-high` and `gemini-4-hydrogen-xhigh` are unavailable or out of quota, **STOP immediately** and report the unavailability/quota exhaustion to the user. Never downgrade a worker to medium/low Hydrogen, Flash, or any non-Hydrogen model.
+
+---
+
+## 4. Hybrid Task Briefs & Selective `.agents/agents/` Specialist Binding
+
+- **Implementation Workers (Custom Coordinator Briefs)**: Drive implementation, refactoring, and file-slice workers directly with surgical coordinator `brief` instructions (exact file ownership, concrete edits, and acceptance checks) without forcing them to load a generic `.agents/agents/<role>.md` file.
+- **Review, Security & Architecture Workers (Selective Specialist Checklists)**: Reference `.agents/agents/<role>.md` in a worker's `brief` selectively when spawning a dedicated reviewer, security/accessibility auditor, or cold-context `skeptic` ([skeptic.md](.agents/agents/skeptic.md), [security-auditor.md](.agents/agents/security-auditor.md), [silent-failure-hunter.md](.agents/agents/silent-failure-hunter.md), [a11y-architect.md](.agents/agents/a11y-architect.md), or stack `*-reviewer.md`).
+- **Swarm Tier-to-Model Mapping**: Both `reflex` and `builder` tiers strictly use `gemini-4-hydrogen-high` ONLY (no `flash`, `flash_lite`, or lower Hydrogen tiers); `brain` uses `CARBON` / `ARGON` (coordinator) or `gemini-4-hydrogen-xhigh` (architecture/audit/verifier workers & subagents, falling back to `high` only on `xhigh` quota exhaustion).
+- **Worker Subagent Delegation**: Keep optional `invoke_subagent` delegation for scoped read-only reconnaissance (`explorer`) or targeted specialist audits.
+

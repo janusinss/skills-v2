@@ -22,6 +22,7 @@ Before generating backend architecture, database schemas, or API code, inspect o
 | **System & Schema Visualization** | [archify](../skills/archify/SKILL.md) |
 | **Structural Decoupling & Refactoring** | [untangle-codebase](../skills/untangle-codebase/SKILL.md) |
 | **Security & Auth Defenses** | [security.md](security.md) |
+| **Specialist Subagents (`.codex/agents/`)** | [architect](../agents/architect.md) · [code-architect](../agents/code-architect.md) · [database-reviewer](../agents/database-reviewer.md) · [fastapi-reviewer](../agents/fastapi-reviewer.md) · [go-reviewer](../agents/go-reviewer.md) · [rust-reviewer](../agents/rust-reviewer.md) · [php-reviewer](../agents/php-reviewer.md) · [django-build-resolver](../agents/django-build-resolver.md) · [go-build-resolver](../agents/go-build-resolver.md) · [rust-build-resolver](../agents/rust-build-resolver.md) · [silent-failure-hunter](../agents/silent-failure-hunter.md) |
 
 ---
 

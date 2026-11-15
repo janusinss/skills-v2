@@ -54,9 +54,9 @@ export function openaiMetadata(original, skill) {
 }
 
 const codexTierMap = {
-  reflex: { model_tier: 'mini', reasoning_effort: 'low' },
-  builder: { model_tier: 'codex', reasoning_effort: 'medium' },
-  brain: { model_tier: 'reasoning', reasoning_effort: 'high' },
+  reflex: { model_tier: 'mini', reasoning_effort: 'medium', target_model: '6.1-terra-medium' },
+  builder: { model_tier: 'codex', reasoning_effort: 'high', target_model: '6.1-sol-medium/high | 6.1-terra-high/xhigh/max' },
+  brain: { model_tier: 'reasoning', reasoning_effort: 'max', target_model: '6.1-sol-max' },
 };
 
 function adaptCodexAgentFrontmatter(text) {
@@ -69,10 +69,11 @@ function adaptCodexAgentFrontmatter(text) {
     const cleaned = fm
       .replace(/\r?\nmodel:\s*\S+/g, '')
       .replace(/\r?\nmodel_tier:\s*\S+/g, '')
-      .replace(/\r?\nreasoning_effort:\s*\S+/g, '');
+      .replace(/\r?\nreasoning_effort:\s*\S+/g, '')
+      .replace(/\r?\ntarget_model:\s*.+/g, '');
     return cleaned.replace(
       /^tier:\s*(reflex|builder|brain)\s*$/m,
-      `tier: ${tier}\nmodel_tier: ${mapped.model_tier}\nreasoning_effort: ${mapped.reasoning_effort}`
+      `tier: ${tier}\nmodel_tier: ${mapped.model_tier}\nreasoning_effort: ${mapped.reasoning_effort}\ntarget_model: "${mapped.target_model}"`
     );
   });
 }
@@ -85,9 +86,9 @@ export function adaptMarkdown(text, sourceFile, duplicatePaths = new Map()) {
   if (sourceFile && path.basename(sourceFile) === 'AGENTS.md') {
     result = result
       .replace('(`tier:` frontmatter & 3-Edition Model Matrix)', '(`tier:`, `model_tier:` & `reasoning_effort:` frontmatter)')
-      .replace('**AGY / Gemini** `invoke_subagent` `Model`: `flash` or `flash_lite` (`model: flash`) · **GPT / Codex**: `model_tier: mini`, `reasoning_effort: low` · **Claude Code**: `model: haiku`', '**GPT / Codex**: `model_tier: mini`, `reasoning_effort: low`')
-      .replace('**AGY / Gemini** `invoke_subagent` `Model`: `inherit` (`model: inherit`) · **GPT / Codex**: `model_tier: codex`, `reasoning_effort: medium` · **Claude Code**: `model: sonnet`', '**GPT / Codex**: `model_tier: codex`, `reasoning_effort: medium`')
-      .replace('**AGY / Gemini** `invoke_subagent` `Model`: `pro` or `inherit` (`model: pro`) · **GPT / Codex**: `model_tier: reasoning`, `reasoning_effort: high` · **Claude Code**: `model: opus`', '**GPT / Codex**: `model_tier: reasoning`, `reasoning_effort: high`');
+      .replace('**AGY / Gemini**: `GEMINI HYDROGEN HIGH` (`gemini-4-hydrogen-high`; `invoke_subagent` `Model`: `inherit`, `model: inherit` — no `flash`/`flash_lite`) · **GPT / Codex**: `6.1 Terra` (`medium`) (`model_tier: mini`, `reasoning_effort: medium`) · **Claude Code**: `Haiku 5.5` (`high` / `xhigh` / `max`) (`model: haiku`)', '**GPT / Codex**: `6.1 Terra` (`medium`) (`model_tier: mini`, `reasoning_effort: medium`)')
+      .replace('**AGY / Gemini**: `GEMINI HYDROGEN HIGH` (`gemini-4-hydrogen-high`; `invoke_subagent` `Model`: `inherit`, `model: inherit`) · **GPT / Codex**: `6.1 Sol` (`medium` / `high`) or `6.1 Terra` (`high` / `xhigh` / `max`) (`model_tier: codex`, `reasoning_effort: high`) · **Claude Code**: `Sonnet 5.5` (`high` / `xhigh` / `max`) (`model: sonnet`)', '**GPT / Codex**: `6.1 Sol` (`medium` / `high`) or `6.1 Terra` (`high` / `xhigh` / `max`) (`model_tier: codex`, `reasoning_effort: high`)')
+      .replace('**AGY / Gemini**: `CARBON` / `ARGON` or `GEMINI HYDROGEN XHIGH` (`gemini-pro-orchestrator-g1-pro` / `gemini-4-argon-high` / `gemini-4-hydrogen-xhigh`; `invoke_subagent` `Model`: `pro` or `inherit`, `model: pro`) · **GPT / Codex**: `6.1 Sol` (`max`) (`model_tier: reasoning`, `reasoning_effort: max`) · **Claude Code**: `Opus 5.5` (`high` / `xhigh` / `max`) (`model: opus`)', '**GPT / Codex**: `6.1 Sol` (`max`) (`model_tier: reasoning`, `reasoning_effort: max`)');
   }
   result = result.replaceAll('~/.claude/skills/', '.agents/skills/').replaceAll('.claude/skills/', '.agents/skills/');
   result = result.replaceAll('via `view_file`', 'using the available file-reading tool or shell');
@@ -111,9 +112,19 @@ export function adaptMarkdown(text, sourceFile, duplicatePaths = new Map()) {
     result = result.replaceAll(slash(path.relative(path.dirname(sourceRoot), from)), slash(path.relative(path.dirname(sourceRoot), to)));
   }
   // Rewrite project-root command examples after rebasing local links. Preserve
-  // user-scoped ~/.agents paths and unrelated upstream discovery examples.
-  return result.replace(/(^|[\s"'`(=:\[]|\.\/)\.agents\/(skills|rules|resources|agents)(\/|[)\]#\s]|$)/gm, '$1.codex/$2$3')
-    .replace(/(^|[\s"'`(=:\[])\.agents\\(skills|rules|resources|agents)(\\|[)\]#\s]|$)/gm, '$1.codex\\$2$3');
+  // user-scoped ~/.agents paths, AGY-only rules/swarm.md, and edition-specific
+  // invocation paths on the Invocation by Edition line.
+  const rewriteAgentsPathsToCodex = value =>
+    value
+      .replace(/(^|[\s"'`(=:\[]|\.\/)\.agents\/(skills|rules(?!\/swarm\.md\b)|resources|agents)(\/|[)\]#\s]|$)/gm, '$1.codex/$2$3')
+      .replace(/(^|[\s"'`(=:\[])\.agents\\(skills|rules(?!\\swarm\.md\b)|resources|agents)(\\|[)\]#\s]|$)/gm, '$1.codex\\$2$3');
+  if (sourceFile && path.basename(sourceFile) === 'AGENTS.md') {
+    return result
+      .split(/(\r?\n)/)
+      .map((part, idx) => (idx % 2 === 0 && !/^\s*-\s+\*\*Invocation by Edition\*\*:/.test(part) ? rewriteAgentsPathsToCodex(part) : part))
+      .join('');
+  }
+  return rewriteAgentsPathsToCodex(result);
 }
 
 export function convertSkill(text, sourceFile, duplicates) {

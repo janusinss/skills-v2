@@ -4,6 +4,8 @@ description: "Expert Go code reviewer specializing in idiomatic Go, concurrency 
 tools: Read, Grep, Glob, Bash
 tier: brain
 model: opus
+target_model: "opus-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline
@@ -83,4 +85,6 @@ govulncheck ./...
 - **Warning**: MEDIUM issues only
 - **Block**: CRITICAL or HIGH issues found
 
-For detailed Go code examples and anti-patterns, see `skill: golang-patterns`.
+## Reference
+
+For detailed Go code examples, concurrency patterns, and anti-patterns, see [golang-pro](../skills/golang-pro/SKILL.md) and [go-concurrency-patterns](../skills/go-concurrency-patterns/SKILL.md).

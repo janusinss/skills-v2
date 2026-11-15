@@ -4,6 +4,8 @@ description: "Diagnose and fix React build failures across Vite, webpack, Next.j
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: builder
 model: sonnet
+target_model: "sonnet-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline
@@ -21,7 +23,7 @@ You are an expert React build error resolution specialist. Your mission is to fi
 
 ## Scope
 
-This agent owns **React build / bundler / runtime hydration** failures. For pure TypeScript type errors with no React involvement (no JSX/TSX, no `react` import), defer to a future `typescript-build-resolver` or fix inline only when the error blocks the React build.
+This agent owns **React build / bundler / runtime hydration** failures. For pure TypeScript type errors with no React involvement (no JSX/TSX, no `react` import), defer to [build-error-resolver](build-error-resolver.md) or fix inline only when the error blocks the React build.
 
 ## Core Responsibilities
 
@@ -210,7 +212,6 @@ Final: `Build Status: SUCCESS | Errors Fixed: N | Files Modified: <list>` or `Bu
 
 ## Related
 
-- Agent: `react-reviewer` for code review after build is green
-- Rules: `rules/react/coding-style.md`, `rules/react/patterns.md`
-- Skills: `skills/react-patterns/`, `skills/frontend-patterns/`
-- Commands: `/react-build`, `/react-review`
+- Agents: [react-reviewer](react-reviewer.md) for code review after build is green; [build-error-resolver](build-error-resolver.md) for non-React TypeScript and generic build errors
+- Rules: [frontend.md](../rules/frontend.md), [UI_Always.md](../rules/UI_Always.md)
+- Skills: [react-patterns](../skills/react-patterns/SKILL.md), [react-best-practices](../skills/react-best-practices/SKILL.md), [nextjs-best-practices](../skills/nextjs-best-practices/SKILL.md)

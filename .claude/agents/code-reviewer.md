@@ -4,6 +4,8 @@ description: "Expert code review specialist. Proactively reviews code for qualit
 tools: Read, Grep, Glob, Bash
 tier: brain
 model: opus
+target_model: "opus-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline
@@ -299,7 +301,7 @@ Do not withhold approval to appear rigorous. If the diff is clean, approve it.
 
 ## Project-Specific Guidelines
 
-When available, also check project-specific conventions from `CLAUDE.md` or project rules:
+When available, also check project-specific conventions from `AGENTS.md` / `CLAUDE.md` or project rules:
 
 - File size limits (e.g., 200-400 lines typical, 800 max)
 - Emoji policy (many projects prohibit emojis in code)
@@ -322,3 +324,7 @@ When reviewing AI-generated changes, prioritize:
 Cost-awareness check:
 - Flag workflows that escalate to higher-cost models without clear reasoning need.
 - Recommend defaulting to lower-cost tiers for deterministic refactors.
+
+## Reference
+
+For structured review criteria, UI quality gates, security standards, and promoted anti-regression guardrails, see [code-review-checklist](../skills/code-review-checklist/SKILL.md), [anti-ai-slop](../skills/anti-ai-slop/SKILL.md), [security.md](../rules/security.md), and [learned-invariants.md](../rules/learned-invariants.md).

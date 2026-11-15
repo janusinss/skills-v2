@@ -18,6 +18,7 @@ Before initiating any security or functional test:
      - Core Pentesting & AppSec: [`penetration-testing-with-strix`](../skills/penetration-testing-with-strix/SKILL.md) · [`application-security-testing`](../skills/application-security-testing/SKILL.md) · [`ethical-hacking-methodology`](../skills/ethical-hacking-methodology/SKILL.md)
      - Compliance & Patching: [`fix-security-vulnerabilities-with-strix`](../skills/fix-security-vulnerabilities-with-strix/SKILL.md) · [`ci-security-scanning-with-strix`](../skills/ci-security-scanning-with-strix/SKILL.md)
      - E2E & Browser QA: [`e2e-testing-patterns`](../skills/e2e-testing-patterns/SKILL.md) · [`playwright-skill`](../skills/playwright-skill/SKILL.md) · [`agent-browser`](../skills/agent-browser/SKILL.md)
+     - Specialist Subagents: [penetration-tester](../agents/penetration-tester.md) · [security-auditor](../agents/security-auditor.md) · [e2e-runner](../agents/e2e-runner.md)
    - *Limitation Protocol*: If Strix skills are missing, report that Strix automation is unavailable and fall back to manual checklist verification. Never claim an automated exploit was validated if Strix did not execute.
 2. **Safety & Data Protection**:
    - **Environment Isolation**: Test local containers (`localhost`, `host.docker.internal`) or dedicated staging domains.

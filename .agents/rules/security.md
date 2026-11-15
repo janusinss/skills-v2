@@ -21,6 +21,7 @@ Before generating security-sensitive code, inspect only the 1–2 skills matchin
 | **Frontend & Browser Security (XSS, CSRF, CSP)** | [frontend-security-coder](.agents/skills/frontend-security-coder/SKILL.md) |
 | **Auth, Sessions & IDOR** | [auth-implementation-patterns](.agents/skills/auth-implementation-patterns/SKILL.md) · [api-security-best-practices](.agents/skills/api-security-best-practices/SKILL.md) |
 | **Remediation & CI/CD Gates** | [fix-security-vulnerabilities-with-strix](.agents/skills/fix-security-vulnerabilities-with-strix/SKILL.md) · [ci-security-scanning-with-strix](.agents/skills/ci-security-scanning-with-strix/SKILL.md) |
+| **Specialist Subagents (`.agents/agents/`)** | [security-auditor](.agents/agents/security-auditor.md) · [penetration-tester](.agents/agents/penetration-tester.md) · [silent-failure-hunter](.agents/agents/silent-failure-hunter.md) · [skeptic](.agents/agents/skeptic.md) |
 
 ---
 

@@ -3,14 +3,18 @@ name: react-build-resolver
 description: "Diagnose and fix React build failures across Vite, webpack, Next.js, CRA, Parcel, esbuild, and Bun. Handles JSX/TSX compile errors, hydration mismatches, server/client component boundary failures, missing types, and bundler-specific configuration issues with minimal, surgical changes. MUST BE USED when a React build fails."
 tier: builder
 model_tier: codex
-reasoning_effort: medium
+reasoning_effort: high
+target_model: "6.1-sol-medium/high | 6.1-terra-high/xhigh/max"
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
   - list_dir
   - write_to_file
+  - write_file
   - replace_file_content
+  - edit_file
   - run_command
 mainAgent: true
 subagent: true
@@ -32,7 +36,7 @@ You are an expert React build error resolution specialist. Your mission is to fi
 
 ## Scope
 
-This agent owns **React build / bundler / runtime hydration** failures. For pure TypeScript type errors with no React involvement (no JSX/TSX, no `react` import), defer to a future `typescript-build-resolver` or fix inline only when the error blocks the React build.
+This agent owns **React build / bundler / runtime hydration** failures. For pure TypeScript type errors with no React involvement (no JSX/TSX, no `react` import), defer to [build-error-resolver](build-error-resolver.md) or fix inline only when the error blocks the React build.
 
 ## Core Responsibilities
 
@@ -221,7 +225,6 @@ Final: `Build Status: SUCCESS | Errors Fixed: N | Files Modified: <list>` or `Bu
 
 ## Related
 
-- Agent: `react-reviewer` for code review after build is green
-- Rules: `rules/react/coding-style.md`, `rules/react/patterns.md`
-- Skills: `skills/react-patterns/`, `skills/frontend-patterns/`
-- Commands: `/react-build`, `/react-review`
+- Agents: [react-reviewer](react-reviewer.md) for code review after build is green; [build-error-resolver](build-error-resolver.md) for non-React TypeScript and generic build errors
+- Rules: [frontend.md](../rules/frontend.md), [UI_Always.md](../rules/UI_Always.md)
+- Skills: [react-patterns](../skills/react-patterns/SKILL.md), [react-best-practices](../skills/react-best-practices/SKILL.md), [nextjs-best-practices](../skills/nextjs-best-practices/SKILL.md)

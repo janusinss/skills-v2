@@ -4,6 +4,8 @@ description: "Review code for silent failures, swallowed errors, bad fallbacks, 
 tools: Read, Grep, Glob, Bash
 tier: brain
 model: opus
+target_model: "opus-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline
@@ -58,3 +60,7 @@ For each finding:
 - issue
 - impact
 - fix recommendation
+
+## Reference
+
+For root-cause isolation, security boundary checks, and promoted anti-regression guardrails, see [systematic-debugging](../skills/systematic-debugging/SKILL.md), [security-audit](../skills/security-audit/SKILL.md), and [learned-invariants.md](../rules/learned-invariants.md).

@@ -129,6 +129,14 @@
       "modified": "description rewritten (skills-v2 phase 4)",
       "contentHash": "8fa6184c27c166f8b5f85056dc7562ce8f683ec61e4436b48e36361f26d24646"
     },
+    "chrome-extensions": {
+      "source": "GoogleChrome/modern-web-guidance",
+      "sourceType": "github",
+      "commit": null,
+      "license": "Apache-2.0",
+      "modified": null,
+      "contentHash": "93c513c832dca2faec00a119e6da80d265c62dc08b4c21164ae50100fd2ae8e6"
+    },
     "ci-security-scanning-with-strix": {
       "source": "usestrix/strix",
       "sourceType": "github",
@@ -175,7 +183,7 @@
       "commit": "d2ef2680594f9a17526a6e1a2e18b3d242c5d17b",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "8d7cc615a060e1e9a80be642f866c83d25f06aad09b35398542e8e127565d168"
+      "contentHash": "b6144ae901d3978d5482248a9c83030deda254619729598de36d2f96438ce758"
     },
     "database-design": {
       "source": "sickn33/antigravity-awesome-skills",
@@ -344,6 +352,14 @@
       "license": "Apache-2.0",
       "modified": "description/references updated in skills-v2",
       "contentHash": "62890e2739a2d9f118301a14d9ecc1f1748dc1fc82d517477f4ff54f39cbf969"
+    },
+    "modern-web-guidance": {
+      "source": "GoogleChrome/modern-web-guidance",
+      "sourceType": "github",
+      "commit": null,
+      "license": "Apache-2.0",
+      "modified": null,
+      "contentHash": "32c7f5ffb23cb65b335691d5012674d35ec0cd04d4bf6af682c25706a3df5060"
     },
     "nextjs-app-router-patterns": {
       "source": "sickn33/antigravity-awesome-skills",

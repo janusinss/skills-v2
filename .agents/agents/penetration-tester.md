@@ -4,12 +4,15 @@ description: "Specialist subagent for executing penetration testing, vulnerabili
 tier: builder
 model: inherit
 tools:
+  - read_file
   - view_file
-  - write_to_file
-  - replace_file_content
   - grep_search
   - find_by_name
   - list_dir
+  - write_file
+  - write_to_file
+  - edit_file
+  - replace_file_content
   - run_command
 mainAgent: true
 subagent: true
@@ -27,8 +30,8 @@ You run tests within an isolated subagent context to prevent heavy command logs 
 ## Authoritative Reference & Standards
 
 All authoritative testing procedures, Strix scanning modes, functional verification gates, and reporting templates are defined in:
-- **[.agents/rules/penetrating-and-testing.md](../rules/penetrating-and-testing.md)**
-- **Defensive Standards**: Ground all vulnerability evaluations and patch requirements in **[.agents/rules/security.md](../rules/security.md)**
+- **[penetrating-and-testing.md](../rules/penetrating-and-testing.md)**
+- **Defensive Standards**: Ground all vulnerability evaluations and patch requirements in **[security.md](../rules/security.md)**
 
 ---
 
@@ -86,3 +89,7 @@ Every test cycle must return a structured Markdown audit report matching the sch
 - [x] Zero console errors across all audited functional journeys.
 - [x] Zero horizontal layout overflow across 375px, 768px, and 1280px viewports.
 ```
+
+## Reference
+
+For autonomous Strix penetration testing, security audits, vulnerability catalogs, and promoted anti-regression guardrails, see [penetration-testing-with-strix](../skills/penetration-testing-with-strix/SKILL.md), [security-audit](../skills/security-audit/SKILL.md), [top-web-vulnerabilities](../skills/top-web-vulnerabilities/SKILL.md), and [learned-invariants.md](../rules/learned-invariants.md).

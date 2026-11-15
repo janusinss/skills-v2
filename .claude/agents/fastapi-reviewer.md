@@ -4,6 +4,8 @@ description: "Reviews FastAPI applications for async correctness, dependency inj
 tools: Read, Grep, Glob, Bash
 tier: brain
 model: opus
+target_model: "opus-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline
@@ -78,3 +80,7 @@ End with:
 
 - `Tests checked:` commands run or why they were skipped.
 - `Residual risk:` anything important that could not be verified.
+
+## Reference
+
+For FastAPI service architecture, async Python patterns, backend standards, and security rules, see [fastapi-templates](../skills/fastapi-templates/SKILL.md), [async-python-patterns](../skills/async-python-patterns/SKILL.md), [backend.md](../rules/backend.md), and [security.md](../rules/security.md).

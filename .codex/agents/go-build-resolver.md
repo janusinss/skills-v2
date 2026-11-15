@@ -3,13 +3,17 @@ name: go-build-resolver
 description: "Go build, vet, and compilation error resolution specialist. Fixes build errors, go vet issues, and linter warnings with minimal changes. Use when Go builds fail."
 tier: builder
 model_tier: codex
-reasoning_effort: medium
+reasoning_effort: high
+target_model: "6.1-sol-medium/high | 6.1-terra-high/xhigh/max"
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
   - list_dir
+  - write_file
   - write_to_file
+  - edit_file
   - replace_file_content
   - run_command
 mainAgent: true
@@ -112,4 +116,6 @@ Remaining errors: 3
 
 Final: `Build Status: SUCCESS/FAILED | Errors Fixed: N | Files Modified: list`
 
-For detailed Go error patterns and code examples, see `skill: golang-patterns`.
+## Reference
+
+For detailed Go patterns, concurrency idioms, and code examples, see [golang-pro](../skills/golang-pro/SKILL.md) and [go-concurrency-patterns](../skills/go-concurrency-patterns/SKILL.md).

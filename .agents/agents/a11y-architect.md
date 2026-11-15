@@ -4,12 +4,12 @@ description: "Accessibility Architect specializing in WCAG 2.2 compliance for We
 tier: brain
 model: pro
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
   - list_dir
-  - write_to_file
-  - replace_file_content
+  - run_command
 mainAgent: true
 subagent: true
 commandExecutionPolicy: auto
@@ -43,7 +43,7 @@ You are a Senior Accessibility Architect. Your goal is to ensure that every digi
 
 ### Step 2: Strategic Implementation
 
-- **Apply the Accessibility Skill**: Invoke specific logic to generate semantic code.
+- **Apply Accessibility Standards**: Consult [UI_Always.md](../rules/UI_Always.md), [frontend.md](../rules/frontend.md), [ui-styling](../skills/ui-styling/SKILL.md), and [anti-ai-slop](../skills/anti-ai-slop/SKILL.md) for semantic HTML/ARIA requirements, and verify live DOM accessibility trees with [agent-browser](../skills/agent-browser/SKILL.md) and [playwright-skill](../skills/playwright-skill/SKILL.md).
 - **Define Focus Flow**: Map out how a keyboard or screen reader user will move through the interface.
 - **Optimize Touch/Pointer**: Ensure all interactive elements meet the minimum **24x24 pixel** spacing or **44x44 pixel** target size requirements.
 
@@ -156,4 +156,5 @@ Button(action: close) {
 
 ## Reference
 
-- See skill `accessibility` to transform raw UI requirements into platform-specific accessible code (WAI-ARIA, SwiftUI, or Jetpack Compose) based on WCAG 2.2 criteria.
+- Rules: [UI_Always.md](../rules/UI_Always.md), [frontend.md](../rules/frontend.md)
+- Skills: [ui-styling](../skills/ui-styling/SKILL.md), [modern-web-guidance](../skills/modern-web-guidance/SKILL.md), [anti-ai-slop](../skills/anti-ai-slop/SKILL.md), [agent-browser](../skills/agent-browser/SKILL.md), [playwright-skill](../skills/playwright-skill/SKILL.md)

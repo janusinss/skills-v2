@@ -4,12 +4,15 @@ description: "Performance analysis and optimization specialist. Use PROACTIVELY 
 tier: builder
 model: inherit
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
   - list_dir
   - write_to_file
+  - write_file
   - replace_file_content
+  - edit_file
   - run_command
 mainAgent: true
 subagent: true
@@ -464,3 +467,8 @@ const fastCode = ...;
 ---
 
 **Remember**: Performance is a feature. Users notice speed. Every 100ms of improvement matters. Optimize for the 90th percentile, not the average.
+
+## Reference
+
+- Skills: [react-best-practices](../skills/react-best-practices/SKILL.md), [postgres-best-practices](../skills/postgres-best-practices/SKILL.md)
+- Rules: [MOTION.md](../rules/MOTION.md), [backend.md](../rules/backend.md)

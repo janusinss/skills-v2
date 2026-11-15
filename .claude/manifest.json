@@ -2,42 +2,42 @@
   "generatedBy": "tools/claude/build.mjs",
   "formatVersion": 1,
   "hashing": "sha256-lf-text",
-  "checkedOn": "2026-11-14",
+  "checkedOn": "2026-11-15",
   "originalSnapshot": {
-    "digest": "4a702ec17f7a32eb90c751e20b1633f197583b4dceb01a840e09143793659f2a",
+    "digest": "2be0b50f70fa5aca200629bd830787c97738dabee49b7458083e95c8f7e2f945",
     "files": {
-      ".agents/agents/a11y-architect.md": "ca25e68cde8464ee981417d935a2c651cd25958593afc1ce36d5cd84cee35cef",
-      ".agents/agents/agent-evaluator.md": "288a584295dedbe4a6d8b0ff920ec85c1a0b2348b304dfd0cbd26267e201c7a8",
-      ".agents/agents/architect.md": "2661d7ca527321c990ce26619254abd93539732533d9bc40928cfc4e233973a7",
-      ".agents/agents/build-error-resolver.md": "f41941e46ca4a32371d654c3c3c3d76e3eecfa2e8366edcf6a588295b5b5000b",
-      ".agents/agents/code-architect.md": "1575122f547860731711a3d18dd1a7ae51e9ec3b68e2a8c593636fc9ea67fd36",
-      ".agents/agents/code-reviewer.md": "655f498ee0fe4bf590bca426a685e83e979c02d66290dedb1f07a9b4b05d5ef3",
-      ".agents/agents/code-simplifier.md": "120b82bdc11e72c0fce38060cbb4cad57fb19f66fd89e5e480c6418c7b32e2ec",
-      ".agents/agents/cpp-build-resolver.md": "afd6625855d65fff3bdc2af0d71e1129683f99b7ef3bc9b04a2936bb04c357d2",
-      ".agents/agents/database-reviewer.md": "bdb3ba76ca9ce6ce902a7665c349542c8a9ac453b13cbde1fc7574d038fa1ba8",
-      ".agents/agents/django-build-resolver.md": "f6b63c26a17f02a47e00c82fb35bac0eec94adb9196085628408547deccacdb6",
-      ".agents/agents/e2e-runner.md": "33b31670aa3de67c68232abcdb25aaaa5d58d3684853abe08b54313ca04a0cb4",
-      ".agents/agents/explorer.md": "4ec27ff3f6378fd3e896fe352df197efc7fe612de76c10d669a4988a5b2c563d",
-      ".agents/agents/fastapi-reviewer.md": "1f5d41dcd1e9a8747afd91f00528c052a31f6a353bad909934a1cc3f45aee659",
-      ".agents/agents/go-build-resolver.md": "44e7af0116aeb168607dbe2fedccbcebe5dbaa5187ae61f05f682b9a962cb448",
-      ".agents/agents/go-reviewer.md": "283050f5deda1eef0e94211440979a49d41376722931e4c1cc53285bd452efe4",
-      ".agents/agents/penetration-tester.md": "568a1f3f614f6d5d43dacc1a60d15208f633333ade7db856ccecbb63686f1dcd",
-      ".agents/agents/performance-optimizer.md": "2da6f735b5e2295996468288ff8bb4c03850f155177b657affc35dcb05820bd8",
-      ".agents/agents/php-reviewer.md": "2f2a5ce01aeb892ca0ce36c94dc146dcce235997b8d99d2779334ba55c94e52a",
-      ".agents/agents/planner.md": "bf776e101ef026a60fa93abca708bfb46aae069aa82deb2a4542a52dd567679f",
-      ".agents/agents/pytorch-build-resolver.md": "5eb7a755afb00811a80c7f0c1a61a03013af8cdd3cb4a36d1d09598eba15c6ef",
-      ".agents/agents/react-build-resolver.md": "d7e58ea8a26f9703098a61e4affaa88352b22e43557bcc95568d048e29d3269f",
-      ".agents/agents/react-reviewer.md": "45bbbd2f94197309d4ea5212a807a1d13ea452a6d0d2a65416c056e61c87d280",
-      ".agents/agents/refactor-cleaner.md": "95c8b58abe9a647ab433bd7437f93dc31669b5c7a82dbeef07805fc2020f1d7b",
-      ".agents/agents/rust-build-resolver.md": "6a0ef13bbab9097ac20bce5b1de818474efff58b83f653d1c6318db52f83a4cd",
-      ".agents/agents/rust-reviewer.md": "b63d939f67c165fd9ca12304bee26b3fcc7a9a376abf9c65532e287b58e9c74b",
-      ".agents/agents/security-auditor.md": "2d68246337f6af91e51a5304407785e640ebd014f67173c1642f10da75410e57",
-      ".agents/agents/silent-failure-hunter.md": "17acfb0d76768b8e06dc6e6e5c7d088a570bd15bc954746369f58e9f4465642d",
-      ".agents/agents/skeptic.md": "64a28331f4e723a911cf6a7c35b47b05d02c03ddd2f55608966badbd4f39b410",
-      ".agents/agents/spec-miner.md": "f33cb63ef86ed373c6349cede14679345d604a8b67c7c7da9eea96e88cb62cb0",
-      ".agents/agents/tdd-guide.md": "4e466aeee9e177e8fe8747bb3a82d4dee2bf6659664994a479d77ccf5ff2b9cd",
-      ".agents/agents/typescript-reviewer.md": "e67ef03923ea46e6154cf7244d89d62c6a0669dce91665c5bcca6e5bddc3fa85",
-      ".agents/agents/vue-reviewer.md": "6ceb75b5d5fb8c01e020e63fb493d00f15a6ff12db5ef794f581ad7323f53622",
+      ".agents/agents/a11y-architect.md": "944a665705954fc9a05e3a97907500e3ee57de8d72ebb81de961c866a3eb03ae",
+      ".agents/agents/agent-evaluator.md": "a868cea4487b3252c87f9a1262cb13c667510337ae8d45d33a2479b7d80c1d33",
+      ".agents/agents/architect.md": "2ff199c920ccdfe93bb3006bf5619a1d9cef67e71180026991247bcc902f74f4",
+      ".agents/agents/build-error-resolver.md": "9268ffd9694a564ea955df6b0d1d96e21cc10490a320ff5cedc4074b88e180d8",
+      ".agents/agents/code-architect.md": "2e5ae2d4cdddf9e6262dcb87c7548c6bc75772f746dcf61b8c99522e894f5577",
+      ".agents/agents/code-reviewer.md": "5b49fc40723033c01c430406c4b0b4bd09365f60230ecfe9af3c193340ad464e",
+      ".agents/agents/code-simplifier.md": "cacb8fe34cd77d6aa13c21e57ee8706729159b0db53ee20e82835b9073aa4fd2",
+      ".agents/agents/cpp-build-resolver.md": "7593157cb835ee50cfb2d2f0563def3f45476f016c25f3f5b342d3c95824a4cd",
+      ".agents/agents/database-reviewer.md": "79faaacbbcf2818a2a033c2d85739008ad56913ebee7fc05755300a1a456c20d",
+      ".agents/agents/django-build-resolver.md": "4a0161d7f2cad7141358ca5718a4a73180eddfc279b43560f1961d45ce0a6c8a",
+      ".agents/agents/e2e-runner.md": "f749f9c0f5145bd1154d8b22de4001ee7696c8751e79fe995abd770380893625",
+      ".agents/agents/explorer.md": "1323bc7dc2d64a92385df2e86cc2be39f979c023fccc701007231de8df146e5a",
+      ".agents/agents/fastapi-reviewer.md": "7e47bbf405dcba3d8f093f50f83163d1a974c15e5b74087df9f093ec996c2d6d",
+      ".agents/agents/go-build-resolver.md": "07be8d86aa7984c518a2905863f8ead1074d6847e718e070ad87301f56e06323",
+      ".agents/agents/go-reviewer.md": "5ee2b1811a0e3ab04466f630207d3ddb4a5910fca6d270745363a3321af249d0",
+      ".agents/agents/penetration-tester.md": "f53f60d59a29510ad8b356e396e0446a46c81c485c6b0ecf0f128a30691f1ad5",
+      ".agents/agents/performance-optimizer.md": "b7273da1884bf2768e48fc687b8bdad8dda260663a236d0213abb7123ebf67a0",
+      ".agents/agents/php-reviewer.md": "8fbddd78f63ce3396e462f84103b7ae9f8d0b4fcc94de9dadb898a8779b8a7c4",
+      ".agents/agents/planner.md": "b056dd51593097e9c61622f99401736d77dbe0c8731b072da60d40fc265eb9ac",
+      ".agents/agents/pytorch-build-resolver.md": "8f116ef1ad31f17fc607a212a70e5c9a10d52170b338563efae12d3ec5a88188",
+      ".agents/agents/react-build-resolver.md": "65c25287ee6982671d04c76d90cf00654ac9ac2bef2f9306eb019b33f75ea7b9",
+      ".agents/agents/react-reviewer.md": "450e72f7045c012578147fa1df989cb59778089c7c4d18302bbe4be3ea5a9145",
+      ".agents/agents/refactor-cleaner.md": "b89e40844ec637be664768a4ebd260c06aa73f0c64f3390bf16ed934b94c1166",
+      ".agents/agents/rust-build-resolver.md": "01da707b040896055cebd168796e825e8be0b6f56685d244d973edf431f8775c",
+      ".agents/agents/rust-reviewer.md": "49338608b01511bb329e3937e03679bd280d72b1141616d8851f28aec0ffc709",
+      ".agents/agents/security-auditor.md": "696964dea124b8011c96a49a9e79c0edee7f2c20b7fdf573c084fd14fa73434e",
+      ".agents/agents/silent-failure-hunter.md": "7fa43683879e3387739c290953ac4dc54e6e515aaaaeff7035c84cfb8ac14c01",
+      ".agents/agents/skeptic.md": "cdeb385cd74dd32544102feb8a3f3fa6026d24cbaec59c0d0646bf5ca00ad191",
+      ".agents/agents/spec-miner.md": "ce9cfeaeebb375c9a19e7279d2f915fc03ad0f5dee070f1d588950d9479bb703",
+      ".agents/agents/tdd-guide.md": "4cbd051aa1b4d48e13bb1cc1f3dfe0f70970126a049aa36d1a5177b6e64661c5",
+      ".agents/agents/typescript-reviewer.md": "7d21edb2d83e2bb734234706afeda23a06d4698c3667656bad36c07f89117e47",
+      ".agents/agents/vue-reviewer.md": "207853031470f6c9c8f256c06de2af428bfba7d8a9159c0bd1e573baa11d0a92",
       ".agents/hooks.example.json": "32e78547c93d45d142449da13713ace4f0bb2e05b5f02d0d386cb05594ea3562",
       ".agents/hooks.impeccable.example.json": "bb69ecfde721145113a2ba9d3b4e9515969ecf98f3321800d71ebf240cd2be5f",
       ".agents/resources/creative-libraries/README.md": "48ce4c40da73a4cf3ab0af91632477fc01da84c38d542a0c17840a88eeb3d052",
@@ -333,16 +333,16 @@
       ".agents/resources/creative-libraries/tsconfig.json": "ff331833ca0f95a77afd8b7fd134bd65f2340b8e0e79de7ab8d64910aef7af80",
       ".agents/resources/creative-libraries/types/ambient.d.ts": "b05fa40bf9480db9fb90530b833eaca137c6373313af1440d531b61d9cb48b6a",
       ".agents/rules/MOTION.md": "dce45485adcc62887bd42bac8e555eff42fef6e691b300e1001b59c76ad6ca20",
-      ".agents/rules/UI_Always.md": "64cc175529fa347bc19bd47dcbb3085153ecfb028d432f607b7bb7d783f28e0c",
-      ".agents/rules/backend.md": "7b3e37c64044c01bc6cb9de9cc7bf55e36e9c3316089e6a482b51bfeb4118cb4",
-      ".agents/rules/frontend.md": "fdee14985397204e88ed47dcbbf6f773738a253188f0e46425506cb45393baf6",
+      ".agents/rules/UI_Always.md": "776392df40581941b1b4a9f6d77fe24cea8d7f241d519a3760bca04ca2255a61",
+      ".agents/rules/backend.md": "ef90374bb9206fe4a74ba65c6fb71435a48eb3961c74c7dd1324627784f1ed81",
+      ".agents/rules/frontend.md": "ccf8f8a509957782e7b2c9aa3c7c8a80a2204d10650faf5d0e0c65a65077241c",
       ".agents/rules/install.md": "167ce7c27a86f927c620cda7a617b0414a4e9eb1b37e46c9a46bf5feaf02d06a",
       ".agents/rules/learned-invariants.md": "0c8fa874b1483c4292953b483e46f319a51d4c93b14d6db38340b08f318bc9c4",
-      ".agents/rules/penetrating-and-testing.md": "c2ebb5bd76f49ee107e707ff78eb4c290811aff603a3bdd9c8ec27e3916d4a87",
-      ".agents/rules/security.md": "0105f050c8111b6703ec2c0a32786c02d068b60c36c2784aef2c32837c657392",
-      ".agents/rules/starting-brandnew.md": "7a8e5b91a056b93d21f769b2466c4c90a945c34b979307b5e19a395ef6d7ec08",
-      ".agents/rules/starting-existing.md": "20940a7b96b6586e79f9743f2e885ba6ea7728d895b8191343eef3065511d2ab",
-      ".agents/rules/swarm.md": "b441dbc3ed67ca86a1f7c29fbae77673313b64d994bb2adea5115cb60030b890",
+      ".agents/rules/penetrating-and-testing.md": "681d7b9e0f9f860f746c70c1ce512a7bc816dd998f526775928b43890439ef99",
+      ".agents/rules/security.md": "1c1cbd8327a8d4d39ce8ed2f4c194923a75435fbd3a993f4267b3f06935ffc1d",
+      ".agents/rules/starting-brandnew.md": "f17527bb5b578166b7a86bf7aaa9ceb4f1d26340cd84ac570a28858c90ce42a6",
+      ".agents/rules/starting-existing.md": "d465268ac9221bd37b1fbcabc8087c4cef8a4487ad5414eee79044915c85c167",
+      ".agents/rules/swarm.md": "809a33a6c420494b5b3edfcd85d51738ab9bcbcf820a63e52f61ddf253366812",
       ".agents/skills/3d-web-experience/SKILL.md": "ccdf216cc836ed8e339f8bafb78001d1deb6bb3a2d9a5beb705407fdd8300d10",
       ".agents/skills/agent-browser/SKILL.md": "4d4a271e670c063470f85ae10ae22a7e47aadbcc29d206beac3252592e60ea70",
       ".agents/skills/agent-browser/references/authentication.md": "590d5b4b53e3088243cceca79ada5c4bebb36633d1e7b2f8baa3076269641a9f",
@@ -1465,6 +1465,30 @@
       ".agents/skills/backend-dev-guidelines/resources/validation-patterns.md": "ca0f15102b4ab9c85013f036218abed81ce0121e52887647bab39811adfe4322",
       ".agents/skills/brandkit/SKILL.md": "a7e47e345fff798c67bf824450d9d79bea3956d41d57a63dc654e23779516835",
       ".agents/skills/brandkit/references/visual-modes-and-direction.md": "d67d8ffe320f54a90aafbb6ad211a8754598cb004a7bfea1e2d26395f66421d9",
+      ".agents/skills/chrome-extensions/SKILL.md": "66417dc415d26978094a12af34d44c5b3efa49927f9396f6bfc8270f2d184d68",
+      ".agents/skills/chrome-extensions/references/extensions/api-calling.md": "0c34c9b231f3d767b6961de6d1e87c4ca9535a4f6c2ed4dfe60bb48b73626254",
+      ".agents/skills/chrome-extensions/references/extensions/auth-identity.md": "0a79f08a39a1835b7b7b7bf95e05cd33c4e4691efe6b75b1c59057260101fbd0",
+      ".agents/skills/chrome-extensions/references/extensions/content-scripts.md": "9439394dc38f49ba1147cde2508741f16825f8659c2c97925b71abe6af104d6c",
+      ".agents/skills/chrome-extensions/references/extensions/context-menus.md": "c69c6d409e7a1adb00786541f3a857e0770867fb23bb7aa6bb76ed35fffb850b",
+      ".agents/skills/chrome-extensions/references/extensions/csp-sandbox.md": "3169a8f2f636a912212cbd12636a58337b1df07b333ea5818aec6eea50398228",
+      ".agents/skills/chrome-extensions/references/extensions/declarative-net-request.md": "4b986713921da1a1e12dd68da5ee8684e43b8a084f323cced503bcb8dc8b8b03",
+      ".agents/skills/chrome-extensions/references/extensions/devtools.md": "816bd0e240a6814713b59f045461c6c24e54502b302425abe463c34f932babf7",
+      ".agents/skills/chrome-extensions/references/extensions/icons.md": "a996281d5482fa145a7912c92f71fe4eb582a0e91e674f9fef02379aecb0fce3",
+      ".agents/skills/chrome-extensions/references/extensions/media-capture.md": "c6bddb3c51c0b0f36d302e7dfde9558dea5eb5febccda315e911119a6e08cea3",
+      ".agents/skills/chrome-extensions/references/extensions/message-passing.md": "d4c4d84caa6761a5afb31f013ac780c2db157f3a14a23b6c0070730141dbf254",
+      ".agents/skills/chrome-extensions/references/extensions/omnibox.md": "e310ccccc673bb4cb4c4ed42a8eb821af30e271145ee06db79f62649def4bd5c",
+      ".agents/skills/chrome-extensions/references/extensions/permissions.md": "b9d248c90380a31d171429b6bb1c007f897647acb83f83c98e0018260d6ae299",
+      ".agents/skills/chrome-extensions/references/extensions/popup-ui.md": "2a9567e5b431910702542707a09357f2031969238bda7807155dbecb1a317fb4",
+      ".agents/skills/chrome-extensions/references/extensions/prompt-api.md": "f376c73354ec804dc00dc1e14d0fec8f19da79f5d7c141bd5a6b40d6e49e0330",
+      ".agents/skills/chrome-extensions/references/extensions/service-worker.md": "6149ec9e5a1185486ba7157d631a24525b41377d4d2c4af13058ea2f6e2715d1",
+      ".agents/skills/chrome-extensions/references/extensions/side-panel.md": "7e6b68b9aff6532495b8d89af097bb3c0f72b3a329c92a598be3ca50a43ed15c",
+      ".agents/skills/chrome-extensions/references/extensions/storage.md": "208736186cdc606d4d98efe64ea17f1087f13755415360d59035879e7580dde2",
+      ".agents/skills/chrome-extensions/references/extensions/tab-management.md": "f16f568aaa5015985a6fc03c748f2f85ab66284e510ed0e782f637f3ae492622",
+      ".agents/skills/chrome-extensions/references/extensions/user-scripts.md": "9f77cbd366392ad64be07bb566104c79ff6eb0fbc2b3629495376bc7e23cd83d",
+      ".agents/skills/chrome-extensions/references/webstore/chromewebstore-template.md": "52aad75138110ffe1b4d21aa1abe702ad796b7627fbb027a482d939c30b29e1b",
+      ".agents/skills/chrome-extensions/references/webstore/privacy-policy.md": "70dda79e2d5e2d574b10c0121c2f9ea7ab6d644229af570d93c69042f2ef3f98",
+      ".agents/skills/chrome-extensions/references/webstore/review-checklist.md": "5d13e2a60b823f82411ec97c75736aa1395dc387e1354c0c05b52a109c22c45f",
+      ".agents/skills/chrome-extensions/references/webstore/store-listing.md": "394978cc316486da9a35a30344e380bf072db7d25b54f89a9f285d98660fafb0",
       ".agents/skills/ci-security-scanning-with-strix/SKILL.md": "401fb67e0ee30fd1b88083d367fa2ede5039c475e5021ca4f30743c09581e43f",
       ".agents/skills/code-review-checklist/SKILL.md": "d586683cd7db95d4e940564cf0e0f0ea8f8676e9d00dcd84bd26c050fe02f465",
       ".agents/skills/competitor-alternatives/SKILL.md": "d2430bc199184b9c005294958d0a50055b210b8d3630bd97474bf2155948a4d5",
@@ -1478,7 +1502,7 @@
       ".agents/skills/content-creator/scripts/brand_voice_analyzer.py": "348d601b18d72160f30f7afac74ca0886a7ba1b6d9d5b36da82763f2c6e1426c",
       ".agents/skills/content-creator/scripts/seo_optimizer.py": "f677277baf9aedad02f8784f9938472cdd31401f0b3bce0927530e819425a0b3",
       ".agents/skills/continuous-agent-loop/SKILL.md": "24a215a06ff38b77bbeb25431bf7bd2755342b4e3ef3ff68742b39628d6073fa",
-      ".agents/skills/continuous-agent-loop/scripts/harness.mjs": "cb2dc2b1d96a8059eb895d6d8d7c03e9d8430277f3a9761de7579cb66f4ae8af",
+      ".agents/skills/continuous-agent-loop/scripts/harness.mjs": "4526886c796fb98bed1a8c8a56c1ffbc2b8a865fb504e2ef53b6d0be4c4460d0",
       ".agents/skills/database-design/SKILL.md": "46a4ebfc39b02757951925737f377bee4cba796c6c6b5b2115d913522fb99d71",
       ".agents/skills/database-design/database-selection.md": "6517da101e8eacc02e485444d8a8520c27249f3b2b02b01b5b02e4f7886b260c",
       ".agents/skills/database-design/indexing.md": "eec8ce01e7c1c8ec2aed7a96d260a52b12d90c2996288e32814a8d9cf29cc22a",
@@ -3290,6 +3314,7 @@
       ".agents/skills/mcp-builder/scripts/evaluation.py": "49ed1d17cdce5da101b210197740713f49b935c29d4f339542a14b132658e6f7",
       ".agents/skills/mcp-builder/scripts/example_evaluation.xml": "9272b348ddcc4b06ba562367ccd0770e018158c0068ac5116d5e34aaeff8777a",
       ".agents/skills/mcp-builder/scripts/requirements.txt": "d5d7558b2368ecea9dfeed7d1fbc71ee9e0750bebd1282faa527d528a344c3c7",
+      ".agents/skills/modern-web-guidance/SKILL.md": "53a6cfc4b40254521f287761e66cf0f4ff97c7612ea72e0f49beac73669c4392",
       ".agents/skills/nextjs-app-router-patterns/SKILL.md": "7c3f1bf24031f7accc38b684b9b52e0e8549ecbcf7f9dcce87e1aa14f52f53a2",
       ".agents/skills/nextjs-app-router-patterns/resources/implementation-playbook.md": "29934ae1cab587c858c3920ba8fc54e301181ba10d68f92ecbfcd42d27aa9aa3",
       ".agents/skills/nextjs-best-practices/SKILL.md": "4d42df231e7ee76570709bdb3e64bab8b77e1fb300b1d560a87c1ba6a6b30c02",
@@ -3567,19 +3592,19 @@
       ".agents/skills/untangle-codebase/LICENSE": "cbe11503c54a6eeecf65772e66fbbca7a37750bff9812c742b11dca47ceb539c",
       ".agents/skills/untangle-codebase/SKILL.md": "eace3de7a56a4acb964a132917d52a78719f74ddd2e2cb19f6701f8ca8832569",
       ".gitignore": "d3c49db2599c7418e4f5c0edb62d7f994bedc6d39c0307d4b4e1546fc761c006",
-      "AGENTS.md": "d21184bba00aa71680d494bb223ae57391075a3717ecc3c18aa232d473a25fbc",
+      "AGENTS.md": "3016a63e55b4cfc4c7f228fcd740cfe71825dd9268218f0629510211c030126e",
       "skills-lock.json": "7d488ac96b3de3bf1f1fd76a55bf3c4813866e75265597c9cf0786622ae19708"
     }
   },
   "originalPreserved": true,
   "summary": {
-    "topLevelSkills": 71,
-    "discoverableSkills": 77,
+    "topLevelSkills": 73,
+    "discoverableSkills": 79,
     "duplicatesPreservedAsReferences": 2,
     "discoverableAgents": 32,
     "rules": 10,
     "customCommands": 8,
-    "generatedFiles": 3127
+    "generatedFiles": 3152
   },
   "duplicateReferences": {
     "skills/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "skills/avoid-ai-writing/skills/avoid-ai-writing/REFERENCE.md",
@@ -3588,163 +3613,163 @@
   "files": {
     "agents/a11y-architect.md": {
       "source": ".agents/agents/a11y-architect.md",
-      "sourceHash": "ca25e68cde8464ee981417d935a2c651cd25958593afc1ce36d5cd84cee35cef",
-      "outputHash": "fcded65ffa9d1e0ba5614a8e2f5d8231d79167202e3ae0533ebb939b8e0a66a9"
+      "sourceHash": "944a665705954fc9a05e3a97907500e3ee57de8d72ebb81de961c866a3eb03ae",
+      "outputHash": "87b8ec11fe170d644290aeeefb66db50733a4c58739a6dac2f8339389642bfcc"
     },
     "agents/agent-evaluator.md": {
       "source": ".agents/agents/agent-evaluator.md",
-      "sourceHash": "288a584295dedbe4a6d8b0ff920ec85c1a0b2348b304dfd0cbd26267e201c7a8",
-      "outputHash": "c858900a678a646f08d4a00b22b9e5bdc321789c4b5054f98ce313b36d0dc178"
+      "sourceHash": "a868cea4487b3252c87f9a1262cb13c667510337ae8d45d33a2479b7d80c1d33",
+      "outputHash": "07c368c879f3299caaab5b90b5235f1b9443bd139fadd484ed554368b8e2eff2"
     },
     "agents/architect.md": {
       "source": ".agents/agents/architect.md",
-      "sourceHash": "2661d7ca527321c990ce26619254abd93539732533d9bc40928cfc4e233973a7",
-      "outputHash": "387bc80ac654f3ec2f6690b6e3580623a3a6e5fbe065c97778758af6cf1b5559"
+      "sourceHash": "2ff199c920ccdfe93bb3006bf5619a1d9cef67e71180026991247bcc902f74f4",
+      "outputHash": "3ad96c181ec9ebe6a9b509a11092b0782316b27315bf5479fe35bac20a24abef"
     },
     "agents/build-error-resolver.md": {
       "source": ".agents/agents/build-error-resolver.md",
-      "sourceHash": "f41941e46ca4a32371d654c3c3c3d76e3eecfa2e8366edcf6a588295b5b5000b",
-      "outputHash": "1505beeac9cda27f4a1f49777f48f531939390167b5d3b025f13f3ddf79dc641"
+      "sourceHash": "9268ffd9694a564ea955df6b0d1d96e21cc10490a320ff5cedc4074b88e180d8",
+      "outputHash": "68a4f35daae834981a232ce4622ac39530e68e424f9636b795661524c63dd0ef"
     },
     "agents/code-architect.md": {
       "source": ".agents/agents/code-architect.md",
-      "sourceHash": "1575122f547860731711a3d18dd1a7ae51e9ec3b68e2a8c593636fc9ea67fd36",
-      "outputHash": "43a94a741f9da1add6f7b83c000f099cab2eaa49a25fb54d969ee22b6210ce42"
+      "sourceHash": "2e5ae2d4cdddf9e6262dcb87c7548c6bc75772f746dcf61b8c99522e894f5577",
+      "outputHash": "b170fbe168b895022f38117d42190c55d4d56920e055b617a24466178d174907"
     },
     "agents/code-reviewer.md": {
       "source": ".agents/agents/code-reviewer.md",
-      "sourceHash": "655f498ee0fe4bf590bca426a685e83e979c02d66290dedb1f07a9b4b05d5ef3",
-      "outputHash": "21d8d2772da3614d419b18ef3b9a83de42404d7634a1ef0daf38dc783adfaa8b"
+      "sourceHash": "5b49fc40723033c01c430406c4b0b4bd09365f60230ecfe9af3c193340ad464e",
+      "outputHash": "2ff9cf19c21a472ab2facdeaae8e6f24871d030c2f4a5ff1929f4662b978719e"
     },
     "agents/code-simplifier.md": {
       "source": ".agents/agents/code-simplifier.md",
-      "sourceHash": "120b82bdc11e72c0fce38060cbb4cad57fb19f66fd89e5e480c6418c7b32e2ec",
-      "outputHash": "d566170962736751f768c08e73e00dd2e61b3ff294264e64bc2c0a9e3fba94ba"
+      "sourceHash": "cacb8fe34cd77d6aa13c21e57ee8706729159b0db53ee20e82835b9073aa4fd2",
+      "outputHash": "0cd110d2a4befb98d9e8febac22d51687625e689670edcafaf1957f67e3702ca"
     },
     "agents/cpp-build-resolver.md": {
       "source": ".agents/agents/cpp-build-resolver.md",
-      "sourceHash": "afd6625855d65fff3bdc2af0d71e1129683f99b7ef3bc9b04a2936bb04c357d2",
-      "outputHash": "48837e081752bc92b0a8fb5490944449b1ed8a04f25fe5c3b0cb50d38cdb7368"
+      "sourceHash": "7593157cb835ee50cfb2d2f0563def3f45476f016c25f3f5b342d3c95824a4cd",
+      "outputHash": "fb98cb53a9157e612c350185be69ce75a9407d703c0a32116965c7a17a496f57"
     },
     "agents/database-reviewer.md": {
       "source": ".agents/agents/database-reviewer.md",
-      "sourceHash": "bdb3ba76ca9ce6ce902a7665c349542c8a9ac453b13cbde1fc7574d038fa1ba8",
-      "outputHash": "546f2e521a5b5ee20ed287a9f56ef78c92fa9ab762a87853237e218b1324666a"
+      "sourceHash": "79faaacbbcf2818a2a033c2d85739008ad56913ebee7fc05755300a1a456c20d",
+      "outputHash": "48242046ffa71fc87cab030b097b0af59b019bb177de613d557569f4795fd067"
     },
     "agents/django-build-resolver.md": {
       "source": ".agents/agents/django-build-resolver.md",
-      "sourceHash": "f6b63c26a17f02a47e00c82fb35bac0eec94adb9196085628408547deccacdb6",
-      "outputHash": "2e1c552283281a1c8375b633dd704b8c4da1e880b1b8bddeaf4f7c3af302d427"
+      "sourceHash": "4a0161d7f2cad7141358ca5718a4a73180eddfc279b43560f1961d45ce0a6c8a",
+      "outputHash": "f46e546c72ff63f1d2ad7808b2e50cce7f45b5c3b5d6f106b7cc4d20d5b141a8"
     },
     "agents/e2e-runner.md": {
       "source": ".agents/agents/e2e-runner.md",
-      "sourceHash": "33b31670aa3de67c68232abcdb25aaaa5d58d3684853abe08b54313ca04a0cb4",
-      "outputHash": "80321448273f43023a4a6ff5f8c3d8bd57f956a3b2b54b62f8176707f617143a"
+      "sourceHash": "f749f9c0f5145bd1154d8b22de4001ee7696c8751e79fe995abd770380893625",
+      "outputHash": "af96cc5f8f67846c9a8196894487d6032ca34bc003b00998dd9808fa53fe9357"
     },
     "agents/explorer.md": {
       "source": ".agents/agents/explorer.md",
-      "sourceHash": "4ec27ff3f6378fd3e896fe352df197efc7fe612de76c10d669a4988a5b2c563d",
-      "outputHash": "3f2eac69bdb781d8e3c27a820ecf83fb91892a46e35cd6c22c54ca93f326a69b"
+      "sourceHash": "1323bc7dc2d64a92385df2e86cc2be39f979c023fccc701007231de8df146e5a",
+      "outputHash": "5f8b0231982be41297545be2f341b04eb95007a412873c827f1367b36a6b27a6"
     },
     "agents/fastapi-reviewer.md": {
       "source": ".agents/agents/fastapi-reviewer.md",
-      "sourceHash": "1f5d41dcd1e9a8747afd91f00528c052a31f6a353bad909934a1cc3f45aee659",
-      "outputHash": "c16f743116d56cefba6e7ebb95d002ed4bff524aa410ff1be57f088d4e9bca33"
+      "sourceHash": "7e47bbf405dcba3d8f093f50f83163d1a974c15e5b74087df9f093ec996c2d6d",
+      "outputHash": "0aa58e23c18a0abd8e58947e3da66bf3a2f88797bb8e636ca34c462c1afa273d"
     },
     "agents/go-build-resolver.md": {
       "source": ".agents/agents/go-build-resolver.md",
-      "sourceHash": "44e7af0116aeb168607dbe2fedccbcebe5dbaa5187ae61f05f682b9a962cb448",
-      "outputHash": "a87aa0d15fc7c1af100f347a730b3a9bc4db4950bd36d413531d639e671e2b93"
+      "sourceHash": "07be8d86aa7984c518a2905863f8ead1074d6847e718e070ad87301f56e06323",
+      "outputHash": "30fbeec39e7557c731a6b46615fd8d13134dfb3ff78fdf328acc1d1ece146bdb"
     },
     "agents/go-reviewer.md": {
       "source": ".agents/agents/go-reviewer.md",
-      "sourceHash": "283050f5deda1eef0e94211440979a49d41376722931e4c1cc53285bd452efe4",
-      "outputHash": "661fe25822814727f8ab1b71c488d27e2ffbc8385976ee591916ce319879254d"
+      "sourceHash": "5ee2b1811a0e3ab04466f630207d3ddb4a5910fca6d270745363a3321af249d0",
+      "outputHash": "5ec5c4c69f8ebec00e271320f00aaea1d0053fb76ae745fecea0e25d9df18c59"
     },
     "agents/penetration-tester.md": {
       "source": ".agents/agents/penetration-tester.md",
-      "sourceHash": "568a1f3f614f6d5d43dacc1a60d15208f633333ade7db856ccecbb63686f1dcd",
-      "outputHash": "dcbb69acb4f5ce7155fcd532cc1f726a0683c48678175e93c5049ff7d2c8ee15"
+      "sourceHash": "f53f60d59a29510ad8b356e396e0446a46c81c485c6b0ecf0f128a30691f1ad5",
+      "outputHash": "19c5598f210b1fa301427482d85240c36b8466420859432f76b3dee64048d28a"
     },
     "agents/performance-optimizer.md": {
       "source": ".agents/agents/performance-optimizer.md",
-      "sourceHash": "2da6f735b5e2295996468288ff8bb4c03850f155177b657affc35dcb05820bd8",
-      "outputHash": "1d43caab37be8f6d9ef5ee4d42191870c2569f1cbd2a1b257f980cab771fc551"
+      "sourceHash": "b7273da1884bf2768e48fc687b8bdad8dda260663a236d0213abb7123ebf67a0",
+      "outputHash": "dfe5db215c005c4810ca329497bea9453a59a64b6d7fe63e27f6559c602dbe69"
     },
     "agents/php-reviewer.md": {
       "source": ".agents/agents/php-reviewer.md",
-      "sourceHash": "2f2a5ce01aeb892ca0ce36c94dc146dcce235997b8d99d2779334ba55c94e52a",
-      "outputHash": "35fdd79e2adc024ef8e0eea104acb79dc04ccbf9005853451c5ebd0aaeaea698"
+      "sourceHash": "8fbddd78f63ce3396e462f84103b7ae9f8d0b4fcc94de9dadb898a8779b8a7c4",
+      "outputHash": "a21eeb7fb783b7807fb3046e2d043ee55ad12177672303a198c6edddb32faa99"
     },
     "agents/planner.md": {
       "source": ".agents/agents/planner.md",
-      "sourceHash": "bf776e101ef026a60fa93abca708bfb46aae069aa82deb2a4542a52dd567679f",
-      "outputHash": "e2b245ab55bd76e1b910b18bb1f48164e65c6f81caf6432a7a2e8f963da5eba4"
+      "sourceHash": "b056dd51593097e9c61622f99401736d77dbe0c8731b072da60d40fc265eb9ac",
+      "outputHash": "fd83afe2b3e93fb00b618638a4d7218c39265024538ca31bd3c8e0c0bcc091bc"
     },
     "agents/pytorch-build-resolver.md": {
       "source": ".agents/agents/pytorch-build-resolver.md",
-      "sourceHash": "5eb7a755afb00811a80c7f0c1a61a03013af8cdd3cb4a36d1d09598eba15c6ef",
-      "outputHash": "0bca7aaeff90beb94bfe2e6d07d6d51ae9868a06cb38b2a10cc3570a79df92cb"
+      "sourceHash": "8f116ef1ad31f17fc607a212a70e5c9a10d52170b338563efae12d3ec5a88188",
+      "outputHash": "c9912af6ac58fa9dff18fee9ca441bc591f38b8c042acd854c8af85b134cdc0e"
     },
     "agents/react-build-resolver.md": {
       "source": ".agents/agents/react-build-resolver.md",
-      "sourceHash": "d7e58ea8a26f9703098a61e4affaa88352b22e43557bcc95568d048e29d3269f",
-      "outputHash": "21d3b8e22826d6a7691b1b028b1e1c10fe29d37720831feb885801a661b23050"
+      "sourceHash": "65c25287ee6982671d04c76d90cf00654ac9ac2bef2f9306eb019b33f75ea7b9",
+      "outputHash": "c2437edc1e6bb4011586dc7818bca01b4d6e8d1eafc521cbcd6705e5418b53ba"
     },
     "agents/react-reviewer.md": {
       "source": ".agents/agents/react-reviewer.md",
-      "sourceHash": "45bbbd2f94197309d4ea5212a807a1d13ea452a6d0d2a65416c056e61c87d280",
-      "outputHash": "14f8ea56302ebcbfba5d420a5585da70ecd1e2e74a43f0933372b0cdced7518b"
+      "sourceHash": "450e72f7045c012578147fa1df989cb59778089c7c4d18302bbe4be3ea5a9145",
+      "outputHash": "aaf4d9a6ed040e6563be3ecb2a7ffdde023a0a72b451aa9c636ec7dfdaf745ec"
     },
     "agents/refactor-cleaner.md": {
       "source": ".agents/agents/refactor-cleaner.md",
-      "sourceHash": "95c8b58abe9a647ab433bd7437f93dc31669b5c7a82dbeef07805fc2020f1d7b",
-      "outputHash": "14ecc1af507bf38ef50b2ebeac304480dd8c0c82166bffa175be1d846c6f792b"
+      "sourceHash": "b89e40844ec637be664768a4ebd260c06aa73f0c64f3390bf16ed934b94c1166",
+      "outputHash": "17d668521e68986671937b507f07d63cfd98a52275cc6d62795f81b7cac8b874"
     },
     "agents/rust-build-resolver.md": {
       "source": ".agents/agents/rust-build-resolver.md",
-      "sourceHash": "6a0ef13bbab9097ac20bce5b1de818474efff58b83f653d1c6318db52f83a4cd",
-      "outputHash": "f02fe99ab4e7b2504e66dc399978ca3c5fd3a44ce76426f219fb22314573be58"
+      "sourceHash": "01da707b040896055cebd168796e825e8be0b6f56685d244d973edf431f8775c",
+      "outputHash": "caaecf6c6a4ea5f0051ce4fe3cc61a9e0c3bd96d83fa654de5103d9ad4fda6bf"
     },
     "agents/rust-reviewer.md": {
       "source": ".agents/agents/rust-reviewer.md",
-      "sourceHash": "b63d939f67c165fd9ca12304bee26b3fcc7a9a376abf9c65532e287b58e9c74b",
-      "outputHash": "97aef5a10e2e9721c3fc3eae1ceb6632fce6aff581567bdb7b0b926dd3a859fd"
+      "sourceHash": "49338608b01511bb329e3937e03679bd280d72b1141616d8851f28aec0ffc709",
+      "outputHash": "d3e2061b9c01d152e48680b14d8d57a1adb3588c2319d0fb5078ac90e8d2947a"
     },
     "agents/security-auditor.md": {
       "source": ".agents/agents/security-auditor.md",
-      "sourceHash": "2d68246337f6af91e51a5304407785e640ebd014f67173c1642f10da75410e57",
-      "outputHash": "06a3d09df0733378f1be356caf9496a37561f405cd7ee0f9d11d0db304d031e4"
+      "sourceHash": "696964dea124b8011c96a49a9e79c0edee7f2c20b7fdf573c084fd14fa73434e",
+      "outputHash": "c9ffa7e8abbcf99a919a8b341b1b756480d4a0ed9c324aa4629a0fac7a059006"
     },
     "agents/silent-failure-hunter.md": {
       "source": ".agents/agents/silent-failure-hunter.md",
-      "sourceHash": "17acfb0d76768b8e06dc6e6e5c7d088a570bd15bc954746369f58e9f4465642d",
-      "outputHash": "e8181dbcf204299f9e2bb03009e5a1660d3e64bd753bd002d95b1f4c961fa23b"
+      "sourceHash": "7fa43683879e3387739c290953ac4dc54e6e515aaaaeff7035c84cfb8ac14c01",
+      "outputHash": "078779622fbbbb720d7a507fbf044073ee63c023ac84497d3dd00ff45eb78742"
     },
     "agents/skeptic.md": {
       "source": ".agents/agents/skeptic.md",
-      "sourceHash": "64a28331f4e723a911cf6a7c35b47b05d02c03ddd2f55608966badbd4f39b410",
-      "outputHash": "a3085ae48df5bd6a15494a7607f5c89c02ce87ab990e00e7153e3b3f542ef962"
+      "sourceHash": "cdeb385cd74dd32544102feb8a3f3fa6026d24cbaec59c0d0646bf5ca00ad191",
+      "outputHash": "934929a2233dc0eed10bed019dcc78ebebcb16621d9a120a52b3106f2d99f947"
     },
     "agents/spec-miner.md": {
       "source": ".agents/agents/spec-miner.md",
-      "sourceHash": "f33cb63ef86ed373c6349cede14679345d604a8b67c7c7da9eea96e88cb62cb0",
-      "outputHash": "c6ae7158ee3ae0d9dbc97a2caa58ee9cc379ff7f232f58cd4888756deb9c7cfc"
+      "sourceHash": "ce9cfeaeebb375c9a19e7279d2f915fc03ad0f5dee070f1d588950d9479bb703",
+      "outputHash": "0c43c3bcd09d20874264784fe480ae0d3de9c0726fd113b25d70c8e90cb99cf4"
     },
     "agents/tdd-guide.md": {
       "source": ".agents/agents/tdd-guide.md",
-      "sourceHash": "4e466aeee9e177e8fe8747bb3a82d4dee2bf6659664994a479d77ccf5ff2b9cd",
-      "outputHash": "e86d593db15cb81e05f8fbf3f206a28a6565e2f6ee03aea6921bb759ea49cd5f"
+      "sourceHash": "4cbd051aa1b4d48e13bb1cc1f3dfe0f70970126a049aa36d1a5177b6e64661c5",
+      "outputHash": "1309b35e810f2b544ad7e91e19117689ec4e2101dbf1fd969350b0f04e9fa0d2"
     },
     "agents/typescript-reviewer.md": {
       "source": ".agents/agents/typescript-reviewer.md",
-      "sourceHash": "e67ef03923ea46e6154cf7244d89d62c6a0669dce91665c5bcca6e5bddc3fa85",
-      "outputHash": "893ad53d75e65e45d367a4477d1a875b4bbee8ddc79c4c6ef3cdc3d31df27591"
+      "sourceHash": "7d21edb2d83e2bb734234706afeda23a06d4698c3667656bad36c07f89117e47",
+      "outputHash": "30f653276986672b1162d3b4a1966fb3514121334c8786bf63f71ca4749e1c00"
     },
     "agents/vue-reviewer.md": {
       "source": ".agents/agents/vue-reviewer.md",
-      "sourceHash": "6ceb75b5d5fb8c01e020e63fb493d00f15a6ff12db5ef794f581ad7323f53622",
-      "outputHash": "db0471b28d7b2397cc67ebb2055f375e10120b32d56c83a7317e66abbf6c9248"
+      "sourceHash": "207853031470f6c9c8f256c06de2af428bfba7d8a9159c0bd1e573baa11d0a92",
+      "outputHash": "dcd34b0188c9b7619dc68a37618affc3db4f6e54e6d46f64a43e1b97b1595cf1"
     },
     "resources/creative-libraries/components/LenisGsapBridge.tsx": {
       "source": ".agents/resources/creative-libraries/components/LenisGsapBridge.tsx",
@@ -5208,18 +5233,18 @@
     },
     "rules/backend.md": {
       "source": ".agents/rules/backend.md",
-      "sourceHash": "7b3e37c64044c01bc6cb9de9cc7bf55e36e9c3316089e6a482b51bfeb4118cb4",
-      "outputHash": "0be2560e45d366dc1714ea13cf64ee07efbf5e8962ad6554e5139e3faff35247"
+      "sourceHash": "ef90374bb9206fe4a74ba65c6fb71435a48eb3961c74c7dd1324627784f1ed81",
+      "outputHash": "4f065ea534612a5bfa0ffcee4686a04da4b128ac690b3af77cfae688bb742e7c"
     },
     "rules/frontend.md": {
       "source": ".agents/rules/frontend.md",
-      "sourceHash": "fdee14985397204e88ed47dcbbf6f773738a253188f0e46425506cb45393baf6",
-      "outputHash": "fba39d8b3c46b186eed7a2c3ec91d79145e1ed91169490dfcf212aca89f0986a"
+      "sourceHash": "ccf8f8a509957782e7b2c9aa3c7c8a80a2204d10650faf5d0e0c65a65077241c",
+      "outputHash": "d1534306e8e8916725a830fa31ed028a8513e1b764c7f53999e5a7b5bc2b5b6e"
     },
     "rules/install.md": {
       "source": ".agents/rules/install.md",
       "sourceHash": "167ce7c27a86f927c620cda7a617b0414a4e9eb1b37e46c9a46bf5feaf02d06a",
-      "outputHash": "012d4eaac32bee02e62ec8aa1e3b2b1fbc4edd0b093ad3ced1fadfdd640167db"
+      "outputHash": "2bfb823aac9d35213f2b93cb4a86952f8c2e51f5e3fec706efc55b94dfa53951"
     },
     "rules/learned-invariants.md": {
       "source": ".agents/rules/learned-invariants.md",
@@ -5233,28 +5258,28 @@
     },
     "rules/penetrating-and-testing.md": {
       "source": ".agents/rules/penetrating-and-testing.md",
-      "sourceHash": "c2ebb5bd76f49ee107e707ff78eb4c290811aff603a3bdd9c8ec27e3916d4a87",
-      "outputHash": "270c9438bb3aa8a19fcba18c173ee04a95df35718be57d5487330b996c5f0605"
+      "sourceHash": "681d7b9e0f9f860f746c70c1ce512a7bc816dd998f526775928b43890439ef99",
+      "outputHash": "2179728d56004f3fa1849d3764427b715519ab075771204a84c93704cd30fcaa"
     },
     "rules/security.md": {
       "source": ".agents/rules/security.md",
-      "sourceHash": "0105f050c8111b6703ec2c0a32786c02d068b60c36c2784aef2c32837c657392",
-      "outputHash": "675160bb5fcb549aed5cd9e7523fff034257295258eddf106c504386d3b2bcf4"
+      "sourceHash": "1c1cbd8327a8d4d39ce8ed2f4c194923a75435fbd3a993f4267b3f06935ffc1d",
+      "outputHash": "00231ee4e37d30b1bba25f0c853ac1ffd9df49086f3d98718740a961750ce4c3"
     },
     "rules/starting-brandnew.md": {
       "source": ".agents/rules/starting-brandnew.md",
-      "sourceHash": "7a8e5b91a056b93d21f769b2466c4c90a945c34b979307b5e19a395ef6d7ec08",
-      "outputHash": "683ff7204bbab8a09cefbda7ff4332c70cfbf4d85b2de0d24af7886049eb6e90"
+      "sourceHash": "f17527bb5b578166b7a86bf7aaa9ceb4f1d26340cd84ac570a28858c90ce42a6",
+      "outputHash": "ceb1d7897b53d84079f0279fd9365d61fefd82a6aac6247f08eb2c2211f2e678"
     },
     "rules/starting-existing.md": {
       "source": ".agents/rules/starting-existing.md",
-      "sourceHash": "20940a7b96b6586e79f9743f2e885ba6ea7728d895b8191343eef3065511d2ab",
-      "outputHash": "2a51e4f29864e8a609e7112816eca5ddf7854cb62e3c2ee2ed3b28803ae1ff1f"
+      "sourceHash": "d465268ac9221bd37b1fbcabc8087c4cef8a4487ad5414eee79044915c85c167",
+      "outputHash": "e97c4aa7e64915f251a14b3dff3e7235daf7657a7163f6cd6fdd43f27c72bad1"
     },
     "rules/UI_Always.md": {
       "source": ".agents/rules/UI_Always.md",
-      "sourceHash": "64cc175529fa347bc19bd47dcbb3085153ecfb028d432f607b7bb7d783f28e0c",
-      "outputHash": "c66fd6b44b9a7ef57c9576e1f2086beca4b8a16dfdf48942a05e53f1c0225229"
+      "sourceHash": "776392df40581941b1b4a9f6d77fe24cea8d7f241d519a3760bca04ca2255a61",
+      "outputHash": "2a56562abdc3fcce2cee331c9091b0fb8c03dea0354042a6e900a3cabd4ddd99"
     },
     "skills/3d-web-experience/SKILL.md": {
       "source": ".agents/skills/3d-web-experience/SKILL.md",
@@ -8656,6 +8681,126 @@
       "sourceHash": "a7e47e345fff798c67bf824450d9d79bea3956d41d57a63dc654e23779516835",
       "outputHash": "a7e47e345fff798c67bf824450d9d79bea3956d41d57a63dc654e23779516835"
     },
+    "skills/chrome-extensions/references/extensions/api-calling.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/api-calling.md",
+      "sourceHash": "0c34c9b231f3d767b6961de6d1e87c4ca9535a4f6c2ed4dfe60bb48b73626254",
+      "outputHash": "0c34c9b231f3d767b6961de6d1e87c4ca9535a4f6c2ed4dfe60bb48b73626254"
+    },
+    "skills/chrome-extensions/references/extensions/auth-identity.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/auth-identity.md",
+      "sourceHash": "0a79f08a39a1835b7b7b7bf95e05cd33c4e4691efe6b75b1c59057260101fbd0",
+      "outputHash": "0a79f08a39a1835b7b7b7bf95e05cd33c4e4691efe6b75b1c59057260101fbd0"
+    },
+    "skills/chrome-extensions/references/extensions/content-scripts.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/content-scripts.md",
+      "sourceHash": "9439394dc38f49ba1147cde2508741f16825f8659c2c97925b71abe6af104d6c",
+      "outputHash": "9439394dc38f49ba1147cde2508741f16825f8659c2c97925b71abe6af104d6c"
+    },
+    "skills/chrome-extensions/references/extensions/context-menus.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/context-menus.md",
+      "sourceHash": "c69c6d409e7a1adb00786541f3a857e0770867fb23bb7aa6bb76ed35fffb850b",
+      "outputHash": "c69c6d409e7a1adb00786541f3a857e0770867fb23bb7aa6bb76ed35fffb850b"
+    },
+    "skills/chrome-extensions/references/extensions/csp-sandbox.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/csp-sandbox.md",
+      "sourceHash": "3169a8f2f636a912212cbd12636a58337b1df07b333ea5818aec6eea50398228",
+      "outputHash": "3169a8f2f636a912212cbd12636a58337b1df07b333ea5818aec6eea50398228"
+    },
+    "skills/chrome-extensions/references/extensions/declarative-net-request.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/declarative-net-request.md",
+      "sourceHash": "4b986713921da1a1e12dd68da5ee8684e43b8a084f323cced503bcb8dc8b8b03",
+      "outputHash": "4b986713921da1a1e12dd68da5ee8684e43b8a084f323cced503bcb8dc8b8b03"
+    },
+    "skills/chrome-extensions/references/extensions/devtools.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/devtools.md",
+      "sourceHash": "816bd0e240a6814713b59f045461c6c24e54502b302425abe463c34f932babf7",
+      "outputHash": "816bd0e240a6814713b59f045461c6c24e54502b302425abe463c34f932babf7"
+    },
+    "skills/chrome-extensions/references/extensions/icons.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/icons.md",
+      "sourceHash": "a996281d5482fa145a7912c92f71fe4eb582a0e91e674f9fef02379aecb0fce3",
+      "outputHash": "a996281d5482fa145a7912c92f71fe4eb582a0e91e674f9fef02379aecb0fce3"
+    },
+    "skills/chrome-extensions/references/extensions/media-capture.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/media-capture.md",
+      "sourceHash": "c6bddb3c51c0b0f36d302e7dfde9558dea5eb5febccda315e911119a6e08cea3",
+      "outputHash": "c6bddb3c51c0b0f36d302e7dfde9558dea5eb5febccda315e911119a6e08cea3"
+    },
+    "skills/chrome-extensions/references/extensions/message-passing.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/message-passing.md",
+      "sourceHash": "d4c4d84caa6761a5afb31f013ac780c2db157f3a14a23b6c0070730141dbf254",
+      "outputHash": "d4c4d84caa6761a5afb31f013ac780c2db157f3a14a23b6c0070730141dbf254"
+    },
+    "skills/chrome-extensions/references/extensions/omnibox.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/omnibox.md",
+      "sourceHash": "e310ccccc673bb4cb4c4ed42a8eb821af30e271145ee06db79f62649def4bd5c",
+      "outputHash": "e310ccccc673bb4cb4c4ed42a8eb821af30e271145ee06db79f62649def4bd5c"
+    },
+    "skills/chrome-extensions/references/extensions/permissions.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/permissions.md",
+      "sourceHash": "b9d248c90380a31d171429b6bb1c007f897647acb83f83c98e0018260d6ae299",
+      "outputHash": "b9d248c90380a31d171429b6bb1c007f897647acb83f83c98e0018260d6ae299"
+    },
+    "skills/chrome-extensions/references/extensions/popup-ui.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/popup-ui.md",
+      "sourceHash": "2a9567e5b431910702542707a09357f2031969238bda7807155dbecb1a317fb4",
+      "outputHash": "2a9567e5b431910702542707a09357f2031969238bda7807155dbecb1a317fb4"
+    },
+    "skills/chrome-extensions/references/extensions/prompt-api.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/prompt-api.md",
+      "sourceHash": "f376c73354ec804dc00dc1e14d0fec8f19da79f5d7c141bd5a6b40d6e49e0330",
+      "outputHash": "f376c73354ec804dc00dc1e14d0fec8f19da79f5d7c141bd5a6b40d6e49e0330"
+    },
+    "skills/chrome-extensions/references/extensions/service-worker.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/service-worker.md",
+      "sourceHash": "6149ec9e5a1185486ba7157d631a24525b41377d4d2c4af13058ea2f6e2715d1",
+      "outputHash": "6149ec9e5a1185486ba7157d631a24525b41377d4d2c4af13058ea2f6e2715d1"
+    },
+    "skills/chrome-extensions/references/extensions/side-panel.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/side-panel.md",
+      "sourceHash": "7e6b68b9aff6532495b8d89af097bb3c0f72b3a329c92a598be3ca50a43ed15c",
+      "outputHash": "7e6b68b9aff6532495b8d89af097bb3c0f72b3a329c92a598be3ca50a43ed15c"
+    },
+    "skills/chrome-extensions/references/extensions/storage.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/storage.md",
+      "sourceHash": "208736186cdc606d4d98efe64ea17f1087f13755415360d59035879e7580dde2",
+      "outputHash": "208736186cdc606d4d98efe64ea17f1087f13755415360d59035879e7580dde2"
+    },
+    "skills/chrome-extensions/references/extensions/tab-management.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/tab-management.md",
+      "sourceHash": "f16f568aaa5015985a6fc03c748f2f85ab66284e510ed0e782f637f3ae492622",
+      "outputHash": "f16f568aaa5015985a6fc03c748f2f85ab66284e510ed0e782f637f3ae492622"
+    },
+    "skills/chrome-extensions/references/extensions/user-scripts.md": {
+      "source": ".agents/skills/chrome-extensions/references/extensions/user-scripts.md",
+      "sourceHash": "9f77cbd366392ad64be07bb566104c79ff6eb0fbc2b3629495376bc7e23cd83d",
+      "outputHash": "9f77cbd366392ad64be07bb566104c79ff6eb0fbc2b3629495376bc7e23cd83d"
+    },
+    "skills/chrome-extensions/references/webstore/chromewebstore-template.md": {
+      "source": ".agents/skills/chrome-extensions/references/webstore/chromewebstore-template.md",
+      "sourceHash": "52aad75138110ffe1b4d21aa1abe702ad796b7627fbb027a482d939c30b29e1b",
+      "outputHash": "52aad75138110ffe1b4d21aa1abe702ad796b7627fbb027a482d939c30b29e1b"
+    },
+    "skills/chrome-extensions/references/webstore/privacy-policy.md": {
+      "source": ".agents/skills/chrome-extensions/references/webstore/privacy-policy.md",
+      "sourceHash": "70dda79e2d5e2d574b10c0121c2f9ea7ab6d644229af570d93c69042f2ef3f98",
+      "outputHash": "70dda79e2d5e2d574b10c0121c2f9ea7ab6d644229af570d93c69042f2ef3f98"
+    },
+    "skills/chrome-extensions/references/webstore/review-checklist.md": {
+      "source": ".agents/skills/chrome-extensions/references/webstore/review-checklist.md",
+      "sourceHash": "5d13e2a60b823f82411ec97c75736aa1395dc387e1354c0c05b52a109c22c45f",
+      "outputHash": "5d13e2a60b823f82411ec97c75736aa1395dc387e1354c0c05b52a109c22c45f"
+    },
+    "skills/chrome-extensions/references/webstore/store-listing.md": {
+      "source": ".agents/skills/chrome-extensions/references/webstore/store-listing.md",
+      "sourceHash": "394978cc316486da9a35a30344e380bf072db7d25b54f89a9f285d98660fafb0",
+      "outputHash": "394978cc316486da9a35a30344e380bf072db7d25b54f89a9f285d98660fafb0"
+    },
+    "skills/chrome-extensions/SKILL.md": {
+      "source": ".agents/skills/chrome-extensions/SKILL.md",
+      "sourceHash": "66417dc415d26978094a12af34d44c5b3efa49927f9396f6bfc8270f2d184d68",
+      "outputHash": "2867bd61949d77c9085bbe4d120110c6b0b82e5a7273632b4ff104ac4aa67239"
+    },
     "skills/ci-security-scanning-with-strix/SKILL.md": {
       "source": ".agents/skills/ci-security-scanning-with-strix/SKILL.md",
       "sourceHash": "401fb67e0ee30fd1b88083d367fa2ede5039c475e5021ca4f30743c09581e43f",
@@ -8718,8 +8863,8 @@
     },
     "skills/continuous-agent-loop/scripts/harness.mjs": {
       "source": ".agents/skills/continuous-agent-loop/scripts/harness.mjs",
-      "sourceHash": "cb2dc2b1d96a8059eb895d6d8d7c03e9d8430277f3a9761de7579cb66f4ae8af",
-      "outputHash": "cb2dc2b1d96a8059eb895d6d8d7c03e9d8430277f3a9761de7579cb66f4ae8af"
+      "sourceHash": "4526886c796fb98bed1a8c8a56c1ffbc2b8a865fb504e2ef53b6d0be4c4460d0",
+      "outputHash": "4526886c796fb98bed1a8c8a56c1ffbc2b8a865fb504e2ef53b6d0be4c4460d0"
     },
     "skills/continuous-agent-loop/SKILL.md": {
       "source": ".agents/skills/continuous-agent-loop/SKILL.md",
@@ -17781,6 +17926,11 @@
       "sourceHash": "fdd1443aa60eadbe9a1797b1cb22b0e16d8a75c30dcd88f7fef996ea2c8551fc",
       "outputHash": "a5daac92631cdb393dd9107644fe4312af9eaf4fcdef4e9be09f7f2c9c4dd31b"
     },
+    "skills/modern-web-guidance/SKILL.md": {
+      "source": ".agents/skills/modern-web-guidance/SKILL.md",
+      "sourceHash": "53a6cfc4b40254521f287761e66cf0f4ff97c7612ea72e0f49beac73669c4392",
+      "outputHash": "4842af62f457b47c05e493c2dd56917e0ab2a3e9701c85b340c84578a1b79012"
+    },
     "skills/nextjs-app-router-patterns/resources/implementation-playbook.md": {
       "source": ".agents/skills/nextjs-app-router-patterns/resources/implementation-playbook.md",
       "sourceHash": "29934ae1cab587c858c3920ba8fc54e301181ba10d68f92ecbfcd42d27aa9aa3",
@@ -19193,8 +19343,8 @@
     },
     "profiles.json": {
       "source": "tools/claude/profiles.json",
-      "sourceHash": "089b934d8ef93761e141080a03fa4c9fcedc215a96eeaafbafdf1b77b6c40b51",
-      "outputHash": "089b934d8ef93761e141080a03fa4c9fcedc215a96eeaafbafdf1b77b6c40b51"
+      "sourceHash": "4f285fa3125452aeaf663bb5e4cb694b8e6cb3b756881c0e2d79dd75354ee785",
+      "outputHash": "4f285fa3125452aeaf663bb5e4cb694b8e6cb3b756881c0e2d79dd75354ee785"
     },
     "project.gitignore": {
       "source": "tools/claude/project.gitignore",
@@ -19213,13 +19363,13 @@
     },
     "CLAUDE.md": {
       "source": "AGENTS.md",
-      "sourceHash": "d21184bba00aa71680d494bb223ae57391075a3717ecc3c18aa232d473a25fbc",
-      "outputHash": "e4d2ef317384ccbe41677c999c183df9a9a182a99c9e536e80aac8538d3100c3"
+      "sourceHash": "3016a63e55b4cfc4c7f228fcd740cfe71825dd9268218f0629510211c030126e",
+      "outputHash": "887fb334b99cb66fabbbe03c8148cb869038d1e932e1e6e1882af60b7a9788ff"
     },
     "CLAUDE.designer.md": {
       "source": "AGENTS.md",
-      "sourceHash": "d21184bba00aa71680d494bb223ae57391075a3717ecc3c18aa232d473a25fbc",
-      "outputHash": "12f285cae15f74232397a6f909c00c96822b8f9ce5732560512098b9c00bed2e"
+      "sourceHash": "3016a63e55b4cfc4c7f228fcd740cfe71825dd9268218f0629510211c030126e",
+      "outputHash": "51b4f7e5bf82ead189f5bc4d2ac6b65eae36e322df47b253ec9247262599df9e"
     }
   }
 }

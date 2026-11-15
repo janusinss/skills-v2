@@ -28,6 +28,18 @@ const toolMap = {
   'bash': 'Bash'
 };
 
+function rewritePathsToClaude(text, { preserveInvocationLine = false } = {}) {
+  const rewrite = value =>
+    value
+      .replace(/(^|[\s"'`(=:\[]|\.\/)\.(?:agents|codex)\/(skills|rules(?!\/swarm\.md\b)|resources|agents)(\/|[)\]#\s]|$)/gm, '$1.claude/$2$3')
+      .replace(/(^|[\s"'`(=:\[])\.(?:agents|codex)\\(skills|rules(?!\\swarm\.md\b)|resources|agents)(\\|[)\]#\s]|$)/gm, '$1.claude\\$2$3');
+  if (!preserveInvocationLine) return rewrite(text);
+  return text
+    .split(/(\r?\n)/)
+    .map((part, idx) => (idx % 2 === 0 && !/^\s*-\s+\*\*(?:Invocation by Edition|GPT \/ CODEX|AGY \/ GEMINI):?\*\*/.test(part) ? rewrite(part) : part))
+    .join('');
+}
+
 export function adaptMarkdown(text, sourceFile) {
   let result = text;
   result = result.replaceAll('~/.agents/skills/', '.claude/skills/').replaceAll('.agents/skills/', '.claude/skills/');
@@ -48,9 +60,17 @@ export function adaptMarkdown(text, sourceFile) {
     return `${prefix}${relative}${anchor ? '#' + anchor : ''}${suffix}`;
   });
 
+  if (sourceFile && path.basename(sourceFile) === 'install.md') {
+    const phase1Idx = result.indexOf('## Phase 1:');
+    if (phase1Idx !== -1) {
+      const head = result.slice(0, phase1Idx);
+      const tail = result.slice(phase1Idx).replace(/\.agents\/(hooks(?:\.impeccable)?\.example\.json|hooks\.json)\b/g, '.claude/$1');
+      result = head + tail;
+    }
+  }
+
   // Rewrite root command examples from .agents/ or .codex/ to .claude/
-  return result.replace(/(^|[\s"'`(=:\[]|\.\/)\.(?:agents|codex)\/(skills|rules|resources|agents)(\/|[)\]#\s]|$)/gm, '$1.claude/$2$3')
-    .replace(/(^|[\s"'`(=:\[])\.(?:agents|codex)\\(skills|rules|resources|agents)(\\|[)\]#\s]|$)/gm, '$1.claude\\$2$3');
+  return rewritePathsToClaude(result, { preserveInvocationLine: true });
 }
 
 export function convertSkill(text, sourceFile) {
@@ -72,10 +92,10 @@ export function convertSkill(text, sourceFile) {
   };
 }
 
-const tierModelMap = {
-  reflex: 'haiku',
-  builder: 'sonnet',
-  brain: 'opus'
+const tierConfigMap = {
+  reflex: { model: 'haiku', target_model: 'haiku-5.5-high/xhigh/max', reasoning_effort: 'high/xhigh/max' },
+  builder: { model: 'sonnet', target_model: 'sonnet-5.5-high/xhigh/max', reasoning_effort: 'high/xhigh/max' },
+  brain: { model: 'opus', target_model: 'opus-5.5-high/xhigh/max', reasoning_effort: 'high/xhigh/max' }
 };
 
 export function convertAgent(text, sourceFile) {
@@ -97,7 +117,8 @@ export function convertAgent(text, sourceFile) {
   }
 
   const tier = typeof frontmatter.tier === 'string' ? frontmatter.tier.trim().toLowerCase() : '';
-  const model = tierModelMap[tier] || 'sonnet';
+  const tierConfig = tierConfigMap[tier] || tierConfigMap.builder;
+  const { model, target_model: targetModel, reasoning_effort: reasoningEffort } = tierConfig;
   const toolsStr = [...mappedTools].join(', ');
   const yamlOut = [
     '---',
@@ -106,10 +127,23 @@ export function convertAgent(text, sourceFile) {
     `tools: ${toolsStr}`
   ];
   if (tier) yamlOut.push(`tier: ${tier}`);
-  yamlOut.push(`model: ${model}`, '---');
+  yamlOut.push(
+    `model: ${model}`,
+    `target_model: ${JSON.stringify(targetModel)}`,
+    `reasoning_effort: ${JSON.stringify(reasoningEffort)}`,
+    '---'
+  );
 
   return {
-    frontmatter: { name, description, tools: toolsStr, ...(tier ? { tier } : {}), model },
+    frontmatter: {
+      name,
+      description,
+      tools: toolsStr,
+      ...(tier ? { tier } : {}),
+      model,
+      target_model: targetModel,
+      reasoning_effort: reasoningEffort
+    },
     text: `${yamlOut.join('\n')}\n${adaptMarkdown(body, sourceFile)}`
   };
 }
@@ -122,9 +156,8 @@ export function generateClaudeMd(agentsMdText) {
     '# CLAUDE.md\n\nInstructions, operating rules, and skill mappings for Anthropic Claude Code.'
   );
   
-  // Rewrite .agents/ paths to .claude/
-  result = result.replace(/(^|[\s"'`(=:\[]|\.\/)\.(?:agents|codex)\/(skills|rules|resources|agents)(\/|[)\]#\s]|$)/gm, '$1.claude/$2$3')
-    .replace(/(^|[\s"'`(=:\[])\.(?:agents|codex)\\(skills|rules|resources|agents)(\\|[)\]#\s]|$)/gm, '$1.claude\\$2$3');
+  // Rewrite .agents/ paths to .claude/ while preserving edition-specific invocation paths
+  result = rewritePathsToClaude(result, { preserveInvocationLine: true });
 
   // Mention Claude Code subagent addressing syntax: @agent-name
   result = result.replace(/Delegate specialized lifecycle tasks to the agents defined under \[\.claude\/agents\/\]\(\.claude\/agents\/\):/g,

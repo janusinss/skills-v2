@@ -4,11 +4,14 @@ description: "Rust build, compilation, and dependency error resolution specialis
 tier: builder
 model: inherit
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
   - list_dir
+  - write_file
   - write_to_file
+  - edit_file
   - replace_file_content
   - run_command
 mainAgent: true
@@ -165,4 +168,6 @@ Remaining errors: 3
 
 Final: `Build Status: SUCCESS/FAILED | Errors Fixed: N | Files Modified: list`
 
-For detailed Rust error patterns and code examples, see `skill: rust-patterns`.
+## Reference
+
+For structured debugging, build/lint validation, and security baselines, see [systematic-debugging](../skills/systematic-debugging/SKILL.md), [lint-and-validate](../skills/lint-and-validate/SKILL.md), and [security.md](../rules/security.md).

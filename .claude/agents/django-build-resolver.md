@@ -4,6 +4,8 @@ description: "Django/Python build, migration, and dependency error resolution sp
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: builder
 model: sonnet
+target_model: "sonnet-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline
@@ -249,5 +251,7 @@ Remaining errors: 0
 
 Final: `Django Status: OK/FAILED | Errors Fixed: N | Files Modified: list`
 
-For Django architecture and ORM patterns, see `skill: django-patterns`.
-For Django security settings, see `skill: django-security`.
+## Reference
+
+For Django architecture, ORM, and Python patterns, see [django-pro](../skills/django-pro/SKILL.md) and [python-patterns](../skills/python-patterns/SKILL.md).
+For Django security settings and hardening standards, see [security.md](../rules/security.md).

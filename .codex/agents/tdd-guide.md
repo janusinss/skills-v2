@@ -3,13 +3,17 @@ name: tdd-guide
 description: "Test-Driven Development specialist enforcing write-tests-first methodology. Use PROACTIVELY when writing new features, fixing bugs, or refactoring code. Ensures 80%+ test coverage."
 tier: builder
 model_tier: codex
-reasoning_effort: medium
+reasoning_effort: high
+target_model: "6.1-sol-medium/high | 6.1-terra-high/xhigh/max"
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
   - list_dir
+  - write_file
   - write_to_file
+  - edit_file
   - replace_file_content
   - run_command
 mainAgent: true
@@ -98,7 +102,7 @@ npm run test:coverage
 - [ ] Assertions are specific and meaningful
 - [ ] Coverage is 80%+
 
-For detailed mocking patterns and framework-specific examples, see `skill: tdd-workflow`.
+For detailed TDD workflows, test repair, Python testing, and E2E patterns, see [test-driven-development](../skills/test-driven-development/SKILL.md), [test-fixing](../skills/test-fixing/SKILL.md), [python-testing-patterns](../skills/python-testing-patterns/SKILL.md), and [e2e-testing-patterns](../skills/e2e-testing-patterns/SKILL.md).
 
 ## v1.8 Eval-Driven TDD Addendum
 

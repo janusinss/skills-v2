@@ -4,6 +4,7 @@ description: "Software architecture specialist for system design, scalability, a
 tier: brain
 model: pro
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
@@ -226,3 +227,8 @@ Example architecture for an AI-powered SaaS platform:
 - **10M users**: Event-driven architecture, distributed caching, multi-region
 
 **Remember**: Good architecture enables rapid development, easy maintenance, and confident scaling. The best architecture is simple, clear, and follows established patterns.
+
+## Reference
+
+- Skills: [architecture-patterns](../skills/architecture-patterns/SKILL.md), [architecture-decision-records](../skills/architecture-decision-records/SKILL.md), [archify](../skills/archify/SKILL.md), [untangle-codebase](../skills/untangle-codebase/SKILL.md)
+- Rules: [backend.md](../rules/backend.md)

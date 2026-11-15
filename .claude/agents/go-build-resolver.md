@@ -4,6 +4,8 @@ description: "Go build, vet, and compilation error resolution specialist. Fixes 
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: builder
 model: sonnet
+target_model: "sonnet-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline
@@ -101,4 +103,6 @@ Remaining errors: 3
 
 Final: `Build Status: SUCCESS/FAILED | Errors Fixed: N | Files Modified: list`
 
-For detailed Go error patterns and code examples, see `skill: golang-patterns`.
+## Reference
+
+For detailed Go patterns, concurrency idioms, and code examples, see [golang-pro](../skills/golang-pro/SKILL.md) and [go-concurrency-patterns](../skills/go-concurrency-patterns/SKILL.md).

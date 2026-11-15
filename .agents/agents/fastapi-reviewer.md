@@ -4,6 +4,7 @@ description: "Reviews FastAPI applications for async correctness, dependency inj
 tier: brain
 model: pro
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
@@ -86,3 +87,7 @@ End with:
 
 - `Tests checked:` commands run or why they were skipped.
 - `Residual risk:` anything important that could not be verified.
+
+## Reference
+
+For FastAPI service architecture, async Python patterns, backend standards, and security rules, see [fastapi-templates](../skills/fastapi-templates/SKILL.md), [async-python-patterns](../skills/async-python-patterns/SKILL.md), [backend.md](../rules/backend.md), and [security.md](../rules/security.md).

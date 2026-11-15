@@ -2,9 +2,10 @@
 name: explorer
 description: "Fast Reflex-tier reconnaissance subagent for rapid file discovery, symbol localization, and call-site mapping. Strictly read-only; never concludes architectural design, writes plans, or edits files."
 tier: reflex
-model: flash
+model: inherit
 tools:
   - read_file
+  - view_file
   - grep_search
   - find_by_name
   - list_dir

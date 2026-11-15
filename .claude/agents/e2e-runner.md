@@ -4,6 +4,8 @@ description: "End-to-end testing specialist using Vercel Agent Browser (preferre
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: builder
 model: sonnet
+target_model: "sonnet-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline
@@ -112,7 +114,8 @@ Common causes: race conditions (use auto-wait locators), network timing (wait fo
 
 ## Reference
 
-For detailed Playwright patterns, Page Object Model examples, configuration templates, CI/CD workflows, and artifact management strategies, see skill: `e2e-testing`.
+- Skills: [e2e-testing-patterns](../skills/e2e-testing-patterns/SKILL.md), [agent-browser](../skills/agent-browser/SKILL.md), [playwright-skill](../skills/playwright-skill/SKILL.md)
+- Rules: [UI_Always.md](../rules/UI_Always.md)
 
 ---
 

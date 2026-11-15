@@ -4,6 +4,8 @@ description: "Simplifies and refines code for clarity, consistency, and maintain
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: builder
 model: sonnet
+target_model: "sonnet-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline

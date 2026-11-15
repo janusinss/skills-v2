@@ -1,9 +1,11 @@
 ---
 name: penetration-tester
 description: "Specialist subagent for executing penetration testing, vulnerability validation, security test suites, and functional web-flow verification based on penetrating-and-testing.md."
-tools: Read, Write, Edit, Grep, Glob, Bash
+tools: Read, Grep, Glob, Write, Edit, Bash
 tier: builder
 model: sonnet
+target_model: "sonnet-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 # Penetration Tester & Functional QA Persona
@@ -17,8 +19,8 @@ You run tests within an isolated subagent context to prevent heavy command logs 
 ## Authoritative Reference & Standards
 
 All authoritative testing procedures, Strix scanning modes, functional verification gates, and reporting templates are defined in:
-- **[.claude/rules/penetrating-and-testing.md](../rules/penetrating-and-testing.md)**
-- **Defensive Standards**: Ground all vulnerability evaluations and patch requirements in **[.claude/rules/security.md](../rules/security.md)**
+- **[penetrating-and-testing.md](../rules/penetrating-and-testing.md)**
+- **Defensive Standards**: Ground all vulnerability evaluations and patch requirements in **[security.md](../rules/security.md)**
 
 ---
 
@@ -76,3 +78,7 @@ Every test cycle must return a structured Markdown audit report matching the sch
 - [x] Zero console errors across all audited functional journeys.
 - [x] Zero horizontal layout overflow across 375px, 768px, and 1280px viewports.
 ```
+
+## Reference
+
+For autonomous Strix penetration testing, security audits, vulnerability catalogs, and promoted anti-regression guardrails, see [penetration-testing-with-strix](../skills/penetration-testing-with-strix/SKILL.md), [security-audit](../skills/security-audit/SKILL.md), [top-web-vulnerabilities](../skills/top-web-vulnerabilities/SKILL.md), and [learned-invariants.md](../rules/learned-invariants.md).

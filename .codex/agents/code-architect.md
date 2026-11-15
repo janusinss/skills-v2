@@ -3,8 +3,10 @@ name: code-architect
 description: "Designs feature architectures by analyzing existing codebase patterns and conventions, then providing implementation blueprints with concrete files, interfaces, data flow, and build order."
 tier: brain
 model_tier: reasoning
-reasoning_effort: high
+reasoning_effort: max
+target_model: "6.1-sol-max"
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name

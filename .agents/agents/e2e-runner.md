@@ -4,12 +4,15 @@ description: "End-to-end testing specialist using Vercel Agent Browser (preferre
 tier: builder
 model: inherit
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
   - list_dir
   - write_to_file
+  - write_file
   - replace_file_content
+  - edit_file
   - run_command
 mainAgent: true
 subagent: true
@@ -122,7 +125,8 @@ Common causes: race conditions (use auto-wait locators), network timing (wait fo
 
 ## Reference
 
-For detailed Playwright patterns, Page Object Model examples, configuration templates, CI/CD workflows, and artifact management strategies, see skill: `e2e-testing`.
+- Skills: [e2e-testing-patterns](../skills/e2e-testing-patterns/SKILL.md), [agent-browser](../skills/agent-browser/SKILL.md), [playwright-skill](../skills/playwright-skill/SKILL.md)
+- Rules: [UI_Always.md](../rules/UI_Always.md)
 
 ---
 

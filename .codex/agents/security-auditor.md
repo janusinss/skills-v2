@@ -3,8 +3,10 @@ name: security-auditor
 description: "Specialist subagent for conducting adversarial pre-commit security audits, vulnerability detection, and exploit defense reviews based on security.md."
 tier: brain
 model_tier: reasoning
-reasoning_effort: high
+reasoning_effort: max
+target_model: "6.1-sol-max"
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
@@ -26,7 +28,7 @@ You evaluate code with an attacker's mindset: probing assumptions, verifying inp
 ## Authoritative Reference & Standards
 
 All authoritative security directives, defense matrices, and baseline implementation rules are defined in:
-- **[.codex/rules/security.md](../rules/security.md)**
+- **[security.md](../rules/security.md)**
 
 Whenever invoked to audit code, pull requests, API endpoints, or database queries, enforce the following seven defensive phases:
 
@@ -74,3 +76,7 @@ Whenever invoked to audit code, pull requests, API endpoints, or database querie
    - **Findings**: Categorized by severity (Critical, High, Medium, Low) with CWE identifiers.
    - **Remediation Plan**: Code diffs ready for review.
    - **Verification**: Recommended negative test cases to confirm remediation.
+
+## Reference
+
+For static security auditing, vulnerability remediation, Strix validation, and promoted security invariants, see [security-audit](../skills/security-audit/SKILL.md), [top-web-vulnerabilities](../skills/top-web-vulnerabilities/SKILL.md), [penetration-testing-with-strix](../skills/penetration-testing-with-strix/SKILL.md), and [learned-invariants.md](../rules/learned-invariants.md).

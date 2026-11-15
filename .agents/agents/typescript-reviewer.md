@@ -4,6 +4,7 @@ description: "Expert TypeScript/JavaScript code reviewer specializing in type sa
 tier: brain
 model: pro
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
@@ -86,7 +87,7 @@ You DO NOT refactor or rewrite code — you report findings only.
 
 ### MEDIUM -- React / Next.js (when applicable)
 
-> **For React-specific review, prefer `react-reviewer` via `/react-review`.** This block remains as a fallback only — when the diff contains `.tsx`/`.jsx` files, both agents should be invoked. See `agents/react-reviewer.md` for the full React-specific CRITICAL/HIGH rule set (hooks rules, `dangerouslySetInnerHTML`, RSC boundaries, accessibility, render performance).
+> **For React-specific review, prefer [react-reviewer](react-reviewer.md).** This block remains as a fallback only — when the diff contains `.tsx`/`.jsx` files, both agents should be invoked. See [react-reviewer](react-reviewer.md) for the full React-specific CRITICAL/HIGH rule set (hooks rules, `dangerouslySetInnerHTML`, RSC boundaries, accessibility, render performance).
 
 - **Missing dependency arrays**: `useEffect`/`useCallback`/`useMemo` with incomplete deps — use exhaustive-deps lint rule
 - **State mutation**: Mutating state directly instead of returning new objects
@@ -126,7 +127,8 @@ jest --ci                           # Tests (Jest)
 
 ## Reference
 
-This repo does not yet ship a dedicated `typescript-patterns` skill. For detailed TypeScript and JavaScript patterns, use `coding-standards` plus `frontend-patterns` or `backend-patterns` based on the code being reviewed.
+- Skills: [typescript-expert](../skills/typescript-expert/SKILL.md), [javascript-pro](../skills/javascript-pro/SKILL.md), [nodejs-best-practices](../skills/nodejs-best-practices/SKILL.md)
+- Rules: [frontend.md](../rules/frontend.md), [backend.md](../rules/backend.md)
 
 ---
 

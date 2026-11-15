@@ -4,6 +4,8 @@ description: "Software architecture specialist for system design, scalability, a
 tools: Read, Grep, Glob
 tier: brain
 model: opus
+target_model: "opus-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline
@@ -219,3 +221,8 @@ Example architecture for an AI-powered SaaS platform:
 - **10M users**: Event-driven architecture, distributed caching, multi-region
 
 **Remember**: Good architecture enables rapid development, easy maintenance, and confident scaling. The best architecture is simple, clear, and follows established patterns.
+
+## Reference
+
+- Skills: [architecture-patterns](../skills/architecture-patterns/SKILL.md), [architecture-decision-records](../skills/architecture-decision-records/SKILL.md), [archify](../skills/archify/SKILL.md), [untangle-codebase](../skills/untangle-codebase/SKILL.md)
+- Rules: [backend.md](../rules/backend.md)

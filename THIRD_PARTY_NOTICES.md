@@ -18,6 +18,7 @@ Per-skill provenance lives in [provenance.json](provenance.json) (`source`, `sou
 | `Leonxlnx/imagegen-skills` | 3 | MIT | `brandkit`, `image-to-code`, `imagegen-frontend-web` |
 | `vibeforge1111/vibeship-spawner-skills` | 2 | Apache-2.0 | `3d-web-experience`, `scroll-experience` |
 | `affaan-m/everything-claude-code` | 2 | MIT | `agent-self-evaluation`, `continuous-agent-loop` |
+| `GoogleChrome/modern-web-guidance` | 2 | Apache-2.0 | `chrome-extensions`, `modern-web-guidance` |
 | `caldoai/skills` | 1 | MIT | `untangle-codebase` |
 | `Leonxlnx/taste-skill` | 1 | MIT | `design-taste-frontend` |
 | `anthropics/skills` | 1 | Apache-2.0 | `mcp-builder` |

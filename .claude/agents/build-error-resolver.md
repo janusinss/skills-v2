@@ -4,6 +4,8 @@ description: "Build and TypeScript error resolution specialist. Use PROACTIVELY 
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: builder
 model: sonnet
+target_model: "sonnet-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline
@@ -117,7 +119,11 @@ npx eslint . --fix
 - Architecture changes needed → use `architect`
 - New features required → use `planner`
 - Tests failing → use `tdd-guide`
-- Security issues → use `security-reviewer`
+- Security issues → use [security-auditor](security-auditor.md)
+
+## Reference
+
+For structured verification, TypeScript diagnostics, and root-cause isolation, see [lint-and-validate](../skills/lint-and-validate/SKILL.md), [typescript-expert](../skills/typescript-expert/SKILL.md), and [systematic-debugging](../skills/systematic-debugging/SKILL.md).
 
 ---
 

@@ -4,6 +4,8 @@ description: "PostgreSQL database specialist for query optimization, schema desi
 tools: Read, Grep, Glob, Bash
 tier: brain
 model: opus
+target_model: "opus-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline
@@ -92,7 +94,7 @@ psql -c "SELECT indexrelname, idx_scan, idx_tup_read FROM pg_stat_user_indexes O
 
 ## Reference
 
-For detailed index patterns, schema design examples, connection management, concurrency strategies, JSONB patterns, and full-text search, see skills: `postgres-patterns` and `database-migrations`.
+For detailed index patterns, schema design examples, connection management, concurrency strategies, JSONB patterns, and backend persistence rules, see [postgres-best-practices](../skills/postgres-best-practices/SKILL.md), [database-design](../skills/database-design/SKILL.md), and [backend.md](../rules/backend.md).
 
 ---
 

@@ -44,7 +44,7 @@ Transform brief user concepts into an exhaustive, modern-stack-grounded specific
    - **Backend / Data API**: Apply [prompt-enhancer-backend](../skills/prompt-enhancer-backend/SKILL.md) (API endpoints, DB schemas, modern typed backend stack, state machines, RBAC tables).
    - **Fullstack System**: Apply general [prompt-enhancer](../skills/prompt-enhancer/SKILL.md) (End-to-end scope, modern fullstack architecture, core loop, and full domain analysis).
 3. **Commit Exhaustive `PRODUCT.md`**: Write the generated domain analysis artifact (Sections 1–5) directly to `./PRODUCT.md`.
-4. **Architecture & Schema Visualization**: Generate verified standalone HTML `architecture`, `sequence`, `dataflow`, and `erd` diagrams alongside `PRODUCT.md` using [archify](../skills/archify/SKILL.md) when mapping service boundaries, request lifecycles, data pipelines, or relational schemas.
+4. **Architecture & Schema Visualization**: Delegate implementation planning and system boundaries to [planner](../agents/planner.md) and [code-architect](../agents/code-architect.md) (after [explorer](../agents/explorer.md) reconnaissance if workspace files exist), and generate verified standalone HTML `architecture`, `sequence`, `dataflow`, and `erd` diagrams alongside `PRODUCT.md` using [archify](../skills/archify/SKILL.md) when mapping service boundaries, request lifecycles, data pipelines, or relational schemas.
 5. **Retain Master Specification**: Use the Section 6 Master Prompt as the primary execution contract for downstream phases.
 
 ---
@@ -63,7 +63,7 @@ Prepare components adhering strictly to `DESIGN.md` tokens and `PRODUCT.md` P0 f
    - **Option B: Website with Hero (Default)**: Prominent hero banner with curated product showcases, marketplace search bar, quick artisan/product CTAs, asymmetric image bento showcase, platform stats bar, and matching directory footer.
 2. **Universal `DESIGN.md` Theming & Rule Delegation**:
    - Map all blueprint backgrounds, surfaces, borders, text, typography, radii, and spacing dynamically to `DESIGN.md` CSS variables (zero raw uncalibrated defaults or untinted grays).
-   - Delegate layout/8-state/media hygiene to [UI_Always.md](UI_Always.md), visual craft/intake/anti-slop to [frontend.md](frontend.md) and [anti-ai-slop](../skills/anti-ai-slop/SKILL.md), copy gates to [avoid-ai-writing](../skills/avoid-ai-writing/SKILL.md), and physics/scrollytelling to [MOTION.md](MOTION.md) + [scrollytelling](../skills/scrollytelling/SKILL.md).
+   - Delegate layout/8-state/media hygiene to [UI_Always.md](UI_Always.md), WCAG 2.2 accessibility structure to [a11y-architect](../agents/a11y-architect.md), visual craft/intake/anti-slop to [frontend.md](frontend.md) and [anti-ai-slop](../skills/anti-ai-slop/SKILL.md), copy gates to [avoid-ai-writing](../skills/avoid-ai-writing/SKILL.md), and physics/scrollytelling to [MOTION.md](MOTION.md) + [scrollytelling](../skills/scrollytelling/SKILL.md).
 
 ---
 
@@ -77,5 +77,5 @@ Build components strictly adhering to `DESIGN.md` tokens, `PRODUCT.md` P0 featur
 
 ## Phase 6: Automated Verification & Handoff
 Validate the running application inside real Chromium viewports:
-1. **Audit & Chromium Verification**: Execute bounded quality audits per Stage 3 of [frontend.md](frontend.md) (`impeccable detect .` + anti-slop gates) and multi-viewport Chromium verification (`0` horizontal overflow, `0` console errors, `>=44x44px` targets) per Stage 4 of [frontend.md](frontend.md) and [UI_Always.md](UI_Always.md#7-browser-verification-policy).
+1. **Cleanup, Audit & Chromium Verification**: Run [refactor-cleaner](../agents/refactor-cleaner.md) to remove dead code/unused imports, then execute bounded quality audits per Stage 3 of [frontend.md](frontend.md) (`impeccable detect .` + anti-slop gates) and multi-viewport E2E/Chromium verification (`0` horizontal overflow, `0` console errors, `>=44x44px` targets) via [e2e-runner](../agents/e2e-runner.md) per Stage 4 of [frontend.md](frontend.md) and [UI_Always.md](UI_Always.md#7-browser-verification-policy).
 2. **Git Hygiene & Lock**: Ensure ephemeral artifacts (`scratch/`, `.impeccable/`, `node_modules/`) are in `.gitignore`, then commit `package.json`, `PRODUCT.md`, and `DESIGN.md`.

@@ -1,9 +1,11 @@
 ---
 name: spec-miner
-description: "Extracts behavioral specs from existing codebases for OpenSpec. Produces flat Requirement and Invariant blocks with structured metadata (entities, enforced, id, test anchors). Outputs openspec/specs/<capability>/spec.md. Fully self-bootstrapping — no dependency on codebase-onboarding. Use when onboarding a brownfield project to spec-driven development."
+description: "Extracts behavioral specs from existing codebases for OpenSpec. Produces flat Requirement and Invariant blocks with structured metadata (entities, enforced, id, test anchors). Outputs openspec/specs/<capability>/spec.md. Use when onboarding a brownfield project to spec-driven development."
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: brain
 model: opus
+target_model: "opus-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Tool guardrails
@@ -39,7 +41,7 @@ You extract behavioral specifications from existing codebases that have no OpenS
 
 ### Phase 1: Scope Discovery (self-bootstrapping)
 
-This agent is fully self-sufficient — it does not require `codebase-onboarding`.
+This agent is fully self-sufficient — it discovers codebase scope directly without external onboarding steps.
 
 1. **Detect project structure** (minimum viable scan):
    - Find package manifests: `package.json`, `go.mod`, `pom.xml`, `pyproject.toml`, etc.
@@ -170,7 +172,7 @@ Write the `description` in the frontmatter to include a summary of the module's 
 3. **`#### Scenario:` uses exactly 4 hashtags** — OpenSpec tooling depends on this depth.
 4. **`<!-- -->` comments are metadata**, not documentation. They MUST be machine-parseable: `<!-- key: value -->`. One key-value per line. The keys `deferred` and `uncertainty` are document-level metadata that carry their payload after the colon: `<!-- deferred: file1.md, file2.md -->`, `<!-- uncertainty: <reason> -->`.
 5. **`entities`** lists domain entity names as they appear in code (camelCase or PascalCase).
-6. **`enforced`** uses format `FileName.methodName()` — precise enough for code-explorer to jump to.
+6. **`enforced`** uses format `FileName.methodName()` — precise enough for [explorer](explorer.md) to jump to.
 7. **`id`** is the stable anchor for delta matching. It is derived from `enforced` (the most upstream enforcement point). When `enforced` is available, `id` MUST be set. It does NOT change when the human-readable Requirement name changes. If `enforced` is unknown, `id` is omitted.
 8. **`depends_on` / `triggers`** reference other Requirement names within the SAME spec file only. Do not record cross-module or async event-driven dependencies — those are not statically traceable and belong in cross-capability spec references, not here.
 9. **Every Requirement MUST have at least one Scenario.**
@@ -200,9 +202,14 @@ Write the `description` in the frontmatter to include a summary of the module's 
 
 ## Integration with Other Agents
 
-- **This agent is fully self-sufficient.** It does not require `codebase-onboarding` or any other agent to run first.
-- **After you run**: `code-explorer` will use your specs as the primary information source — checking `Last verified` freshness before trusting
-- **Future changes**: `planner` will add `## ADDED Requirements` blocks; `tdd-guide` will read `#### Scenario:` blocks to generate test skeletons; `code-reviewer` will grep `<!-- enforced: -->` to verify implementation still matches spec; MODIFIED Requirements will match by `<!-- id: -->`, not by name
+- **This agent is fully self-sufficient.** It discovers modules and entry points directly without requiring a separate onboarding pass.
+- **After you run**: [explorer](explorer.md) will use your specs as the primary information source — checking `Last verified` freshness before trusting
+- **Future changes**: [planner](planner.md) will add `## ADDED Requirements` blocks; [tdd-guide](tdd-guide.md) will read `#### Scenario:` blocks to generate test skeletons; [code-reviewer](code-reviewer.md) will grep `<!-- enforced: -->` to verify implementation still matches spec; MODIFIED Requirements will match by `<!-- id: -->`, not by name
+
+## Reference
+
+- Agents: [explorer](explorer.md)
+- Skills: [untangle-codebase](../skills/untangle-codebase/SKILL.md), [archify](../skills/archify/SKILL.md)
 
 ## Anti-Patterns
 

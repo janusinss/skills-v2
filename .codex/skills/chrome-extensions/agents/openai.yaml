@@ -1,0 +1,4 @@
+interface:
+  display_name: "Chrome Extensions"
+  short_description: "Build, debug, and publish Manifest V3 Chrome Extensions:..."
+  default_prompt: "Use $chrome-extensions for the relevant part of this task."

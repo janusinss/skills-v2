@@ -3,14 +3,18 @@ name: refactor-cleaner
 description: "Dead code cleanup and consolidation specialist. Use PROACTIVELY for removing unused code, duplicates, and refactoring. Runs analysis tools (knip, depcheck, ts-prune) to identify dead code and safely removes it."
 tier: builder
 model_tier: codex
-reasoning_effort: medium
+reasoning_effort: high
+target_model: "6.1-sol-medium/high | 6.1-terra-high/xhigh/max"
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
   - list_dir
   - write_to_file
+  - write_file
   - replace_file_content
+  - edit_file
   - run_command
 mainAgent: true
 subagent: true

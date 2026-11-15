@@ -4,6 +4,7 @@ description: "Expert Go code reviewer specializing in idiomatic Go, concurrency 
 tier: brain
 model: pro
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
@@ -91,4 +92,6 @@ govulncheck ./...
 - **Warning**: MEDIUM issues only
 - **Block**: CRITICAL or HIGH issues found
 
-For detailed Go code examples and anti-patterns, see `skill: golang-patterns`.
+## Reference
+
+For detailed Go code examples, concurrency patterns, and anti-patterns, see [golang-pro](../skills/golang-pro/SKILL.md) and [go-concurrency-patterns](../skills/go-concurrency-patterns/SKILL.md).

@@ -4,11 +4,14 @@ description: "Test-Driven Development specialist enforcing write-tests-first met
 tier: builder
 model: inherit
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
   - list_dir
+  - write_file
   - write_to_file
+  - edit_file
   - replace_file_content
   - run_command
 mainAgent: true
@@ -97,7 +100,7 @@ npm run test:coverage
 - [ ] Assertions are specific and meaningful
 - [ ] Coverage is 80%+
 
-For detailed mocking patterns and framework-specific examples, see `skill: tdd-workflow`.
+For detailed TDD workflows, test repair, Python testing, and E2E patterns, see [test-driven-development](../skills/test-driven-development/SKILL.md), [test-fixing](../skills/test-fixing/SKILL.md), [python-testing-patterns](../skills/python-testing-patterns/SKILL.md), and [e2e-testing-patterns](../skills/e2e-testing-patterns/SKILL.md).
 
 ## v1.8 Eval-Driven TDD Addendum
 

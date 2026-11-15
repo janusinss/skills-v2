@@ -4,6 +4,8 @@ description: "Dead code cleanup and consolidation specialist. Use PROACTIVELY fo
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: builder
 model: sonnet
+target_model: "sonnet-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline

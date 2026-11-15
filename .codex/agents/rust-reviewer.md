@@ -3,8 +3,10 @@ name: rust-reviewer
 description: "Expert Rust code reviewer specializing in ownership, lifetimes, error handling, unsafe usage, and idiomatic patterns. Use for all Rust code changes. MUST BE USED for Rust projects."
 tier: brain
 model_tier: reasoning
-reasoning_effort: high
+reasoning_effort: max
+target_model: "6.1-sol-max"
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
@@ -110,4 +112,6 @@ cargo build --release 2>&1 | head -50
 - **Warning**: MEDIUM issues only
 - **Block**: CRITICAL or HIGH issues found
 
-For detailed Rust code examples and anti-patterns, see `skill: rust-patterns`.
+## Reference
+
+For structured debugging, build/lint validation, and security baselines, see [systematic-debugging](../skills/systematic-debugging/SKILL.md), [lint-and-validate](../skills/lint-and-validate/SKILL.md), and [security.md](../rules/security.md).

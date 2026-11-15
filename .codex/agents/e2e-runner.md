@@ -3,14 +3,18 @@ name: e2e-runner
 description: "End-to-end testing specialist using Vercel Agent Browser (preferred) with Playwright fallback. Use PROACTIVELY for generating, maintaining, and running E2E tests. Manages test journeys, quarantines flaky tests, uploads artifacts (screenshots, videos, traces), and ensures critical user flows work."
 tier: builder
 model_tier: codex
-reasoning_effort: medium
+reasoning_effort: high
+target_model: "6.1-sol-medium/high | 6.1-terra-high/xhigh/max"
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
   - list_dir
   - write_to_file
+  - write_file
   - replace_file_content
+  - edit_file
   - run_command
 mainAgent: true
 subagent: true
@@ -123,7 +127,8 @@ Common causes: race conditions (use auto-wait locators), network timing (wait fo
 
 ## Reference
 
-For detailed Playwright patterns, Page Object Model examples, configuration templates, CI/CD workflows, and artifact management strategies, see skill: `e2e-testing`.
+- Skills: [e2e-testing-patterns](../skills/e2e-testing-patterns/SKILL.md), [agent-browser](../skills/agent-browser/SKILL.md), [playwright-skill](../skills/playwright-skill/SKILL.md)
+- Rules: [UI_Always.md](../rules/UI_Always.md)
 
 ---
 

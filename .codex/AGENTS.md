@@ -66,9 +66,16 @@ Follow [.codex/rules/UI_Always.md](.codex/rules/UI_Always.md#7-browser-verificat
 Delegate specialized lifecycle tasks to the agents defined under [.codex/agents/](.codex/agents):
 
 - **Cognitive Routing Tiers (`tier:`, `model_tier:` & `reasoning_effort:` frontmatter)**:
-  - **`reflex`** (Fast/Read-Only Reconnaissance — **GPT / Codex**: `model_tier: mini`, `reasoning_effort: low`): [.codex/agents/explorer.md](.codex/agents/explorer.md) — locates files, symbols, and call-sites rapidly; never concludes, plans, or edits files.
-  - **`builder`** (Scoped Workhorse Implementation & Repair — **GPT / Codex**: `model_tier: codex`, `reasoning_effort: medium`): `tdd-guide`, `e2e-runner`, `code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `penetration-tester`, and `*-build-resolver` agents.
-  - **`brain`** (High-Reasoning Architecture, Audit & Cold-Context Skepticism — **GPT / Codex**: `model_tier: reasoning`, `reasoning_effort: high`): `planner`, `architect`, `code-architect`, `a11y-architect`, `spec-miner`, `skeptic`, `security-auditor`, `silent-failure-hunter`, `agent-evaluator`, and `*-reviewer` agents (all reviewers, auditors, and skeptics are strictly read-only).
+  - **`reflex`** (Fast/Read-Only Reconnaissance — **GPT / Codex**: `6.1 Terra` (`medium`) (`model_tier: mini`, `reasoning_effort: medium`)): [.codex/agents/explorer.md](.codex/agents/explorer.md) — locates files, symbols, and call-sites rapidly; never concludes, plans, or edits files.
+  - **`builder`** (Scoped Workhorse Implementation & Repair — **GPT / Codex**: `6.1 Sol` (`medium` / `high`) or `6.1 Terra` (`high` / `xhigh` / `max`) (`model_tier: codex`, `reasoning_effort: high`)): `tdd-guide`, `e2e-runner`, `code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `penetration-tester`, and `*-build-resolver` agents.
+  - **`brain`** (High-Reasoning Architecture, Audit & Cold-Context Skepticism — **GPT / Codex**: `6.1 Sol` (`max`) (`model_tier: reasoning`, `reasoning_effort: max`)): `planner`, `architect`, `code-architect`, `a11y-architect`, `spec-miner`, `skeptic`, `security-auditor`, `silent-failure-hunter`, `agent-evaluator`, and `*-reviewer` agents (all reviewers, auditors, and skeptics are strictly read-only).
+- **Proactive Subagent Dispatch Triggers (Harness Mode, Designer Mode & `/swarm`)**:
+  - **Invocation by Edition**: **AGY / Gemini** `invoke_subagent{TypeName: "<agent>", Model: "<tier-model>"}` (in `/swarm`, use direct coordinator task briefs for implementation workers and attach `.agents/agents/<agent>.md` selectively for specialist review/audit workers per `.agents/rules/swarm.md`); **Claude Code** `@<agent>` (or `/plan`, `/tdd`, `/audit`, `/review`, `/eval`, `/contract`, `/verify`, `/flywheel`); **GPT / Codex** read and apply `.codex/agents/<agent>.md` (`model_tier` + `reasoning_effort`).
+  - **Mandatory Lifecycle Triggers**:
+    1. Multi-file discovery (`>= 3` files) -> `explorer`
+    2. Non-trivial feature or refactor design -> `planner` + `code-architect` / `architect` (plus `a11y-architect` for UI)
+    3. Implementation, cleanup, or build failures -> `tdd-guide`, `code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `e2e-runner`, or `*-build-resolver`
+    4. Post-edit verification -> matching stack `*-reviewer` + `silent-failure-hunter` (plus `security-auditor` / `penetration-tester` on auth, API, or input changes, and `skeptic` / `agent-evaluator` before final delivery)
 - **Reconnaissance, Planning & Architecture**:
   - Fast Codebase Reconnaissance (`reflex`): [.codex/agents/explorer.md](.codex/agents/explorer.md)
   - Implementation Planning (`brain`): [.codex/agents/planner.md](.codex/agents/planner.md)

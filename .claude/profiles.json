@@ -11,7 +11,7 @@
     "anti-ai-slop", "design-taste-frontend", "design-system", "awesome-design-md", "brandkit", "tailwind-patterns", "react-best-practices",
     "react-patterns", "nextjs-best-practices", "nextjs-app-router-patterns", "javascript-pro", "typescript-expert",
     "scroll-experience", "scrollytelling", "image-to-code", "imagegen-frontend-web", "avoid-ai-writing", "playwright-skill", "agent-browser", "e2e-testing-patterns",
-    "archify", "untangle-codebase", "seo-audit", "programmatic-seo", "competitor-alternatives", "content-creator"
+    "archify", "untangle-codebase", "seo-audit", "programmatic-seo", "competitor-alternatives", "content-creator", "modern-web-guidance", "chrome-extensions"
   ],
   "backend": [
     "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",

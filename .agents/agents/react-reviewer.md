@@ -4,6 +4,7 @@ description: "Expert React/JSX code reviewer specializing in hook correctness, r
 tier: brain
 model: pro
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
@@ -166,10 +167,9 @@ Always include the file path and line number. Quote the offending snippet when i
 
 ## Related
 
-- Agents: `typescript-reviewer` (generic TS/JS, invoked alongside on `.tsx`/`.jsx`), `security-reviewer` (project-wide audit)
-- Rules: `rules/react/coding-style.md`, `rules/react/hooks.md`, `rules/react/patterns.md`, `rules/react/security.md`, `rules/react/testing.md`
-- Skills: `skills/react-patterns/`, `skills/react-testing/`, `skills/accessibility/`
-- Commands: `/react-review`, `/react-build`, `/react-test`
+- Agents: [typescript-reviewer](typescript-reviewer.md) (generic TS/JS, invoked alongside on `.tsx`/`.jsx`), [security-auditor](security-auditor.md) (project-wide audit), [a11y-architect](a11y-architect.md) (WCAG 2.2 accessibility audit)
+- Rules: [frontend.md](../rules/frontend.md), [UI_Always.md](../rules/UI_Always.md), [MOTION.md](../rules/MOTION.md)
+- Skills: [anti-ai-slop](../skills/anti-ai-slop/SKILL.md), [modern-web-guidance](../skills/modern-web-guidance/SKILL.md), [react-patterns](../skills/react-patterns/SKILL.md), [react-best-practices](../skills/react-best-practices/SKILL.md), [nextjs-best-practices](../skills/nextjs-best-practices/SKILL.md)
 
 ---
 

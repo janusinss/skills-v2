@@ -3,13 +3,17 @@ name: django-build-resolver
 description: "Django/Python build, migration, and dependency error resolution specialist. Fixes pip/Poetry errors, migration conflicts, import errors, Django configuration issues, and collectstatic failures with minimal changes. Use when Django setup or startup fails."
 tier: builder
 model_tier: codex
-reasoning_effort: medium
+reasoning_effort: high
+target_model: "6.1-sol-medium/high | 6.1-terra-high/xhigh/max"
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
   - list_dir
+  - write_file
   - write_to_file
+  - edit_file
   - replace_file_content
   - run_command
 mainAgent: true
@@ -260,5 +264,7 @@ Remaining errors: 0
 
 Final: `Django Status: OK/FAILED | Errors Fixed: N | Files Modified: list`
 
-For Django architecture and ORM patterns, see `skill: django-patterns`.
-For Django security settings, see `skill: django-security`.
+## Reference
+
+For Django architecture, ORM, and Python patterns, see [django-pro](../skills/django-pro/SKILL.md) and [python-patterns](../skills/python-patterns/SKILL.md).
+For Django security settings and hardening standards, see [security.md](../rules/security.md).

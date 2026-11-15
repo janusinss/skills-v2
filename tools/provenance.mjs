@@ -8,10 +8,12 @@ const skillsRoot = path.join(sourceRoot, 'skills');
 const KNOWN_UPSTREAMS = {
   'agent-browser': { source: 'vercel-labs/agent-browser', sourceType: 'github', license: 'Apache-2.0' },
   'avoid-ai-writing': { source: 'conorbronsdon/avoid-ai-writing', sourceType: 'github', license: 'MIT' },
+  'chrome-extensions': { source: 'GoogleChrome/modern-web-guidance', sourceType: 'github', license: 'Apache-2.0' },
   'design': { source: 'nextlevelbuilder/ui-ux-pro-max-skill', sourceType: 'github', license: 'MIT' },
   'design-system': { source: 'nextlevelbuilder/ui-ux-pro-max-skill', sourceType: 'github', license: 'MIT' },
   'impeccable': { source: 'pbakaus/impeccable', sourceType: 'github', license: 'Apache-2.0' },
   'mcp-builder': { source: 'anthropics/skills', sourceType: 'github', license: 'Apache-2.0' },
+  'modern-web-guidance': { source: 'GoogleChrome/modern-web-guidance', sourceType: 'github', license: 'Apache-2.0' },
   'playwright-skill': { source: 'lackeyjb/playwright-skill', sourceType: 'github', license: 'MIT' },
   'postgres-best-practices': { source: 'supabase/agent-skills', sourceType: 'github', license: 'MIT' },
   'react-best-practices': { source: 'vercel-labs/agent-skills', sourceType: 'github', license: 'MIT' },

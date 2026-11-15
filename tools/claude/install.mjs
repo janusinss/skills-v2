@@ -8,6 +8,7 @@ import { bundleRoot, assertNoSymlinkAncestors, within, payloadHash, json, isReco
 import { planGitignore, applyGitignore } from './gitignore.mjs';
 import { setupAgentBrowser } from '../codex/install.mjs';
 
+const installRule = '.claude/rules/install.md';
 const playwrightRunner = '.claude/skills/playwright-skill/run.js';
 const agentBrowserSkill = '.claude/skills/agent-browser/SKILL.md';
 const harnessRunner = '.claude/skills/continuous-agent-loop/scripts/harness.mjs';
@@ -17,7 +18,7 @@ const verificationScript = `const browser = await helpers.launchBrowser('chromiu
 function readInstallation(target) {
   const manifestPath = path.join(target, '.claude/claude-install.json');
   assertNoSymlinkAncestors(manifestPath);
-  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8').replace(/^\uFEFF/, ''));
   if (
     manifest.source !== 'skills-v2 Claude Code edition' ||
     manifest.formatVersion !== 1 ||
@@ -26,6 +27,9 @@ function readInstallation(target) {
     !manifest.files['CLAUDE.md']
   ) {
     throw new Error('Not a supported Claude Code installation');
+  }
+  if (manifest.setup?.status !== 'complete' && !manifest.files[installRule]) {
+    throw new Error('Missing installation rule in the installation record');
   }
   for (const [relative, hash] of Object.entries(manifest.files)) {
     const absolute = path.resolve(target, relative);
@@ -87,26 +91,40 @@ function installGitPreCommitHook(execute, target, manifest) {
 
 function finishSetup(target, manifestPath, manifest, playwright, gitHook, agentBrowser = 'not included in selected profile') {
   assertNoSymlinkAncestors(manifestPath);
-  const onDisk = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  const onDisk = JSON.parse(fs.readFileSync(manifestPath, 'utf8').replace(/^\uFEFF/, ''));
   if (json(onDisk) !== json(manifest)) throw new Error('Installation record changed during setup');
+  const rulePath = path.join(target, installRule);
+  if (!fs.existsSync(rulePath) || payloadHash(fs.readFileSync(rulePath)) !== manifest.files[installRule]) {
+    throw new Error(`Installed file changed or missing: ${installRule}. Preserve it before retrying setup.`);
+  }
+  const ruleData = fs.readFileSync(rulePath);
   const mode = normalizeMode(manifest.mode || 'harness');
   const hooks = manifest.hooksIncluded === false ? 'disabled' : mode === 'designer' ? 'impeccable' : 'active';
   const completed = {
     ...manifest,
+    files: { ...manifest.files },
     setup: {
       status: 'complete',
       playwright,
       agentBrowser,
       mode,
       hooks,
-      gitHook
+      gitHook,
+      removedFiles: [installRule]
     }
   };
+  delete completed.files[installRule];
   const temporary = `${manifestPath}.setup.tmp`;
   assertNoSymlinkAncestors(temporary);
   fs.writeFileSync(temporary, json(completed), { flag: 'wx' });
   try {
-    fs.renameSync(temporary, manifestPath);
+    fs.unlinkSync(rulePath);
+    try {
+      fs.renameSync(temporary, manifestPath);
+    } catch (error) {
+      fs.writeFileSync(rulePath, ruleData, { flag: 'wx' });
+      throw error;
+    }
   } finally {
     if (fs.existsSync(temporary)) fs.unlinkSync(temporary);
   }
@@ -119,7 +137,7 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
   if (!options.resume) {
     exported = exportBundle(options, root);
     if (options.dryRun) {
-      return { ...exported, setup: 'Playwright and Chromium when the profile includes playwright-skill' };
+      return { ...exported, setup: 'Playwright and Chromium when the profile includes playwright-skill', removesAfterSuccess: [installRule] };
     }
   }
 
@@ -234,7 +252,7 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
       setup: completed.setup
     };
   } catch (error) {
-    throw new Error(`${error.message}\nSetup is incomplete. Retry from the source checkout with node tools/claude/install.mjs --target ${JSON.stringify(target)} --resume.`, { cause: error });
+    throw new Error(`${error.message}\nSetup is incomplete; the installed ${installRule} is retained. Retry from the source checkout with node tools/claude/install.mjs --target ${JSON.stringify(target)} --resume.`, { cause: error });
   }
 }
 

@@ -4,6 +4,8 @@ description: "Performance analysis and optimization specialist. Use PROACTIVELY 
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: builder
 model: sonnet
+target_model: "sonnet-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline
@@ -454,3 +456,8 @@ const fastCode = ...;
 ---
 
 **Remember**: Performance is a feature. Users notice speed. Every 100ms of improvement matters. Optimize for the 90th percentile, not the average.
+
+## Reference
+
+- Skills: [react-best-practices](../skills/react-best-practices/SKILL.md), [postgres-best-practices](../skills/postgres-best-practices/SKILL.md)
+- Rules: [MOTION.md](../rules/MOTION.md), [backend.md](../rules/backend.md)

@@ -4,11 +4,14 @@ description: "Django/Python build, migration, and dependency error resolution sp
 tier: builder
 model: inherit
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
   - list_dir
+  - write_file
   - write_to_file
+  - edit_file
   - replace_file_content
   - run_command
 mainAgent: true
@@ -259,5 +262,7 @@ Remaining errors: 0
 
 Final: `Django Status: OK/FAILED | Errors Fixed: N | Files Modified: list`
 
-For Django architecture and ORM patterns, see `skill: django-patterns`.
-For Django security settings, see `skill: django-security`.
+## Reference
+
+For Django architecture, ORM, and Python patterns, see [django-pro](../skills/django-pro/SKILL.md) and [python-patterns](../skills/python-patterns/SKILL.md).
+For Django security settings and hardening standards, see [security.md](../rules/security.md).

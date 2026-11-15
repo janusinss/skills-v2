@@ -4,11 +4,14 @@ description: "PyTorch runtime, CUDA, and training error resolution specialist. F
 tier: builder
 model: inherit
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
   - list_dir
+  - write_file
   - write_to_file
+  - edit_file
   - replace_file_content
   - run_command
 mainAgent: true
@@ -134,6 +137,12 @@ Remaining errors: 0
 ```
 
 Final: `Status: SUCCESS/FAILED | Errors Fixed: N | Files Modified: list`
+
+---
+
+## Reference
+
+For structured root-cause debugging, Python idioms, build/lint checks, and promoted anti-regression guardrails, see [systematic-debugging](../skills/systematic-debugging/SKILL.md), [python-patterns](../skills/python-patterns/SKILL.md), [lint-and-validate](../skills/lint-and-validate/SKILL.md), and [learned-invariants.md](../rules/learned-invariants.md).
 
 ---
 

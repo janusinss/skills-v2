@@ -3,14 +3,18 @@ name: performance-optimizer
 description: "Performance analysis and optimization specialist. Use PROACTIVELY for identifying bottlenecks, optimizing slow code, reducing bundle sizes, and improving runtime performance. Profiling, memory leaks, render optimization, and algorithmic improvements."
 tier: builder
 model_tier: codex
-reasoning_effort: medium
+reasoning_effort: high
+target_model: "6.1-sol-medium/high | 6.1-terra-high/xhigh/max"
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
   - list_dir
   - write_to_file
+  - write_file
   - replace_file_content
+  - edit_file
   - run_command
 mainAgent: true
 subagent: true
@@ -465,3 +469,8 @@ const fastCode = ...;
 ---
 
 **Remember**: Performance is a feature. Users notice speed. Every 100ms of improvement matters. Optimize for the 90th percentile, not the average.
+
+## Reference
+
+- Skills: [react-best-practices](../skills/react-best-practices/SKILL.md), [postgres-best-practices](../skills/postgres-best-practices/SKILL.md)
+- Rules: [MOTION.md](../rules/MOTION.md), [backend.md](../rules/backend.md)

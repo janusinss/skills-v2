@@ -4,6 +4,8 @@ description: "Expert PHP code reviewer specializing in PSR-12 compliance, PHP ty
 tools: Read, Grep, Glob, Bash
 tier: brain
 model: opus
+target_model: "opus-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline
@@ -103,7 +105,7 @@ Fix: What to change
 
 ## Reference
 
-For detailed PHP patterns, security examples, and code samples, see skills: `laravel-patterns`, `laravel-security`, `laravel-tdd`.
+For detailed backend architecture, security standards, vulnerability checks, and TDD workflows, see [backend.md](../rules/backend.md), [security.md](../rules/security.md), [top-web-vulnerabilities](../skills/top-web-vulnerabilities/SKILL.md), and [test-driven-development](../skills/test-driven-development/SKILL.md).
 
 ---
 

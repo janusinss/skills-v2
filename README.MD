@@ -1,7 +1,7 @@
 # Agent Skills & Workspace Configurations
 
 <!-- generated:counts -->
-A curated collection of **71 top-level AI agent skills**, 32 specialized subagents, 10 architectural rules and 8 Claude Code slash commands, with multi-profile installers across three editions: **AGY / Gemini**, **GPT / Codex** and **Anthropic / Claude Code**.
+A curated collection of **73 top-level AI agent skills**, 32 specialized subagents, 10 architectural rules and 8 Claude Code slash commands, with multi-profile installers across three editions: **AGY / Gemini**, **GPT / Codex** and **Anthropic / Claude Code**.
 <!-- /generated:counts -->
 
 ---
@@ -69,12 +69,12 @@ Both the Codex and Claude Code installers accept `--profile <name>` to install t
 <!-- generated:profiles -->
 | Profile | Skills | Contents |
 | :--- | :---: | :--- |
-| **`all`** | 71 | Every skill, rule and subagent. |
+| **`all`** | 73 | Every skill, rule and subagent. |
 | **`minimal`** | 14 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `ui-styling`, +9 more |
-| **`frontend`** | 38 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +33 more |
+| **`frontend`** | 40 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +35 more |
 | **`backend`** | 34 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +29 more |
 | **`security`** | 16 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `security-audit`, +11 more |
-| **`fullstack`** | 61 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +56 more |
+| **`fullstack`** | 63 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +58 more |
 <!-- /generated:profiles -->
 
 ---
@@ -153,11 +153,11 @@ Foundational architectural guidelines enforced automatically across all editions
 
 ---
 
-## 🛠️ Included Skill Domains (71 Skills)
+## 🛠️ Included Skill Domains (73 Skills)
 
 | Domain | Count | Key Skills |
 | :--- | :---: | :--- |
-| **🎨 Frontend & UI/UX** | 19 | `anti-ai-slop`, `awesome-design-md`, `brandkit`, `design`, `design-system`, `design-taste-frontend`, `frontend-developer`, `image-to-code`, `imagegen-frontend-web`, `impeccable`, `javascript-pro`, `nextjs-app-router-patterns`, `nextjs-best-practices`, `react-best-practices`, `react-patterns`, `tailwind-patterns`, `typescript-expert`, `ui-styling`, `ui-ux-pro-max` |
+| **🎨 Frontend & UI/UX** | 21 | `anti-ai-slop`, `awesome-design-md`, `brandkit`, `chrome-extensions`, `design`, `design-system`, `design-taste-frontend`, `frontend-developer`, `image-to-code`, `imagegen-frontend-web`, `impeccable`, `javascript-pro`, `modern-web-guidance`, `nextjs-app-router-patterns`, `nextjs-best-practices`, `react-best-practices`, `react-patterns`, `tailwind-patterns`, `typescript-expert`, `ui-styling`, `ui-ux-pro-max` |
 | **⚙️ Backend, APIs & Persistence** | 13 | `api-patterns`, `architecture-patterns`, `async-python-patterns`, `backend-dev-guidelines`, `database-design`, `django-pro`, `fastapi-templates`, `go-concurrency-patterns`, `golang-pro`, `mcp-builder`, `nodejs-best-practices`, `postgres-best-practices`, `python-patterns` |
 | **🔒 Security & Pentesting** | 10 | `api-security-best-practices`, `application-security-testing`, `auth-implementation-patterns`, `ci-security-scanning-with-strix`, `ethical-hacking-methodology`, `fix-security-vulnerabilities-with-strix`, `frontend-security-coder`, `penetration-testing-with-strix`, `security-audit`, `top-web-vulnerabilities` |
 | **🧪 Testing, Browser & QA** | 8 | `agent-browser`, `e2e-testing-patterns`, `lint-and-validate`, `playwright-skill`, `python-testing-patterns`, `systematic-debugging`, `test-driven-development`, `test-fixing` |

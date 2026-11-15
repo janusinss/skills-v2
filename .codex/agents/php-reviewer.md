@@ -3,8 +3,10 @@ name: php-reviewer
 description: "Expert PHP code reviewer specializing in PSR-12 compliance, PHP type system, Eloquent ORM patterns, security, and performance. Use for all PHP code changes. MUST BE USED for PHP projects."
 tier: brain
 model_tier: reasoning
-reasoning_effort: high
+reasoning_effort: max
+target_model: "6.1-sol-max"
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
@@ -112,7 +114,7 @@ Fix: What to change
 
 ## Reference
 
-For detailed PHP patterns, security examples, and code samples, see skills: `laravel-patterns`, `laravel-security`, `laravel-tdd`.
+For detailed backend architecture, security standards, vulnerability checks, and TDD workflows, see [backend.md](../rules/backend.md), [security.md](../rules/security.md), [top-web-vulnerabilities](../skills/top-web-vulnerabilities/SKILL.md), and [test-driven-development](../skills/test-driven-development/SKILL.md).
 
 ---
 

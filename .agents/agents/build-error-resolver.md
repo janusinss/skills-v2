@@ -4,11 +4,14 @@ description: "Build and TypeScript error resolution specialist. Use PROACTIVELY 
 tier: builder
 model: inherit
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
   - list_dir
+  - write_file
   - write_to_file
+  - edit_file
   - replace_file_content
   - run_command
 mainAgent: true
@@ -127,7 +130,11 @@ npx eslint . --fix
 - Architecture changes needed → use `architect`
 - New features required → use `planner`
 - Tests failing → use `tdd-guide`
-- Security issues → use `security-reviewer`
+- Security issues → use [security-auditor](security-auditor.md)
+
+## Reference
+
+For structured verification, TypeScript diagnostics, and root-cause isolation, see [lint-and-validate](../skills/lint-and-validate/SKILL.md), [typescript-expert](../skills/typescript-expert/SKILL.md), and [systematic-debugging](../skills/systematic-debugging/SKILL.md).
 
 ---
 

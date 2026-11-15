@@ -37,6 +37,7 @@ Apply these rules automatically whenever inspecting, creating, or refactoring we
 
 ## 5. Forms & 8-State Interactive Primitive Standard
 - **Form Labels & Button Types:** Associate every input with a `<label>` (`for="id"`) or `aria-label`. Non-submitting `<button>` elements inside `<form>` must specify `type="button"`.
+- **Native Platform Primitives:** Prefer built-in browser primitives (`<dialog>`, `popover`, CSS Anchor Positioning, `@starting-style`, `:user-invalid`, and light-dismiss patterns) over custom JS overlays or non-semantic wrappers per [modern-web-guidance](.agents/skills/modern-web-guidance/SKILL.md).
 - **8-State Interactive Primitive Standard:** Never output hover-only interactive primitives (`<button>`, `<input>`, tabs, selects). Account for all 8 states: `Default`, `Hover`, `Focus-Visible` (`2px` offset ring), `Active` (`scale(0.97)` over `60ms`), `Loading` (inline spinner + locked width), `Error` (`aria-invalid="true"`), `Success`, and `Disabled` (`disabled` + `cursor: not-allowed; opacity: 0.6;`).
 
 ---

@@ -100,10 +100,14 @@ export function validateBundle(root = bundleRoot, { checkSource = false, checkMa
     for (const agentFile of filesIn(agentsDir).filter(file => file.endsWith('.md'))) {
       const rel = slash(path.relative(root, agentFile));
       try {
-        const { frontmatter } = parseSkill(fs.readFileSync(agentFile, 'utf8'), agentFile);
+        const { frontmatter, body } = parseSkill(fs.readFileSync(agentFile, 'utf8'), agentFile);
         if (!['mini', 'codex', 'reasoning'].includes(frontmatter.model_tier)) errors.push(`${rel}: missing or invalid Codex model_tier`);
-        if (!['low', 'medium', 'high'].includes(frontmatter.reasoning_effort)) errors.push(`${rel}: missing or invalid Codex reasoning_effort`);
+        if (!['low', 'medium', 'high', 'xhigh', 'max'].includes(frontmatter.reasoning_effort)) errors.push(`${rel}: missing or invalid Codex reasoning_effort`);
         if (['haiku', 'sonnet', 'opus'].includes(frontmatter.model)) errors.push(`${rel}: Codex agent must not use Claude model name ${frontmatter.model}`);
+        for (const target of missingLinks(body, agentFile, dataRoot)) {
+          if (partialProfile && /^(?:\.\.\/|\.codex\/|\.agents\/)?skills\//.test(target)) warnings.push(`${rel}: out-of-profile skill link ${target}`);
+          else errors.push(`${rel}: missing agent link ${target}`);
+        }
       } catch (error) { errors.push(`${rel}: ${error.message}`); }
     }
   }

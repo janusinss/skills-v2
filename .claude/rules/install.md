@@ -25,7 +25,7 @@ Wait for the answer. Routine dependency setup in an existing installation does n
 
 Or run the unified interactive installer directly in a TTY from the source checkout: `node install.mjs`.
 
-- **GPT / CODEX:** Read the source checkout's root `INSTALL.md`, then automatically read and execute its `.claude/rules/install.md` in the same request. Run from the source checkout:
+- **GPT / CODEX:** Read the source checkout's root `INSTALL.md`, then automatically read and execute its `.codex/rules/install.md` in the same request. Run from the source checkout:
   - Harness mode: `node install.mjs --edition codex --mode harness --target <absolute-project-path> --profile all` (or `node tools/codex/install.mjs --target <absolute-project-path> --profile all --mode harness`)
   - Designer mode: `node install.mjs --edition codex --mode designer --target <absolute-project-path> --profile all` (or `node tools/codex/install.mjs --target <absolute-project-path> --profile all --mode designer`)
   Pass `--no-hooks` to disable all active hooks. Non-TTY invocations default to `harness` when `--mode` is omitted; interactive TTY invocations prompt if `--mode` is omitted. Keep the source rule and do not run the AGY phases below.
@@ -76,19 +76,19 @@ Push-Location .claude\skills\playwright-skill; npm install --no-audit --prefer-o
 
 ### 3. Hook Activation by Selected Mode
 
-Run **only** the branch matching Question 2 (preserving any existing `.agents/hooks.json`):
+Run **only** the branch matching Question 2 (preserving any existing `.claude/hooks.json`):
 
 #### HARNESS MODE (Harness + Impeccable + design-taste-frontend + avoid-ai-writing hooks + git pre-commit receipt gate)
 
 **Windows (PowerShell):**
 ```powershell
-if (-not (Test-Path -LiteralPath '.agents/hooks.json')) { Copy-Item -LiteralPath '.agents/hooks.example.json' -Destination '.agents/hooks.json' }
+if (-not (Test-Path -LiteralPath '.claude/hooks.json')) { Copy-Item -LiteralPath '.claude/hooks.example.json' -Destination '.claude/hooks.json' }
 if (Test-Path -LiteralPath '.git') { node .claude/skills/continuous-agent-loop/scripts/harness.mjs install-git-hook }
 ```
 
 **macOS / Linux (Bash):**
 ```bash
-[ -f .agents/hooks.json ] || cp .agents/hooks.example.json .agents/hooks.json
+[ -f .claude/hooks.json ] || cp .claude/hooks.example.json .claude/hooks.json
 [ ! -d .git ] || node .claude/skills/continuous-agent-loop/scripts/harness.mjs install-git-hook
 ```
 
@@ -96,12 +96,12 @@ if (Test-Path -LiteralPath '.git') { node .claude/skills/continuous-agent-loop/s
 
 **Windows (PowerShell):**
 ```powershell
-if (-not (Test-Path -LiteralPath '.agents/hooks.json')) { Copy-Item -LiteralPath '.agents/hooks.impeccable.example.json' -Destination '.agents/hooks.json' }
+if (-not (Test-Path -LiteralPath '.claude/hooks.json')) { Copy-Item -LiteralPath '.claude/hooks.impeccable.example.json' -Destination '.claude/hooks.json' }
 ```
 
 **macOS / Linux (Bash):**
 ```bash
-[ -f .agents/hooks.json ] || cp .agents/hooks.impeccable.example.json .agents/hooks.json
+[ -f .claude/hooks.json ] || cp .claude/hooks.impeccable.example.json .claude/hooks.json
 ```
 
 ---
@@ -144,6 +144,6 @@ rm -f .claude/rules/install.md
 ## Phase 4: Final Report to User
 Report to the user:
 1. Selected edition and hook mode (`HARNESS MODE` or `DESIGNER MODE`), with the absolute target path.
-2. Playwright and Chromium setup, `.agents/hooks.json` (and `.git/hooks/pre-commit` when in `HARNESS MODE`) activation, and in-memory verification results that actually ran.
+2. Playwright and Chromium setup, `.claude/hooks.json` (and `.git/hooks/pre-commit` when in `HARNESS MODE`) activation, and in-memory verification results that actually ran.
 3. The setup files removed.
 4. Any remaining dependency or host-discovery checks.

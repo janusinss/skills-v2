@@ -68,6 +68,19 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
   }
   if (!manifests.length) errors.push('No skill manifests found');
 
+  const installationPath = path.join(dataRoot, 'claude-install.json');
+  let installed = null;
+  if (fs.existsSync(installationPath)) {
+    try {
+      const parsed = JSON.parse(fs.readFileSync(installationPath, 'utf8').replace(/^\uFEFF/, ''));
+      if (!isRecord(parsed)) errors.push('claude-install.json must be a JSON object');
+      else installed = parsed;
+    } catch (error) {
+      errors.push(`claude-install.json: ${error.message}`);
+    }
+  }
+  const partialProfile = Boolean(installed?.profile && installed.profile !== 'all');
+
   // 2. Validate Claude Agents
   const agentsRoot = path.join(dataRoot, 'agents');
   const agentFiles = filesIn(agentsRoot).filter(file => file.endsWith('.md'));
@@ -76,8 +89,12 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
     try {
       const { frontmatter, body } = parseFrontmatter(fs.readFileSync(file, 'utf8'), file);
       errors.push(...checkClaudeAgent(frontmatter, file).map(msg => `${relative}: ${msg}`));
-      for (const link of missingLinks(body, file, dataRoot)) {
-        warnings.push(`${relative}: upstream or optional reference is unavailable: ${link}`);
+      for (const target of missingLinks(body, file, dataRoot)) {
+        if (partialProfile && /^(?:\.\.\/|\.claude\/|\.codex\/|\.agents\/)?skills\//.test(target)) {
+          warnings.push(`${relative}: out-of-profile skill link ${target}`);
+        } else {
+          errors.push(`${relative}: missing agent link ${target}`);
+        }
       }
       agents.push({ name: frontmatter.name, path: relative });
     } catch (error) {
@@ -102,18 +119,6 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
   }
 
   // 4. Validate Rules and Instruction Files
-  const installationPath = path.join(dataRoot, 'claude-install.json');
-  let installed = null;
-  if (fs.existsSync(installationPath)) {
-    try {
-      const parsed = JSON.parse(fs.readFileSync(installationPath, 'utf8'));
-      if (!isRecord(parsed)) errors.push('claude-install.json must be a JSON object');
-      else installed = parsed;
-    } catch (error) {
-      errors.push(`claude-install.json: ${error.message}`);
-    }
-  }
-  const partialProfile = Boolean(installed?.profile && installed.profile !== 'all');
   const instructionFiles = [
     ...filesIn(path.join(dataRoot, 'rules')).filter(file => file.endsWith('.md')),
     path.join(root, 'CLAUDE.md')
@@ -136,7 +141,7 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
   const profilesPath = path.join(root, 'profiles.json');
   if (fs.existsSync(profilesPath)) {
     try {
-      const profiles = JSON.parse(fs.readFileSync(profilesPath, 'utf8'));
+      const profiles = JSON.parse(fs.readFileSync(profilesPath, 'utf8').replace(/^\uFEFF/, ''));
       if (!isRecord(profiles) || !Object.keys(profiles).length) {
         errors.push('profiles.json must be a non-empty mapping');
       }
@@ -160,7 +165,7 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
   const manifestPath = path.join(root, 'manifest.json');
   if (checkManifest && fs.existsSync(manifestPath)) {
     try {
-      const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+      const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8').replace(/^\uFEFF/, ''));
       try {
         verifyBundleFiles(root);
       } catch (error) {
@@ -202,7 +207,7 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
           errors.push(`Missing .claude/${relHook} in hooks-enabled installation`);
         } else {
           try {
-            const parsed = JSON.parse(fs.readFileSync(hookFile, 'utf8'));
+            const parsed = JSON.parse(fs.readFileSync(hookFile, 'utf8').replace(/^\uFEFF/, ''));
             if (!isRecord(parsed.hooks)) errors.push(`.claude/${relHook} must contain hooks`);
           } catch (error) {
             errors.push(`.claude/${relHook}: ${error.message}`);
@@ -215,7 +220,7 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
   for (const hookCandidate of [path.join(root, 'hooks.example.json'), path.join(dataRoot, 'hooks.example.json')]) {
     if (fs.existsSync(hookCandidate)) {
       try {
-        const hooks = JSON.parse(fs.readFileSync(hookCandidate, 'utf8'));
+        const hooks = JSON.parse(fs.readFileSync(hookCandidate, 'utf8').replace(/^\uFEFF/, ''));
         if (!isRecord(hooks.hooks)) errors.push('hooks.example.json must contain hooks');
       } catch (error) {
         errors.push(`hooks.example.json: ${error.message}`);

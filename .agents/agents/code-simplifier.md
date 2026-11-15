@@ -4,12 +4,15 @@ description: "Simplifies and refines code for clarity, consistency, and maintain
 tier: builder
 model: inherit
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
   - list_dir
   - write_to_file
+  - write_file
   - replace_file_content
+  - edit_file
   - run_command
 mainAgent: true
 subagent: true
@@ -27,7 +30,7 @@ commandExecutionPolicy: auto
 
 # Code Simplifier Agent
 
-You simplify code while preserving functionality, applying [untangle-codebase](.agents/skills/untangle-codebase/SKILL.md) principles so pieces that change together stay together, pieces that change independently are decoupled, and everything depends on what changes less.
+You simplify code while preserving functionality, applying [untangle-codebase](../skills/untangle-codebase/SKILL.md) principles so pieces that change together stay together, pieces that change independently are decoupled, and everything depends on what changes less.
 
 ## Principles
 

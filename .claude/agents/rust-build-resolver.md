@@ -4,6 +4,8 @@ description: "Rust build, compilation, and dependency error resolution specialis
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: builder
 model: sonnet
+target_model: "sonnet-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline
@@ -155,4 +157,6 @@ Remaining errors: 3
 
 Final: `Build Status: SUCCESS/FAILED | Errors Fixed: N | Files Modified: list`
 
-For detailed Rust error patterns and code examples, see `skill: rust-patterns`.
+## Reference
+
+For structured debugging, build/lint validation, and security baselines, see [systematic-debugging](../skills/systematic-debugging/SKILL.md), [lint-and-validate](../skills/lint-and-validate/SKILL.md), and [security.md](../rules/security.md).

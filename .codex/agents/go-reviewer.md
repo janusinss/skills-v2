@@ -3,8 +3,10 @@ name: go-reviewer
 description: "Expert Go code reviewer specializing in idiomatic Go, concurrency patterns, error handling, and performance. Use for all Go code changes. MUST BE USED for Go projects."
 tier: brain
 model_tier: reasoning
-reasoning_effort: high
+reasoning_effort: max
+target_model: "6.1-sol-max"
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
@@ -92,4 +94,6 @@ govulncheck ./...
 - **Warning**: MEDIUM issues only
 - **Block**: CRITICAL or HIGH issues found
 
-For detailed Go code examples and anti-patterns, see `skill: golang-patterns`.
+## Reference
+
+For detailed Go code examples, concurrency patterns, and anti-patterns, see [golang-pro](../skills/golang-pro/SKILL.md) and [go-concurrency-patterns](../skills/go-concurrency-patterns/SKILL.md).

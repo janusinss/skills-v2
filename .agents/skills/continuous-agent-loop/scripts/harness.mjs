@@ -413,10 +413,16 @@ function cmdWorktree(hp, subaction, flags) {
   throw new Error(`Unknown worktree subcommand "${subaction}". Expected spawn, merge, or abort.`);
 }
 
+function payloadHash(buf) {
+  const data = !buf.includes(0) ? Buffer.from(buf.toString('utf8').replace(/\r\n/g, '\n'), 'utf8') : buf;
+  return crypto.createHash('sha256').update(data).digest('hex');
+}
+
 function collectGitDiffAndFiles(execCwd) {
   let rawDiff = '';
   let changedFiles = [];
   let changedLines = 0;
+  const untrackedFiles = new Set();
 
   try {
     rawDiff = execFileSync('git', ['diff', 'HEAD'], { cwd: execCwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
@@ -429,19 +435,40 @@ function collectGitDiffAndFiles(execCwd) {
   }
 
   try {
-    const statusOut = execFileSync('git', ['status', '--porcelain'], { cwd: execCwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+    const statusOut = execFileSync('git', ['status', '--porcelain', '-uall'], { cwd: execCwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
     const set = new Set();
-    for (const line of statusOut.split(/\r?\n/)) {
-      if (!line.trim()) continue;
+    for (const rawLine of statusOut.split(/\r?\n/)) {
+      const line = rawLine.trimEnd();
+      if (!line) continue;
+      const isUntracked = line.startsWith('?? ');
       const filePart = line.slice(3).trim().split(' -> ').pop();
       const norm = toPosix(filePart.replace(/^"|"$/g, ''));
       if (norm && !norm.startsWith('.harness/')) {
         set.add(norm);
+        if (isUntracked) untrackedFiles.add(norm);
       }
     }
-    changedFiles = [...set];
+    changedFiles = [...set].sort();
   } catch {
     changedFiles = [];
+  }
+
+  for (const norm of [...untrackedFiles].sort()) {
+    const fullPath = path.join(execCwd, norm);
+    if (!fs.existsSync(fullPath) || !fs.statSync(fullPath).isFile()) continue;
+    const buf = fs.readFileSync(fullPath);
+    if (rawDiff && !rawDiff.endsWith('\n')) rawDiff += '\n';
+    if (buf.includes(0)) {
+      rawDiff += `diff --git a/${norm} b/${norm}\nnew file mode 100644\nBinary files /dev/null and b/${norm} differ\n`;
+      continue;
+    }
+    const text = buf.toString('utf8').replace(/\r\n/g, '\n');
+    if (text.length === 0) {
+      rawDiff += `diff --git a/${norm} b/${norm}\nnew file mode 100644\n--- /dev/null\n+++ b/${norm}\n`;
+      continue;
+    }
+    const lines = text.endsWith('\n') ? text.slice(0, -1).split('\n') : text.split('\n');
+    rawDiff += `diff --git a/${norm} b/${norm}\nnew file mode 100644\n--- /dev/null\n+++ b/${norm}\n@@ -0,0 +1,${lines.length} @@\n+${lines.join('\n+')}\n`;
   }
 
   for (const line of rawDiff.split(/\r?\n/)) {
@@ -450,7 +477,14 @@ function collectGitDiffAndFiles(execCwd) {
     }
   }
 
-  return { rawDiff, changedFiles, changedLines };
+  const fileDigestEntries = changedFiles.map(norm => {
+    const fullPath = path.join(execCwd, norm);
+    const existsAndFile = fs.existsSync(fullPath) && fs.statSync(fullPath).isFile();
+    return `${norm}:${existsAndFile ? payloadHash(fs.readFileSync(fullPath)) : 'DELETED'}\n`;
+  });
+  const filesHash = sha256(fileDigestEntries.join(''));
+
+  return { rawDiff, changedFiles, changedLines, filesHash };
 }
 
 function runAcceptanceCommand(cmdStr, execCwd) {
@@ -489,7 +523,7 @@ function cmdVerifyRun(hp, flags) {
   const execCwd = getExecutionCwd(hp, contract);
   const inWorktree = execCwd !== hp.root;
 
-  const { rawDiff, changedFiles, changedLines } = collectGitDiffAndFiles(execCwd);
+  const { rawDiff, changedFiles, changedLines, filesHash } = collectGitDiffAndFiles(execCwd);
 
   const scopeViolations = changedFiles.filter(f => !matchesAnyGlob(f, contract.allowed_paths));
   const protectedViolations = changedFiles.filter(f => matchesAnyGlob(f, PROTECTED_GLOBS));
@@ -539,6 +573,7 @@ function cmdVerifyRun(hp, flags) {
     scope_violations: [...scopeViolations, ...protectedViolations],
     isolation_warning: isolationWarning,
     diff_sha256: diffHash,
+    files_sha256: filesHash,
     command_results: commandResults,
     skeptic_verdict: existingSkeptic ? existingSkeptic.skeptic_verdict : 'PENDING',
     skeptic_reason: existingSkeptic ? existingSkeptic.skeptic_reason : null,
@@ -829,13 +864,15 @@ function cmdPreCommitCheck(hp, flags) {
   }
   const contract = loadContract(hp, taskId);
   const execCwd = getExecutionCwd(hp, contract);
-  const { rawDiff } = collectGitDiffAndFiles(execCwd);
+  const { rawDiff, filesHash } = collectGitDiffAndFiles(execCwd);
   const currentHash = sha256(rawDiff);
-  if (currentHash !== receipt.diff_sha256) {
+  const diffMatches = currentHash === receipt.diff_sha256;
+  const filesMatch = Boolean(receipt.files_sha256 && filesHash === receipt.files_sha256);
+  if (!diffMatches && !filesMatch) {
     console.error(`[HARNESS PRE-COMMIT BLOCK] Working tree diff_sha256 (${currentHash.slice(0, 12)}) does not match verified receipt (${receipt.diff_sha256.slice(0, 12)}). Re-run verify and skeptic.`);
     process.exit(1);
   }
-  console.log(JSON.stringify({ ok: true, action: 'pre-commit-check', task_id: taskId, diff_sha256: currentHash }, null, 2));
+  console.log(JSON.stringify({ ok: true, action: 'pre-commit-check', task_id: taskId, diff_sha256: currentHash, files_sha256: filesHash }, null, 2));
 }
 
 function printHelp() {

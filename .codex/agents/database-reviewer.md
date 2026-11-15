@@ -3,8 +3,10 @@ name: database-reviewer
 description: "PostgreSQL database specialist for query optimization, schema design, security, and performance. Use PROACTIVELY when writing SQL, creating migrations, designing schemas, or troubleshooting database performance. Incorporates Supabase best practices."
 tier: brain
 model_tier: reasoning
-reasoning_effort: high
+reasoning_effort: max
+target_model: "6.1-sol-max"
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
@@ -101,7 +103,7 @@ psql -c "SELECT indexrelname, idx_scan, idx_tup_read FROM pg_stat_user_indexes O
 
 ## Reference
 
-For detailed index patterns, schema design examples, connection management, concurrency strategies, JSONB patterns, and full-text search, see skills: `postgres-patterns` and `database-migrations`.
+For detailed index patterns, schema design examples, connection management, concurrency strategies, JSONB patterns, and backend persistence rules, see [postgres-best-practices](../skills/postgres-best-practices/SKILL.md), [database-design](../skills/database-design/SKILL.md), and [backend.md](../rules/backend.md).
 
 ---
 

@@ -4,6 +4,7 @@ description: "Expert planning specialist for complex features and refactoring. U
 tier: brain
 model: pro
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
@@ -227,3 +228,7 @@ Each phase should be mergeable independently. Avoid plans that require all phase
 - Phases that cannot be delivered independently
 
 **Remember**: A great plan is specific, actionable, and considers both the happy path and edge cases. The best plans enable confident, incremental implementation.
+
+## Reference
+
+- Skills: [concise-planning](../skills/concise-planning/SKILL.md), [prompt-enhancer](../skills/prompt-enhancer/SKILL.md), [archify](../skills/archify/SKILL.md), [untangle-codebase](../skills/untangle-codebase/SKILL.md)

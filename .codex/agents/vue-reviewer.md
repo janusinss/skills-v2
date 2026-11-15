@@ -3,8 +3,10 @@ name: vue-reviewer
 description: "Expert Vue.js code reviewer specializing in Composition API correctness, reactivity pitfalls, component architecture, template security, and Vue-specific performance. Use for any change touching .vue, .ts/.js files with Vue imports, or Vue ecosystem code (Pinia, Vue Router, Nuxt). MUST BE USED for Vue projects."
 tier: brain
 model_tier: reasoning
-reasoning_effort: high
+reasoning_effort: max
+target_model: "6.1-sol-max"
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
@@ -206,10 +208,9 @@ Verdict: BLOCK — HIGH issues must be fixed before merge.
 
 ## Related
 
-- Agents: `typescript-reviewer` (generic TS/JS, invoked alongside on `.vue`/`.ts`), `security-reviewer` (project-wide audit)
-- Rules: `rules/vue/coding-style.md`, `rules/vue/hooks.md`, `rules/vue/patterns.md`, `rules/vue/security.md`, `rules/vue/testing.md`
-- Skills: `skills/vue-patterns/`
-- Commands: `/vue-review`
+- Agents: [typescript-reviewer](typescript-reviewer.md) (generic TS/JS, invoked alongside on `.vue`/`.ts`), [security-auditor](security-auditor.md) (project-wide audit), [a11y-architect](a11y-architect.md) (WCAG 2.2 accessibility audit)
+- Rules: [frontend.md](../rules/frontend.md), [UI_Always.md](../rules/UI_Always.md), [security.md](../rules/security.md)
+- Skills: [anti-ai-slop](../skills/anti-ai-slop/SKILL.md), [frontend-security-coder](../skills/frontend-security-coder/SKILL.md)
 
 ---
 

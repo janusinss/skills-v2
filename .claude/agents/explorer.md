@@ -4,6 +4,8 @@ description: "Fast Reflex-tier reconnaissance subagent for rapid file discovery,
 tools: Read, Grep, Glob
 tier: reflex
 model: haiku
+target_model: "haiku-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline

@@ -4,11 +4,14 @@ description: "C++ build, CMake, and compilation error resolution specialist. Fix
 tier: builder
 model: inherit
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
   - list_dir
+  - write_file
   - write_to_file
+  - edit_file
   - replace_file_content
   - run_command
 mainAgent: true
@@ -107,4 +110,6 @@ Remaining errors: 3
 
 Final: `Build Status: SUCCESS/FAILED | Errors Fixed: N | Files Modified: list`
 
-For detailed C++ patterns and code examples, see `skill: cpp-coding-standards`.
+## Reference
+
+For structured root-cause isolation and build/lint verification workflows, see [systematic-debugging](../skills/systematic-debugging/SKILL.md) and [lint-and-validate](../skills/lint-and-validate/SKILL.md).

@@ -4,6 +4,8 @@ description: "Expert Rust code reviewer specializing in ownership, lifetimes, er
 tools: Read, Grep, Glob, Bash
 tier: brain
 model: opus
+target_model: "opus-5.5-high/xhigh/max"
+reasoning_effort: "high/xhigh/max"
 ---
 
 ## Prompt Defense Baseline
@@ -101,4 +103,6 @@ cargo build --release 2>&1 | head -50
 - **Warning**: MEDIUM issues only
 - **Block**: CRITICAL or HIGH issues found
 
-For detailed Rust code examples and anti-patterns, see `skill: rust-patterns`.
+## Reference
+
+For structured debugging, build/lint validation, and security baselines, see [systematic-debugging](../skills/systematic-debugging/SKILL.md), [lint-and-validate](../skills/lint-and-validate/SKILL.md), and [security.md](../rules/security.md).

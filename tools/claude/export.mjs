@@ -46,6 +46,8 @@ export function resolveHooksSourceFile(mode = 'harness', root = bundleRoot) {
     : path.join(root, 'hooks.example.json');
 }
 
+const stripBom = text => text.replace(/^\uFEFF/, '');
+
 export function applyClaudeSettingsHooks(target, root = bundleRoot, modeOrOptions = 'harness') {
   const opts = typeof modeOrOptions === 'string' ? { mode: modeOrOptions } : (modeOrOptions || {});
   const mode = normalizeMode(opts.mode || 'harness');
@@ -53,7 +55,7 @@ export function applyClaudeSettingsHooks(target, root = bundleRoot, modeOrOption
     ? (path.isAbsolute(opts.hooksFile) ? opts.hooksFile : path.join(root, opts.hooksFile))
     : resolveHooksSourceFile(mode, root);
   if (!fs.existsSync(hooksFile)) return { path: '.claude/settings.json', action: 'skipped' };
-  const parsedHooksFile = JSON.parse(fs.readFileSync(hooksFile, 'utf8'));
+  const parsedHooksFile = JSON.parse(stripBom(fs.readFileSync(hooksFile, 'utf8')));
   const bundleHooks = parsedHooksFile.hooks || {};
   const settingsPath = path.join(target, '.claude/settings.json');
   assertNoSymlinkAncestors(settingsPath);
@@ -61,7 +63,7 @@ export function applyClaudeSettingsHooks(target, root = bundleRoot, modeOrOption
   let existing = {};
   let action = 'created';
   if (fs.existsSync(settingsPath)) {
-    const raw = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
+    const raw = JSON.parse(stripBom(fs.readFileSync(settingsPath, 'utf8')));
     if (!isRecord(raw)) throw new Error('Existing .claude/settings.json must be a JSON object');
     existing = raw;
     action = 'merged';
@@ -89,7 +91,7 @@ export function planExport({ target, profile = 'all', includeHooks = true, mode 
   const destination = resolveTarget(target, root);
   const resolvedMode = normalizeMode(mode);
   const hookSet = !includeHooks ? 'none' : resolvedMode === 'designer' ? 'impeccable' : 'all';
-  const profiles = JSON.parse(fs.readFileSync(path.join(root, 'profiles.json'), 'utf8'));
+  const profiles = JSON.parse(stripBom(fs.readFileSync(path.join(root, 'profiles.json'), 'utf8')));
   const all = fs.readdirSync(path.join(root, 'skills'), { withFileTypes: true })
     .filter(entry => entry.isDirectory() && fs.existsSync(path.join(root, 'skills', entry.name, 'SKILL.md')))
     .map(entry => entry.name);
@@ -146,6 +148,25 @@ export function planExport({ target, profile = 'all', includeHooks = true, mode 
   const installManifest = path.join(destination, '.claude/claude-install.json');
   assertNoSymlinkAncestors(installManifest);
   if (fs.existsSync(installManifest)) throw new Error(`Destination already exists: ${installManifest}`);
+
+  if (includeHooks) {
+    const settingsPath = path.join(destination, '.claude/settings.json');
+    assertNoSymlinkAncestors(settingsPath);
+    if (fs.existsSync(settingsPath)) {
+      if (!fs.statSync(settingsPath).isFile()) {
+        throw new Error('Existing .claude/settings.json must be a regular file');
+      }
+      let existingSettings;
+      try {
+        existingSettings = JSON.parse(stripBom(fs.readFileSync(settingsPath, 'utf8')));
+      } catch (error) {
+        throw new Error(`Existing .claude/settings.json is invalid JSON: ${error.message}`);
+      }
+      if (!isRecord(existingSettings)) {
+        throw new Error('Existing .claude/settings.json must be a JSON object');
+      }
+    }
+  }
 
   return {
     target: destination,

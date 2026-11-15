@@ -4,6 +4,7 @@ description: "Review code for silent failures, swallowed errors, bad fallbacks, 
 tier: brain
 model: pro
 tools:
+  - read_file
   - view_file
   - grep_search
   - find_by_name
@@ -66,3 +67,7 @@ For each finding:
 - issue
 - impact
 - fix recommendation
+
+## Reference
+
+For root-cause isolation, security boundary checks, and promoted anti-regression guardrails, see [systematic-debugging](../skills/systematic-debugging/SKILL.md), [security-audit](../skills/security-audit/SKILL.md), and [learned-invariants.md](../rules/learned-invariants.md).
