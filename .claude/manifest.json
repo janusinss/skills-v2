@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-11-15",
   "originalSnapshot": {
-    "digest": "2be0b50f70fa5aca200629bd830787c97738dabee49b7458083e95c8f7e2f945",
+    "digest": "52415ec8832fa96dd4932c8a858117900d12c5fb3af97d96821538f3097fe786",
     "files": {
       ".agents/agents/a11y-architect.md": "944a665705954fc9a05e3a97907500e3ee57de8d72ebb81de961c866a3eb03ae",
       ".agents/agents/agent-evaluator.md": "a868cea4487b3252c87f9a1262cb13c667510337ae8d45d33a2479b7d80c1d33",
@@ -38,8 +38,8 @@
       ".agents/agents/tdd-guide.md": "4cbd051aa1b4d48e13bb1cc1f3dfe0f70970126a049aa36d1a5177b6e64661c5",
       ".agents/agents/typescript-reviewer.md": "7d21edb2d83e2bb734234706afeda23a06d4698c3667656bad36c07f89117e47",
       ".agents/agents/vue-reviewer.md": "207853031470f6c9c8f256c06de2af428bfba7d8a9159c0bd1e573baa11d0a92",
-      ".agents/hooks.example.json": "32e78547c93d45d142449da13713ace4f0bb2e05b5f02d0d386cb05594ea3562",
-      ".agents/hooks.impeccable.example.json": "bb69ecfde721145113a2ba9d3b4e9515969ecf98f3321800d71ebf240cd2be5f",
+      ".agents/hooks.example.json": "dcd5e4b5f42702a8646d7edc6fea679caf6715d3841f3b0c7fdfbf4ad4a524b7",
+      ".agents/hooks.impeccable.example.json": "0381d7a72e5d70a32419c64045ec2d7ce2b083df6f115d41f5dbe22296259af0",
       ".agents/resources/creative-libraries/README.md": "48ce4c40da73a4cf3ab0af91632477fc01da84c38d542a0c17840a88eeb3d052",
       ".agents/resources/creative-libraries/components/LenisGsapBridge.tsx": "7379da0ae3e85143881bba6930393fb4542e66e600bc486dbf27a741caa317dd",
       ".agents/resources/creative-libraries/gsap/.gitignore": "e7ec355a07c394390a730f8d2bc570079d4402ac271c148b7d35727890cc5106",
@@ -342,7 +342,8 @@
       ".agents/rules/security.md": "1c1cbd8327a8d4d39ce8ed2f4c194923a75435fbd3a993f4267b3f06935ffc1d",
       ".agents/rules/starting-brandnew.md": "f17527bb5b578166b7a86bf7aaa9ceb4f1d26340cd84ac570a28858c90ce42a6",
       ".agents/rules/starting-existing.md": "d465268ac9221bd37b1fbcabc8087c4cef8a4487ad5414eee79044915c85c167",
-      ".agents/rules/swarm.md": "809a33a6c420494b5b3edfcd85d51738ab9bcbcf820a63e52f61ddf253366812",
+      ".agents/rules/swarm.md": "13af545e563a1f797be81d8584bc01b94f3de5ef4f69d5e2d40d49e5b9cad624",
+      ".agents/scripts/swarm-stop-guard.cjs": "6fb566cdaee79b602dd86f057afa237b72efe6486cb7ae8e483bc138e501af2e",
       ".agents/skills/3d-web-experience/SKILL.md": "ccdf216cc836ed8e339f8bafb78001d1deb6bb3a2d9a5beb705407fdd8300d10",
       ".agents/skills/agent-browser/SKILL.md": "4d4a271e670c063470f85ae10ae22a7e47aadbcc29d206beac3252592e60ea70",
       ".agents/skills/agent-browser/references/authentication.md": "590d5b4b53e3088243cceca79ada5c4bebb36633d1e7b2f8baa3076269641a9f",
@@ -1502,7 +1503,7 @@
       ".agents/skills/content-creator/scripts/brand_voice_analyzer.py": "348d601b18d72160f30f7afac74ca0886a7ba1b6d9d5b36da82763f2c6e1426c",
       ".agents/skills/content-creator/scripts/seo_optimizer.py": "f677277baf9aedad02f8784f9938472cdd31401f0b3bce0927530e819425a0b3",
       ".agents/skills/continuous-agent-loop/SKILL.md": "24a215a06ff38b77bbeb25431bf7bd2755342b4e3ef3ff68742b39628d6073fa",
-      ".agents/skills/continuous-agent-loop/scripts/harness.mjs": "4526886c796fb98bed1a8c8a56c1ffbc2b8a865fb504e2ef53b6d0be4c4460d0",
+      ".agents/skills/continuous-agent-loop/scripts/harness.mjs": "dd3e887ba9040eeec884438784d071552c6867cc7f26074a4c06ee8be80b25bc",
       ".agents/skills/database-design/SKILL.md": "46a4ebfc39b02757951925737f377bee4cba796c6c6b5b2115d913522fb99d71",
       ".agents/skills/database-design/database-selection.md": "6517da101e8eacc02e485444d8a8520c27249f3b2b02b01b5b02e4f7886b260c",
       ".agents/skills/database-design/indexing.md": "eec8ce01e7c1c8ec2aed7a96d260a52b12d90c2996288e32814a8d9cf29cc22a",
@@ -8863,8 +8864,8 @@
     },
     "skills/continuous-agent-loop/scripts/harness.mjs": {
       "source": ".agents/skills/continuous-agent-loop/scripts/harness.mjs",
-      "sourceHash": "4526886c796fb98bed1a8c8a56c1ffbc2b8a865fb504e2ef53b6d0be4c4460d0",
-      "outputHash": "4526886c796fb98bed1a8c8a56c1ffbc2b8a865fb504e2ef53b6d0be4c4460d0"
+      "sourceHash": "dd3e887ba9040eeec884438784d071552c6867cc7f26074a4c06ee8be80b25bc",
+      "outputHash": "dd3e887ba9040eeec884438784d071552c6867cc7f26074a4c06ee8be80b25bc"
     },
     "skills/continuous-agent-loop/SKILL.md": {
       "source": ".agents/skills/continuous-agent-loop/SKILL.md",
@@ -17984,7 +17985,7 @@
     "skills/playwright-skill/run.js": {
       "source": ".agents/skills/playwright-skill/run.js",
       "sourceHash": "c8d7d02da33ed999e807312718fc60cdaaca0f0085929776adcf5de2950342c7",
-      "outputHash": "8ad4bcfd2c37229bfb0912c97a62ea2bdedeab6fe891b910f46a24bfcb17b0e3"
+      "outputHash": "0e848284a5d24dea53fc70f87b7c36858aeafd11fb3486beebe490dbd95e1037"
     },
     "skills/playwright-skill/SKILL.md": {
       "source": ".agents/skills/playwright-skill/SKILL.md",
@@ -19353,13 +19354,13 @@
     },
     "hooks.example.json": {
       "source": ".agents/hooks.example.json",
-      "sourceHash": "32e78547c93d45d142449da13713ace4f0bb2e05b5f02d0d386cb05594ea3562",
-      "outputHash": "6df4d35382a6f4257cab1ed28292aaa7f14f9a4c691bf2afac182849f0bec161"
+      "sourceHash": "dcd5e4b5f42702a8646d7edc6fea679caf6715d3841f3b0c7fdfbf4ad4a524b7",
+      "outputHash": "06a60b1e7f054082d13ad117c28faa775d316ef58f993883ac5d3d5642851c80"
     },
     "hooks.impeccable.example.json": {
       "source": ".agents/hooks.example.json",
-      "sourceHash": "32e78547c93d45d142449da13713ace4f0bb2e05b5f02d0d386cb05594ea3562",
-      "outputHash": "31429ba1db1151782d0c8f8d5e55bf897ddeca4a19f431e914fe1cb0598f289a"
+      "sourceHash": "dcd5e4b5f42702a8646d7edc6fea679caf6715d3841f3b0c7fdfbf4ad4a524b7",
+      "outputHash": "ddf396065f2cc11d34fa90d0b562c8a28506c53f1cacb7e51c8f2fbc5d87082a"
     },
     "CLAUDE.md": {
       "source": "AGENTS.md",

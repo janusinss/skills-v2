@@ -23,15 +23,18 @@ function pruneEmptyDirs(dir, isRoot = true) {
   return false;
 }
 
-/** Keep only hook entries that do not invoke harness.mjs, dropping empty matcher groups and events. */
-function filterNonHarnessHooks(hooksMap = {}) {
+/** Drop hook entries matching any excluded command substring, plus empty groups and events. */
+function filterHookEntries(hooksMap = {}, excludedSubstrings = []) {
   const filtered = {};
   for (const [event, groups] of Object.entries(hooksMap)) {
     if (!Array.isArray(groups)) continue;
     const keptGroups = [];
     for (const group of groups) {
       if (!group || typeof group !== 'object' || !Array.isArray(group.hooks)) continue;
-      const keptHooks = group.hooks.filter(entry => !`${entry?.command ?? ''}\n${entry?.commandWindows ?? ''}`.includes('harness.mjs'));
+      const keptHooks = group.hooks.filter(entry => {
+        const commands = `${entry?.command ?? ''}\n${entry?.commandWindows ?? ''}`;
+        return !excludedSubstrings.some(needle => commands.includes(needle));
+      });
       if (keptHooks.length > 0) keptGroups.push({ ...group, hooks: keptHooks });
     }
     if (keptGroups.length > 0) filtered[event] = keptGroups;
@@ -117,8 +120,8 @@ export function buildBundle() {
   add('project.gitignore', '# Local Codex skills, instructions, and workflow artifacts\n' + localCodexIgnoreEntries.join('\n') + '\n\n' + fs.readFileSync(projectIgnore, 'utf8'), projectIgnore);
   const hooksSource = path.join(sourceRoot, 'hooks.example.json');
   const hooks = JSON.parse(fs.readFileSync(hooksSource, 'utf8'));
-  add('hooks.example.json', json({ description: 'Optional Impeccable hooks. Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks }).replaceAll('.agents/skills/', '.codex/skills/').replaceAll('--hook antigravity', '--hook codex'), hooksSource);
-  add('hooks.impeccable.example.json', json({ description: 'Optional Impeccable hooks (Designer mode, without Harness hooks). Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks, hooks: filterNonHarnessHooks(hooks.hooks) }).replaceAll('.agents/skills/', '.codex/skills/').replaceAll('--hook antigravity', '--hook codex'), hooksSource);
+  add('hooks.example.json', json({ description: 'Optional Impeccable hooks. Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks, hooks: filterHookEntries(hooks.hooks, ['swarm-stop-guard']) }).replaceAll('.agents/skills/', '.codex/skills/').replaceAll('--hook antigravity', '--hook codex'), hooksSource);
+  add('hooks.impeccable.example.json', json({ description: 'Optional Impeccable hooks (Designer mode, without Harness hooks). Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks, hooks: filterHookEntries(hooks.hooks, ['harness.mjs', 'swarm-stop-guard']) }).replaceAll('.agents/skills/', '.codex/skills/').replaceAll('--hook antigravity', '--hook codex'), hooksSource);
 
   // Preflight every generated destination before writing any files. Refuse to
   // overwrite manually edited generated files. The retired instruction

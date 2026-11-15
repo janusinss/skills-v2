@@ -102,14 +102,35 @@ function matchesAnyGlob(filePath, globs) {
 function resolveWorkspaceRoot(cwd = process.cwd()) {
   let curr = path.resolve(cwd);
   while (true) {
-    if (fs.existsSync(path.join(curr, '.git')) || fs.existsSync(path.join(curr, HARNESS_DIR))) {
+    const gitPath = path.join(curr, '.git');
+    if (fs.existsSync(gitPath)) {
+      try {
+        if (fs.statSync(gitPath).isFile()) {
+          const rawCommon = execFileSync('git', ['rev-parse', '--git-common-dir'], {
+            cwd: curr,
+            encoding: 'utf8',
+            stdio: ['ignore', 'pipe', 'ignore'],
+          }).trim();
+          if (rawCommon) {
+            const commonDir = path.resolve(curr, rawCommon);
+            if (path.basename(commonDir) === '.git') {
+              return path.dirname(commonDir);
+            }
+          }
+        }
+      } catch {
+        // Fallback to curr if git common-dir lookup fails
+      }
+      return curr;
+    }
+    if (fs.existsSync(path.join(curr, HARNESS_DIR))) {
       return curr;
     }
     const parent = path.dirname(curr);
     if (parent === curr) break;
     curr = parent;
   }
-  return cwd;
+  return path.resolve(cwd);
 }
 
 function harnessPaths(root) {
@@ -275,38 +296,129 @@ function cmdContractInit(hp, flags) {
   console.log(JSON.stringify({ ok: true, action: 'contract.init', contract_path: toPosix(path.relative(hp.root, contractFile)), contract }, null, 2));
 }
 
-function extractFileFromStdin() {
-  if (process.stdin.isTTY) return null;
-  try {
-    const raw = fs.readFileSync(0, 'utf8').trim();
-    if (!raw) return null;
-    const data = JSON.parse(raw);
-    const input = data.tool_input || data.input || data;
-    return input.file_path || input.path || input.TargetFile || input.File || null;
-  } catch {
-    return null;
-  }
+const STOP_BYPASS_REASONS = new Set([
+  'USER_CANCELED',
+  'ERROR',
+  'MAX_INVOCATIONS',
+  'MAX_FORCED_INVOCATIONS',
+  'MAX_TOKEN_BUDGET_EXCEEDED',
+]);
+
+function readStdinPayload(timeoutMs = 1500) {
+  return new Promise(resolve => {
+    if (process.stdin.isTTY) return resolve(null);
+    let raw = '';
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      try {
+        process.stdin.pause();
+        process.stdin.destroy();
+      } catch {
+        // Pipe already closed
+      }
+      const cleaned = raw.replace(/^\uFEFF/, '').trim();
+      if (!cleaned) return resolve(null);
+      try {
+        const parsed = JSON.parse(cleaned);
+        return resolve(parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : null);
+      } catch {
+        return resolve(null);
+      }
+    };
+    const timer = setTimeout(finish, timeoutMs);
+    process.stdin.setEncoding('utf8');
+    process.stdin.on('data', chunk => {
+      raw += chunk;
+      if (raw.length > 1024 * 1024) finish();
+    });
+    process.stdin.on('end', finish);
+    process.stdin.on('error', finish);
+  });
 }
 
-function cmdSensorCheckFile(hp, flags) {
-  const candidate = flags.file || extractFileFromStdin();
-  if (!candidate || typeof candidate !== 'string') {
+function extractPatchFiles(patchText) {
+  if (!patchText || typeof patchText !== 'string') return [];
+  const files = [];
+  for (const line of patchText.split(/\r?\n/)) {
+    const fileMatch = line.match(/^\*\*\*\s+(?:Add|Update|Delete)\s+File:\s+(.+?)\s*$/);
+    if (fileMatch && fileMatch[1]) {
+      files.push(fileMatch[1]);
+      continue;
+    }
+    const moveMatch = line.match(/^\*\*\*\s+Move to:\s+(.+?)\s*$/);
+    if (moveMatch && moveMatch[1]) {
+      files.push(moveMatch[1]);
+    }
+  }
+  return files;
+}
+
+function extractFilesFromStdin(stdinData) {
+  if (!stdinData || typeof stdinData !== 'object') return [];
+  const files = [];
+  const seen = new Set();
+  const addFile = candidate => {
+    if (typeof candidate !== 'string') return;
+    const trimmed = candidate.trim();
+    if (!trimmed || seen.has(trimmed)) return;
+    seen.add(trimmed);
+    files.push(trimmed);
+  };
+
+  const input = (stdinData.tool_input && typeof stdinData.tool_input === 'object' ? stdinData.tool_input : null)
+    || (stdinData.input && typeof stdinData.input === 'object' ? stdinData.input : null)
+    || stdinData;
+
+  for (const obj of [input, stdinData]) {
+    if (!obj || typeof obj !== 'object') continue;
+    for (const key of ['file_path', 'path', 'TargetFile', 'File']) {
+      addFile(obj[key]);
+    }
+  }
+
+  const patchSources = [
+    input?.patch,
+    input?.input,
+    stdinData.patch,
+    typeof stdinData.tool_input === 'string' ? stdinData.tool_input : null,
+    typeof stdinData.input === 'string' ? stdinData.input : null,
+  ];
+  for (const patchText of patchSources) {
+    for (const p of extractPatchFiles(patchText)) {
+      addFile(p);
+    }
+  }
+
+  return files;
+}
+
+function cmdSensorCheckFile(hp, flags, stdinData = null) {
+  const candidates = flags.file ? [String(flags.file)] : extractFilesFromStdin(stdinData);
+  if (candidates.length === 0) {
     // If invoked as a generic hook where no file path is present, allow pass-through
     console.log(JSON.stringify({ ok: true, action: 'sensor.check-file', skipped: true, reason: 'No target file argument found' }));
     return;
   }
 
-  const absCandidate = path.resolve(hp.root, candidate);
-  const relPath = toPosix(path.relative(hp.root, absCandidate));
+  const normalizedPaths = [];
+  for (const candidate of candidates) {
+    const absCandidate = path.resolve(hp.root, candidate);
+    const relPath = toPosix(path.relative(hp.root, absCandidate));
 
-  if (relPath.startsWith('../') || relPath === '..') {
-    console.error(`[HARNESS SENSOR BLOCK] Path escapes workspace root: ${candidate}`);
-    process.exit(2);
-  }
+    if (path.isAbsolute(relPath) || relPath.startsWith('../') || relPath === '..') {
+      console.error(`[HARNESS SENSOR BLOCK] Path escapes workspace root: ${candidate}`);
+      process.exit(2);
+    }
 
-  if (matchesAnyGlob(relPath, PROTECTED_GLOBS)) {
-    console.error(`[HARNESS SENSOR BLOCK] Direct agent tampering with protected harness/git path is forbidden: ${relPath}`);
-    process.exit(2);
+    if (matchesAnyGlob(relPath, PROTECTED_GLOBS)) {
+      console.error(`[HARNESS SENSOR BLOCK] Direct agent tampering with protected harness/git path is forbidden: ${relPath}`);
+      process.exit(2);
+    }
+
+    normalizedPaths.push(relPath);
   }
 
   const taskId = resolveTaskId(hp, flags.task);
@@ -315,24 +427,35 @@ function cmdSensorCheckFile(hp, flags) {
       console.error(`[HARNESS SENSOR BLOCK] No active contract found in .harness/contracts/. Run 'harness.mjs contract init' first.`);
       process.exit(2);
     }
-    console.log(JSON.stringify({ ok: true, action: 'sensor.check-file', file: relPath, contract: null, note: 'No active contract; protected path check passed' }));
+    console.log(JSON.stringify({
+      ok: true,
+      action: 'sensor.check-file',
+      file: normalizedPaths[0],
+      ...(normalizedPaths.length > 1 ? { files: normalizedPaths } : {}),
+      contract: null,
+      note: 'No active contract; protected path check passed',
+    }));
     return;
   }
 
   const contract = loadContract(hp, taskId);
-  if (relPath === '.harness/PROGRESS.md') {
-    console.log(JSON.stringify({ ok: true, action: 'sensor.check-file', file: relPath, task_id: contract.task_id }));
-    return;
+  for (const relPath of normalizedPaths) {
+    if (relPath === '.harness/PROGRESS.md') continue;
+    if (!matchesAnyGlob(relPath, contract.allowed_paths)) {
+      console.error(
+        `[HARNESS SENSOR BLOCK] File "${relPath}" is outside contract "${contract.task_id}" allowed_paths: [${contract.allowed_paths.join(', ')}]`
+      );
+      process.exit(2);
+    }
   }
 
-  if (!matchesAnyGlob(relPath, contract.allowed_paths)) {
-    console.error(
-      `[HARNESS SENSOR BLOCK] File "${relPath}" is outside contract "${contract.task_id}" allowed_paths: [${contract.allowed_paths.join(', ')}]`
-    );
-    process.exit(2);
-  }
-
-  console.log(JSON.stringify({ ok: true, action: 'sensor.check-file', file: relPath, task_id: contract.task_id }));
+  console.log(JSON.stringify({
+    ok: true,
+    action: 'sensor.check-file',
+    file: normalizedPaths[0],
+    ...(normalizedPaths.length > 1 ? { files: normalizedPaths } : {}),
+    task_id: contract.task_id,
+  }));
 }
 
 function getExecutionCwd(hp, contract) {
@@ -379,6 +502,7 @@ function cmdWorktree(hp, subaction, flags) {
     }
 
     if (fs.existsSync(wtPath)) {
+      fs.rmSync(path.join(wtPath, HARNESS_DIR), { recursive: true, force: true });
       const statusOut = execFileSync('git', ['status', '--porcelain'], { cwd: wtPath, encoding: 'utf8' }).trim();
       if (statusOut) {
         execFileSync('git', ['add', '-A'], { cwd: wtPath, stdio: 'pipe' });
@@ -590,25 +714,82 @@ function cmdVerifyRun(hp, flags) {
   if (status !== 'PASS') process.exit(1);
 }
 
-function cmdVerifyStatusCheck(hp, flags) {
+function cmdVerifyStatusCheck(hp, flags, stdinData = null) {
+  const rawHook = flags.hook;
+  let hookHost = null;
+  if (rawHook !== undefined) {
+    const normalizedHook = typeof rawHook === 'string' ? rawHook.trim().toLowerCase() : '';
+    if (!['antigravity', 'codex', 'claude'].includes(normalizedHook)) {
+      throw new Error('Invalid --hook value. Expected antigravity, codex, or claude.');
+    }
+    hookHost = normalizedHook;
+  }
+
+  if (hookHost && stdinData) {
+    const terminationReason = stdinData.terminationReason || stdinData.stop_reason || stdinData.stopReason;
+    if (
+      stdinData.continuationActive === true ||
+      stdinData.stop_hook_active === true ||
+      STOP_BYPASS_REASONS.has(terminationReason)
+    ) {
+      return;
+    }
+  }
+
+  const emitStopFailure = reason => {
+    if (hookHost) {
+      console.log(JSON.stringify({
+        decision: hookHost === 'antigravity' ? 'continue' : 'block',
+        reason,
+      }));
+      return;
+    }
+    console.error(reason);
+    process.exit(1);
+  };
+
   const taskId = resolveTaskId(hp, flags.task);
   if (!taskId) {
-    console.log(JSON.stringify({ ok: true, action: 'verify.status-check', active_contract: null }));
+    if (!hookHost) {
+      console.log(JSON.stringify({ ok: true, action: 'verify.status-check', active_contract: null }));
+    }
     return;
   }
+
   const receiptFile = path.join(hp.receipts, `${taskId}.json`);
   if (!fs.existsSync(receiptFile)) {
-    console.error(`[HARNESS STOP CHECK] Active contract "${taskId}" has no verification receipt (.harness/receipts/${taskId}.json). Run 'harness.mjs verify run --task ${taskId}' and checkpoint .harness/PROGRESS.md before finishing.`);
-    process.exit(1);
+    emitStopFailure(
+      `[HARNESS STOP CHECK] Active contract "${taskId}" has no verification receipt (.harness/receipts/${taskId}.json). Run 'harness.mjs verify run --task ${taskId}' and checkpoint .harness/PROGRESS.md before finishing.`
+    );
+    return;
   }
-  const receipt = JSON.parse(fs.readFileSync(receiptFile, 'utf8'));
-  console.log(JSON.stringify({
-    ok: receipt.status === 'PASS',
-    action: 'verify.status-check',
-    task_id: taskId,
-    receipt_status: receipt.status,
-    skeptic_verdict: receipt.skeptic_verdict,
-  }));
+
+  let receipt;
+  try {
+    receipt = JSON.parse(fs.readFileSync(receiptFile, 'utf8'));
+  } catch {
+    emitStopFailure(
+      `[HARNESS STOP CHECK] Active contract "${taskId}" has an unreadable verification receipt (.harness/receipts/${taskId}.json). Re-run 'harness.mjs verify run --task ${taskId}'.`
+    );
+    return;
+  }
+
+  if (receipt.status !== 'PASS') {
+    emitStopFailure(
+      `[HARNESS STOP CHECK] Active contract "${taskId}" verification receipt status is "${receipt.status || 'UNKNOWN'}" (expected "PASS"). Fix failures, re-run 'harness.mjs verify run --task ${taskId}', and checkpoint .harness/PROGRESS.md before finishing.`
+    );
+    return;
+  }
+
+  if (!hookHost) {
+    console.log(JSON.stringify({
+      ok: true,
+      action: 'verify.status-check',
+      task_id: taskId,
+      receipt_status: receipt.status,
+      skeptic_verdict: receipt.skeptic_verdict,
+    }));
+  }
 }
 
 function cmdSkepticPacket(hp, flags) {
@@ -835,7 +1016,8 @@ function cmdInstallGitHook(hp) {
   const hookScript = [
     '#!/bin/sh',
     '# Installed by Self-Improving Agent Harness (harness.mjs install-git-hook)',
-    `node "${relScript}" pre-commit-check`,
+    'HARNESS_ROOT=$(cd "$(dirname "$0")/../.." 2>/dev/null && pwd || pwd)',
+    `node "$HARNESS_ROOT/${relScript}" pre-commit-check`,
     '',
   ].join('\n');
   fs.writeFileSync(hookFile, hookScript, { encoding: 'utf8', mode: 0o755 });
@@ -896,7 +1078,7 @@ Commands:
       Deterministic model-free verifier: checks changed files against allowed_paths, executes all
       acceptance_commands, hashes git diff HEAD (diff_sha256), and emits .harness/receipts/<id>.json.
 
-  verify status-check [--task <id>]
+  verify status-check [--task <id>] [--hook <antigravity|codex|claude>]
       Stop-hook gate verifying that an active contract has a passing verification receipt.
 
   skeptic-packet --task <id>
@@ -920,23 +1102,26 @@ Commands:
 `);
 }
 
-function main() {
+async function main() {
   const { positional, flags } = parseFlags(process.argv.slice(2));
   if (flags.help || positional.length === 0) {
     printHelp();
     return;
   }
 
-  const root = flags.cwd ? path.resolve(flags.cwd) : resolveWorkspaceRoot();
-  const hp = harnessPaths(root);
   const [cmd, sub] = positional;
+  const usesHookStdin = (cmd === 'sensor' && sub === 'check-file') || (cmd === 'verify' && sub === 'status-check');
+  const stdinData = usesHookStdin ? await readStdinPayload() : null;
+  const rawCwd = flags.cwd || (typeof stdinData?.cwd === 'string' && stdinData.cwd.trim() ? stdinData.cwd : null);
+  const root = rawCwd ? resolveWorkspaceRoot(path.resolve(rawCwd)) : resolveWorkspaceRoot();
+  const hp = harnessPaths(root);
 
   try {
     if (cmd === 'contract' && sub === 'init') return cmdContractInit(hp, flags);
-    if (cmd === 'sensor' && sub === 'check-file') return cmdSensorCheckFile(hp, flags);
+    if (cmd === 'sensor' && sub === 'check-file') return cmdSensorCheckFile(hp, flags, stdinData);
     if (cmd === 'worktree') return cmdWorktree(hp, sub, flags);
     if (cmd === 'verify' && (sub === 'run' || !sub)) return cmdVerifyRun(hp, flags);
-    if (cmd === 'verify' && sub === 'status-check') return cmdVerifyStatusCheck(hp, flags);
+    if (cmd === 'verify' && sub === 'status-check') return cmdVerifyStatusCheck(hp, flags, stdinData);
     if (cmd === 'skeptic-packet') return cmdSkepticPacket(hp, flags);
     if (cmd === 'stamp-skeptic') return cmdStampSkeptic(hp, flags);
     if (cmd === 'flywheel' && (sub === 'record' || !sub)) return cmdFlywheelRecord(hp, flags);
@@ -951,4 +1136,4 @@ function main() {
   }
 }
 
-main();
+await main();

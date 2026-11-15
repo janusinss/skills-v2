@@ -20,10 +20,6 @@ function getCandidatePaths() {
   // Linux / macOS global npm
   candidates.push('/usr/local/lib/node_modules', '/usr/lib/node_modules');
 
-  // Central skills repository on this machine
-  const centralSkills = path.resolve('c:/xampp/htdocs/YEAR 4/Skills/.claude/skills/playwright-skill/node_modules');
-  candidates.push(centralSkills);
-
   // User home directory (.agents, .claude)
   const home = os.homedir();
   candidates.push(

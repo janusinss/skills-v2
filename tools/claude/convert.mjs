@@ -179,3 +179,13 @@ export function formatDesignerPolicy(text) {
   result = result.replace(/\n---\n\n## 5\. 6-Stage Self-Improving Harness Lifecycle[\s\S]*$/, '');
   return result.trimEnd() + '\n';
 }
+
+export function adaptPlaywrightRunner(text) {
+  let result = text.replace("const { spawn, execSync } = require('node:child_process');", "const { spawn } = require('node:child_process');");
+  result = result.replace(/  \/\/ Central skills repository on this machine[\s\S]*?  candidates\.push\(centralSkills\);\r?\n\r?\n/, '');
+  result = result.replace(/  \/\/ If not found in any candidate path, attempt automatic setup[\s\S]*?\r?\n}\r?\n\r?\nfunction saveScript/, `  console.error('Playwright is unavailable. Install the dependencies and browser for this skill with npm ci, then retry.');\n  process.exit(1);\n}\n\nfunction saveScript`);
+  if (result.includes('centralSkills') || result.includes('execSync(')) {
+    throw new Error('Playwright runner adaptation no longer matches its upstream source');
+  }
+  return result;
+}

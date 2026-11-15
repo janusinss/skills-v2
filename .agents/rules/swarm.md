@@ -55,3 +55,12 @@ Every swarm worker — including specialized implementation/audit workers and th
 - **Swarm Tier-to-Model Mapping**: Both `reflex` and `builder` tiers strictly use `gemini-4-hydrogen-high` ONLY (no `flash`, `flash_lite`, or lower Hydrogen tiers); `brain` uses `CARBON` / `ARGON` (coordinator) or `gemini-4-hydrogen-xhigh` (architecture/audit/verifier workers & subagents, falling back to `high` only on `xhigh` quota exhaustion).
 - **Worker Subagent Delegation**: Keep optional `invoke_subagent` delegation for scoped read-only reconnaissance (`explorer`) or targeted specialist audits.
 
+---
+
+## 5. Anti-Stall Monitor & Coordinator Wait Policy
+
+- **Mandatory `monitor` Worker**: Every `/swarm` session MUST spawn a `monitor` worker running `swarm_monitor` (`swarm{action:"add", name:"monitor", brief:"You are the swarm monitor. Read the swarm_monitor skill first and follow it strictly."}`) in the initial wave alongside workers. Leave `monitor` running until work completes; never assign implementation tasks to it.
+- **Unfiltered Coordinator Waits**: Whenever waiting on the board with active workers, the coordinator MUST call `swarm_wait{since: <last_seq>, mentions_only: false}` (never default `mentions_only: true`) so peer replies, unaddressed reports, and `monitor` stall nudges always wake the coordinator.
+- **Explicit Closure (`[done]` / `kill`)**: Before finishing, verify `swarm{action:"status"}` and `read_board`, post `[done] <summary>` via `post_message` once work finishes so `monitor` retires, and `kill` completed workers (or leave `kill`ed clean).
+- **`Stop` Hook Enforcement (Harness & Designer Modes)**: [swarm-stop-guard.cjs](.agents/scripts/swarm-stop-guard.cjs) inspects the hook `transcriptPath` at turn end and forces one re-check (`{"decision":"continue"}`) if workers remain open without `[done]`/`kill`, without a `monitor`, or with `swarm_wait` missing `mentions_only: false`.
+

@@ -53,7 +53,7 @@ function installGitPreCommitHook(execute, target, manifest) {
     const existing = fs.readFileSync(preCommitPath, 'utf8');
     if (existing.includes('pre-commit-check')) return 'active';
     if (!existing.includes('# Installed by Self-Improving Agent Harness')) {
-      const chained = `${existing.trimEnd()}\n\n# Installed by Self-Improving Agent Harness (harness.mjs install-git-hook)\nnode "${harnessRunner}" pre-commit-check\n`;
+      const chained = `${existing.trimEnd()}\n\n# Installed by Self-Improving Agent Harness (harness.mjs install-git-hook)\nHARNESS_ROOT=\$(cd "\$(dirname "\$0")/../.." 2>/dev/null && pwd || pwd)\nnode "\$HARNESS_ROOT/${harnessRunner}" pre-commit-check\n`;
       fs.writeFileSync(preCommitPath, chained, { encoding: 'utf8', mode: 0o755 });
       return 'chained';
     }

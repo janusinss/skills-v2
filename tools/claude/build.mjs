@@ -17,7 +17,7 @@ import {
   isBundleExcluded,
   parseFrontmatter
 } from './lib.mjs';
-import { convertSkill, convertAgent, adaptMarkdown, generateClaudeMd, formatDesignerPolicy } from './convert.mjs';
+import { convertSkill, convertAgent, adaptMarkdown, generateClaudeMd, formatDesignerPolicy, adaptPlaywrightRunner } from './convert.mjs';
 
 const customCommands = {
   'plan.md': `---
@@ -85,15 +85,18 @@ function pruneEmptyDirs(dir, isRoot = true) {
   return false;
 }
 
-/** Keep only hook entries that do not invoke harness.mjs, dropping empty matcher groups and events. */
-function filterNonHarnessHooks(hooksMap = {}) {
+/** Drop hook entries matching any excluded command substring, plus empty groups and events. */
+function filterHookEntries(hooksMap = {}, excludedSubstrings = []) {
   const filtered = {};
   for (const [event, groups] of Object.entries(hooksMap)) {
     if (!Array.isArray(groups)) continue;
     const keptGroups = [];
     for (const group of groups) {
       if (!group || typeof group !== 'object' || !Array.isArray(group.hooks)) continue;
-      const keptHooks = group.hooks.filter(entry => !`${entry?.command ?? ''}\n${entry?.commandWindows ?? ''}`.includes('harness.mjs'));
+      const keptHooks = group.hooks.filter(entry => {
+        const commands = `${entry?.command ?? ''}\n${entry?.commandWindows ?? ''}`;
+        return !excludedSubstrings.some(needle => commands.includes(needle));
+      });
       if (keptHooks.length > 0) keptGroups.push({ ...group, hooks: keptHooks });
     }
     if (keptGroups.length > 0) filtered[event] = keptGroups;
@@ -164,7 +167,9 @@ export function buildClaudeBundle() {
       add(originalRelative, text, source);
     }
     // Supporting files (scripts, references, assets, etc.)
-    else {
+    else if (originalRelative === 'skills/playwright-skill/run.js') {
+      add(originalRelative, adaptPlaywrightRunner(fs.readFileSync(source, 'utf8')), source);
+    } else {
       let content = fs.readFileSync(source);
       if (source.endsWith('.md') || source.endsWith('.txt') || source.endsWith('.json') || source.endsWith('.js') || source.endsWith('.mjs')) {
         const text = adaptMarkdown(content.toString('utf8'), source);
@@ -195,7 +200,8 @@ export function buildClaudeBundle() {
       'hooks.example.json',
       json({
         description: 'Optional harness and Impeccable hooks. Install at .claude/hooks.json in a trusted target project and review them in Claude Code before use.',
-        ...hooks
+        ...hooks,
+        hooks: filterHookEntries(hooks.hooks, ['swarm-stop-guard'])
       }).replaceAll('.agents/', '.claude/').replaceAll('--hook antigravity', '--hook claude'),
       hooksSource
     );
@@ -204,7 +210,7 @@ export function buildClaudeBundle() {
       json({
         description: 'Optional Impeccable hooks (Designer mode, without Harness hooks). Install at .claude/hooks.json in a trusted target project and review them in Claude Code before use.',
         ...hooks,
-        hooks: filterNonHarnessHooks(hooks.hooks)
+        hooks: filterHookEntries(hooks.hooks, ['harness.mjs', 'swarm-stop-guard'])
       }).replaceAll('.agents/', '.claude/').replaceAll('--hook antigravity', '--hook claude'),
       hooksSource
     );
