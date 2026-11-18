@@ -853,6 +853,17 @@ function cmdStampSkeptic(hp, flags) {
   console.log(JSON.stringify({ ok: verdict === 'APPROVE', action: 'stamp-skeptic', task_id: taskId, verdict, reason: receipt.skeptic_reason }, null, 2));
 }
 
+const PROMOTED_START_MARKER = '<!-- flywheel-promoted-rules-start -->';
+const PROMOTED_END_MARKER = '<!-- flywheel-promoted-rules-end -->';
+const STAGED_START_MARKER = '<!-- flywheel-staged-rules-start -->';
+const STAGED_END_MARKER = '<!-- flywheel-staged-rules-end -->';
+const PROMOTED_HEADING_RE = /^##\s+(?:\d+\.\s+)?Promoted\s+(?:Guardrails|Project Invariants)\b/i;
+const STAGED_HEADING_RE = /^##\s+(?:\d+\.\s+)?Staged\s+Candidates\b/i;
+const INVARIANT_MAX_BYTES = 24000;
+const INVARIANT_SOFT_BYTES = 12288;
+const INVARIANT_PROMOTED_SOFT_LIMIT = 20;
+const DIGEST_DOMAIN_THRESHOLD = 3;
+
 function resolveLearnedInvariantsPaths(root) {
   const candidates = [
     path.join(root, '.agents', 'rules', 'learned-invariants.md'),
@@ -866,6 +877,68 @@ function resolveLearnedInvariantsPaths(root) {
     return [fallback];
   }
   return active;
+}
+
+function findMarkerBlock(lines, startMarker, endMarker) {
+  const start = lines.findIndex(l => l.trim() === startMarker);
+  if (start === -1) return null;
+  const end = lines.findIndex((l, idx) => idx > start && l.trim() === endMarker);
+  if (end === -1) return null;
+  return { start, end };
+}
+
+function findHeadingSection(lines, headingRegex) {
+  const headingIdx = lines.findIndex(l => headingRegex.test(l.trim()));
+  if (headingIdx === -1) return null;
+  let end = lines.length;
+  for (let i = headingIdx + 1; i < lines.length; i++) {
+    if (/^##\s+/.test(lines[i].trim())) {
+      end = i;
+      break;
+    }
+  }
+  return { headingIdx, start: headingIdx, end };
+}
+
+function locateInvariantSections(lines) {
+  const promotedMarker = findMarkerBlock(lines, PROMOTED_START_MARKER, PROMOTED_END_MARKER);
+  const stagedMarker = findMarkerBlock(lines, STAGED_START_MARKER, STAGED_END_MARKER);
+  const promotedHeading = findHeadingSection(lines, PROMOTED_HEADING_RE);
+  const stagedHeading = findHeadingSection(lines, STAGED_HEADING_RE);
+  return {
+    promotedMarker,
+    stagedMarker,
+    promotedHeading,
+    stagedHeading,
+    promotedRange: promotedMarker || promotedHeading,
+    stagedRange: stagedMarker || stagedHeading,
+  };
+}
+
+function countBulletsInRange(lines, range) {
+  if (!range) return 0;
+  let count = 0;
+  for (let i = range.start + 1; i < range.end; i++) {
+    if (/^- /.test(lines[i])) count++;
+  }
+  return count;
+}
+
+function insertBulletIntoSection(lines, bullet, { markerBlock, headingSection, fallbackHeading, startMarker, endMarker }) {
+  if (markerBlock) {
+    lines.splice(markerBlock.end, 0, bullet);
+    return lines;
+  }
+  if (headingSection) {
+    lines.splice(headingSection.headingIdx + 1, 0, bullet);
+    return lines;
+  }
+  while (lines.length > 0 && lines[lines.length - 1] === '') {
+    lines.pop();
+  }
+  if (lines.length > 0) lines.push('');
+  lines.push(fallbackHeading, '', startMarker, bullet, endMarker, '');
+  return lines;
 }
 
 function ensureLearnedInvariantsFile(filePath) {
@@ -887,7 +960,13 @@ function ensureLearnedInvariantsFile(filePath) {
     '',
     '## Promoted Guardrails',
     '',
+    PROMOTED_START_MARKER,
+    PROMOTED_END_MARKER,
+    '',
     '## Staged Candidates (Pending Promotion)',
+    '',
+    STAGED_START_MARKER,
+    STAGED_END_MARKER,
     '',
   ].join('\n');
   fs.writeFileSync(filePath, header + body, 'utf8');
@@ -896,27 +975,153 @@ function ensureLearnedInvariantsFile(filePath) {
 function upsertInvariantRule(filePath, domain, ruleText, promote) {
   ensureLearnedInvariantsFile(filePath);
   const current = fs.readFileSync(filePath, 'utf8');
+  const eol = current.includes('\r\n') ? '\r\n' : '\n';
+  const lines = current.split(/\r?\n/);
   const formattedBullet = `- **[${domain}]**: ${ruleText}`;
 
-  if (current.includes(formattedBullet)) {
-    if (promote && current.includes('## Staged Candidates') && current.indexOf(formattedBullet) > current.indexOf('## Staged Candidates')) {
-      // Move from Staged to Promoted
-      const withoutStaged = current.replace(formattedBullet + '\n', '').replace(formattedBullet + '\r\n', '');
-      const updated = withoutStaged.replace('## Promoted Guardrails\n', `## Promoted Guardrails\n${formattedBullet}\n`);
-      fs.writeFileSync(filePath, updated, 'utf8');
+  const matchIndices = [];
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].trimEnd() === formattedBullet) {
+      matchIndices.push(i);
+    }
+  }
+
+  const sections = locateInvariantSections(lines);
+  const isInRange = (idx, range) => Boolean(range && idx > range.start && idx < range.end);
+
+  if (matchIndices.length > 0) {
+    const stagedMatches = matchIndices.filter(idx => isInRange(idx, sections.stagedRange));
+    const promotedMatches = matchIndices.filter(idx => isInRange(idx, sections.promotedRange));
+    const anyMatchesOutside = matchIndices.some(
+      idx => !isInRange(idx, sections.stagedRange) && !isInRange(idx, sections.promotedRange)
+    );
+
+    if (promote && stagedMatches.length > 0) {
+      const stagedSet = new Set(stagedMatches);
+      const nextLines = lines.filter((_, idx) => !stagedSet.has(idx));
+      if (promotedMatches.length === 0 && !anyMatchesOutside) {
+        const nextSections = locateInvariantSections(nextLines);
+        insertBulletIntoSection(nextLines, formattedBullet, {
+          markerBlock: nextSections.promotedMarker,
+          headingSection: nextSections.promotedHeading,
+          fallbackHeading: '## Promoted Guardrails',
+          startMarker: PROMOTED_START_MARKER,
+          endMarker: PROMOTED_END_MARKER,
+        });
+      }
+      fs.writeFileSync(filePath, nextLines.join(eol), 'utf8');
       return { deduplicated: false, promoted: true };
     }
     return { deduplicated: true, promoted: Boolean(promote) };
   }
 
-  const targetHeading = promote ? '## Promoted Guardrails' : '## Staged Candidates (Pending Promotion)';
-  if (current.includes(targetHeading)) {
-    const updated = current.replace(targetHeading, `${targetHeading}\n${formattedBullet}`);
-    fs.writeFileSync(filePath, updated, 'utf8');
+  if (promote) {
+    insertBulletIntoSection(lines, formattedBullet, {
+      markerBlock: sections.promotedMarker,
+      headingSection: sections.promotedHeading,
+      fallbackHeading: '## Promoted Guardrails',
+      startMarker: PROMOTED_START_MARKER,
+      endMarker: PROMOTED_END_MARKER,
+    });
   } else {
-    fs.writeFileSync(filePath, `${current.trimEnd()}\n\n${targetHeading}\n${formattedBullet}\n`, 'utf8');
+    insertBulletIntoSection(lines, formattedBullet, {
+      markerBlock: sections.stagedMarker,
+      headingSection: sections.stagedHeading,
+      fallbackHeading: '## Staged Candidates (Pending Promotion)',
+      startMarker: STAGED_START_MARKER,
+      endMarker: STAGED_END_MARKER,
+    });
   }
+
+  fs.writeFileSync(filePath, lines.join(eol), 'utf8');
   return { deduplicated: false, promoted: Boolean(promote) };
+}
+
+function measureInvariantBudget(hp) {
+  const primary = path.join(hp.root, '.agents', 'rules', 'learned-invariants.md');
+  const candidates = [
+    primary,
+    path.join(hp.root, '.codex', 'rules', 'learned-invariants.md'),
+    path.join(hp.root, '.claude', 'rules', 'learned-invariants.md'),
+  ];
+  const hasAnyRuleDir = candidates.some(p => fs.existsSync(path.dirname(p)));
+  const resolved = hasAnyRuleDir ? resolveLearnedInvariantsPaths(hp.root) : [primary];
+  const targetPath = resolved.find(p => fs.existsSync(p)) || primary;
+  const relPath = toPosix(path.relative(hp.root, targetPath));
+
+  if (!fs.existsSync(targetPath)) {
+    return {
+      path: relPath,
+      bytes: 0,
+      max_bytes_limit: INVARIANT_MAX_BYTES,
+      soft_bytes_limit: INVARIANT_SOFT_BYTES,
+      promoted_count: 0,
+      staged_count: 0,
+    };
+  }
+
+  const raw = fs.readFileSync(targetPath, 'utf8');
+  const bytes = fs.statSync(targetPath).size;
+  const lines = raw.split(/\r?\n/);
+  const sections = locateInvariantSections(lines);
+  return {
+    path: relPath,
+    bytes,
+    max_bytes_limit: INVARIANT_MAX_BYTES,
+    soft_bytes_limit: INVARIANT_SOFT_BYTES,
+    promoted_count: countBulletsInRange(lines, sections.promotedRange),
+    staged_count: countBulletsInRange(lines, sections.stagedRange),
+  };
+}
+
+function readRegressionLines(regressionsPath) {
+  if (!fs.existsSync(regressionsPath)) return [];
+  return fs.readFileSync(regressionsPath, 'utf8')
+    .split(/\r?\n/)
+    .filter(Boolean)
+    .map(line => {
+      try {
+        return { raw: line, entry: JSON.parse(line) };
+      } catch {
+        return { raw: line, entry: null };
+      }
+    });
+}
+
+function buildActiveClusters(entries) {
+  const domainMap = new Map();
+  for (const entry of entries) {
+    if (entry.graduated === true) continue;
+    const dom = entry.domain || 'general';
+    if (!domainMap.has(dom)) {
+      domainMap.set(dom, { domain: dom, count: 0, causes: [], recent_rules: [], repro_cmds: [] });
+    }
+    const cluster = domainMap.get(dom);
+    cluster.count++;
+    if (entry.root_cause && !cluster.causes.includes(entry.root_cause)) {
+      cluster.causes.push(entry.root_cause);
+    }
+    if (entry.rule) {
+      const idx = cluster.recent_rules.indexOf(entry.rule);
+      if (idx !== -1) cluster.recent_rules.splice(idx, 1);
+      cluster.recent_rules.unshift(entry.rule);
+    }
+    if (entry.repro_cmd && !cluster.repro_cmds.includes(entry.repro_cmd)) {
+      cluster.repro_cmds.push(entry.repro_cmd);
+    }
+  }
+  const clusters = Array.from(domainMap.values())
+    .map(c => ({
+      ...c,
+      causes: c.causes.slice(0, 10),
+      recent_rules: c.recent_rules.slice(0, 10),
+      repro_cmds: c.repro_cmds.slice(0, 10),
+    }))
+    .sort((a, b) => b.count - a.count || a.domain.localeCompare(b.domain));
+  return {
+    clusters,
+    graduation_candidates: clusters.filter(c => c.count >= DIGEST_DOMAIN_THRESHOLD),
+  };
 }
 
 function cmdFlywheelRecord(hp, flags) {
@@ -936,16 +1141,9 @@ function cmdFlywheelRecord(hp, flags) {
 
   ensureDirs([hp.evals]);
 
-  let existingEntries = [];
-  if (fs.existsSync(hp.regressions)) {
-    existingEntries = fs.readFileSync(hp.regressions, 'utf8')
-      .split(/\r?\n/)
-      .filter(Boolean)
-      .map(line => {
-        try { return JSON.parse(line); } catch { return null; }
-      })
-      .filter(Boolean);
-  }
+  const existingEntries = readRegressionLines(hp.regressions)
+    .map(item => item.entry)
+    .filter(Boolean);
 
   const priorCount = existingEntries.filter(e => e.rule === rule || (e.domain === domain && e.root_cause === cause)).length;
   const shouldPromote = Boolean(flags.promote) || source === 'user' || priorCount >= 1;
@@ -981,13 +1179,90 @@ function cmdFlywheelRecord(hp, flags) {
     // Contract optional when recording standalone flywheel lesson
   }
 
+  let budget = { bytes: 0, promoted_count: 0, staged_count: 0, curation_recommended: false };
+  try {
+    const measured = measureInvariantBudget(hp);
+    const { graduation_candidates } = buildActiveClusters(existingEntries.concat(record));
+    budget = {
+      bytes: measured.bytes,
+      promoted_count: measured.promoted_count,
+      staged_count: measured.staged_count,
+      curation_recommended:
+        measured.promoted_count >= INVARIANT_PROMOTED_SOFT_LIMIT ||
+        measured.bytes >= INVARIANT_SOFT_BYTES ||
+        graduation_candidates.length > 0,
+    };
+  } catch {
+    // Telemetry must never fail flywheel record
+  }
+
   console.log(JSON.stringify({
     ok: true,
     action: 'flywheel.record',
     regression_path: toPosix(path.relative(hp.root, hp.regressions)),
     record,
     rule_updates: ruleUpdates,
+    budget,
   }, null, 2));
+}
+
+function cmdFlywheelDigest(hp, flags) {
+  let graduateDomain = null;
+  if (flags.graduate !== undefined) {
+    if (typeof flags.graduate !== 'string' || !flags.graduate.trim()) {
+      throw new Error('Usage: harness.mjs flywheel digest [--json] [--graduate <domain>]');
+    }
+    graduateDomain = flags.graduate.trim();
+  }
+
+  const parsedLines = readRegressionLines(hp.regressions);
+  let graduatedCount = 0;
+
+  if (graduateDomain && parsedLines.length > 0) {
+    const nowIso = new Date().toISOString();
+    for (const item of parsedLines) {
+      if (item.entry && item.entry.graduated !== true && item.entry.domain === graduateDomain) {
+        item.entry = { ...item.entry, graduated: true, graduated_at: nowIso };
+        item.raw = JSON.stringify(item.entry);
+        graduatedCount++;
+      }
+    }
+    if (graduatedCount > 0) {
+      ensureDirs([hp.evals]);
+      const tmpPath = `${hp.regressions}.tmp.${process.pid}.${Date.now()}`;
+      fs.writeFileSync(tmpPath, parsedLines.map(item => item.raw).join('\n') + '\n', 'utf8');
+      fs.renameSync(tmpPath, hp.regressions);
+    }
+  }
+
+  const entries = parsedLines.map(item => item.entry).filter(Boolean);
+  const activeCount = entries.filter(e => e.graduated !== true).length;
+  const { clusters, graduation_candidates } = buildActiveClusters(entries);
+  const budget = measureInvariantBudget(hp);
+  const curation_recommended =
+    budget.promoted_count >= INVARIANT_PROMOTED_SOFT_LIMIT ||
+    budget.bytes >= INVARIANT_SOFT_BYTES ||
+    graduation_candidates.length > 0;
+
+  const result = {
+    ok: true,
+    action: 'flywheel.digest',
+    regression_path: toPosix(path.relative(hp.root, hp.regressions)),
+    budget,
+    total_entries: entries.length,
+    active_entries: activeCount,
+    graduated_entries: entries.length - activeCount,
+    domains: clusters,
+    graduation_candidates,
+    curation_recommended,
+  };
+
+  if (graduateDomain) {
+    result.graduated_domain = graduateDomain;
+    result.graduated_count = graduatedCount;
+  }
+
+  console.log(JSON.stringify(result, null, 2));
 }
 
 function cmdCheckpoint(hp, flags) {
@@ -1091,6 +1366,10 @@ Commands:
       Append structured failure to .harness/evals/regressions.jsonl and stage/promote deduplicated
       guardrail rules into .<edition>/rules/learned-invariants.md.
 
+  flywheel digest [--json] [--graduate <domain>]
+      Measure learned-invariants.md budget, cluster active regressions by domain, flag graduation
+      candidates (>= 3 hits), and optionally stamp matching domain entries as graduated.
+
   checkpoint --task <id> --step <text> [--failed-hypothesis <text>]
       Persist atomic progress and failed hypotheses in .harness/PROGRESS.md across context compactions.
 
@@ -1125,6 +1404,7 @@ async function main() {
     if (cmd === 'skeptic-packet') return cmdSkepticPacket(hp, flags);
     if (cmd === 'stamp-skeptic') return cmdStampSkeptic(hp, flags);
     if (cmd === 'flywheel' && (sub === 'record' || !sub)) return cmdFlywheelRecord(hp, flags);
+    if (cmd === 'flywheel' && sub === 'digest') return cmdFlywheelDigest(hp, flags);
     if (cmd === 'checkpoint') return cmdCheckpoint(hp, flags);
     if (cmd === 'install-git-hook') return cmdInstallGitHook(hp);
     if (cmd === 'pre-commit-check') return cmdPreCommitCheck(hp, flags);

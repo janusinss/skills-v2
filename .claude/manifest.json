@@ -2,9 +2,9 @@
   "generatedBy": "tools/claude/build.mjs",
   "formatVersion": 1,
   "hashing": "sha256-lf-text",
-  "checkedOn": "2026-11-15",
+  "checkedOn": "2026-11-18",
   "originalSnapshot": {
-    "digest": "52415ec8832fa96dd4932c8a858117900d12c5fb3af97d96821538f3097fe786",
+    "digest": "1f2833ebe65b0546b3573248512581dcfcd22594baf1ee1a390b0854457517ee",
     "files": {
       ".agents/agents/a11y-architect.md": "944a665705954fc9a05e3a97907500e3ee57de8d72ebb81de961c866a3eb03ae",
       ".agents/agents/agent-evaluator.md": "a868cea4487b3252c87f9a1262cb13c667510337ae8d45d33a2479b7d80c1d33",
@@ -337,12 +337,12 @@
       ".agents/rules/backend.md": "ef90374bb9206fe4a74ba65c6fb71435a48eb3961c74c7dd1324627784f1ed81",
       ".agents/rules/frontend.md": "ccf8f8a509957782e7b2c9aa3c7c8a80a2204d10650faf5d0e0c65a65077241c",
       ".agents/rules/install.md": "167ce7c27a86f927c620cda7a617b0414a4e9eb1b37e46c9a46bf5feaf02d06a",
-      ".agents/rules/learned-invariants.md": "0c8fa874b1483c4292953b483e46f319a51d4c93b14d6db38340b08f318bc9c4",
+      ".agents/rules/learned-invariants.md": "e832dfe310f5d57c34d56abebfb8a565ffe24adafcfbeed8a977acdbbbf5e938",
       ".agents/rules/penetrating-and-testing.md": "681d7b9e0f9f860f746c70c1ce512a7bc816dd998f526775928b43890439ef99",
       ".agents/rules/security.md": "1c1cbd8327a8d4d39ce8ed2f4c194923a75435fbd3a993f4267b3f06935ffc1d",
       ".agents/rules/starting-brandnew.md": "f17527bb5b578166b7a86bf7aaa9ceb4f1d26340cd84ac570a28858c90ce42a6",
       ".agents/rules/starting-existing.md": "d465268ac9221bd37b1fbcabc8087c4cef8a4487ad5414eee79044915c85c167",
-      ".agents/rules/swarm.md": "13af545e563a1f797be81d8584bc01b94f3de5ef4f69d5e2d40d49e5b9cad624",
+      ".agents/rules/swarm.md": "aab5ce6c32227d02040501c87bb430f259db2d6765b231e0c94530736dc68ca7",
       ".agents/scripts/swarm-stop-guard.cjs": "6fb566cdaee79b602dd86f057afa237b72efe6486cb7ae8e483bc138e501af2e",
       ".agents/skills/3d-web-experience/SKILL.md": "ccdf216cc836ed8e339f8bafb78001d1deb6bb3a2d9a5beb705407fdd8300d10",
       ".agents/skills/agent-browser/SKILL.md": "4d4a271e670c063470f85ae10ae22a7e47aadbcc29d206beac3252592e60ea70",
@@ -1502,8 +1502,8 @@
       ".agents/skills/content-creator/references/social_media_optimization.md": "a8033474058faeb8f1bfefd82143fad0fdb9869977b92b65ca3689f2554b44cb",
       ".agents/skills/content-creator/scripts/brand_voice_analyzer.py": "348d601b18d72160f30f7afac74ca0886a7ba1b6d9d5b36da82763f2c6e1426c",
       ".agents/skills/content-creator/scripts/seo_optimizer.py": "f677277baf9aedad02f8784f9938472cdd31401f0b3bce0927530e819425a0b3",
-      ".agents/skills/continuous-agent-loop/SKILL.md": "24a215a06ff38b77bbeb25431bf7bd2755342b4e3ef3ff68742b39628d6073fa",
-      ".agents/skills/continuous-agent-loop/scripts/harness.mjs": "dd3e887ba9040eeec884438784d071552c6867cc7f26074a4c06ee8be80b25bc",
+      ".agents/skills/continuous-agent-loop/SKILL.md": "aa418fa20fd99cc6841e4d0b048826b9475651b9dbd437def71a927f15cf706b",
+      ".agents/skills/continuous-agent-loop/scripts/harness.mjs": "d16c2961c7d6b68223dfc075362b837c74cf3d9fbc5261b6c3ba9f703f15814f",
       ".agents/skills/database-design/SKILL.md": "46a4ebfc39b02757951925737f377bee4cba796c6c6b5b2115d913522fb99d71",
       ".agents/skills/database-design/database-selection.md": "6517da101e8eacc02e485444d8a8520c27249f3b2b02b01b5b02e4f7886b260c",
       ".agents/skills/database-design/indexing.md": "eec8ce01e7c1c8ec2aed7a96d260a52b12d90c2996288e32814a8d9cf29cc22a",
@@ -5249,8 +5249,8 @@
     },
     "rules/learned-invariants.md": {
       "source": ".agents/rules/learned-invariants.md",
-      "sourceHash": "0c8fa874b1483c4292953b483e46f319a51d4c93b14d6db38340b08f318bc9c4",
-      "outputHash": "d4331fa31432ae5bbd97c05fe7af4916a015c6f6c5a9170b5395ee977964ba0d"
+      "sourceHash": "e832dfe310f5d57c34d56abebfb8a565ffe24adafcfbeed8a977acdbbbf5e938",
+      "outputHash": "417df1a0f73a8798c9f5a6d8fc3a1cfd0887cfdcab24a318b6ec1d62c6b17c08"
     },
     "rules/MOTION.md": {
       "source": ".agents/rules/MOTION.md",
@@ -8864,13 +8864,13 @@
     },
     "skills/continuous-agent-loop/scripts/harness.mjs": {
       "source": ".agents/skills/continuous-agent-loop/scripts/harness.mjs",
-      "sourceHash": "dd3e887ba9040eeec884438784d071552c6867cc7f26074a4c06ee8be80b25bc",
-      "outputHash": "dd3e887ba9040eeec884438784d071552c6867cc7f26074a4c06ee8be80b25bc"
+      "sourceHash": "d16c2961c7d6b68223dfc075362b837c74cf3d9fbc5261b6c3ba9f703f15814f",
+      "outputHash": "d16c2961c7d6b68223dfc075362b837c74cf3d9fbc5261b6c3ba9f703f15814f"
     },
     "skills/continuous-agent-loop/SKILL.md": {
       "source": ".agents/skills/continuous-agent-loop/SKILL.md",
-      "sourceHash": "24a215a06ff38b77bbeb25431bf7bd2755342b4e3ef3ff68742b39628d6073fa",
-      "outputHash": "4f0d3edf1c206865edae41aa787232c815b2295f48d21503b57e792312a84618"
+      "sourceHash": "aa418fa20fd99cc6841e4d0b048826b9475651b9dbd437def71a927f15cf706b",
+      "outputHash": "1b8568d5b84da0c293a66794e2db20a625d0880c27e84360acb926cf5bdd959a"
     },
     "skills/database-design/database-selection.md": {
       "source": ".agents/skills/database-design/database-selection.md",

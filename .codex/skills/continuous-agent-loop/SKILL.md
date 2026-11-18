@@ -13,18 +13,19 @@ This skill orchestrates the **Compounding Self-Improving Agent Harness** using t
 
 ## 1. Architecture & Runtime State Layout
 
-All runtime state lives inside the git-ignored `.harness/` directory, while durable root-cause invariants promote into `.codex/rules/learned-invariants.md`:
+All runtime state lives inside the git-ignored `.harness/` directory. Stage 6 routes durable guardrails through `.codex/rules/learned-invariants.md` and graduates recurring clusters into on-demand `.codex/skills/project-<domain>/SKILL.md` (using `.codex/` or `.claude/` in those editions):
 
 ```text
 <workspace-root>/
-├── .harness/                          # Git-ignored runtime state
-│   ├── contracts/<task_id>.json       # Stage 1: Pre-flight task contract (allowed_paths, acceptance_commands)
-│   ├── worktrees/<task_id>/           # Stage 2: Ephemeral git worktree (branch agent/<task_id>)
-│   ├── receipts/<task_id>.json        # Stage 4: Deterministic verifier output + diff_sha256 + Skeptic stamp
-│   ├── context/<task_id>-brief.json   # Stage 5: Cold-context packet (contract + raw git_diff + receipt ONLY)
-│   ├── evals/regressions.jsonl        # Stage 6: Structured failure ledger & repro commands
-│   └── PROGRESS.md                    # Cross-session compaction ledger (checkpoints + failed hypotheses)
-└── .codex/rules/learned-invariants.md # Stage 6: Auto-promoted workspace guardrails
+├── .harness/                                # Git-ignored runtime state
+│   ├── contracts/<task_id>.json             # Stage 1: Pre-flight task contract (allowed_paths, acceptance_commands)
+│   ├── worktrees/<task_id>/                 # Stage 2: Ephemeral git worktree (branch agent/<task_id>)
+│   ├── receipts/<task_id>.json              # Stage 4: Deterministic verifier output + diff_sha256 + Skeptic stamp
+│   ├── context/<task_id>-brief.json         # Stage 5: Cold-context packet (contract + raw git_diff + receipt ONLY)
+│   ├── evals/regressions.jsonl              # Stage 6 (Tier 1): Structured failure ledger & repro commands
+│   └── PROGRESS.md                          # Cross-session compaction ledger (checkpoints + failed hypotheses)
+├── .codex/rules/learned-invariants.md      # Stage 6 (Tier 2): Staged & promoted guardrails
+└── .codex/skills/project-<domain>/SKILL.md # Stage 6 (Tier 3): Graduated on-demand domain skills
 ```
 
 ---
@@ -107,11 +108,11 @@ node .codex/skills/continuous-agent-loop/scripts/harness.mjs stamp-skeptic \
 
 If `@skeptic` returns `REJECT`, run `stamp-skeptic --verdict REJECT --reason "..."` and immediately record the failure in Stage 6.
 
-### Stage 6: Calibrated Dual-Store Memory Flywheel & Compaction (`flywheel record` & `checkpoint`)
-Convert every verify failure, Skeptic rejection, or user correction into permanent regression protection:
+### Stage 6: 3-Tier Memory Flywheel & Compaction (`flywheel record`, `flywheel digest`, & `checkpoint`)
+Convert every verify failure, Skeptic rejection, or user correction through the 3-tier pipeline without bloating always-loaded rules:
 
 ```bash
-# Record failure in .harness/evals/regressions.jsonl and stage/promote rule to learned-invariants.md
+# 1. Record failure in .harness/evals/regressions.jsonl and stage/promote rule in learned-invariants.md
 node .codex/skills/continuous-agent-loop/scripts/harness.mjs flywheel record \
   --task feat-auth-rate-limit \
   --source skeptic \
@@ -121,14 +122,20 @@ node .codex/skills/continuous-agent-loop/scripts/harness.mjs flywheel record \
   --cmd "npm test -- tests/auth/limiter.spec.ts" \
   --promote
 
-# Checkpoint atomic progress and negative knowledge into .harness/PROGRESS.md
+# 2. Check rule budget and domain clusters (use --graduate <domain> after moving a cluster to a skill)
+node .codex/skills/continuous-agent-loop/scripts/harness.mjs flywheel digest --json
+node .codex/skills/continuous-agent-loop/scripts/harness.mjs flywheel digest --graduate auth
+
+# 3. Checkpoint atomic progress and negative knowledge into .harness/PROGRESS.md
 node .codex/skills/continuous-agent-loop/scripts/harness.mjs checkpoint \
   --task feat-auth-rate-limit \
   --step "Verified IP extraction and stamped Skeptic approval" \
   --failed-hypothesis "Splitting X-Forwarded-For on index 0 trusted spoofed client headers"
 ```
 
-- **Calibration Rule**: User corrections (`--source user`), explicit `--promote`, or recurring root causes (`>=2` occurrences in `regressions.jsonl`) promote directly to `## Promoted Guardrails` in `.codex/rules/learned-invariants.md`. First-time automated findings stage under `## Staged Candidates (Pending Promotion)` to prevent rule bloat.
+- **Tier 1 -> Tier 2 (`flywheel record`)**: Appends to `.harness/evals/regressions.jsonl`. First-time automated findings (`verify`, `skeptic`) stage inside `<!-- flywheel-staged-rules-start -->` in `.codex/rules/learned-invariants.md`; user corrections (`--source user`), `--promote`, or `>= 2` matching occurrences promote into `<!-- flywheel-promoted-rules-start -->`.
+- **Tier 2 -> Tier 3 (`flywheel digest` -> `/learn` or `/flywheel` -> prune)**: `flywheel digest [--json] [--graduate <domain>]` sets `curation_recommended: true` when promoted rules reach `>= 20`, file size approaches `12 KB` (under AGY's `24 KB` cap and `20,000`-token rules budget), or a domain hits `>= 3` ungraduated regressions. Graduate recurring clusters via AGY `/learn` or `/flywheel` (or `/flywheel` in Claude / skill authoring in Codex) into `.codex/skills/project-<domain>/SKILL.md`, run `flywheel digest --graduate <domain>`, and prune superseded rules.
+- **Git tracking & repo scope**: Target repos keep `learned-invariants.md` and `project-*` skills local; add `!/.agents/skills/project-*/` (or the `.codex/` / `.claude/` equivalent) to `.gitignore` if team-shared. The `Skills` source checkout accepts only universal harness invariants.
 
 ---
 

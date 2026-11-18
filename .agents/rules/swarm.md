@@ -1,6 +1,6 @@
 ---
 trigger: model_decision
-description: Strict AGY-only /swarm orchestration and model routing policy requiring CARBON/ARGON Pro (fallback GEMINI HYDROGEN xhigh) for the coordinator and GEMINI HYDROGEN high/xhigh only for all workers.
+description: Strict AGY-only /swarm orchestration and model routing policy keeping gemini-4-hydrogen-xhigh coordinators on xhigh, redirecting other starting models to CARBON/ARGON High/Pro (fallback gemini-4-hydrogen-xhigh), and strictly running ALL swarm workers and swarm subagents on gemini-4-hydrogen-high ONLY.
 ---
 
 # Swarm Orchestration & Model Routing Policy (AGY Only)
@@ -16,44 +16,43 @@ Apply this rule whenever running `/swarm`, coordinating multi-agent swarm runs, 
 
 ---
 
-## 2. Coordinator / Orchestrator Model Policy (Mandatory Pro Tier with Hydrogen XHigh Fallback)
+## 2. Coordinator / Orchestrator Model Policy (Preserve `xhigh`, Otherwise Redirect to CARBON / ARGON)
 
-The swarm coordinator / orchestrator MUST always run on the Pro model tier (or Hydrogen Extra High only if all Pro options are unavailable/exhausted):
+The swarm coordinator / orchestrator MUST run on `gemini-4-hydrogen-xhigh` (if explicitly selected) or **CARBON** / **ARGON** High/Pro:
 
-1. **Discover Models**: Call `swarm{action:"models", all:true}` first to inspect available models and remaining quotas.
-2. **Select Target Model**:
-   - Check for **CARBON** first (any available Pro CARBON model with remaining quota).
-   - If **CARBON** is unavailable or out of quota, use **ARGON**: prefer `gemini-pro-orchestrator-g1-pro`, and fall back to `gemini-4-argon-high` if `gemini-pro-orchestrator-g1-pro` is unavailable or out of quota.
-   - If **both CARBON and ARGON** (`gemini-pro-orchestrator-g1-pro` and `gemini-4-argon-high`) are unavailable or their quota is exhausted, fall back to **GEMINI HYDROGEN** at **EXTRA HIGH** reasoning (`gemini-4-hydrogen-xhigh`) for the orchestrator/coordinator.
-3. **Immediate Self-Switch**: If the coordinator is not already on the highest-priority available target model (for example it started on Hydrogen, Flash, Claude, or GPT-OSS while CARBON or ARGON is available, or on a non-`xhigh` model when falling back), immediately switch itself before spawning or messaging workers:
-   - Call `swarm{action:"model", model:"<target>"}` (omit `name` or pass `"coordinator"`).
-   - Explicitly state why the switch is happening (e.g., enforcing AGY coordinator policy: switching from `<current>` to `<target>`).
+1. **Discover Models & Active State**: Call `swarm{action:"models", all:true}` and `swarm{action:"status"}` first to inspect the coordinator's current model, available models, and remaining quotas.
+2. **Keep `GEMINI HYDROGEN EXTRA HIGH` (`gemini-4-hydrogen-xhigh`)**:
+   - If the coordinator started on / the user selected **GEMINI HYDROGEN EXTRA HIGH** (`gemini-4-hydrogen-xhigh`), **keep it on `gemini-4-hydrogen-xhigh`**. Do **NOT** switch to CARBON or ARGON unless `gemini-4-hydrogen-xhigh` quota runs out.
+3. **Redirect Any Other Active Model or Reasoning Level**:
+   - If **any other** model or reasoning level is active (for example `gemini-4-hydrogen-high`, `gemini-4-hydrogen-medium`, `gemini-4-hydrogen-low`, `gemini-3.8-flash-*`, `claude-*`, `gpt-oss-*`, or lower Argon tiers), immediately redirect via `swarm{action:"model", model:"<target>"}` (omit `name` or pass `"coordinator"`) before spawning or messaging workers:
+     - **Priority 1 — CARBON**: Switch to an available Pro **CARBON** model if it has remaining quota.
+     - **Priority 2 — ARGON**: If CARBON is unavailable or out of quota, switch to **ARGON**: prefer `gemini-pro-orchestrator-g1-pro` (`"Orchestrator (Argon)"`), falling back to `gemini-4-argon-high` (`"Gemini 4 Argon (High)"`) if `gemini-pro-orchestrator-g1-pro` is unavailable or out of quota.
+     - **Priority 3 — Hydrogen Extra High Fallback**: Fall back to `gemini-4-hydrogen-xhigh` only if both CARBON and ARGON lack quota or are unavailable.
+   - Explicitly state why the switch is happening (e.g., enforcing AGY coordinator policy: redirecting from `<current>` to `<target>`).
 
 ---
 
-## 3. Swarm Worker Model Policy (Strict GEMINI HYDROGEN High / XHigh Only)
+## 3. Swarm Worker Model Policy (Strict `gemini-4-hydrogen-high` ONLY)
 
-Every swarm worker — including specialized implementation/audit workers and the stall monitor (`monitor` / `swarm_monitor`) — MUST strictly use **GEMINI HYDROGEN** at **HIGH** or **EXTRA HIGH** reasoning:
+ALL swarm workers — `reflex`, `builder`, `brain` workers, and the stall monitor (`monitor` / `swarm_monitor`) — MUST strictly use `gemini-4-hydrogen-high` ONLY:
 
-- **Allowed Worker Models**:
-  - `gemini-4-hydrogen-high`
-  - `gemini-4-hydrogen-xhigh`
-- **Explicit Pinning Required**: Always pass `model: "gemini-4-hydrogen-high"` or `model: "gemini-4-hydrogen-xhigh"` on every `swarm{action:"add", ...}` call. Never omit `model` when the coordinator is on CARBON/ARGON, because omitting `model` inherits the coordinator's Pro model instead of Hydrogen.
+- **Allowed Worker Model**:
+  - `gemini-4-hydrogen-high` ONLY.
+- **Explicit Pinning Required**: Always pass `model: "gemini-4-hydrogen-high"` on every `swarm{action:"add", ...}` call so omitting `model` never inherits `gemini-4-hydrogen-xhigh`, ARGON, or CARBON from the coordinator.
 - **Forbidden Worker Models**:
-  - **No lower Hydrogen reasoning**: `gemini-4-hydrogen-low` and `gemini-4-hydrogen-medium` are forbidden.
-  - **No other model families or tiers**: `gemini-3.8-flash-*`, `gemini-4-argon-*`, `gemini-pro-orchestrator-*`, `claude-*`, and `gpt-oss-*` are forbidden for workers.
-- **Hard Stop on Unavailability / Quota Exhaustion**:
-  - If a worker hits quota exhaustion on one allowed Hydrogen tier, you may switch it only to the other allowed Hydrogen tier (`gemini-4-hydrogen-high` <-> `gemini-4-hydrogen-xhigh`) via `swarm{action:"model", name:"<worker>", model:"<target>"}` with an explanation.
-  - If **both** `gemini-4-hydrogen-high` and `gemini-4-hydrogen-xhigh` are unavailable or out of quota, **STOP immediately** and report the unavailability/quota exhaustion to the user. Never downgrade a worker to medium/low Hydrogen, Flash, or any non-Hydrogen model.
+  - **No `xhigh` or lower Hydrogen reasoning**: `gemini-4-hydrogen-xhigh`, `gemini-4-hydrogen-medium`, and `gemini-4-hydrogen-low` are forbidden for workers.
+  - **No other model families or tiers**: `gemini-3.8-flash-*`, `gemini-4-argon-*`, `gemini-pro-orchestrator-*`, `claude-*`, `gpt-oss-*`, and CARBON models are forbidden for workers.
+- **Hard Stop on Quota Exhaustion / Unavailability**:
+  - If `gemini-4-hydrogen-high` hits quota exhaustion or is unavailable, **STOP immediately** and report the unavailability/quota exhaustion to the user. Never upgrade workers to `gemini-4-hydrogen-xhigh` or downgrade below `high` (or switch to Flash/non-Hydrogen models).
 
 ---
 
-## 4. Hybrid Task Briefs & Selective `.agents/agents/` Specialist Binding
+## 4. Hybrid Task Briefs, Selective Specialist Binding & Subagent Delegation
 
 - **Implementation Workers (Custom Coordinator Briefs)**: Drive implementation, refactoring, and file-slice workers directly with surgical coordinator `brief` instructions (exact file ownership, concrete edits, and acceptance checks) without forcing them to load a generic `.agents/agents/<role>.md` file.
 - **Review, Security & Architecture Workers (Selective Specialist Checklists)**: Reference `.agents/agents/<role>.md` in a worker's `brief` selectively when spawning a dedicated reviewer, security/accessibility auditor, or cold-context `skeptic` ([skeptic.md](.agents/agents/skeptic.md), [security-auditor.md](.agents/agents/security-auditor.md), [silent-failure-hunter.md](.agents/agents/silent-failure-hunter.md), [a11y-architect.md](.agents/agents/a11y-architect.md), or stack `*-reviewer.md`).
-- **Swarm Tier-to-Model Mapping**: Both `reflex` and `builder` tiers strictly use `gemini-4-hydrogen-high` ONLY (no `flash`, `flash_lite`, or lower Hydrogen tiers); `brain` uses `CARBON` / `ARGON` (coordinator) or `gemini-4-hydrogen-xhigh` (architecture/audit/verifier workers & subagents, falling back to `high` only on `xhigh` quota exhaustion).
-- **Worker Subagent Delegation**: Keep optional `invoke_subagent` delegation for scoped read-only reconnaissance (`explorer`) or targeted specialist audits.
+- **Swarm Tier-to-Model Mapping**: ALL swarm worker tiers (`reflex`, `builder`, `brain` workers, and `monitor`) strictly use `gemini-4-hydrogen-high` ONLY. The `brain` coordinator tier uses `gemini-4-hydrogen-xhigh` (when started on `xhigh`) or `CARBON` / `ARGON` High/Pro.
+- **Worker Subagent Delegation (`invoke_subagent`)**: Any `invoke_subagent` calls made from swarm workers (e.g., scoped read-only reconnaissance or targeted specialist audits) MUST strictly use `Model: "inherit"` (inheriting the worker's `gemini-4-hydrogen-high`) — never `"pro"`, `"flash"`, or `"flash_lite"`.
 
 ---
 

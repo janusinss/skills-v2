@@ -183,7 +183,7 @@
       "commit": "d2ef2680594f9a17526a6e1a2e18b3d242c5d17b",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "10fe1ae9888960f66df667eae98a1de448e2e48a3e5961fc8aa63b3f392270db"
+      "contentHash": "45b4e1c3f84122690709e16cb4a064033533e5c81794242a1ddce19637c9caaf"
     },
     "database-design": {
       "source": "sickn33/antigravity-awesome-skills",
