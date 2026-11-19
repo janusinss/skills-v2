@@ -1,6 +1,6 @@
 ---
 trigger: model_decision
-description: Strict AGY-only /swarm orchestration and model routing policy keeping gemini-4-hydrogen-xhigh coordinators on xhigh, redirecting other starting models to CARBON/ARGON High/Pro (fallback gemini-4-hydrogen-xhigh), and strictly running ALL swarm workers and swarm subagents on gemini-4-hydrogen-high ONLY.
+description: Strict AGY-only /swarm orchestration and model routing policy preserving gemini-4-neon-xhigh coordinators on xhigh, redirecting other starting models to CARBON -> gemini-4-neon-xhigh / gemini-pro-orchestrator-neon (fallback ARGON separate weekly bucket when Neon/Hydrogen quota is low), and enforcing role-based worker pinning (gemini-4-hydrogen-high routine/reflex/monitor, gemini-4-neon-medium complex builders/refactors, gemini-4-neon-high verifiers/auditors/skeptic).
 ---
 
 # Swarm Orchestration & Model Routing Policy (AGY Only)
@@ -16,34 +16,38 @@ Apply this rule whenever running `/swarm`, coordinating multi-agent swarm runs, 
 
 ---
 
-## 2. Coordinator / Orchestrator Model Policy (Preserve `xhigh`, Otherwise Redirect to CARBON / ARGON)
+## 2. Coordinator / Orchestrator Model Policy (Preserve `gemini-4-neon-xhigh`, Redirect Others via CARBON / NEON / ARGON)
 
-The swarm coordinator / orchestrator MUST run on `gemini-4-hydrogen-xhigh` (if explicitly selected) or **CARBON** / **ARGON** High/Pro:
+The swarm coordinator / orchestrator MUST run on `gemini-4-neon-xhigh` (when started there with healthy quota), **CARBON**, `gemini-pro-orchestrator-neon`, or **ARGON** reserve when the shared Neon/Hydrogen bucket is low:
 
-1. **Discover Models & Active State**: Call `swarm{action:"models", all:true}` and `swarm{action:"status"}` first to inspect the coordinator's current model, available models, and remaining quotas.
-2. **Keep `GEMINI HYDROGEN EXTRA HIGH` (`gemini-4-hydrogen-xhigh`)**:
-   - If the coordinator started on / the user selected **GEMINI HYDROGEN EXTRA HIGH** (`gemini-4-hydrogen-xhigh`), **keep it on `gemini-4-hydrogen-xhigh`**. Do **NOT** switch to CARBON or ARGON unless `gemini-4-hydrogen-xhigh` quota runs out.
+1. **Discover Models & Live Quota Buckets**: Call `swarm{action:"models", all:true}` and `swarm{action:"status"}` first to inspect the coordinator's active model, available models, and live quota buckets:
+   - **Shared Neon / Hydrogen Fast-Reset Pool**: `Gemini 4 Neon (*)` (`gemini-4-neon-*`), `Orchestrator (Neon)` (`gemini-pro-orchestrator-neon`), and `Gemini 4 Hydrogen (*)` (`gemini-4-hydrogen-*`) share one fast-reset quota pool.
+   - **Separate Argon Weekly Pool**: `Gemini 4 Argon (*)` (`gemini-4-argon-*`) and `Orchestrator (Argon)` (`gemini-pro-orchestrator-g1-pro`) sit in a separate weekly quota pool.
+2. **Keep `Gemini 4 Neon (XHigh)` (`gemini-4-neon-xhigh`)**:
+   - If the coordinator started on / the user selected **Gemini 4 Neon (XHigh)** (`gemini-4-neon-xhigh`), **keep it on `gemini-4-neon-xhigh`** unless the shared Neon/Hydrogen bucket is low (`<= 10%`) or exhausted.
 3. **Redirect Any Other Active Model or Reasoning Level**:
-   - If **any other** model or reasoning level is active (for example `gemini-4-hydrogen-high`, `gemini-4-hydrogen-medium`, `gemini-4-hydrogen-low`, `gemini-3.8-flash-*`, `claude-*`, `gpt-oss-*`, or lower Argon tiers), immediately redirect via `swarm{action:"model", model:"<target>"}` (omit `name` or pass `"coordinator"`) before spawning or messaging workers:
+   - If **any other** model or reasoning level is active (such as `gemini-4-neon-high`, `gemini-4-neon-medium`, `gemini-4-neon-low`, `gemini-4-hydrogen-*`, `gemini-3.8-flash-*`, `claude-*`, `gpt-oss-*`, or Argon while the shared Neon/Hydrogen bucket is healthy), immediately redirect via `swarm{action:"model", model:"<target>"}` (omit `name` or pass `"coordinator"`) before spawning or messaging workers:
      - **Priority 1 — CARBON**: Switch to an available Pro **CARBON** model if it has remaining quota.
-     - **Priority 2 — ARGON**: If CARBON is unavailable or out of quota, switch to **ARGON**: prefer `gemini-pro-orchestrator-g1-pro` (`"Orchestrator (Argon)"`), falling back to `gemini-4-argon-high` (`"Gemini 4 Argon (High)"`) if `gemini-pro-orchestrator-g1-pro` is unavailable or out of quota.
-     - **Priority 3 — Hydrogen Extra High Fallback**: Fall back to `gemini-4-hydrogen-xhigh` only if both CARBON and ARGON lack quota or are unavailable.
-   - Explicitly state why the switch is happening (e.g., enforcing AGY coordinator policy: redirecting from `<current>` to `<target>`).
+     - **Priority 2 — NEON**: Switch to `gemini-4-neon-xhigh` (`"Gemini 4 Neon (XHigh)"`) or `gemini-pro-orchestrator-neon` (`"Orchestrator (Neon)"`) while the shared Neon/Hydrogen bucket is healthy (`> 10%`).
+     - **Priority 3 — ARGON Separate-Bucket Reserve**: When the shared Neon/Hydrogen bucket is low (`<= 10%`) or exhausted, fall back to `gemini-pro-orchestrator-g1-pro` (`"Orchestrator (Argon)"`), or `gemini-4-argon-high` (`"Gemini 4 Argon (High)"`) if `gemini-pro-orchestrator-g1-pro` is unavailable or out of quota.
+   - Explicitly state why the switch is happening (for example, enforcing AGY coordinator policy: redirecting from `<current>` to `<target>`).
 
 ---
 
-## 3. Swarm Worker Model Policy (Strict `gemini-4-hydrogen-high` ONLY)
+## 3. Swarm Worker & Verifier Model Policy (Role-Based Explicit Pinning)
 
-ALL swarm workers — `reflex`, `builder`, `brain` workers, and the stall monitor (`monitor` / `swarm_monitor`) — MUST strictly use `gemini-4-hydrogen-high` ONLY:
+Every `swarm{action:"add"}` call MUST explicitly pin `model` to match the worker's role so workers never inherit coordinator `gemini-4-neon-xhigh`, `CARBON`, or `ARGON`:
 
-- **Allowed Worker Model**:
-  - `gemini-4-hydrogen-high` ONLY.
-- **Explicit Pinning Required**: Always pass `model: "gemini-4-hydrogen-high"` on every `swarm{action:"add", ...}` call so omitting `model` never inherits `gemini-4-hydrogen-xhigh`, ARGON, or CARBON from the coordinator.
+- **Explicit Pinning Required**: Always pass `model: "<worker-model>"` on every `swarm{action:"add", ...}` call.
+- **Role-Based Allowed Worker Models**:
+  - **Routine / `reflex` / `monitor` / Docs / Test-Runner Workers**: `gemini-4-hydrogen-high` (including `swarm_monitor`).
+  - **Complex `builder` / Multi-File Refactor / Tricky Logic Workers**: `gemini-4-neon-medium` (fall back to `gemini-4-hydrogen-high` when conserving shared Neon/Hydrogen quota).
+  - **Dedicated Verifiers / Code Reviewers / Security & A11y Auditors / Cold-Context `skeptic`**: `gemini-4-neon-high`.
 - **Forbidden Worker Models**:
-  - **No `xhigh` or lower Hydrogen reasoning**: `gemini-4-hydrogen-xhigh`, `gemini-4-hydrogen-medium`, and `gemini-4-hydrogen-low` are forbidden for workers.
-  - **No other model families or tiers**: `gemini-3.8-flash-*`, `gemini-4-argon-*`, `gemini-pro-orchestrator-*`, `claude-*`, `gpt-oss-*`, and CARBON models are forbidden for workers.
-- **Hard Stop on Quota Exhaustion / Unavailability**:
-  - If `gemini-4-hydrogen-high` hits quota exhaustion or is unavailable, **STOP immediately** and report the unavailability/quota exhaustion to the user. Never upgrade workers to `gemini-4-hydrogen-xhigh` or downgrade below `high` (or switch to Flash/non-Hydrogen models).
+  - `gemini-4-neon-xhigh`, `gemini-4-neon-low`, `gemini-4-hydrogen-xhigh`, `gemini-4-hydrogen-medium`, `gemini-4-hydrogen-low`, `gemini-3.8-flash-*`, `claude-*`, `gpt-oss-*`, and `CARBON` models are forbidden for workers.
+- **Separate-Bucket Argon Overflow & Hard Stop**:
+  - `gemini-4-argon-high` is **NOT** used for workers while Neon/Hydrogen quota is available, **EXCEPT** as explicit overflow when the shared Neon/Hydrogen bucket is exhausted and Argon weekly quota remains.
+  - If **BOTH** the shared Neon/Hydrogen bucket and the Argon weekly bucket are exhausted, **STOP immediately** and report quota exhaustion to the user. Never upgrade workers to `gemini-4-neon-xhigh`, downgrade below the allowed role floor, or switch to Flash / non-Gemini models.
 
 ---
 
@@ -51,8 +55,12 @@ ALL swarm workers — `reflex`, `builder`, `brain` workers, and the stall monito
 
 - **Implementation Workers (Custom Coordinator Briefs)**: Drive implementation, refactoring, and file-slice workers directly with surgical coordinator `brief` instructions (exact file ownership, concrete edits, and acceptance checks) without forcing them to load a generic `.agents/agents/<role>.md` file.
 - **Review, Security & Architecture Workers (Selective Specialist Checklists)**: Reference `.agents/agents/<role>.md` in a worker's `brief` selectively when spawning a dedicated reviewer, security/accessibility auditor, or cold-context `skeptic` ([skeptic.md](.agents/agents/skeptic.md), [security-auditor.md](.agents/agents/security-auditor.md), [silent-failure-hunter.md](.agents/agents/silent-failure-hunter.md), [a11y-architect.md](.agents/agents/a11y-architect.md), or stack `*-reviewer.md`).
-- **Swarm Tier-to-Model Mapping**: ALL swarm worker tiers (`reflex`, `builder`, `brain` workers, and `monitor`) strictly use `gemini-4-hydrogen-high` ONLY. The `brain` coordinator tier uses `gemini-4-hydrogen-xhigh` (when started on `xhigh`) or `CARBON` / `ARGON` High/Pro.
-- **Worker Subagent Delegation (`invoke_subagent`)**: Any `invoke_subagent` calls made from swarm workers (e.g., scoped read-only reconnaissance or targeted specialist audits) MUST strictly use `Model: "inherit"` (inheriting the worker's `gemini-4-hydrogen-high`) — never `"pro"`, `"flash"`, or `"flash_lite"`.
+- **Swarm Tier-to-Model Mapping**:
+  - `reflex`, routine workers, docs, test runners, and `monitor` (`swarm_monitor`): `gemini-4-hydrogen-high`
+  - Complex `builder` / multi-file refactor workers: `gemini-4-neon-medium` (or `gemini-4-hydrogen-high` when conserving Neon/Hydrogen quota)
+  - Dedicated `brain` verifiers, reviewers, auditors, and cold-context `skeptic`: `gemini-4-neon-high`
+  - `brain` coordinator: `gemini-4-neon-xhigh` (preserved when started on `xhigh` and healthy) or redirected via `CARBON` -> `gemini-4-neon-xhigh` / `gemini-pro-orchestrator-neon` -> `ARGON` reserve (`gemini-pro-orchestrator-g1-pro` / `gemini-4-argon-high`)
+- **Worker Subagent Delegation (`invoke_subagent`)**: Any `invoke_subagent` calls made from swarm workers (such as scoped read-only reconnaissance or targeted specialist audits) MUST strictly use `Model: "inherit"` (inheriting the worker's pinned model) — never `"flash"`, `"flash_lite"`, or escalating routine workers to `"pro"`.
 
 ---
 
