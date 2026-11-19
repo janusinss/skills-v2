@@ -140,11 +140,9 @@ export function convertAgent(text, sourceFile, duplicates = new Map()) {
 }
 
 export function adaptPlaywrightRunner(text) {
-  let result = text.replace("const { spawn, execSync } = require('node:child_process');", "const { spawn } = require('node:child_process');");
-  result = result.replace(/  \/\/ Central skills repository on this machine[\s\S]*?  candidates.push\(centralSkills\);\r?\n\r?\n/, '');
-  result = result.replace("  // User home directory (.agents, .claude)", '  // User-scoped Agent Skills directory');
-  result = result.replace(/,\r?\n    path.join\(home, '\.claude', 'skills', 'playwright-skill', 'node_modules'\)/, '');
-  result = result.replace(/  \/\/ If not found in any candidate path, attempt automatic setup[\s\S]*?\r?\n}\r?\n\r?\nfunction saveScript/, `  console.error('Playwright is unavailable. Install the dependencies and browser for this skill with npm run setup, then retry.');\n  process.exit(1);\n}\n\nfunction saveScript`);
+  const result = text
+    .replace("  // User home directory (.agents, .claude)", '  // User-scoped Agent Skills directory')
+    .replace(/,\r?\n\s*path\.join\(home, '\.claude', 'skills', 'playwright-skill', 'node_modules'\)/, '');
   if (result.includes('centralSkills') || result.includes('execSync(')) throw new Error('Playwright runner adaptation no longer matches its upstream source');
   return result;
 }

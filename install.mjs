@@ -336,7 +336,7 @@ export function installAgy(options, execute = spawnSync) {
         files: entries.length + 2,
         gitignore: { ...ignorePlan.record, action: ignorePlan.action },
         dryRun: true,
-        setup: 'Playwright and Chromium setup',
+        setup: 'Playwright, Chromium, and agent-browser setup',
         removesAfterSuccess: [agyInstallRule]
       };
     }

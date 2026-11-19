@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-11-19",
   "originalSnapshot": {
-    "digest": "84a88a22e2f0b6bb043be79b780fa1296cd919f65ec94f4adc536ae1a682c85b",
+    "digest": "4bad877b0ac7ad140332afc35ae565c856906b74b36d7e09916fb98d339b7fcf",
     "files": {
       ".agents/agents/a11y-architect.md": "944a665705954fc9a05e3a97907500e3ee57de8d72ebb81de961c866a3eb03ae",
       ".agents/agents/agent-evaluator.md": "a868cea4487b3252c87f9a1262cb13c667510337ae8d45d33a2479b7d80c1d33",
@@ -16,7 +16,7 @@
       ".agents/agents/cpp-build-resolver.md": "7593157cb835ee50cfb2d2f0563def3f45476f016c25f3f5b342d3c95824a4cd",
       ".agents/agents/database-reviewer.md": "79faaacbbcf2818a2a033c2d85739008ad56913ebee7fc05755300a1a456c20d",
       ".agents/agents/django-build-resolver.md": "4a0161d7f2cad7141358ca5718a4a73180eddfc279b43560f1961d45ce0a6c8a",
-      ".agents/agents/e2e-runner.md": "f749f9c0f5145bd1154d8b22de4001ee7696c8751e79fe995abd770380893625",
+      ".agents/agents/e2e-runner.md": "2ca656fc005e0bdb7165b88cb1c7da263a00de8941acbfb908ba1c28a2b091ff",
       ".agents/agents/explorer.md": "1323bc7dc2d64a92385df2e86cc2be39f979c023fccc701007231de8df146e5a",
       ".agents/agents/fastapi-reviewer.md": "7e47bbf405dcba3d8f093f50f83163d1a974c15e5b74087df9f093ec996c2d6d",
       ".agents/agents/go-build-resolver.md": "07be8d86aa7984c518a2905863f8ead1074d6847e718e070ad87301f56e06323",
@@ -333,7 +333,7 @@
       ".agents/resources/creative-libraries/tsconfig.json": "ff331833ca0f95a77afd8b7fd134bd65f2340b8e0e79de7ab8d64910aef7af80",
       ".agents/resources/creative-libraries/types/ambient.d.ts": "b05fa40bf9480db9fb90530b833eaca137c6373313af1440d531b61d9cb48b6a",
       ".agents/rules/MOTION.md": "dce45485adcc62887bd42bac8e555eff42fef6e691b300e1001b59c76ad6ca20",
-      ".agents/rules/UI_Always.md": "776392df40581941b1b4a9f6d77fe24cea8d7f241d519a3760bca04ca2255a61",
+      ".agents/rules/UI_Always.md": "9be90c8876a5cc7c790cf711be604102fa42511a72cf6e22e816cb1c8b6a6377",
       ".agents/rules/backend.md": "ef90374bb9206fe4a74ba65c6fb71435a48eb3961c74c7dd1324627784f1ed81",
       ".agents/rules/frontend.md": "ccf8f8a509957782e7b2c9aa3c7c8a80a2204d10650faf5d0e0c65a65077241c",
       ".agents/rules/install.md": "167ce7c27a86f927c620cda7a617b0414a4e9eb1b37e46c9a46bf5feaf02d06a",
@@ -342,10 +342,10 @@
       ".agents/rules/security.md": "1c1cbd8327a8d4d39ce8ed2f4c194923a75435fbd3a993f4267b3f06935ffc1d",
       ".agents/rules/starting-brandnew.md": "f17527bb5b578166b7a86bf7aaa9ceb4f1d26340cd84ac570a28858c90ce42a6",
       ".agents/rules/starting-existing.md": "d465268ac9221bd37b1fbcabc8087c4cef8a4487ad5414eee79044915c85c167",
-      ".agents/rules/swarm.md": "4ca58f0615677ea5ee6bf6e7d16e1ee7f999da05dcea3c532d00843a77a5a49d",
+      ".agents/rules/swarm.md": "dfe6654d84cae91e9636dec8b96284e145260e591a3316bd0f9b8b18f67f0446",
       ".agents/scripts/swarm-stop-guard.cjs": "6fb566cdaee79b602dd86f057afa237b72efe6486cb7ae8e483bc138e501af2e",
       ".agents/skills/3d-web-experience/SKILL.md": "ccdf216cc836ed8e339f8bafb78001d1deb6bb3a2d9a5beb705407fdd8300d10",
-      ".agents/skills/agent-browser/SKILL.md": "4d4a271e670c063470f85ae10ae22a7e47aadbcc29d206beac3252592e60ea70",
+      ".agents/skills/agent-browser/SKILL.md": "6690c34e8fa0b872096d4b0e1de7106108eb45be2b231cbd90536648523466c2",
       ".agents/skills/agent-browser/references/authentication.md": "590d5b4b53e3088243cceca79ada5c4bebb36633d1e7b2f8baa3076269641a9f",
       ".agents/skills/agent-browser/references/commands.md": "2a5ddb3c3a9c78e42166e78cc43799d7f28ba0daf0bb5e9e3d06dcd34edd8fc9",
       ".agents/skills/agent-browser/references/dogfood.md": "c30fdf7e44450aef3c8cf3a1d1dbe3e051bdea3b4ede528dde62d748bfa50c8b",
@@ -3323,11 +3323,11 @@
       ".agents/skills/observability-engineer/SKILL.md": "e9372c54cd3ee5b45125748971a2cca9ed875bb8ddc7c9d94fe2925219edccea",
       ".agents/skills/penetration-testing-with-strix/SKILL.md": "6e8d4f3496873860aba2755ccd77ec3cd09616d36cad037c9e0ad84e52e3dcff",
       ".agents/skills/playwright-skill/API_REFERENCE.md": "948e778e15e24d453219be6e05889416f088b59469818875f728d97a4ad17603",
-      ".agents/skills/playwright-skill/SKILL.md": "64eff80137a043d9703df2cb39b6918563088d885fdb9cd3e003d26e853e632d",
-      ".agents/skills/playwright-skill/lib/helpers.js": "29f602dc33cf5acc41f11e672532ef4ff197966bbaeb6f97ac6384881f45b005",
+      ".agents/skills/playwright-skill/SKILL.md": "68041ca0830b0b2e97d8cb80956d18246522a2c1339f5638fa1b1ffcfb4dcbb7",
+      ".agents/skills/playwright-skill/lib/helpers.js": "aff51794e74d3dcdb4735c6069ebf5a035f859384924934d3b48ac62cb8e308a",
       ".agents/skills/playwright-skill/package-lock.json": "a0502f20d5c475c9654b8a6faa69263d2eb7ab0c7898c3c0a2490ddc75316df3",
       ".agents/skills/playwright-skill/package.json": "8f1870c8f1124cadae0bf493eccdbc8e2df48124f90d2eecaef0c43638906d8e",
-      ".agents/skills/playwright-skill/run.js": "c8d7d02da33ed999e807312718fc60cdaaca0f0085929776adcf5de2950342c7",
+      ".agents/skills/playwright-skill/run.js": "45716e1f12500976f1ce83fedb188939e0728a82c9a7edf63cf0ff52205bc132",
       ".agents/skills/postgres-best-practices/AGENTS.md": "a5226ca435fe12cf69ef8343aeaa5a9f2ae40679986b09eacb247711471e8722",
       ".agents/skills/postgres-best-practices/CHANGELOG.md": "751ad110037c85d400018c9894716a04fa46357ff55c22b1169b280752e19e88",
       ".agents/skills/postgres-best-practices/README.md": "8ada1fb7d5fc4783d17714ee0b0c7a0453c90e62c99a803d2953bd2018eade71",
@@ -3593,7 +3593,7 @@
       ".agents/skills/untangle-codebase/LICENSE": "cbe11503c54a6eeecf65772e66fbbca7a37750bff9812c742b11dca47ceb539c",
       ".agents/skills/untangle-codebase/SKILL.md": "eace3de7a56a4acb964a132917d52a78719f74ddd2e2cb19f6701f8ca8832569",
       ".gitignore": "d3c49db2599c7418e4f5c0edb62d7f994bedc6d39c0307d4b4e1546fc761c006",
-      "AGENTS.md": "89ee5c1a6e4855fdebf90e57e88860e19c20a3914504b18015529dbc137cf7d8",
+      "AGENTS.md": "85966374ba10f8f870c53268e8513acda57e5bad21c7838e381c10f995080258",
       "skills-lock.json": "7d488ac96b3de3bf1f1fd76a55bf3c4813866e75265597c9cf0786622ae19708"
     }
   },
@@ -3664,8 +3664,8 @@
     },
     "agents/e2e-runner.md": {
       "source": ".agents/agents/e2e-runner.md",
-      "sourceHash": "f749f9c0f5145bd1154d8b22de4001ee7696c8751e79fe995abd770380893625",
-      "outputHash": "af96cc5f8f67846c9a8196894487d6032ca34bc003b00998dd9808fa53fe9357"
+      "sourceHash": "2ca656fc005e0bdb7165b88cb1c7da263a00de8941acbfb908ba1c28a2b091ff",
+      "outputHash": "8f3b12cbaefb5d80832c5cf7bdaf0acfd0b99fa5870a23836de4d41d774dc80f"
     },
     "agents/explorer.md": {
       "source": ".agents/agents/explorer.md",
@@ -5279,8 +5279,8 @@
     },
     "rules/UI_Always.md": {
       "source": ".agents/rules/UI_Always.md",
-      "sourceHash": "776392df40581941b1b4a9f6d77fe24cea8d7f241d519a3760bca04ca2255a61",
-      "outputHash": "2a56562abdc3fcce2cee331c9091b0fb8c03dea0354042a6e900a3cabd4ddd99"
+      "sourceHash": "9be90c8876a5cc7c790cf711be604102fa42511a72cf6e22e816cb1c8b6a6377",
+      "outputHash": "ee2742a05b4a25d6178f5ec08615e8fa241b69dab23430f19fc46cc27e76eb27"
     },
     "skills/3d-web-experience/SKILL.md": {
       "source": ".agents/skills/3d-web-experience/SKILL.md",
@@ -5349,8 +5349,8 @@
     },
     "skills/agent-browser/SKILL.md": {
       "source": ".agents/skills/agent-browser/SKILL.md",
-      "sourceHash": "4d4a271e670c063470f85ae10ae22a7e47aadbcc29d206beac3252592e60ea70",
-      "outputHash": "225157c5e14c2606be48590b7172f300b4d6a9fab4082d69429740cb1dccbf1a"
+      "sourceHash": "6690c34e8fa0b872096d4b0e1de7106108eb45be2b231cbd90536648523466c2",
+      "outputHash": "a8ce3051fd041b6f9156a633b8dc019e059d7aa84c49b32dd2e691a4f3ed06d3"
     },
     "skills/agent-browser/templates/authenticated-session.sh": {
       "source": ".agents/skills/agent-browser/templates/authenticated-session.sh",
@@ -17969,8 +17969,8 @@
     },
     "skills/playwright-skill/lib/helpers.js": {
       "source": ".agents/skills/playwright-skill/lib/helpers.js",
-      "sourceHash": "29f602dc33cf5acc41f11e672532ef4ff197966bbaeb6f97ac6384881f45b005",
-      "outputHash": "29f602dc33cf5acc41f11e672532ef4ff197966bbaeb6f97ac6384881f45b005"
+      "sourceHash": "aff51794e74d3dcdb4735c6069ebf5a035f859384924934d3b48ac62cb8e308a",
+      "outputHash": "aff51794e74d3dcdb4735c6069ebf5a035f859384924934d3b48ac62cb8e308a"
     },
     "skills/playwright-skill/package-lock.json": {
       "source": ".agents/skills/playwright-skill/package-lock.json",
@@ -17984,13 +17984,13 @@
     },
     "skills/playwright-skill/run.js": {
       "source": ".agents/skills/playwright-skill/run.js",
-      "sourceHash": "c8d7d02da33ed999e807312718fc60cdaaca0f0085929776adcf5de2950342c7",
-      "outputHash": "0e848284a5d24dea53fc70f87b7c36858aeafd11fb3486beebe490dbd95e1037"
+      "sourceHash": "45716e1f12500976f1ce83fedb188939e0728a82c9a7edf63cf0ff52205bc132",
+      "outputHash": "45716e1f12500976f1ce83fedb188939e0728a82c9a7edf63cf0ff52205bc132"
     },
     "skills/playwright-skill/SKILL.md": {
       "source": ".agents/skills/playwright-skill/SKILL.md",
-      "sourceHash": "64eff80137a043d9703df2cb39b6918563088d885fdb9cd3e003d26e853e632d",
-      "outputHash": "ae99b7f7280b96d882c6ae1323e8f6bb05609d19c304f071e8f675ab01ec3f8e"
+      "sourceHash": "68041ca0830b0b2e97d8cb80956d18246522a2c1339f5638fa1b1ffcfb4dcbb7",
+      "outputHash": "c2014989356ec3adfb3c897b9379add96ee7ad43026ed93e18e90a7a274429c7"
     },
     "skills/postgres-best-practices/AGENTS.md": {
       "source": ".agents/skills/postgres-best-practices/AGENTS.md",
@@ -19364,13 +19364,13 @@
     },
     "CLAUDE.md": {
       "source": "AGENTS.md",
-      "sourceHash": "89ee5c1a6e4855fdebf90e57e88860e19c20a3914504b18015529dbc137cf7d8",
-      "outputHash": "634a2467d3ab5ce0ee2a08504e288d030c2c00e4b87d46a02b498b1e0fb83af5"
+      "sourceHash": "85966374ba10f8f870c53268e8513acda57e5bad21c7838e381c10f995080258",
+      "outputHash": "5ada185158f813fd5b9813d75240f01e7b13c6b52a37bacb5f97726a48288531"
     },
     "CLAUDE.designer.md": {
       "source": "AGENTS.md",
-      "sourceHash": "89ee5c1a6e4855fdebf90e57e88860e19c20a3914504b18015529dbc137cf7d8",
-      "outputHash": "627a6203e542c863d5679e8187ad20a50472d3632050d8d1296ce3393ea93138"
+      "sourceHash": "85966374ba10f8f870c53268e8513acda57e5bad21c7838e381c10f995080258",
+      "outputHash": "e2634e3a0f0f357af620511d6cab5549d971e3a3be6f276c66b8ae7360fb7174"
     }
   }
 }

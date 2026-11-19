@@ -200,6 +200,7 @@ function normalizeAuditViewports(viewports) {
 async function collectSmallTouchTargets(page) {
   return page.evaluate(() => {
     const selector = 'a, button, input:not([type="hidden"]), select, textarea, [role="button"], [role="link"]';
+    const proseContainerSelector = 'p, li, td, th, dd, dt, blockquote, span, figcaption, label, address, summary';
     const small = [];
     for (const el of document.querySelectorAll(selector)) {
       if (el.hasAttribute('disabled') || el.getAttribute('aria-disabled') === 'true') continue;
@@ -207,6 +208,16 @@ async function collectSmallTouchTargets(page) {
       if (style.display === 'none' || style.visibility === 'hidden' || Number.parseFloat(style.opacity) === 0) continue;
       const rect = el.getBoundingClientRect();
       if (rect.width === 0 && rect.height === 0) continue;
+      // WCAG 2.5.8 inline exception: exempt inline text links inside prose/flow blocks (not nav controls or icon-only links)
+      if (
+        el.tagName.toLowerCase() === 'a' &&
+        style.display === 'inline' &&
+        !el.closest('nav, [role="navigation"]') &&
+        (el.innerText || '').trim().length > 0 &&
+        Boolean(el.closest(proseContainerSelector))
+      ) {
+        continue;
+      }
       if (rect.width < 43.99 || rect.height < 43.99) {
         const label = (el.innerText || el.getAttribute('aria-label') || el.getAttribute('placeholder') || el.tagName).trim().slice(0, 40);
         small.push({
@@ -221,8 +232,112 @@ async function collectSmallTouchTargets(page) {
   });
 }
 
+function parseCdpUrl(output) {
+  const text = String(output || '').trim();
+  if (!text) return null;
+  const match = text.match(/\b(?:wss?|https?):\/\/[^\s"'<>]+/i);
+  return match ? match[0] : null;
+}
+
+function resolveSessionCdpUrl(session, options = {}) {
+  const res = agentBrowser(['get', 'cdp-url'], {
+    ...options,
+    session,
+    timeout: options.timeout ?? 10000,
+  });
+  const cdpUrl = res.status === 0 ? parseCdpUrl(res.stdout) : null;
+  if (!cdpUrl) {
+    const detail = (res.stderr || res.stdout || 'session is not running').trim();
+    throw new Error(`Failed to resolve CDP URL for agent-browser session "${session}": ${detail}`);
+  }
+  return cdpUrl;
+}
+
+function runA11yAudit(targetUrl, options = {}) {
+  if (!hasAgentBrowser()) {
+    return { skipped: true, reason: 'agent-browser binary not found' };
+  }
+
+  const reuseSession = typeof options.session === 'string' && options.session.trim()
+    ? options.session.trim()
+    : null;
+  const sessionName = reuseSession || `ab-a11y-${Date.now()}`;
+  let openedTemp = false;
+
+  try {
+    if (!reuseSession) {
+      const openRes = agentBrowser(['open', targetUrl], { session: sessionName, timeout: 30000 });
+      if (openRes.status !== 0) {
+        return {
+          skipped: true,
+          reason: (openRes.stderr || openRes.stdout || 'failed to open temporary a11y session').trim(),
+        };
+      }
+      openedTemp = true;
+    }
+
+    const res = agentBrowser(['a11y', '--tags', 'wcag2a,wcag2aa', '--json'], {
+      session: sessionName,
+      timeout: 30000,
+    });
+    if (res.status !== 0 || !res.stdout.trim()) {
+      return {
+        skipped: true,
+        reason: (res.stderr || res.stdout || 'agent-browser a11y failed').trim(),
+      };
+    }
+
+    let parsed;
+    try {
+      parsed = JSON.parse(res.stdout.trim());
+    } catch {
+      const start = res.stdout.indexOf('{');
+      const end = res.stdout.lastIndexOf('}');
+      if (start === -1 || end <= start) {
+        return { skipped: true, reason: 'unable to parse agent-browser a11y JSON output' };
+      }
+      parsed = JSON.parse(res.stdout.slice(start, end + 1));
+    }
+
+    if (parsed && parsed.success === false) {
+      return { skipped: true, reason: String(parsed.error || 'agent-browser a11y returned success=false') };
+    }
+
+    const data = parsed && parsed.data ? parsed.data : parsed;
+    const violations = Array.isArray(data && data.violations) ? data.violations : [];
+    const seriousOrCritical = violations.filter(v => {
+      const impact = String(v && v.impact ? v.impact : '').toLowerCase();
+      return impact === 'serious' || impact === 'critical';
+    });
+
+    return {
+      skipped: false,
+      passed: seriousOrCritical.length === 0,
+      totalViolations: violations.length,
+      seriousOrCriticalCount: seriousOrCritical.length,
+      violations: seriousOrCritical.map(v => ({
+        id: v.id,
+        impact: v.impact,
+        help: v.help || v.description || '',
+        nodes: Array.isArray(v.nodes) ? v.nodes.length : 0,
+      })),
+    };
+  } finally {
+    if (openedTemp) {
+      agentBrowser(['close'], { session: sessionName, timeout: 10000 });
+    }
+  }
+}
+
 async function auditLayout(options = {}) {
-  const targetUrl = options.url || await resolveTargetUrl(options);
+  let targetUrl = options.url || await resolveTargetUrl(options);
+  if (!targetUrl && options.session && hasAgentBrowser()) {
+    const urlRes = agentBrowser(['get', 'url'], { session: options.session, timeout: 10000 });
+    if (urlRes.status === 0 && /^https?:\/\//i.test(urlRes.stdout.trim())) {
+      targetUrl = urlRes.stdout.trim();
+    }
+  }
+
   if (!targetUrl) {
     const msg = 'No target URL or active dev server found. Pass --audit <url>, set URL env, or start a server.';
     console.error(msg);
@@ -233,14 +348,19 @@ async function auditLayout(options = {}) {
       viewports: [],
       consoleErrors: [],
       pageErrors: [msg],
+      networkErrors: [],
+      ...(options.a11y ? { a11y: { skipped: true, reason: 'no target URL' } } : {}),
     };
   }
 
   const viewportsToCheck = normalizeAuditViewports(options.viewports);
   const consoleErrors = [];
   const pageErrors = [];
+  const networkErrors = [];
   const viewports = [];
   let browser;
+  let attachedCdp = false;
+  let tempPage = null;
   let passed = true;
 
   if (options.screenshotDir) {
@@ -248,9 +368,32 @@ async function auditLayout(options = {}) {
   }
 
   try {
-    browser = await launchBrowser('chromium', { headless: true, ...options.launchOptions });
-    const context = await createContext(browser, options.contextOptions || {});
-    const page = await context.newPage();
+    let cdpUrl = options.cdp ? String(options.cdp).trim() : null;
+    if (!cdpUrl && options.session) {
+      cdpUrl = resolveSessionCdpUrl(options.session);
+    }
+
+    let context;
+    if (cdpUrl) {
+      const playwright = require('playwright');
+      browser = await playwright.chromium.connectOverCDP(cdpUrl);
+      attachedCdp = true;
+      const existingContexts = browser.contexts();
+      context = existingContexts.length > 0
+        ? existingContexts[0]
+        : await createContext(browser, options.contextOptions || {});
+      tempPage = await context.newPage();
+    } else {
+      browser = await launchBrowser('chromium', { headless: true, ...options.launchOptions });
+      const contextOpts = {
+        ...(options.storageState ? { storageState: options.storageState } : {}),
+        ...(options.contextOptions || {}),
+      };
+      context = await createContext(browser, contextOpts);
+      tempPage = await context.newPage();
+    }
+
+    const page = tempPage;
 
     page.on('pageerror', error => {
       pageErrors.push(error && error.message ? error.message : String(error));
@@ -259,6 +402,32 @@ async function auditLayout(options = {}) {
       if (message.type() === 'error') {
         consoleErrors.push(message.text());
       }
+    });
+    page.on('requestfailed', request => {
+      const errorText = request.failure()?.errorText || 'requestfailed';
+      if (errorText === 'net::ERR_ABORTED') return;
+      networkErrors.push({
+        type: 'requestfailed',
+        method: request.method(),
+        url: request.url(),
+        errorText,
+      });
+    });
+    page.on('response', response => {
+      const status = response.status();
+      if (status < 400) return;
+      try {
+        const parsedUrl = new URL(response.url());
+        if (status === 404 && parsedUrl.pathname.endsWith('/favicon.ico')) return;
+      } catch {
+        // Ignore non-standard URLs
+      }
+      networkErrors.push({
+        type: 'http',
+        status,
+        statusText: response.statusText(),
+        url: response.url(),
+      });
     });
 
     await page.setViewportSize({ width: viewportsToCheck[0].w, height: viewportsToCheck[0].h });
@@ -316,7 +485,11 @@ async function auditLayout(options = {}) {
       });
     }
 
-    if (consoleErrors.length > 0 || pageErrors.length > 0) {
+    if (
+      consoleErrors.length > 0 ||
+      pageErrors.length > 0 ||
+      (!options.ignoreNetworkErrors && networkErrors.length > 0)
+    ) {
       passed = false;
     }
 
@@ -327,14 +500,39 @@ async function auditLayout(options = {}) {
     if (pageErrors.length > 0) {
       console.error(`Page errors: ${pageErrors.length}`, pageErrors);
     }
+    console.log(`Network errors: ${networkErrors.length}${options.ignoreNetworkErrors ? ' (ignored)' : ''}`);
+    if (networkErrors.length > 0) {
+      console.error('Network error details:', networkErrors.slice(0, 10));
+    }
   } catch (error) {
     passed = false;
     const message = error && error.message ? error.message.split('\n')[0] : String(error);
     pageErrors.push(message);
     console.error(`Audit failed: ${message}`);
   } finally {
-    if (browser) {
+    if (attachedCdp) {
+      if (tempPage) {
+        await tempPage.close().catch(() => {});
+      }
+      if (browser) {
+        await browser.close().catch(() => {});
+      }
+    } else if (browser) {
       await browser.close().catch(() => {});
+    }
+  }
+
+  let a11y = null;
+  if (options.a11y) {
+    a11y = runA11yAudit(targetUrl, { session: options.session });
+    if (a11y.skipped) {
+      console.log(`A11y audit skipped: ${a11y.reason}`);
+    } else {
+      console.log(`A11y violations (serious/critical): ${a11y.seriousOrCriticalCount} (total: ${a11y.totalViolations})`);
+      if (a11y.seriousOrCriticalCount > 0) {
+        console.error('A11y violation details:', a11y.violations.slice(0, 5));
+        passed = false;
+      }
     }
   }
 
@@ -348,6 +546,8 @@ async function auditLayout(options = {}) {
     viewports,
     consoleErrors,
     pageErrors,
+    networkErrors,
+    ...(options.a11y ? { a11y } : {}),
   };
 }
 
@@ -492,6 +692,8 @@ function shouldAutoScopeSession(args, options) {
   return true;
 }
 
+const sessionIdCache = new Map();
+
 function agentBrowser(args = [], options = {}) {
   const bin = resolveAgentBrowserBinary(options);
   if (!bin) {
@@ -508,10 +710,17 @@ function agentBrowser(args = [], options = {}) {
       ? options.session.trim()
       : null;
     if (!sessionId) {
-      const prefix = options.sessionPrefix || 'task';
-      const idResult = runAgentBrowserRaw(bin, ['session', 'id', '--scope', 'worktree', '--prefix', prefix], options);
-      if (idResult.status === 0 && idResult.stdout.trim()) {
-        sessionId = idResult.stdout.trim();
+      const prefix = options.sessionPrefix || 'ui';
+      const cwd = path.resolve(options.cwd || process.cwd());
+      const cacheKey = `${bin}\0${cwd}\0${prefix}`;
+      if (sessionIdCache.has(cacheKey)) {
+        sessionId = sessionIdCache.get(cacheKey);
+      } else {
+        const idResult = runAgentBrowserRaw(bin, ['session', 'id', '--scope', 'worktree', '--prefix', prefix], options);
+        if (idResult.status === 0 && idResult.stdout.trim()) {
+          sessionId = idResult.stdout.trim();
+          sessionIdCache.set(cacheKey, sessionId);
+        }
       }
     }
     if (sessionId) {

@@ -14,8 +14,8 @@
       "sourceType": "github",
       "commit": "f18b8bb5275ea2be22fca5e6856886827468f41e",
       "license": "Apache-2.0",
-      "modified": null,
-      "contentHash": "3dc38ad635047198f3cda8ce5e6aa26ca77493051120ca9ecd753ce624b56fcd"
+      "modified": "description/references updated in skills-v2",
+      "contentHash": "2534e7384f11270699df1881cc0aaa4d09052dae11a0fc941d1e0fab62437999"
     },
     "agent-self-evaluation": {
       "source": "affaan-m/everything-claude-code",
@@ -407,7 +407,7 @@
       "commit": "dd47a6a023e249eb1b36e9e943eab89d0900865d",
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "f84d772d36a76a650fa5c8b89d7338d9189a8af01e0ae040216cc2deca719182"
+      "contentHash": "b6c0b0d3ad98e95bf297dc898b59144bbf061ecd93b717a23358d7d1349d896f"
     },
     "postgres-best-practices": {
       "source": "supabase/agent-skills",

@@ -80,21 +80,24 @@ Apply these rules automatically whenever viewing, writing, or refactoring fronte
 <a id="browser-verification"></a>
 
 ## 7. Browser Verification Policy
-- **Combined Browser Engine Mandate:** Use [playwright-skill](.agents/skills/playwright-skill/SKILL.md) (`node .agents/skills/playwright-skill/run.js --audit` or `-e`) for deterministic viewport, horizontal-overflow, touch-target, console/page-error, and screenshot checks, paired with [agent-browser](.agents/skills/agent-browser/SKILL.md) (`open`, `snapshot -i`, `click @e1`, `fill @e2`, `close`) for accessibility-tree navigation and multi-step interactive flows. Built-in website viewers, IDE preview windows, and `browser_subagent` are banned for verification.
-- **Universal Target Resolution (`--detect-url` / `helpers.resolveTargetUrl()`):** Auto-resolves running servers without hardcoded ports—probes `localhost`/`127.0.0.1` (`3000`, `4321`, `5173`, `8080`, `80`, etc.), maps `htdocs`/`www`/`public_html` webroots, falls back to local `index.html`, or respects `$env:URL`.
+- **Combined Browser Engine Mandate:** Use [playwright-skill](.agents/skills/playwright-skill/SKILL.md) (`node .agents/skills/playwright-skill/run.js --audit`, `-e`, `--stdin`, or `-b`) for deterministic viewport, horizontal-overflow, touch-target, `--a11y`, HTTP `>=400` / `requestfailed` network, console/page-error, and screenshot checks, paired with [agent-browser](.agents/skills/agent-browser/SKILL.md) (`open`, `snapshot -i`, `click @e1`, `fill @e2`, `errors`, `console`, `close`) for accessibility-tree navigation and multi-step interactive flows. Built-in website viewers, IDE preview windows, and `browser_subagent` are banned for verification.
+- **Universal Target Resolution (`--detect-url` / `helpers.resolveTargetUrl()`):** Auto-resolves running servers in-process without hardcoded ports: probes `localhost`/`127.0.0.1` (`3000`, `4321`, `5173`, `8080`, `80`, etc.), maps `htdocs`/`www`/`public_html` webroots, falls back to local `index.html`, or respects `$env:URL`.
 - **Minor / 1-Line Fixes** (text, colors, padding): Skip browser automation; verify CSS rules statically in code.
-- **Structural / Layout Audit** (grids, navigation, full pages): Audit `375x667` (mobile), `768x1024` (tablet), and `1280x800` (desktop) for horizontal overflow (`document.documentElement.scrollWidth > window.innerWidth`), `>=44x44px` mobile touch targets, and console/page errors:
+- **Structural / Layout Audit** (grids, navigation, full pages): Audit `375x667` (mobile), `768x1024` (tablet), and `1280x800` (desktop) for horizontal overflow (`document.documentElement.scrollWidth > window.innerWidth`), `>=44x44px` mobile touch targets (WCAG 2.5.8 inline link exemption), `--a11y`, HTTP `>=400` / `requestfailed` network errors, and console/page errors:
   ```powershell
-  node .agents/skills/playwright-skill/run.js --audit --screenshots scratch --touch-targets
+  node .agents/skills/playwright-skill/run.js --audit --screenshots scratch --touch-targets --a11y
   ```
-  (Use `node .agents/skills/playwright-skill/run.js -e "..."` for custom inline assertions; never write scratch `.js` files.)
-- **Interactive Flow Testing (`agent-browser`):** Isolate sessions and interact via `@eN` accessibility refs:
+  (For custom inline assertions on Windows PowerShell, pipe code into `--stdin` or pass base64 via `-b` instead of `-e`; never write scratch `.js` files.)
+- **Interactive Flows & Shared-Browser CDP Handoff (`agent-browser` -> `--audit --session`):** Isolate sessions with `--prefix ui`, end flows with `errors` and `console` checks, and pass `--session <sid>` to `run.js --audit` to audit authenticated routes in the same Chromium instance without launching a second browser:
   ```bash
   SID=$(agent-browser session id --scope worktree --prefix ui)
   agent-browser --session "$SID" open <url>
   agent-browser --session "$SID" snapshot -i
   agent-browser --session "$SID" fill @e1 "value"
   agent-browser --session "$SID" click @e2
+  node .agents/skills/playwright-skill/run.js --audit --session "$SID" --touch-targets --a11y
+  agent-browser --session "$SID" errors
+  agent-browser --session "$SID" console
   agent-browser --session "$SID" close
   ```
 - **Output Location:** Save viewport screenshots to the git-ignored `scratch/` directory when visual proof is needed; never create scratch `.js` files on disk.

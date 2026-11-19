@@ -20,21 +20,27 @@ On Linux CI/containers, add `--with-deps` (`agent-browser install --with-deps`) 
 ## Pairing with `playwright-skill`
 
 - **Use `agent-browser`** for semantic navigation, accessibility-tree `@eN` interaction (`open`, `snapshot -i`, `click`, `fill`), multi-step flows, auth state, and exploratory QA.
-- **Use `playwright-skill`** (`node .claude/skills/playwright-skill/run.js --audit`) for deterministic 375/768/1280px responsive overflow checks, touch-target audits, console/pageerror gates, and programmatic assertions (or call `helpers.agentBrowser(args)` from inside `playwright-skill`).
+- **Use `playwright-skill`** (`node .claude/skills/playwright-skill/run.js --audit`) for deterministic 375/768/1280px responsive overflow checks, touch-target audits, HTTP `>=400` network checks, `--a11y`, and programmatic assertions.
+- **Shared-browser CDP handoff:** After authenticating or navigating in `agent-browser`, hand the running session directly to `playwright-skill --audit` without launching a second Chromium:
+  ```bash
+  node .claude/skills/playwright-skill/run.js --audit --session "$SESSION" --touch-targets --a11y
+  # Or inspect the CDP WebSocket URL explicitly (never launches a browser):
+  agent-browser --session "$SESSION" get cdp-url
+  ```
 
 ## Always use an isolated session
 
-Derive a stable session name for the active worktree and pass `--session <name>` on every command (do not share the unnamed default session across agents):
+Derive a stable session name for the active worktree with `--prefix ui` and pass `--session <name>` on every command (do not share the unnamed default session across agents):
 
 ```bash
-SESSION="$(agent-browser session id --scope worktree --prefix task)"
+SESSION="$(agent-browser session id --scope worktree --prefix ui)"
 agent-browser --session "$SESSION" open http://localhost:3000
 ```
 
 PowerShell:
 
 ```powershell
-$SESSION = (agent-browser session id --scope worktree --prefix task).Trim()
+$SESSION = (agent-browser session id --scope worktree --prefix ui).Trim()
 agent-browser --session $SESSION open http://localhost:3000
 ```
 
@@ -45,7 +51,21 @@ agent-browser --session "$SESSION" open <url>        # 1. Launch and navigate
 agent-browser --session "$SESSION" snapshot -i       # 2. Inspect interactive elements (@e1, @e2...)
 agent-browser --session "$SESSION" click @e3         # 3. Act on refs from the snapshot
 agent-browser --session "$SESSION" snapshot -i       # 4. Re-snapshot after page or DOM changes
-agent-browser --session "$SESSION" close             # 5. Close when done
+agent-browser --session "$SESSION" errors            # 5. Check uncaught page errors
+agent-browser --session "$SESSION" console           # 6. Check console errors/warnings
+agent-browser --session "$SESSION" close             # 7. Close when done
+```
+
+Chain predictable multi-step flows in one turn with `batch`:
+
+```bash
+agent-browser --session "$SESSION" batch \
+  "open http://localhost:3000/login" \
+  "fill @e1 user@example.com" \
+  "click @e2" \
+  "wait --url **/dashboard" \
+  "errors" \
+  "console"
 ```
 
 Prefer `snapshot -i` over screenshots for inspecting state; capture screenshots only when visual verification is needed or the DOM cannot represent it (e.g., `<canvas>`).

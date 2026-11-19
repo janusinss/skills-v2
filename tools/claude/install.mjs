@@ -137,7 +137,7 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
   if (!options.resume) {
     exported = exportBundle(options, root);
     if (options.dryRun) {
-      return { ...exported, setup: 'Playwright and Chromium when the profile includes playwright-skill', removesAfterSuccess: [installRule] };
+      return { ...exported, setup: 'Playwright, Chromium, and agent-browser setup when the profile includes playwright-skill or agent-browser', removesAfterSuccess: [installRule] };
     }
   }
 

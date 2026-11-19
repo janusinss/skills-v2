@@ -70,6 +70,32 @@ function runPlatformCmd(execute, command, args, options) {
   return execute(command, args, { windowsHide: true, ...options });
 }
 
+function formatAgentBrowserFallback(recheck, installRes) {
+  const details = [];
+  if (installRes?.error?.message) details.push(`install error: ${installRes.error.message}`);
+  else if (typeof installRes?.status === 'number' && installRes.status !== 0) details.push(`agent-browser install exited ${installRes.status}`);
+
+  const rawOut = recheck?.stdout?.trim();
+  if (rawOut) {
+    try {
+      const parsed = JSON.parse(rawOut);
+      const failing = Array.isArray(parsed?.checks)
+        ? parsed.checks.filter(check => check && (check.status === 'fail' || check.status === 'warn'))
+        : [];
+      for (const check of failing) {
+        const fix = check.fix ? ` (fix: ${check.fix})` : '';
+        details.push(`${check.id || check.category || 'check'}: ${check.message}${fix}`);
+      }
+    } catch {
+      details.push(rawOut);
+    }
+  }
+  const errText = recheck?.stderr?.trim();
+  if (errText) details.push(errText);
+  if (details.length === 0) details.push(`exit ${recheck?.status ?? installRes?.status ?? 1}`);
+  return details.join('; ');
+}
+
 export function setupAgentBrowser(execute, target) {
   try {
     const checkOpts = { cwd: target, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] };
@@ -100,8 +126,9 @@ export function setupAgentBrowser(execute, target) {
     if (recheck && !recheck.error && recheck.status === 0) {
       return 'verified';
     }
-    const reason = installRes?.error?.message || recheck?.stderr?.trim() || `exit ${recheck?.status ?? installRes?.status ?? 1}`;
-    console.error(`agent-browser browser check warning: ${reason}`);
+    const reason = formatAgentBrowserFallback(recheck, installRes);
+    console.error(`agent-browser browser check warning (continuing in cli-only mode): ${reason}`);
+    console.error('Action: run `agent-browser install` then `agent-browser doctor --offline --quick` to repair the browser runtime.');
     return 'cli-only';
   } catch (error) {
     console.error(`agent-browser setup warning: ${error.message}`);
@@ -143,7 +170,7 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
   let exported;
   if (!options.resume) {
     exported = exportBundle(options, root);
-    if (options.dryRun) return { ...exported, setup: 'Playwright and Chromium when the profile includes playwright-skill', removesAfterSuccess: [installRule] };
+    if (options.dryRun) return { ...exported, setup: 'Playwright, Chromium, and agent-browser setup when the profile includes playwright-skill or agent-browser', removesAfterSuccess: [installRule] };
   }
   const installation = readInstallation(target);
   const manifestPath = installation.manifestPath;

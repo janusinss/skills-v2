@@ -52,23 +52,31 @@ Apply these rules automatically whenever inspecting, creating, or refactoring we
 
 ## 7. Browser Verification Policy
 
-For meaningful layout or interaction changes, use the bundled `playwright-skill` runner (`--audit` or inline `-e`) paired with `agent-browser` (`open`, `snapshot -i`, `click @e1`, `fill @e2`, `close`). Create no scratch `.js` files for these audits and do not delegate browser verification to subagents. A host browser tool can be used when the user requests it or the Playwright/Agent Browser workflow is unavailable; report that substitution. A preview viewer alone does not establish runtime correctness.
+For meaningful layout or interaction changes, use the bundled `playwright-skill` runner (`--audit`, `-e`, `--stdin`, or `-b`) paired with `agent-browser` (`open`, `snapshot -i`, `click @e1`, `fill @e2`, `errors`, `console`, `close`). Create no scratch `.js` files for these audits and do not delegate browser verification to subagents. A host browser tool can be used when the user requests it or the Playwright/Agent Browser workflow is unavailable; report that substitution. A preview viewer alone does not establish runtime correctness.
 
-Check 375, 768, and 1280 CSS pixels, plus project-specific widths when needed. Capture page exceptions and console errors and detect accidental horizontal overflow. Resolve the actual target URL through `node .codex/skills/playwright-skill/run.js --detect-url` or `helpers.resolveTargetUrl()` using the project configuration, running server, or an explicit user-provided URL. Do not guess a port.
+Check 375 (`375x667` mobile), 768 (`768x1024` tablet), and 1280 (`1280x800` desktop) CSS pixels, plus project-specific widths when needed. Capture page exceptions, console errors, HTTP `>=400` / `requestfailed` network errors, accessibility (`--a11y`) violations, `>=44x44px` mobile touch targets (with WCAG 2.5.8 inline link exemption), and accidental horizontal overflow (`document.documentElement.scrollWidth > window.innerWidth`). Resolve the actual target URL through `node .codex/skills/playwright-skill/run.js --detect-url` or `helpers.resolveTargetUrl()` using the project configuration, running server, local `index.html`, or an explicit user-provided URL (`URL` env var). Do not guess a port.
 
-From the project root, run the built-in multi-viewport layout audit (saves screenshots in `scratch/`, audits 375/768/1280, reports overflow and console/page errors, and closes Chromium):
-
-```text
-node .codex/skills/playwright-skill/run.js --audit --screenshots scratch --touch-targets
-```
-
-Use `node .codex/skills/playwright-skill/run.js -e "..."` when custom inline Playwright assertions are needed, and use `agent-browser` for token-efficient semantic navigation, accessibility-tree `@eN` element interaction, and multi-step user flow testing:
+From the project root, run the built-in multi-viewport layout audit (saves screenshots in `scratch/`, audits 375/768/1280, reports overflow, touch targets, `--a11y`, HTTP `>=400` / `requestfailed` network errors, and console/page errors, and closes Chromium):
 
 ```text
-agent-browser --session <sid> open <url> && agent-browser --session <sid> snapshot -i
-agent-browser --session <sid> fill @e1 "<value>" && agent-browser --session <sid> click @e2
-agent-browser --session <sid> close
+node .codex/skills/playwright-skill/run.js --audit --screenshots scratch --touch-targets --a11y
 ```
 
-Keep `scratch/` git-ignored and add the requested flow's meaningful interaction checks alongside the layout audit. Preserve existing project tests. Do not require browser checks for every unrelated or trivial edit, or claim that this layout audit validates the complete UI. Report missing tooling, servers, and unresolved errors accurately.
+Use `node .codex/skills/playwright-skill/run.js -e "..."` when custom inline Playwright assertions are needed (on Windows PowerShell, pipe code into `--stdin` or pass base64 via `-b` instead of `-e`; never write scratch `.js` files).
+
+For token-efficient semantic navigation, accessibility-tree `@eN` element interaction, multi-step user flows, and shared-browser CDP handoff (`agent-browser` -> `--audit --session`), isolate sessions with `--prefix ui`, pass `--session "$SID"` to `run.js --audit` to audit authenticated routes in the same Chromium instance without launching a second browser, and end flows with trailing `errors` and `console` checks before `close`:
+
+```bash
+SID=$(agent-browser session id --scope worktree --prefix ui)
+agent-browser --session "$SID" open <url>
+agent-browser --session "$SID" snapshot -i
+agent-browser --session "$SID" fill @e1 "<value>"
+agent-browser --session "$SID" click @e2
+node .codex/skills/playwright-skill/run.js --audit --session "$SID" --touch-targets --a11y
+agent-browser --session "$SID" errors
+agent-browser --session "$SID" console
+agent-browser --session "$SID" close
+```
+
+Keep `scratch/` git-ignored and add the requested flow's meaningful interaction checks alongside the layout audit. Preserve existing project tests. Skip browser automation for minor/1-line fixes (text, colors, padding) and verify CSS rules statically in code; do not require browser checks for every unrelated or trivial edit, or claim that this layout audit validates the complete UI. Report missing tooling, servers, and unresolved errors accurately.
 

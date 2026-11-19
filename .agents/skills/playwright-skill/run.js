@@ -20,9 +20,10 @@ function getCandidatePaths() {
   // Linux / macOS global npm
   candidates.push('/usr/local/lib/node_modules', '/usr/lib/node_modules');
 
-  // Central skills repository on this machine
-  const centralSkills = path.resolve('c:/xampp/htdocs/YEAR 4/Skills/.agents/skills/playwright-skill/node_modules');
-  candidates.push(centralSkills);
+  // Optional shared node_modules directory
+  if (process.env.PW_SHARED_NODE_MODULES) {
+    candidates.push(path.resolve(process.env.PW_SHARED_NODE_MODULES));
+  }
 
   // User home directory (.agents, .claude)
   const home = os.homedir();
@@ -108,13 +109,37 @@ function run(args) {
   }
 }
 
-ensurePlaywright();
-
 function runInlineHelpers(source) {
   const helpersPath = JSON.stringify(path.join(skillDir, 'lib/helpers'));
   const prefix = `const playwright = require('playwright');\nconst { chromium, firefox, webkit, devices } = playwright;\nif (!chromium._origLaunch) chromium._origLaunch = chromium.launch.bind(chromium);\nconst helpers = require(${helpersPath});\nchromium.launch = (opts = {}) => helpers.launchBrowser('chromium', { headless: opts.headless ?? true, ...opts });\n`;
   const exit = "async () => { for (const s of [process.stdout, process.stderr]) await new Promise(r => s.write('', r)); process.exit(process.exitCode ?? 0); }";
   run(['-e', `${prefix}\n(async () => {\n  try {\n    ${source}\n  } catch (error) {\n    console.error(error.stack || error.message);\n    process.exitCode = 1;\n  }\n})().finally(${exit});`]);
+}
+
+async function readStdinUtf8() {
+  const chunks = [];
+  for await (const chunk of process.stdin) {
+    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk, 'utf8') : chunk);
+  }
+  return Buffer.concat(chunks).toString('utf8').replace(/^\uFEFF/, '');
+}
+
+function readOptionValue(argv, index, flag) {
+  const next = argv[index + 1];
+  if (!next || next.startsWith('-')) {
+    console.error(`Missing value for ${flag}`);
+    process.exit(1);
+  }
+  return next;
+}
+
+function readEqualsValue(arg, flag) {
+  const value = arg.slice(arg.indexOf('=') + 1);
+  if (!value) {
+    console.error(`Missing value for ${flag}`);
+    process.exit(1);
+  }
+  return value;
 }
 
 function parseAuditOptions(argv) {
@@ -130,17 +155,31 @@ function parseAuditOptions(argv) {
     } else if (arg.startsWith('--audit=')) {
       options.url = arg.slice('--audit='.length);
     } else if (arg === '--screenshots' || arg === '--screenshot-dir') {
-      const next = argv[i + 1];
-      if (!next || next.startsWith('-')) {
-        console.error(`Missing directory value for ${arg}`);
-        process.exit(1);
-      }
-      options.screenshotDir = next;
+      options.screenshotDir = readOptionValue(argv, i, arg);
       i++;
     } else if (arg.startsWith('--screenshots=') || arg.startsWith('--screenshot-dir=')) {
-      options.screenshotDir = arg.slice(arg.indexOf('=') + 1);
+      options.screenshotDir = readEqualsValue(arg, arg.slice(0, arg.indexOf('=')));
+    } else if (arg === '--session') {
+      options.session = readOptionValue(argv, i, arg);
+      i++;
+    } else if (arg.startsWith('--session=')) {
+      options.session = readEqualsValue(arg, '--session');
+    } else if (arg === '--cdp') {
+      options.cdp = readOptionValue(argv, i, arg);
+      i++;
+    } else if (arg.startsWith('--cdp=')) {
+      options.cdp = readEqualsValue(arg, '--cdp');
+    } else if (arg === '--storage-state') {
+      options.storageState = readOptionValue(argv, i, arg);
+      i++;
+    } else if (arg.startsWith('--storage-state=')) {
+      options.storageState = readEqualsValue(arg, '--storage-state');
     } else if (arg === '--touch-targets') {
       options.checkTouchTargets = true;
+    } else if (arg === '--a11y') {
+      options.a11y = true;
+    } else if (arg === '--no-network-errors') {
+      options.ignoreNetworkErrors = true;
     } else if (!arg.startsWith('-') && !options.url) {
       options.url = arg;
     } else {
@@ -151,18 +190,70 @@ function parseAuditOptions(argv) {
   return options;
 }
 
+function printUsage() {
+  console.error('Usage: node run.js <script.js> [args...]');
+  console.error('   or: node run.js -e "const b = await chromium.launch(); const p = await b.newPage(); await p.goto(\'https://example.com\'); console.log(await p.title()); await b.close();"');
+  console.error('   or: node run.js --stdin');
+  console.error('   or: node run.js -b <base64> | --base64 <base64>');
+  console.error('   or: node run.js --detect-url');
+  console.error('   or: node run.js --audit [url] [--screenshots <dir>] [--touch-targets] [--session <id>] [--cdp <url>] [--storage-state <file>] [--a11y] [--no-network-errors]');
+}
+
 const args = process.argv.slice(2);
-if (args[0] === '-e' || args[0] === '--eval') {
+
+if (args[0] === '--detect-url') {
+  const helpers = require(path.join(skillDir, 'lib/helpers'));
+  Promise.resolve(helpers.resolveTargetUrl())
+    .then(url => {
+      if (!url) {
+        console.error('No target URL or active dev server found.');
+        process.exit(1);
+      }
+      console.log(url);
+      process.exit(0);
+    })
+    .catch(error => {
+      console.error(error && error.stack ? error.stack : String(error));
+      process.exit(1);
+    });
+} else if (args[0] === '-e' || args[0] === '--eval') {
   const source = args.slice(1).join(' ');
   if (!source) {
-    console.error('Usage: node run.js -e "await page.goto(\'https://example.com\')"');
+    console.error('Usage: node run.js -e "const b = await chromium.launch(); const p = await b.newPage(); await p.goto(\'https://example.com\'); console.log(await p.title()); await b.close();"');
     process.exit(1);
   }
+  ensurePlaywright();
   runInlineHelpers(source);
-} else if (args[0] === '--detect-url') {
-  runInlineHelpers("const url = await helpers.resolveTargetUrl(); if (!url) { console.error('No target URL or active dev server found.'); process.exitCode = 1; } else { console.log(url); }");
+} else if (args[0] === '--stdin') {
+  ensurePlaywright();
+  readStdinUtf8()
+    .then(source => {
+      if (!source.trim()) {
+        console.error('No inline script provided on stdin.');
+        process.exit(1);
+      }
+      runInlineHelpers(source);
+    })
+    .catch(error => {
+      console.error(`Failed to read stdin: ${error.message}`);
+      process.exit(1);
+    });
+} else if (args[0] === '-b' || args[0] === '--base64' || (args[0] && args[0].startsWith('--base64='))) {
+  const raw = args[0].startsWith('--base64=') ? args[0].slice('--base64='.length) : args[1];
+  if (!raw) {
+    console.error('Usage: node run.js -b <base64> | --base64 <base64>');
+    process.exit(1);
+  }
+  const source = Buffer.from(raw, 'base64').toString('utf8').replace(/^\uFEFF/, '');
+  if (!source.trim()) {
+    console.error('Decoded base64 script is empty.');
+    process.exit(1);
+  }
+  ensurePlaywright();
+  runInlineHelpers(source);
 } else if (args.some(arg => arg === '--audit' || arg.startsWith('--audit='))) {
   const auditOptions = parseAuditOptions(args);
+  ensurePlaywright();
   runInlineHelpers(`const result = await helpers.auditLayout(${JSON.stringify(auditOptions)}); if (!result.passed) process.exitCode = 1;`);
 } else if (args[0]) {
   const file = path.resolve(args[0]);
@@ -170,15 +261,13 @@ if (args[0] === '-e' || args[0] === '--eval') {
     console.error(`Script not found: ${file}`);
     process.exit(1);
   }
+  ensurePlaywright();
   saveScript(file);
   run([file, ...args.slice(1)]);
 } else if (!process.stdin.isTTY) {
-  console.error('Stdin execution is no longer supported. Use a script file or `-e`.');
+  console.error('Bare stdin execution is not supported. Pass --stdin, -b <base64>, -e "<code>", or a script file.');
   process.exit(1);
 } else {
-  console.error('Usage: node run.js <script.js> [args...]');
-  console.error('   or: node run.js -e "await page.goto(\'https://example.com\')"');
-  console.error('   or: node run.js --detect-url');
-  console.error('   or: node run.js --audit [url] [--screenshots <dir>] [--touch-targets]');
+  printUsage();
   process.exit(1);
 }
