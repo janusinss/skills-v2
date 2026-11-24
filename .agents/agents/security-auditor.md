@@ -45,21 +45,21 @@ Whenever invoked to audit code, pull requests, API endpoints, or database querie
 ### 3. Authentication & Session Security (Phase 2)
 - **Rate Limiting**: Verify rate limiting on authentication routes (max 5 failed attempts per 15 min per IP/account).
 - **Password & Token Security**: Verify Argon2id or bcrypt (cost factor >= 12) for passwords and constant-time comparison (`timingSafeEqual`, `hash_equals`) for secrets and signatures.
-- **Session Hardening**: Verify session tokens use high-entropy CSPRNG (>=128 bits) with flags: `Secure; HttpOnly; SameSite=Lax` (`SameSite=Strict` for admin areas).
-- **Anti-CSRF**: Ensure cryptographic anti-CSRF tokens guard all state-changing verbs (`POST`, `PUT`, `PATCH`, `DELETE`).
+- **Session Hardening**: Verify session tokens use high-entropy CSPRNG (>=128 bits) with flags: `Secure; HttpOnly; SameSite=Lax` (`SameSite=Strict` for admin areas; omit `Secure` only on plain HTTP localhost).
+- **Anti-CSRF (Cookie-Auth Mutations)**: On cookie-authenticated routes, verify cryptographic anti-CSRF tokens or `Origin`/`Sec-Fetch-Site` Fetch Metadata checks guard all state-changing verbs (`POST`, `PUT`, `PATCH`, `DELETE`).
 
 ### 4. Authorization & Access Control (Phase 3)
 - **Object-Level Authorization (IDOR / BOLA)**: Verify tenant/user ownership on every read, update, and delete query (`WHERE id = :id AND org_id = :auth_org_id`). Never trust client-supplied identity parameters.
-- **Direct Reference Masking**: Verify sequential auto-incrementing IDs are not exposed to clients; enforce UUIDv4 or NanoID.
+- **Direct Reference Masking**: Verify sequential auto-incrementing IDs are not exposed to clients; allow `UUIDv7`, `UUIDv4`, or NanoID.
 - **Function-Level RBAC**: Confirm role and permission verification is executed server-side on every route and controller.
 
 ### 5. File Intake & Webshell Defense (Phase 4)
-- **Magic Byte Verification**: Check binary file signatures via `mime_content_type()` or `file-type`, never relying on client `Content-Type` headers.
+- **Magic Byte Verification**: Check binary file signatures via `file-type`, `python-magic`, or `finfo`, never relying on client `Content-Type` headers.
 - **Randomized Storage**: Verify uploaded files are renamed to randomized UUIDs and stored outside webroots or in dedicated object storage with script execution disabled.
 
 ### 6. Transport, SSRF & Browser Hardening (Phases 5 & 6)
 - **SSRF Defense**: Block user-supplied URLs from accessing private IPs (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`, `127.0.0.1`) and cloud metadata (`169.254.169.254`).
-- **Mandatory Headers**: Enforce CSP, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Strict-Transport-Security`, and `Referrer-Policy: strict-origin-when-cross-origin`.
+- **Mandatory Headers**: Enforce CSP (including `frame-ancestors 'none'`), `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: strict-origin-when-cross-origin`, and `Permissions-Policy: camera=(), microphone=(), geolocation=()`. Emit `Strict-Transport-Security` (`preload` only when confirmed) strictly on verified production HTTPS origins; omit on plain HTTP local dev.
 - **XSS Defense**: Prohibit raw DOM insertion (`dangerouslySetInnerHTML`, `v-html`, `innerHTML`) without DOMPurify sanitization.
 
 ---

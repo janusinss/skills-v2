@@ -1,115 +1,91 @@
 # AGENTS.md
 
-Instructions, operating rules, and skill mappings for AI agents (Codex, Antigravity, and compatible harnesses).
+<!-- edition-subtitle-start -->
+Instructions, operating rules, and workspace routing for Antigravity (AGY / Gemini).
+<!-- edition-subtitle-end -->
 
 ---
 
 ## 1. Operating Rules (ADHD Mode & Action-First Execution)
 
-- **Lead with Action**: Place the command, file path, diff, or tool call on Line 1. Zero conversational throat-clearing, intro explanations, or restating the prompt.
-- **Numbered Bounded Steps**: Break multi-step work into atomic steps. Maximum one verb/action per step. Zero compound steps (ban "and then", "afterward", "while").
-- **Agent Tool Autonomy**: Inside an agent harness, execute tool calls directly rather than asking permission or instructing the user to run commands manually.
-- **Concrete Time & Scale**: Never use vague qualifiers ("in a bit", "takes a while"). Ballpark in concrete units ("~10 minutes", "2 files").
-- **Visible Wins**: Immediately demonstrate what works and how to verify it (e.g., test commands, curl endpoints).
-- **Neutral Error Reporting**: Report strictly: **Location**, **Cause**, and **Fix**. No emotional padding.
-- **Cap Lists to 5 Items**: Display at most 5 items per group in user-facing output to prevent cognitive overload.
-- **Compounding Invariants & Progress Ledger**: Read [.agents/rules/learned-invariants.md](.agents/rules/learned-invariants.md) and `.harness/PROGRESS.md` (when present) before editing code. Record failed hypotheses and verified checkpoints into `.harness/PROGRESS.md` via `node .agents/skills/continuous-agent-loop/scripts/harness.mjs checkpoint` so context compaction never loses negative knowledge.
+- **Lead with Action**: Put the command, file path, diff, or tool call on Line 1. Zero throat-clearing, intros, or restating the prompt.
+- **Numbered Bounded Steps**: Break multi-step work into atomic steps (one verb/action per step; ban "and then", "afterward", "while").
+- **Tool Autonomy**: Execute tool calls directly instead of asking permission or telling the user to run commands.
+- **Concrete Time & Scale**: Ban vague qualifiers ("in a bit", "takes a while"); use concrete units ("~10 minutes", "2 files").
+- **Visible Wins**: Immediately show what works and how to verify it (test commands, curl endpoints).
+- **Neutral Error Reporting**: Report strictly **Location**, **Cause**, and **Fix**. Zero emotional padding.
+- **Cap Lists to 5 Items**: Show at most 5 items per group in user-facing output.
+- **Compounding Invariants & Progress Ledger**: Read [.agents/rules/learned-invariants.md](.agents/rules/learned-invariants.md) and `.harness/PROGRESS.md` (when present) before editing code. Record failed hypotheses and verified checkpoints via `node .agents/skills/continuous-agent-loop/scripts/harness.mjs checkpoint`.
 - **2-Strike Escalation & 3-Strike Circuit Breaker**:
-  - **Strike 2 (Model / Architect Escalation)**: After 2 consecutive failed verification receipts or Skeptic rejections on the same issue, escalate from `builder` tier to `brain` tier ([.agents/agents/code-architect.md](.agents/agents/code-architect.md) or higher-reasoning model) for root-cause re-architecture.
-  - **Strike 3 (Circuit Breaker)**: After 3 failed attempts to fix the same issue, STOP modifying code. Ask before reverting anything; never discard uncommitted work. Output strictly:
-    1. **Invalid Assumption**: 1 sentence on what failed.
-    2. **Diagnostic Check**: 1 concrete question or a 2-option choice (A/B) to unblock.
-- **Blacklist (Zero Filler)**:
+  - **Strike 2 (Architect Escalation)**: After 2 consecutive failed verification receipts or Skeptic rejections on the same issue, escalate from `builder` to `brain` ([.agents/agents/code-architect.md](.agents/agents/code-architect.md) or higher-reasoning model) for root-cause re-architecture.
+  - **Strike 3 (Circuit Breaker)**: After 3 failed attempts on the same issue, STOP editing. Ask before reverting; never discard uncommitted work. Output strictly: (1) **Invalid Assumption** (1 sentence on what failed) and (2) **Diagnostic Check** (1 concrete question or A/B choice).
+- **Zero-Filler Blacklist**:
   - **Forbidden Openers**: "Sure!", "Great question", "Let me...", "I'll...", "Looking at your...", "To answer your question...", "Certainly".
   - **Forbidden Closers**: "Hope this helps!", "Let me know if you need anything else", "Happy coding!", "Feel free to ask".
-  - **Forbidden Recaps**: Do not narrate what code was just written if the diff or edit already shows it.
-  - **Prune on Send**: Delete hedging adverbs ("perhaps", "might", "could possibly") and idioms.
+  - **Forbidden Recaps & Hedges**: Do not narrate diffs; cut hedging adverbs ("perhaps", "might", "could possibly") and idioms.
 
 ---
 
-## 2. Design, Architecture & Security: Mandatory Workspace Rule Selection
+## 2. Mandatory Workspace Rule Routing
 
-Read and apply the active workspace's local rules before choosing generic skills:
+Read and apply the matching workspace rule before selecting generic skills:
 
-- **Frontend, UI/UX & Motion**:
-  - **Brand New Web App / Greenfield**: [.agents/rules/starting-brandnew.md](.agents/rules/starting-brandnew.md)
-  - **Existing App / Redesign / Refactor**: [.agents/rules/starting-existing.md](.agents/rules/starting-existing.md)
-  - **Active UI Implementation**: [.agents/rules/frontend.md](.agents/rules/frontend.md)
-  - **Layout & CSS Hygiene**: [.agents/rules/UI_Always.md](.agents/rules/UI_Always.md)
-  - **Motion, Physics & Micro-Interactions**: [.agents/rules/MOTION.md](.agents/rules/MOTION.md) (and [.agents/skills/3d-web-experience/SKILL.md](.agents/skills/3d-web-experience/SKILL.md) for 3D/WebGL)
-  - **Anti-AI-Slop Enforcement**: [.agents/skills/anti-ai-slop/SKILL.md](.agents/skills/anti-ai-slop/SKILL.md) (paired with [.agents/skills/avoid-ai-writing/SKILL.md](.agents/skills/avoid-ai-writing/SKILL.md), [.agents/skills/impeccable/SKILL.md](.agents/skills/impeccable/SKILL.md), and [.agents/skills/design-taste-frontend/SKILL.md](.agents/skills/design-taste-frontend/SKILL.md))
-  - **SEO, Content & Comparison Pages**: [.agents/skills/seo-audit/SKILL.md](.agents/skills/seo-audit/SKILL.md), [.agents/skills/programmatic-seo/SKILL.md](.agents/skills/programmatic-seo/SKILL.md), [.agents/skills/competitor-alternatives/SKILL.md](.agents/skills/competitor-alternatives/SKILL.md), and [.agents/skills/content-creator/SKILL.md](.agents/skills/content-creator/SKILL.md)
-- **Backend, Security & QA**:
-  - **Backend Architecture, Data Layer & APIs**: [.agents/rules/backend.md](.agents/rules/backend.md)
-  - **Application Security & Exploit Defense**: [.agents/rules/security.md](.agents/rules/security.md)
-  - **Penetration Testing, Strix & Functional Flow QA**: [.agents/rules/penetrating-and-testing.md](.agents/rules/penetrating-and-testing.md)
-  - **Compounding Guardrails & Learned Invariants**: [.agents/rules/learned-invariants.md](.agents/rules/learned-invariants.md)
-  - **Architecture Diagrams & ERDs**: [.agents/skills/archify/SKILL.md](.agents/skills/archify/SKILL.md)
-  - **Codebase Untangling & Refactoring**: [.agents/skills/untangle-codebase/SKILL.md](.agents/skills/untangle-codebase/SKILL.md)
+| Surface / Task | Mandatory Rule / Skill |
+| --- | --- |
+| Brand New Web App / Greenfield | [.agents/rules/starting-brandnew.md](.agents/rules/starting-brandnew.md) |
+| Existing App / Redesign / Refactor | [.agents/rules/starting-existing.md](.agents/rules/starting-existing.md) |
+| Active UI Implementation | [.agents/rules/frontend.md](.agents/rules/frontend.md) ([design-taste-frontend](.agents/skills/design-taste-frontend/SKILL.md) visual/typography/palette + [impeccable](.agents/skills/impeccable/SKILL.md) layout/craft-floor/audit) |
+| Layout & CSS Hygiene | [.agents/rules/UI_Always.md](.agents/rules/UI_Always.md) |
+| Native HTML/CSS/DOM & Baseline APIs | [modern-web-guidance](.agents/skills/modern-web-guidance/SKILL.md) (query `search`->`retrieve` first for dialogs, popovers, anchor positioning, View Transitions, Scroll-Driven Animations, forms, CWV, Passkeys; skip backend/infra; degrade gracefully offline) |
+| Motion, Physics & 3D | [.agents/rules/MOTION.md](.agents/rules/MOTION.md) + [interaction-catalog.md](.agents/resources/creative-libraries/interaction-catalog.md) + [3d-web-experience](.agents/skills/3d-web-experience/SKILL.md) |
+| Anti-AI-Slop & Copy | [anti-ai-slop](.agents/skills/anti-ai-slop/SKILL.md) (always-on rules & gates) + [unslop](.agents/skills/unslop/SKILL.md) (9-pass screen redline, live URLs, RTL) + [avoid-ai-writing](.agents/skills/avoid-ai-writing/SKILL.md) |
+| Backend Architecture & Data | [.agents/rules/backend.md](.agents/rules/backend.md) |
+| Application Security & Defense | [.agents/rules/security.md](.agents/rules/security.md) |
+| Penetration Testing & Critical QA | [.agents/rules/penetrating-and-testing.md](.agents/rules/penetrating-and-testing.md) |
+| Learned Invariants & Guardrails | [.agents/rules/learned-invariants.md](.agents/rules/learned-invariants.md) |
 
 ---
 
-## 3. Playwright & Browser Verification Policy
+## 3. Browser Verification Policy
 
-Follow [.agents/rules/UI_Always.md](.agents/rules/UI_Always.md#7-browser-verification-policy) for visual, responsive, and interactive checks:
+Follow [UI_Always.md](.agents/rules/UI_Always.md#7-browser-verification-policy) for visual, responsive, and interactive checks:
 
-- **Combined Engines**: Pair [playwright-skill](.agents/skills/playwright-skill/SKILL.md) (`node .agents/skills/playwright-skill/run.js --audit`, inline `-e`, or Windows PowerShell-safe `--stdin`/`-b`) for deterministic viewport, overflow, `--a11y`, HTTP `>=400` network, console, and screenshot checks with [agent-browser](.agents/skills/agent-browser/SKILL.md) (`open`, `snapshot -i`, `click @e1`, `fill @e2`, `errors`, `console`, `close`) for token-efficient semantic navigation, `@eN` accessibility-tree interaction, and multi-step flow testing. Create no scratch `.js` files and do not delegate ad-hoc UI browser verification to subagents (main agent runs ad-hoc checks; `@e2e-runner` is reserved for authoring and running persistent CI E2E test suites).
-- **Target URL**: Resolve the running application via `node .agents/skills/playwright-skill/run.js --detect-url` or `helpers.resolveTargetUrl()`. Respect a user-provided URL or project configuration; do not guess a port.
-- **Layout, Network & A11y Audits**: Run `node .agents/skills/playwright-skill/run.js --audit --screenshots scratch --touch-targets --a11y` to verify 375px, 768px, and 1280px for accidental horizontal overflow (`document.documentElement.scrollWidth > window.innerWidth`), mobile `< 44x44px` interactive targets (with WCAG 2.5.8 inline link exemption), HTTP `>=400` / `requestfailed` network errors, `--a11y`, page exceptions, and console errors.
-- **Interactive Flows & CDP Handoff**: Run isolated `agent-browser` sessions (`agent-browser session id --scope worktree --prefix ui`, `--session <sid>`, `open`, `snapshot -i`, `fill`/`click @eN`, trailing `errors` and `console`, `close`) or hand the live session into `node .agents/skills/playwright-skill/run.js --audit --session <sid>` to audit authenticated routes without launching Chromium twice.
-- **Artifacts**: Save screenshots and temporary browser diagnostics in the project's git-ignored `scratch/` directory.
+- **Combined Engines**: Pair [playwright-skill](.agents/skills/playwright-skill/SKILL.md) (`--audit`, `-e`, or Windows-safe `--stdin`/`-b`) for layout, overflow, `--a11y`, network, console, and screenshots with [agent-browser](.agents/skills/agent-browser/SKILL.md) (`open`, `snapshot -i`, `click`/`fill @eN`, `errors`, `console`, `close`) for semantic flows. Create zero scratch `.js` files; the main agent runs ad-hoc checks (`e2e-runner` is strictly for persistent CI suites).
+- **Canonical Commands & CDP Handoff**: Resolve URLs via `node .agents/skills/playwright-skill/run.js --detect-url` (never guess ports), audit via `--audit --screenshots scratch --touch-targets --a11y` (375/768/1280px), and pass authenticated `agent-browser` sessions into `--audit --session <sid>`.
+- **Artifacts**: Store screenshots and temporary diagnostics in git-ignored `scratch/`.
 
 ---
 
-## 4. Subagents & Specialized Roles (3-Tier Cognitive Routing)
+## 4. Subagents & 3-Tier Cognitive Routing
 
-Delegate specialized lifecycle tasks to the agents defined under [.agents/agents/](.agents/agents/):
+<!-- edition-routing-start -->
+- **Invocation**: `invoke_subagent{TypeName: "<agent>", Model: "<tier>"}` (in `/swarm`, drive implementation workers via direct coordinator briefs and bind `.agents/agents/<agent>.md` selectively for specialist review/audit workers per [.agents/rules/swarm.md](.agents/rules/swarm.md)).
 
-- **Cognitive Routing Tiers (`tier:` frontmatter & 3-Edition Model Matrix)**:
-  - **`reflex`** (Fast/Read-Only Reconnaissance — **AGY / Gemini**: `GEMINI HYDROGEN HIGH` (`gemini-4-hydrogen-high`; `invoke_subagent` `Model`: `inherit`, `model: inherit` — no `flash`/`flash_lite`) · **GPT / Codex**: `6.1 Terra` (`medium`) (`model_tier: mini`, `reasoning_effort: medium`) · **Claude Code**: `Haiku 5.5` (`high` / `xhigh` / `max`) (`model: haiku`)): [.agents/agents/explorer.md](.agents/agents/explorer.md) — locates files, symbols, and call-sites rapidly; never concludes, plans, or edits files.
-  - **`builder`** (Scoped Workhorse Implementation & Repair — **AGY / Gemini**: `GEMINI HYDROGEN HIGH` or `GEMINI NEON MEDIUM` (`gemini-4-hydrogen-high` for routine tasks / `gemini-4-neon-medium` for complex multi-file edits; `invoke_subagent` `Model`: `inherit`, `model: inherit`) · **GPT / Codex**: `6.1 Sol` (`medium` / `high`) or `6.1 Terra` (`high` / `xhigh` / `max`) (`model_tier: codex`, `reasoning_effort: high`) · **Claude Code**: `Sonnet 5.5` (`high` / `xhigh` / `max`) (`model: sonnet`)): `tdd-guide`, `e2e-runner`, `code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `penetration-tester`, and `*-build-resolver` agents.
-  - **`brain`** (High-Reasoning Architecture, Audit & Cold-Context Skepticism — **AGY / Gemini**: `CARBON` / `GEMINI NEON XHIGH` (coordinator: `gemini-4-neon-xhigh` / `gemini-pro-orchestrator-neon`, separate-quota fallback `ARGON` `gemini-pro-orchestrator-g1-pro` / `gemini-4-argon-high`) or `GEMINI NEON HIGH` (verifiers/auditors: `gemini-4-neon-high`; `invoke_subagent` `Model`: `pro` or `inherit`, `model: pro`) · **GPT / Codex**: `6.1 Sol` (`max`) (`model_tier: reasoning`, `reasoning_effort: max`) · **Claude Code**: `Opus 5.5` (`high` / `xhigh` / `max`) (`model: opus`)): `planner`, `architect`, `code-architect`, `a11y-architect`, `spec-miner`, `skeptic`, `security-auditor`, `silent-failure-hunter`, `agent-evaluator`, and `*-reviewer` agents (all reviewers, auditors, and skeptics are strictly read-only).
-- **Proactive Subagent Dispatch Triggers (Harness Mode, Designer Mode & `/swarm`)**:
-  - **Invocation by Edition**: **AGY / Gemini** `invoke_subagent{TypeName: "<agent>", Model: "<tier-model>"}` (in `/swarm`, use direct coordinator task briefs for implementation workers and attach `.agents/agents/<agent>.md` selectively for specialist review/audit workers per `.agents/rules/swarm.md`); **Claude Code** `@<agent>` (or `/plan`, `/tdd`, `/audit`, `/review`, `/eval`, `/contract`, `/verify`, `/flywheel`); **GPT / Codex** read and apply `.codex/agents/<agent>.md` (`model_tier` + `reasoning_effort`).
-  - **Mandatory Lifecycle Triggers**:
-    1. Multi-file discovery (`>= 3` files) -> `explorer`
-    2. Non-trivial feature or refactor design -> `planner` + `code-architect` / `architect` (plus `a11y-architect` for UI)
-    3. Implementation, cleanup, or build failures -> `tdd-guide`, `code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `e2e-runner`, or `*-build-resolver`
-    4. Post-edit verification -> matching stack `*-reviewer` + `silent-failure-hunter` (plus `security-auditor` / `penetration-tester` on auth, API, or input changes, and `skeptic` / `agent-evaluator` before final delivery)
-- **Reconnaissance, Planning & Architecture**:
-  - Fast Codebase Reconnaissance (`reflex`): [.agents/agents/explorer.md](.agents/agents/explorer.md)
-  - Implementation Planning (`brain`): [.agents/agents/planner.md](.agents/agents/planner.md)
-  - Domain & System Architecture (`brain`): [.agents/agents/code-architect.md](.agents/agents/code-architect.md)
-  - Web Accessibility (WCAG 2.2) (`brain`): [.agents/agents/a11y-architect.md](.agents/agents/a11y-architect.md)
-  - Test-Driven Specification (`builder`): [.agents/agents/tdd-guide.md](.agents/agents/tdd-guide.md)
-- **Quality Gates, Cold-Context Skeptic & Failure Hunting**:
-  - Cold-Context Adversarial Skeptic (`brain`, read-only): [.agents/agents/skeptic.md](.agents/agents/skeptic.md)
-  - Swallowed Exception & Fallback Audits (`brain`, read-only): [.agents/agents/silent-failure-hunter.md](.agents/agents/silent-failure-hunter.md)
-  - Code Simplification & Dead Weight Removal (`builder`): [.agents/agents/code-simplifier.md](.agents/agents/code-simplifier.md)
-  - Pre-Delivery Verification (`brain`, read-only): [.agents/agents/agent-evaluator.md](.agents/agents/agent-evaluator.md)
-- **Security & Penetration Testing**:
-  - Pre-Commit Security & Invariant Audits (`brain`, read-only): [.agents/agents/security-auditor.md](.agents/agents/security-auditor.md)
-  - Exploit Validation & Penetration QA (`builder`): [.agents/agents/penetration-tester.md](.agents/agents/penetration-tester.md)
-- **Code Review Specialists (`brain`, read-only)**:
-  - TypeScript / JS: [.agents/agents/typescript-reviewer.md](.agents/agents/typescript-reviewer.md) · React: [.agents/agents/react-reviewer.md](.agents/agents/react-reviewer.md)
-  - Backend & Databases: [.agents/agents/database-reviewer.md](.agents/agents/database-reviewer.md) · FastAPI: [.agents/agents/fastapi-reviewer.md](.agents/agents/fastapi-reviewer.md)
-  - Systems & Stacks: [.agents/agents/go-reviewer.md](.agents/agents/go-reviewer.md) · [.agents/agents/rust-reviewer.md](.agents/agents/rust-reviewer.md) · [.agents/agents/php-reviewer.md](.agents/agents/php-reviewer.md) · [.agents/agents/vue-reviewer.md](.agents/agents/vue-reviewer.md)
-- **Closed-Loop Build & Error Repair (`builder`)**:
-  - TypeScript & Generic Build Repair: [.agents/agents/build-error-resolver.md](.agents/agents/build-error-resolver.md)
-  - Framework Resolvers: [.agents/agents/react-build-resolver.md](.agents/agents/react-build-resolver.md), [.agents/agents/go-build-resolver.md](.agents/agents/go-build-resolver.md), [.agents/agents/rust-build-resolver.md](.agents/agents/rust-build-resolver.md), [.agents/agents/django-build-resolver.md](.agents/agents/django-build-resolver.md), [.agents/agents/cpp-build-resolver.md](.agents/agents/cpp-build-resolver.md), [.agents/agents/pytorch-build-resolver.md](.agents/agents/pytorch-build-resolver.md)
+| Tier | AGY / Gemini Routing | Agents ([.agents/agents/](.agents/agents/)) |
+| --- | --- | --- |
+| `reflex` | `gemini-4-hydrogen-high` (`invoke_subagent`: `inherit`, never `flash`/`flash_lite`) | `explorer` (fast read-only recon; never plans or edits) |
+| `builder` | Routine: `gemini-4-neon-medium` (`gemini-4-hydrogen-high` trivial lint); Complex: `gemini-4-neon-high` / `gemini-4-carbon-high` (`invoke_subagent`: `inherit`) | `tdd-guide`, `e2e-runner`, `code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `penetration-tester`, `build-error-resolver`, `{react,go,rust,django,cpp,pytorch}-build-resolver` |
+| `brain` *(read-only auditors/reviewers)* | `/swarm` coordinator & architects: `gemini-4-carbon-high` or `gemini-4-neon-xhigh` only (preserve UI choice; redirect others to `carbon-high` -> `neon-xhigh`; single-session: `gemini-pro-orchestrator` -> `gemini-pro-orchestrator-neon`; zero Argon); verifiers/security/skeptic: `gemini-4-neon-high` / `gemini-4-carbon-high` (`invoke_subagent`: `pro` or `inherit`) | `planner`, `architect`, `code-architect`, `a11y-architect`, `spec-miner`, `code-reviewer`, `{typescript,react,vue,go,rust,php,fastapi,database}-reviewer`, `silent-failure-hunter`, `security-auditor`, `skeptic`, `agent-evaluator` |
+
+- **Mandatory Lifecycle Triggers**:
+  1. Multi-file discovery (`>= 3` files) -> `explorer`
+  2. Non-trivial feature or refactor -> `planner` + `code-architect` / `architect` (+ `a11y-architect` for UI)
+  3. Build, cleanup, or TDD -> `tdd-guide`, `code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `e2e-runner`, `*-build-resolver`
+  4. Post-edit review -> stack `*-reviewer` / `code-reviewer` + `silent-failure-hunter` (+ `security-auditor` / `penetration-tester` on auth/API/input; `skeptic` / `agent-evaluator` before final delivery)
+<!-- edition-routing-end -->
 
 ---
 
 ## 5. 6-Stage Self-Improving Harness Lifecycle
 
-For non-trivial features, refactoring, or multi-file changes, execute the deterministic 6-stage harness defined in [.agents/skills/continuous-agent-loop/SKILL.md](.agents/skills/continuous-agent-loop/SKILL.md) via `node .agents/skills/continuous-agent-loop/scripts/harness.mjs`:
+For non-trivial features, refactors, or multi-file work, run the 6-stage harness ([continuous-agent-loop](.agents/skills/continuous-agent-loop/SKILL.md)) via `node .agents/skills/continuous-agent-loop/scripts/harness.mjs`:
 
-1. **Stage 1: Pre-Flight Contract & Adaptive Worktree**: Use [.agents/agents/explorer.md](.agents/agents/explorer.md) (`reflex`) for fast file discovery and [.agents/agents/planner.md](.agents/agents/planner.md) / [.agents/agents/code-architect.md](.agents/agents/code-architect.md) (`brain`) to initialize a scoped contract (`node .agents/skills/continuous-agent-loop/scripts/harness.mjs contract init --task <id> --allow "<globs>" --cmd "<commands>"`). Use `worktree spawn --task <id>` for multi-file or parallel work (adaptive mode allows `<20` lines single-file edits in-tree).
-2. **Stage 2: TDD & Scoped Implementation**: Delegate to [.agents/agents/tdd-guide.md](.agents/agents/tdd-guide.md) (`builder`) to write failing tests first, then implement minimal passing code within `allowed_paths` enforced by `harness.mjs sensor check-file`. On compiler/type failure, delegate to [.agents/agents/build-error-resolver.md](.agents/agents/build-error-resolver.md).
-3. **Stage 3: Deterministic Receipt Gate**: Execute `node .agents/skills/continuous-agent-loop/scripts/harness.mjs verify run --task <id>` to validate scope compliance, run all `acceptance_commands`, hash `git diff HEAD` (`diff_sha256`), and write `.harness/receipts/<id>.json`.
-4. **Stage 4: Cold-Context Adversarial Skeptic**: Generate a sanitized context packet (`node .agents/skills/continuous-agent-loop/scripts/harness.mjs skeptic-packet --task <id>`) containing **only** Contract + Raw Diff + Receipt (zero author rationalization), then invoke [.agents/agents/skeptic.md](.agents/agents/skeptic.md) (plus [.agents/agents/silent-failure-hunter.md](.agents/agents/silent-failure-hunter.md) and [.agents/agents/security-auditor.md](.agents/agents/security-auditor.md) for security surfaces) in a fresh cold context and stamp the verdict (`harness.mjs stamp-skeptic`).
-5. **Stage 5: Browser/E2E Verification**: For UI or user-flow changes, run the canonical Playwright layout and functional audit per Section 3 and evaluate output quality with [.agents/agents/agent-evaluator.md](.agents/agents/agent-evaluator.md) and [.agents/skills/agent-self-evaluation/SKILL.md](.agents/skills/agent-self-evaluation/SKILL.md).
-6. **Stage 6: Calibrated Memory Flywheel & Progress Compaction**: On any verification failure, Skeptic `REJECT`, or user correction, record the root cause via `node .agents/skills/continuous-agent-loop/scripts/harness.mjs flywheel record` (staging into `.harness/evals/regressions.jsonl` and promoting verified invariants to [.agents/rules/learned-invariants.md](.agents/rules/learned-invariants.md)), and checkpoint state into `.harness/PROGRESS.md` via `harness.mjs checkpoint`.
+1. **Contract & Worktree**: Scout with `explorer` and initialize scope via `harness.mjs contract init --task <id> --allow "<globs>" --cmd "<commands>"` (use `worktree spawn --task <id>` for multi-file/parallel work).
+2. **TDD & Scoped Edit**: Delegate failing tests and minimal implementation to `tdd-guide` within `allowed_paths` (`harness.mjs sensor check-file`); repair build breaks with `*-build-resolver`.
+3. **Receipt Gate**: Run `harness.mjs verify run --task <id>` to enforce scope, execute acceptance commands, hash `git diff HEAD`, and write `.harness/receipts/<id>.json`.
+4. **Cold-Context Skeptic**: Build Contract + Diff + Receipt via `harness.mjs skeptic-packet --task <id>`, run `skeptic` (+ `silent-failure-hunter` / `security-auditor`) cold, and stamp via `harness.mjs stamp-skeptic`.
+5. **Browser / E2E**: Run Section 3 browser audits for UI/flow changes and score quality with `agent-evaluator` ([agent-self-evaluation](.agents/skills/agent-self-evaluation/SKILL.md)).
+6. **Memory Flywheel & Checkpoint**: Log failures, rejections, or corrections via `harness.mjs flywheel record` (promoting verified guardrails to [.agents/rules/learned-invariants.md](.agents/rules/learned-invariants.md)) and checkpoint state via `harness.mjs checkpoint`.
 
 <!-- source-repository-only -->
 
@@ -121,7 +97,7 @@ This section applies only to this collection's source checkout and is excluded f
 
 ### Skills & Installation
 
-For Antigravity, use skills and rules under `.agents/`. For Codex, use converted skills, rules, and resources under `.codex/`. For Claude Code, use converted skills, agents, commands, and rules under `.claude/`. Read a matching skill's `SKILL.md` before using it and load only the supporting files needed for the task. Prefer converted manifests when both edition catalogs contain the same name. A skill does not authorize external actions or configure its external providers.
+For Antigravity, use skills and rules under `.agents/`. For Codex, use converted skills, rules, and resources under `.codex/`. For Claude Code, use converted skills, agents, commands, rules, and resources under `.claude/`. Read a matching skill's `SKILL.md` before using it and load only the supporting files needed for the task. Prefer converted manifests when both edition catalogs contain the same name. A skill does not authorize external actions or configure its external providers.
 
 For requests such as "INSTALL THIS SKILLS REPO HERE", read the source checkout's `INSTALL.md` and ask two sequential questions in order (skipping either only if the user already specified it):
 
@@ -129,7 +105,7 @@ For requests such as "INSTALL THIS SKILLS REPO HERE", read the source checkout's
    > Which edition would you like to install: **AGY** (`AGY / GEMINI`), **CODEX** (`GPT / CODEX`), or **CLAUDE** (`ANTHROPIC / CLAUDE CODE`)?
    Wait for the answer.
 2. **Question 2 — Select hook mode**:
-   > Which hook mode would you like to install: **HARNESS MODE** (full Harness + Impeccable + `design-taste-frontend` + `avoid-ai-writing` hooks, `.git/hooks/pre-commit` receipt gate, and full Harness lifecycle in `AGENTS.md`/`CLAUDE.md`) or **DESIGNER MODE** (activates Impeccable, `design-taste-frontend`, and `avoid-ai-writing` hooks only, disables Harness hooks/git pre-commit, and installs Designer `AGENTS.md`/`CLAUDE.md`)?
+   > Which hook mode would you like to install: **HARNESS MODE** (full Harness + Impeccable + `design-taste-frontend` + `avoid-ai-writing` hooks, `.git/hooks/pre-commit` receipt gate, and full Harness lifecycle in `AGENTS.md`/`CLAUDE.md`) or **DESIGNER MODE** (activates Impeccable, `design-taste-frontend`, and `avoid-ai-writing` hooks — plus `swarm-stop-guard.cjs` on AGY — disables Harness hooks/git pre-commit, and installs Designer `AGENTS.md`/`CLAUDE.md`)?
    Wait for the answer.
 
 Record the absolute target before changing directories. The selected edition and mode determine the payload and hooks, including when an AGY assistant installs the Codex or Claude Code edition. Or invoke the unified interactive installer directly from a TTY with `node install.mjs`.
@@ -138,12 +114,12 @@ Once the user selects their edition and mode, the target workspace `AGENTS.md` o
 
 - **For GPT / CODEX**: Automatically read and execute the source checkout's `.codex/rules/install.md` within the same request. Run `node install.mjs --edition codex --mode <harness|designer> --target <absolute-project-path> --profile all` or `node tools/codex/install.mjs --target <absolute-project-path> --profile all --mode <harness|designer>` (`normal` accepted as an alias for `designer`; in non-TTY/CI without `--mode`, defaults to `harness`; in TTY without `--mode`, prompts for mode; pass `--no-hooks` to disable all hooks). It installs the prebuilt bundle, mode-specific root `AGENTS.md` (`AGENTS.md` in `harness` mode; `AGENTS.designer.md` without Harness lifecycle in `designer` mode), `.codex/hooks.example.json`, `.codex/hooks.impeccable.example.json`, and active `.codex/hooks.json` (`hooks.example.json` in `harness` mode; `hooks.impeccable.example.json` in `designer` mode), records `mode` in `.codex/codex-install.json`, installs/chains `.git/hooks/pre-commit` only in `harness` mode, creates or merges `.gitignore`, sets up local Playwright and Chromium, verifies the runner, and removes only the target's one-time installation rule after success. Use `--resume` for failed or interrupted setup or to update `.gitignore`.
 
-- **For AGY / GEMINI**: Run `node install.mjs --edition agy --mode <harness|designer> --target <absolute-project-path>` from the source checkout (or copy `.agents/`, clean `AGENTS.md` before `<!-- source-repository-only -->` — formatted without Section 5 Harness lifecycle when in `designer` mode — and `skills-lock.json` manually and follow `.agents/rules/install.md`). In `harness` mode, activate `.agents/hooks.json` from `.agents/hooks.example.json` and install `.git/hooks/pre-commit` via `node .agents/skills/continuous-agent-loop/scripts/harness.mjs install-git-hook` when `.git` is present. In `designer` mode (`normal` alias), activate `.agents/hooks.json` from `.agents/hooks.impeccable.example.json`, omit Harness lifecycle instructions from `AGENTS.md`, and skip `.git/hooks/pre-commit`. Merge/create `.gitignore` (`/.agents/*`, `!/.agents/rules/`, `!/.agents/agents/`, `/AGENTS.md`), set up Playwright, and remove only the target's `.agents/rules/install.md`. Preserve existing target instructions and global policy.
+- **For AGY / GEMINI**: Run `node install.mjs --edition agy --mode <harness|designer> --target <absolute-project-path>` from the source checkout (copies `.agents/` excluding `evals/` and `*.test.*`, cleans `AGENTS.md` before `<!-- source-repository-only -->` — formatted without Section 5 Harness lifecycle in `designer` mode — and copies `skills-lock.json`; for manual copy, follow `.agents/rules/install.md`). In `harness` mode, activate `.agents/hooks.json` from `.agents/hooks.example.json`; `install.mjs` chains any existing `.git/hooks/pre-commit` non-destructively before `harness.mjs pre-commit-check` when `.git` is present (running `harness.mjs install-git-hook` alone overwrites an existing hook). In `designer` mode (`normal` alias), activate `.agents/hooks.json` from `.agents/hooks.impeccable.example.json` (which retains `swarm-stop-guard.cjs`), omit Harness lifecycle instructions from `AGENTS.md`, and skip `.git/hooks/pre-commit`. Merge/create `.gitignore` (`/.agents/*`, `!/.agents/rules/`, `!/.agents/agents/`, `/AGENTS.md`, `/scratch/`, `/.impeccable/`, `/.harness/`, `/.agent_worktrees/`), set up Playwright, and remove only the target's `.agents/rules/install.md`. Preserve existing target instructions and global policy.
 
-- **For ANTHROPIC / CLAUDE CODE**: Run `node install.mjs --edition claude --mode <harness|designer> --target <absolute-project-path> --profile all` or `node tools/claude/install.mjs --target <absolute-project-path> --profile all --mode <harness|designer>` (`normal` alias supported; non-TTY defaults to `harness`; TTY prompts if `--mode` is omitted; pass `--no-hooks` to disable all hooks). It installs `.claude/` (`skills/`, `agents/`, `commands/`, `rules/`), mode-specific root `CLAUDE.md` (`CLAUDE.md` in `harness` mode; `CLAUDE.designer.md` without Harness lifecycle in `designer` mode), `.claude/hooks.example.json`, `.claude/hooks.impeccable.example.json`, and active `.claude/hooks.json`, merges the selected hooks into `.claude/settings.json` (`hooks.example.json` in `harness` mode; **only** `hooks.impeccable.example.json` in `designer` mode, preserving existing user settings), installs/chains `.git/hooks/pre-commit` only in `harness` mode, records `mode` in `.claude/claude-install.json`, creates or merges `.gitignore`, and sets up Playwright and Chromium if included. In Claude Code, skills are discoverable via `/skill-name`, agents via `@agent-name`, and commands via `/plan`, `/tdd`, `/audit`, `/review`, `/eval`, `/contract`, `/verify`, `/flywheel`.
+- **For ANTHROPIC / CLAUDE CODE**: Run `node install.mjs --edition claude --mode <harness|designer> --target <absolute-project-path> --profile all` or `node tools/claude/install.mjs --target <absolute-project-path> --profile all --mode <harness|designer>` (`normal` alias supported; non-TTY defaults to `harness`; TTY prompts if `--mode` is omitted; pass `--no-hooks` to disable all hooks). It installs `.claude/` (`skills/`, `agents/`, `commands/`, `rules/`, `resources/`), mode-specific root `CLAUDE.md` (`CLAUDE.md` in `harness` mode; `CLAUDE.designer.md` without Harness lifecycle in `designer` mode), `.claude/hooks.example.json`, `.claude/hooks.impeccable.example.json`, and active `.claude/hooks.json`, merges the selected hooks into `.claude/settings.json` (`hooks.example.json` in `harness` mode; **only** `hooks.impeccable.example.json` in `designer` mode, preserving existing user settings), installs/chains `.git/hooks/pre-commit` only in `harness` mode, records `mode` in `.claude/claude-install.json`, creates or merges `.gitignore`, and sets up Playwright and Chromium if included. In Claude Code, skills are discoverable via `/skill-name`, agents via `@agent-name`, and commands via `/plan`, `/tdd`, `/audit`, `/review`, `/eval`, `/contract`, `/verify`, `/flywheel`.
 
 ### Maintaining This Source Collection
 
 Root `AGENTS.md` is the policy source. The builder generates `.codex/AGENTS.md` and root `CLAUDE.md` from the content before `<!-- source-repository-only -->`, and target installations install only the policy before that marker as the target's root policy. Edit root `AGENTS.md` directly; do not introduce a separate instruction template.
 
-For requested conversion or maintenance changes, edit the relevant conversion logic or rule templates in `tools/codex/` and `tools/claude/`. Run `node tools/codex/build.mjs` and `node tools/codex/validate.mjs --source` for the Codex edition. Run `node tools/claude/build.mjs` and `node tools/claude/validate.mjs --source` for the Claude Code edition. Maintain `README.md`, `CONVERSION_REVIEW.md`, and `profiles.json` in each edition directly. Preserve the original AGY files except for changes explicitly requested for that edition or shared installation routing.
+For requested conversion or maintenance changes, edit the relevant conversion logic or rule templates in `tools/codex/` and `tools/claude/`. Run `node tools/codex/build.mjs` and `node tools/codex/validate.mjs --source` for the Codex edition. Run `node tools/claude/build.mjs` and `node tools/claude/validate.mjs --source` for the Claude Code edition. Maintain `.codex/README.md`, `.codex/CONVERSION_REVIEW.md`, `.codex/profiles.json`, and `tools/claude/profiles.json` directly. Preserve the original AGY files except for changes explicitly requested for that edition or shared installation routing.

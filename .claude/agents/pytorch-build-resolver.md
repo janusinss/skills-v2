@@ -4,8 +4,7 @@ description: "PyTorch runtime, CUDA, and training error resolution specialist. F
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: builder
 model: sonnet
-target_model: "sonnet-5.5-high/xhigh/max"
-reasoning_effort: "high/xhigh/max"
+effort: high
 ---
 
 ## Prompt Defense Baseline

@@ -12,7 +12,7 @@ import { execFileSync, spawnSync } from 'node:child_process';
  *   3. Boundary Sensor (`sensor check-file`)
  *   4. Deterministic Receipt Verifier (`verify run|status-check`)
  *   5. Cold-Context Skeptic Packet & Stamp (`skeptic-packet`, `stamp-skeptic`)
- *   6. Calibrated Dual-Store Memory Flywheel & Compaction (`flywheel record`, `checkpoint`)
+ *   6. Calibrated 3-Tier Memory Flywheel & Compaction (`flywheel record`, `checkpoint`)
  *   + Git Hook Gate (`install-git-hook`, `pre-commit-check`)
  */
 
@@ -864,17 +864,28 @@ const INVARIANT_SOFT_BYTES = 12288;
 const INVARIANT_PROMOTED_SOFT_LIMIT = 20;
 const DIGEST_DOMAIN_THRESHOLD = 3;
 
+function isSkillsSourceRepo(root) {
+  return (
+    fs.existsSync(path.join(root, 'tools', 'codex', 'build.mjs')) &&
+    fs.existsSync(path.join(root, 'tools', 'claude', 'build.mjs'))
+  );
+}
+
 function resolveLearnedInvariantsPaths(root) {
+  const primary = path.join(root, '.agents', 'rules', 'learned-invariants.md');
+  if (isSkillsSourceRepo(root)) {
+    ensureDirs([path.dirname(primary)]);
+    return [primary];
+  }
   const candidates = [
-    path.join(root, '.agents', 'rules', 'learned-invariants.md'),
+    primary,
     path.join(root, '.codex', 'rules', 'learned-invariants.md'),
     path.join(root, '.claude', 'rules', 'learned-invariants.md'),
   ];
   const active = candidates.filter(p => fs.existsSync(path.dirname(p)));
   if (active.length === 0) {
-    const fallback = path.join(root, '.agents', 'rules', 'learned-invariants.md');
-    ensureDirs([path.dirname(fallback)]);
-    return [fallback];
+    ensureDirs([path.dirname(primary)]);
+    return [primary];
   }
   return active;
 }
@@ -972,16 +983,35 @@ function ensureLearnedInvariantsFile(filePath) {
   fs.writeFileSync(filePath, header + body, 'utf8');
 }
 
+function stripInvariantSourceSuffix(text) {
+  return String(text || '')
+    .trim()
+    .replace(/\s*\(Source:\s*[^)]*\)\s*\.?$/i, '')
+    .replace(/\.\s*$/, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function normalizeInvariantBullet(line) {
+  const trimmed = String(line || '').trim();
+  const match = trimmed.match(/^-\s+\*\*\[([^\]]+)\]\*\*:\s*(.+)$/);
+  if (!match) return trimmed;
+  const dom = match[1].trim().toLowerCase();
+  const body = stripInvariantSourceSuffix(match[2]).toLowerCase();
+  return `- **[${dom}]**: ${body}`;
+}
+
 function upsertInvariantRule(filePath, domain, ruleText, promote) {
   ensureLearnedInvariantsFile(filePath);
   const current = fs.readFileSync(filePath, 'utf8');
   const eol = current.includes('\r\n') ? '\r\n' : '\n';
   const lines = current.split(/\r?\n/);
   const formattedBullet = `- **[${domain}]**: ${ruleText}`;
+  const normalizedTarget = normalizeInvariantBullet(formattedBullet);
 
   const matchIndices = [];
   for (let i = 0; i < lines.length; i++) {
-    if (lines[i].trimEnd() === formattedBullet) {
+    if (normalizeInvariantBullet(lines[i]) === normalizedTarget) {
       matchIndices.push(i);
     }
   }
@@ -1145,7 +1175,12 @@ function cmdFlywheelRecord(hp, flags) {
     .map(item => item.entry)
     .filter(Boolean);
 
-  const priorCount = existingEntries.filter(e => e.rule === rule || (e.domain === domain && e.root_cause === cause)).length;
+  const normalizedRule = stripInvariantSourceSuffix(rule).toLowerCase();
+  const priorCount = existingEntries.filter(
+    e =>
+      stripInvariantSourceSuffix(e.rule).toLowerCase() === normalizedRule ||
+      (e.domain === domain && e.root_cause === cause)
+  ).length;
   const shouldPromote = Boolean(flags.promote) || source === 'user' || priorCount >= 1;
 
   const entryId = `reg-${sha256(`${domain}:${cause}:${rule}`).slice(0, 10)}`;

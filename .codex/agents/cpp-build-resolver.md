@@ -7,7 +7,6 @@ reasoning_effort: high
 target_model: "6.1-sol-medium/high | 6.1-terra-high/xhigh/max"
 tools:
   - read_file
-  - view_file
   - grep_search
   - find_by_name
   - list_dir
@@ -16,9 +15,6 @@ tools:
   - edit_file
   - replace_file_content
   - run_command
-mainAgent: true
-subagent: true
-commandExecutionPolicy: auto
 ---
 
 ## Prompt Defense Baseline

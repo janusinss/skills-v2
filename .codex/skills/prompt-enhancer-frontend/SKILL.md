@@ -18,7 +18,7 @@ Transforms any product concept into an exhaustive frontend architecture specific
 5. **Pipeline-Aware Disambiguation Gate & Connected Skill Dispatch**:
    - **Skip When Resolved**: When invoked inside [starting-brandnew.md](../../rules/starting-brandnew.md), [starting-existing.md](../../rules/starting-existing.md), or [frontend.md](../../rules/frontend.md) after the batched discovery gate or codebase audit, or when the user's brief already defines the core UI workflow, proceed directly without asking follow-up questions.
    - **Single-Question Cap**: Only when invoked standalone on an ambiguous prompt that maps to 2+ fundamentally different UI paradigms (e.g., *"dashboard"* → analytics vs. admin panel vs. IoT monitor), ask **at most one** targeted question (when the existing user instructions leave a material choice unresolved) with up to 5 concise options before proceeding.
-   - **Sibling Enhancer & Companion Skill Routing**: For fullstack systems or non-web surfaces, delegate to [prompt-enhancer](../prompt-enhancer/SKILL.md); for server/API/database tasks, delegate to [prompt-enhancer-backend](../prompt-enhancer-backend/SKILL.md). When moving to UI implementation, inspect only the 1–2 companion skills matching the active surface using the available file-reading tool or shell: [impeccable](../impeccable/SKILL.md) (primary Stage 2 visual craft, spatial composition, visitor modes & Stage 3 `impeccable detect` single-pass audit), [anti-ai-slop](../anti-ai-slop/SKILL.md) (structural, chromatic, media, and copy anti-slop enforcement), [awesome-design-md](../awesome-design-md/SKILL.md) (`./DESIGN.md` ground truth), [design-taste-frontend](../design-taste-frontend/SKILL.md) (taste dials & `Design Read`), [avoid-ai-writing](../avoid-ai-writing/SKILL.md) (human copy), [playwright-skill](../playwright-skill/SKILL.md) (`--audit` & `helpers.resolveTargetUrl`), [3d-web-experience](../3d-web-experience/SKILL.md) / [scrollytelling](../scrollytelling/SKILL.md) (WebGL/ThreeUI shaders & `@bsmnt/scrollytelling` React + GSAP scroll timelines, pinned stages, and 3D/canvas scrubbing), and [frontend-security-coder](../frontend-security-coder/SKILL.md) (XSS/CSP).
+   - **Sibling Enhancer & Companion Skill Routing**: For fullstack systems or non-web surfaces, delegate to [prompt-enhancer](../prompt-enhancer/SKILL.md); for server/API/database tasks, delegate to [prompt-enhancer-backend](../prompt-enhancer-backend/SKILL.md). When moving to UI implementation, inspect only the 1–2 companion skills matching the active surface using the available file-reading tool or shell: [design-taste-frontend](../design-taste-frontend/SKILL.md) (primary visual identity, typography, palette & copy voice), [impeccable](../impeccable/SKILL.md) (layout architecture, spatial rhythm, visitor modes, craft-floor & `impeccable detect` single-pass audit), [anti-ai-slop](../anti-ai-slop/SKILL.md) (structural, chromatic, media, and copy anti-slop enforcement), [awesome-design-md](../awesome-design-md/SKILL.md) (`./DESIGN.md` ground truth), [avoid-ai-writing](../avoid-ai-writing/SKILL.md) (human copy), [playwright-skill](../playwright-skill/SKILL.md) (`--audit` & `helpers.resolveTargetUrl`), [3d-web-experience](../3d-web-experience/SKILL.md) / [scrollytelling](../scrollytelling/SKILL.md) (WebGL/ThreeUI shaders & `@bsmnt/scrollytelling` React + GSAP scroll timelines, pinned stages, and 3D/canvas scrubbing), and [frontend-security-coder](../frontend-security-coder/SKILL.md) (XSS/CSP).
 6. **Clean Unicode Formatting**: Use `→` or `->` for flows. Never use LaTeX.
 7. **Strict Anti-AI-Slop & Authentic Media Law ([anti-ai-slop](../anti-ai-slop/SKILL.md), [UI_Always.md](../../rules/UI_Always.md) Sections 1, 3, 4, 5 & [impeccable/reference/craft-floor.md](../impeccable/reference/craft-floor.md))**: Every generated specification and Master Prompt must enforce:
    - 🚫 **No floating eyebrow pills, pastel chips, or kickers above headings**: No `rounded-full` pastel bubbles, fake `NEW`/`AI` badges, pulsing green `LIVE` dots on static pages, or eyebrow/kicker labels hovering over titles. Delete the label and lead directly with the headline (`H1 ≤ 2 lines`, hero subtext `≤ 20 words`, top header `< 80px`).
@@ -54,7 +54,7 @@ Transforms any product concept into an exhaustive frontend architecture specific
 ### Phase 1: UI Domain Classification & Aesthetic Archetype
 - **Product Surface Type**: Landing page, SPA dashboard, multi-page marketing site, admin console, mobile-first PWA, or e-commerce storefront.
   - *Default Landing / Marketing Archetype Alignment*: For greenfield landing/marketing/storefront builds following [starting-brandnew.md](../../rules/starting-brandnew.md) (when no custom layout is requested), align with the default component blueprints themed dynamically via ./DESIGN.md tokens.
-- **Visitor Mode ([impeccable](../impeccable/SKILL.md)), Visual Archetype & [design-taste-frontend](../design-taste-frontend/SKILL.md) Dials**: Select the surface's [impeccable](../impeccable/SKILL.md) Visitor Mode (`Persuade`, `Operate`, `Read`, or `Experience`), choose one authoritative aesthetic direction (or inherit directly from `./DESIGN.md` if present), and calibrate `DESIGN_VARIANCE`, `MOTION_INTENSITY`, and `VISUAL_DENSITY` (`1–10`):
+- **Visual Direction ([design-taste-frontend](../design-taste-frontend/SKILL.md)), Layout Mode ([impeccable](../impeccable/SKILL.md)) & Motion ([MOTION.md](../../rules/MOTION.md))**: Select the surface's [impeccable](../impeccable/SKILL.md) Visitor Mode (`Persuade`, `Operate`, `Read`, or `Experience`), establish primary visual identity, typography, and palette via [design-taste-frontend](../design-taste-frontend/SKILL.md) (or inherit directly from `./DESIGN.md` if present), and align interactive feel with [MOTION.md](../../rules/MOTION.md) + [interaction-catalog.md](../../resources/creative-libraries/interaction-catalog.md):
   - *Linear Dark-Tech*: Obsidian surfaces (`#0d0f12`), hairline tinted borders, monospace metadata chips, snappy spring micro-interactions (`stiffness: 280, damping: 20`, settling `≤300ms`).
   - *Kinetic Editorial*: Large expressive display serifs, asymmetrical `2fr 1fr` layout, generous `clamp()` spacing, curated real web photography with contrast scrims.
   - *Warm Minimalist*: Cream/oatmeal canvas, espresso typography, flat border-driven bento grids, zero drop shadows.
@@ -71,7 +71,7 @@ Catalog every UI surface and assign execution priority:
 - **P3 (Delight & Polish)**: Advanced choreographed motion, skeleton loaders, keyboard shortcuts, drag-and-drop reordering, theme toggles.
 
 ### Phase 3: Interaction Design, Motion Physics, Component Specs & Design Tokens
-- **Design Tokens & Aesthetic Dials**: Declare authoritative color tokens (brand, neutral tints, accents in `:root`), typography pairings, spacing scale, and taste dials (`DESIGN_VARIANCE`, `VISUAL_DENSITY`, `MOTION_INTENSITY` from 1–10).
+- **Design Tokens, Visual Direction & Motion Budget**: Declare authoritative color tokens (brand, neutral tints, accents in `:root`), typography pairings (`design-taste-frontend`), spatial rhythm (`impeccable`), and motion choreography bounds ([MOTION.md](../../rules/MOTION.md) + [interaction-catalog.md](../../resources/creative-libraries/interaction-catalog.md)).
 - **Asymmetric Composition, Concentric Geometry & Viewport Integrity ([UI_Always.md](../../rules/UI_Always.md))**:
   - Replace symmetrical 3-card rows with staggered bento grids, variable-span cards (`col-span-2` / `col-span-1`), or horizontal detail splits (never arbitrary dark Bento grids with empty filler cells). Differentiate geometry (`4px–6px` controls vs. `12px–16px` containers) and calculate nested radii via `R_inner = Math.max(0, R_outer - Padding)`.
   - Keep top header height `< 80px`, set hero section top padding strictly to `calc(var(--header-height, 4rem) + var(--space-lg, 1.5rem))` (24px inset below fixed header), and use `min-height: 100dvh` flex-column page shells with `scrollbar-gutter: stable`.
@@ -109,10 +109,9 @@ Generate a self-contained prompt formatted for immediate execution by a frontend
 - **Modern Frontend Stack (Never Vanilla HTML/CSS/JS)**: [Next.js App Router (React 19 + TypeScript + Tailwind CSS + shadcn/ui + Motion / `@bsmnt/scrollytelling` + GSAP) | Vite + React + TypeScript + Tailwind CSS | Astro | SvelteKit]
 - **Target User Personas**: [Primary users and their core tasks]
 - **Visual Direction & Blueprint**:
-  - **Primary Craft Engine & Visitor Mode (`impeccable`)**: `[Persuade | Operate | Read | Experience]` (enforcing `craft-floor.md` & `layout.md` spatial hierarchy)
-  - **Design System & Archetype**: [`./DESIGN.md` brand / visual archetype] | **Website Blueprint**: [Standard Website (TailGrids NexStudio + Spectrum UI Footer) | Website with Hero (Md Adul E-commerce Marketplace + Spectrum UI Footer) | Custom App / Dashboard]
-  - **Taste Dials (`design-taste-frontend`)**: `DESIGN_VARIANCE: [1-10]`, `MOTION_INTENSITY: [1-10]`, `VISUAL_DENSITY: [1-10]`
-  - **Design Read**: `"Reading this as: [page kind] for [audience], with a [vibe] language, leaning toward [design system]."`
+  - **Primary Visual Direction (`design-taste-frontend`)**: [Visual world, trade-matched palette, typography pairing, and copy voice]
+  - **Layout & Craft Floor (`impeccable`)**: Visitor Mode `[Persuade | Operate | Read | Experience]` (enforcing `layout.md`, `craft-floor.md`, and `operate.md` for SaaS/docs)
+  - **Design System & Motion**: [`./DESIGN.md` tokens] | **Motion & Interactions**: [`MOTION.md` + `interaction-catalog.md` recipes] | **Website Blueprint**: [Standard Website (TailGrids NexStudio + Spectrum UI Footer) | Website with Hero (Md Adul E-commerce Marketplace + Spectrum UI Footer) | Custom App / Dashboard]
 - **Navigation Model**: [Sidebar | Top Nav | Tab Bar | Drawer | Breadcrumb]
 - **Site Map**:
   - `/` → [Home / Landing]
@@ -161,10 +160,10 @@ Generate a self-contained prompt formatted for immediate execution by a frontend
 ```markdown
 Design and build a complete, production-ready frontend for [Product Name / Type].
 
-### Modern Frontend Stack, Design Read & Visitor Mode (impeccable Stage 2)
+### Modern Frontend Stack, Visual Direction & Layout Mode
 - **Modern Frontend Stack (Never Vanilla HTML/CSS/JS)**: [Default to Next.js App Router + React 19 + TypeScript + Tailwind CSS + shadcn/ui + Motion / `@bsmnt/scrollytelling` + GSAP, or Vite + React + TypeScript + Tailwind CSS; never output vanilla HTML/CSS/JS unless explicitly requested]
-- **Visitor Mode (`impeccable`)**: `[Persuade | Operate | Read | Experience]`
-- **Design Read**: "Reading this as: [page kind] for [target audience], with a [vibe/tone] language, leaning toward [design system/archetype]."
+- **Primary Visual Direction (`design-taste-frontend`)**: [Visual world, trade-matched palette, typography pairing, and copy voice]
+- **Layout, Craft Floor & Motion (`impeccable` + `MOTION.md`)**: Visitor Mode `[Persuade | Operate | Read | Experience]` (`layout.md` + `craft-floor.md`) + `MOTION.md` / `interaction-catalog.md` interactive feel
 
 ### Anti-Slop Visual & Authentic Media Directives (anti-ai-slop, impeccable & UI_Always.md)
 - **Header Ceiling, Hero Clearance & Proportions**: Keep top navigation header height strictly `< 80px`, hero `H1 ≤ 2 lines`, and hero subtext `≤ 20 words`. Set hero section top padding strictly to `calc(var(--header-height, 4rem) + var(--space-lg, 1.5rem))` (24px inset below fixed header). Zero floating pill badges, pastel chip capsules, or eyebrow/kicker labels above headlines; zero centered hero + fake macOS traffic-light terminal windows.
@@ -187,8 +186,8 @@ Design and build a complete, production-ready frontend for [Product Name / Type]
 - **Zero Emoji in Titles**: Strip all emojis from section headings (`## 🚀 Features` is strictly banned).
 - **Arabic Numerals & Organic Domain Data (Zero "Jane Doe" Slop)**: Write all quantities as Arabic numerals (`3 steps`, `10x`, `2 days`) instead of spelled-out words. Never use synthetic personas (`Sarah Chen`, `Jane Doe`), slop brand names (`Acme`, `Nexus`), or round vanity stats (`99.99%`, `10k+`); use realistic domain variance (`$14,892.40`, `+12.4%`).
 
-### Design Tokens & Aesthetic Dials
-- Visitor Mode (`impeccable`) & Aesthetic Dials (`design-taste-frontend`): `Mode: [Persuade | Operate | Read | Experience]`, `DESIGN_VARIANCE: [1-10]`, `MOTION_INTENSITY: [1-10]`, `VISUAL_DENSITY: [1-10]`
+### Design Tokens, Visual Direction & Layout Mode
+- Primary Visual Direction (`design-taste-frontend`) & Layout Mode (`impeccable`): `Mode: [Persuade | Operate | Read | Experience]` (`layout.md` + `craft-floor.md`), motion via `MOTION.md` + `interaction-catalog.md`
 - Website Blueprint (when applicable): [Standard Website (TailGrids NexStudio + Spectrum UI Footer) | Website with Hero (Md Adul E-commerce Marketplace + Spectrum UI Footer) | Custom App / Dashboard], themed dynamically via `./DESIGN.md` tokens
 - Color Palette: Primary [`hex`], Neutrals [`tinted darks & lights`], Accents [`hex`] (Declared as CSS tokens in `:root`)
 - Typography Pairing: Headings [`font-family`], Body [`font-family`]

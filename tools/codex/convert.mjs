@@ -28,7 +28,7 @@ export function normalizeFrontmatter(original) {
   }
   const metadata = {};
   for (const [key, value] of Object.entries(isRecord(original.metadata) ? original.metadata : {})) metadata[key] = typeof value === 'string' ? value : JSON.stringify(value);
-  for (const [key, value] of Object.entries(original)) if (!supportedFields.has(key)) metadata[`upstream-${key}`] = typeof value === 'string' ? value : JSON.stringify(value);
+  for (const [key, value] of Object.entries(original)) if (!supportedFields.has(key) && key !== 'hooks') metadata[`upstream-${key}`] = typeof value === 'string' ? value : JSON.stringify(value);
   if (Object.keys(metadata).length) result.metadata = metadata;
   return result;
 }
@@ -59,14 +59,41 @@ const codexTierMap = {
   brain: { model_tier: 'reasoning', reasoning_effort: 'max', target_model: '6.1-sol-max' },
 };
 
+const codexSubtitle = 'Instructions, operating rules, and workspace routing for OpenAI Codex.';
+
+const codexRoutingBlock = [
+  '- **Invocation**: Read and apply `.codex/agents/<agent>.md` (`model_tier` + `reasoning_effort` frontmatter).',
+  '',
+  '| Tier | GPT / Codex Routing | Agents ([.codex/agents/](.codex/agents/)) |',
+  '| :--- | :--- | :--- |',
+  '| `reflex` | `6.1 Terra` (`medium`) (`model_tier: mini`, `reasoning_effort: medium`) | `explorer` (fast read-only recon; never plans or edits) |',
+  '| `builder` | `6.1 Sol` (`medium`/`high`) or `6.1 Terra` (`high`/`xhigh`/`max`) (`model_tier: codex`, `reasoning_effort: high`) | `tdd-guide`, `e2e-runner`, `code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `penetration-tester`, `build-error-resolver`, `{react,go,rust,django,cpp,pytorch}-build-resolver` |',
+  '| `brain` *(read-only auditors/reviewers)* | `6.1 Sol` (`max`) (`model_tier: reasoning`, `reasoning_effort: max`) | `planner`, `architect`, `code-architect`, `a11y-architect`, `spec-miner`, `code-reviewer`, `{typescript,react,vue,go,rust,php,fastapi,database}-reviewer`, `silent-failure-hunter`, `security-auditor`, `skeptic`, `agent-evaluator` |',
+  '',
+  '- **Mandatory Lifecycle Triggers**:',
+  '  1. Multi-file discovery (`>= 3` files) -> `explorer`',
+  '  2. Non-trivial feature or refactor design -> `planner` + `code-architect` / `architect` (plus `a11y-architect` for UI)',
+  '  3. Implementation, cleanup, or build failures -> `tdd-guide`, `code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `e2e-runner`, or `*-build-resolver`',
+  '  4. Post-edit verification -> matching stack `*-reviewer` + `silent-failure-hunter` (plus `security-auditor` / `penetration-tester` on auth, API, or input changes, and `skeptic` / `agent-evaluator` before final delivery)',
+].join('\n');
+
 function adaptCodexAgentFrontmatter(text) {
   return text.replace(/^(---\r?\n[\s\S]*?\r?\n---)/, fm => {
-    const tierMatch = /^tier:\s*(reflex|builder|brain)\s*$/m.exec(fm);
-    if (!tierMatch) return fm;
+    let cleaned = fm
+      .replace(/\r?\nmainAgent:\s*.+/g, '')
+      .replace(/\r?\nsubagent:\s*.+/g, '')
+      .replace(/\r?\ncommandExecutionPolicy:\s*.+/g, '');
+    if (/^[ \t]*-\s*read_file\b/m.test(cleaned)) {
+      cleaned = cleaned.replace(/\r?\n[ \t]*-\s*view_file\b[^\r\n]*/g, '');
+    } else {
+      cleaned = cleaned.replace(/^([ \t]*-\s*)view_file\b/gm, '$1read_file');
+    }
+    const tierMatch = /^tier:\s*(reflex|builder|brain)\s*$/m.exec(cleaned);
+    if (!tierMatch) return cleaned;
     const tier = tierMatch[1];
     const mapped = codexTierMap[tier];
-    if (!mapped) return fm;
-    const cleaned = fm
+    if (!mapped) return cleaned;
+    cleaned = cleaned
       .replace(/\r?\nmodel:\s*\S+/g, '')
       .replace(/\r?\nmodel_tier:\s*\S+/g, '')
       .replace(/\r?\nreasoning_effort:\s*\S+/g, '')
@@ -78,22 +105,65 @@ function adaptCodexAgentFrontmatter(text) {
   });
 }
 
+function adaptCodexPolicy(text) {
+  let result = text;
+  if (/<!--\s*edition-subtitle-start\s*-->/.test(result)) {
+    result = result.replace(/<!--\s*edition-subtitle-start\s*-->[\s\S]*?<!--\s*edition-subtitle-end\s*-->/g, codexSubtitle);
+  } else {
+    result = result.replace(
+      /^Instructions, operating rules, and skill mappings for AI agents[^\n]*$/m,
+      codexSubtitle
+    );
+  }
+  if (/<!--\s*edition-routing-start\s*-->/.test(result)) {
+    result = result.replace(/<!--\s*edition-routing-start\s*-->[\s\S]*?<!--\s*edition-routing-end\s*-->/g, codexRoutingBlock);
+  } else {
+    result = result.replace(
+      /- \*\*Cognitive Routing Tiers[\s\S]*?(?=\r?\n---\r?\n|\r?\n## 5\.)/,
+      codexRoutingBlock + '\n'
+    );
+  }
+  return result.replace(/<!--\s*edition-[a-z0-9_-]+\s*-->\r?\n?/gi, '');
+}
+
 export function adaptMarkdown(text, sourceFile, duplicatePaths = new Map()) {
   let result = text;
-  if (sourceFile && slash(path.relative(sourceRoot, sourceFile)).startsWith('agents/')) {
+  const relativeSource = sourceFile ? slash(path.relative(sourceRoot, sourceFile)) : '';
+  const isAgentsPolicy = Boolean(sourceFile && path.basename(sourceFile) === 'AGENTS.md');
+  if (relativeSource.startsWith('agents/')) {
     result = adaptCodexAgentFrontmatter(result);
   }
-  if (sourceFile && path.basename(sourceFile) === 'AGENTS.md') {
+  result = result
+    .replaceAll('${CLAUDE_PLUGIN_ROOT}/.claude/skills/', '.codex/skills/')
+    .replaceAll('${CLAUDE_PLUGIN_ROOT}/.agents/skills/', '.codex/skills/');
+  if (relativeSource !== 'skills/design-taste-frontend/references/gate.md') {
     result = result
-      .replace('(`tier:` frontmatter & 3-Edition Model Matrix)', '(`tier:`, `model_tier:` & `reasoning_effort:` frontmatter)')
-      .replace('**AGY / Gemini**: `GEMINI HYDROGEN HIGH` (`gemini-4-hydrogen-high`; `invoke_subagent` `Model`: `inherit`, `model: inherit` — no `flash`/`flash_lite`) · **GPT / Codex**: `6.1 Terra` (`medium`) (`model_tier: mini`, `reasoning_effort: medium`) · **Claude Code**: `Haiku 5.5` (`high` / `xhigh` / `max`) (`model: haiku`)', '**GPT / Codex**: `6.1 Terra` (`medium`) (`model_tier: mini`, `reasoning_effort: medium`)')
-      .replace('**AGY / Gemini**: `GEMINI HYDROGEN HIGH` or `GEMINI NEON MEDIUM` (`gemini-4-hydrogen-high` for routine tasks / `gemini-4-neon-medium` for complex multi-file edits; `invoke_subagent` `Model`: `inherit`, `model: inherit`) · **GPT / Codex**: `6.1 Sol` (`medium` / `high`) or `6.1 Terra` (`high` / `xhigh` / `max`) (`model_tier: codex`, `reasoning_effort: high`) · **Claude Code**: `Sonnet 5.5` (`high` / `xhigh` / `max`) (`model: sonnet`)', '**GPT / Codex**: `6.1 Sol` (`medium` / `high`) or `6.1 Terra` (`high` / `xhigh` / `max`) (`model_tier: codex`, `reasoning_effort: high`)')
-      .replace('**AGY / Gemini**: `CARBON` / `GEMINI NEON XHIGH` (coordinator: `gemini-4-neon-xhigh` / `gemini-pro-orchestrator-neon`, separate-quota fallback `ARGON` `gemini-pro-orchestrator-g1-pro` / `gemini-4-argon-high`) or `GEMINI NEON HIGH` (verifiers/auditors: `gemini-4-neon-high`; `invoke_subagent` `Model`: `pro` or `inherit`, `model: pro`) · **GPT / Codex**: `6.1 Sol` (`max`) (`model_tier: reasoning`, `reasoning_effort: max`) · **Claude Code**: `Opus 5.5` (`high` / `xhigh` / `max`) (`model: opus`)', '**GPT / Codex**: `6.1 Sol` (`max`) (`model_tier: reasoning`, `reasoning_effort: max`)');
+      .replaceAll('~/.claude/skills/', '.agents/skills/')
+      .replace(/(?<!\$CLAUDE_PROJECT_DIR\/)\.claude\/skills\//g, '.agents/skills/');
   }
-  result = result.replaceAll('~/.claude/skills/', '.agents/skills/').replaceAll('.claude/skills/', '.agents/skills/');
-  result = result.replaceAll('via `view_file`', 'using the available file-reading tool or shell');
-  result = result.replaceAll('(`ask_question`)', '(when the existing user instructions leave a material choice unresolved)');
+  result = result
+    .replaceAll('via `view_file`', 'using the available file-reading tool or shell')
+    .replaceAll('`read_file`, `view_file`', '`read_file`')
+    .replaceAll('`view_file`', 'file-reading tool');
+  result = result
+    .replaceAll('(`ask_question` when unspecified)', '(when unspecified)')
+    .replaceAll('(`ask_question`)', '(when the existing user instructions leave a material choice unresolved)')
+    .replace(/`ask_question`/g, 'user clarification');
   result = result.replaceAll('AskUserQuestion', 'the available user-input tool');
+  result = result
+    .replaceAll('`@e2e-runner`', '`e2e-runner`')
+    .replaceAll('@e2e-runner', 'e2e-runner')
+    .replaceAll('`@skeptic`', '`skeptic`')
+    .replaceAll('@skeptic', 'skeptic');
+  if (relativeSource === 'skills/continuous-agent-loop/SKILL.md') {
+    result = result
+      .replace(/\s*\(using `\.codex\/` or `\.claude\/` in those editions\)/g, '')
+      .replace(/\s*\(or the `\.codex\/` \/ `\.claude\/` equivalent\)/g, '')
+      .replace(
+        /^- \*\*Tier 2 -> Tier 3 \(`flywheel digest` -> `\/learn` or `\/flywheel` -> prune\)\*\*:[^\n]*$/m,
+        '- **Tier 2 -> Tier 3 (`flywheel digest` -> skill graduation -> prune)**: `flywheel digest [--json] [--graduate <domain>]` sets `curation_recommended: true` when promoted rules reach `>= 20`, file size approaches `12 KB`, or a domain hits `>= 3` ungraduated regressions. Graduate recurring clusters via skill authoring into `.codex/skills/project-<domain>/SKILL.md`, run `flywheel digest --graduate <domain>`, and prune superseded rules.'
+      );
+  }
   // Repair repository-root links into relative links that work in both the
   // staged bundle (skills/) and the installed edition (.codex/skills/).
   result = result.replace(/(\[[^\]\n]*\]\()([^\s)]+)(\))/g, (whole, prefix, target, suffix) => {
@@ -112,19 +182,16 @@ export function adaptMarkdown(text, sourceFile, duplicatePaths = new Map()) {
     result = result.replaceAll(slash(path.relative(path.dirname(sourceRoot), from)), slash(path.relative(path.dirname(sourceRoot), to)));
   }
   // Rewrite project-root command examples after rebasing local links. Preserve
-  // user-scoped ~/.agents paths, AGY-only rules/swarm.md, and edition-specific
-  // invocation paths on the Invocation by Edition line.
+  // user-scoped ~/.agents paths and AGY-only rules/swarm.md.
   const rewriteAgentsPathsToCodex = value =>
     value
-      .replace(/(^|[\s"'`(=:\[]|\.\/)\.agents\/(skills|rules(?!\/swarm\.md\b)|resources|agents)(\/|[)\]#\s]|$)/gm, '$1.codex/$2$3')
-      .replace(/(^|[\s"'`(=:\[])\.agents\\(skills|rules(?!\\swarm\.md\b)|resources|agents)(\\|[)\]#\s]|$)/gm, '$1.codex\\$2$3');
-  if (sourceFile && path.basename(sourceFile) === 'AGENTS.md') {
-    return result
-      .split(/(\r?\n)/)
-      .map((part, idx) => (idx % 2 === 0 && !/^\s*-\s+\*\*Invocation by Edition\*\*:/.test(part) ? rewriteAgentsPathsToCodex(part) : part))
-      .join('');
+      .replace(/(^|[\s"'`(=:\[!]|!\/|\.\/)\.agents\/(skills|rules(?!\/swarm\.md\b)|resources|agents)(\/|[)\]#\s]|$)/gm, '$1.codex/$2$3')
+      .replace(/(^|[\s"'`(=:\[!]|!\\|\.\\)\.agents\\(skills|rules(?!\\swarm\.md\b)|resources|agents)(\\|[)\]#\s]|$)/gm, '$1.codex\\$2$3');
+  result = rewriteAgentsPathsToCodex(result);
+  if (isAgentsPolicy) {
+    result = adaptCodexPolicy(result);
   }
-  return rewriteAgentsPathsToCodex(result);
+  return result.replace(/<!--\s*edition-[a-z0-9_-]+\s*-->\r?\n?/gi, '');
 }
 
 export function convertSkill(text, sourceFile, duplicates) {
@@ -149,15 +216,26 @@ export function adaptPlaywrightRunner(text) {
 
 export function formatDesignerPolicy(text) {
   let result = text.replace(/\r\n/g, '\n');
+  const dir = result.includes('.codex/') ? 'codex' : result.includes('.claude/') ? 'claude' : 'agents';
   result = result.replace(
-    /^- \*\*Compounding Invariants & Progress Ledger\*\*: Read \[\.(agents|codex|claude)\/rules\/learned-invariants\.md\]\(\.\1\/rules\/learned-invariants\.md\)[^\n]*$/m,
-    (_, dir) => `- **Compounding Invariants**: Read [.${dir}/rules/learned-invariants.md](.${dir}/rules/learned-invariants.md) (when present) before editing code to enforce project-specific guardrails and prevent known regressions.`
+    /^- \*\*Compounding Invariants[^*\n]*\*\*:[^\n]*$/m,
+    `- **Compounding Invariants**: Read [.${dir}/rules/learned-invariants.md](.${dir}/rules/learned-invariants.md) (when present) before editing code to enforce project-specific guardrails and prevent known regressions.`
   );
   result = result.replace(
-    /After 2 consecutive failed verification receipts or Skeptic rejections on the same issue/g,
+    /After 2 consecutive failed verification receipts or Skeptic rejections on the same issue/gi,
     'After 2 consecutive failed verification checks or audits on the same issue'
   );
-  result = result.replace(/\n---\n\n## 5\. 6-Stage Self-Improving Harness Lifecycle[\s\S]*$/, '');
+  result = result
+    .replace(/\bverification receipts or Skeptic rejections\b/gi, 'verification checks or audits')
+    .replace(/\bSkeptic rejections\b/gi, 'audit rejections');
+  result = result
+    .replace(/\n---\n\n## 5\.[\s\S]*$/, '')
+    .replace(/\n## 5\.[\s\S]*$/, '');
+  result = result
+    .replace(/,\s*`skeptic`/g, '')
+    .replace(/`skeptic`\s*,\s*/g, '')
+    .replace(/`skeptic`\s*\/\s*`agent-evaluator`/g, '`agent-evaluator`')
+    .replace(/^\s*-\s+[^\n]*\bskeptic\b[^\n]*\n?/gim, '');
   return result.trimEnd() + '\n';
 }
 

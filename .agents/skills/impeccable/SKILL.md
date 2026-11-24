@@ -1,6 +1,6 @@
 ---
 name: impeccable
-description: "Critique, audit, polish, or harden a frontend interface across hierarchy, type, color, motion, and a11y. Use when refining UI quality; for palettes use ui-ux-pro-max."
+description: "Critique, audit, polish, or harden a frontend interface across hierarchy, type, color, motion, and a11y. Use when refining UI quality; for primary visual direction and palettes use design-taste-frontend."
 metadata:
   version: 4.9.1
 ---

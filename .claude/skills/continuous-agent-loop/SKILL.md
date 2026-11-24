@@ -11,7 +11,7 @@ This skill orchestrates the **Compounding Self-Improving Agent Harness** using t
 
 ## 1. Architecture & Runtime State Layout
 
-All runtime state lives inside the git-ignored `.harness/` directory. Stage 6 routes durable guardrails through `.claude/rules/learned-invariants.md` and graduates recurring clusters into on-demand `.claude/skills/project-<domain>/SKILL.md` (using `.codex/` or `.claude/` in those editions):
+All runtime state lives inside the git-ignored `.harness/` directory. Stage 6 routes durable guardrails through `.claude/rules/learned-invariants.md` and graduates recurring clusters into on-demand `.claude/skills/project-<domain>/SKILL.md`:
 
 ```text
 <workspace-root>/
@@ -132,8 +132,8 @@ node .claude/skills/continuous-agent-loop/scripts/harness.mjs checkpoint \
 ```
 
 - **Tier 1 -> Tier 2 (`flywheel record`)**: Appends to `.harness/evals/regressions.jsonl`. First-time automated findings (`verify`, `skeptic`) stage inside `<!-- flywheel-staged-rules-start -->` in `.claude/rules/learned-invariants.md`; user corrections (`--source user`), `--promote`, or `>= 2` matching occurrences promote into `<!-- flywheel-promoted-rules-start -->`.
-- **Tier 2 -> Tier 3 (`flywheel digest` -> `/learn` or `/flywheel` -> prune)**: `flywheel digest [--json] [--graduate <domain>]` sets `curation_recommended: true` when promoted rules reach `>= 20`, file size approaches `12 KB` (under AGY's `24 KB` cap and `20,000`-token rules budget), or a domain hits `>= 3` ungraduated regressions. Graduate recurring clusters via AGY `/learn` or `/flywheel` (or `/flywheel` in Claude / skill authoring in Codex) into `.claude/skills/project-<domain>/SKILL.md`, run `flywheel digest --graduate <domain>`, and prune superseded rules.
-- **Git tracking & repo scope**: Target repos keep `learned-invariants.md` and `project-*` skills local; add `!/.claude/skills/project-*/` (or the `.codex/` / `.claude/` equivalent) to `.gitignore` if team-shared. The `Skills` source checkout accepts only universal harness invariants.
+- **Tier 2 -> Tier 3 (`flywheel digest` -> `/learn` or `/flywheel` -> prune)**: `flywheel digest [--json] [--graduate <domain>]` sets `curation_recommended: true` when promoted rules reach `>= 20`, file size approaches `12 KB` (under the `24 KB` cap and `20,000`-token rules budget), or a domain hits `>= 3` ungraduated regressions. Graduate recurring clusters via `/flywheel` into `.claude/skills/project-<domain>/SKILL.md`, run `flywheel digest --graduate <domain>`, and prune superseded rules.
+- **Git tracking & repo scope**: Target repos keep `learned-invariants.md` and `project-*` skills local; add `!/.claude/skills/project-*/` to `.gitignore` if team-shared. The `Skills` source checkout accepts only universal harness invariants.
 
 ---
 
@@ -160,4 +160,4 @@ node .claude/skills/continuous-agent-loop/scripts/harness.mjs pre-commit-check
 1. Run `harness.mjs checkpoint` with `--failed-hypothesis` so negative knowledge is preserved before `/compact`.
 2. Inspect `.harness/receipts/<task_id>.json` and `.harness/evals/regressions.jsonl`.
 3. On 2 consecutive failures, escalate from `tier: builder` to `tier: brain` (`code-architect`).
-4. On 3 failures, trigger the **3-Strike Circuit Breaker** (`AGENTS.md` §1) or run `harness.mjs worktree abort --task <id>`.
+4. On 3 failures, trigger the **3-Strike Circuit Breaker** (`CLAUDE.md` §1) or run `harness.mjs worktree abort --task <id>`.

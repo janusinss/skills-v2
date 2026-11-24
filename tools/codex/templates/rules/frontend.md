@@ -1,54 +1,63 @@
 # Active Frontend Implementation (`frontend.md`)
 
-Use this guidance when designing, building, or refactoring UI. Preserve the existing framework, behavior, content, and approved design unless the user requests a change. Enforce [UI_Always.md](UI_Always.md) for core layout, touch target, and CSS hygiene standards, [MOTION.md](MOTION.md) for animations, spring physics, and micro-interactions, and [anti-ai-slop](.agents/skills/anti-ai-slop/SKILL.md) to eliminate visual, structural, motion, and copywriting slop.
+Use this guidance when designing, building, or refactoring UI. Preserve the existing framework, behavior, content, and approved design unless the user requests a change.
+Enforce [UI_Always.md](UI_Always.md) (layout/CSS), [MOTION.md](MOTION.md) (motion), and [anti-ai-slop](.codex/skills/anti-ai-slop/SKILL.md) (visual/copy).
 
-## Mandatory Frontend Skill Dispatch Matrix
-Inspect only the 1–2 skills matching the active surface:
-- **UI Scoping & Specs**: [prompt-enhancer-frontend](.agents/skills/prompt-enhancer-frontend/SKILL.md) · [prompt-enhancer](.agents/skills/prompt-enhancer/SKILL.md)
-- **Design Systems, Tokens & Palettes**: [awesome-design-md](.agents/skills/awesome-design-md/SKILL.md) · [design-system](.agents/skills/design-system/SKILL.md) · [ui-ux-pro-max](.agents/skills/ui-ux-pro-max/SKILL.md)
-- **Visual Craft, Taste & Anti-Slop**: [impeccable](.agents/skills/impeccable/SKILL.md) · [design-taste-frontend](.agents/skills/design-taste-frontend/SKILL.md) · [anti-ai-slop](.agents/skills/anti-ai-slop/SKILL.md) · [avoid-ai-writing](.agents/skills/avoid-ai-writing/SKILL.md)
-- **Components, React/Next.js & Styling**: [frontend-developer](.agents/skills/frontend-developer/SKILL.md) · [ui-styling](.agents/skills/ui-styling/SKILL.md) · [tailwind-patterns](.agents/skills/tailwind-patterns/SKILL.md) · [react-patterns](.agents/skills/react-patterns/SKILL.md) · [react-best-practices](.agents/skills/react-best-practices/SKILL.md) · [nextjs-best-practices](.agents/skills/nextjs-best-practices/SKILL.md) · [nextjs-app-router-patterns](.agents/skills/nextjs-app-router-patterns/SKILL.md)
-- **Brand Assets & Image-Driven Builds**: [brandkit](.agents/skills/brandkit/SKILL.md) · [design](.agents/skills/design/SKILL.md) · [image-to-code](.agents/skills/image-to-code/SKILL.md) · [imagegen-frontend-web](.agents/skills/imagegen-frontend-web/SKILL.md)
-- **Motion, Scrollytelling & 3D WebGL**: [MOTION.md](MOTION.md) · [scrollytelling](.agents/skills/scrollytelling/SKILL.md) · [scroll-experience](.agents/skills/scroll-experience/SKILL.md) · [3d-web-experience](.agents/skills/3d-web-experience/SKILL.md)
-- **SEO, Comparison & Editorial Pages**: [seo-audit](.agents/skills/seo-audit/SKILL.md) · [programmatic-seo](.agents/skills/programmatic-seo/SKILL.md) · [competitor-alternatives](.agents/skills/competitor-alternatives/SKILL.md) · [content-creator](.agents/skills/content-creator/SKILL.md)
-- **Client Security & E2E Browser QA**: [frontend-security-coder](.agents/skills/frontend-security-coder/SKILL.md) · [playwright-skill](.agents/skills/playwright-skill/SKILL.md) · [agent-browser](.agents/skills/agent-browser/SKILL.md) · [e2e-testing-patterns](.agents/skills/e2e-testing-patterns/SKILL.md)
-- **Native Web Platform APIs & Chrome Extensions**: [modern-web-guidance](.agents/skills/modern-web-guidance/SKILL.md) (`<dialog>`, Popover, CSS Anchor Positioning, View Transitions, Passkeys, `legacy-scan`) · [chrome-extensions](.agents/skills/chrome-extensions/SKILL.md) (Manifest V3, service workers, side panels, `CHROMEWEBSTORE.md`)
-- **Specialist Subagents (`.agents/agents/`)**: [a11y-architect](.agents/agents/a11y-architect.md) · [react-reviewer](.agents/agents/react-reviewer.md) · [vue-reviewer](.agents/agents/vue-reviewer.md) · [typescript-reviewer](.agents/agents/typescript-reviewer.md) · [react-build-resolver](.agents/agents/react-build-resolver.md) · [e2e-runner](.agents/agents/e2e-runner.md) · [performance-optimizer](.agents/agents/performance-optimizer.md)
+## Task-Driven Skill Routing
+Load only the 1-2 skills matching the active surface (`AGENTS.md` §2/§4 holds the full catalog):
+- **Scoping & Tokens:** [prompt-enhancer-frontend](.codex/skills/prompt-enhancer-frontend/SKILL.md) · [awesome-design-md](.codex/skills/awesome-design-md/SKILL.md) · [design-system](.codex/skills/design-system/SKILL.md)
+- **Visual Direction, Typography & Copy:** [design-taste-frontend](.codex/skills/design-taste-frontend/SKILL.md) · [anti-ai-slop](.codex/skills/anti-ai-slop/SKILL.md) · [unslop](.codex/skills/unslop/SKILL.md) · [avoid-ai-writing](.codex/skills/avoid-ai-writing/SKILL.md)
+- **Layout Architecture, Ergonomics & Craft Floor:** [impeccable](.codex/skills/impeccable/SKILL.md) (`layout.md`, `craft-floor.md`, `operate.md`, `adapt.md`, `polish.md`, `harden.md`, `detect`)
+- **Frameworks & Styling:** [frontend-developer](.codex/skills/frontend-developer/SKILL.md) · [ui-styling](.codex/skills/ui-styling/SKILL.md) · [tailwind-patterns](.codex/skills/tailwind-patterns/SKILL.md) · [modern-web-guidance](.codex/skills/modern-web-guidance/SKILL.md)
+- **Motion, 3D & Media:** [interaction-catalog.md](.codex/resources/creative-libraries/interaction-catalog.md) · [scrollytelling](.codex/skills/scrollytelling/SKILL.md) · [3d-web-experience](.codex/skills/3d-web-experience/SKILL.md) · [image-to-code](.codex/skills/image-to-code/SKILL.md)
+- **Browser QA & Review:** [playwright-skill](.codex/skills/playwright-skill/SKILL.md) · [agent-browser](.codex/skills/agent-browser/SKILL.md) · [a11y-architect](.codex/agents/a11y-architect.md) · [react-reviewer](.codex/agents/react-reviewer.md)
 
-## Stage 1: Target Aesthetic, Scoping & Component Intake
-- **Modern Tech Stack Default (Greenfield Builds):** When starting a new project or scaffolding a new frontend application, always default to a modern component framework stack (**Next.js App Router + React 19 + TypeScript + Tailwind CSS + shadcn/ui + Motion / `@bsmnt/scrollytelling` + GSAP**, or Vite + React + TypeScript + Tailwind CSS, Astro, or SvelteKit). **Never default to or output vanilla HTML/CSS/JS** unless the user explicitly asks for vanilla or the existing codebase is already vanilla.
-- **UI Scoping & Design System:** Read the relevant project files and existing `DESIGN.md` or `PRODUCT.md`. When building new views or complex interfaces, use [prompt-enhancer-frontend](.agents/skills/prompt-enhancer-frontend/SKILL.md) to define the P0–P3 component matrix, state variants, and responsive journeys. Prefer [impeccable](.agents/skills/impeccable/SKILL.md) as the primary visual design and craft skill alongside [design-taste-frontend](.agents/skills/design-taste-frontend/SKILL.md) when its scope fits.
-- **Component Intake (Scrollytelling, ThreeUI & Registries):** Prefer the project's existing components and tokens.
-  - **Scrollytelling, ThreeUI & Registry Packages:** Check external packages before assuming they are installed (`npm install @bsmnt/scrollytelling gsap` for scroll-driven timelines, pinned stages, and canvas/3D scrubbing via [scrollytelling](.agents/skills/scrollytelling/SKILL.md); `npm install @designcodeio/threeui three @types/three` for ThreeUI shaders; `npx shadcn@latest add "<url>"` for standard registry items).
-- **Token Adherence:** Map all typography pairings, tinted palettes, spacing, and border radii to `DESIGN.md` CSS variables in `:root` (following [anti-ai-slop](.agents/skills/anti-ai-slop/SKILL.md) for tinted neutrals and Visual DNA tokens).
+---
 
-## Stage 2: Composition, Motion & Anti-Slop Standards (via [impeccable](.agents/skills/impeccable/SKILL.md) & [anti-ai-slop](.agents/skills/anti-ai-slop/SKILL.md))
-- **Design Synthesis & Design Read Contract:** Before writing UI code, synthesize `PRODUCT.md` and `DESIGN.md` into this configuration and emit the 1-line Design Read summary:
-  ```text
-  Primary Craft Engine: impeccable (Visitor Mode: [Persuade | Operate | Read | Experience])
-  Taste Calibration: design-taste-frontend · Anti-Slop: anti-ai-slop
-  Page: [Landing | Dashboard | Editorial | Portfolio | Redesign]
-  Audience: [Target user group from PRODUCT.md]
-  Vibe & Aesthetic: [Visual world & tone from DESIGN.md]
-  References: [Chosen brand from awesome-design-md + inspirations]
-  Dials: DESIGN_VARIANCE [1-10], MOTION_INTENSITY [1-10], VISUAL_DENSITY [1-10]
-  Key Assets / Constraints: [DESIGN.md color tokens, brand assets, a11y, dark/light mode]
-  ```
-  Emit: `"Reading this as: <page kind> for <audience>, with a <vibe> language, leaning toward <design system>."`
-- **Standard Layout Archetypes:**
-  - **Archetype A: High-Conversion SaaS & Product Dashboard:** CSS Grid/Flexbox tables with sticky headers and sortable columns, `prefers-color-scheme` system dark/light support, `≥16px` body text, `≥44px` interactive targets, and [MOTION.md](MOTION.md) micro-interactions.
-  - **Archetype B: Clean Editorial & Content Platform:** Asymmetric CSS Grids (e.g., `2fr 1fr` or `1fr 3fr`) with `clamp()` spacing, `1.333+` heading ratio, `≥1.6` body line-height, and curated imagery (`object-fit: cover`, art-directed `<picture>`, lazy loading).
-- **Primary Visual Craft & Spatial Composition ([impeccable](.agents/skills/impeccable/SKILL.md)):** Use [impeccable](.agents/skills/impeccable/SKILL.md) as the primary design engine when creating or refactoring UI—load [craft-floor.md](.agents/skills/impeccable/reference/craft-floor.md) and [layout.md](.agents/skills/impeccable/reference/layout.md) (plus [typeset.md](.agents/skills/impeccable/reference/typeset.md) and [colorize.md](.agents/skills/impeccable/reference/colorize.md) when tuning typography or color):
-  - **Visitor Mode, Spatial Thesis & Concentric Geometry:** Align composition with the surface's visitor mode (`Persuade`, `Operate`, `Read`, `Experience`). Establish a clear reading order that passes the squint test, group by proximity before adding containers, pair tight internal grouping with generous section separation on a `4px` base scale (honoring `DESIGN.md` `DESIGN_VARIANCE`, `VISUAL_DENSITY`, and `MOTION_INTENSITY` dials when present), and calculate concentric nested radii (`R_inner = Math.max(0, R_outer - Padding)`).
-  - **Dashboard Telemetry & Density Hygiene (`1-to-3` / `85%-15%` Rule):** Enforce a **Single Source of Metric Truth**—never repeat the same KPI across headers and cards, never duplicate date pickers or filters inside individual cards (use one unified page-level control bar), and never add decorative tip banners or 3D globes. Enforce `1` focal element per zone (max `3` data points per card) and keep `85%` of primary workflows at `0` clicks while collapsing `≥ 5` secondary actions into popovers.
-  - **Typography, Color & Browser Surfaces:** Enforce clear typographic hierarchy (`65ch–75ch` measure, `-0.02em` to `-0.03em` display tracking), WCAG AA contrast (`≥4.5:1` body / `≥3:1` large text), single-source elevation (crisp `1px` border OR directional shadow, never both), and themed browser surfaces (text selection, caret, scrollbars, `:focus-visible` rings, `tabular-nums`).
-- **Motion & Micro-Interactions:** Delegate all transitions, spring physics (`stiffness`/`damping`), deterministic rest states, and `@media (prefers-reduced-motion: reduce)` fallbacks strictly to [MOTION.md](MOTION.md).
-- **Anti-AI-Slop & Natural Voice Enforcement:** Load and apply [anti-ai-slop](.agents/skills/anti-ai-slop/SKILL.md) alongside [impeccable](.agents/skills/impeccable/SKILL.md), [design-taste-frontend](.agents/skills/design-taste-frontend/SKILL.md), and [avoid-ai-writing](.agents/skills/avoid-ai-writing/SKILL.md) to enforce all structural, palette, typography, icon/photography, scroll/marquee, and human-copy/domain-data rules (unless explicitly overridden in the user brief).
-- Ensure all interactive elements feature visible `:focus-visible` rings, `cursor: pointer`, and all 8 interactive states defined in Section 5 of [UI_Always.md](UI_Always.md).
+## Stage 1: Stack, Scoping & Token Alignment
+- **Greenfield Stack:** For new apps, default to **Next.js App Router + React 19 + TypeScript + Tailwind CSS + shadcn/ui** (or Vite + React + TS + Tailwind, Astro, or SvelteKit); never vanilla HTML/CSS/JS unless requested or editing a vanilla app.
+- **UI Scoping:** Read `DESIGN.md` + `PRODUCT.md`. Use `prompt-enhancer-frontend` on new views or complex UIs for P0-P3 components, states, and responsive flows.
+- **Baseline Web API Check:** Query [modern-web-guidance](.codex/skills/modern-web-guidance/SKILL.md) (`search`->`retrieve`) before polyfills for `<dialog>`, `popover`, anchors, View Transitions, Scroll-Driven CSS, forms, or CWV; skip backend/trivial tasks; degrade gracefully offline.
+- **Component & Library Intake:** Prefer existing components and tokens; verify packages before assuming installation:
+  - **Creative Libraries:** Use [creative-libraries](.codex/resources/creative-libraries/README.md) (GSAP Club Suite, Lenis, `LenisGsapBridge`) + `interaction-catalog.md` for scroll, hero, hover, loader, text, and transition mechanics.
+  - **Scrollytelling:** `npm install @bsmnt/scrollytelling gsap` (`scrollytelling`).
+  - **ThreeUI:** `npm install @designcodeio/threeui three @types/three`; copy `node_modules/@designcodeio/threeui/lib-dist/assets/` to `./public/`.
+  - **Shadcn Registry:** `npx shadcn@latest add "<url>"` for registry primitives.
+- **Token Precedence:** Treat `DESIGN.md` as authoritative; declare palette colors as `:root` CSS variables.
 
-## Stage 3: Bounded Quality Audit (via Impeccable)
-- If Impeccable is installed, run `.codex/skills/impeccable/scripts/impeccable.cmd detect <file-or-dir>` (or Unix `.codex/skills/impeccable/scripts/impeccable detect <file-or-dir>`), plus the `design-taste-frontend` and `avoid-ai-writing` gates documented in [anti-ai-slop](.agents/skills/anti-ai-slop/SKILL.md). Resolve contrast, rhythm, and token findings in a single bounded pass while preserving intentional design choices.
+---
+
+## Stage 2: Visual Direction, Layout Architecture & Interactive Feel
+- **Silent Direction Synthesis:** Resolve Visitor Mode (`Persuade` | `Operate` | `Read` | `Experience`), Page Type, Audience, Visual World, and Constraints from `PRODUCT.md` + `DESIGN.md` without a preamble.
+- **Primary Design Director (`design-taste-frontend`):**
+  - Owns visual identity, trade-matched palette dealing (`start.mjs deal`/`css`/`brand`; zero AI violet or template palettes), and typography pairings (`layout-v4.md`, `system.md`).
+  - Owns copy voice (`copy.md`, `copy-voice.md`, `copy-lint.mjs`), real photos and brand icons (`photos.mjs`, `icons.mjs`; zero captions), and visual moments (`moments.mjs`, `effects-creative.md`).
+- **Layout & Craft Floor Architect (`impeccable`):**
+  - Owns grid structure, spatial rhythm, and multi-surface ergonomics via [layout.md](.codex/skills/impeccable/reference/layout.md), [adapt.md](.codex/skills/impeccable/reference/adapt.md), and [operate.md](.codex/skills/impeccable/reference/operate.md).
+  - Enforces contrast, depth, spacing floor, and refusals via [craft-floor.md](.codex/skills/impeccable/reference/craft-floor.md) (`polish.md`, `harden.md`, `bolder.md`, `delight.md` for refinement passes).
+- **Surface-Mode Coordination (Zero Contradiction):**
+  - **`Persuade` & `Experience` (Marketing, Launches, Portfolios, Studios, Storefronts):** `design-taste-frontend` drives identity, palette/type deal, hero, copy voice, and moments; `impeccable` enforces grids, rhythm, `craft-floor.md`, and polish.
+    - Pair `MOTION.md` + `interaction-catalog.md` for interactive feel, honoring `gate.mjs` rules on tasteskill-gated static sites.
+  - **`Operate` & `Read` (SaaS, Dashboards, Admin, Editors, Docs):** `design-taste-frontend` supplies typography pairings, tinted palettes, and direct copy; `impeccable` (`layout.md`, `operate.md`, `craft-floor.md`, `harden.md`) owns app ergonomics and Archetype A tables.
+    - Apply `1-to-3` / `85%-15%` telemetry hygiene below; never apply marketing-only `one-section-per-screen` rules or `gate.mjs` to dashboards.
+- **Layout Archetypes:**
+  - **Archetype A (SaaS & Dashboards):** Grid/Flex tables with sticky headers, sortable columns, `prefers-color-scheme`, and `>=44px` interactive targets.
+  - **Archetype B (Editorial & Content):** Asymmetric grids (`2fr 1fr`, `1fr 3fr`), `clamp()` spacing, `>=1.333` heading ratio, `>=1.6` body line-height, and art-directed media.
+- **Dashboard Telemetry Hygiene (`1-to-3` / `85%-15%` Rule):**
+  - Keep one metric source of truth; never repeat KPIs across headers and cards.
+  - Use one page-level filter/date bar instead of per-card controls; skip decorative tip banners and 3D globes.
+  - Cap each zone at `1` focal element (max `3` data points/card); keep `85%` of primary flows at `0` clicks and collapse `>=5` secondary actions into popovers.
+- **Delegated Standards:** Defer motion to `MOTION.md`, layout/states to `UI_Always.md`, and anti-slop/copy to `anti-ai-slop` + `avoid-ai-writing` (`unslop` for 9-pass redlining of existing screens, live URLs, or RTL).
+
+---
+
+## Stage 3: Bounded Quality Audit & Remediation
+- **Impeccable & Copy Gates:** If installed, run `.codex/skills/impeccable/scripts/impeccable detect <file-or-dir>` (Windows: `impeccable.cmd`), `copy-lint.mjs` (when applicable), and the `avoid-ai-writing` gate in `anti-ai-slop`.
+- **Scoped Tasteskill Gate:** Run `design-taste-frontend` `gate.mjs` **only** on marketing/company sites built with tasteskill 2.5.1 (`.taste-skill/build.json` and `<meta name="page-type">`/`site-kind`); never on SaaS dashboards or non-tasteskill apps.
+- **Bounded Remediation:** Fix contrast, token, rhythm, and copy findings in one bounded pass, then re-verify while keeping intentional design choices. Extract repeated UI blocks into reusable components.
+
+---
 
 ## Stage 4: Real Browser & Responsive Verification
-- Verify substantial layout changes and meaningful interactions in a real browser across mobile (`375px`), tablet (`768px`), and desktop (`1280px`) widths strictly following Section 7 of [UI_Always.md](UI_Always.md). Check zero horizontal overflow (`scrollWidth > innerWidth`), zero unexpected console errors, and ≥44px touch targets, saving screenshots in `scratch/` when visual evidence helps.
-
+- Verify layout changes and interactive flows across `375x667`, `768x1024`, and `1280x800` per [UI_Always.md](UI_Always.md#7-browser-verification-policy) (`0` overflow, `0` console/network errors, `>=44x44px` touch targets, `--a11y`).
+- Save screenshots in git-ignored `scratch/` when visual evidence helps; create zero scratch `.js` files.

@@ -25,6 +25,7 @@ Per-skill provenance lives in [provenance.json](provenance.json) (`source`, `sou
 | `basementstudio/scrollytelling` | 1 | MIT | `scrollytelling` |
 | `conorbronsdon/avoid-ai-writing` | 1 | MIT | `avoid-ai-writing` |
 | `cloudflare/security-audit-skill` | 1 | MIT | `security-audit` |
+| `heydamir/unslop` | 1 | CC-BY-4.0 | `unslop` (Damir Sokolovsky `@heydamir`) |
 | `lackeyjb/playwright-skill` | 1 | MIT | `playwright-skill` |
 | `pbakaus/impeccable` | 1 | Apache-2.0 | `impeccable` |
 | `supabase/agent-skills` | 1 | MIT | `postgres-best-practices` |
@@ -43,6 +44,7 @@ Per-skill provenance lives in [provenance.json](provenance.json) (`source`, `sou
 | `.agents/skills/awesome-design-md/` | `LICENSE` (MIT) |
 | `.agents/skills/mcp-builder/` | `LICENSE.txt` (Apache-2.0) |
 | `.agents/skills/ui-styling/` | `LICENSE.txt` (MIT) |
+| `.agents/skills/unslop/` | `LICENSE` (CC-BY-4.0) |
 | `.agents/skills/untangle-codebase/` | `LICENSE` (MIT) |
 | `.agents/resources/creative-libraries/lenis/` | `LICENSE` (MIT) |
 

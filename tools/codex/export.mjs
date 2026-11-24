@@ -49,17 +49,10 @@ export function planExport({ target, profile = 'all', includeHooks = true, mode 
     ? path.join(root, 'AGENTS.designer.md')
     : path.join(root, 'AGENTS.md');
   add(agentsSource, 'AGENTS.md');
-  for (const area of ['rules', 'agents']) for (const source of filesIn(path.join(root, area))) add(source, slash(path.join('.codex', area, path.relative(path.join(root, area), source))));
-  // Resource libraries are installed with the `all` profile, or when a selected skill references them.
-  const resourcesDir = path.join(root, 'resources');
-  if (fs.existsSync(resourcesDir)) {
-    const skillText = selected.flatMap(skill => filesIn(path.join(root, 'skills', skill)).filter(file => /\.(?:md|js|mjs|json|txt)$/.test(file)).map(file => fs.readFileSync(file, 'utf8'))).join('\n');
-    for (const entry of fs.readdirSync(resourcesDir, { withFileTypes: true })) {
-      const absolute = path.join(resourcesDir, entry.name);
-      if (entry.isFile()) add(absolute, slash(path.join('.codex/resources', entry.name)));
-      else if (entry.isDirectory() && (profile === 'all' || skillText.includes(`resources/${entry.name}`))) {
-        for (const source of filesIn(absolute)) add(source, slash(path.join('.codex/resources', entry.name, path.relative(absolute, source))));
-      }
+  for (const area of ['rules', 'agents', 'resources']) {
+    const dir = path.join(root, area);
+    if (fs.existsSync(dir)) {
+      for (const source of filesIn(dir)) add(source, slash(path.join('.codex', area, path.relative(dir, source))));
     }
   }
   for (const skill of selected) {

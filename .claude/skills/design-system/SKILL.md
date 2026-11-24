@@ -2,6 +2,7 @@
 name: design-system
 description: "Architect 3-layer design tokens (primitive, semantic, component), CSS variables, and component specs. Use for token/component systems; for logos use design."
 license: MIT
+argument-hint: "[component or token]"
 ---
 
 # Design System

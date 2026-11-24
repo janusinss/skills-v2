@@ -42,6 +42,41 @@ function filterHookEntries(hooksMap = {}, excludedSubstrings = []) {
   return filtered;
 }
 
+/** Build project.gitignore from localCodexIgnoreEntries + root .gitignore without AGY leaks or duplicate entries. */
+function buildProjectGitignore(rootIgnoreText) {
+  const covered = new Set();
+  for (const entry of localCodexIgnoreEntries) {
+    covered.add(entry);
+    if (entry.startsWith('/')) covered.add(entry.slice(1));
+  }
+  const sections = rootIgnoreText.replace(/^\uFEFF/, '').replaceAll('\r\n', '\n').trimEnd().split(/\n\s*\n/);
+  const keptSections = [];
+  for (const section of sections) {
+    const rawLines = section.split('\n');
+    const kept = [];
+    let hasRule = false;
+    for (const line of rawLines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) {
+        kept.push(line);
+        continue;
+      }
+      if (trimmed === '/.agents/hooks.json' || trimmed.startsWith('/.agents/') || trimmed.startsWith('.agents/')) continue;
+      if (covered.has(trimmed) || (trimmed.startsWith('/') && covered.has(trimmed.slice(1)))) continue;
+      covered.add(trimmed);
+      if (trimmed.startsWith('/')) covered.add(trimmed.slice(1));
+      kept.push(line);
+      hasRule = true;
+    }
+    if (hasRule) keptSections.push(kept.join('\n'));
+  }
+  return '# Local Codex skills, instructions, and workflow artifacts\n'
+    + localCodexIgnoreEntries.join('\n')
+    + '\n\n'
+    + keptSections.join('\n\n')
+    + '\n';
+}
+
 export function buildBundle() {
   assertNoSymlinkAncestors(bundleRoot);
   const before = snapshotSource();
@@ -112,15 +147,15 @@ export function buildBundle() {
   const agentsPolicy = path.join(repoRoot, 'AGENTS.md');
   // Keep source-only installation routing and maintenance notes in this
   // checkout. Installed projects receive the user's three-section policy.
-  const rawInstalledPolicy = fs.readFileSync(agentsPolicy, 'utf8').split('\n<!-- source-repository-only -->')[0].trimEnd() + '\n';
+  const rawInstalledPolicy = fs.readFileSync(agentsPolicy, 'utf8').split(/\r?\n<!-- source-repository-only -->/)[0].trimEnd() + '\n';
   const installedPolicy = adaptMarkdown(rawInstalledPolicy, agentsPolicy, duplicates);
   add('AGENTS.md', installedPolicy, agentsPolicy);
   add('AGENTS.designer.md', formatDesignerPolicy(installedPolicy), agentsPolicy);
   const projectIgnore = path.join(repoRoot, '.gitignore');
-  add('project.gitignore', '# Local Codex skills, instructions, and workflow artifacts\n' + localCodexIgnoreEntries.join('\n') + '\n\n' + fs.readFileSync(projectIgnore, 'utf8'), projectIgnore);
+  add('project.gitignore', buildProjectGitignore(fs.readFileSync(projectIgnore, 'utf8')), projectIgnore);
   const hooksSource = path.join(sourceRoot, 'hooks.example.json');
   const hooks = JSON.parse(fs.readFileSync(hooksSource, 'utf8'));
-  add('hooks.example.json', json({ description: 'Optional Impeccable hooks. Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks, hooks: filterHookEntries(hooks.hooks, ['swarm-stop-guard']) }).replaceAll('.agents/skills/', '.codex/skills/').replaceAll('--hook antigravity', '--hook codex'), hooksSource);
+  add('hooks.example.json', json({ description: 'Full Harness, Impeccable, design-taste-frontend, and avoid-ai-writing hooks. Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks, hooks: filterHookEntries(hooks.hooks, ['swarm-stop-guard']) }).replaceAll('.agents/skills/', '.codex/skills/').replaceAll('--hook antigravity', '--hook codex'), hooksSource);
   add('hooks.impeccable.example.json', json({ description: 'Optional Impeccable hooks (Designer mode, without Harness hooks). Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks, hooks: filterHookEntries(hooks.hooks, ['harness.mjs', 'swarm-stop-guard']) }).replaceAll('.agents/skills/', '.codex/skills/').replaceAll('--hook antigravity', '--hook codex'), hooksSource);
 
   // Preflight every generated destination before writing any files. Refuse to

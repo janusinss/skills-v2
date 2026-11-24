@@ -7,13 +7,9 @@ reasoning_effort: medium
 target_model: "6.1-terra-medium"
 tools:
   - read_file
-  - view_file
   - grep_search
   - find_by_name
   - list_dir
-mainAgent: true
-subagent: true
-commandExecutionPolicy: auto
 ---
 
 ## Prompt Defense Baseline

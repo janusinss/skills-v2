@@ -1,12 +1,12 @@
 ---
 name: anti-ai-slop
-description: "Eliminate generic AI-generated visual, structural, motion, and copywriting slop across web and mobile UIs. Use when designing, building, auditing, or refactoring frontend interfaces, layouts, palettes, icons, motion, or UI copy."
+description: "Enforce always-on anti-slop guardrails and automated gates across UI structure, palettes, type, motion, and copy. Use when designing or auditing web and mobile UIs; for 9-pass existing-screen redlining, live URL snapshots, or RTL cleanup use unslop."
 license: MIT
 ---
 
 # Anti-AI-Slop Standards
 
-Eliminate visual, structural, chromatic, typographic, motion, and copywriting clichés across all web and mobile interfaces unless the user explicitly overrides a rule. Apply this skill alongside [UI_Always.md](../../rules/UI_Always.md) (layout/CSS/accessibility floor), [MOTION.md](../../rules/MOTION.md) (physics and GPU hygiene), [impeccable](../impeccable/SKILL.md), [design-taste-frontend](../design-taste-frontend/SKILL.md), and [avoid-ai-writing](../avoid-ai-writing/SKILL.md).
+Eliminate visual, structural, chromatic, typographic, motion, and copywriting clichés across all web and mobile interfaces unless the user explicitly overrides a rule. Apply this skill alongside [UI_Always.md](../../rules/UI_Always.md) (layout/CSS/accessibility floor), [MOTION.md](../../rules/MOTION.md) (physics and GPU hygiene), [impeccable](../impeccable/SKILL.md), [design-taste-frontend](../design-taste-frontend/SKILL.md), and [avoid-ai-writing](../avoid-ai-writing/SKILL.md). For 9-pass redlining of an existing vibecoded screen, live URL snapshots (`snapshot.mjs`), or RTL (`rtl.md`) remediation, pair with [unslop](../unslop/SKILL.md).
 
 ---
 
@@ -90,11 +90,12 @@ Enforce natural human prose and realistic domain metrics across UI copy, heading
 
 ## 6. Automated Anti-Slop Verification Gates
 
-Run all 3 deterministic gates together on frontend deliverables and resolve every finding in a single bounded pass:
+Run the applicable deterministic gates on frontend deliverables and resolve every finding in a single bounded pass:
 
-1. **Taste, Layout & Copy-Lint Gate (`design-taste-frontend`):**
+1. **Scoped Taste, Layout & Copy-Lint Gate (`design-taste-frontend`, tasteskill 2.5.1 sites only):**
+   Run `gate.mjs` **only** on marketing/company sites built with tasteskill 2.5.1 (`.taste-skill/build.json` + `<meta name="page-type">`/`site-kind`). **NEVER** arm `gate.mjs --start` on `Operate`/`Read` SaaS dashboards, admin tools, or custom GSAP/Lenis showcases (per [frontend.md](../../rules/frontend.md) and [MOTION.md](../../rules/MOTION.md)).
    ```bash
-   # Arm the finish gate on a static entry file or local dev server URL
+   # Arm the finish gate ONLY on a tasteskill 2.5.1 marketing/company site
    node .agents/skills/design-taste-frontend/scripts/gate.mjs --start <page.html | http://localhost:5173/>
    # Run full layout, consistency, and copy-lint checks
    node .agents/skills/design-taste-frontend/scripts/gate.mjs <page.html | http://localhost:5173/>

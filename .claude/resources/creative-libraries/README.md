@@ -10,6 +10,7 @@ Production-grade libraries and components for high-end, immersive web scrolling 
 
 ```text
 .claude/resources/creative-libraries/
+├── interaction-catalog.md      # 15-category, 103-pattern Creative Interaction & Choreography Catalog
 ├── gsap/                       # GSAP Core & Full Club Suite (ScrollTrigger, Flip, Observer, SplitText, etc.)
 │   ├── dist/                   # Production minified bundles (.min.js)
 │   └── src/                    # Source ES modules (all.js)
@@ -80,7 +81,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 ---
 
-## 4. Premium Component Sources (ThreeUI & Registries)
+## 4. Creative Interaction & Choreography Catalog
+
+See [interaction-catalog.md](interaction-catalog.md) for the 15-category, 103-pattern interaction catalog:
+- Covers Scroll, Heroes, Hover, Loaders, Menus, Text, Carousels, Sections, Buttons, Cursors, Footers, Page Transitions, Galleries, Marquees, and Modern Native & Tactile Web Feel.
+- Maps each category to its engine (GSAP, Lenis, ThreeUI/GLSL, CSS Scroll-Driven, View Transitions, or Springs), Surface Mode fit (`Experience` / `Persuade` / `Operate`), and `prefers-reduced-motion` behavior.
+
+---
+
+## 5. Premium Component Sources (ThreeUI & Registries)
 
 When projects require WebGL background shaders, 3D heroes, or interactive canvases, pull them from **ThreeUI** or modern registries instead of writing raw WebGL boilerplate.
 

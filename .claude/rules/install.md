@@ -1,149 +1,49 @@
----
-trigger: manual
-description: Ask edition (AGY, CODEX, or CLAUDE) and hook mode (HARNESS MODE or DESIGNER MODE) sequentially before installing this collection. The AGY branch bootstraps Playwright, activates mode-specific hooks, and verifies the installed runner.
----
+# One-time Claude Code installation and cleanup
 
-# One-Time Workspace Setup & Self-Destruct Installation Rule
+Use this guidance after the ANTHROPIC / CLAUDE CODE edition has been selected (or when asked to install this skills repository into another workspace). For a generic request without explicit choices, ask these two sequential questions in order and wait for each answer before proceeding:
 
-## Sequential Selection Before Setup
+1. **Question 1 — Edition**: "Which edition would you like to install: **AGY** (`AGY / GEMINI`), **CODEX** (`GPT / CODEX`), or **CLAUDE** (`ANTHROPIC / CLAUDE CODE`)?"
+2. **Question 2 — Hook Mode**: "Which hook mode would you like to install: **HARNESS MODE** (full Harness + Impeccable + `design-taste-frontend` + `avoid-ai-writing` hooks, `.git/hooks/pre-commit` receipt gate, and full Harness lifecycle in `CLAUDE.md`) or **DESIGNER MODE** (Impeccable, `design-taste-frontend`, and `avoid-ai-writing` hooks only, no Harness hooks or git pre-commit, and Designer `CLAUDE.md`)?"
 
-Referencing `@install.md` or asking to install this skills repository selects neither an edition nor a hook mode. Ask these two questions in order and wait for each answer before copying files or running setup (skipping either only if the user already specified it explicitly):
+Reuse explicit choices already given for this installation. If **AGY** or **CODEX** is selected instead, follow its branch in the source checkout's `INSTALL.md` (or run `node install.mjs` interactively in a TTY) rather than the Claude-only steps below. Routine dependency setup in an existing Claude Code installation does not require re-asking these questions.
 
-### Question 1: Select edition
+After **CLAUDE** and the mode are selected, read and execute this rule automatically as part of the same installation request. The selected edition and mode authorize the local setup below; do not ask the user to invoke `install.md` separately. Host permissions and network approvals still apply. Keep the source checkout separate from the recorded absolute target project.
 
-> Which edition would you like to install: **AGY** (`AGY / GEMINI`), **CODEX** (`GPT / CODEX`), or **CLAUDE** (`ANTHROPIC / CLAUDE CODE`)?
+## Run the one-time installer
 
-Wait for the answer. Do not infer the edition from the current assistant.
+From the source checkout, run the command matching the selected mode with the actual target path (or run `node install.mjs` interactively in a TTY):
 
-### Question 2: Select hook mode
-
-> Which hook mode would you like to install: **HARNESS MODE** (full Harness + Impeccable + `design-taste-frontend` + `avoid-ai-writing` hooks, `.git/hooks/pre-commit` receipt gate, and full Harness lifecycle in `AGENTS.md`/`CLAUDE.md`) or **DESIGNER MODE** (activates Impeccable, `design-taste-frontend`, and `avoid-ai-writing` hooks only, disables Harness hooks/git pre-commit, and installs Designer `AGENTS.md`/`CLAUDE.md`)?
-
-Wait for the answer. Routine dependency setup in an existing installation does not require re-asking these questions. (`--mode normal` is accepted as an alias for `--mode designer`.)
-
-## Edition & Mode Execution
-
-Or run the unified interactive installer directly in a TTY from the source checkout: `node install.mjs`.
-
-- **GPT / CODEX:** Read the source checkout's root `INSTALL.md`, then automatically read and execute its `.codex/rules/install.md` in the same request. Run from the source checkout:
-  - Harness mode: `node install.mjs --edition codex --mode harness --target <absolute-project-path> --profile all` (or `node tools/codex/install.mjs --target <absolute-project-path> --profile all --mode harness`)
-  - Designer mode: `node install.mjs --edition codex --mode designer --target <absolute-project-path> --profile all` (or `node tools/codex/install.mjs --target <absolute-project-path> --profile all --mode designer`)
-  Pass `--no-hooks` to disable all active hooks. Non-TTY invocations default to `harness` when `--mode` is omitted; interactive TTY invocations prompt if `--mode` is omitted. Keep the source rule and do not run the AGY phases below.
-- **AGY / GEMINI:** Preferred automated command from the source checkout:
-  - Harness mode: `node install.mjs --edition agy --mode harness --target <absolute-project-path>`
-  - Designer mode: `node install.mjs --edition agy --mode designer --target <absolute-project-path>`
-  For a manual installation, follow the AGY branch in root `INSTALL.md`: copy `.agents/`, clean `AGENTS.md` (content before `<!-- source-repository-only -->`, omitting Section 5 Harness lifecycle in `designer` mode), and `skills-lock.json` into the target, merge `.gitignore` (`/.agents/*`, `!/.agents/rules/`, `!/.agents/agents/`, `/AGENTS.md`), and run the phases below from that target according to your selected mode.
-- **ANTHROPIC / CLAUDE CODE:** Run from the source checkout:
-  - Harness mode: `node install.mjs --edition claude --mode harness --target <absolute-project-path> --profile all` (or `node tools/claude/install.mjs --target <absolute-project-path> --profile all --mode harness`)
-  - Designer mode: `node install.mjs --edition claude --mode designer --target <absolute-project-path> --profile all` (or `node tools/claude/install.mjs --target <absolute-project-path> --profile all --mode designer`)
-  In `designer` mode (`normal` alias), `CLAUDE.designer.md` is installed as `CLAUDE.md`, `.claude/hooks.impeccable.example.json` is copied to `.claude/hooks.json`, **only** `hooks.impeccable.example.json` is merged into `.claude/settings.json`, and `.git/hooks/pre-commit` is skipped. Pass `--no-hooks` to opt out of all hooks.
-
-Keep the source checkout and target paths distinct. Do not run self-cleanup in the source repository. Preserve existing user configuration and unrelated setup files.
-
----
-
-> Note: Phases 1–3 below are the manual-copy fallback when running without `node install.mjs --edition agy`.
-
-## Phase 1: Environment & Dependency Installation
-
-Execute the following commands in order inside the AGY target workspace:
-
-### 1. Global Playwright, `agent-browser` & Browser Installation
-Install Playwright, `agent-browser`, and Chromium globally so that all workspaces on this machine can run headless browser audits and `@eN` accessibility flows without duplicating packages:
-
-**Windows (PowerShell):**
 ```powershell
-npm install -g playwright agent-browser; npx playwright install chromium; agent-browser install
+# Harness mode (full Harness + Impeccable + design-taste-frontend + avoid-ai-writing hooks + .claude/settings.json merge + .git/hooks/pre-commit receipt gate + full CLAUDE.md; default in non-TTY/CI)
+node install.mjs --edition claude --mode harness --target "C:/Projects/my-project" --profile all
+# or directly:
+node tools/claude/install.mjs --target "C:/Projects/my-project" --profile all --mode harness
+
+# Designer mode (Impeccable, design-taste-frontend, and avoid-ai-writing hooks only; merged into .claude/settings.json; Designer CLAUDE.md; disables all Harness hooks and skips .git/hooks/pre-commit)
+node install.mjs --edition claude --mode designer --target "C:/Projects/my-project" --profile all
+# or directly:
+node tools/claude/install.mjs --target "C:/Projects/my-project" --profile all --mode designer
 ```
 
-**macOS / Linux (Bash):**
-```bash
-npm install -g playwright agent-browser && npx playwright install chromium && agent-browser install
-```
+Running `node tools/claude/install.mjs` directly in an interactive TTY without `--mode` prompts for HARNESS MODE vs DESIGNER MODE; non-TTY/CI invocations default to `harness` without blocking (`--mode normal` is accepted as an alias for `designer`).
 
-### 2. Local Skill Dependencies
-Navigate to `.claude/skills/playwright-skill` and ensure its local runner dependencies are installed:
+Node.js 20 or newer and npm are required. The installer carries out these phases in order:
 
-**Windows (PowerShell):**
+1. Verify and copy the committed, prebuilt bundle into the target's `.claude/` (`skills/`, `agents/`, `commands/`, `rules/`, `resources/`), with mode-specific root `CLAUDE.md` (`CLAUDE.md` in `harness` mode or `CLAUDE.designer.md` without Harness lifecycle in `designer` mode), `.claude/hooks.example.json`, `.claude/hooks.impeccable.example.json`, active `.claude/hooks.json` (`hooks.example.json` in `harness` mode or `hooks.impeccable.example.json` in `designer` mode; pass `--no-hooks` to opt out of active hook installation), and `.claude/claude-install.json` (recording `mode` and `hookSet`). When hooks are enabled (`--no-hooks` not passed), this phase automatically merges the selected hook set into `.claude/settings.json` while preserving existing user settings (and re-applies that merge on `--resume`). Create a root `.gitignore` if missing, or merge the source bundle's `project.gitignore` (`/.claude/*`, `!/.claude/rules/`, `!/.claude/agents/`, `!/.claude/commands/`, `/CLAUDE.md`, `/scratch/`, `/.impeccable/`, `/.harness/`, `/.agent_worktrees/`, plus OS, secrets, editor, dependency, test, cache, agent-runtime, and audit rules), keeping exception ordering intact. Existing payload files and symlink destinations are refused. Use a smaller named profile only when requested. `--dry-run` previews without copying, modifying `.gitignore`, installing dependencies, or deleting files.
+2. From the target's `.claude/skills/playwright-skill`, run `npm ci --no-audit --no-fund --prefer-offline`, precheck for a working browser, and run `node node_modules/playwright/cli.js install chromium` only if no working browser is already available. When the profile includes `playwright-skill` or `agent-browser`, also check `agent-browser --version` and `agent-browser doctor --offline --quick --json` (installing `agent-browser` and its browser runtime non-fatally if missing). Verify the installed Playwright runner inline for `PLAYWRIGHT_VERIFIED_OK` without creating permanent test files, recording `playwright` and `agentBrowser` status in `.claude/claude-install.json`. A profile without `playwright-skill` and `agent-browser` skips this phase and records that fact.
+3. In **HARNESS MODE** (when hooks are enabled and `.git` is present), install or non-destructively chain the `.git/hooks/pre-commit` receipt gate from `.claude/skills/continuous-agent-loop/scripts/harness.mjs`. In **DESIGNER MODE** (or when `--no-hooks` is specified), skip `.git/hooks/pre-commit`.
+4. After successful setup, delete only the target's `.claude/rules/install.md` copy created by this installation. Remove that path from `.claude/claude-install.json` and record setup completion (including `mode`, `hooks`, `gitHook`, `playwright`, and `agentBrowser` state) there. Keep the source checkout's rule and other project files. Installed `CLAUDE.md` handles the rule's absence and retains the ongoing workspace rules.
+
+If setup or verification fails, retain the target's installation rule and report the failure. Retry the existing installation from the source checkout without copying over its files (mode/profile consistency is enforced if passed on `--resume`). This command also creates or repairs `.gitignore` in an already completed installation without reinstalling dependencies or rerunning browser setup:
+
 ```powershell
-Push-Location .claude\skills\playwright-skill; npm install --no-audit --prefer-offline; Pop-Location
+node tools/claude/install.mjs --target "C:/Projects/my-project" --resume
 ```
 
-**macOS / Linux (Bash):**
-```bash
-(cd .claude/skills/playwright-skill && npm install --no-audit --prefer-offline)
-```
+If a bundle integrity check fails before copying, use a fresh complete checkout. Do not run `npm ci` for conversion tooling, the converter, source validation, or submodule initialization during standard installation. Do not rename installed folders or change hashes to bypass failures. The copy-only `export.mjs` is for staging; it does not perform these setup and cleanup phases.
 
-### 3. Hook Activation by Selected Mode
+## Finish the installation request
 
-Run **only** the branch matching Question 2 (preserving any existing `.claude/hooks.json`):
+Report the selected edition, selected hook mode (`HARNESS MODE` or `DESIGNER MODE`), absolute target, hook activation (`.claude/hooks.json`, `.claude/settings.json`, and `.git/hooks/pre-commit` status), dependency and browser verification results, and the installed rule removed. In Claude Code, skills are discoverable via `/skill-name`, agents via `@agent-name`, and custom commands via `/plan`, `/tdd`, `/audit`, `/review`, `/eval`, `/contract`, `/verify`, and `/flywheel`.
 
-#### HARNESS MODE (Harness + Impeccable + design-taste-frontend + avoid-ai-writing hooks + git pre-commit receipt gate)
-
-**Windows (PowerShell):**
-```powershell
-if (-not (Test-Path -LiteralPath '.claude/hooks.json')) { Copy-Item -LiteralPath '.claude/hooks.example.json' -Destination '.claude/hooks.json' }
-if (Test-Path -LiteralPath '.git') { node .claude/skills/continuous-agent-loop/scripts/harness.mjs install-git-hook }
-```
-
-**macOS / Linux (Bash):**
-```bash
-[ -f .claude/hooks.json ] || cp .claude/hooks.example.json .claude/hooks.json
-[ ! -d .git ] || node .claude/skills/continuous-agent-loop/scripts/harness.mjs install-git-hook
-```
-
-#### DESIGNER MODE (Impeccable, design-taste-frontend, and avoid-ai-writing hooks only; Designer AGENTS.md without Harness lifecycle; disables all Harness hooks and skips git pre-commit)
-
-**Windows (PowerShell):**
-```powershell
-if (-not (Test-Path -LiteralPath '.claude/hooks.json')) { Copy-Item -LiteralPath '.claude/hooks.impeccable.example.json' -Destination '.claude/hooks.json' }
-```
-
-**macOS / Linux (Bash):**
-```bash
-[ -f .claude/hooks.json ] || cp .claude/hooks.impeccable.example.json .claude/hooks.json
-```
-
----
-
-## Phase 2: Zero-Scratch Execution Verification
-
-Execute the following inline Playwright test and `agent-browser` health check to verify that both runners operate with zero errors and zero disk scratch files:
-
-```bash
-node .claude/skills/playwright-skill/run.js -e "const browser = await chromium.launch({ headless: true }); const page = await browser.newPage(); console.log('PLAYWRIGHT_VERIFIED_OK'); await browser.close();"
-agent-browser --version && agent-browser doctor --offline --quick --json
-```
-
-Verify that the output contains `PLAYWRIGHT_VERIFIED_OK` and `agent-browser doctor` passes cleanly.
-
----
-
-## Phase 3: Self-Destruct & Ephemeral Cleanup
-
-Once required setup is verified, delete only temporary setup artifacts created for this installation in the target. This installed rule may self-delete in the target; retain the source checkout's copy. Do not delete unrelated existing files merely because their names match the examples below.
-
-### Eligible cleanup files:
-1. `install.ps1`, `install.sh`, or root `install.md`, only if created as temporary setup artifacts for this installation
-2. The `.claude/rules/install.md` copy installed into this target during this installation
-
-Populate the cleanup list from the files actually created for this operation. The commands below remove only the installed rule; add other verified temporary paths individually if needed.
-
-**Windows (PowerShell):**
-```powershell
-Remove-Item -LiteralPath '.claude/rules/install.md'
-```
-
-**macOS / Linux (Bash):**
-```bash
-rm -f .claude/rules/install.md
-```
-
----
-
-## Phase 4: Final Report to User
-Report to the user:
-1. Selected edition and hook mode (`HARNESS MODE` or `DESIGNER MODE`), with the absolute target path.
-2. Playwright and Chromium setup, `.claude/hooks.json` (and `.git/hooks/pre-commit` when in `HARNESS MODE`) activation, and in-memory verification results that actually ran.
-3. The setup files removed.
-4. Any remaining dependency or host-discovery checks.
+Lifecycle hooks (`.claude/hooks.json`, `.claude/settings.json`, and in Harness mode `.git/hooks/pre-commit`) are installed and activated by default (`includeHooks = true`; pass `--mode designer` for Impeccable, `design-taste-frontend`, and `avoid-ai-writing` hooks without Harness hooks, or `--no-hooks` to disable all hooks). Set up other external services when their workflows need them. Preserve existing user configuration and global policy; this local installer does not create global Claude Code instructions or configure external accounts.

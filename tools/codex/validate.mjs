@@ -15,6 +15,86 @@ function missingLinks(text, absolute, root) {
   return [...new Set(missing)];
 }
 
+function checkHookFile(hookFile, label, dataRoot, partialProfile, errors, warnings) {
+  try {
+    const parsed = JSON.parse(fs.readFileSync(hookFile, 'utf8'));
+    if (!isRecord(parsed.hooks)) {
+      errors.push(`${label} must contain hooks`);
+      return;
+    }
+    for (const [event, groups] of Object.entries(parsed.hooks)) {
+      if (!Array.isArray(groups)) continue;
+      for (const group of groups) {
+        if (!group || !Array.isArray(group.hooks)) continue;
+        for (const entry of group.hooks) {
+          for (const field of ['command', 'commandWindows']) {
+            const cmd = entry?.[field];
+            if (typeof cmd !== 'string') continue;
+            const refs = new Set();
+            for (const match of cmd.matchAll(/\.codex\/((?:skills|scripts|rules|agents|resources)\/[A-Za-z0-9._/-]+)/g)) {
+              refs.add(match[1]);
+            }
+            for (const rel of refs) {
+              const target = path.join(dataRoot, rel);
+              if (!fs.existsSync(target)) {
+                if (partialProfile && rel.startsWith('skills/')) warnings.push(`${label} (${event}): out-of-profile hook script .codex/${rel}`);
+                else errors.push(`${label} (${event}): missing hook script .codex/${rel}`);
+              }
+            }
+          }
+        }
+      }
+    }
+  } catch (error) {
+    errors.push(`${label}: ${error.message}`);
+  }
+}
+
+function checkLeaks(text, label, patterns, errors) {
+  for (const { pattern, message } of patterns) {
+    if (pattern.test(text)) errors.push(`${label}: ${message}`);
+  }
+}
+
+const policyLeakChecks = [
+  { pattern: /\binvoke_subagent\b/, message: 'leaks AGY invoke_subagent' },
+  { pattern: /AGY \/ Gemini/, message: 'leaks AGY / Gemini edition routing' },
+  { pattern: /\bClaude Code\b/, message: 'leaks Claude Code edition routing' },
+  { pattern: /`ask_question`/, message: 'leaks AGY `ask_question` tool name' },
+  { pattern: /`@e2e-runner`/, message: 'leaks Claude `@e2e-runner` mention' },
+  { pattern: /<!--\s*edition-/, message: 'leaks leftover edition HTML marker' },
+];
+
+const designerLeakChecks = [
+  { pattern: /^## 5\./m, message: 'Designer policy must not include Section 5 Harness lifecycle' },
+  { pattern: /\bskeptic\b/i, message: 'Designer policy must not mention skeptic' },
+  { pattern: /PROGRESS\.md/, message: 'Designer policy must not mention PROGRESS.md' },
+  { pattern: /\bharness\.mjs\b/, message: 'Designer policy must not mention harness.mjs' },
+];
+
+const ruleLeakChecks = [
+  { pattern: /\binvoke_subagent\b/, message: 'leaks AGY invoke_subagent' },
+  { pattern: /`ask_question`/, message: 'leaks AGY `ask_question` tool name' },
+  { pattern: /`@e2e-runner`/, message: 'leaks Claude `@e2e-runner` mention' },
+];
+
+const agentLeakChecks = [
+  { pattern: /\binvoke_subagent\b/, message: 'leaks AGY invoke_subagent' },
+  { pattern: /`ask_question`/, message: 'leaks AGY `ask_question` tool name' },
+  { pattern: /`@e2e-runner`/, message: 'leaks Claude `@e2e-runner` mention' },
+  { pattern: /^mainAgent:/m, message: 'leaks AGY-only frontmatter key mainAgent:' },
+  { pattern: /^commandExecutionPolicy:/m, message: 'leaks AGY-only frontmatter key commandExecutionPolicy:' },
+  { pattern: /^subagent:/m, message: 'leaks AGY-only frontmatter key subagent:' },
+  { pattern: /^[ \t]*-\s*view_file\b/m, message: 'leaks AGY-only tool view_file' },
+];
+
+const skillLeakChecks = [
+  { pattern: /\bupstream-hooks\b/, message: 'leaks raw Claude upstream-hooks metadata' },
+  { pattern: /\$\{CLAUDE_PLUGIN_ROOT\}/, message: 'leaks unset ${CLAUDE_PLUGIN_ROOT}' },
+  { pattern: /`ask_question`/, message: 'leaks AGY `ask_question` tool name' },
+  { pattern: /`@e2e-runner`/, message: 'leaks Claude `@e2e-runner` mention' },
+];
+
 export function validateBundle(root = bundleRoot, { checkSource = false, checkManifest = true } = {}) {
   const errors = [];
   const warnings = [];
@@ -25,8 +105,10 @@ export function validateBundle(root = bundleRoot, { checkSource = false, checkMa
   for (const file of manifests) {
     const relative = slash(path.relative(root, file));
     try {
-      const { frontmatter, body } = parseSkill(fs.readFileSync(file, 'utf8'), file);
+      const raw = fs.readFileSync(file, 'utf8');
+      const { frontmatter, body } = parseSkill(raw, file);
       errors.push(...checkSkill(frontmatter, path.basename(path.dirname(file))).map(message => `${relative}: ${message}`));
+      checkLeaks(raw, relative, skillLeakChecks, errors);
       const metadata = path.join(path.dirname(file), 'agents/openai.yaml');
       if (!fs.existsSync(metadata)) errors.push(`${relative}: missing agents/openai.yaml`);
       else errors.push(...checkOpenai(parseYaml(fs.readFileSync(metadata, 'utf8'), metadata), frontmatter.name).map(message => `${relative}: ${message}`));
@@ -47,12 +129,36 @@ export function validateBundle(root = bundleRoot, { checkSource = false, checkMa
   }
   const partialProfile = Boolean(installed?.profile && installed.profile !== 'all');
   const instruction = path.join(root, 'AGENTS.md');
-  for (const file of [...filesIn(path.join(dataRoot, 'rules')).filter(file => file.endsWith('.md')), instruction]) {
+  const designerInstruction = path.join(root, 'AGENTS.designer.md');
+  const ruleFiles = filesIn(path.join(dataRoot, 'rules')).filter(file => file.endsWith('.md'));
+  for (const file of [...ruleFiles, instruction]) {
     if (!fs.existsSync(file)) { errors.push(`Missing instructions: ${file}`); continue; }
-    for (const target of missingLinks(fs.readFileSync(file, 'utf8'), file, dataRoot)) {
-      if (partialProfile && /^(?:\.\.\/|\.codex\/|\.agents\/)?skills\//.test(target)) warnings.push(`${slash(path.relative(root, file))}: out-of-profile skill link ${target}`);
-      else errors.push(`${slash(path.relative(root, file))}: missing instruction link ${target}`);
+    const rel = slash(path.relative(root, file));
+    const text = fs.readFileSync(file, 'utf8');
+    for (const target of missingLinks(text, file, dataRoot)) {
+      if (partialProfile && /^(?:\.\.\/|\.codex\/|\.agents\/)?skills\//.test(target)) warnings.push(`${rel}: out-of-profile skill link ${target}`);
+      else errors.push(`${rel}: missing instruction link ${target}`);
     }
+    if (file === instruction) {
+      checkLeaks(text, rel, policyLeakChecks, errors);
+      if (installed?.mode === 'designer') checkLeaks(text, rel, designerLeakChecks, errors);
+    } else {
+      checkLeaks(text, rel, ruleLeakChecks, errors);
+    }
+  }
+  if (fs.existsSync(designerInstruction)) {
+    const rel = slash(path.relative(root, designerInstruction));
+    const text = fs.readFileSync(designerInstruction, 'utf8');
+    for (const target of missingLinks(text, designerInstruction, dataRoot)) {
+      if (partialProfile && /^(?:\.\.\/|\.codex\/|\.agents\/)?skills\//.test(target)) warnings.push(`${rel}: out-of-profile skill link ${target}`);
+      else errors.push(`${rel}: missing instruction link ${target}`);
+    }
+    checkLeaks(text, rel, [...policyLeakChecks, ...designerLeakChecks], errors);
+  }
+  const projectIgnorePath = path.join(root, 'project.gitignore');
+  if (fs.existsSync(projectIgnorePath)) {
+    const ignoreText = fs.readFileSync(projectIgnorePath, 'utf8');
+    if (ignoreText.includes('/.agents/hooks.json')) errors.push('project.gitignore: leaks AGY /.agents/hooks.json');
   }
   const profilesPath = path.join(root, 'profiles.json');
   if (fs.existsSync(profilesPath)) {
@@ -87,12 +193,7 @@ export function validateBundle(root = bundleRoot, { checkSource = false, checkMa
     if (installed.hooksIncluded) {
       const activeHooksPath = path.join(dataRoot, 'hooks.json');
       if (!fs.existsSync(activeHooksPath)) errors.push('Missing active .codex/hooks.json in hooks-enabled installation');
-      else {
-        try {
-          const parsedHooks = JSON.parse(fs.readFileSync(activeHooksPath, 'utf8'));
-          if (!isRecord(parsedHooks.hooks)) errors.push('.codex/hooks.json must contain hooks');
-        } catch (error) { errors.push(`.codex/hooks.json: ${error.message}`); }
-      }
+      else checkHookFile(activeHooksPath, '.codex/hooks.json', dataRoot, partialProfile, errors, warnings);
     }
   }
   const agentsDir = path.join(dataRoot, 'agents');
@@ -100,10 +201,12 @@ export function validateBundle(root = bundleRoot, { checkSource = false, checkMa
     for (const agentFile of filesIn(agentsDir).filter(file => file.endsWith('.md'))) {
       const rel = slash(path.relative(root, agentFile));
       try {
-        const { frontmatter, body } = parseSkill(fs.readFileSync(agentFile, 'utf8'), agentFile);
+        const raw = fs.readFileSync(agentFile, 'utf8');
+        const { frontmatter, body } = parseSkill(raw, agentFile);
         if (!['mini', 'codex', 'reasoning'].includes(frontmatter.model_tier)) errors.push(`${rel}: missing or invalid Codex model_tier`);
         if (!['low', 'medium', 'high', 'xhigh', 'max'].includes(frontmatter.reasoning_effort)) errors.push(`${rel}: missing or invalid Codex reasoning_effort`);
         if (['haiku', 'sonnet', 'opus'].includes(frontmatter.model)) errors.push(`${rel}: Codex agent must not use Claude model name ${frontmatter.model}`);
+        checkLeaks(raw, rel, agentLeakChecks, errors);
         for (const target of missingLinks(body, agentFile, dataRoot)) {
           if (partialProfile && /^(?:\.\.\/|\.codex\/|\.agents\/)?skills\//.test(target)) warnings.push(`${rel}: out-of-profile skill link ${target}`);
           else errors.push(`${rel}: missing agent link ${target}`);
@@ -111,13 +214,12 @@ export function validateBundle(root = bundleRoot, { checkSource = false, checkMa
       } catch (error) { errors.push(`${rel}: ${error.message}`); }
     }
   }
-  for (const hookCandidate of [path.join(root, 'hooks.example.json'), path.join(dataRoot, 'hooks.example.json')]) {
-    if (fs.existsSync(hookCandidate)) {
-      try {
-        const hooks = JSON.parse(fs.readFileSync(hookCandidate, 'utf8'));
-        if (!isRecord(hooks.hooks)) errors.push('hooks.example.json must contain hooks');
-      } catch (error) { errors.push(`hooks.example.json: ${error.message}`); }
-      break;
+  for (const hookName of ['hooks.example.json', 'hooks.impeccable.example.json']) {
+    for (const hookCandidate of [path.join(root, hookName), path.join(dataRoot, hookName)]) {
+      if (fs.existsSync(hookCandidate)) {
+        checkHookFile(hookCandidate, hookName, dataRoot, partialProfile, errors, warnings);
+        break;
+      }
     }
   }
   return {

@@ -3,6 +3,7 @@ name: agent-browser
 description: "Automate browsers, inspect accessibility-tree snapshots with @eN element refs, fill forms, and test web flows with Vercel Agent Browser CLI. Use when navigating pages, testing UI flows, or automating browser actions alongside Playwright."
 license: Apache-2.0
 compatibility: "Requires Node.js 20+, global agent-browser CLI (npm install -g agent-browser), and Chrome via agent-browser install."
+allowed-tools: Bash(agent-browser:*) Bash(node:*) Read
 ---
 
 # Agent Browser CLI

@@ -172,7 +172,7 @@ Design and build a complete, production-ready backend system for [Product Name /
 - Connection Pooling: Mandate connection pool (min/max size, idle timeouts, guaranteed release on function exit, graceful `503 Service Unavailable` on pool exhaustion).
 - Atomic Mutations & Concurrency: Wrap multi-step mutations in explicit `BEGIN`/`COMMIT`/`ROLLBACK` transactions with row-level locking (`SELECT ... FOR UPDATE`) or optimistic version tokens.
 - Observability & Error Suppression: Structured JSON logging with request IDs, `/health` endpoint (`SELECT 1`), and production error responses that suppress stack traces, SQL errors, and system paths.
-- Defensive Verification Gates: Run dependency audits (`npm/composer/pip audit`), verify `401` on unauthenticated access, `403`/`404` on cross-tenant IDOR probes, clean validation rejection on `' OR 1=1 --` payloads, `429` on rapid auth failures, and remediate any Strix findings (`strix_runs/<run-name>/vulnerabilities.json`) via root-cause patches.
+- Defensive Verification Gates: Run dependency audits (`npm audit`, `composer audit`, `pip-audit`), verify `401` on unauthenticated access, `403`/`404` on cross-tenant IDOR probes, clean validation rejection on `' OR 1=1 --` payloads, `429` on rapid auth failures, and remediate any Strix findings (`strix_runs/<run-name>/vulnerabilities.json`) via root-cause patches.
 
 ### Business Rules & Concurrency Edge Cases
 - [Critical validation / calculation rule 1]

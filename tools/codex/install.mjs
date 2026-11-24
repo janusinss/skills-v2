@@ -53,7 +53,12 @@ function installGitPreCommitHook(execute, target, manifest) {
     const existing = fs.readFileSync(preCommitPath, 'utf8');
     if (existing.includes('pre-commit-check')) return 'active';
     if (!existing.includes('# Installed by Self-Improving Agent Harness')) {
-      const chained = `${existing.trimEnd()}\n\n# Installed by Self-Improving Agent Harness (harness.mjs install-git-hook)\nHARNESS_ROOT=\$(cd "\$(dirname "\$0")/../.." 2>/dev/null && pwd || pwd)\nnode "\$HARNESS_ROOT/${harnessRunner}" pre-commit-check\n`;
+      const normalized = existing.replace(/^\uFEFF/, '').replaceAll('\r\n', '\n');
+      const shebangMatch = /^(#![^\n]*)\n?/.exec(normalized);
+      const shebang = shebangMatch ? shebangMatch[1] : '#!/bin/sh';
+      const body = (shebangMatch ? normalized.slice(shebangMatch[0].length) : normalized).trimEnd();
+      const wrappedExisting = body.trim() ? `(\n${body}\n) || exit $?\n\n` : '';
+      const chained = `${shebang}\n${wrappedExisting}# Installed by Self-Improving Agent Harness (harness.mjs install-git-hook)\nHARNESS_ROOT=\$(cd "\$(dirname "\$0")/../.." 2>/dev/null && pwd || pwd)\nnode "\$HARNESS_ROOT/${harnessRunner}" pre-commit-check\n`;
       fs.writeFileSync(preCommitPath, chained, { encoding: 'utf8', mode: 0o755 });
       return 'chained';
     }
@@ -102,7 +107,7 @@ export function setupAgentBrowser(execute, target) {
     let version = runPlatformCmd(execute, 'agent-browser', ['--version'], checkOpts);
     if (!version || version.error || version.status !== 0) {
       console.error('agent-browser CLI not found. Installing globally via npm...');
-      const npmInstall = runPlatformCmd(execute, 'npm', ['install', '-g', 'agent-browser', '--no-audit', '--no-fund'], { cwd: target, stdio: 'inherit' });
+      const npmInstall = runPlatformCmd(execute, 'npm', ['install', '-g', 'agent-browser', '--no-audit', '--no-fund'], { cwd: target, stdio: ['ignore', 2, 2] });
       if (!npmInstall || npmInstall.error || npmInstall.status !== 0) {
         console.error(`agent-browser global install warning: ${npmInstall?.error?.message || npmInstall?.stderr?.trim() || `exit ${npmInstall?.status ?? 1}`}`);
         return 'unavailable';
@@ -121,7 +126,7 @@ export function setupAgentBrowser(execute, target) {
     }
 
     console.error('Installing browser runtime for agent-browser...');
-    const installRes = runPlatformCmd(execute, 'agent-browser', ['install'], { cwd: target, stdio: 'inherit' });
+    const installRes = runPlatformCmd(execute, 'agent-browser', ['install'], { cwd: target, stdio: ['ignore', 2, 2] });
     const recheck = runPlatformCmd(execute, 'agent-browser', ['doctor', '--offline', '--quick', '--json'], checkOpts);
     if (recheck && !recheck.error && recheck.status === 0) {
       return 'verified';
@@ -210,8 +215,8 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
       const hasLocalModules = fs.existsSync(path.join(skillDirectory, 'node_modules/playwright'));
       if (!hasLocalModules) {
         console.error('Installing local Playwright dependencies from the included lockfile...');
-        if (process.platform === 'win32') runStep(execute, process.env.ComSpec || 'cmd.exe', ['/d', '/s', '/c', 'npm ci --no-audit --no-fund --prefer-offline'], { cwd: skillDirectory, stdio: 'inherit' }, 'Playwright dependency setup');
-        else runStep(execute, 'npm', ['ci', '--no-audit', '--no-fund', '--prefer-offline'], { cwd: skillDirectory, stdio: 'inherit' }, 'Playwright dependency setup');
+        if (process.platform === 'win32') runStep(execute, process.env.ComSpec || 'cmd.exe', ['/d', '/s', '/c', 'npm ci --no-audit --no-fund --prefer-offline'], { cwd: skillDirectory, stdio: ['ignore', 2, 2] }, 'Playwright dependency setup');
+        else runStep(execute, 'npm', ['ci', '--no-audit', '--no-fund', '--prefer-offline'], { cwd: skillDirectory, stdio: ['ignore', 2, 2] }, 'Playwright dependency setup');
       } else {
         console.error('Local Playwright dependencies already present. Skipping npm ci.');
       }
@@ -225,7 +230,7 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
         console.error('No working browser detected. Attempting Chromium download...');
         let downloadError = null;
         try {
-          runStep(execute, process.execPath, [path.join(skillDirectory, 'node_modules/playwright/cli.js'), 'install', 'chromium'], { cwd: skillDirectory, stdio: 'inherit' }, 'Chromium setup');
+          runStep(execute, process.execPath, [path.join(skillDirectory, 'node_modules/playwright/cli.js'), 'install', 'chromium'], { cwd: skillDirectory, stdio: ['ignore', 2, 2] }, 'Chromium setup');
         } catch (err) {
           downloadError = err;
           console.error(`Chromium download warning: ${err.message}`);

@@ -1,153 +1,58 @@
 ---
 trigger: model_decision
-description: Application security standards, attack surface minimization, and exploit prevention.
+description: Application security standards, attack surface minimization, and exploit defense. Activate when implementing or auditing auth, sessions, API endpoints, input handling, file uploads, cryptography, server configs, or security headers.
 ---
 
 # Application Security & Exploit Defense Standards
 
-Execute this pipeline when designing, implementing, or auditing routing, server configs, auth, APIs, data boundaries, and file intake. For dynamic penetration testing and functional QA, see [penetrating-and-testing.md](.agents/rules/penetrating-and-testing.md).
-
----
+Apply when building or auditing routing, server configs, auth, APIs, data boundaries, uploads, or headers. For dynamic pentesting and Strix runs, see [penetrating-and-testing.md](.agents/rules/penetrating-and-testing.md).
 
 ## 1. Security Skill Dispatch Matrix
-Before generating security-sensitive code, inspect only the 1–2 skills matching the active task/surface via `view_file` rather than loading all listed skills:
+Inspect only the 1-2 skills matching the active surface via `read_file`:
 
-| Objective / Surface | Required Skill Link |
+| Surface | Skill / Agent |
 | :--- | :--- |
-| **Code Vulnerabilities & Pentesting** | [penetration-testing-with-strix](.agents/skills/penetration-testing-with-strix/SKILL.md) · [security-audit](.agents/skills/security-audit/SKILL.md) · [ethical-hacking-methodology](.agents/skills/ethical-hacking-methodology/SKILL.md) |
-| **Whole-Product AppSec (Source, API & CI)** | [application-security-testing](.agents/skills/application-security-testing/SKILL.md) |
-| **APIs & OWASP API 2023** | [penetration-testing-with-strix](.agents/skills/penetration-testing-with-strix/SKILL.md) · [api-security-best-practices](.agents/skills/api-security-best-practices/SKILL.md) |
-| **Web Apps & OWASP Top 10** | [penetration-testing-with-strix](.agents/skills/penetration-testing-with-strix/SKILL.md) · [top-web-vulnerabilities](.agents/skills/top-web-vulnerabilities/SKILL.md) |
-| **Frontend & Browser Security (XSS, CSRF, CSP)** | [frontend-security-coder](.agents/skills/frontend-security-coder/SKILL.md) |
-| **Auth, Sessions & IDOR** | [auth-implementation-patterns](.agents/skills/auth-implementation-patterns/SKILL.md) · [api-security-best-practices](.agents/skills/api-security-best-practices/SKILL.md) |
-| **Remediation & CI/CD Gates** | [fix-security-vulnerabilities-with-strix](.agents/skills/fix-security-vulnerabilities-with-strix/SKILL.md) · [ci-security-scanning-with-strix](.agents/skills/ci-security-scanning-with-strix/SKILL.md) |
-| **Specialist Subagents (`.agents/agents/`)** | [security-auditor](.agents/agents/security-auditor.md) · [penetration-tester](.agents/agents/penetration-tester.md) · [silent-failure-hunter](.agents/agents/silent-failure-hunter.md) · [skeptic](.agents/agents/skeptic.md) |
+| **Static Audit & Methodology** | [security-audit](.agents/skills/security-audit/SKILL.md) · [ethical-hacking-methodology](.agents/skills/ethical-hacking-methodology/SKILL.md) |
+| **APIs & OWASP Top 10** | [api-security-best-practices](.agents/skills/api-security-best-practices/SKILL.md) · [top-web-vulnerabilities](.agents/skills/top-web-vulnerabilities/SKILL.md) |
+| **Auth & Browser Security** | [auth-implementation-patterns](.agents/skills/auth-implementation-patterns/SKILL.md) · [frontend-security-coder](.agents/skills/frontend-security-coder/SKILL.md) |
+| **Subagents** | [security-auditor](.agents/agents/security-auditor.md) · [penetration-tester](.agents/agents/penetration-tester.md) · [silent-failure-hunter](.agents/agents/silent-failure-hunter.md) · [skeptic](.agents/agents/skeptic.md) |
 
----
-
-## Phase 0: Attack Surface Minimization & Reconnaissance Defense
-> **Skills**: [penetration-testing-with-strix](.agents/skills/penetration-testing-with-strix/SKILL.md) · [ethical-hacking-methodology](.agents/skills/ethical-hacking-methodology/SKILL.md)
-
-1. **Routing & URL Masking**:
-   - Zero script extensions in URLs (`.php`, `.asp`, `.jsp`, `.cgi`, `.py`). All dynamic endpoints use clean semantic paths (`/login`, `/api/v1/orders`).
-   - Static asset folders (`/assets/`, `/public/`) serve static files (`.css`, `.js`, `.png`, `.svg`, `.webp`) with explicit cache headers.
-   - Block direct access to physical script files in webroots (requests to `/index.php` return `404 Not Found`).
-2. **Server Fingerprint Suppression**:
-   - Strip runtime headers: Apache (`ServerTokens Prod`, `ServerSignature Off`, `Header unset Server`), PHP (`expose_php = Off`), Express (`app.disable('x-powered-by')`), Next.js (`poweredByHeader: false`), and version banners (`X-AspNet-Version`, `X-Runtime`).
-3. **Directory Browsing & Sensitive Files**:
-   - Enforce `Options -Indexes` (Apache) and `autoindex off` (Nginx).
-   - Deny web access to `.git/`, `.env*`, `.gitignore`, `.htaccess`, `composer.*`, `package*.json`, `skills-lock.json`, `*.sql`, `*.sqlite`, `*.db`, `*.log`, `*.bak`, `*.conf`, `*.md`.
-4. **Error & Enumeration Suppression**:
-   - Suppress stack traces, SQL errors, and system paths (`C:\xampp\...`, `/var/www/...`) in user responses.
-   - Return identical response codes, generic error messages ("Invalid credentials"), and constant-time delays across valid and invalid accounts.
-
----
+## Phase 0: Attack Surface & Recon Defense
+1. **Routing & File Exposure**: Use clean paths without raw script extensions; serve static assets from dedicated public folders. Disable directory listing (`Options -Indexes` / `autoindex off`) and deny web access to `.git/`, `.env*`, `.htaccess`, manifests/lockfiles, `*.sql`/`*.sqlite`/`*.db`, logs, backups, and configs.
+2. **Fingerprint Suppression**: Strip server/runtime banners where supported (Apache `ServerTokens Prod` + `ServerSignature Off`, PHP `expose_php = Off`, Express `app.disable('x-powered-by')`, Next.js `poweredByHeader: false`, `X-AspNet-Version`/`X-Runtime`).
+3. **Error & Enumeration Defense**: Suppress stack traces, raw SQL errors, and filesystem paths in production. Return uniform status codes and generic auth errors ("Invalid credentials") without account-existence timing or message leaks.
 
 ## Phase 1: Input Boundary & Injection Defense
-> **Skills**: [api-security-best-practices](.agents/skills/api-security-best-practices/SKILL.md) · [top-web-vulnerabilities](.agents/skills/top-web-vulnerabilities/SKILL.md)
+1. **Schema Validation**: Validate query, path, header, and body inputs with strict schemas (Zod, Pydantic, Joi, Valibot); forbid unknown keys (`strict()`/`extra: forbid`) and reject/normalize duplicate params (HPP).
+2. **Parameterized Queries**: Parameterize 100% of DB operations (PDO, Prisma, SQLAlchemy, Eloquent). Never interpolate variables into SQL, table names, or `ORDER BY`; map dynamic identifiers via a server allowlist.
+3. **Command Injection Ban**: Never pass user input to shell strings (`exec`, `system`, `shell_exec`, `child_process.exec`, `popen`). Use native SDKs or argument vectors with `shell: false`.
+4. **XXE, SSTI & Deserialization**: Disable XML external entities/DTDs: on PHP 8+ rely on modern libxml defaults and disallow `LIBXML_NOENT`/`LIBXML_DTDLOAD`; use `defusedxml` in Python; disable DTDs in Java/Node parsers. Never compile user input as a template. Ban unsafe deserialization (`unserialize()`, `pickle.loads()`, `yaml.load()`); use JSON or `yaml.safe_load()`.
 
-1. **Edge Schema Validation**:
-   - Validate query params, route args, headers, and request bodies against strict schemas (Zod, Pydantic, Joi). Reject unrecognized keys (`extra: forbid`).
-   - Defeat HTTP Parameter Pollution (HPP) by rejecting duplicate keys or enforcing explicit array handling in middleware.
-2. **100% Prepared Statements (SQLi / NoSQLi)**:
-   - Parameterize all database operations (PDO, Prisma, SQLAlchemy, Eloquent).
-   - Zero string concatenation: Never interpolate variables or template literals into SQL queries, table names, or `ORDER BY` clauses. Use strict allowlists for dynamic identifiers.
-3. **Command Injection Ban**:
-   - Ban executing shell strings (`exec`, `system`, `shell_exec`, `child_process.exec`, `popen`) with user input.
-   - Use language SDKs or strict argument vectors (`spawn(cmd, [args], { shell: false })`).
-4. **XXE, SSTI & Deserialization Lockdown**:
-   - Disable external entity expansion (`libxml_disable_entity_loader(true)`).
-   - Never pass user input to template engine compilation methods (Twig, Jinja2, Blade).
-   - Ban native deserialization (`unserialize()`, `pickle.loads()`, `yaml.load()`) on untrusted data; use `JSON.parse` or safe schema decoders.
+## Phase 2: Auth, Sessions & Anti-Automation
+1. **Tiered Rate Limits**: Calibrate rate limits and progressive backoff to endpoint risk (strict per-IP/account budgets on auth, recovery, MFA; bounded quotas on public mutations/search).
+2. **Passwords & Timing**: Hash passwords with Argon2id (OWASP params) or bcrypt (cost >= 12). Compare tokens and HMACs in constant time (`crypto.timingSafeEqual()`, `hmac.compare_digest()`, `hash_equals()`).
+3. **Sessions & CSRF**: Issue CSPRNG tokens (>=128 bits), rotate IDs on login/privilege change/logout, and set `Secure; HttpOnly; SameSite=Lax; Path=/` (`SameSite=Strict` for admin; omit `Secure` only on plain HTTP localhost). Enforce anti-CSRF tokens or `Origin`/Fetch-Metadata checks on cookie-auth mutations.
+4. **Client-Side Passkeys (WebAuthn)**: Query [modern-web-guidance](.agents/skills/modern-web-guidance/SKILL.md) (`search`->`retrieve`) for Baseline browser support and fallbacks when implementing Passkeys.
 
----
+## Phase 3: Authorization (BOLA / IDOR / RBAC)
+1. **Object-Level Authz**: Scope every lookup, update, and delete to the server-verified principal/tenant (`WHERE id = :item_id AND organization_id = :auth_org_id`). Never trust client-supplied `user_id`, `org_id`, or `role`.
+2. **Opaque IDs & RBAC**: Prefer non-enumerable IDs (UUIDv7 for B-tree locality, UUIDv4, NanoID) on external URLs as defense-in-depth, never as a substitute for server-side RBAC on every route/resolver.
 
-## Phase 2: Authentication, Session Security & Anti-Automation
-> **Skills**: [auth-implementation-patterns](.agents/skills/auth-implementation-patterns/SKILL.md) · [top-web-vulnerabilities](.agents/skills/top-web-vulnerabilities/SKILL.md)
+## Phase 4: File Intake & Upload Defense
+1. **Validation & Naming**: Check binary magic bytes (`file-type`, `python-magic`, `finfo`), enforce a per-feature MIME/extension allowlist + size cap, and save under randomized server filenames.
+2. **Isolation & Non-Execution**: Store uploads outside webroot or in separate-origin object storage (S3/GCS/R2). If local, block script execution safely for PHP-FPM/Nginx/Apache (Nginx: `location ~* \.(php|phtml|phar)$ { return 403; }`; Apache: `<FilesMatch "\.(php|phtml|phar)$"> Require all denied </FilesMatch>` or `SetHandler none`), and serve downloads with `Content-Disposition: attachment` + `X-Content-Type-Options: nosniff`.
 
-1. **Rate Limiting & Lockout**:
-   - Auth routes (`/login`, `/register`, `/forgot-password`, `/verify-2fa`): max 5 failed attempts per 15 min per IP/account.
-   - Public mutation and search endpoints: max 60 requests per minute per IP.
-2. **Password Storage & Timing Defense**:
-   - Hash passwords with Argon2id (`memory_cost=65536`, `time_cost=4`, `threads=1`) or bcrypt (work factor >= 12).
-   - Use constant-time comparison (`hash_equals()`, `crypto.timingSafeEqual()`) for all token and signature checks.
-3. **Cookie & Session Hardening**:
-   - Generate session tokens using high-entropy CSPRNG (>=128 bits).
-   - Flags: `Set-Cookie: session_id=<token>; Secure; HttpOnly; SameSite=Lax; Path=/; Max-Age=86400` (`SameSite=Strict` for admin areas).
-   - Regenerate session IDs on login, privilege change, and logout (`session_regenerate_id(true)`).
-4. **CSRF Protection**:
-   - Enforce cryptographic anti-CSRF tokens (Synchronizer Token or Double-Submit Cookie) on all state-changing methods (`POST`, `PUT`, `PATCH`, `DELETE`).
+## Phase 5: Transport, CORS & SSRF
+1. **SSRF Defense**: Block user URLs targeting loopback (`127.0.0.0/8`, `::1`), RFC 1918, cloud metadata (`169.254.169.254`, `fe80::/10`), and non-HTTP(S) schemes; pre-resolve DNS and re-validate IPs on redirects.
+2. **TLS & CORS**: Enforce TLS 1.2+ with HTTP->HTTPS `301` in production. Use explicit CORS allowlists; never combine `Access-Control-Allow-Origin: *` with `Access-Control-Allow-Credentials: true`.
 
----
+## Phase 6: Browser Hardening & Headers
+1. **Environment-Aware Headers**: Emit `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy: camera=(), microphone=(), geolocation=()`, and framing defense (`frame-ancestors 'none'` + `X-Frame-Options: DENY`).
+   - **CSP**: Use per-request nonces/hashes with `'strict-dynamic'`, `object-src 'none'`, `base-uri 'self'` over blanket `'unsafe-inline'`; adapt `script-src`/`connect-src` for framework dev HMR while keeping production strict.
+   - **HSTS Guard**: Emit `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload` only on verified production HTTPS origins with full subdomain HTTPS; omit on HTTP local dev and omit `preload` until confirmed.
+2. **XSS Defense**: Rely on framework auto-escaping; avoid raw DOM sinks (`dangerouslySetInnerHTML`, `v-html`, `innerHTML`) or sanitize rich HTML via DOMPurify with an explicit allowlist. Query [modern-web-guidance](.agents/skills/modern-web-guidance/SKILL.md) when adopting the native HTML Sanitizer API.
 
-## Phase 3: Authorization & Access Control (BOLA / IDOR / RBAC)
-> **Skills**: [penetration-testing-with-strix](.agents/skills/penetration-testing-with-strix/SKILL.md) · [api-security-best-practices](.agents/skills/api-security-best-practices/SKILL.md)
-
-1. **Object-Level Authorization (IDOR / BOLA)**:
-   - On every record lookup, update, or deletion, verify tenant ownership against authenticated session identity:
-     `SELECT * FROM items WHERE id = :item_id AND organization_id = :auth_org_id;`
-   - Never trust client-supplied `user_id`, `org_id`, or `role` parameters in bodies or query strings.
-2. **Direct Reference Masking**:
-   - Replace sequential auto-incrementing integers (`/order/1042`) with non-enumerable UUIDv4 or NanoID strings (`/order/7b6f2e84-1d3a-4c91-9e20-5c742f8b0e51`).
-3. **Function-Level RBAC**:
-   - Enforce role and permission checks server-side on every route and controller. UI element hiding is never a security control.
-
----
-
-## Phase 4: File Intake & Webshell Upload Defense
-> **Skills**: [api-security-best-practices](.agents/skills/api-security-best-practices/SKILL.md) · [top-web-vulnerabilities](.agents/skills/top-web-vulnerabilities/SKILL.md)
-
-1. **Binary Magic Byte Verification**:
-   - Verify file payloads via binary signature inspection (`mime_content_type()`, `file-type`), never trusting client `Content-Type` headers or file extensions.
-2. **Extension Whitelisting & Randomization**:
-   - Restrict extensions to an explicit allowlist (`jpg`, `jpeg`, `png`, `webp`, `pdf`).
-   - Rename uploaded files to randomized UUIDs on save (`c8f13b2d.webp`). Never retain client-provided filenames on disk.
-3. **Execution Lockdown & Storage Isolation**:
-   - Store uploads outside webroot or in dedicated object storage (S3, Cloud Storage).
-   - If stored locally, disable script execution (Apache: `php_flag engine off`, `RemoveHandler .php .phtml .phar`). Serve non-media with `Content-Disposition: attachment`.
-
----
-
-## Phase 5: Transport, Communication & SSRF Lockdown
-> **Skills**: [api-security-best-practices](.agents/skills/api-security-best-practices/SKILL.md) · [penetration-testing-with-strix](.agents/skills/penetration-testing-with-strix/SKILL.md)
-
-1. **SSRF Defense**:
-   - Block user-supplied URLs from targeting loopback (`127.0.0.1`, `localhost`), RFC 1918 CIDRs (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`), and cloud metadata (`169.254.169.254`).
-   - Enforce protocol allowlists (`https://` only) and pre-resolve DNS before establishing TCP connections.
-2. **TLS & CORS Enforcement**:
-   - Enforce TLS 1.2+ across all environments. Issue `301 Moved Permanently` redirects from HTTP to HTTPS.
-   - Explicitly declare allowed origins in CORS headers. Never pair `Access-Control-Allow-Origin: *` with `Access-Control-Allow-Credentials: true`.
-
----
-
-## Phase 6: Browser Hardening & Security Headers
-> **Skills**: [frontend-security-coder](.agents/skills/frontend-security-coder/SKILL.md) · [penetration-testing-with-strix](.agents/skills/penetration-testing-with-strix/SKILL.md)
-
-1. **Mandatory Security Headers**:
-   ```http
-   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';
-   X-Content-Type-Options: nosniff
-   X-Frame-Options: DENY
-   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-   Referrer-Policy: strict-origin-when-cross-origin
-   Permissions-Policy: camera=(), microphone=(), geolocation=()
-   ```
-2. **Context-Aware Output Encoding (XSS Defense)**:
-   - Apply context-specific encoding (HTML body, attribute, JavaScript context, URI component).
-   - In frontend frameworks (React, Vue, Svelte), ban raw DOM insertion (`dangerouslySetInnerHTML`, `v-html`, `innerHTML`). Sanitize rich text using DOMPurify with an explicit tag allowlist.
-
----
-
-## Phase 7: Defensive Verification & TDD Gates
-> **Skills**: [ci-security-scanning-with-strix](.agents/skills/ci-security-scanning-with-strix/SKILL.md) · [fix-security-vulnerabilities-with-strix](.agents/skills/fix-security-vulnerabilities-with-strix/SKILL.md)
-
-1. **Automated Dependency Audits**:
-   - Run dependency audits (`npm audit`, `composer audit`, `pip audit`) before builds. Critical or High vulnerabilities block releases.
-2. **Negative Security Unit Tests**:
-   - Unauthenticated requests to protected endpoints return `401 Unauthorized`.
-   - Cross-tenant object ID queries return `403 Forbidden` or `404 Not Found`.
-   - Probing SQL inputs with `' OR 1=1 --` returns clean validation errors with zero SQL leakage.
-   - Rapid authentication failures trigger HTTP `429 Too Many Requests`.
-3. **Remediation Standard (Ingesting `vulnerabilities.json`)**:
-   - Ingest findings from `strix_runs/<run-name>/vulnerabilities.json` via [`fix-security-vulnerabilities-with-strix`](.agents/skills/fix-security-vulnerabilities-with-strix/SKILL.md).
-   - Patch architectural root causes (parameterization, centralized tenant filters) rather than string filtering. For live penetration testing workflows, see [penetrating-and-testing.md](.agents/rules/penetrating-and-testing.md).
+## Phase 7: Verification & Optional Pentest Handoff
+1. **Dependency Audits (With Fallback)**: Check installed binaries first (`npm audit`, `pip-audit`, `composer audit`, `cargo audit`, `govulncheck`); High/Critical findings block release unless accepted. When `pip-audit`, `composer`, or `strix` is absent, report the gap and fall back to lockfile inspection + static review.
+2. **Negative Security Tests**: Assert `401` unauthenticated, `403`/`404` cross-tenant IDs, clean validation errors on `' OR 1=1 --`, and `429` on auth bursts.
+3. **Optional Pentest Handoff**: For dynamic Strix scans or patching `strix_runs/<run>/vulnerabilities.json` via [fix-security-vulnerabilities-with-strix](.agents/skills/fix-security-vulnerabilities-with-strix/SKILL.md), hand off to [penetrating-and-testing.md](.agents/rules/penetrating-and-testing.md).

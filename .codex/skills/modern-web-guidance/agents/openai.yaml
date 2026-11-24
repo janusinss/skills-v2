@@ -1,4 +1,4 @@
 interface:
   display_name: "Modern Web Guidance"
-  short_description: "Search and retrieve Baseline modern web platform best..."
+  short_description: "Search and retrieve Baseline modern web platform guides..."
   default_prompt: "Use $modern-web-guidance for the relevant part of this task."

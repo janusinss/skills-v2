@@ -111,7 +111,6 @@ cypress/screenshots/
 tmp/
 temp/
 .temp/
-scratch/
 
 # Agent / Antigravity Local Runtime Data
 .gemini/
@@ -121,12 +120,6 @@ scratch/
 # Agent Client Auto-Generated Symlink Directories (e.g. from skills CLI)
 .cursor/
 .cline/
-
-# Ephemeral Skill Runtime & Review Artifacts
-.impeccable/
-/.harness/
-/.agent_worktrees/
-/.agents/hooks.json
 
 # Security Scans, Pentest Targets & Audit Artifacts
 targets/

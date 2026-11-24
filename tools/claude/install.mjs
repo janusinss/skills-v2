@@ -74,7 +74,12 @@ function installGitPreCommitHook(execute, target, manifest) {
     const existing = fs.readFileSync(preCommitPath, 'utf8');
     if (existing.includes('pre-commit-check')) return 'active';
     if (!existing.includes('# Installed by Self-Improving Agent Harness')) {
-      const chained = `${existing.trimEnd()}\n\n# Installed by Self-Improving Agent Harness (harness.mjs install-git-hook)\nHARNESS_ROOT=\$(cd "\$(dirname "\$0")/../.." 2>/dev/null && pwd || pwd)\nnode "\$HARNESS_ROOT/${harnessRunner}" pre-commit-check\n`;
+      const normalized = existing.replace(/^\uFEFF/, '').replace(/\r\n/g, '\n');
+      const shebangMatch = normalized.match(/^#![^\n]*\n/);
+      const shebang = shebangMatch ? shebangMatch[0] : '#!/bin/sh\n';
+      const body = (shebangMatch ? normalized.slice(shebang.length) : normalized).trimEnd();
+      const prefix = body ? `${shebang}(\n${body}\n) || exit $?\n\n` : `${shebang}\n`;
+      const chained = `${prefix}# Installed by Self-Improving Agent Harness (harness.mjs install-git-hook)\nHARNESS_ROOT=\$(cd "\$(dirname "\$0")/../.." 2>/dev/null && pwd || pwd)\nnode "\$HARNESS_ROOT/${harnessRunner}" pre-commit-check\n`;
       fs.writeFileSync(preCommitPath, chained, { encoding: 'utf8', mode: 0o755 });
       return 'chained';
     }
@@ -163,7 +168,7 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
 
   const ignoreRecord = { path: gitignore.path, entries: gitignore.entries };
   if (!options.dryRun && json(manifest.gitignore) !== json(ignoreRecord)) {
-    if (json(JSON.parse(fs.readFileSync(manifestPath, 'utf8'))) !== json(manifest)) {
+    if (json(JSON.parse(fs.readFileSync(manifestPath, 'utf8').replace(/^\uFEFF/, ''))) !== json(manifest)) {
       throw new Error('Installation record changed during .gitignore setup');
     }
     const updated = { ...manifest, gitignore: ignoreRecord };
@@ -178,6 +183,7 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
     manifest = updated;
   }
 
+  const settingsCount = manifest.hooksIncluded !== false ? 1 : 0;
   if (options.dryRun || manifest.setup?.status === 'complete') {
     return {
       target,
@@ -185,7 +191,7 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
       mode: installedMode,
       hookSet: installedHookSet,
       topLevelSkills: manifest.topLevelSkills,
-      files: Object.keys(manifest.files).length + 2,
+      files: Object.keys(manifest.files).length + 2 + settingsCount,
       gitignore,
       dryRun: Boolean(options.dryRun),
       setup: manifest.setup?.status || 'pending'
@@ -201,9 +207,9 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
       if (!hasLocalModules) {
         console.error('Installing local Playwright dependencies from the included lockfile...');
         if (process.platform === 'win32') {
-          runStep(execute, process.env.ComSpec || 'cmd.exe', ['/d', '/s', '/c', 'npm ci --no-audit --no-fund --prefer-offline'], { cwd: skillDirectory, stdio: 'inherit' }, 'Playwright dependency setup');
+          runStep(execute, process.env.ComSpec || 'cmd.exe', ['/d', '/s', '/c', 'npm ci --no-audit --no-fund --prefer-offline'], { cwd: skillDirectory, stdio: ['ignore', process.stderr, process.stderr] }, 'Playwright dependency setup');
         } else {
-          runStep(execute, 'npm', ['ci', '--no-audit', '--no-fund', '--prefer-offline'], { cwd: skillDirectory, stdio: 'inherit' }, 'Playwright dependency setup');
+          runStep(execute, 'npm', ['ci', '--no-audit', '--no-fund', '--prefer-offline'], { cwd: skillDirectory, stdio: ['ignore', process.stderr, process.stderr] }, 'Playwright dependency setup');
         }
       } else {
         console.error('Local Playwright dependencies already present. Skipping npm ci.');
@@ -218,7 +224,7 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
         console.error('No working browser detected. Attempting Chromium download...');
         let downloadError = null;
         try {
-          runStep(execute, process.execPath, [path.join(skillDirectory, 'node_modules/playwright/cli.js'), 'install', 'chromium'], { cwd: skillDirectory, stdio: 'inherit' }, 'Chromium setup');
+          runStep(execute, process.execPath, [path.join(skillDirectory, 'node_modules/playwright/cli.js'), 'install', 'chromium'], { cwd: skillDirectory, stdio: ['ignore', process.stderr, process.stderr] }, 'Chromium setup');
         } catch (err) {
           downloadError = err;
           console.error(`Chromium download warning: ${err.message}`);
@@ -235,7 +241,7 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
     if (manifest.files[playwrightRunner] || manifest.files[agentBrowserSkill]) {
       agentBrowser = setupAgentBrowser(execute, target);
     }
-    if (manifest.hooksIncluded !== false) {
+    if (options.resume && manifest.hooksIncluded !== false) {
       applyClaudeSettingsHooks(target, root, { mode: installedMode });
     }
     const gitHook = installGitPreCommitHook(execute, target, manifest);
@@ -246,7 +252,7 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
       mode: completed.mode || installedMode,
       hookSet: completed.hookSet || installedHookSet,
       topLevelSkills: completed.topLevelSkills,
-      files: Object.keys(completed.files).length + 2,
+      files: Object.keys(completed.files).length + 2 + settingsCount,
       gitignore,
       dryRun: false,
       setup: completed.setup

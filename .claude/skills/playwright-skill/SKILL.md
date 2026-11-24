@@ -3,6 +3,7 @@ name: playwright-skill
 description: "Automate and verify websites with Playwright. Use for browser interactions, screenshots, responsive checks, or testing user journeys."
 license: MIT
 compatibility: "Requires Node.js 20+, npm, and network access on first setup to install Playwright and Chromium."
+allowed-tools: Bash(node:*) Bash(npm:*) Read Write
 ---
 
 # Playwright Browser Automation

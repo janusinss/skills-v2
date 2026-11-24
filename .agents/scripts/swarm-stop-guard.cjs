@@ -4,10 +4,12 @@
  *
  * Inspects the documented conversation transcript (`transcriptPath` on stdin)
  * to detect unclosed `/swarm` sessions (workers added via `swarm` without `[done]`
- * or `kill`), missing `monitor` (`swarm_monitor`), or coordinator `swarm_wait`
- * calls using `mentions_only !== false`. Returns `{"decision":"continue"}` so
- * the coordinator re-checks `swarm{action:"status"}` and `read_board` instead of
- * leaving workers asleep.
+ * or `kill`) or missing `monitor` (`swarm_monitor`) workers when spawning Wave 1
+ * or entering `swarm_wait`. Allows coordinator `swarm_wait` with
+ * `mentions_only: true` only when an active `monitor` is present to guard
+ * against stalls. Returns `{"decision":"continue"}` so the coordinator
+ * re-checks `swarm{action:"status"}` and `read_board` instead of leaving
+ * workers asleep.
  *
  * Respects `continuationActive`, `USER_CANCELED`, `ERROR`, and invocation-cap exits,
  * and silently allows exit (`0`) outside AGY or when no transcript is available.
@@ -90,6 +92,15 @@ function decodeArg(value) {
   return value;
 }
 
+function isShardedAdd(args) {
+  const name = String(decodeArg(args?.name) || '').trim();
+  if (!name) return false;
+  const tasks = decodeArg(args?.tasks);
+  if (Array.isArray(tasks) && tasks.length > 0) return true;
+  const n = Number(decodeArg(args?.n));
+  return Number.isInteger(n) && n > 1;
+}
+
 function expandAddedMembers(args) {
   const name = String(decodeArg(args?.name) || '').trim();
   if (!name) return [];
@@ -147,6 +158,7 @@ function analyzeTranscript(transcriptPath) {
   let fullSteps = null;
   const activeWorkers = new Set();
   const monitors = new Set();
+  const shardedGroups = new Set();
   let lastWaitCall = null;
   let turnHadAdd = false;
   let seenBoardToolsInWave = false;
@@ -183,6 +195,10 @@ function analyzeTranscript(transcriptPath) {
         const action = String(decodeArg(args.action) || '').toLowerCase();
         if (action === 'add') {
           const brief = String(decodeArg(args.brief) || '');
+          const baseName = String(decodeArg(args.name) || '').trim();
+          if (baseName && isShardedAdd(args)) {
+            shardedGroups.add(baseName);
+          }
           for (const member of expandAddedMembers(args)) {
             if (isNarratorMember(member)) continue;
             if (isMonitorMember(member, brief)) monitors.add(member);
@@ -195,11 +211,14 @@ function analyzeTranscript(transcriptPath) {
           if (target) {
             activeWorkers.delete(target);
             monitors.delete(target);
-            for (const existing of [...activeWorkers]) {
-              if (existing.startsWith(`${target}-`)) activeWorkers.delete(existing);
-            }
-            for (const existing of [...monitors]) {
-              if (existing.startsWith(`${target}-`)) monitors.delete(existing);
+            if (shardedGroups.has(target)) {
+              for (const existing of [...activeWorkers]) {
+                if (existing.startsWith(`${target}-`)) activeWorkers.delete(existing);
+              }
+              for (const existing of [...monitors]) {
+                if (existing.startsWith(`${target}-`)) monitors.delete(existing);
+              }
+              shardedGroups.delete(target);
             }
             if (activeWorkers.size === 0) {
               seenBoardToolsInWave = false;
@@ -212,9 +231,9 @@ function analyzeTranscript(transcriptPath) {
       } else if (name === 'post_message') {
         seenBoardToolsInWave = true;
         const text = String(decodeArg(args.text) || '').trimStart();
-        if (/^\[done\](?:\s|$)/i.test(text)) {
+        if (/^(?:@[a-z0-9_-]+\s+)?\[done\](?:\s|$)/i.test(text)) {
           activeWorkers.clear();
-          monitors.clear();
+          shardedGroups.clear();
           seenBoardToolsInWave = false;
         }
         lastWaitCall = null;
@@ -236,6 +255,7 @@ function analyzeTranscript(transcriptPath) {
   return {
     activeWorkers: [...activeWorkers],
     monitors: [...monitors],
+    shardedGroups: [...shardedGroups],
     lastWaitCall,
     turnHadAdd,
     seenBoardToolsInWave,
@@ -261,15 +281,12 @@ function evaluateStop(input) {
 
   if (state.lastWaitCall) {
     if (state.monitors.length === 0) {
+      const waitNote = state.lastWaitCall.mentionsOnly !== false
+        ? ' with mentions_only!=false and no monitor worker'
+        : ' with no monitor worker';
       return {
         decision: 'continue',
-        reason: `Swarm guard: entering swarm_wait with active workers (${workerList}${suffix}) and no monitor worker. Check swarm{action:"status"} / read_board and spawn a monitor (swarm_monitor) before sleeping so the swarm cannot deadlock idle.`,
-      };
-    }
-    if (state.lastWaitCall.mentionsOnly !== false) {
-      return {
-        decision: 'continue',
-        reason: `Swarm guard: coordinator swarm_wait ran with mentions_only!=false while workers (${workerList}${suffix}) are open. Re-check swarm{action:"status"} / read_board and wait with mentions_only:false so unaddressed or peer posts still wake you.`,
+        reason: `Swarm guard: entering swarm_wait${waitNote} while active workers (${workerList}${suffix}) remain open. Check swarm{action:"status"} / read_board and spawn a monitor (swarm_monitor) before sleeping so the swarm cannot deadlock idle.`,
       };
     }
     return null;

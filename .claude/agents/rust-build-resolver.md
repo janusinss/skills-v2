@@ -4,8 +4,7 @@ description: "Rust build, compilation, and dependency error resolution specialis
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: builder
 model: sonnet
-target_model: "sonnet-5.5-high/xhigh/max"
-reasoning_effort: "high/xhigh/max"
+effort: high
 ---
 
 ## Prompt Defense Baseline

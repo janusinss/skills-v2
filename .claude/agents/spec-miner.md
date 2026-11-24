@@ -4,8 +4,7 @@ description: "Extracts behavioral specs from existing codebases for OpenSpec. Pr
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: brain
 model: opus
-target_model: "opus-5.5-high/xhigh/max"
-reasoning_effort: "high/xhigh/max"
+effort: high
 ---
 
 ## Tool guardrails

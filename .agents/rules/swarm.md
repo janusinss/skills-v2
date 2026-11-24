@@ -1,73 +1,68 @@
 ---
 trigger: model_decision
-description: Strict AGY-only /swarm orchestration and model routing policy preserving gemini-4-neon-xhigh coordinators on xhigh, redirecting other starting models to CARBON -> gemini-4-neon-xhigh / gemini-pro-orchestrator-neon (fallback ARGON separate weekly bucket when Neon/Hydrogen quota is low), and enforcing role-based worker pinning (gemini-4-hydrogen-high routine/reflex/monitor, gemini-4-neon-medium complex builders/refactors, gemini-4-neon-high verifiers/auditors/skeptic).
+description: AGY-only /swarm and Orchestrator routing under the unified Gemini pool: Carbon High or Neon XHigh coordinator lock, 4-rung worker pinning, zero Argon.
 ---
 
 # Swarm Orchestration & Model Routing Policy (AGY Only)
 
-Apply this rule whenever running `/swarm`, coordinating multi-agent swarm runs, or adding/switching swarm members.
+Apply whenever running `/swarm`, choosing between single-session `Orchestrator` and `/swarm`, or adding/switching swarm members.
 
----
+## 1. Edition Scope & `Orchestrator` vs `/swarm`
 
-## 1. Edition Scope (Strict AGY-Only Restriction)
+- **AGY-Only**: `/swarm` is restricted to AGY (Antigravity / Gemini). Exclude `.agents/rules/swarm.md` from **CLAUDE** (`tools/claude/lib.mjs`) and **CODEX** (`tools/codex/lib.mjs`) via `isBundleExcluded`.
+- **Single-Session Outside `/swarm`**: Prefer `Orchestrator (Carbon)` (`gemini-pro-orchestrator`), fallback `Orchestrator (Neon)` (`gemini-pro-orchestrator-neon`).
+  - Carbon/Neon plans and reviews while `Gemini 4 Hydrogen` runs routine edits and commands, saving unified `Gemini Models` (`5h` + `Weekly`) quota.
+- **No `Orchestrator (*)` Inside `/swarm`**: Cross-turn swaps break coordinator prompt-cache continuity. Run `/swarm` coordinators on standalone `gemini-4-carbon-high` or `gemini-4-neon-xhigh`.
 
-- `/swarm` is **strictly restricted to the AGY (Antigravity / Gemini) edition**.
-- Exclude `.agents/rules/swarm.md` from generated **CLAUDE** (`tools/claude/lib.mjs`) and **CODEX** (`tools/codex/lib.mjs`) bundles via `isBundleExcluded`. Do not expose or port `/swarm` rules to Claude Code or Codex editions.
+## 2. `/swarm` Coordinator Policy (Carbon High or Neon XHigh Only)
 
----
+1. **Inspect First**: Call `swarm{action:"models", all:true}` and `swarm{action:"status"}` at `/swarm` start.
+   - **Unified `Gemini Models` Pool (`5h` + `Weekly`)**: All Gemini 4, `gemini-3.8-flash-*`, `gemini-pro-orchestrator*`, and `gemini-4-argon-*` share one pool (`carbon-high` heaviest, `neon-*` moderate, `hydrogen-high` lightest).
+   - **Separate Pool**: Only `Claude and GPT models` draw from a non-Gemini pool.
+   - **Zero Argon**: `gemini-4-argon-*` and `gemini-pro-orchestrator-argon` burn the same pool with weaker capability. Never use Argon anywhere.
+2. **Preserve UI Choice**: Keep `Gemini 4 Carbon (High)` (`gemini-4-carbon-high`) or `Gemini 4 Neon (XHigh)` (`gemini-4-neon-xhigh`) if already active.
+3. **Redirect Any Other Model Immediately**: Before spawning or messaging workers, call `swarm{action:"model", model:"<target>"}` (omit `name` or pass `"coordinator"`):
+   - **Disallowed**: `gemini-pro-orchestrator*`, `gemini-4-carbon-medium/low`, `gemini-4-neon-high/medium/low`, `gemini-4-hydrogen-*`, `gemini-4-argon-*`, `gemini-3.8-flash-*`, `claude-*`, `gpt-oss-*`.
+   - **Priority 1**: `gemini-4-carbon-high` (`"Gemini 4 Carbon (High)"`).
+   - **Priority 2 (Fallback)**: `gemini-4-neon-xhigh` (`"Gemini 4 Neon (XHigh)"`) only if `gemini-4-carbon-high` is unavailable or errors.
+   - No third coordinator model is allowed. State the policy reason when switching.
 
-## 2. Coordinator / Orchestrator Model Policy (Preserve `gemini-4-neon-xhigh`, Redirect Others via CARBON / NEON / ARGON)
+## 3. Worker & Specialist 4-Rung Pinning
 
-The swarm coordinator / orchestrator MUST run on `gemini-4-neon-xhigh` (when started there with healthy quota), **CARBON**, `gemini-pro-orchestrator-neon`, or **ARGON** reserve when the shared Neon/Hydrogen bucket is low:
+Pass explicit `model: "<worker-model>"` on every coordinator `swarm{action:"add"}` call (worker-spawned same-rung helpers may omit `model:` to inherit their parent's pinned model):
 
-1. **Discover Models & Live Quota Buckets**: Call `swarm{action:"models", all:true}` and `swarm{action:"status"}` first to inspect the coordinator's active model, available models, and live quota buckets:
-   - **Shared Neon / Hydrogen Fast-Reset Pool**: `Gemini 4 Neon (*)` (`gemini-4-neon-*`), `Orchestrator (Neon)` (`gemini-pro-orchestrator-neon`), and `Gemini 4 Hydrogen (*)` (`gemini-4-hydrogen-*`) share one fast-reset quota pool.
-   - **Separate Argon Weekly Pool**: `Gemini 4 Argon (*)` (`gemini-4-argon-*`) and `Orchestrator (Argon)` (`gemini-pro-orchestrator-g1-pro`) sit in a separate weekly quota pool.
-2. **Keep `Gemini 4 Neon (XHigh)` (`gemini-4-neon-xhigh`)**:
-   - If the coordinator started on / the user selected **Gemini 4 Neon (XHigh)** (`gemini-4-neon-xhigh`), **keep it on `gemini-4-neon-xhigh`** unless the shared Neon/Hydrogen bucket is low (`<= 10%`) or exhausted.
-3. **Redirect Any Other Active Model or Reasoning Level**:
-   - If **any other** model or reasoning level is active (such as `gemini-4-neon-high`, `gemini-4-neon-medium`, `gemini-4-neon-low`, `gemini-4-hydrogen-*`, `gemini-3.8-flash-*`, `claude-*`, `gpt-oss-*`, or Argon while the shared Neon/Hydrogen bucket is healthy), immediately redirect via `swarm{action:"model", model:"<target>"}` (omit `name` or pass `"coordinator"`) before spawning or messaging workers:
-     - **Priority 1 — CARBON**: Switch to an available Pro **CARBON** model if it has remaining quota.
-     - **Priority 2 — NEON**: Switch to `gemini-4-neon-xhigh` (`"Gemini 4 Neon (XHigh)"`) or `gemini-pro-orchestrator-neon` (`"Orchestrator (Neon)"`) while the shared Neon/Hydrogen bucket is healthy (`> 10%`).
-     - **Priority 3 — ARGON Separate-Bucket Reserve**: When the shared Neon/Hydrogen bucket is low (`<= 10%`) or exhausted, fall back to `gemini-pro-orchestrator-g1-pro` (`"Orchestrator (Argon)"`), or `gemini-4-argon-high` (`"Gemini 4 Argon (High)"`) if `gemini-pro-orchestrator-g1-pro` is unavailable or out of quota.
-   - Explicitly state why the switch is happening (for example, enforcing AGY coordinator policy: redirecting from `<current>` to `<target>`).
+- **Rung 1 (`brain` Planners & Architects)**:
+  - Roles: `planner`, `architect`, `code-architect`, `a11y-architect`, `spec-miner`.
+  - Models: `gemini-4-carbon-high` or `gemini-4-neon-xhigh` ONLY (coordinator handles directly or spawns at Rung 1).
+- **Rung 2 (Complex `builder` + `brain` Verifiers, Reviewers & Security)**:
+  - Complex `builder`: `tdd-guide`, `performance-optimizer`, `penetration-tester`, complex multi-file refactors, tangled multi-package build repairs.
+  - `brain` Review & Security: `qa-verifier`, all `*-reviewer` (`code-`, `typescript-`, `react-`, `vue-`, `go-`, `rust-`, `php-`, `fastapi-`, `database-reviewer`), `silent-failure-hunter`, `agent-evaluator`, `skeptic`, `security-auditor`.
+  - Models: `gemini-4-neon-high` default; escalate to `gemini-4-carbon-high` for auth/crypto/exploit surfaces, `security-auditor`, high-stakes `skeptic`, or Strike-2 failures.
+- **Rung 3 (Routine `builder`)**:
+  - Roles: `code-simplifier`, `refactor-cleaner`, `e2e-runner`, and all 7 `*-build-resolver` agents.
+  - Models: `gemini-4-neon-medium` (`gemini-4-hydrogen-high` only for trivial dead-code/lint cleanups).
+- **Rung 4 (`reflex`, Routine Slices & `monitor`)**:
+  - Roles: `monitor` (`swarm_monitor`), `explorer` (`reflex`), mechanical single-file slices, docs/config sync, test-suite runners.
+  - Models: `gemini-4-hydrogen-high` ONLY.
+- **Forbidden Models**:
+  - Everywhere: `gemini-4-argon-*`, `gemini-pro-orchestrator-argon`, `gemini-pro-orchestrator*` (in `/swarm`), `gemini-4-carbon-medium/low`, `gemini-4-neon-low`, `gemini-4-hydrogen-xhigh/medium/low`, `gemini-3.8-flash-*`, `claude-*`, `gpt-oss-*`.
+  - Role-restricted: `gemini-4-neon-xhigh` outside Rung 1; `gemini-4-carbon-high` on Rung 3/4 workers.
+- **Quota Hard Stop**: At `0%` on the unified `Gemini Models` (`5h` or `Weekly`) pool, stop immediately and report to the user. Never switch to Argon, Flash, or non-Gemini models unless asked.
 
----
+## 4. Hybrid Briefs, Selective Specialists & Subagents
 
-## 3. Swarm Worker & Verifier Model Policy (Role-Based Explicit Pinning)
+- **Implementation Workers**: Use direct coordinator `brief` instructions (file ownership, concrete edits, acceptance checks) instead of loading generic `.agents/agents/<role>.md` files.
+- **Review & Audit Workers**: Attach `.agents/agents/<role>.md` selectively in the `brief` for dedicated reviewers, auditors, or skeptics:
+  - [skeptic.md](.agents/agents/skeptic.md), [security-auditor.md](.agents/agents/security-auditor.md), [silent-failure-hunter.md](.agents/agents/silent-failure-hunter.md), [a11y-architect.md](.agents/agents/a11y-architect.md), or stack `*-reviewer.md`.
+- **Worker `invoke_subagent`**: Always pass `Model: "inherit"`. Never pass `"flash"`, `"flash_lite"`, or escalate Rung 3/4 workers to `"pro"`.
 
-Every `swarm{action:"add"}` call MUST explicitly pin `model` to match the worker's role so workers never inherit coordinator `gemini-4-neon-xhigh`, `CARBON`, or `ARGON`:
+## 5. Monitor, Restart Recovery, Waits & Stop Guard
 
-- **Explicit Pinning Required**: Always pass `model: "<worker-model>"` on every `swarm{action:"add", ...}` call.
-- **Role-Based Allowed Worker Models**:
-  - **Routine / `reflex` / `monitor` / Docs / Test-Runner Workers**: `gemini-4-hydrogen-high` (including `swarm_monitor`).
-  - **Complex `builder` / Multi-File Refactor / Tricky Logic Workers**: `gemini-4-neon-medium` (fall back to `gemini-4-hydrogen-high` when conserving shared Neon/Hydrogen quota).
-  - **Dedicated Verifiers / Code Reviewers / Security & A11y Auditors / Cold-Context `skeptic`**: `gemini-4-neon-high`.
-- **Forbidden Worker Models**:
-  - `gemini-4-neon-xhigh`, `gemini-4-neon-low`, `gemini-4-hydrogen-xhigh`, `gemini-4-hydrogen-medium`, `gemini-4-hydrogen-low`, `gemini-3.8-flash-*`, `claude-*`, `gpt-oss-*`, and `CARBON` models are forbidden for workers.
-- **Separate-Bucket Argon Overflow & Hard Stop**:
-  - `gemini-4-argon-high` is **NOT** used for workers while Neon/Hydrogen quota is available, **EXCEPT** as explicit overflow when the shared Neon/Hydrogen bucket is exhausted and Argon weekly quota remains.
-  - If **BOTH** the shared Neon/Hydrogen bucket and the Argon weekly bucket are exhausted, **STOP immediately** and report quota exhaustion to the user. Never upgrade workers to `gemini-4-neon-xhigh`, downgrade below the allowed role floor, or switch to Flash / non-Gemini models.
-
----
-
-## 4. Hybrid Task Briefs, Selective Specialist Binding & Subagent Delegation
-
-- **Implementation Workers (Custom Coordinator Briefs)**: Drive implementation, refactoring, and file-slice workers directly with surgical coordinator `brief` instructions (exact file ownership, concrete edits, and acceptance checks) without forcing them to load a generic `.agents/agents/<role>.md` file.
-- **Review, Security & Architecture Workers (Selective Specialist Checklists)**: Reference `.agents/agents/<role>.md` in a worker's `brief` selectively when spawning a dedicated reviewer, security/accessibility auditor, or cold-context `skeptic` ([skeptic.md](.agents/agents/skeptic.md), [security-auditor.md](.agents/agents/security-auditor.md), [silent-failure-hunter.md](.agents/agents/silent-failure-hunter.md), [a11y-architect.md](.agents/agents/a11y-architect.md), or stack `*-reviewer.md`).
-- **Swarm Tier-to-Model Mapping**:
-  - `reflex`, routine workers, docs, test runners, and `monitor` (`swarm_monitor`): `gemini-4-hydrogen-high`
-  - Complex `builder` / multi-file refactor workers: `gemini-4-neon-medium` (or `gemini-4-hydrogen-high` when conserving Neon/Hydrogen quota)
-  - Dedicated `brain` verifiers, reviewers, auditors, and cold-context `skeptic`: `gemini-4-neon-high`
-  - `brain` coordinator: `gemini-4-neon-xhigh` (preserved when started on `xhigh` and healthy) or redirected via `CARBON` -> `gemini-4-neon-xhigh` / `gemini-pro-orchestrator-neon` -> `ARGON` reserve (`gemini-pro-orchestrator-g1-pro` / `gemini-4-argon-high`)
-- **Worker Subagent Delegation (`invoke_subagent`)**: Any `invoke_subagent` calls made from swarm workers (such as scoped read-only reconnaissance or targeted specialist audits) MUST strictly use `Model: "inherit"` (inheriting the worker's pinned model) — never `"flash"`, `"flash_lite"`, or escalating routine workers to `"pro"`.
-
----
-
-## 5. Anti-Stall Monitor & Coordinator Wait Policy
-
-- **Mandatory `monitor` Worker**: Every `/swarm` session MUST spawn a `monitor` worker pinned to `gemini-4-hydrogen-high` running `swarm_monitor` (`swarm{action:"add", name:"monitor", model:"gemini-4-hydrogen-high", brief:"You are the swarm monitor. Read the swarm_monitor skill first and follow it strictly."}`) in the initial wave alongside workers. Leave `monitor` running until work completes; never assign implementation tasks to it.
-- **Unfiltered Coordinator Waits**: Whenever waiting on the board with active workers, the coordinator MUST call `swarm_wait{since: <last_seq>, mentions_only: false}` (never default `mentions_only: true`) so peer replies, unaddressed reports, and `monitor` stall nudges always wake the coordinator.
-- **Explicit Closure (`[done]` / `kill`)**: Before finishing, verify `swarm{action:"status"}` and `read_board`, post `[done] <summary>` via `post_message` once work finishes so `monitor` retires, and `kill` completed workers (or leave `kill`ed clean).
-- **`Stop` Hook Enforcement (Harness & Designer Modes)**: [swarm-stop-guard.cjs](.agents/scripts/swarm-stop-guard.cjs) inspects the hook `transcriptPath` at turn end and forces one re-check (`{"decision":"continue"}`) if workers remain open without `[done]`/`kill`, without a `monitor`, or with `swarm_wait` missing `mentions_only: false`.
-
+- **Mandatory `monitor`**: Spawn `monitor` on `gemini-4-hydrogen-high` in Wave 1 (`brief: "You are the swarm monitor. Read the swarm_monitor skill first and follow it strictly."`). Never assign implementation work to it.
+- **Restart Cron Recovery**: Server restarts clear cron timers while `monitor` waits on `mentions_only: true`. Post `@<monitor> resume` after any restart so `swarm_monitor` re-schedules its 3-minute cron.
+- **Coordinator `swarm_wait` Mode**:
+  - Default to `swarm_wait{since: <last_seq>, mentions_only: false}` for unaddressed posts or single-hop worker updates.
+  - Use `swarm_wait{since: <last_seq>, mentions_only: true}` ONLY when an active `monitor` is running AND workers perform explicit peer-to-peer handoffs (avoids `Carbon High` quota burn on intermediate peer messages while `monitor` guards against stalls).
+- **Explicit Closure**: Check `swarm{action:"status"}` and `read_board`, post `[done] <summary>` via `post_message` so `monitor` goes dormant, and `kill` completed workers (kill `monitor` only for full teardown).
+- **`Stop` Hook**: [swarm-stop-guard.cjs](.agents/scripts/swarm-stop-guard.cjs) inspects `transcriptPath` at turn end and returns `{"decision":"continue"}` when:
+  - Workers remain open without `[done]`/`kill` or `swarm_wait`, or Wave 1 ends / waits without an active `monitor` (`monitor` is required for `mentions_only: true` waits).

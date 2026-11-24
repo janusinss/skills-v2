@@ -2,6 +2,7 @@
 name: ui-styling
 description: "Build accessible UI components with shadcn/ui (Radix + Tailwind), semantic theme tokens, and dark mode. Use when implementing dialogs, forms, or shadcn components."
 license: MIT
+argument-hint: "[component or layout]"
 ---
 
 # UI Styling Skill

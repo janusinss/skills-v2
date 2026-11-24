@@ -18,14 +18,14 @@ Transforms any concept, question, or brief prompt—spanning web apps, CLIs, dev
 5. **Domain Enhancer Routing & Connected Skill Dispatch**:
    - **Sibling Enhancer Delegation**: Use this universal `prompt-enhancer` for fullstack web apps, CLIs, SDKs, data pipelines, mobile apps, or multi-surface platforms. For strictly client-side UI/UX tasks, delegate to [prompt-enhancer-frontend](../prompt-enhancer-frontend/SKILL.md); for strictly server/API/database tasks, delegate to [prompt-enhancer-backend](../prompt-enhancer-backend/SKILL.md).
    - **Selective Companion Skill Loading**: When moving from specification to implementation, inspect only the 1–2 companion skills matching the active surface using the Read tool rather than loading all skills at once:
-     - *Frontend / Design Surface*: [impeccable](../impeccable/SKILL.md) (primary Stage 2 visual craft, spatial composition & Stage 3 token/anti-pattern audit), [anti-ai-slop](../anti-ai-slop/SKILL.md) (structural, chromatic, media, and copy anti-slop enforcement), [awesome-design-md](../awesome-design-md/SKILL.md) (`./DESIGN.md` ground truth), [design-taste-frontend](../design-taste-frontend/SKILL.md) (taste dials & `Design Read`), [scrollytelling](../scrollytelling/SKILL.md) (declarative React + GSAP `@bsmnt/scrollytelling` scroll timelines, pinned stages, parallax, & 3D/canvas scrubbing), [avoid-ai-writing](../avoid-ai-writing/SKILL.md) (human copy), [playwright-skill](../playwright-skill/SKILL.md) (real browser verification), [frontend-security-coder](../frontend-security-coder/SKILL.md) (XSS/CSP).
+     - *Frontend / Design Surface*: [design-taste-frontend](../design-taste-frontend/SKILL.md) (primary visual identity, typography, palette & copy voice), [impeccable](../impeccable/SKILL.md) (layout architecture, spatial rhythm, craft-floor & `detect` audit), [anti-ai-slop](../anti-ai-slop/SKILL.md) (structural, chromatic, media, and copy anti-slop enforcement), [awesome-design-md](../awesome-design-md/SKILL.md) (`./DESIGN.md` ground truth), [scrollytelling](../scrollytelling/SKILL.md) (declarative React + GSAP `@bsmnt/scrollytelling` scroll timelines, pinned stages, parallax, & 3D/canvas scrubbing), [avoid-ai-writing](../avoid-ai-writing/SKILL.md) (human copy), [playwright-skill](../playwright-skill/SKILL.md) (real browser verification), [frontend-security-coder](../frontend-security-coder/SKILL.md) (XSS/CSP).
      - *Backend / Data / Security Surface*: [api-patterns](../api-patterns/SKILL.md), [architecture-patterns](../architecture-patterns/SKILL.md), [database-design](../database-design/SKILL.md), [postgres-best-practices](../postgres-best-practices/SKILL.md), [auth-implementation-patterns](../auth-implementation-patterns/SKILL.md), [api-security-best-practices](../api-security-best-practices/SKILL.md), [fix-security-vulnerabilities-with-strix](../fix-security-vulnerabilities-with-strix/SKILL.md).
 6. **Non-Functional & Workspace Rule Alignment**: Enforce workspace quality floors across every applicable surface:
    - **Frontend & Motion Surface**: Delegate layout, concentric radius math (`R_inner = Math.max(0, R_outer - Padding)`), `< 80px` header height ceiling, and 8-state interactive primitives (`default`, `hover`, `focus-visible`, `active`, `disabled`, `loading`, `error`, `success`) to [UI_Always.md](../../rules/UI_Always.md) and [frontend.md](../../rules/frontend.md); delegate first- and second-order anti-slop, authentic web photography (zero AI-generated showcase/product images), and natural copy to [anti-ai-slop](../anti-ai-slop/SKILL.md) paired with [avoid-ai-writing](../avoid-ai-writing/SKILL.md); delegate spring physics (`Gentle`/`Snappy`/`Bouncy`, settling `≤300ms`), composite-only `transform`/`opacity` animations, deterministic rest states (`[Rest] → [Action] → [Rest]`), zero uniform section scroll fade-ups, and `@media (prefers-reduced-motion: reduce)` fallbacks to [MOTION.md](../../rules/MOTION.md).
    - **Backend, Data & Security Surface**: Delegate connection pooling, sequential migrations, explicit `BEGIN`/`COMMIT`/`ROLLBACK` transactions, and row-level locking (`SELECT ... FOR UPDATE`) to [backend.md](../../rules/backend.md); delegate edge schema validation (`extra: forbid`), 100% prepared statements, Argon2id/bcrypt password hashing, anti-enumeration response uniformity, rate limiting, tenant-scoped BOLA/IDOR checks, XSS/DOMPurify & CORS lockdown, magic-byte file upload verification, and SSRF CIDR blocking to [security.md](../../rules/security.md) and [penetrating-and-testing.md](../../rules/penetrating-and-testing.md).
 7. **Pipeline-Aware Disambiguation Gate**:
    - **Skip When Resolved**: When invoked inside [starting-brandnew.md](../../rules/starting-brandnew.md) or [starting-existing.md](../../rules/starting-existing.md) after the batched discovery gate or codebase audit, or when the user's prompt already specifies the core workflow, proceed directly without asking follow-up questions.
-   - **Single-Question Cap**: Only when invoked standalone on an ambiguous prompt that maps to 2+ fundamentally different product paradigms (e.g., *"build a dashboard"* without domain context), ask **at most one** targeted question (`ask_question`) with up to 5 concise options before generating the blueprint.
+   - **Single-Question Cap**: Only when invoked standalone on an ambiguous prompt that maps to 2+ fundamentally different product paradigms (e.g., *"build a dashboard"* without domain context), ask **at most one** targeted question (`AskUserQuestion`) with up to 5 concise options before generating the blueprint.
 8. **Clean Unicode Formatting**: Use Unicode arrows (`→`) or ASCII (`->`) for workflows and state transitions. Never use LaTeX syntax (`$\rightarrow$`).
 
 ---
@@ -37,7 +37,7 @@ Transforms any concept, question, or brief prompt—spanning web apps, CLIs, dev
 - **Problem Statement & Target Personas**: Primary users, operators, and administrative stakeholders.
 - **Core Value Loop**: The atomic interaction cycle (Trigger → Action → State Mutation → Value Delivery).
 - **Visual Direction & Blueprint Alignment (when Web UI exists)**:
-  - Inherit `./DESIGN.md` tokens ([awesome-design-md](../awesome-design-md/SKILL.md)), select the [impeccable](../impeccable/SKILL.md) Visitor Mode (`Persuade`, `Operate`, `Read`, or `Experience`), and formulate the [design-taste-frontend](../design-taste-frontend/SKILL.md) `Design Read` and Taste Dials (`DESIGN_VARIANCE`, `MOTION_INTENSITY`, `VISUAL_DENSITY` from 1–10).
+  - Inherit `./DESIGN.md` tokens ([awesome-design-md](../awesome-design-md/SKILL.md)), set primary visual identity, typography, and palette via [design-taste-frontend](../design-taste-frontend/SKILL.md), select the [impeccable](../impeccable/SKILL.md) Visitor Mode (`Persuade`, `Operate`, `Read`, or `Experience`) and layout/craft-floor architecture, and plan interactive feel via [MOTION.md](../../rules/MOTION.md) + [interaction-catalog.md](../../resources/creative-libraries/interaction-catalog.md).
   - For greenfield landing/marketing/storefront builds under [starting-brandnew.md](../../rules/starting-brandnew.md) (when no custom layout is requested), align with the default component blueprints themed dynamically via `./DESIGN.md`.
 
 ### Phase 2: Exhaustive Feature Catalog & Priority Phasing
@@ -78,10 +78,9 @@ Generate a self-contained, high-density prompt formatted for immediate execution
 - **Target Personas**: [Primary User Groups & Operators]
 - **Core Value Loop**: [Trigger → Mutation → Value Delivered]
 - **Visual Direction & Blueprint (when Web UI exists)**:
-  - **Primary Craft Engine & Visitor Mode (`impeccable`)**: `[Persuade | Operate | Read | Experience]` (enforcing `craft-floor.md` & `layout.md` spatial hierarchy)
-  - **Design System & Archetype**: [`./DESIGN.md` brand / aesthetic direction] | **Website Blueprint**: [Standard Website (TailGrids NexStudio + Spectrum UI Footer) | Website with Hero (Md Adul E-commerce Marketplace + Spectrum UI Footer) | Custom App / Dashboard]
-  - **Taste Dials (`design-taste-frontend`)**: `DESIGN_VARIANCE: [1-10]`, `MOTION_INTENSITY: [1-10]`, `VISUAL_DENSITY: [1-10]`
-  - **Design Read**: `"Reading this as: [page kind] for [audience], with a [vibe] language, leaning toward [design system]."`
+  - **Primary Visual Direction (`design-taste-frontend`)**: [Visual world, trade-matched palette, typography pairing, and copy voice]
+  - **Layout & Craft Floor (`impeccable`)**: Visitor Mode `[Persuade | Operate | Read | Experience]` (enforcing `layout.md`, `craft-floor.md`, and `operate.md` for SaaS/docs)
+  - **Design System & Motion**: [`./DESIGN.md` tokens] | **Motion & Interactions**: [`MOTION.md` + `interaction-catalog.md` recipes] | **Website Blueprint**: [Standard Website (TailGrids NexStudio + Spectrum UI Footer) | Website with Hero (Md Adul E-commerce Marketplace + Spectrum UI Footer) | Custom App / Dashboard]
 
 ## 2. Exhaustive Feature Matrix & Priority Tiers
 | Priority | Module / Area | Feature Capabilities | Value & Behavior |
@@ -117,12 +116,11 @@ Generate a self-contained, high-density prompt formatted for immediate execution
 ```markdown
 Design and build a complete, production-ready [Product Name / Type].
 
-### Product Vision, Modern Tech Stack, Visitor Mode, Design Read & Aesthetic Dials
+### Product Vision, Modern Tech Stack, Visual Direction & Layout Mode
 - **Vision & Objective**: [Comprehensive description of the system, problem solved, target users, and end-to-end operational vision]
 - **Modern Tech Stack (Never Vanilla HTML/CSS/JS)**: [Default to Next.js App Router + React 19 + TypeScript + Tailwind CSS + shadcn/ui + Motion / `@bsmnt/scrollytelling` + GSAP (or Vite + React + TypeScript + Tailwind CSS) + typed backend/ORM; never use vanilla HTML/CSS/JS unless explicitly requested]
-- **Visitor Mode (`impeccable` Stage 2, when UI exists)**: `[Persuade | Operate | Read | Experience]`
-- **Design Read (when UI exists)**: "Reading this as: [page kind] for [target audience], with a [vibe/tone] language, leaning toward [design system/archetype]."
-- **Aesthetic Dials & Tokens (when UI exists)**: `DESIGN_VARIANCE: [1-10]`, `MOTION_INTENSITY: [1-10]`, `VISUAL_DENSITY: [1-10]`, mapped strictly to `./DESIGN.md` CSS variables in `:root`.
+- **Primary Visual Direction (`design-taste-frontend`, when UI exists)**: [Visual world, trade-matched palette, typography pairing, and copy voice mapped strictly to `./DESIGN.md` CSS variables in `:root`]
+- **Layout, Craft Floor & Motion (`impeccable` + `MOTION.md`, when UI exists)**: Visitor Mode `[Persuade | Operate | Read | Experience]` (`layout.md` + `craft-floor.md`) + `MOTION.md` / `interaction-catalog.md` interactive feel
 
 ### Priority Execution Roadmap
 > **Execution Rule**: Implement **Phase 1 (P0)** end-to-end for the initial production release unless full P0–P3 implementation is explicitly requested. Catalog P1–P3 in `PRODUCT.md` and structure code/schema boundaries cleanly to support iterative expansion.

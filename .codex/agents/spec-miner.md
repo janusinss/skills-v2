@@ -7,7 +7,6 @@ reasoning_effort: max
 target_model: "6.1-sol-max"
 tools:
   - read_file
-  - view_file
   - grep_search
   - find_by_name
   - list_dir
@@ -16,9 +15,6 @@ tools:
   - replace_file_content
   - edit_file
   - run_command
-mainAgent: true
-subagent: true
-commandExecutionPolicy: auto
 ---
 
 ## Tool guardrails

@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-10-01",
   "originalSnapshot": {
-    "digest": "4bad877b0ac7ad140332afc35ae565c856906b74b36d7e09916fb98d339b7fcf",
+    "digest": "7536773c78c14eda4329e3f35b40f2babe68e57ed7eddd2a26d03fe6b26cddcb",
     "files": {
       ".agents/agents/a11y-architect.md": "944a665705954fc9a05e3a97907500e3ee57de8d72ebb81de961c866a3eb03ae",
       ".agents/agents/agent-evaluator.md": "a868cea4487b3252c87f9a1262cb13c667510337ae8d45d33a2479b7d80c1d33",
@@ -16,12 +16,12 @@
       ".agents/agents/cpp-build-resolver.md": "7593157cb835ee50cfb2d2f0563def3f45476f016c25f3f5b342d3c95824a4cd",
       ".agents/agents/database-reviewer.md": "79faaacbbcf2818a2a033c2d85739008ad56913ebee7fc05755300a1a456c20d",
       ".agents/agents/django-build-resolver.md": "4a0161d7f2cad7141358ca5718a4a73180eddfc279b43560f1961d45ce0a6c8a",
-      ".agents/agents/e2e-runner.md": "2ca656fc005e0bdb7165b88cb1c7da263a00de8941acbfb908ba1c28a2b091ff",
+      ".agents/agents/e2e-runner.md": "706860efb5463872d1fbed4b55cf701a1cdea054104b9adb09b1417aadcc2df4",
       ".agents/agents/explorer.md": "1323bc7dc2d64a92385df2e86cc2be39f979c023fccc701007231de8df146e5a",
       ".agents/agents/fastapi-reviewer.md": "7e47bbf405dcba3d8f093f50f83163d1a974c15e5b74087df9f093ec996c2d6d",
       ".agents/agents/go-build-resolver.md": "07be8d86aa7984c518a2905863f8ead1074d6847e718e070ad87301f56e06323",
       ".agents/agents/go-reviewer.md": "5ee2b1811a0e3ab04466f630207d3ddb4a5910fca6d270745363a3321af249d0",
-      ".agents/agents/penetration-tester.md": "f53f60d59a29510ad8b356e396e0446a46c81c485c6b0ecf0f128a30691f1ad5",
+      ".agents/agents/penetration-tester.md": "ed21791ff9dc55d06c10328d0e6a11a6a2f9ea0ccff06f98fdf880923008469f",
       ".agents/agents/performance-optimizer.md": "b7273da1884bf2768e48fc687b8bdad8dda260663a236d0213abb7123ebf67a0",
       ".agents/agents/php-reviewer.md": "8fbddd78f63ce3396e462f84103b7ae9f8d0b4fcc94de9dadb898a8779b8a7c4",
       ".agents/agents/planner.md": "b056dd51593097e9c61622f99401736d77dbe0c8731b072da60d40fc265eb9ac",
@@ -31,7 +31,7 @@
       ".agents/agents/refactor-cleaner.md": "b89e40844ec637be664768a4ebd260c06aa73f0c64f3390bf16ed934b94c1166",
       ".agents/agents/rust-build-resolver.md": "01da707b040896055cebd168796e825e8be0b6f56685d244d973edf431f8775c",
       ".agents/agents/rust-reviewer.md": "49338608b01511bb329e3937e03679bd280d72b1141616d8851f28aec0ffc709",
-      ".agents/agents/security-auditor.md": "696964dea124b8011c96a49a9e79c0edee7f2c20b7fdf573c084fd14fa73434e",
+      ".agents/agents/security-auditor.md": "bfed1d0bb4d22b03894cae0d3aad61173e22e58d540e4db04277ad76bfe48948",
       ".agents/agents/silent-failure-hunter.md": "7fa43683879e3387739c290953ac4dc54e6e515aaaaeff7035c84cfb8ac14c01",
       ".agents/agents/skeptic.md": "cdeb385cd74dd32544102feb8a3f3fa6026d24cbaec59c0d0646bf5ca00ad191",
       ".agents/agents/spec-miner.md": "ce9cfeaeebb375c9a19e7279d2f915fc03ad0f5dee070f1d588950d9479bb703",
@@ -40,7 +40,7 @@
       ".agents/agents/vue-reviewer.md": "207853031470f6c9c8f256c06de2af428bfba7d8a9159c0bd1e573baa11d0a92",
       ".agents/hooks.example.json": "dcd5e4b5f42702a8646d7edc6fea679caf6715d3841f3b0c7fdfbf4ad4a524b7",
       ".agents/hooks.impeccable.example.json": "0381d7a72e5d70a32419c64045ec2d7ce2b083df6f115d41f5dbe22296259af0",
-      ".agents/resources/creative-libraries/README.md": "48ce4c40da73a4cf3ab0af91632477fc01da84c38d542a0c17840a88eeb3d052",
+      ".agents/resources/creative-libraries/README.md": "91d1df3bad28f7c31eedf7ecf662fd8821c43e474f97a800783ac25a4c382408",
       ".agents/resources/creative-libraries/components/LenisGsapBridge.tsx": "7379da0ae3e85143881bba6930393fb4542e66e600bc486dbf27a741caa317dd",
       ".agents/resources/creative-libraries/gsap/.gitignore": "e7ec355a07c394390a730f8d2bc570079d4402ac271c148b7d35727890cc5106",
       ".agents/resources/creative-libraries/gsap/README.md": "66a79667b0538b19634b5a000a9a3debe588c98d390424e73e5d4de847270828",
@@ -222,6 +222,7 @@
       ".agents/resources/creative-libraries/gsap/types/timeline.d.ts": "5d94554e80c2392a2b51be4baad4619268158eccb18d23e5d7107849bc409485",
       ".agents/resources/creative-libraries/gsap/types/tween.d.ts": "ceb1a78b91d40a8cef51b498546780d8842cd42811597af2c5584fa68defe048",
       ".agents/resources/creative-libraries/gsap/types/utils/VelocityTracker.d.ts": "07cc2729a92e8293f16fa19e56aaeb9f350b4442a24724d358073131222e0bae",
+      ".agents/resources/creative-libraries/interaction-catalog.md": "a4116d8f656b5c73e35f69c593a126b883edcaf5b8f2c127b8edb6171bf52076",
       ".agents/resources/creative-libraries/lenis/.github/CODEOWNERS": "87c414d69d71b4e2ea4fa9d8f4dd743991eb2442a5aadc8fc1494419e08c09be",
       ".agents/resources/creative-libraries/lenis/.github/FUNDING.yml": "8abd18a29b2eca531c59cc9de252f37d311de70f998fb6c1490ab2bf49f3c5d9",
       ".agents/resources/creative-libraries/lenis/.github/ISSUE_TEMPLATE/bug_report.md": "98a496802022a608054e6ed416612dc91a4ba0f86791b31470b5d60173996d27",
@@ -332,18 +333,18 @@
       ".agents/resources/creative-libraries/lenis/tsdown.config.ts": "2d3ea315b14f3b3f46577168b12254c3e4a4a37476bdd7ba42e46dbe7389c16d",
       ".agents/resources/creative-libraries/tsconfig.json": "ff331833ca0f95a77afd8b7fd134bd65f2340b8e0e79de7ab8d64910aef7af80",
       ".agents/resources/creative-libraries/types/ambient.d.ts": "b05fa40bf9480db9fb90530b833eaca137c6373313af1440d531b61d9cb48b6a",
-      ".agents/rules/MOTION.md": "dce45485adcc62887bd42bac8e555eff42fef6e691b300e1001b59c76ad6ca20",
-      ".agents/rules/UI_Always.md": "9be90c8876a5cc7c790cf711be604102fa42511a72cf6e22e816cb1c8b6a6377",
-      ".agents/rules/backend.md": "ef90374bb9206fe4a74ba65c6fb71435a48eb3961c74c7dd1324627784f1ed81",
-      ".agents/rules/frontend.md": "ccf8f8a509957782e7b2c9aa3c7c8a80a2204d10650faf5d0e0c65a65077241c",
-      ".agents/rules/install.md": "167ce7c27a86f927c620cda7a617b0414a4e9eb1b37e46c9a46bf5feaf02d06a",
-      ".agents/rules/learned-invariants.md": "e832dfe310f5d57c34d56abebfb8a565ffe24adafcfbeed8a977acdbbbf5e938",
-      ".agents/rules/penetrating-and-testing.md": "681d7b9e0f9f860f746c70c1ce512a7bc816dd998f526775928b43890439ef99",
-      ".agents/rules/security.md": "1c1cbd8327a8d4d39ce8ed2f4c194923a75435fbd3a993f4267b3f06935ffc1d",
-      ".agents/rules/starting-brandnew.md": "f17527bb5b578166b7a86bf7aaa9ceb4f1d26340cd84ac570a28858c90ce42a6",
-      ".agents/rules/starting-existing.md": "d465268ac9221bd37b1fbcabc8087c4cef8a4487ad5414eee79044915c85c167",
-      ".agents/rules/swarm.md": "dfe6654d84cae91e9636dec8b96284e145260e591a3316bd0f9b8b18f67f0446",
-      ".agents/scripts/swarm-stop-guard.cjs": "6fb566cdaee79b602dd86f057afa237b72efe6486cb7ae8e483bc138e501af2e",
+      ".agents/rules/MOTION.md": "94bf0fa193a78573a35af9a9223fb982612bf82000ec3e39703b007078a0d4e2",
+      ".agents/rules/UI_Always.md": "fb485b29a6430b69b4f1c4c894dd87ae37ffb528229c5bcacfcd818e00e0acf5",
+      ".agents/rules/backend.md": "59d2c8ad34ffb9d2eb76cbe4ada3689b0308019bcc1c3cf495ea3ba9fcc23819",
+      ".agents/rules/frontend.md": "f89145a353041899bb451c1f07295d31c37f615d3ceb6bc195fc504379c06680",
+      ".agents/rules/install.md": "034936650abf4613abf34f42844022346a10efc6817f44dfe4c52a9e89ae3f3f",
+      ".agents/rules/learned-invariants.md": "a6cee79e2692f6962bf3887ee073412424e766fcb20b95351fd739e6b4b81551",
+      ".agents/rules/penetrating-and-testing.md": "3757059d51925ad3549ec097e216a77513c0c77b34f8269cdfbf967244b95e8a",
+      ".agents/rules/security.md": "1a0e99d17acb5f5434a3b9f189f5c293e22bd51f68f35b68c980c4435cd1203f",
+      ".agents/rules/starting-brandnew.md": "48aa052d52d113a365632c6a57cd59a7d98239340131eb28fc6a8522104f44e1",
+      ".agents/rules/starting-existing.md": "54505586a1e7ec4c268003501b76acfd5e142f8c0f9ab5f784afd9a97bd6beae",
+      ".agents/rules/swarm.md": "27c9d04fd115ca7562bd5872515e6db648488af49830f1773d180884fe4d4b2d",
+      ".agents/scripts/swarm-stop-guard.cjs": "862b089079ce3077f616201cf9d0687c94d1f76797947029304009e0ffd86061",
       ".agents/skills/3d-web-experience/SKILL.md": "ccdf216cc836ed8e339f8bafb78001d1deb6bb3a2d9a5beb705407fdd8300d10",
       ".agents/skills/agent-browser/SKILL.md": "6690c34e8fa0b872096d4b0e1de7106108eb45be2b231cbd90536648523466c2",
       ".agents/skills/agent-browser/references/authentication.md": "590d5b4b53e3088243cceca79ada5c4bebb36633d1e7b2f8baa3076269641a9f",
@@ -369,7 +370,7 @@
       ".agents/skills/agent-self-evaluation/references/hook-integration.md": "65888876994a12410c17723ca768f6715cb33a8ad963264a7caef67e3ef2fa8a",
       ".agents/skills/agent-self-evaluation/scripts/evaluate.py": "04b2a9460a7baba2a8d86993c8aecb068380ee72c5de8ca07d996c4055dcaf5c",
       ".agents/skills/agent-self-evaluation/templates/evaluation-report.md": "5fc8a0820de9bc74e0a1470e55aaa50b3957aa1b0f947c4b458213b8e39fedbe",
-      ".agents/skills/anti-ai-slop/SKILL.md": "1dd82a69a6d255b72130c14a55a94a1a7cf6c520e1534ef87b7b98cc3926e6bc",
+      ".agents/skills/anti-ai-slop/SKILL.md": "b7690deb3bc75bc6736cba245ea1638dcb84a224b2360449754bc6731ef1d6cc",
       ".agents/skills/api-patterns/SKILL.md": "dadc2a1679c4032e0b8db11774216849874c8202cfd45517c3d3fa30901d02e0",
       ".agents/skills/api-patterns/api-style.md": "0396e3a3ae3b4b5c09b0baed6377fb67b04512902a3c6ccdcfc5d7c5f760e32a",
       ".agents/skills/api-patterns/auth.md": "42c631775342d39221ee1a15aa6aa85eaa42cdd88eea308b1cfe4f245d5e21ca",
@@ -1503,7 +1504,7 @@
       ".agents/skills/content-creator/scripts/brand_voice_analyzer.py": "348d601b18d72160f30f7afac74ca0886a7ba1b6d9d5b36da82763f2c6e1426c",
       ".agents/skills/content-creator/scripts/seo_optimizer.py": "f677277baf9aedad02f8784f9938472cdd31401f0b3bce0927530e819425a0b3",
       ".agents/skills/continuous-agent-loop/SKILL.md": "aa418fa20fd99cc6841e4d0b048826b9475651b9dbd437def71a927f15cf706b",
-      ".agents/skills/continuous-agent-loop/scripts/harness.mjs": "d16c2961c7d6b68223dfc075362b837c74cf3d9fbc5261b6c3ba9f703f15814f",
+      ".agents/skills/continuous-agent-loop/scripts/harness.mjs": "116eda161eb959f9a471b3f331d7c92b0ab5c9ce8cb4c19e8abd19269e8b5676",
       ".agents/skills/database-design/SKILL.md": "46a4ebfc39b02757951925737f377bee4cba796c6c6b5b2115d913522fb99d71",
       ".agents/skills/database-design/database-selection.md": "6517da101e8eacc02e485444d8a8520c27249f3b2b02b01b5b02e4f7886b260c",
       ".agents/skills/database-design/indexing.md": "eec8ce01e7c1c8ec2aed7a96d260a52b12d90c2996288e32814a8d9cf29cc22a",
@@ -3226,14 +3227,14 @@
       ".agents/skills/go-concurrency-patterns/SKILL.md": "e4e338200002a23fdd6706e5ad5746bdae9db3a7531be98236fe10158faeca28",
       ".agents/skills/go-concurrency-patterns/resources/implementation-playbook.md": "68f9619f672c4912c7cb8c498fad824bf1fc0b3f763455d3c26cf7e9842ffca6",
       ".agents/skills/golang-pro/SKILL.md": "389dfdfd5067a12f9af81efd949498adadbfa11ce63cafc47765c435efcc4323",
-      ".agents/skills/image-to-code/SKILL.md": "ed836d566e9fc43bb9bb473d5332f6a397a5e92f6a8f4d2d3a702f543f103964",
+      ".agents/skills/image-to-code/SKILL.md": "7ce43848d33ac8db82c27a5bf79076b07637b7d6e1acadf4bf01bac0d81dcf57",
       ".agents/skills/image-to-code/references/extraction-and-implementation-rules.md": "1ed8b02ffe4d1fb0e32f4f55226e8f7e1866e222bf3a229dc6a2793b87a762bc",
       ".agents/skills/image-to-code/references/quality-packs-and-response.md": "f47f8267ed1df354aa3d3ee93f471be50de7c7f4a38e4bf6716b752a80c873e0",
       ".agents/skills/image-to-code/references/variation-engine-and-hero-rules.md": "9deeddd2ab2b02ae9c8e732dfea84a940c6327e4de977ca35eb022a8b2d8b676",
-      ".agents/skills/imagegen-frontend-web/SKILL.md": "55eec0a92f836a766f76a81a337b9ef4465194d59dd4a61342c2bc47310317ec",
+      ".agents/skills/imagegen-frontend-web/SKILL.md": "9ce8bf8cd4dfd56a41f2fefebac5bcbde19d8e4db7964366feb9c6087ff7842a",
       ".agents/skills/imagegen-frontend-web/references/execution-and-material-rules.md": "0bc2a624f663a32744065f7f4366e99b9b37d1738c7a6a8efa93e47a2b3e9ffb",
       ".agents/skills/imagegen-frontend-web/references/variation-engine-and-hero-rules.md": "51acfa813dc6f422b78b59e05d6ad513970c24f51955ec10ca6969a4115e1cfb",
-      ".agents/skills/impeccable/SKILL.md": "d52bba53b2b6baf129078596e64225eb04d515cc67154fc40a449f20001b4054",
+      ".agents/skills/impeccable/SKILL.md": "ca3c6f0ae079dae2fd7ff638501896ca13b3223a6f32ecf576d081c6b27b897f",
       ".agents/skills/impeccable/agents/impeccable_asset_producer.toml": "4dbdb0cfdc2466961da6b22d200f3ec7bf8bb47c27448a2e6e3c03cdbf589831",
       ".agents/skills/impeccable/agents/impeccable_documenter.toml": "4df1e09feae14414edb13c7c49b19b11861dbacba16426e93a828f700dfbada5",
       ".agents/skills/impeccable/agents/impeccable_finish_reviewer.toml": "992a2f0308e5c33ec614a34fd50035ba078e43f9e0a018247f62e6b845b321a1",
@@ -3315,7 +3316,7 @@
       ".agents/skills/mcp-builder/scripts/evaluation.py": "49ed1d17cdce5da101b210197740713f49b935c29d4f339542a14b132658e6f7",
       ".agents/skills/mcp-builder/scripts/example_evaluation.xml": "9272b348ddcc4b06ba562367ccd0770e018158c0068ac5116d5e34aaeff8777a",
       ".agents/skills/mcp-builder/scripts/requirements.txt": "d5d7558b2368ecea9dfeed7d1fbc71ee9e0750bebd1282faa527d528a344c3c7",
-      ".agents/skills/modern-web-guidance/SKILL.md": "53a6cfc4b40254521f287761e66cf0f4ff97c7612ea72e0f49beac73669c4392",
+      ".agents/skills/modern-web-guidance/SKILL.md": "9c521320dc954bd6f8a21e3173741aca7d38718211b46c04b8ca8f8b25f49cb6",
       ".agents/skills/nextjs-app-router-patterns/SKILL.md": "7c3f1bf24031f7accc38b684b9b52e0e8549ecbcf7f9dcce87e1aa14f52f53a2",
       ".agents/skills/nextjs-app-router-patterns/resources/implementation-playbook.md": "29934ae1cab587c858c3920ba8fc54e301181ba10d68f92ecbfcd42d27aa9aa3",
       ".agents/skills/nextjs-best-practices/SKILL.md": "4d42df231e7ee76570709bdb3e64bab8b77e1fb300b1d560a87c1ba6a6b30c02",
@@ -3368,9 +3369,9 @@
       ".agents/skills/postgres-best-practices/rules/security-rls-basics.md": "e04dd1a3a382aafdaaa73fe9f7976352acdde6e90c2a2470d281b94d4f44b096",
       ".agents/skills/postgres-best-practices/rules/security-rls-performance.md": "2e1faeca7d5746e246b1c78f9492fe2a9cfa41c4d7fa1e23c402d58fa18ea014",
       ".agents/skills/programmatic-seo/SKILL.md": "e71b9b32ebadb98e91880d889404df0e6b224d070a824057542b151c9758092c",
-      ".agents/skills/prompt-enhancer-backend/SKILL.md": "be31ebb7853f2c94ae9acb136e69e95e8efa4a79fae00103a5976cf9ee58eb76",
-      ".agents/skills/prompt-enhancer-frontend/SKILL.md": "f5cde4a349c0221d1d9155051b450f031dbd3aa5f90ccb4444b0ea6f9a37b4ec",
-      ".agents/skills/prompt-enhancer/SKILL.md": "7eed28e2fcf267652e5a0729abef61cd7fac1bf4ba2e74fc7c048022ec9b29cd",
+      ".agents/skills/prompt-enhancer-backend/SKILL.md": "939501752542730e6b1c0bbf81ca5bc874a793132ac04d3303f0945ca7118ffe",
+      ".agents/skills/prompt-enhancer-frontend/SKILL.md": "dc30d4aef71894ba611c7296d5300fb193fc296fd532c609ff940af3892f7c49",
+      ".agents/skills/prompt-enhancer/SKILL.md": "2bd63a68b3304524c1695863f51dc284ada2c9198fd21e5b5fca7c6ff7286357",
       ".agents/skills/python-patterns/SKILL.md": "18a4a05420761d372e2b72cd0e9825fa6db47c9c79ba241e85189c8bc82661ca",
       ".agents/skills/python-testing-patterns/SKILL.md": "bb036bdcd875b0290408f04a34ea48fef4e6733921bfd95f5fdcbd66cc2e583b",
       ".agents/skills/python-testing-patterns/resources/implementation-playbook.md": "e34a68f352332c60b6092483a572e53f38f1bfcf4a6ea45a2a73f7e2fc2c0de7",
@@ -3515,7 +3516,7 @@
       ".agents/skills/ui-styling/scripts/tests/requirements.txt": "80846c98ee02a7e9651ec4eee6709f840b785646b469aad5284ab7ab9b344f17",
       ".agents/skills/ui-styling/scripts/tests/test_shadcn_add.py": "35f60ac5d74c4a7f950854a0337883c3e8dd812c58fcf6c5153876e43a6effa2",
       ".agents/skills/ui-styling/scripts/tests/test_tailwind_config_gen.py": "2d044e1a9e67d358e8f7f664eeaa588dbd0ef150daa91cdea71519d8d686e470",
-      ".agents/skills/ui-ux-pro-max/SKILL.md": "150493898b0d4ceb1bbd17dd192010e7e508735fad74e4d27aa14464005dbf12",
+      ".agents/skills/ui-ux-pro-max/SKILL.md": "b1480ff9a1edcbfcb6921285f6203651d3d3b43b0b27898edd88c64e37e5058b",
       ".agents/skills/ui-ux-pro-max/data/app-interface.csv": "331e7cf2c0b222d80c566c5f255c63cb339f65bfd02e471a720f28e4864a9f08",
       ".agents/skills/ui-ux-pro-max/data/catalog-summary.json": "b27655fbce8fec64b7ab7ec6ac11f079a0e6ab29a5c2785d624cedc96dd0742f",
       ".agents/skills/ui-ux-pro-max/data/charts.csv": "4115cf1120680f2cedef0676cb648f30c7ef4699e2a947535d4113e71ed3b12a",
@@ -3590,20 +3591,37 @@
       ".agents/skills/ui-ux-pro-max/scripts/tests/test_text_layout_resilience.py": "b51d32ee8a15505b87cb81957fb2d1b385e041e8beb4463c311d236bfd29ebd4",
       ".agents/skills/ui-ux-pro-max/scripts/tests/test_web_stack_freshness.py": "83a6d597410f442441cdb17d0913be151404a608ada6a2487dd2bfe2fbf31e5d",
       ".agents/skills/ui-ux-pro-max/scripts/validate_data.py": "a599aa256049cf30954d1f164721b99e453eb7e4cb8241bcab2d5573e6cf58b8",
+      ".agents/skills/unslop/LICENSE": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411",
+      ".agents/skills/unslop/SKILL.md": "adb6c9516572f85b6ef1526af7fa0cb4f5ce01a6cd45dc1746c90f0456ae0d91",
+      ".agents/skills/unslop/agents/openai.yaml": "170d0b33a418d9d82beb7d15f8a91e314adef2edf53a81c37155b6f40dd52f06",
+      ".agents/skills/unslop/references/effects.md": "ded4f679e22843a8f68860e6cda0396fa8b8fa27202400e08337143b485c86a4",
+      ".agents/skills/unslop/references/refs.md": "12a70ce17d574914ea69eb0809e5a9605de044df1b66619159c6d0b38d6b8353",
+      ".agents/skills/unslop/references/refs/beacon-engraving.webp": "44e7680e9c944f03c8fe45df999bdf74077a106925a8189eebf89e751e306e5b",
+      ".agents/skills/unslop/references/refs/meadow-3d.webp": "84f526b68021a06fc6d32f162406fab6cc8074da1ef76d2ae4530e1b58219b14",
+      ".agents/skills/unslop/references/refs/story-dashboard-frames.webp": "cfbf837e40b7626d5a5789dbce54f5c197aab303aa350d13a042048310717137",
+      ".agents/skills/unslop/references/refs/unslop-dashboard-after.webp": "48067794f86b43dab20515b3810f245d67bff05d10bfa83c0f5885bee93cea52",
+      ".agents/skills/unslop/references/refs/unslop-hero-after.webp": "92b2d796c5b6116a2039f5ca2b0f3edf700c92b41846b11b9501a4e32f72af6e",
+      ".agents/skills/unslop/references/rtl.md": "d33ad69324e2b7c27107185f3fc99e50ba0f7f81b7c67c4e4f53e59cd5802be4",
+      ".agents/skills/unslop/references/signs.md": "ed051b2ed17758145ff5563a3b20fbc9203380f882130b1f25bf6c2e22b69120",
+      ".agents/skills/unslop/references/tokens.md": "b8beace96055e8097ff5a788b874e290393de56eff946bc1c650cc445e8965c2",
+      ".agents/skills/unslop/references/visuals.md": "7247da579d2d95ace1e051b867c757bd1e05aa02f3ab8dea0ead4cd4bf14d7d7",
+      ".agents/skills/unslop/scripts/snapshot.mjs": "4b0c3639bd1c052fa1968c4bbe1b17acb5b108fd22ec70518628d9a4dbd5d6fa",
+      ".agents/skills/unslop/scripts/story-path.mjs": "319600e594fca2f94cbfef8706b6f1c9f5151ad56d7a27e7f7d28f82f5756c9c",
+      ".agents/skills/unslop/scripts/story.mjs": "349610ab1d829eb727b5033353e0ecc0e3272a50c6f1d9eea94b74dcc6daa517",
       ".agents/skills/untangle-codebase/LICENSE": "cbe11503c54a6eeecf65772e66fbbca7a37750bff9812c742b11dca47ceb539c",
       ".agents/skills/untangle-codebase/SKILL.md": "eace3de7a56a4acb964a132917d52a78719f74ddd2e2cb19f6701f8ca8832569",
       ".gitignore": "d3c49db2599c7418e4f5c0edb62d7f994bedc6d39c0307d4b4e1546fc761c006",
-      "AGENTS.md": "85966374ba10f8f870c53268e8513acda57e5bad21c7838e381c10f995080258",
+      "AGENTS.md": "cb19184903ca0cc49ffe56b4d29b0b8a8804573b67c4ba93cfd31088d6d667b0",
       "skills-lock.json": "7d488ac96b3de3bf1f1fd76a55bf3c4813866e75265597c9cf0786622ae19708"
     }
   },
   "originalPreserved": true,
   "summary": {
-    "topLevelSkills": 73,
-    "discoverableSkills": 79,
+    "topLevelSkills": 74,
+    "discoverableSkills": 80,
     "duplicatesPreservedAsReferences": 2,
     "rules": 10,
-    "generatedFiles": 3214
+    "generatedFiles": 3232
   },
   "duplicateReferences": {
     "skills/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "skills/avoid-ai-writing/skills/avoid-ai-writing/REFERENCE.md",
@@ -3613,162 +3631,162 @@
     "agents/a11y-architect.md": {
       "source": ".agents/agents/a11y-architect.md",
       "sourceHash": "944a665705954fc9a05e3a97907500e3ee57de8d72ebb81de961c866a3eb03ae",
-      "outputHash": "f85cf04c2287def85ab77645491d88fb6f75be59753438a5f747268a32b6a892"
+      "outputHash": "7b39f421bede0d08070e70c4f9cc46984bb1c612fb904203a8aa3e83edc19c65"
     },
     "agents/agent-evaluator.md": {
       "source": ".agents/agents/agent-evaluator.md",
       "sourceHash": "a868cea4487b3252c87f9a1262cb13c667510337ae8d45d33a2479b7d80c1d33",
-      "outputHash": "e7371d01a2d96ad92a275626abe5743474dffe572f2bbe9b36ddf3812ca1dc7f"
+      "outputHash": "d321c3e8f5ce7241fad7b43ef3ab92d8ef42914ce9b2a12652096d19d673eab6"
     },
     "agents/architect.md": {
       "source": ".agents/agents/architect.md",
       "sourceHash": "2ff199c920ccdfe93bb3006bf5619a1d9cef67e71180026991247bcc902f74f4",
-      "outputHash": "7002f47d253ebacd96b7aeed60d116a3f62dad74b0661f39b841fd4240e46206"
+      "outputHash": "403f7d0fc6133d54eb06a3772de93ef73aa5ba60a24338fce5be73a19e46437d"
     },
     "agents/build-error-resolver.md": {
       "source": ".agents/agents/build-error-resolver.md",
       "sourceHash": "9268ffd9694a564ea955df6b0d1d96e21cc10490a320ff5cedc4074b88e180d8",
-      "outputHash": "1fd87ab19fb2bd23691063a01db837d2e201cdecd217a9e1edc8b398580a589b"
+      "outputHash": "9356f1376de70e596b26abfe22ba518bc88f411ceb7010c6838ed95d197b85ce"
     },
     "agents/code-architect.md": {
       "source": ".agents/agents/code-architect.md",
       "sourceHash": "2e5ae2d4cdddf9e6262dcb87c7548c6bc75772f746dcf61b8c99522e894f5577",
-      "outputHash": "20b672489577a3ab48bd2a7533e34610f9f7d7c60d63cda6019cfde9c8525ce5"
+      "outputHash": "1e6491c0f065c9de77fd57fea6799411c5758ff62d2292244667d556dae8d56e"
     },
     "agents/code-reviewer.md": {
       "source": ".agents/agents/code-reviewer.md",
       "sourceHash": "5b49fc40723033c01c430406c4b0b4bd09365f60230ecfe9af3c193340ad464e",
-      "outputHash": "78d8de6249cb7f378af37b1ae5de3232dbfb4fd61c707211b4036d34c6fc6aa7"
+      "outputHash": "d1fe081e1a0350efb03dff69ec830aa223f36facc8d617e8eb25f820e321be1c"
     },
     "agents/code-simplifier.md": {
       "source": ".agents/agents/code-simplifier.md",
       "sourceHash": "cacb8fe34cd77d6aa13c21e57ee8706729159b0db53ee20e82835b9073aa4fd2",
-      "outputHash": "562a2e77b67f5c6e6f1c6bef4954931e74d324680a58ee56d2bcd57a18ac7c70"
+      "outputHash": "e2bbaa1078dbbccdcc624af38aed7e1578952f0d7b9386d34ce0decd65a750ac"
     },
     "agents/cpp-build-resolver.md": {
       "source": ".agents/agents/cpp-build-resolver.md",
       "sourceHash": "7593157cb835ee50cfb2d2f0563def3f45476f016c25f3f5b342d3c95824a4cd",
-      "outputHash": "9377daa7d9ef9a36693727381ff2799711fd1549341ca46042ff372948371023"
+      "outputHash": "bb4afd05949a8d98abc8a8ab9dd386f3e4b0510331717950eefca244b2419f03"
     },
     "agents/database-reviewer.md": {
       "source": ".agents/agents/database-reviewer.md",
       "sourceHash": "79faaacbbcf2818a2a033c2d85739008ad56913ebee7fc05755300a1a456c20d",
-      "outputHash": "34c1228cb47c49a2e3fde31ea2e57a58e1aa5b2659176e9fe6a737e2432e43da"
+      "outputHash": "3663f1ef3402f551bbd4120a81ba4f1ea9c6c574671939636804d15bee1e0505"
     },
     "agents/django-build-resolver.md": {
       "source": ".agents/agents/django-build-resolver.md",
       "sourceHash": "4a0161d7f2cad7141358ca5718a4a73180eddfc279b43560f1961d45ce0a6c8a",
-      "outputHash": "a29cac370219974337fd0044e1e2b253cb581ce50c36f81a9b0c1accbac9c358"
+      "outputHash": "de06e5fc3e1a448be315d9a7f8b4d6390cd502fae9902d660257be4c1d0e2c8f"
     },
     "agents/e2e-runner.md": {
       "source": ".agents/agents/e2e-runner.md",
-      "sourceHash": "2ca656fc005e0bdb7165b88cb1c7da263a00de8941acbfb908ba1c28a2b091ff",
-      "outputHash": "f5910a4eb2ad955894ebec9962409ac8a576f36255a875b2455f658c8b4cc0f5"
+      "sourceHash": "706860efb5463872d1fbed4b55cf701a1cdea054104b9adb09b1417aadcc2df4",
+      "outputHash": "22b5d8ee9ab0977f78323686c260e79437591dcb9624c7551b7f347476e74bad"
     },
     "agents/explorer.md": {
       "source": ".agents/agents/explorer.md",
       "sourceHash": "1323bc7dc2d64a92385df2e86cc2be39f979c023fccc701007231de8df146e5a",
-      "outputHash": "53b4d63366f63da3148bca90ac4b61edec9debb2815b35967e2e4126a4d85b20"
+      "outputHash": "2e8c0cfc5faef887ec90f45133ab4a98829cb4ea223e9de470bda41047e2916d"
     },
     "agents/fastapi-reviewer.md": {
       "source": ".agents/agents/fastapi-reviewer.md",
       "sourceHash": "7e47bbf405dcba3d8f093f50f83163d1a974c15e5b74087df9f093ec996c2d6d",
-      "outputHash": "aaaf16c168d35f615901565f797a84d6afbf29f22cda8aaa45df2f5b37d6be6d"
+      "outputHash": "c7316991806d23d75d7be2e8b5d2c8a900093a3f8a0020344d4ef537e56bc55f"
     },
     "agents/go-build-resolver.md": {
       "source": ".agents/agents/go-build-resolver.md",
       "sourceHash": "07be8d86aa7984c518a2905863f8ead1074d6847e718e070ad87301f56e06323",
-      "outputHash": "c5055f6f086d12f05bc31d7b0b6e9c845a672d3043dcc9b02bf84851b5f0699c"
+      "outputHash": "1bb186144dbd9b074dd2a0ff9fd165349f5a246e8f414ad8ef66b6f12f6dedb1"
     },
     "agents/go-reviewer.md": {
       "source": ".agents/agents/go-reviewer.md",
       "sourceHash": "5ee2b1811a0e3ab04466f630207d3ddb4a5910fca6d270745363a3321af249d0",
-      "outputHash": "e38c5546f4b62afb7d4caea2eab9facd5a63f057437770fc3baf11cb32e576e6"
+      "outputHash": "92f60132a995a6ab54427a2c79bd92355f143301afc55a7e30535eee3c2eb72c"
     },
     "agents/penetration-tester.md": {
       "source": ".agents/agents/penetration-tester.md",
-      "sourceHash": "f53f60d59a29510ad8b356e396e0446a46c81c485c6b0ecf0f128a30691f1ad5",
-      "outputHash": "e76047a50d98afa328a7021f7b376a32a1b47ab5d59f88654f4db9eb0c48703b"
+      "sourceHash": "ed21791ff9dc55d06c10328d0e6a11a6a2f9ea0ccff06f98fdf880923008469f",
+      "outputHash": "915ed4974c12f4a8ac99a5ae7763de67a068b3ed6b5d57dd3478a582e3d5e743"
     },
     "agents/performance-optimizer.md": {
       "source": ".agents/agents/performance-optimizer.md",
       "sourceHash": "b7273da1884bf2768e48fc687b8bdad8dda260663a236d0213abb7123ebf67a0",
-      "outputHash": "f773e7454c4e7b6ad9da46edc526ecd41581ddbc5028c2f894f6421ee33fcf04"
+      "outputHash": "83db6e718de1602a68716d97ef40d52c472f06ed984f83686eae4999d9f9af17"
     },
     "agents/php-reviewer.md": {
       "source": ".agents/agents/php-reviewer.md",
       "sourceHash": "8fbddd78f63ce3396e462f84103b7ae9f8d0b4fcc94de9dadb898a8779b8a7c4",
-      "outputHash": "27b2b793d547a40fcaa5f04fb0187e8d36a29686c87f16a146a969f9698745cf"
+      "outputHash": "31778272bc5a62aceab3c57d4383765ebc3db2a433a2c896293de184294f3ddb"
     },
     "agents/planner.md": {
       "source": ".agents/agents/planner.md",
       "sourceHash": "b056dd51593097e9c61622f99401736d77dbe0c8731b072da60d40fc265eb9ac",
-      "outputHash": "14d61eb0831ad220ee9f761c7bce0c5d7291bb5e4bdd2125c38b007a833f061b"
+      "outputHash": "ba064d2f87529e1f5ebad9a9f88a01692923a4696ab9901f5f67bd61bbc3debf"
     },
     "agents/pytorch-build-resolver.md": {
       "source": ".agents/agents/pytorch-build-resolver.md",
       "sourceHash": "8f116ef1ad31f17fc607a212a70e5c9a10d52170b338563efae12d3ec5a88188",
-      "outputHash": "e6a7bd6e00d5db5d6b980cb32e11ccf865026c4c908c6039f53d36c9b54526af"
+      "outputHash": "a1481d159abd52760b6059b6c48057a932a6fc6d213cbae65d37d62729cf4086"
     },
     "agents/react-build-resolver.md": {
       "source": ".agents/agents/react-build-resolver.md",
       "sourceHash": "65c25287ee6982671d04c76d90cf00654ac9ac2bef2f9306eb019b33f75ea7b9",
-      "outputHash": "b4c81a71781679457bbcc370b80c034c464e498439a2f6543389efdd000d3369"
+      "outputHash": "122b9eeaef0ff905a49ad1a9d1766e0e9634b16f61eb20e1412c3b29741c4a41"
     },
     "agents/react-reviewer.md": {
       "source": ".agents/agents/react-reviewer.md",
       "sourceHash": "450e72f7045c012578147fa1df989cb59778089c7c4d18302bbe4be3ea5a9145",
-      "outputHash": "e8bbf8924144d139f38ac144ff508b069ca603cb1bb48203e299da37fa8d4856"
+      "outputHash": "229a554d09dbcbc3981f47bb89a0e4c52dc6bbda88d5ea72d5799525512a8040"
     },
     "agents/refactor-cleaner.md": {
       "source": ".agents/agents/refactor-cleaner.md",
       "sourceHash": "b89e40844ec637be664768a4ebd260c06aa73f0c64f3390bf16ed934b94c1166",
-      "outputHash": "8fe352a702a0b4a6c3da69235c37e1f7257917971c2f8857d9969c781fbbbc0e"
+      "outputHash": "29fefb0b3e0778248e41c71c16b9301ce43d2bb9fabf593d17c9ed9b1de941a2"
     },
     "agents/rust-build-resolver.md": {
       "source": ".agents/agents/rust-build-resolver.md",
       "sourceHash": "01da707b040896055cebd168796e825e8be0b6f56685d244d973edf431f8775c",
-      "outputHash": "6f67732ac324da95c98174611cebf4d5c0656293da0a8c0f1f045e8584f73341"
+      "outputHash": "53b8f6dc5bb065f0e38d113716209a0fd3eeba770d2cf5eb11065a1a7b83f2d7"
     },
     "agents/rust-reviewer.md": {
       "source": ".agents/agents/rust-reviewer.md",
       "sourceHash": "49338608b01511bb329e3937e03679bd280d72b1141616d8851f28aec0ffc709",
-      "outputHash": "d85a2765add8c3e16615f2010ff2aa936b01ab6b0e627292baaae0d1e2bb5987"
+      "outputHash": "b15a3301570d51d0ffc22dc0c276b6d5f14fd8e235ec48b1ff23e4d32af41b98"
     },
     "agents/security-auditor.md": {
       "source": ".agents/agents/security-auditor.md",
-      "sourceHash": "696964dea124b8011c96a49a9e79c0edee7f2c20b7fdf573c084fd14fa73434e",
-      "outputHash": "13d477e70dc79b2ec30b961133dc814f842faed3305c547581256ba66b06c8c9"
+      "sourceHash": "bfed1d0bb4d22b03894cae0d3aad61173e22e58d540e4db04277ad76bfe48948",
+      "outputHash": "1a218cde725e023b45242d941029a897bc29ac327294bbf2a15474753d90b0dd"
     },
     "agents/silent-failure-hunter.md": {
       "source": ".agents/agents/silent-failure-hunter.md",
       "sourceHash": "7fa43683879e3387739c290953ac4dc54e6e515aaaaeff7035c84cfb8ac14c01",
-      "outputHash": "ba3cadf2e2cfaf990929c351b56c3fe36a7a5ed4cab50e1da27392d73537fc6e"
+      "outputHash": "6e7fb2c6d827679c528eb8ab689ce4323e99b7064c76142a0f5c8b0cf5c82ef7"
     },
     "agents/skeptic.md": {
       "source": ".agents/agents/skeptic.md",
       "sourceHash": "cdeb385cd74dd32544102feb8a3f3fa6026d24cbaec59c0d0646bf5ca00ad191",
-      "outputHash": "592ed7b315bae5ca196b8c9df2f5840652c881f6f9c43d467aa245f806d21b4a"
+      "outputHash": "b65bcdfacf51330c203c814a2e30d471bb757d35483fe9f2fcdd7df377d0fd9a"
     },
     "agents/spec-miner.md": {
       "source": ".agents/agents/spec-miner.md",
       "sourceHash": "ce9cfeaeebb375c9a19e7279d2f915fc03ad0f5dee070f1d588950d9479bb703",
-      "outputHash": "06cbc971194e2b359e376b07226937940e62609ee19771c92e4a0ca02bcbf367"
+      "outputHash": "3d1008482908bdab1cbeae3caaa1b9e47c372dda209e22dd68d5b8118ca1656f"
     },
     "agents/tdd-guide.md": {
       "source": ".agents/agents/tdd-guide.md",
       "sourceHash": "4cbd051aa1b4d48e13bb1cc1f3dfe0f70970126a049aa36d1a5177b6e64661c5",
-      "outputHash": "f183d24176a78e50580e998a727abd207828bc7c736995a209b64135586bdd3e"
+      "outputHash": "6e13c7eb2f3496f0b67d20f3725693079a93895b87ffcc9bbd45ae66699a4ab4"
     },
     "agents/typescript-reviewer.md": {
       "source": ".agents/agents/typescript-reviewer.md",
       "sourceHash": "7d21edb2d83e2bb734234706afeda23a06d4698c3667656bad36c07f89117e47",
-      "outputHash": "d781b427a1a63e9d553eae4cae07292e700f92fd159ad8957dab15bdbc889a8c"
+      "outputHash": "421012abcd90b85561487363096ffad767a2550b8bb46446051a9f3cec9f5b58"
     },
     "agents/vue-reviewer.md": {
       "source": ".agents/agents/vue-reviewer.md",
       "sourceHash": "207853031470f6c9c8f256c06de2af428bfba7d8a9159c0bd1e573baa11d0a92",
-      "outputHash": "fb6536f6155a2b1fbaebab380327dee8f712d6765b3e7bca3a6c040574ffc785"
+      "outputHash": "57c97fc8d6d260107944b2005d0410bb1b2ffca424204d3725d68473f11c6929"
     },
     "resources/creative-libraries/components/LenisGsapBridge.tsx": {
       "source": ".agents/resources/creative-libraries/components/LenisGsapBridge.tsx",
@@ -4675,6 +4693,11 @@
       "sourceHash": "07cc2729a92e8293f16fa19e56aaeb9f350b4442a24724d358073131222e0bae",
       "outputHash": "07cc2729a92e8293f16fa19e56aaeb9f350b4442a24724d358073131222e0bae"
     },
+    "resources/creative-libraries/interaction-catalog.md": {
+      "source": ".agents/resources/creative-libraries/interaction-catalog.md",
+      "sourceHash": "a4116d8f656b5c73e35f69c593a126b883edcaf5b8f2c127b8edb6171bf52076",
+      "outputHash": "a4116d8f656b5c73e35f69c593a126b883edcaf5b8f2c127b8edb6171bf52076"
+    },
     "resources/creative-libraries/lenis/.github/CODEOWNERS": {
       "source": ".agents/resources/creative-libraries/lenis/.github/CODEOWNERS",
       "sourceHash": "87c414d69d71b4e2ea4fa9d8f4dd743991eb2442a5aadc8fc1494419e08c09be",
@@ -5217,8 +5240,8 @@
     },
     "resources/creative-libraries/README.md": {
       "source": ".agents/resources/creative-libraries/README.md",
-      "sourceHash": "48ce4c40da73a4cf3ab0af91632477fc01da84c38d542a0c17840a88eeb3d052",
-      "outputHash": "5cf1bd84866fec3749b3220874ee70e3cccd35dcb6484805620bb4b68c0dfa63"
+      "sourceHash": "91d1df3bad28f7c31eedf7ecf662fd8821c43e474f97a800783ac25a4c382408",
+      "outputHash": "cea41e6800aa7799c3c7fd5ca65ae702660c906e2df74091bdb61c7061e28efa"
     },
     "resources/creative-libraries/tsconfig.json": {
       "source": ".agents/resources/creative-libraries/tsconfig.json",
@@ -5372,13 +5395,13 @@
     },
     "skills/anti-ai-slop/SKILL.md": {
       "source": ".agents/skills/anti-ai-slop/SKILL.md",
-      "sourceHash": "1dd82a69a6d255b72130c14a55a94a1a7cf6c520e1534ef87b7b98cc3926e6bc",
-      "outputHash": "7dc3d2a4a00e9fae517b64317a6e35effdf3fd3d77a5e950a79a741c93718e0e"
+      "sourceHash": "b7690deb3bc75bc6736cba245ea1638dcb84a224b2360449754bc6731ef1d6cc",
+      "outputHash": "de18aa0758af97ca36c6a5ead3f362b4c1f722ec4b4f9722949a425594e3db12"
     },
     "skills/anti-ai-slop/agents/openai.yaml": {
       "source": ".agents/skills/anti-ai-slop/SKILL.md",
-      "sourceHash": "1dd82a69a6d255b72130c14a55a94a1a7cf6c520e1534ef87b7b98cc3926e6bc",
-      "outputHash": "6a7b0ca2498ce342e9e2215ab12cc5919ca6ce0f0a88cfaa4eca1891c4c674cb"
+      "sourceHash": "b7690deb3bc75bc6736cba245ea1638dcb84a224b2360449754bc6731ef1d6cc",
+      "outputHash": "0b6b3597b1f4bfed9e39626419f9981738581694e323697fde9d2b2775db7e73"
     },
     "skills/api-patterns/api-style.md": {
       "source": ".agents/skills/api-patterns/api-style.md",
@@ -8917,13 +8940,13 @@
     },
     "skills/continuous-agent-loop/scripts/harness.mjs": {
       "source": ".agents/skills/continuous-agent-loop/scripts/harness.mjs",
-      "sourceHash": "d16c2961c7d6b68223dfc075362b837c74cf3d9fbc5261b6c3ba9f703f15814f",
-      "outputHash": "d16c2961c7d6b68223dfc075362b837c74cf3d9fbc5261b6c3ba9f703f15814f"
+      "sourceHash": "116eda161eb959f9a471b3f331d7c92b0ab5c9ce8cb4c19e8abd19269e8b5676",
+      "outputHash": "116eda161eb959f9a471b3f331d7c92b0ab5c9ce8cb4c19e8abd19269e8b5676"
     },
     "skills/continuous-agent-loop/SKILL.md": {
       "source": ".agents/skills/continuous-agent-loop/SKILL.md",
       "sourceHash": "aa418fa20fd99cc6841e4d0b048826b9475651b9dbd437def71a927f15cf706b",
-      "outputHash": "21c7296352bdc47a30e46baa9ec7c2889ad72ba48b9d177a228b2426e67c2b87"
+      "outputHash": "8d746dd08fc0451ce6e236c72c0857d9df52fa1019d6be9f6d93c71a432fda73"
     },
     "skills/continuous-agent-loop/agents/openai.yaml": {
       "source": ".agents/skills/continuous-agent-loop/SKILL.md",
@@ -17353,7 +17376,7 @@
     "skills/design-taste-frontend/references/gate.md": {
       "source": ".agents/skills/design-taste-frontend/references/gate.md",
       "sourceHash": "14946f5ad6b4abdf6dad65a693b2eeb98912e8253b9c4f10da0840e4efafc651",
-      "outputHash": "7c58fd2cb83c789e976f3f582006c07afc9ed74b3aa828a6388f911e4d564600"
+      "outputHash": "14946f5ad6b4abdf6dad65a693b2eeb98912e8253b9c4f10da0840e4efafc651"
     },
     "skills/design-taste-frontend/references/icons.md": {
       "source": ".agents/skills/design-taste-frontend/references/icons.md",
@@ -17468,7 +17491,7 @@
     "skills/design-taste-frontend/SKILL.md": {
       "source": ".agents/skills/design-taste-frontend/SKILL.md",
       "sourceHash": "c0ae2b80f18791e2c6321fac9d9e593a323dcf70ad6175f257070089ed0d72db",
-      "outputHash": "eaf55ed212299b3c2340a567c9b8d0c77577f467c7bbfe1a19afdcd981efcaaf"
+      "outputHash": "084ef7a10bbbb090946bce3aa4780c5ba35310261b7a9ea54eff634acec4cb01"
     },
     "skills/design-taste-frontend/agents/openai.yaml": {
       "source": ".agents/skills/design-taste-frontend/SKILL.md",
@@ -17632,12 +17655,12 @@
     },
     "skills/image-to-code/SKILL.md": {
       "source": ".agents/skills/image-to-code/SKILL.md",
-      "sourceHash": "ed836d566e9fc43bb9bb473d5332f6a397a5e92f6a8f4d2d3a702f543f103964",
-      "outputHash": "35b15ffcfcbd13f449b9d281f0605ce7c564c3ca396d94d44cfaa26230a438ea"
+      "sourceHash": "7ce43848d33ac8db82c27a5bf79076b07637b7d6e1acadf4bf01bac0d81dcf57",
+      "outputHash": "f874130675fdf8dd792bce399e30be4be17d7cd2f0cf841595239321f37577d9"
     },
     "skills/image-to-code/agents/openai.yaml": {
       "source": ".agents/skills/image-to-code/SKILL.md",
-      "sourceHash": "ed836d566e9fc43bb9bb473d5332f6a397a5e92f6a8f4d2d3a702f543f103964",
+      "sourceHash": "7ce43848d33ac8db82c27a5bf79076b07637b7d6e1acadf4bf01bac0d81dcf57",
       "outputHash": "288dd0ab86ff4bb4e768782966dc10f59b9684308a067e2c52f5f9e27bd9f464"
     },
     "skills/imagegen-frontend-web/references/execution-and-material-rules.md": {
@@ -17652,12 +17675,12 @@
     },
     "skills/imagegen-frontend-web/SKILL.md": {
       "source": ".agents/skills/imagegen-frontend-web/SKILL.md",
-      "sourceHash": "55eec0a92f836a766f76a81a337b9ef4465194d59dd4a61342c2bc47310317ec",
-      "outputHash": "6e585e38065c3a66cce5e33dcc02d67fe640439db35ff88bf26574f08ef0b98e"
+      "sourceHash": "9ce8bf8cd4dfd56a41f2fefebac5bcbde19d8e4db7964366feb9c6087ff7842a",
+      "outputHash": "9d49211e603f76a3d61b1d360cd8f34cd7dac14c54aae19dfbabf35cf668747a"
     },
     "skills/imagegen-frontend-web/agents/openai.yaml": {
       "source": ".agents/skills/imagegen-frontend-web/SKILL.md",
-      "sourceHash": "55eec0a92f836a766f76a81a337b9ef4465194d59dd4a61342c2bc47310317ec",
+      "sourceHash": "9ce8bf8cd4dfd56a41f2fefebac5bcbde19d8e4db7964366feb9c6087ff7842a",
       "outputHash": "25d6ea8ed6b92c5264a10d0deffb44fa4bc33ee9cc2e973e40981e292f96eeee"
     },
     "skills/impeccable/agents/impeccable_asset_producer.toml": {
@@ -17987,12 +18010,12 @@
     },
     "skills/impeccable/SKILL.md": {
       "source": ".agents/skills/impeccable/SKILL.md",
-      "sourceHash": "d52bba53b2b6baf129078596e64225eb04d515cc67154fc40a449f20001b4054",
+      "sourceHash": "ca3c6f0ae079dae2fd7ff638501896ca13b3223a6f32ecf576d081c6b27b897f",
       "outputHash": "c8b21f458e35297eec03d2ed239c235cc2c41444f72f40125b444a3f443aa657"
     },
     "skills/impeccable/agents/openai.yaml": {
       "source": ".agents/skills/impeccable/SKILL.md",
-      "sourceHash": "d52bba53b2b6baf129078596e64225eb04d515cc67154fc40a449f20001b4054",
+      "sourceHash": "ca3c6f0ae079dae2fd7ff638501896ca13b3223a6f32ecf576d081c6b27b897f",
       "outputHash": "3d433be65bb8c910742c5ef87a05820deb6e8d70a28edd388b0cb668d601b5ac"
     },
     "skills/javascript-pro/SKILL.md": {
@@ -18087,13 +18110,13 @@
     },
     "skills/modern-web-guidance/SKILL.md": {
       "source": ".agents/skills/modern-web-guidance/SKILL.md",
-      "sourceHash": "53a6cfc4b40254521f287761e66cf0f4ff97c7612ea72e0f49beac73669c4392",
-      "outputHash": "4d760674d6c828eea683d7f169141145403e13251d3e4f8c73a5af27d56f112f"
+      "sourceHash": "9c521320dc954bd6f8a21e3173741aca7d38718211b46c04b8ca8f8b25f49cb6",
+      "outputHash": "d8c3700819ea267137e5395f8ad18dbf04c4f4b3eeff0b082e04a80e68ce994b"
     },
     "skills/modern-web-guidance/agents/openai.yaml": {
       "source": ".agents/skills/modern-web-guidance/SKILL.md",
-      "sourceHash": "53a6cfc4b40254521f287761e66cf0f4ff97c7612ea72e0f49beac73669c4392",
-      "outputHash": "6b514dfa0cfa2e90933b9d45ce647070798b15c400700a72f37d5ce15603a9eb"
+      "sourceHash": "9c521320dc954bd6f8a21e3173741aca7d38718211b46c04b8ca8f8b25f49cb6",
+      "outputHash": "c71aedab685e9a92eab094e744487ca1b6013488ad997e654727764bb4434e38"
     },
     "skills/nextjs-app-router-patterns/resources/implementation-playbook.md": {
       "source": ".agents/skills/nextjs-app-router-patterns/resources/implementation-playbook.md",
@@ -18397,32 +18420,32 @@
     },
     "skills/prompt-enhancer/SKILL.md": {
       "source": ".agents/skills/prompt-enhancer/SKILL.md",
-      "sourceHash": "7eed28e2fcf267652e5a0729abef61cd7fac1bf4ba2e74fc7c048022ec9b29cd",
-      "outputHash": "fe50851a1584ec1d73e5f4024fffc515966337a1221e925c305fe47c8ecdd2dd"
+      "sourceHash": "2bd63a68b3304524c1695863f51dc284ada2c9198fd21e5b5fca7c6ff7286357",
+      "outputHash": "f545d13047bfef033ff5cc56565da35fdaefa0d42c12ca66b05e484b05edbe12"
     },
     "skills/prompt-enhancer/agents/openai.yaml": {
       "source": ".agents/skills/prompt-enhancer/SKILL.md",
-      "sourceHash": "7eed28e2fcf267652e5a0729abef61cd7fac1bf4ba2e74fc7c048022ec9b29cd",
+      "sourceHash": "2bd63a68b3304524c1695863f51dc284ada2c9198fd21e5b5fca7c6ff7286357",
       "outputHash": "0dc3205e7477d80a81e8e4c817243f970dda3b6813fd44b67b1ae9292c789dc8"
     },
     "skills/prompt-enhancer-backend/SKILL.md": {
       "source": ".agents/skills/prompt-enhancer-backend/SKILL.md",
-      "sourceHash": "be31ebb7853f2c94ae9acb136e69e95e8efa4a79fae00103a5976cf9ee58eb76",
-      "outputHash": "c4c15e23fc917316130bcd4f48107960d6239014c0d1bb4d7a17fa209a35389d"
+      "sourceHash": "939501752542730e6b1c0bbf81ca5bc874a793132ac04d3303f0945ca7118ffe",
+      "outputHash": "0dcec3a572cd19b18f6b40bafbe529ff7d381f35e598c5cb1b3302b681b876bd"
     },
     "skills/prompt-enhancer-backend/agents/openai.yaml": {
       "source": ".agents/skills/prompt-enhancer-backend/SKILL.md",
-      "sourceHash": "be31ebb7853f2c94ae9acb136e69e95e8efa4a79fae00103a5976cf9ee58eb76",
+      "sourceHash": "939501752542730e6b1c0bbf81ca5bc874a793132ac04d3303f0945ca7118ffe",
       "outputHash": "4d3bea50e80446425a47e0b6410e30e093be9251b2e1918b58a69ea72df9bd3e"
     },
     "skills/prompt-enhancer-frontend/SKILL.md": {
       "source": ".agents/skills/prompt-enhancer-frontend/SKILL.md",
-      "sourceHash": "f5cde4a349c0221d1d9155051b450f031dbd3aa5f90ccb4444b0ea6f9a37b4ec",
-      "outputHash": "ae04e7905851a96589ffe7fa4380e83448053a9e2159ef7cb7f744e6d68f60a2"
+      "sourceHash": "dc30d4aef71894ba611c7296d5300fb193fc296fd532c609ff940af3892f7c49",
+      "outputHash": "c880008cbe45d6070b6a24d561d0df8987bd4db9051e75e7af8b9538ef140c1f"
     },
     "skills/prompt-enhancer-frontend/agents/openai.yaml": {
       "source": ".agents/skills/prompt-enhancer-frontend/SKILL.md",
-      "sourceHash": "f5cde4a349c0221d1d9155051b450f031dbd3aa5f90ccb4444b0ea6f9a37b4ec",
+      "sourceHash": "dc30d4aef71894ba611c7296d5300fb193fc296fd532c609ff940af3892f7c49",
       "outputHash": "24a2bbd1d9193ac7996fdcb6275eb4e28170291db9bddb6069299531ea62715a"
     },
     "skills/python-patterns/SKILL.md": {
@@ -19582,13 +19605,98 @@
     },
     "skills/ui-ux-pro-max/SKILL.md": {
       "source": ".agents/skills/ui-ux-pro-max/SKILL.md",
-      "sourceHash": "150493898b0d4ceb1bbd17dd192010e7e508735fad74e4d27aa14464005dbf12",
-      "outputHash": "859d4c26bb27a345615db84f0ae53baf8cb944b553d52e753663a9edcc562e27"
+      "sourceHash": "b1480ff9a1edcbfcb6921285f6203651d3d3b43b0b27898edd88c64e37e5058b",
+      "outputHash": "b782a59ea3c95661d414f15ab91ad16c3a7454ea6460346d0c535522b6bce266"
     },
     "skills/ui-ux-pro-max/agents/openai.yaml": {
       "source": ".agents/skills/ui-ux-pro-max/SKILL.md",
-      "sourceHash": "150493898b0d4ceb1bbd17dd192010e7e508735fad74e4d27aa14464005dbf12",
+      "sourceHash": "b1480ff9a1edcbfcb6921285f6203651d3d3b43b0b27898edd88c64e37e5058b",
       "outputHash": "f8a9ab76ba70655745f2008484cddf33b1641b0df1e70163433b016a7c80e53f"
+    },
+    "skills/unslop/LICENSE": {
+      "source": ".agents/skills/unslop/LICENSE",
+      "sourceHash": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411",
+      "outputHash": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+    },
+    "skills/unslop/references/effects.md": {
+      "source": ".agents/skills/unslop/references/effects.md",
+      "sourceHash": "ded4f679e22843a8f68860e6cda0396fa8b8fa27202400e08337143b485c86a4",
+      "outputHash": "ded4f679e22843a8f68860e6cda0396fa8b8fa27202400e08337143b485c86a4"
+    },
+    "skills/unslop/references/refs/beacon-engraving.webp": {
+      "source": ".agents/skills/unslop/references/refs/beacon-engraving.webp",
+      "sourceHash": "44e7680e9c944f03c8fe45df999bdf74077a106925a8189eebf89e751e306e5b",
+      "outputHash": "44e7680e9c944f03c8fe45df999bdf74077a106925a8189eebf89e751e306e5b"
+    },
+    "skills/unslop/references/refs/meadow-3d.webp": {
+      "source": ".agents/skills/unslop/references/refs/meadow-3d.webp",
+      "sourceHash": "84f526b68021a06fc6d32f162406fab6cc8074da1ef76d2ae4530e1b58219b14",
+      "outputHash": "84f526b68021a06fc6d32f162406fab6cc8074da1ef76d2ae4530e1b58219b14"
+    },
+    "skills/unslop/references/refs/story-dashboard-frames.webp": {
+      "source": ".agents/skills/unslop/references/refs/story-dashboard-frames.webp",
+      "sourceHash": "cfbf837e40b7626d5a5789dbce54f5c197aab303aa350d13a042048310717137",
+      "outputHash": "cfbf837e40b7626d5a5789dbce54f5c197aab303aa350d13a042048310717137"
+    },
+    "skills/unslop/references/refs/unslop-dashboard-after.webp": {
+      "source": ".agents/skills/unslop/references/refs/unslop-dashboard-after.webp",
+      "sourceHash": "48067794f86b43dab20515b3810f245d67bff05d10bfa83c0f5885bee93cea52",
+      "outputHash": "48067794f86b43dab20515b3810f245d67bff05d10bfa83c0f5885bee93cea52"
+    },
+    "skills/unslop/references/refs/unslop-hero-after.webp": {
+      "source": ".agents/skills/unslop/references/refs/unslop-hero-after.webp",
+      "sourceHash": "92b2d796c5b6116a2039f5ca2b0f3edf700c92b41846b11b9501a4e32f72af6e",
+      "outputHash": "92b2d796c5b6116a2039f5ca2b0f3edf700c92b41846b11b9501a4e32f72af6e"
+    },
+    "skills/unslop/references/refs.md": {
+      "source": ".agents/skills/unslop/references/refs.md",
+      "sourceHash": "12a70ce17d574914ea69eb0809e5a9605de044df1b66619159c6d0b38d6b8353",
+      "outputHash": "12a70ce17d574914ea69eb0809e5a9605de044df1b66619159c6d0b38d6b8353"
+    },
+    "skills/unslop/references/rtl.md": {
+      "source": ".agents/skills/unslop/references/rtl.md",
+      "sourceHash": "d33ad69324e2b7c27107185f3fc99e50ba0f7f81b7c67c4e4f53e59cd5802be4",
+      "outputHash": "d33ad69324e2b7c27107185f3fc99e50ba0f7f81b7c67c4e4f53e59cd5802be4"
+    },
+    "skills/unslop/references/signs.md": {
+      "source": ".agents/skills/unslop/references/signs.md",
+      "sourceHash": "ed051b2ed17758145ff5563a3b20fbc9203380f882130b1f25bf6c2e22b69120",
+      "outputHash": "ed051b2ed17758145ff5563a3b20fbc9203380f882130b1f25bf6c2e22b69120"
+    },
+    "skills/unslop/references/tokens.md": {
+      "source": ".agents/skills/unslop/references/tokens.md",
+      "sourceHash": "b8beace96055e8097ff5a788b874e290393de56eff946bc1c650cc445e8965c2",
+      "outputHash": "b8beace96055e8097ff5a788b874e290393de56eff946bc1c650cc445e8965c2"
+    },
+    "skills/unslop/references/visuals.md": {
+      "source": ".agents/skills/unslop/references/visuals.md",
+      "sourceHash": "7247da579d2d95ace1e051b867c757bd1e05aa02f3ab8dea0ead4cd4bf14d7d7",
+      "outputHash": "7247da579d2d95ace1e051b867c757bd1e05aa02f3ab8dea0ead4cd4bf14d7d7"
+    },
+    "skills/unslop/scripts/snapshot.mjs": {
+      "source": ".agents/skills/unslop/scripts/snapshot.mjs",
+      "sourceHash": "4b0c3639bd1c052fa1968c4bbe1b17acb5b108fd22ec70518628d9a4dbd5d6fa",
+      "outputHash": "4b0c3639bd1c052fa1968c4bbe1b17acb5b108fd22ec70518628d9a4dbd5d6fa"
+    },
+    "skills/unslop/scripts/story-path.mjs": {
+      "source": ".agents/skills/unslop/scripts/story-path.mjs",
+      "sourceHash": "319600e594fca2f94cbfef8706b6f1c9f5151ad56d7a27e7f7d28f82f5756c9c",
+      "outputHash": "319600e594fca2f94cbfef8706b6f1c9f5151ad56d7a27e7f7d28f82f5756c9c"
+    },
+    "skills/unslop/scripts/story.mjs": {
+      "source": ".agents/skills/unslop/scripts/story.mjs",
+      "sourceHash": "349610ab1d829eb727b5033353e0ecc0e3272a50c6f1d9eea94b74dcc6daa517",
+      "outputHash": "349610ab1d829eb727b5033353e0ecc0e3272a50c6f1d9eea94b74dcc6daa517"
+    },
+    "skills/unslop/SKILL.md": {
+      "source": ".agents/skills/unslop/SKILL.md",
+      "sourceHash": "adb6c9516572f85b6ef1526af7fa0cb4f5ce01a6cd45dc1746c90f0456ae0d91",
+      "outputHash": "6d7fafaf5b1b0ec94571c4621296487e0f890fb45bd974596f80fa2c32ff14d2"
+    },
+    "skills/unslop/agents/openai.yaml": {
+      "source": ".agents/skills/unslop/SKILL.md",
+      "sourceHash": "adb6c9516572f85b6ef1526af7fa0cb4f5ce01a6cd45dc1746c90f0456ae0d91",
+      "outputHash": "170d0b33a418d9d82beb7d15f8a91e314adef2edf53a81c37155b6f40dd52f06"
     },
     "skills/untangle-codebase/LICENSE": {
       "source": ".agents/skills/untangle-codebase/LICENSE",
@@ -19607,13 +19715,13 @@
     },
     "rules/backend.md": {
       "source": ".agents/rules/backend.md",
-      "sourceHash": "ef90374bb9206fe4a74ba65c6fb71435a48eb3961c74c7dd1324627784f1ed81",
-      "outputHash": "4e276826f83328da47b84958ebb8547641ca673487edd8c44e0fcf40d9a387f6"
+      "sourceHash": "59d2c8ad34ffb9d2eb76cbe4ada3689b0308019bcc1c3cf495ea3ba9fcc23819",
+      "outputHash": "7b2a29e34ca75fbda35d924fe42efb88068bd7d7318ee5551790bbb7328e9c90"
     },
     "rules/frontend.md": {
       "source": "tools/codex/templates/rules/frontend.md",
-      "sourceHash": "313b53d94002c6a256a717f48026f093bd9c851e8319166ffa41214fbf9fcaa9",
-      "outputHash": "50cdfd51286e5095aa97bfd1fdbedde80c515cb478571f06a45b043b84aababd"
+      "sourceHash": "69ddc3d67cb3bfafedaf1efd7e7f6c4a1a8df82bce52cf285ebef639325abf59",
+      "outputHash": "64e56e29add5b45f25d6b972a2e7050262b20ead17360e92ce3822f273ea0902"
     },
     "rules/install.md": {
       "source": "tools/codex/templates/rules/install.md",
@@ -19622,58 +19730,58 @@
     },
     "rules/learned-invariants.md": {
       "source": ".agents/rules/learned-invariants.md",
-      "sourceHash": "e832dfe310f5d57c34d56abebfb8a565ffe24adafcfbeed8a977acdbbbf5e938",
-      "outputHash": "03e77e486eacb39fd074dd95d91c2ec8cd0e8f43b710449e73636cd0165c83c6"
+      "sourceHash": "a6cee79e2692f6962bf3887ee073412424e766fcb20b95351fd739e6b4b81551",
+      "outputHash": "b1d91136f616ec73a2f909049a69c57fc03f369e305ec5971a31e961646a04f9"
     },
     "rules/MOTION.md": {
       "source": ".agents/rules/MOTION.md",
-      "sourceHash": "dce45485adcc62887bd42bac8e555eff42fef6e691b300e1001b59c76ad6ca20",
-      "outputHash": "0261052355884fe6934a6fdfd6eebef271170a286a6c3184a3df22015fc6040c"
+      "sourceHash": "94bf0fa193a78573a35af9a9223fb982612bf82000ec3e39703b007078a0d4e2",
+      "outputHash": "733f4c6fd16547a3f6cfa7382f02ed1a2923614cb0356ad0d610b01b03c247c3"
     },
     "rules/penetrating-and-testing.md": {
       "source": ".agents/rules/penetrating-and-testing.md",
-      "sourceHash": "681d7b9e0f9f860f746c70c1ce512a7bc816dd998f526775928b43890439ef99",
-      "outputHash": "91cac5ae7200156468af5a1ca3ceb1e62491ecc1bbe65f118cc5e91a49743654"
+      "sourceHash": "3757059d51925ad3549ec097e216a77513c0c77b34f8269cdfbf967244b95e8a",
+      "outputHash": "6882c65f2f997c609451a62a8686c85606035d78c1a1b845ca6d63178be105c1"
     },
     "rules/security.md": {
       "source": ".agents/rules/security.md",
-      "sourceHash": "1c1cbd8327a8d4d39ce8ed2f4c194923a75435fbd3a993f4267b3f06935ffc1d",
-      "outputHash": "9e533ab365fab99488368904d8fc6ff9f727bfe1f6c1db4844ae1b7387264dd2"
+      "sourceHash": "1a0e99d17acb5f5434a3b9f189f5c293e22bd51f68f35b68c980c4435cd1203f",
+      "outputHash": "378554661e4e2ed58385db34116c2625aec7aee0a47c63a27ac00db0d9212ef6"
     },
     "rules/starting-brandnew.md": {
       "source": ".agents/rules/starting-brandnew.md",
-      "sourceHash": "f17527bb5b578166b7a86bf7aaa9ceb4f1d26340cd84ac570a28858c90ce42a6",
-      "outputHash": "389f4f5c6f20c59735a40155f0f5badd57161e7af58de019b42d9dfbd465cb93"
+      "sourceHash": "48aa052d52d113a365632c6a57cd59a7d98239340131eb28fc6a8522104f44e1",
+      "outputHash": "c8f59a9140bfd890ff800fdd49bdcafefbc9010364f7c7050dad47cd4db91b3b"
     },
     "rules/starting-existing.md": {
       "source": ".agents/rules/starting-existing.md",
-      "sourceHash": "d465268ac9221bd37b1fbcabc8087c4cef8a4487ad5414eee79044915c85c167",
-      "outputHash": "16a2b46423582830915dacafd08094e7d54deb634eac8207880f6f3a0623b7cc"
+      "sourceHash": "54505586a1e7ec4c268003501b76acfd5e142f8c0f9ab5f784afd9a97bd6beae",
+      "outputHash": "6a7a5071d334a1d148f4ca94ad27020d2f25bfcdb90233441eeb3d62c5dfa9b2"
     },
     "rules/UI_Always.md": {
       "source": "tools/codex/templates/rules/UI_Always.md",
-      "sourceHash": "6ab1dec287e24add22d5cdd27935bc1bff5e37ab59fffaa1b8a29059a729c028",
-      "outputHash": "b0d09ce640769c15654c9655ec49b7def18c744fe3ca2bb9f95a767df7ece585"
+      "sourceHash": "51a6a430466c70a60998f8ffcaf48cdec210fd5980d9b2ac67b36dc1561812a3",
+      "outputHash": "1533fce508d4bf86beee065bf6f4b4e2d210f73c35f9aab40ce9a39e7a6fcc55"
     },
     "AGENTS.md": {
       "source": "AGENTS.md",
-      "sourceHash": "85966374ba10f8f870c53268e8513acda57e5bad21c7838e381c10f995080258",
-      "outputHash": "24d79e35fb5f02bb994ada7d3220cd5a5ffa436df4bd0def717857d59c75624f"
+      "sourceHash": "cb19184903ca0cc49ffe56b4d29b0b8a8804573b67c4ba93cfd31088d6d667b0",
+      "outputHash": "655c333812b9d0f745963a6fbdf6e228da5b5160bc123c8c0c15a0af5fc59503"
     },
     "AGENTS.designer.md": {
       "source": "AGENTS.md",
-      "sourceHash": "85966374ba10f8f870c53268e8513acda57e5bad21c7838e381c10f995080258",
-      "outputHash": "e5b77bee40396e78efdaad20ff12e9665028bfd952ab4a057c3cac95424d4db4"
+      "sourceHash": "cb19184903ca0cc49ffe56b4d29b0b8a8804573b67c4ba93cfd31088d6d667b0",
+      "outputHash": "f666653254bcbaf6512f4050c82eeee1f6f385ab1a81668c3ab60daeee102152"
     },
     "project.gitignore": {
       "source": ".gitignore",
       "sourceHash": "d3c49db2599c7418e4f5c0edb62d7f994bedc6d39c0307d4b4e1546fc761c006",
-      "outputHash": "07894f96ed12ab2a8bd6a40a6f1df5ef7d1a71998f8775abd02741a9598ffefe"
+      "outputHash": "d323801aaed189e80ea0c7ee83865b80e3063b122de99c357ad6a3210297853d"
     },
     "hooks.example.json": {
       "source": ".agents/hooks.example.json",
       "sourceHash": "dcd5e4b5f42702a8646d7edc6fea679caf6715d3841f3b0c7fdfbf4ad4a524b7",
-      "outputHash": "2c22ae936d3459166d87ca120258b0596892bf5b7199567087c840543558b454"
+      "outputHash": "c3f48cf1c3b751b52abd3b08acfd8e6de1db4659b7819e6450d8e546bd507e0c"
     },
     "hooks.impeccable.example.json": {
       "source": ".agents/hooks.example.json",

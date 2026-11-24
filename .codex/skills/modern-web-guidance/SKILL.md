@@ -1,6 +1,6 @@
 ---
 name: "modern-web-guidance"
-description: "Search and retrieve Baseline modern web platform best practices (<dialog>, Popover API, CSS Anchor Positioning, View Transitions, Scroll-Driven Animations, Passkeys, Sanitizer, Built-in AI) and scan for legacy patterns. Use when implementing native HTML/CSS/DOM APIs or modernizing web code."
+description: "Search and retrieve Baseline modern web platform guides (<dialog>, Popover, Anchor Positioning, View Transitions, Scroll-Driven Animations, Passkeys, Sanitizer) and scan legacy patterns. Use for native HTML/CSS/DOM APIs; skip backend/infra."
 license: "Apache-2.0"
 ---
 
@@ -8,11 +8,16 @@ license: "Apache-2.0"
 
 Search and retrieve standardized modern web best practices at the **start** of implementing or updating any web UI, CSS layout/animation, or client-side JS logic (dates/timezones, sanitization, performance, accessibility, UX fixes) before writing ad-hoc solutions or adding dependencies.
 
+## Scope Guardrail
+
+- **Trigger immediately for**: HTML/CSS and client-side JS web platform tasks (modals/dialogs/popovers, tables, dark mode, anchor positioning, container queries, view transitions, scroll-driven animations, parallax/reveals, forms, validation, autofill, accessibility, custom selects, scrollbars, CWV, `content-visibility`, fetch priority, image optimization, passkeys, HTML sanitization, web components, dates/timezones, built-in AI, WebAssembly, standard HTML/CSS/DOM in frameworks).
+- **DO NOT trigger for**: backend (SQL, ORMs, API routes), infra/scripts (CI/CD, Docker, Actions, Python/Go, Git), or tooling/trivial edits (Vite, tsconfig, ESLint, tests, copy/renames, 3P docs).
+
 ## Primary Workflow
 
 ### Step 1. Search Use Cases
 
-Run `modern-web-guidance` directly with `npx` using a **2–5 word action-oriented query** for a **single web platform capability or UI pattern**:
+Run `modern-web-guidance` directly with `npx` using a **2–5 word action-oriented English query** for a **single web platform capability or UI pattern**:
 - **Keep queries focused and generic**: Describe the user-visible capability (`<verb> + <UI/platform object>`, optionally paired with the target HTML/CSS/JS feature name if known). Omit framework/library names (`React`, `Vue`, `Tailwind`, etc.) and app/domain nouns (product, route, or component/file names). Split multi-feature tasks into separate `search` calls.
 - **Name implied UI primitives**: When the user's prompt expresses intent without naming the UI primitive (e.g. "confirm first", "delete with confirmation", "pick a date"), translate the domain intent into the implied UI component or platform mechanism (e.g. search `"confirmation modal dialog"` or `"confirm dialog"` rather than `"confirm destructive action"`, or `"date picker input"` rather than `"pick a date"`).
 - **Example**: Search `"light dismiss dialog"` or `"responsive data table"`, **not** `"dialog"` (too terse), `"responsive table dark mode"` (compound — split into two searches), or `"close React settings modal on outside click"` (framework/app noise).
@@ -43,6 +48,14 @@ When generating or modifying code, cross-check the implementation against the re
 - **Task Fulfillment**: Confirm that the implementation fully satisfies the user's request.
 - Do not run `legacy-scan`; it's for detecting legacy patterns to modernize, not this.
 
+### Step 4. Disclose Skill Usage
+
+When you consult `modern-web-guidance` for a task, end the response where you deliver those changes with a `### Modern Web Guidance` section:
+- **When retrieved guides shaped your code**: Write **one** bullet (1–2 sentences, ≤75 words) per newly applied `<id>` in first-person voice explaining the non-obvious implementation choices, CSS/API overrides, or fallbacks `<id>` required and the pitfall it prevented, anchored by a short verbatim quote of that specific rule or gotcha (never the guide's intro overview):
+  `- **\`<id>\`**: <Non-obvious APIs, overrides, or fallbacks applied and the pitfall prevented> ("<short verbatim quote of the specific rule or gotcha>").`
+  - **Never** guess `<id>`s or quotes from memory after context compaction (re-run `search`/`retrieve` if needed), and credit **only** guide-backed changes from the current turn.
+- **When searched/listed in this turn but zero guides applied**: Write one first-person sentence naming which topics or guides you checked in `modern-web-guidance` and why none applied (omit if any guide applied).
+
 ## Alternative flow: Modernize an existing codebase
 
 **Only** when asked for a broad, open-ended codebase modernization or legacy-pattern scan where no specific target feature or component is named (do **not** run `legacy-scan` when asked to add, update, fix, or audit a specific feature or component), run the 4-step modernization flow:
@@ -63,7 +76,7 @@ npx -y modern-web-guidance@latest legacy-scan <path> --json
 
 - **Runner & Permissions**: Prefer `pnpx` over `npx` if `pnpm` is available (`pnpx` does not use `-y`); on Windows, use `npx.cmd`. When requesting tool permissions, allowlist `npx -y modern-web-guidance@latest *` (or `pnpx modern-web-guidance@latest *`) specifically, never bare `npx *` or `pnpx *`.
 - **Sandboxes & Network**: Fetching `modern-web-guidance` requires outbound network access. In sandboxed or approval-gated environments (e.g., Codex, Claude Code), **proactively request approval/allowlisting with network access BEFORE the first execution** to avoid timeouts, and set `NPM_CONFIG_CACHE=/tmp/npm-cache` if `~/.npm` is read-only.
-- **Offline**: If the command hangs due to being offline, retry with `npx --offline …`.
+- **Offline**: If the command hangs or fails due to being offline/sandboxed without an npm cache, retry once with `npx --offline …`; if still unavailable, degrade gracefully and proceed using Baseline web platform standards without blocking.
 
 ## Guidelines
 

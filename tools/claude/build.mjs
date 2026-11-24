@@ -85,19 +85,37 @@ function pruneEmptyDirs(dir, isRoot = true) {
   return false;
 }
 
-/** Drop hook entries matching any excluded command substring, plus empty groups and events. */
-function filterHookEntries(hooksMap = {}, excludedSubstrings = []) {
+/** Filter excluded hooks and adapt matchers/commands to native Claude Code settings.json schema. */
+function adaptHooksForClaude(hooksMap = {}, excludedSubstrings = []) {
   const filtered = {};
   for (const [event, groups] of Object.entries(hooksMap)) {
     if (!Array.isArray(groups)) continue;
     const keptGroups = [];
     for (const group of groups) {
       if (!group || typeof group !== 'object' || !Array.isArray(group.hooks)) continue;
-      const keptHooks = group.hooks.filter(entry => {
-        const commands = `${entry?.command ?? ''}\n${entry?.commandWindows ?? ''}`;
-        return !excludedSubstrings.some(needle => commands.includes(needle));
-      });
-      if (keptHooks.length > 0) keptGroups.push({ ...group, hooks: keptHooks });
+      const keptHooks = [];
+      for (const entry of group.hooks) {
+        if (!entry || typeof entry !== 'object') continue;
+        const commands = `${entry.command ?? ''}\n${entry.commandWindows ?? ''}`;
+        if (excludedSubstrings.some(needle => commands.includes(needle))) continue;
+        const { commandWindows: _commandWindows, ...rest } = entry;
+        if (typeof rest.command === 'string') {
+          rest.command = rest.command
+            .replaceAll('.agents/', '.claude/')
+            .replaceAll('--hook antigravity', '--hook claude')
+            .replace("const dec=('--hook claude').endsWith('antigravity')?'continue':'block';", "const dec='block';");
+        }
+        keptHooks.push(rest);
+      }
+      if (keptHooks.length > 0) {
+        const adaptedGroup = { ...group, hooks: keptHooks };
+        if (typeof adaptedGroup.matcher === 'string') {
+          adaptedGroup.matcher = adaptedGroup.matcher
+            .replaceAll('Edit|Write|apply_patch', 'Edit|Write|MultiEdit|NotebookEdit')
+            .replaceAll('apply_patch', 'MultiEdit|NotebookEdit');
+        }
+        keptGroups.push(adaptedGroup);
+      }
     }
     if (keptGroups.length > 0) filtered[event] = keptGroups;
   }
@@ -125,6 +143,7 @@ export function buildClaudeBundle() {
   let discoverableSkills = 0;
   let topLevelSkills = 0;
   let discoverableAgents = 0;
+  const templates = path.join(repoRoot, 'tools/claude/templates');
 
   function add(relative, content, source) {
     if (outputs.has(relative)) throw new Error(`Output collision: ${relative}`);
@@ -163,8 +182,15 @@ export function buildClaudeBundle() {
     }
     // Convert Rules
     else if (originalRelative.startsWith('rules/') && source.endsWith('.md')) {
-      const text = adaptMarkdown(fs.readFileSync(source, 'utf8'), source);
-      add(originalRelative, text, source);
+      const name = path.basename(source);
+      const override = path.join(templates, 'rules', name);
+      const input = fs.existsSync(override) ? override : source;
+      let rawText = fs.readFileSync(input, 'utf8');
+      if (!fs.existsSync(override)) {
+        rawText = rawText.replace(/^\uFEFF?---\r?\n[\s\S]*?\r?\n---\r?\n*/, '');
+      }
+      const text = adaptMarkdown(rawText, source);
+      add(originalRelative, text, input);
     }
     // Supporting files (scripts, references, assets, etc.)
     else if (originalRelative === 'skills/playwright-skill/run.js') {
@@ -201,8 +227,8 @@ export function buildClaudeBundle() {
       json({
         description: 'Optional harness and Impeccable hooks. Install at .claude/hooks.json in a trusted target project and review them in Claude Code before use.',
         ...hooks,
-        hooks: filterHookEntries(hooks.hooks, ['swarm-stop-guard'])
-      }).replaceAll('.agents/', '.claude/').replaceAll('--hook antigravity', '--hook claude'),
+        hooks: adaptHooksForClaude(hooks.hooks, ['swarm-stop-guard'])
+      }),
       hooksSource
     );
     add(
@@ -210,8 +236,8 @@ export function buildClaudeBundle() {
       json({
         description: 'Optional Impeccable hooks (Designer mode, without Harness hooks). Install at .claude/hooks.json in a trusted target project and review them in Claude Code before use.',
         ...hooks,
-        hooks: filterHookEntries(hooks.hooks, ['harness.mjs', 'swarm-stop-guard'])
-      }).replaceAll('.agents/', '.claude/').replaceAll('--hook antigravity', '--hook claude'),
+        hooks: adaptHooksForClaude(hooks.hooks, ['harness.mjs', 'swarm-stop-guard'])
+      }),
       hooksSource
     );
   }

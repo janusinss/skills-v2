@@ -30,8 +30,8 @@
       "sourceType": "original",
       "commit": null,
       "license": "MIT",
-      "modified": null,
-      "contentHash": "b091b3fe33ad176c4620b334a1dd49f293f14b9ac110be912c183479fe2f1f93"
+      "modified": "description/references updated in skills-v2",
+      "contentHash": "bb936b316ba31db587094f64e32ee95068a8a0a79766166f50b2adfde8918c0d"
     },
     "api-patterns": {
       "source": "sickn33/antigravity-awesome-skills",
@@ -183,7 +183,7 @@
       "commit": "d2ef2680594f9a17526a6e1a2e18b3d242c5d17b",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "45b4e1c3f84122690709e16cb4a064033533e5c81794242a1ddce19637c9caaf"
+      "contentHash": "b6e93d477eff4a9e7ca8557119c3a49e7f52860a9c7ca07e59adeebd03a38937"
     },
     "database-design": {
       "source": "sickn33/antigravity-awesome-skills",
@@ -311,7 +311,7 @@
       "commit": "beb16b0d0f4dae9a6f5cb04ea41e97b93a54ab8e",
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4); SKILL.md split into references/ (verbatim, skills-v2 phase 4)",
-      "contentHash": "991b385603f3450e997829780f3c6ab22cc78037fa80112ecd99365a517447a7"
+      "contentHash": "ab6616f4922d8d87836a434f4f88475d3b19ff1eb3582e179efbf5caa67b1420"
     },
     "imagegen-frontend-web": {
       "source": "Leonxlnx/imagegen-skills",
@@ -319,7 +319,7 @@
       "commit": "beb16b0d0f4dae9a6f5cb04ea41e97b93a54ab8e",
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "c7fd7ab57e8ed603f62741729269d2e113d4abf8fe4de53bd895d14f4bb0d2ac"
+      "contentHash": "0e795f9929b6ebec70579ee7089e2d8553142137b68ca2d7caf6d7d54a1dc2b9"
     },
     "impeccable": {
       "source": "pbakaus/impeccable",
@@ -327,7 +327,7 @@
       "commit": "61e73eebd34a845df0bfef463eb0d31ed4eab581",
       "license": "Apache-2.0",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "343ce6ad3a6c65b215e37456d8816fa2d4aeef7b225f68bd30af941452993697"
+      "contentHash": "05be59e40ae845a024eecc524579c2df7f03b7fd1e21693add1a004eecfcf1e2"
     },
     "javascript-pro": {
       "source": "sickn33/antigravity-awesome-skills",
@@ -358,8 +358,8 @@
       "sourceType": "github",
       "commit": null,
       "license": "Apache-2.0",
-      "modified": null,
-      "contentHash": "32c7f5ffb23cb65b335691d5012674d35ec0cd04d4bf6af682c25706a3df5060"
+      "modified": "description/references updated in skills-v2",
+      "contentHash": "18520e4fb2f7803a3eec78e94ff8fcfba9e345d22d65e4909c80a0265c50975a"
     },
     "nextjs-app-router-patterns": {
       "source": "sickn33/antigravity-awesome-skills",
@@ -431,7 +431,7 @@
       "commit": null,
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "5780781b038ebeebfba421792b6bf1fad33e90a613ff9797c7b4475023b541bc"
+      "contentHash": "fe8514d1b709a5c09bd76aca720c87117e5f704424d2d5f1a71d720c688ff69d"
     },
     "prompt-enhancer-backend": {
       "source": "original",
@@ -439,7 +439,7 @@
       "commit": null,
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "59361187d676e53b456dd4c120067bf669f5fbd47366de961e2c30ec8aaf6406"
+      "contentHash": "5311be30f90cbf27e08b63ff387447e30de0201b2f3302bcc217159fa847e522"
     },
     "prompt-enhancer-frontend": {
       "source": "original",
@@ -447,7 +447,7 @@
       "commit": null,
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "d8c96785ee90a38d1d8c956476e6c8390e77edde23826e73c74f9dc82130fcb3"
+      "contentHash": "6301c0aa55c7c3d08a93e99f97f452718d32ac015a86f473364c5f0539afdb5c"
     },
     "python-patterns": {
       "source": "sickn33/antigravity-awesome-skills",
@@ -575,7 +575,15 @@
       "commit": "6ae86f61f520d6ca229d2f40e070410638c908c5",
       "license": "MIT",
       "modified": "description rewritten (skills-v2 phase 4)",
-      "contentHash": "2caf23234c14a540077e008bcf76f1b9c38bb3f1443e779625f7342a0053d794"
+      "contentHash": "b995ce62e2d7710c51f36d917b19aea41a9370e7812fd83ac32063935832d6a0"
+    },
+    "unslop": {
+      "source": "heydamir/unslop",
+      "sourceType": "github",
+      "commit": "620163eedb3529d9cd23a3994ed8d287d06f760d",
+      "license": "CC-BY-4.0",
+      "modified": "description/references updated in skills-v2",
+      "contentHash": "ed7be1eb1d9be560a9ee19031a1fd9faff0e885dceec7911b79f13c18d349b62"
     },
     "untangle-codebase": {
       "source": "caldoai/skills",

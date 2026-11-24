@@ -15,6 +15,65 @@ import {
   verifyBundleFiles
 } from './lib.mjs';
 
+const crossEditionLeakPatterns = [
+  { label: 'invoke_subagent', regex: /\binvoke_subagent\b/ },
+  { label: 'AGY / Gemini', regex: /AGY \/ Gemini/ },
+  { label: 'GPT / Codex', regex: /GPT \/ Codex/ },
+  { label: 'model_tier', regex: /\bmodel_tier\b/ },
+  { label: 'reasoning_effort:', regex: /\breasoning_effort:/ },
+  { label: '`ask_question`', regex: /`ask_question`/ },
+  { label: 'browser_subagent', regex: /\bbrowser_subagent\b/ },
+  { label: 'AGENTS.md §', regex: /`?AGENTS\.md`?\s*§/ },
+  { label: '`view_file`', regex: /`view_file`/ },
+  { label: '`read_file`', regex: /`read_file`/ },
+  { label: '`grep_search`', regex: /`grep_search`/ },
+  { label: '`find_by_name`', regex: /`find_by_name`/ },
+  { label: '`list_dir`', regex: /`list_dir`/ }
+];
+
+const designerLeakPatterns = [
+  { label: '## 5.', regex: /^## 5\./m },
+  { label: 'skeptic', regex: /\bskeptic\b/i },
+  { label: 'PROGRESS.md', regex: /PROGRESS\.md/ },
+  { label: '/contract', regex: /\/contract\b/ },
+  { label: '/verify', regex: /\/verify\b/ },
+  { label: '/flywheel', regex: /\/flywheel\b/ }
+];
+
+function checkLeaks(text, relative, patterns, errors) {
+  for (const { label, regex } of patterns) {
+    if (regex.test(text)) {
+      errors.push(`${relative}: disallowed leak (${label})`);
+    }
+  }
+}
+
+function validateClaudeHooksSchema(parsed, label, errors) {
+  if (!isRecord(parsed.hooks)) {
+    errors.push(`${label} must contain hooks`);
+    return;
+  }
+  for (const [event, groups] of Object.entries(parsed.hooks)) {
+    if (!Array.isArray(groups)) continue;
+    for (const group of groups) {
+      if (!isRecord(group)) continue;
+      if (typeof group.matcher === 'string' && group.matcher.includes('apply_patch')) {
+        errors.push(`${label}: ${event} matcher contains non-Claude tool "apply_patch"`);
+      }
+      if (!Array.isArray(group.hooks)) continue;
+      for (const entry of group.hooks) {
+        if (!isRecord(entry)) continue;
+        if ('commandWindows' in entry) {
+          errors.push(`${label}: ${event} hook contains non-standard "commandWindows" key`);
+        }
+        if (typeof entry.command === 'string' && entry.command.includes('apply_patch')) {
+          errors.push(`${label}: ${event} hook command contains "apply_patch"`);
+        }
+      }
+    }
+  }
+}
+
 function missingLinks(text, absolute, root) {
   const body = text.replace(/^```[^\n]*\n[\s\S]*?^```[^\n]*$/gm, '');
   const missing = [];
@@ -87,8 +146,10 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
   for (const file of agentFiles) {
     const relative = slash(path.relative(root, file));
     try {
-      const { frontmatter, body } = parseFrontmatter(fs.readFileSync(file, 'utf8'), file);
+      const raw = fs.readFileSync(file, 'utf8');
+      const { frontmatter, body } = parseFrontmatter(raw, file);
       errors.push(...checkClaudeAgent(frontmatter, file).map(msg => `${relative}: ${msg}`));
+      checkLeaks(raw, relative, crossEditionLeakPatterns, errors);
       for (const target of missingLinks(body, file, dataRoot)) {
         if (partialProfile && /^(?:\.\.\/|\.claude\/|\.codex\/|\.agents\/)?skills\//.test(target)) {
           warnings.push(`${relative}: out-of-profile skill link ${target}`);
@@ -117,22 +178,37 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
       errors.push(`${relative}: ${error.message}`);
     }
   }
+  if (installed?.mode === 'designer') {
+    for (const harnessCmd of ['contract.md', 'verify.md', 'flywheel.md']) {
+      if (fs.existsSync(path.join(commandsRoot, harnessCmd))) {
+        errors.push(`Designer installation must not include harness-only command .claude/commands/${harnessCmd}`);
+      }
+    }
+  }
 
   // 4. Validate Rules and Instruction Files
+  const designerClaudeMd = path.join(root, 'CLAUDE.designer.md');
   const instructionFiles = [
     ...filesIn(path.join(dataRoot, 'rules')).filter(file => file.endsWith('.md')),
-    path.join(root, 'CLAUDE.md')
+    path.join(root, 'CLAUDE.md'),
+    ...(fs.existsSync(designerClaudeMd) ? [designerClaudeMd] : [])
   ];
   for (const file of instructionFiles) {
     if (!fs.existsSync(file)) {
       errors.push(`Missing instructions: ${file}`);
       continue;
     }
-    for (const target of missingLinks(fs.readFileSync(file, 'utf8'), file, dataRoot)) {
+    const relative = slash(path.relative(root, file));
+    const text = fs.readFileSync(file, 'utf8');
+    checkLeaks(text, relative, crossEditionLeakPatterns, errors);
+    if (file === designerClaudeMd || (path.basename(file) === 'CLAUDE.md' && installed?.mode === 'designer')) {
+      checkLeaks(text, relative, designerLeakPatterns, errors);
+    }
+    for (const target of missingLinks(text, file, dataRoot)) {
       if (partialProfile && /^(?:\.\.\/|\.claude\/|\.codex\/|\.agents\/)?skills\//.test(target)) {
-        warnings.push(`${slash(path.relative(root, file))}: out-of-profile skill link ${target}`);
+        warnings.push(`${relative}: out-of-profile skill link ${target}`);
       } else {
-        errors.push(`${slash(path.relative(root, file))}: missing instruction link ${target}`);
+        errors.push(`${relative}: missing instruction link ${target}`);
       }
     }
   }
@@ -208,7 +284,7 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
         } else {
           try {
             const parsed = JSON.parse(fs.readFileSync(hookFile, 'utf8').replace(/^\uFEFF/, ''));
-            if (!isRecord(parsed.hooks)) errors.push(`.claude/${relHook} must contain hooks`);
+            validateClaudeHooksSchema(parsed, `.claude/${relHook}`, errors);
           } catch (error) {
             errors.push(`.claude/${relHook}: ${error.message}`);
           }
@@ -217,15 +293,17 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
     }
   }
 
-  for (const hookCandidate of [path.join(root, 'hooks.example.json'), path.join(dataRoot, 'hooks.example.json')]) {
-    if (fs.existsSync(hookCandidate)) {
-      try {
-        const hooks = JSON.parse(fs.readFileSync(hookCandidate, 'utf8').replace(/^\uFEFF/, ''));
-        if (!isRecord(hooks.hooks)) errors.push('hooks.example.json must contain hooks');
-      } catch (error) {
-        errors.push(`hooks.example.json: ${error.message}`);
+  for (const hookName of ['hooks.example.json', 'hooks.impeccable.example.json']) {
+    for (const hookCandidate of [path.join(root, hookName), path.join(dataRoot, hookName)]) {
+      if (fs.existsSync(hookCandidate)) {
+        try {
+          const hooks = JSON.parse(fs.readFileSync(hookCandidate, 'utf8').replace(/^\uFEFF/, ''));
+          validateClaudeHooksSchema(hooks, hookName, errors);
+        } catch (error) {
+          errors.push(`${hookName}: ${error.message}`);
+        }
+        break;
       }
-      break;
     }
   }
 

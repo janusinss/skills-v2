@@ -1,4 +1,4 @@
 interface:
   display_name: "Anti Ai Slop"
-  short_description: "Eliminate generic AI-generated visual, structural, motion,..."
+  short_description: "Enforce always-on anti-slop guardrails and automated gates..."
   default_prompt: "Use $anti-ai-slop for the relevant part of this task."

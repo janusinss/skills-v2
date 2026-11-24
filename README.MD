@@ -1,7 +1,7 @@
 # Agent Skills & Workspace Configurations
 
 <!-- generated:counts -->
-A curated collection of **73 top-level AI agent skills**, 32 specialized subagents, 10 architectural rules and 8 Claude Code slash commands, with multi-profile installers across three editions: **AGY / Gemini**, **GPT / Codex** and **Anthropic / Claude Code**.
+A curated collection of **74 top-level AI agent skills**, 32 specialized subagents, 10 architectural rules and 8 Claude Code slash commands, with multi-profile installers across three editions: **AGY / Gemini**, **GPT / Codex** and **Anthropic / Claude Code**.
 <!-- /generated:counts -->
 
 ---
@@ -11,7 +11,7 @@ A curated collection of **73 top-level AI agent skills**, 32 specialized subagen
 ```text
 ├── .agents/               # Antigravity / Gemini edition (skills, agents, rules, hooks, resources)
 ├── .codex/                # OpenAI / Codex edition (skills, rules, resources, agents)
-├── .claude/               # Anthropic / Claude Code edition (skills, agents, commands, rules)
+├── .claude/               # Anthropic / Claude Code edition (skills, agents, commands, rules, resources)
 ├── tools/
 │   ├── codex/             # Codex build, validation, export, and installation tools
 │   └── claude/            # Claude Code build, validation, export, and installation tools
@@ -40,7 +40,7 @@ The agent reads [INSTALL.md](INSTALL.md), asks **Question 1** (edition: **AGY** 
 | :--- | :--- | :--- |
 | **GPT / CODEX** | Prebuilt `.codex/` bundle + verified Playwright & `agent-browser` | `AGENTS.md` (or `AGENTS.designer.md` in Designer mode, configured with `.codex/` paths) |
 | **AGY / GEMINI** | Original `.agents/` tree + `skills-lock.json` | `AGENTS.md` (full or Designer mode without Section 5 Harness, configured with `.agents/` paths) |
-| **ANTHROPIC / CLAUDE CODE** | Prebuilt `.claude/` bundle (`skills/`, `agents/`, `commands/`) | `CLAUDE.md` (or `CLAUDE.designer.md` in Designer mode, configured with `.claude/` paths) |
+| **ANTHROPIC / CLAUDE CODE** | Prebuilt `.claude/` bundle (`skills/`, `agents/`, `commands/`, `rules/`, `resources/`) | `CLAUDE.md` (or `CLAUDE.designer.md` in Designer mode, configured with `.claude/` paths) |
 
 ---
 
@@ -69,12 +69,12 @@ Both the Codex and Claude Code installers accept `--profile <name>` to install t
 <!-- generated:profiles -->
 | Profile | Skills | Contents |
 | :--- | :---: | :--- |
-| **`all`** | 73 | Every skill, rule and subagent. |
+| **`all`** | 74 | Every skill, rule and subagent. |
 | **`minimal`** | 14 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `ui-styling`, +9 more |
-| **`frontend`** | 40 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +35 more |
+| **`frontend`** | 41 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +36 more |
 | **`backend`** | 34 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +29 more |
 | **`security`** | 16 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `security-audit`, +11 more |
-| **`fullstack`** | 63 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +58 more |
+| **`fullstack`** | 64 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +59 more |
 <!-- /generated:profiles -->
 
 ---
@@ -96,12 +96,12 @@ Domain-specific subagents configured for background task delegation:
 | **`cpp-build-resolver`** | C++ build, CMake, and compilation error resolution specialist. |
 | **`database-reviewer`** | PostgreSQL database specialist for query optimization, schema design, security, and performance. |
 | **`django-build-resolver`** | Django/Python build, migration, and dependency error resolution specialist. |
-| **`e2e-runner`** | End-to-end testing specialist using Vercel Agent Browser (preferred) with Playwright fallback. |
+| **`e2e-runner`** | End-to-end testing specialist using Playwright Test for persistent committed CI E2E suites paired with Vercel Agent Browser for flow discovery. |
 | **`explorer`** | Fast Reflex-tier reconnaissance subagent for rapid file discovery, symbol localization, and call-site mapping. |
 | **`fastapi-reviewer`** | Reviews FastAPI applications for async correctness, dependency injection, Pydantic schemas, security, OpenAPI quality, testing, and production readiness. |
 | **`go-build-resolver`** | Go build, vet, and compilation error resolution specialist. |
 | **`go-reviewer`** | Expert Go code reviewer specializing in idiomatic Go, concurrency patterns, error handling, and performance. |
-| **`penetration-tester`** | Specialist subagent for executing penetration testing, vulnerability validation, security test suites, and functional web-flow verification based on penetrating-and-testing.md. |
+| **`penetration-tester`** | Specialist subagent for dynamic security testing, Strix vulnerability validation, exploit PoC verification, and automated security test suites based on penetrating-and-testing.md. |
 | **`performance-optimizer`** | Performance analysis and optimization specialist. |
 | **`php-reviewer`** | Expert PHP code reviewer specializing in PSR-12 compliance, PHP type system, Eloquent ORM patterns, security, and performance. |
 | **`planner`** | Expert planning specialist for complex features and refactoring. |
@@ -136,28 +136,29 @@ In Claude Code, engineering phases are triggered directly via native slash comma
 
 ## 📋 Workspace Rules (`.agents/rules/`, `.codex/rules/`, `.claude/rules/`)
 
-Foundational architectural guidelines enforced automatically across all editions:
+11 architectural rules in `.agents/rules/` (10 portable rules synced to `.codex/rules/` and `.claude/rules/`, plus AGY-only `swarm.md`):
 
 | Rule | Trigger | Scope & Key Guardrails |
 | :--- | :---: | :--- |
 | [`UI_Always.md`](.agents/rules/UI_Always.md) | Always-on UI | Header clearance, zero horizontal overflow, 44px tap targets, 8-state interactive primitives, Playwright + agent-browser audits. |
-| [`MOTION.md`](.agents/rules/MOTION.md) | UI Motion | Spring physics, composite-only (`transform`/`opacity`), rest invariant, reduced-motion fallback. |
-| [`frontend.md`](.agents/rules/frontend.md) | UI Components | Frontend Skill Dispatch Matrix, Next.js App Router default, Design Read contract, Archetypes A/B, anti-slop gates. |
+| [`MOTION.md`](.agents/rules/MOTION.md) | UI Motion | Spring physics, composite-only (`transform`/`opacity`), rest invariant, reduced-motion fallback, 103-pattern `interaction-catalog.md`. |
+| [`frontend.md`](.agents/rules/frontend.md) | UI Components | `design-taste-frontend` primary visual/typography/palette director, `impeccable` layout/craft-floor, `modern-web-guidance` Baseline APIs, Archetypes A/B, anti-slop gates. |
 | [`starting-brandnew.md`](.agents/rules/starting-brandnew.md) | Greenfield | Conflict pre-check, 84+ brand systems from awesome-design-md, archify diagrams, component scaffolding. |
-| [`starting-existing.md`](.agents/rules/starting-existing.md) | Redesign | Design token extraction, archify & untangle-codebase structural audit, non-breaking redesign. |
+| [`starting-existing.md`](.agents/rules/starting-existing.md) | Redesign | Design token extraction, `unslop` 9-pass redlining (live URLs & RTL), `archify` structural audit (manual-only `untangle-codebase`), non-breaking redesign. |
 | [`backend.md`](.agents/rules/backend.md) | Data Layer | Backend Skill Dispatch Matrix, service/repository layers, connection pooling, archify ERDs, transactions. |
 | [`security.md`](.agents/rules/security.md) | Auth & APIs | 8 defensive hardening phases (Phases 0–7), Argon2id/bcrypt, CSRF tokens, strict CORS, error suppression. |
 | [`penetrating-and-testing.md`](.agents/rules/penetrating-and-testing.md) | Pentest & QA | Strix autonomous exploit verification with PoCs, vulnerabilities.json remediation, 8-state UI + Empty/403 & agent-browser flows. |
 | [`learned-invariants.md`](.agents/rules/learned-invariants.md) | Memory Flywheel | Calibrated dual-store promoted root-cause invariants and anti-regression guardrails. |
+| [`swarm.md`](.agents/rules/swarm.md) | AGY-only `/swarm` | Unified Gemini pool coordinator lock (Carbon High / Neon XHigh), 4-rung worker pinning, zero Argon, `swarm-stop-guard.cjs`. |
 | [`install.md`](.agents/rules/install.md) | Onboarding | Interactive setup router (AGY / Codex / Claude + HARNESS MODE / DESIGNER MODE). |
 
 ---
 
-## 🛠️ Included Skill Domains (73 Skills)
+## 🛠️ Included Skill Domains (74 Skills)
 
 | Domain | Count | Key Skills |
 | :--- | :---: | :--- |
-| **🎨 Frontend & UI/UX** | 21 | `anti-ai-slop`, `awesome-design-md`, `brandkit`, `chrome-extensions`, `design`, `design-system`, `design-taste-frontend`, `frontend-developer`, `image-to-code`, `imagegen-frontend-web`, `impeccable`, `javascript-pro`, `modern-web-guidance`, `nextjs-app-router-patterns`, `nextjs-best-practices`, `react-best-practices`, `react-patterns`, `tailwind-patterns`, `typescript-expert`, `ui-styling`, `ui-ux-pro-max` |
+| **🎨 Frontend & UI/UX** | 22 | `anti-ai-slop`, `awesome-design-md`, `brandkit`, `chrome-extensions`, `design`, `design-system`, `design-taste-frontend`, `frontend-developer`, `image-to-code`, `imagegen-frontend-web`, `impeccable`, `javascript-pro`, `modern-web-guidance`, `nextjs-app-router-patterns`, `nextjs-best-practices`, `react-best-practices`, `react-patterns`, `tailwind-patterns`, `typescript-expert`, `ui-styling`, `ui-ux-pro-max`, `unslop` |
 | **⚙️ Backend, APIs & Persistence** | 13 | `api-patterns`, `architecture-patterns`, `async-python-patterns`, `backend-dev-guidelines`, `database-design`, `django-pro`, `fastapi-templates`, `go-concurrency-patterns`, `golang-pro`, `mcp-builder`, `nodejs-best-practices`, `postgres-best-practices`, `python-patterns` |
 | **🔒 Security & Pentesting** | 10 | `api-security-best-practices`, `application-security-testing`, `auth-implementation-patterns`, `ci-security-scanning-with-strix`, `ethical-hacking-methodology`, `fix-security-vulnerabilities-with-strix`, `frontend-security-coder`, `penetration-testing-with-strix`, `security-audit`, `top-web-vulnerabilities` |
 | **🧪 Testing, Browser & QA** | 8 | `agent-browser`, `e2e-testing-patterns`, `lint-and-validate`, `playwright-skill`, `python-testing-patterns`, `systematic-debugging`, `test-driven-development`, `test-fixing` |

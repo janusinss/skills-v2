@@ -73,10 +73,7 @@ If the task is mainly visual, this order is mandatory.
 
 ## 1. ACTIVE BASELINE CONFIGURATION
 
-- DESIGN_VARIANCE: 8  
-  `(1 = rigid / conventional, 10 = highly art-directed / asymmetric)`
-- VISUAL_DENSITY: 3  
-  `(1 = airy / calm, 10 = dense / packed)`
+- **Visual & Layout Alignment**: Pair `design-taste-frontend` (primary visual identity, typography, and palette), `impeccable` (asymmetric layout rhythm and `craft-floor.md` airy whitespace), and `MOTION.md` / `interaction-catalog.md` (interactive feel when translating to code).
 - ART_DIRECTION: 8  
   `(1 = safe commercial, 10 = bold creative statement)`
 - IMPLEMENTATION_CLARITY: 9  

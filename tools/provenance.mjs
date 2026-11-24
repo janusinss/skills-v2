@@ -20,6 +20,7 @@ const KNOWN_UPSTREAMS = {
   'security-audit': { source: 'cloudflare/security-audit-skill', sourceType: 'github', license: 'MIT' },
   'ui-styling': { source: 'nextlevelbuilder/ui-ux-pro-max-skill', sourceType: 'github', license: 'MIT' },
   'ui-ux-pro-max': { source: 'nextlevelbuilder/ui-ux-pro-max-skill', sourceType: 'github', license: 'MIT' },
+  'unslop': { source: 'heydamir/unslop', sourceType: 'github', license: 'CC-BY-4.0' },
   'untangle-codebase': { source: 'caldoai/skills', sourceType: 'github', license: 'MIT' },
   'prompt-enhancer': { source: 'original', sourceType: 'original', license: 'MIT' },
   'prompt-enhancer-backend': { source: 'original', sourceType: 'original', license: 'MIT' },
@@ -37,6 +38,7 @@ const SOURCE_COMMITS = {
   'caldoai/skills': 'f3cf47774975a7d9fca45730babf4ff7ad765ada',
   'cloudflare/security-audit-skill': 'c1c8a8c1471069fb0e188eeaff69b8e8db6564a8',
   'conorbronsdon/avoid-ai-writing': 'a04645a5d915d83ad1741a92d989dfc4bc6f1867',
+  'heydamir/unslop': '620163eedb3529d9cd23a3994ed8d287d06f760d',
   'lackeyjb/playwright-skill': 'dd47a6a023e249eb1b36e9e943eab89d0900865d',
   'mrgoonie/claudekit-skills': '80113d86bc4407f105af40a2c4ea58194f7c370a',
   'nextlevelbuilder/ui-ux-pro-max-skill': '6ae86f61f520d6ca229d2f40e070410638c908c5',
@@ -58,6 +60,7 @@ function detectLicense(directory, skillText) {
   const head = fs.readFileSync(path.join(directory, licenseFile), 'utf8').slice(0, 600);
   if (/MIT License/i.test(head)) return 'MIT';
   if (/Apache License/i.test(head)) return 'Apache-2.0';
+  if (/Attribution 4\.0 International/i.test(head)) return 'CC-BY-4.0';
   return `see ${licenseFile}`;
 }
 

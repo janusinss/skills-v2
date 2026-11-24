@@ -4,8 +4,7 @@ description: "Evaluates agent output against 5-axis quality rubric (accuracy, co
 tools: Read, Grep, Glob, Bash
 tier: brain
 model: opus
-target_model: "opus-5.5-high/xhigh/max"
-reasoning_effort: "high/xhigh/max"
+effort: high
 ---
 
 ## Prompt Defense Baseline

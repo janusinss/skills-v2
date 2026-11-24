@@ -115,10 +115,13 @@ export function planExport({ target, profile = 'all', includeHooks = true, mode 
     ? path.join(root, 'CLAUDE.designer.md')
     : path.join(root, 'CLAUDE.md');
   add(claudeMdSource, 'CLAUDE.md');
-  for (const area of ['rules', 'agents', 'commands']) {
+  const harnessOnlyCommands = new Set(['contract.md', 'verify.md', 'flywheel.md']);
+  const includeHarnessCommands = resolvedMode !== 'designer' && selected.includes('continuous-agent-loop');
+  for (const area of ['rules', 'agents', 'commands', 'resources']) {
     const dir = path.join(root, area);
     if (fs.existsSync(dir)) {
       for (const source of filesIn(dir)) {
+        if (area === 'commands' && !includeHarnessCommands && harnessOnlyCommands.has(path.basename(source))) continue;
         add(source, slash(path.join('.claude', area, path.relative(dir, source))));
       }
     }
@@ -189,6 +192,7 @@ export function exportBundle(options, root = bundleRoot) {
       throw new Error(`Unverified bundle file: ${entry.source}`);
     }
   }
+  const settingsCount = plan.includeHooks ? 1 : 0;
   if (options.dryRun) {
     return {
       target: plan.target,
@@ -197,7 +201,7 @@ export function exportBundle(options, root = bundleRoot) {
       topLevelSkills: plan.topLevelSkills,
       includeHooks: plan.includeHooks,
       hookSet: plan.hookSet,
-      files: plan.entries.length + 2,
+      files: plan.entries.length + 2 + settingsCount,
       gitignore: { ...plan.gitignore.record, action: plan.gitignore.action },
       dryRun: true
     };
@@ -238,7 +242,7 @@ export function exportBundle(options, root = bundleRoot) {
     topLevelSkills: plan.topLevelSkills,
     includeHooks: plan.includeHooks,
     hookSet: plan.hookSet,
-    files: plan.entries.length + 2,
+    files: plan.entries.length + 2 + settingsCount,
     gitignore,
     dryRun: false
   };

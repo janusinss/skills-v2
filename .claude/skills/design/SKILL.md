@@ -2,6 +2,7 @@
 name: design
 description: "Create brand assets, logos, icons, and identity collateral using the bundled design references and scripts. Image generation requires an available provider."
 license: MIT
+argument-hint: "[design-type] [context]"
 ---
 
 # Design

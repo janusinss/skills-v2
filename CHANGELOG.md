@@ -2,6 +2,23 @@
 
 All notable changes are recorded here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [Semantic Versioning](https://semver.org/).
 
+## [2.2.0] - 2026-11-24
+
+### Added
+- `modern-web-guidance`, `chrome-extensions`, and `unslop` (`heydamir/unslop`, CC-BY-4.0 — 9-pass UI redlining, live URL snapshots, RTL rules) skills, bringing the catalog to 74 top-level skills (80 discoverable manifests).
+- 15-category, 103-pattern `interaction-catalog.md` under `.agents/resources/creative-libraries/`, synced to `.codex/resources/` and `.claude/resources/`.
+- `tools/claude/templates/rules/install.md` rule template and `.claude/resources/` export in `tools/claude/export.mjs`.
+
+### Changed
+- Unified Gemini pool routing in `.agents/rules/swarm.md` (Carbon High / Neon XHigh coordinator lock, 4-rung worker pinning, zero Argon) and hardened `swarm-stop-guard.cjs`.
+- Refactored `.agents/rules/frontend.md` with `design-taste-frontend` as primary visual, typography, and palette director and `impeccable` for layout and craft-floor audits, paired with `MOTION.md` and `interaction-catalog.md`.
+- Streamlined `AGENTS.md` and `CLAUDE.md` policy sections by ~48% while keeping all workspace rules and routing tables intact.
+- Migrated Claude hook templates to the native Claude Code hook schema (removed `commandWindows`).
+
+### Fixed
+- Fixed `tools/codex/export.mjs` minimal-profile resource filtering and eliminated edition path leaks.
+- Excluded `evals/` directories and `*.test.*` files from AGY installs in `install.mjs`.
+
 ## [2.1.0] - 2026-11-14
 
 ### Added

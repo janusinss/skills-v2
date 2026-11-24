@@ -1,62 +1,27 @@
----
-trigger: model_decision
-description: Calibrated Dual-Store repository of promoted root-cause invariants and anti-regression guardrails captured by the Memory Flywheel across verification, Skeptic audits, and user corrections.
----
-
 # Learned Invariants & Memory Flywheel Guardrails
 
-Read and enforce this rule before planning, modifying code, or running verification gates. This file is the **Promoted Rule Store** of the **Calibrated 3-Tier Memory Flywheel** defined in [continuous-agent-loop](../skills/continuous-agent-loop/SKILL.md).
+Core project invariants loaded before planning, code edits, or verification gates. See [continuous-agent-loop](../skills/continuous-agent-loop/SKILL.md) for full CLI flags and schemas.
 
----
+## 1. 3-Tier Memory Flywheel & Budget
 
-## 1. Calibrated 3-Tier Memory Flywheel
+- **Tier 1 (`.harness/evals/regressions.jsonl`)**: Captures failures from `verify run`, [skeptic.md](../agents/skeptic.md), or user corrections via `harness.mjs flywheel record`.
+- **Tier 2 (This file)**: First-time automated findings stage in Section 4; user corrections, `--promote`, or recurring causes (`>= 2` hits) promote to Section 3 as `- **[<Domain>]**: <Single-sentence invariant>` (optional trailing `(Source: ...)` tags are ignored during dedup).
+- **Tier 3 (`.claude/skills/project-<domain>/SKILL.md`)**: Graduate recurring clusters (`>= 3` hits) via `/flywheel` or `harness.mjs flywheel digest --graduate <domain>`, then prune superseded Section 3 bullets.
+- **Budget & Scope**: Run `harness.mjs flywheel digest` at `>= 20` promoted bullets, near `12 KB` (`12,288` bytes; `24 KB` cap), or `>= 3` hits per domain. Keep project invariants and `project-*` skills local to target repos; commit only universal workflow invariants in the `Skills` source repo.
 
-To prevent rule bloat and unverified self-poisoning while compounding negative knowledge across sessions, the harness separates raw failure capture, active rule guardrails, and on-demand domain skills:
+## 2. Core Baseline Invariants
 
-1. **Tier 1: Local Regression Store (`.harness/evals/regressions.jsonl`)**:
-   - Every deterministic verification failure (`verify run`), Cold-Context Skeptic rejection ([skeptic.md](../agents/skeptic.md)), or explicit user correction is recorded immediately via:
-     `node .claude/skills/continuous-agent-loop/scripts/harness.mjs flywheel record --task <id> --source <skeptic|verify|user> --domain <domain> --cause "<root_cause>" --rule "<invariant>" --cmd "<repro_cmd>"`
-   - Entries in `.harness/evals/regressions.jsonl` capture `{ id, recorded_at, task_id, source, domain, root_cause, rule, repro_cmd, promoted }` (plus optional `{ graduated, graduated_at }`) without polluting git status.
-2. **Tier 2: Staged & Promoted Workspace Invariants (`.claude/rules/learned-invariants.md`)**:
-   - First-time automated findings (`verify`, `skeptic`) stage inside `<!-- flywheel-staged-rules-start -->` / `<!-- flywheel-staged-rules-end -->` under Section 4.
-   - Generalized, deduplicated, single-sentence invariants from user corrections (`--source user`), explicit `--promote`, or recurring root causes (`>= 2` occurrences) promote into `<!-- flywheel-promoted-rules-start -->` / `<!-- flywheel-promoted-rules-end -->` under Section 3.
-   - Each promoted entry follows the canonical schema: `- **[<Domain>]**: <Single-sentence invariant> (Source: <task_id/source>)`.
-3. **Tier 3: On-Demand Domain Skills (`.claude/skills/project-<domain>/SKILL.md`)**:
-   - Recurring domain regression clusters graduate out of always-loaded rules into on-demand domain skills via AGY `/learn` or `/flywheel`, then get marked graduated via `harness.mjs flywheel digest --graduate <domain>`.
-
-### Size Budget & Graduation Policy
-
-- Keep every promoted bullet to one concise sentence.
-- Run `node .claude/skills/continuous-agent-loop/scripts/harness.mjs flywheel digest` and curate this file when any threshold triggers:
-  - Promoted rules hit `>= 20` bullets.
-  - File size approaches `12 KB` (`12,288` bytes, keeping wide headroom under AGY's `24 KB` file cap and `20,000`-token rules budget).
-  - Any domain reaches `>= 3` ungraduated regressions in `.harness/evals/regressions.jsonl`.
-- Graduation steps: move recurring domain clusters into on-demand `.claude/skills/project-<domain>/SKILL.md` via AGY `/learn` or `/flywheel`, run `harness.mjs flywheel digest --graduate <domain>`, and prune superseded bullets from Section 3.
-
-### Repo Scope Isolation
-
-- Target apps keep project-specific invariants and `project-<domain>` skills local (add `!/.claude/skills/project-*/` to `.gitignore` if team-shared in git, or the `.codex/` / `.claude/` equivalent).
-- The `Skills` source checkout accepts only universal harness and workflow invariants; never commit app-specific rules or `project-*` skills here.
-
----
-
-## 2. Baseline Harness & Verification Invariants
-
-- **[Harness-Scope]**: Never edit files outside the active contract's `allowed_paths` globs in `.harness/contracts/<task_id>.json` or mutate `.harness/receipts/**` and `.git/hooks/**` directly (Source: baseline-contract-gate).
-- **[Harness-Verification]**: Never claim task completion, pass a phase gate, or commit changes without a deterministic `.harness/receipts/<task_id>.json` receipt where `status === "PASS"` and every `acceptance_commands` entry exited `0` (Source: baseline-receipt-gate).
-- **[Harness-Skeptic]**: Never pass author chain-of-thought, conversation history, or commit prose to [skeptic.md](../agents/skeptic.md); evaluate exclusively against `.harness/context/<task_id>-brief.json` containing Contract, raw `git diff`, and Receipt (Source: baseline-cold-skeptic).
-- **[Harness-Tests]**: Never weaken existing assertions, delete failing tests, or add `.skip` / `.todo` annotations to manufacture a green receipt (Source: baseline-anti-gaming).
-- **[Harness-Compaction]**: Always record failed hypotheses and active contract state in `.harness/PROGRESS.md` via `harness.mjs checkpoint` before context compaction, model escalation, or session termination (Source: baseline-progress-ledger).
-
----
+- **[Harness-Scope]**: Never edit outside the active contract's `allowed_paths` in `.harness/contracts/<task_id>.json` or mutate `.harness/receipts/**` and `.git/hooks/**` directly (Source: baseline-contract-gate).
+- **[Harness-Verification]**: Never claim completion, pass a gate, or commit without `.harness/receipts/<task_id>.json` having `status === "PASS"` and all `acceptance_commands` exiting `0` (Source: baseline-receipt-gate).
+- **[Harness-Skeptic]**: Never send author prose or chat history to [skeptic.md](../agents/skeptic.md); evaluate only `.harness/context/<task_id>-brief.json` (Contract, raw `git diff`, Receipt) (Source: baseline-cold-skeptic).
+- **[Harness-Tests]**: Never weaken assertions, delete failing tests, or add `.skip` / `.todo` to manufacture a green receipt (Source: baseline-anti-gaming).
+- **[Harness-Compaction]**: Record failed hypotheses and active state in `.harness/PROGRESS.md` via `harness.mjs checkpoint` before compaction, escalation, or exit (Source: baseline-progress-ledger).
+- **[Security-Boundary]**: Reviewers, auditors ([security-auditor.md](../agents/security-auditor.md)), and skeptics ([skeptic.md](../agents/skeptic.md)) must stay strictly read-only and never mutate workspace files during audits (Source: baseline-readonly-audit).
 
 ## 3. Promoted Project Invariants
 
 <!-- flywheel-promoted-rules-start -->
-- **[Security-Boundary]**: Reviewers, auditors ([security-auditor.md](../agents/security-auditor.md)), and skeptics ([skeptic.md](../agents/skeptic.md)) must operate with strictly read-only file tools and never mutate workspace files during an audit (Source: baseline-readonly-audit).
 <!-- flywheel-promoted-rules-end -->
-
----
 
 ## 4. Staged Candidates (Pending Promotion)
 

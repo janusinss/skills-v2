@@ -18,9 +18,39 @@ import {
   isRecord
 } from './tools/codex/lib.mjs';
 import { applyGitignore } from './tools/codex/gitignore.mjs';
-import { formatDesignerPolicy } from './tools/codex/convert.mjs';
 import { installBundle as installCodexBundle, setupAgentBrowser } from './tools/codex/install.mjs';
 import { installBundle as installClaudeBundle } from './tools/claude/install.mjs';
+
+const isAgyBundleExcluded = relative =>
+  relative === 'hooks.json'
+  || relative === 'agy-install.json'
+  || relative.startsWith('skills/impeccable/scripts/bin/')
+  || /(^|\/)evals\//.test(relative)
+  || /\.test\.(?:js|mjs|cjs)$/.test(relative);
+
+export function formatAgyPolicy(rawAgents, mode = 'harness') {
+  let result = rawAgents
+    .replace(/^\uFEFF/, '')
+    .replaceAll('\r\n', '\n')
+    .split(/\n<!-- source-repository-only -->/)[0];
+  result = result.replace(/^<!-- edition-(?:subtitle|routing)-(?:start|end) -->\n?/gm, '');
+  if (normalizeMode(mode) === 'designer') {
+    result = result
+      .replace(
+        /^- \*\*Compounding Invariants & Progress Ledger\*\*: Read \[\.agents\/rules\/learned-invariants\.md\]\(\.agents\/rules\/learned-invariants\.md\)[^\n]*$/m,
+        '- **Compounding Invariants**: Read [.agents/rules/learned-invariants.md](.agents/rules/learned-invariants.md) (when present) before editing code to enforce project guardrails and prevent known regressions.'
+      )
+      .replace(
+        /After 2 consecutive failed verification receipts or Skeptic rejections on the same issue/g,
+        'After 2 consecutive failed verification checks or audits on the same issue'
+      )
+      .replace(/verifiers\/security\/skeptic:/g, 'verifiers/security:')
+      .replace(/`security-auditor`, `skeptic`, `agent-evaluator`/g, '`security-auditor`, `agent-evaluator`')
+      .replace(/`skeptic` \/ `agent-evaluator` before final delivery/g, '`agent-evaluator` before final delivery')
+      .replace(/\n---\n\n## 5\.[\s\S]*$/, '');
+  }
+  return result.trimEnd() + '\n';
+}
 
 const agyInstallRule = '.agents/rules/install.md';
 const agyPlaywrightRunner = '.agents/skills/playwright-skill/run.js';
@@ -90,10 +120,36 @@ function buildAgyGitignoreDefaults() {
   if (!isUtf8(rootGitignore) || rootGitignore.includes(0)) {
     throw new Error('The repository .gitignore must be UTF-8 text');
   }
+  const covered = new Set();
+  for (const entry of localAgyIgnoreEntries) {
+    covered.add(entry);
+    if (entry.startsWith('/')) covered.add(entry.slice(1));
+  }
+  const sections = rootGitignore.toString('utf8').replace(/^\uFEFF/, '').replaceAll('\r\n', '\n').trimEnd().split(/\n\s*\n/);
+  const keptSections = [];
+  for (const section of sections) {
+    const kept = [];
+    let hasRule = false;
+    for (const line of section.split('\n')) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) {
+        kept.push(line);
+        continue;
+      }
+      if (trimmed === '/.agents/hooks.json') continue;
+      if (covered.has(trimmed) || (trimmed.startsWith('/') && covered.has(trimmed.slice(1)))) continue;
+      covered.add(trimmed);
+      if (trimmed.startsWith('/')) covered.add(trimmed.slice(1));
+      kept.push(line);
+      hasRule = true;
+    }
+    if (hasRule) keptSections.push(kept.join('\n'));
+  }
   return '# Local AGY skills, instructions, and workflow artifacts\n'
     + localAgyIgnoreEntries.join('\n')
     + '\n\n'
-    + rootGitignore.toString('utf8');
+    + keptSections.join('\n\n')
+    + '\n';
 }
 
 export function planAgyGitignore(target) {
@@ -176,7 +232,11 @@ function readAgyInstallation(target) {
 }
 
 function runStep(execute, command, args, options, label) {
-  const result = execute(command, args, { windowsHide: true, ...options });
+  const { forwardStdoutToStderr, ...spawnOptions } = options || {};
+  const result = execute(command, args, { windowsHide: true, ...spawnOptions });
+  if (forwardStdoutToStderr && result?.stdout) {
+    process.stderr.write(result.stdout);
+  }
   if (result.error || result.status !== 0) {
     throw new Error(`${label} failed: ${result.error?.message || result.stderr?.trim() || result.signal || `exit ${result.status}`}`);
   }
@@ -205,7 +265,12 @@ function installAgyGitPreCommitHook(execute, target, manifest) {
     const existing = fs.readFileSync(preCommitPath, 'utf8');
     if (existing.includes('pre-commit-check')) return 'active';
     if (!existing.includes('# Installed by Self-Improving Agent Harness')) {
-      const chained = `${existing.trimEnd()}\n\n# Installed by Self-Improving Agent Harness (harness.mjs install-git-hook)\nHARNESS_ROOT=\$(cd "\$(dirname "\$0")/../.." 2>/dev/null && pwd || pwd)\nnode "\$HARNESS_ROOT/${agyHarnessRunner}" pre-commit-check\n`;
+      const normalized = existing.replace(/^\uFEFF/, '').replaceAll('\r\n', '\n');
+      const shebangMatch = /^(#![^\n]*\n)/.exec(normalized);
+      const shebang = shebangMatch ? shebangMatch[1] : '#!/bin/sh\n';
+      const existingBody = (shebangMatch ? normalized.slice(shebang.length) : normalized).trimEnd();
+      const wrappedExisting = existingBody ? `(\n${existingBody}\n) || exit $?\n\n` : '';
+      const chained = `${shebang}${wrappedExisting}# Installed by Self-Improving Agent Harness (harness.mjs install-git-hook)\nHARNESS_ROOT=$(cd "$(dirname "$0")/../.." 2>/dev/null && pwd || pwd)\nnode "$HARNESS_ROOT/${agyHarnessRunner}" pre-commit-check\n`;
       fs.writeFileSync(preCommitPath, chained, { encoding: 'utf8', mode: 0o755 });
       return 'chained';
     }
@@ -280,8 +345,7 @@ function planAgyEntries(destination, mode, includeHooks) {
   const agentsPolicyPath = path.join(repoRoot, 'AGENTS.md');
   assertNoSymlinkAncestors(agentsPolicyPath);
   const rawAgents = fs.readFileSync(agentsPolicyPath, 'utf8');
-  const cleanAgents = rawAgents.split(/\r?\n<!-- source-repository-only -->/)[0].trimEnd() + '\n';
-  const targetAgents = mode === 'designer' ? formatDesignerPolicy(cleanAgents) : cleanAgents;
+  const targetAgents = formatAgyPolicy(rawAgents, mode);
   addEntry('AGENTS.md', payloadData(targetAgents));
 
   const skillsLockPath = path.join(repoRoot, 'skills-lock.json');
@@ -292,7 +356,7 @@ function planAgyEntries(destination, mode, includeHooks) {
 
   for (const source of filesIn(sourceRoot)) {
     const rel = slash(path.relative(sourceRoot, source));
-    if (rel === 'hooks.json' || rel === 'agy-install.json' || rel.startsWith('skills/impeccable/scripts/bin/')) continue;
+    if (isAgyBundleExcluded(rel)) continue;
     addEntry(`.agents/${rel}`, payloadData(fs.readFileSync(source)));
   }
 
@@ -420,9 +484,9 @@ export function installAgy(options, execute = spawnSync) {
       if (!hasLocalModules) {
         console.error('Installing local Playwright dependencies from the included lockfile...');
         if (process.platform === 'win32') {
-          runStep(execute, process.env.ComSpec || 'cmd.exe', ['/d', '/s', '/c', 'npm ci --no-audit --no-fund --prefer-offline'], { cwd: skillDirectory, stdio: 'inherit' }, 'Playwright dependency setup');
+          runStep(execute, process.env.ComSpec || 'cmd.exe', ['/d', '/s', '/c', 'npm ci --no-audit --no-fund --prefer-offline'], { cwd: skillDirectory, encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'], forwardStdoutToStderr: true }, 'Playwright dependency setup');
         } else {
-          runStep(execute, 'npm', ['ci', '--no-audit', '--no-fund', '--prefer-offline'], { cwd: skillDirectory, stdio: 'inherit' }, 'Playwright dependency setup');
+          runStep(execute, 'npm', ['ci', '--no-audit', '--no-fund', '--prefer-offline'], { cwd: skillDirectory, encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'], forwardStdoutToStderr: true }, 'Playwright dependency setup');
         }
       } else {
         console.error('Local Playwright dependencies already present. Skipping npm ci.');
@@ -437,7 +501,7 @@ export function installAgy(options, execute = spawnSync) {
         console.error('No working browser detected. Attempting Chromium download...');
         let downloadError = null;
         try {
-          runStep(execute, process.execPath, [path.join(skillDirectory, 'node_modules/playwright/cli.js'), 'install', 'chromium'], { cwd: skillDirectory, stdio: 'inherit' }, 'Chromium setup');
+          runStep(execute, process.execPath, [path.join(skillDirectory, 'node_modules/playwright/cli.js'), 'install', 'chromium'], { cwd: skillDirectory, encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'], forwardStdoutToStderr: true }, 'Chromium setup');
         } catch (err) {
           downloadError = err;
           console.error(`Chromium download warning: ${err.message}`);

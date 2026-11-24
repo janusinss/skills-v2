@@ -6,18 +6,18 @@ Reproducible before-and-after metrics across all 6 remediation phases for `janus
 
 ## 1. Target Metrics (Before vs. After)
 
-| Metric | Baseline (Pre-Remediation) | Target | `v2.0.0` | Current (`v2.1.0`) | Status |
+| Metric | Baseline (Pre-Remediation) | Target | `v2.0.0` | Current (`v2.2.0`) | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | Fresh-clone installs (`2 automated editions x 6 profiles` + modes) | Claude: `0 / 6` (failed on missing GSAP `dist/`); Codex: `minimal` only | `12 / 12` in CI (+ AGY source + `designer` mode) | `12 / 12` verified on Ubuntu + Windows in CI | `12 / 12` in CI + `harness` & `designer` modes (`codex`, `claude`, `agy`) | **PASS** |
-| Skills with recorded provenance (`provenance.json`) | `24 / 118` (`103` unknown) | `100%` (`0` unknown) | `118 / 118` (`0` unknown) | `73 / 73` top-level (`79` discoverable; `0` unknown) | **PASS** |
-| Root `LICENSE` + `THIRD_PARTY_NOTICES.md` | Missing | Present & scoped | `LICENSE` (MIT) + `THIRD_PARTY_NOTICES.md` | `LICENSE` (MIT) + `THIRD_PARTY_NOTICES.md` (`73` skills) | **PASS** |
+| Skills with recorded provenance (`provenance.json`) | `24 / 118` (`103` unknown) | `100%` (`0` unknown) | `118 / 118` (`0` unknown) | `74 / 74` top-level (`80` discoverable; `0` unknown) | **PASS** |
+| Root `LICENSE` + `THIRD_PARTY_NOTICES.md` | Missing | Present & scoped | `LICENSE` (MIT) + `THIRD_PARTY_NOTICES.md` | `LICENSE` (MIT) + `THIRD_PARTY_NOTICES.md` (`74` skills) | **PASS** |
 | Tracked binaries (`impeccable.exe`) | `3` copies (~59 MB total) | `0` | `0` (`**/impeccable/scripts/bin/` gitignored) | `0` (`**/impeccable/scripts/bin/` gitignored) | **PASS** |
 | CI status on `main` | No CI workflows | Green multi-OS CI | Green (`verify` x4, `commits`, `secrets`, `drift`) | Multi-OS CI covering `harness` + `designer` modes | **PASS** |
-| Description characters (`all` profile) | `24,896` (`.agents`: `27,250`) | `< 20,000` | `.agents`: `18,788` · `.codex`: `19,771` · `.claude`: `19,867` | `.agents`: `12,194` · `.codex`: `13,147` · `.claude`: `13,243` | **PASS** |
-| Descriptions with explicit trigger language | `29 / 118` | `100%` (`noTrigger: 0`) | `118 / 118` (`noTrigger: 0`) | `73 / 73` (`noTrigger: 0`) | **PASS** |
-| Skills over 500 lines (`SKILL.md`) | `18 / 118` (up to 1,401 lines) | `0` | `0 / 118` (`tooLong: 0`; 18 split into `references/`) | `0 / 73` (`tooLong: 0`) | **PASS** |
+| Description characters (`all` profile) | `24,896` (`.agents`: `27,250`) | `< 20,000` | `.agents`: `18,788` · `.codex`: `19,771` · `.claude`: `19,867` | `.agents`: `12,462` · `.codex`: `13,378` · `.claude`: `13,474` | **PASS** |
+| Descriptions with explicit trigger language | `29 / 118` | `100%` (`noTrigger: 0`) | `118 / 118` (`noTrigger: 0`) | `74 / 74` (`noTrigger: 0`) | **PASS** |
+| Skills over 500 lines (`SKILL.md`) | `18 / 118` (up to 1,401 lines) | `0` | `0 / 118` (`tooLong: 0`; 18 split into `references/`) | `0 / 74` (`tooLong: 0`) | **PASS** |
 | Minimal profile installed size (Codex) | `27.0 MB` (312 files) | Scoped to minimal skills | `0.7 MB` (39 files) | `18.33 MB` (`343` files, includes `archify`, `agent-browser`, `anti-ai-slop`, `untangle-codebase`) | **PASS** |
-| Generated bundle file count (`.codex` / `.claude`) | `2,013` / `1,902` | Exclude `evals/`, `*.test.js` & empty dirs | `1,584` / `1,473` | `3,214` / `3,152` (`0` empty dirs) | **PASS** |
+| Generated bundle file count (`.codex` / `.claude`) | `2,013` / `1,902` | Exclude `evals/`, `*.test.js` & empty dirs | `1,584` / `1,473` | `3,232` / `3,170` (`0` empty dirs) | **PASS** |
 
 ---
 

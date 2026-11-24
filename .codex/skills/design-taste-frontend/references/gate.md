@@ -137,8 +137,8 @@ In Claude Code the skill's own frontmatter adds the gate as a Stop hook once the
 command is one POSIX `sh` line (Git Bash on Windows, `sh` on macOS and Linux) that runs the first
 `gate.mjs` it finds, in this order: `$CLAUDE_SKILL_DIR/scripts/`, `$CLAUDE_PLUGIN_ROOT/scripts/` and
 `$CLAUDE_PLUGIN_ROOT/skills/taste-skill/scripts/` (a plugin install), each only when the variable is
-set; then the install folders by name, `$CLAUDE_PROJECT_DIR/.agents/skills/design-taste-frontend/`,
-`$CLAUDE_PROJECT_DIR/.agents/skills/design-taste-frontend/`, `.codex/skills/design-taste-frontend/`
+set; then the install folders by name, `$CLAUDE_PROJECT_DIR/.claude/skills/design-taste-frontend/`,
+`$CLAUDE_PROJECT_DIR/.agents/skills/design-taste-frontend/`, `~/.claude/skills/design-taste-frontend/`
 and `~/.agents/skills/design-taste-frontend/` (`npx skills`, `install.sh`). When it finds none, the stop
 is allowed with no hook error; when the folder has a `.taste-skill` it writes
 `.taste-skill/gate-hook-missing.txt` (the time and the variables it read), and when a build is armed

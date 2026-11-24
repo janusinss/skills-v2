@@ -1,95 +1,93 @@
 ---
 trigger: model_decision
-description: ACTIVATE WHEN DESIGNING, Proactive self-correction for frontend layout, UI, mobile responsiveness, styling bugs, and common CSS issues. Activate whenever inspecting, writing, or refactoring web interfaces, components, or styles.
+description: Self-correction rules for frontend layout, UI, mobile responsiveness, styling bugs, and CSS hygiene. Activate whenever inspecting, designing, writing, or refactoring web interfaces, components, or styles.
 ---
 
-# Always-On Frontend Quality Floor
+# Frontend Quality Floor (`UI_Always.md`)
 
-Apply these rules automatically whenever viewing, writing, or refactoring frontend code. Never wait for the user to prompt or invoke a tool to fix these common issues.
+Apply these rules automatically whenever inspecting, writing, or refactoring frontend code. Fix violations directly without waiting for a prompt.
 
 ---
 
 ## 1. Viewport & Layout Integrity (Zero Overflow)
-- **Horizontal Scrollbar Prevention:**
-  - Never allow accidental horizontal scrolling (`overflow-x`).
-  - Fix the root cause: ensure containers have `max-width: 100%` and `box-sizing: border-box`.
-  - **Flex child blowout:** Always set `min-width: 0` on flex items containing text or wrapping elements.
-  - Never use `overflow-x: hidden` on `body` as a lazy band-aid.
-- **Sticky Footer:**
-  - Full-page shells must use `min-height: 100dvh` (or `100vh`) with flex column layout so footers never float mid-screen on sparse content.
-- **Scrollbar Gutter:**
-  - Add `scrollbar-gutter: stable;` on root/body to avoid layout jumping when scrollbars appear/disappear.
-- **Header Height Ceiling & Hero Clearance:**
-  - Keep top navigation header height strictly under `80px` (`--header-height` max `4rem`–`5rem`).
-  - Set hero section top padding strictly to `calc(var(--header-height, 4rem) + var(--space-lg, 1.5rem))` (24px inset below fixed header) to eliminate dead vertical whitespace between fixed navigation and hero headlines/bento showcases.
-- **Concentric Corner Radius Math & Differentiated Geometry:**
-  - Differentiate control vs. container geometry (`4px–6px` for inputs/buttons vs. `12px–16px` for outer containers) and calculate nested inner radii mathematically to prevent pinched corners: `R_inner = Math.max(0, R_outer - Padding)`.
+- **Horizontal Scrollbar Prevention:** Never allow accidental horizontal scrolling (`overflow-x`). Set `max-width: 100%` and `box-sizing: border-box` on containers. Never apply `overflow-x: hidden` on `body` as a band-aid.
+- **Flex & Grid Blowout:** Set `min-width: 0` on flex/grid items containing text or wrapping elements.
+- **Sticky Footer & Stable Gutter:** Use `min-height: 100dvh` (or `100vh`) with a flex column shell so footers stay anchored on sparse pages. Add `scrollbar-gutter: stable;` on root/body.
+- **Header Height Ceiling:** Keep top navigation headers under `80px` (`--header-height` max `4rem`-`5rem`).
+- **Fixed-Header Hero Clearance:** On marketing heroes placed under a fixed header, set hero top padding to `calc(var(--header-height, 4rem) + var(--space-lg, 1.5rem))` (24px inset). Omit this offset on sticky/static headers, full-bleed heroes, and dashboards.
+- **Concentric Corner Radius Math:** Use smaller radii on controls (`4px`-`6px`) than outer containers (`12px`-`16px`). Compute nested inner radii as `R_inner = Math.max(0, R_outer - Padding)`.
 
 ---
 
 ## 2. Touch, Pointer & Mobile Affordance
-- **Pointer Affordance:** Every interactive element (`<button>`, `<a>`, custom dropdowns, tabs, accordions, clickable cards) **must** have `cursor: pointer`.
-- **Minimum Touch Targets:** Interactive targets must have at least `44×44px` clickable area (use padding or pseudo-elements if the visual element is smaller).
-- **iOS Safari Auto-Zoom:** Form `<input>`, `<select>`, and `<textarea>` font sizes must **never** be smaller than `16px` on mobile to prevent iOS zoom-on-focus.
-- **Focus Rings:** Never set `outline: none` without providing a visible, high-contrast `:focus-visible` replacement ring.
+- **Pointer Affordance:** Set `cursor: pointer` on every interactive control (`<button>`, `<a>`, dropdowns, tabs, accordions, clickable cards).
+- **Minimum Touch Targets:** Interactive targets need at least a `44x44px` hit area on mobile (use padding or pseudo-elements if smaller; inline text links follow the WCAG 2.5.8 exemption).
+- **iOS Safari Auto-Zoom:** Keep `<input>`, `<select>`, and `<textarea>` font sizes at `>=16px` on mobile.
+- **Focus Rings:** Never remove `outline` without a visible, high-contrast `:focus-visible` replacement ring.
 
 ---
 
 ## 3. Typography & Scannability
-- **Line Length:** Cap body copy at `max-width: 65ch`–`75ch` for readable editorial measure.
-- **Mandatory Tabular Numerals:** Always apply `font-variant-numeric: tabular-nums` (`tabular-nums`) to prices, dates, counters, and data tables to prevent digit jitter.
-- **Font Smoothing:**
-  ```css
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  ```
-- **Text Truncation:** When using `text-overflow: ellipsis`, always add a `title` attribute with the full unclipped string.
-- **Contrast Floor (WCAG AA):** ≥4.5:1 for body text, ≥3:1 for large headlines.
+- **Line Length & Font Smoothing:** Cap body copy at `max-width: 65ch`-`75ch` and apply `-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;`.
+- **Tabular Numerals:** Apply `font-variant-numeric: tabular-nums` (`tabular-nums`) to prices, dates, counters, and data tables.
+- **Text Truncation:** Pair `text-overflow: ellipsis` with a `title` attribute or accessible disclosure carrying the full string.
+- **Contrast Floor (WCAG AA):** Maintain `>=4.5:1` for body text and `>=3:1` for large headlines.
 
 ---
 
 ## 4. Media & Asset Stability (Zero CLS)
-- **Layout Shift Prevention:** Always declare explicit `width`/`height` attributes or `aspect-ratio` on images, videos, and iframes.
-- **Image Distortion & Contrast Scrims:** Responsive images must use `object-fit: cover` and `display: block` to prevent distortion and inline baseline gaps. When overlaying text on photography or media, apply semi-transparent scrim overlays (e.g. `linear-gradient(to top, rgba(0,0,0,0.7), transparent)`) to guarantee WCAG AA contrast.
-- **Icon Accessibility & Sizing:** Use SVG icons at consistent `16px`/`20px` sizing and `1.5px` stroke, with `aria-hidden="true"` on decorative icons or a descriptive `aria-label` on standalone icon controls.
+- **Layout Shift Prevention:** Declare explicit `width`/`height` attributes or `aspect-ratio` on images, videos, and iframes.
+- **Image Fit & Contrast Scrims:** Use `object-fit: cover` and `display: block` on responsive showcase media. Place a semi-transparent scrim (e.g., `linear-gradient(to top, rgba(0,0,0,0.7), transparent)`) behind text over photography.
+- **Icon Accessibility & Sizing:** Keep SVG icons consistent (`16px`/`20px`, `1.5px` stroke). Add `aria-hidden="true"` on decorative icons and `aria-label` on standalone icon controls.
 
 ---
 
-## 5. Forms & 8-State Interactive Primitive Standard
-- **Form Labels:** Every input must have an associated `<label>` (`for="id"`) or a descriptive `aria-label`.
-- **Button Type Safety:** Non-submitting `<button>` inside `<form>` must specify `type="button"`.
-- **Native Platform Primitives:** Prefer built-in browser primitives (`<dialog>`, `popover`, CSS Anchor Positioning, `@starting-style`, `:user-invalid`, and light-dismiss patterns) over custom JS overlays or non-semantic wrappers per [modern-web-guidance](.agents/skills/modern-web-guidance/SKILL.md).
-- **8-State Interactive Primitive Standard:** Never output hover-only interactive primitives (`<button>`, `<input>`, tabs, selects). Every interactive control must account for all 8 states:
+## 5. Forms & Interactive Control States
+- **Form Labels & Button Types:** Associate every input with `<label for="id">` or `aria-label`. Set `type="button"` on non-submitting `<button>` elements inside `<form>`.
+- **Native Platform Primitives:** Prefer native `<dialog>`, `popover`, CSS Anchor Positioning, `@starting-style`, and `:user-invalid` per [modern-web-guidance](.agents/skills/modern-web-guidance/SKILL.md).
+- **Baseline Interactive States (all controls: buttons, links, tabs, selects, inputs):**
   1. `Default` (resting surface/border)
   2. `Hover` (surface/ink shift)
-  3. `Focus-Visible` (`2px` high-contrast ring with `2px` offset)
-  4. `Active` (tactile press `scale(0.97)` over `60ms` ease-out)
-  5. `Loading` (inline spinner + locked width to prevent layout shift)
-  6. `Error` (semantic error border/text + `aria-invalid="true"`)
-  7. `Success` (semantic confirmation feedback)
-  8. `Disabled` (`disabled` attribute + `cursor: not-allowed; opacity: 0.6;`)
+  3. `Focus-Visible` (`2px` high-contrast ring, `2px` offset)
+  4. `Active` (press feedback `scale(0.97)` over `60ms` ease-out, unified with [MOTION.md](.agents/rules/MOTION.md))
+  5. `Disabled` (`disabled` attribute + `cursor: not-allowed; opacity: 0.6;`)
+- **Async & Submittable Control States (form submits, inputs, async mutations):**
+  6. `Loading` (inline spinner + locked width to prevent layout shift)
+  7. `Error` (semantic error border/text + `aria-invalid="true"`)
+  8. `Success` (semantic confirmation feedback)
 
 ---
 
-## 6. Anti-AI-Slop & Natural Copy Delegation
-- **Visual, Structural, Palette & Media Anti-Slop:** Delegate all structural anti-slop rules (pill kickers, fake macOS windows, ghost cards, static glassmorphism, side-tab stripes, icon-tile stacks, gridline backgrounds, Cardocalypse nesting, empty Bento cells), tinted neutrals and First/Second-Order palette bans, dashboard/headline typography bans, icon/photography sourcing rules, and scroll/marquee anti-slop discipline to [anti-ai-slop](.agents/skills/anti-ai-slop/SKILL.md).
-- **Copywriting & Synthetic Data Anti-Slop:** Delegate prose voice, Tier 1A machine vocabulary bans, hollow intensifier elimination, em-dash/trope/heading-emoji bans, Arabic numeral formatting, organic domain metrics, and automated copy gates to [anti-ai-slop](.agents/skills/anti-ai-slop/SKILL.md) paired with [avoid-ai-writing](.agents/skills/avoid-ai-writing/SKILL.md).
+## 6. Anti-AI-Slop & Copy Hygiene Delegation
+- Delegate visual, structural, palette, typography, media, and scroll/marquee anti-slop rules to [anti-ai-slop](.agents/skills/anti-ai-slop/SKILL.md).
+- Delegate prose voice, synthetic-data bans, and automated copy gates to [anti-ai-slop](.agents/skills/anti-ai-slop/SKILL.md) paired with [avoid-ai-writing](.agents/skills/avoid-ai-writing/SKILL.md).
 
 ---
-
-<a id="browser-verification"></a>
 
 ## 7. Browser Verification Policy
-- **Combined Browser Engine Mandate:** Use [playwright-skill](.agents/skills/playwright-skill/SKILL.md) (`node .agents/skills/playwright-skill/run.js --audit`, `-e`, `--stdin`, or `-b`) for deterministic viewport, horizontal-overflow, touch-target, `--a11y`, HTTP `>=400` / `requestfailed` network, console/page-error, and screenshot checks, paired with [agent-browser](.agents/skills/agent-browser/SKILL.md) (`open`, `snapshot -i`, `click @e1`, `fill @e2`, `errors`, `console`, `close`) for accessibility-tree navigation and multi-step interactive flows. Built-in website viewers, IDE preview windows, and `browser_subagent` are banned for verification.
-- **Universal Target Resolution (`--detect-url` / `helpers.resolveTargetUrl()`):** Auto-resolves running servers in-process without hardcoded ports: probes `localhost`/`127.0.0.1` (`3000`, `4321`, `5173`, `8080`, `80`, etc.), maps `htdocs`/`www`/`public_html` webroots, falls back to local `index.html`, or respects `$env:URL`.
-- **Minor / 1-Line Fixes** (text, colors, padding): Skip browser automation; verify CSS rules statically in code.
-- **Structural / Layout Audit** (grids, navigation, full pages): Audit `375x667` (mobile), `768x1024` (tablet), and `1280x800` (desktop) for horizontal overflow (`document.documentElement.scrollWidth > window.innerWidth`), `>=44x44px` mobile touch targets (WCAG 2.5.8 inline link exemption), `--a11y`, HTTP `>=400` / `requestfailed` network errors, and console/page errors:
+- **Engine Mandate (per `AGENTS.md` §3):** Pair [playwright-skill](.agents/skills/playwright-skill/SKILL.md) with [agent-browser](.agents/skills/agent-browser/SKILL.md). Never use IDE preview viewers, `browser_subagent`, or scratch `.js` files; the main agent runs ad-hoc checks directly.
+- **Target Resolution:** Resolve running apps via `--detect-url`, `helpers.resolveTargetUrl()`, local `index.html`, or `$env:URL` (`URL=...`). Never guess a port.
+- **Scope Rule:** Skip browser automation for minor 1-line CSS/copy edits (verify statically). Run full audits for layout, navigation, responsive, or multi-step UI changes.
+- **Multi-Viewport Layout, Network & A11y Audit (`375x667`, `768x1024`, `1280x800`):**
   ```powershell
   node .agents/skills/playwright-skill/run.js --audit --screenshots scratch --touch-targets --a11y
   ```
-  (For custom inline assertions on Windows PowerShell, pipe code into `--stdin` or pass base64 via `-b` instead of `-e`; never write scratch `.js` files.)
-- **Interactive Flows & Shared-Browser CDP Handoff (`agent-browser` -> `--audit --session`):** Isolate sessions with `--prefix ui`, end flows with `errors` and `console` checks, and pass `--session <sid>` to `run.js --audit` to audit authenticated routes in the same Chromium instance without launching a second browser:
+  On Windows PowerShell, pass custom Playwright assertions via `--stdin` or base64 `-b` instead of `-e`.
+- **Interactive Flows & Shared-Browser CDP Handoff (`agent-browser` -> `--audit --session`):**
+  ```powershell
+  # PowerShell
+  $SESSION = (agent-browser session id --scope worktree --prefix ui).Trim()
+  agent-browser --session $SESSION open <url>
+  agent-browser --session $SESSION snapshot -i
+  agent-browser --session $SESSION fill @e1 "value"
+  agent-browser --session $SESSION click @e2
+  node .agents/skills/playwright-skill/run.js --audit --session $SESSION --touch-targets --a11y
+  agent-browser --session $SESSION errors
+  agent-browser --session $SESSION console
+  agent-browser --session $SESSION close
+  ```
   ```bash
+  # Bash / zsh
   SID=$(agent-browser session id --scope worktree --prefix ui)
   agent-browser --session "$SID" open <url>
   agent-browser --session "$SID" snapshot -i
@@ -100,4 +98,4 @@ Apply these rules automatically whenever viewing, writing, or refactoring fronte
   agent-browser --session "$SID" console
   agent-browser --session "$SID" close
   ```
-- **Output Location:** Save viewport screenshots to the git-ignored `scratch/` directory when visual proof is needed; never create scratch `.js` files on disk.
+- **Artifacts:** Save screenshots in git-ignored `scratch/` only when visual proof is needed; create zero scratch `.js` files.

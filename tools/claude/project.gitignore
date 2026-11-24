@@ -75,9 +75,9 @@ __pycache__/
 *$py.class
 *.so
 .Python
-build/
+/build/
 develop-eggs/
-dist/
+/dist/
 downloads/
 eggs/
 .eggs/
@@ -112,7 +112,6 @@ cypress/screenshots/
 tmp/
 temp/
 .temp/
-scratch/
 
 # Agent / Antigravity / Codex Local Runtime Data
 .gemini/
@@ -125,11 +124,6 @@ scratch/
 .cursor/
 .cline/
 
-# Ephemeral Skill Runtime & Review Artifacts
-.impeccable/
-/.harness/
-/.agent_worktrees/
-
 # Security Scans, Pentest Targets & Audit Artifacts
 targets/
 strix_runs/
@@ -138,3 +132,6 @@ strix_runs/
 *.db
 sec_test_cookies*.txt
 verify_cookie*.txt
+
+# Downloaded impeccable engine binaries are never committed (launcher fetches and verifies them)
+**/impeccable/scripts/bin/

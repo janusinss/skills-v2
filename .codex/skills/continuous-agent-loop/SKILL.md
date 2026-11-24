@@ -13,7 +13,7 @@ This skill orchestrates the **Compounding Self-Improving Agent Harness** using t
 
 ## 1. Architecture & Runtime State Layout
 
-All runtime state lives inside the git-ignored `.harness/` directory. Stage 6 routes durable guardrails through `.codex/rules/learned-invariants.md` and graduates recurring clusters into on-demand `.codex/skills/project-<domain>/SKILL.md` (using `.codex/` or `.claude/` in those editions):
+All runtime state lives inside the git-ignored `.harness/` directory. Stage 6 routes durable guardrails through `.codex/rules/learned-invariants.md` and graduates recurring clusters into on-demand `.codex/skills/project-<domain>/SKILL.md`:
 
 ```text
 <workspace-root>/
@@ -98,7 +98,7 @@ Strip all builder chain-of-thought and excuses before adversarial review:
 # 1. Build sanitized brief containing ONLY { contract, git_diff, receipt }
 node .codex/skills/continuous-agent-loop/scripts/harness.mjs skeptic-packet --task feat-auth-rate-limit
 
-# 2. Invoke read-only @skeptic (tier: brain) on .harness/context/feat-auth-rate-limit-brief.json
+# 2. Invoke read-only skeptic (tier: brain) on .harness/context/feat-auth-rate-limit-brief.json
 # 3. Stamp Skeptic verdict into .harness/receipts/<task_id>.json
 node .codex/skills/continuous-agent-loop/scripts/harness.mjs stamp-skeptic \
   --task feat-auth-rate-limit \
@@ -106,7 +106,7 @@ node .codex/skills/continuous-agent-loop/scripts/harness.mjs stamp-skeptic \
   --reason "All contract invariants and rate-limit edge cases verified."
 ```
 
-If `@skeptic` returns `REJECT`, run `stamp-skeptic --verdict REJECT --reason "..."` and immediately record the failure in Stage 6.
+If `skeptic` returns `REJECT`, run `stamp-skeptic --verdict REJECT --reason "..."` and immediately record the failure in Stage 6.
 
 ### Stage 6: 3-Tier Memory Flywheel & Compaction (`flywheel record`, `flywheel digest`, & `checkpoint`)
 Convert every verify failure, Skeptic rejection, or user correction through the 3-tier pipeline without bloating always-loaded rules:
@@ -134,8 +134,8 @@ node .codex/skills/continuous-agent-loop/scripts/harness.mjs checkpoint \
 ```
 
 - **Tier 1 -> Tier 2 (`flywheel record`)**: Appends to `.harness/evals/regressions.jsonl`. First-time automated findings (`verify`, `skeptic`) stage inside `<!-- flywheel-staged-rules-start -->` in `.codex/rules/learned-invariants.md`; user corrections (`--source user`), `--promote`, or `>= 2` matching occurrences promote into `<!-- flywheel-promoted-rules-start -->`.
-- **Tier 2 -> Tier 3 (`flywheel digest` -> `/learn` or `/flywheel` -> prune)**: `flywheel digest [--json] [--graduate <domain>]` sets `curation_recommended: true` when promoted rules reach `>= 20`, file size approaches `12 KB` (under AGY's `24 KB` cap and `20,000`-token rules budget), or a domain hits `>= 3` ungraduated regressions. Graduate recurring clusters via AGY `/learn` or `/flywheel` (or `/flywheel` in Claude / skill authoring in Codex) into `.codex/skills/project-<domain>/SKILL.md`, run `flywheel digest --graduate <domain>`, and prune superseded rules.
-- **Git tracking & repo scope**: Target repos keep `learned-invariants.md` and `project-*` skills local; add `!/.agents/skills/project-*/` (or the `.codex/` / `.claude/` equivalent) to `.gitignore` if team-shared. The `Skills` source checkout accepts only universal harness invariants.
+- **Tier 2 -> Tier 3 (`flywheel digest` -> skill graduation -> prune)**: `flywheel digest [--json] [--graduate <domain>]` sets `curation_recommended: true` when promoted rules reach `>= 20`, file size approaches `12 KB`, or a domain hits `>= 3` ungraduated regressions. Graduate recurring clusters via skill authoring into `.codex/skills/project-<domain>/SKILL.md`, run `flywheel digest --graduate <domain>`, and prune superseded rules.
+- **Git tracking & repo scope**: Target repos keep `learned-invariants.md` and `project-*` skills local; add `!/.codex/skills/project-*/` to `.gitignore` if team-shared. The `Skills` source checkout accepts only universal harness invariants.
 
 ---
 

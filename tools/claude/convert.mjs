@@ -31,8 +31,8 @@ const toolMap = {
 function rewritePathsToClaude(text, { preserveInvocationLine = false } = {}) {
   const rewrite = value =>
     value
-      .replace(/(^|[\s"'`(=:\[]|\.\/)\.(?:agents|codex)\/(skills|rules(?!\/swarm\.md\b)|resources|agents)(\/|[)\]#\s]|$)/gm, '$1.claude/$2$3')
-      .replace(/(^|[\s"'`(=:\[])\.(?:agents|codex)\\(skills|rules(?!\\swarm\.md\b)|resources|agents)(\\|[)\]#\s]|$)/gm, '$1.claude\\$2$3');
+      .replace(/(^|[\s"'`(=:\[!]|!\/|\.\/)\.(?:agents|codex)\/(skills|rules(?!\/swarm\.md\b)|resources|agents)(\/|[)\]#\s]|$)/gm, '$1.claude/$2$3')
+      .replace(/(^|[\s"'`(=:\[!]|!\\|\.\\)\.(?:agents|codex)\\(skills|rules(?!\\swarm\.md\b)|resources|agents)(\\|[)\]#\s]|$)/gm, '$1.claude\\$2$3');
   if (!preserveInvocationLine) return rewrite(text);
   return text
     .split(/(\r?\n)/)
@@ -44,8 +44,35 @@ export function adaptMarkdown(text, sourceFile) {
   let result = text;
   result = result.replaceAll('~/.agents/skills/', '.claude/skills/').replaceAll('.agents/skills/', '.claude/skills/');
   result = result.replaceAll('~/.codex/skills/', '.claude/skills/').replaceAll('.codex/skills/', '.claude/skills/');
-  result = result.replaceAll('via `view_file`', 'using the Read tool');
-  result = result.replaceAll('`run_command`', 'the Bash tool');
+
+  // Strip edition marker HTML comments if present
+  result = result.replace(/<!--\s*edition-[^>]*-->\r?\n?/g, '');
+
+  // Rewrite AGY/Codex tool names to Claude Code native tools
+  result = result
+    .replaceAll('via `view_file`', 'using the Read tool')
+    .replaceAll('via `read_file`', 'using the Read tool')
+    .replaceAll('(`read_file`, `view_file`, `grep_search`, `find_by_name`, `list_dir`)', '(`Read`, `Grep`, `Glob`)')
+    .replaceAll('`find_by_name`, `list_dir`, `grep_search`, and bounded `read_file`', '`Glob`, `Grep`, and bounded `Read`')
+    .replaceAll('Use `read_file` and `grep_search`', 'Use the `Read` and `Grep` tools')
+    .replaceAll('`ask_question`', '`AskUserQuestion`')
+    .replaceAll('`read_file`', 'the Read tool')
+    .replaceAll('`view_file`', 'the Read tool')
+    .replaceAll('`grep_search`', 'the Grep tool')
+    .replaceAll('`find_by_name`', 'the Glob tool')
+    .replaceAll('`list_dir`', 'the Glob tool')
+    .replaceAll('`run_command`', 'the Bash tool')
+    .replaceAll('`browser_subagent`', 'subagents')
+    .replaceAll('`AGENTS.md` §', '`CLAUDE.md` §')
+    .replaceAll('AGENTS.md §', 'CLAUDE.md §');
+
+  // Clean AGY/Codex cross-edition prose in shared harness/flywheel docs
+  result = result
+    .replaceAll('via `AGY /learn`, `Claude /flywheel`, or `harness.mjs flywheel digest --graduate <domain>`', 'via `/flywheel` or `harness.mjs flywheel digest --graduate <domain>`')
+    .replaceAll(' (using `.codex/` or `.claude/` in those editions)', '')
+    .replaceAll("(under AGY's `24 KB` cap and `20,000`-token rules budget)", '(under the `24 KB` cap and `20,000`-token rules budget)')
+    .replaceAll('Graduate recurring clusters via AGY `/learn` or `/flywheel` (or `/flywheel` in Claude / skill authoring in Codex)', 'Graduate recurring clusters via `/flywheel`')
+    .replaceAll(' (or the `.codex/` / `.claude/` equivalent)', '');
 
   // Rebase internal relative links if needed
   result = result.replace(/(\[[^\]\n]*\]\()([^\s)]+)(\))/g, (whole, prefix, target, suffix) => {
@@ -73,6 +100,12 @@ export function adaptMarkdown(text, sourceFile) {
   return rewritePathsToClaude(result, { preserveInvocationLine: true });
 }
 
+function formatYamlScalar(value) {
+  if (typeof value === 'boolean' || typeof value === 'number') return String(value);
+  if (typeof value === 'string' && value.length > 0 && !/[:#\n[\]{}]|^\s|\s$/.test(value)) return value;
+  return JSON.stringify(value);
+}
+
 export function convertSkill(text, sourceFile) {
   const { frontmatter, body } = parseFrontmatter(text, sourceFile);
   const name = frontmatter.name;
@@ -84,18 +117,37 @@ export function convertSkill(text, sourceFile) {
   ];
   if (frontmatter.license) yamlOut.push(`license: ${frontmatter.license}`);
   if (frontmatter.compatibility) yamlOut.push(`compatibility: ${JSON.stringify(frontmatter.compatibility)}`);
+  if (frontmatter['disable-model-invocation'] !== undefined) {
+    yamlOut.push(`disable-model-invocation: ${formatYamlScalar(frontmatter['disable-model-invocation'])}`);
+  }
+  if (frontmatter['argument-hint'] !== undefined) {
+    yamlOut.push(`argument-hint: ${JSON.stringify(frontmatter['argument-hint'])}`);
+  }
+  if (frontmatter['allowed-tools'] !== undefined) {
+    const allowedTools = frontmatter['allowed-tools'];
+    const formatted = typeof allowedTools === 'string' && !/: |[#\n[\]{}]|^\s|\s$/.test(allowedTools)
+      ? allowedTools
+      : JSON.stringify(allowedTools);
+    yamlOut.push(`allowed-tools: ${formatted}`);
+  }
   yamlOut.push('---');
 
   return {
-    frontmatter: { name, description },
+    frontmatter: {
+      name,
+      description,
+      ...(frontmatter['disable-model-invocation'] !== undefined ? { 'disable-model-invocation': frontmatter['disable-model-invocation'] } : {}),
+      ...(frontmatter['argument-hint'] !== undefined ? { 'argument-hint': frontmatter['argument-hint'] } : {}),
+      ...(frontmatter['allowed-tools'] !== undefined ? { 'allowed-tools': frontmatter['allowed-tools'] } : {})
+    },
     text: `${yamlOut.join('\n')}\n${adaptMarkdown(body, sourceFile)}`
   };
 }
 
 const tierConfigMap = {
-  reflex: { model: 'haiku', target_model: 'haiku-5.5-high/xhigh/max', reasoning_effort: 'high/xhigh/max' },
-  builder: { model: 'sonnet', target_model: 'sonnet-5.5-high/xhigh/max', reasoning_effort: 'high/xhigh/max' },
-  brain: { model: 'opus', target_model: 'opus-5.5-high/xhigh/max', reasoning_effort: 'high/xhigh/max' }
+  reflex: { model: 'haiku', effort: 'medium' },
+  builder: { model: 'sonnet', effort: 'high' },
+  brain: { model: 'opus', effort: 'high' }
 };
 
 export function convertAgent(text, sourceFile) {
@@ -118,7 +170,7 @@ export function convertAgent(text, sourceFile) {
 
   const tier = typeof frontmatter.tier === 'string' ? frontmatter.tier.trim().toLowerCase() : '';
   const tierConfig = tierConfigMap[tier] || tierConfigMap.builder;
-  const { model, target_model: targetModel, reasoning_effort: reasoningEffort } = tierConfig;
+  const { model, effort } = tierConfig;
   const toolsStr = [...mappedTools].join(', ');
   const yamlOut = [
     '---',
@@ -129,8 +181,7 @@ export function convertAgent(text, sourceFile) {
   if (tier) yamlOut.push(`tier: ${tier}`);
   yamlOut.push(
     `model: ${model}`,
-    `target_model: ${JSON.stringify(targetModel)}`,
-    `reasoning_effort: ${JSON.stringify(reasoningEffort)}`,
+    `effort: ${effort}`,
     '---'
   );
 
@@ -141,29 +192,61 @@ export function convertAgent(text, sourceFile) {
       tools: toolsStr,
       ...(tier ? { tier } : {}),
       model,
-      target_model: targetModel,
-      reasoning_effort: reasoningEffort
+      effort
     },
     text: `${yamlOut.join('\n')}\n${adaptMarkdown(body, sourceFile)}`
   };
 }
 
+const claudeRoutingBlock = `Delegate specialized lifecycle tasks to the agents defined under [.claude/agents/](.claude/agents/) using \`@<agent>\`:
+
+- **Invocation**: Invoke specialists via \`@<agent>\` (or slash commands \`/plan\`, \`/tdd\`, \`/audit\`, \`/review\`, \`/eval\`, \`/contract\`, \`/verify\`, \`/flywheel\`).
+- **Cognitive Routing Tiers (\`tier:\`, \`model:\`, \`effort:\` frontmatter)**:
+
+| Tier | Claude Code Model | Agents ([.claude/agents/](.claude/agents/)) |
+| :--- | :--- | :--- |
+| \`reflex\` | \`model: haiku\` (\`effort: medium\`) | \`explorer\` (fast read-only recon; never plans or edits) |
+| \`builder\` | \`model: sonnet\` (\`effort: high\`) | \`tdd-guide\`, \`e2e-runner\`, \`code-simplifier\`, \`refactor-cleaner\`, \`performance-optimizer\`, \`penetration-tester\`, \`build-error-resolver\`, \`{react,go,rust,django,cpp,pytorch}-build-resolver\` |
+| \`brain\` *(read-only auditors/reviewers)* | \`model: opus\` (\`effort: high\`) | \`planner\`, \`architect\`, \`code-architect\`, \`a11y-architect\`, \`spec-miner\`, \`code-reviewer\`, \`{typescript,react,vue,go,rust,php,fastapi,database}-reviewer\`, \`silent-failure-hunter\`, \`security-auditor\`, \`skeptic\`, \`agent-evaluator\` |
+
+- **Mandatory Lifecycle Triggers**:
+  1. Multi-file discovery (\`>= 3\` files) -> \`@explorer\`
+  2. Non-trivial feature or refactor design -> \`@planner\` + \`@code-architect\` / \`@architect\` (plus \`@a11y-architect\` for UI)
+  3. Implementation, cleanup, or build failures -> \`@tdd-guide\`, \`@code-simplifier\`, \`@refactor-cleaner\`, \`@performance-optimizer\`, \`@e2e-runner\`, or \`@*-build-resolver\`
+  4. Post-edit verification -> matching stack \`@*-reviewer\` + \`@silent-failure-hunter\` (plus \`@security-auditor\` / \`@penetration-tester\` on auth, API, or input changes, and \`@skeptic\` / \`@agent-evaluator\` before final delivery)`;
+
 export function generateClaudeMd(agentsMdText) {
   // Extract content before <!-- source-repository-only -->
-  const content = agentsMdText.split('<!-- source-repository-only -->')[0].trim();
-  let result = content.replace(
-    /^# AGENTS\.md(?:\r?\n\r?\nInstructions, operating rules, and skill mappings for AI agents \(Codex, Antigravity, and compatible harnesses\)\.)?/m,
-    '# CLAUDE.md\n\nInstructions, operating rules, and skill mappings for Anthropic Claude Code.'
-  );
-  
-  // Rewrite .agents/ paths to .claude/ while preserving edition-specific invocation paths
-  result = rewritePathsToClaude(result, { preserveInvocationLine: true });
+  const content = agentsMdText.split('<!-- source-repository-only -->')[0].replace(/\r\n/g, '\n').trim();
+  const claudeSubtitle = 'Instructions, operating rules, and workspace routing for Anthropic Claude Code.';
 
-  // Mention Claude Code subagent addressing syntax: @agent-name
-  result = result.replace(/Delegate specialized lifecycle tasks to the agents defined under \[\.claude\/agents\/\]\(\.claude\/agents\/\):/g,
-    'Delegate specialized lifecycle tasks to the agents defined under [.claude/agents/](.claude/agents/) using `@agent-name`:');
+  let result = content.replace(/^# AGENTS\.md\b/m, '# CLAUDE.md');
 
-  return result + '\n';
+  if (/<!--\s*edition-subtitle-start\s*-->[\s\S]*?<!--\s*edition-subtitle-end\s*-->/.test(result)) {
+    result = result.replace(/<!--\s*edition-subtitle-start\s*-->[\s\S]*?<!--\s*edition-subtitle-end\s*-->/, claudeSubtitle);
+  } else {
+    result = result.replace(
+      /^Instructions, operating rules, and skill mappings for AI agents \(Codex, Antigravity, and compatible harnesses\)\.$/m,
+      claudeSubtitle
+    );
+  }
+
+  if (/<!--\s*edition-routing-start\s*-->[\s\S]*?<!--\s*edition-routing-end\s*-->/.test(result)) {
+    result = result.replace(/<!--\s*edition-routing-start\s*-->[\s\S]*?<!--\s*edition-routing-end\s*-->/, claudeRoutingBlock);
+  } else {
+    result = result.replace(
+      /Delegate specialized lifecycle tasks to the agents defined under [^\n]+:[\s\S]*?(?=\n---\n\n## 5\.)/,
+      claudeRoutingBlock
+    );
+  }
+
+  // Strip any remaining edition marker comments
+  result = result.replace(/<!--\s*edition-[^>]*-->\r?\n?/g, '');
+
+  // Rewrite .agents/ and .codex/ paths to .claude/
+  result = rewritePathsToClaude(result);
+
+  return result.trimEnd() + '\n';
 }
 
 export function formatDesignerPolicy(text) {
@@ -176,7 +259,10 @@ export function formatDesignerPolicy(text) {
     /After 2 consecutive failed verification receipts or Skeptic rejections on the same issue/g,
     'After 2 consecutive failed verification checks or audits on the same issue'
   );
-  result = result.replace(/\n---\n\n## 5\. 6-Stage Self-Improving Harness Lifecycle[\s\S]*$/, '');
+  result = result.replace(/, `\/contract`, `\/verify`, `\/flywheel`/g, '');
+  result = result.replace(/`skeptic`,\s*/g, '');
+  result = result.replace(/`@skeptic`\s*\/\s*/g, '');
+  result = result.replace(/\n---\n\n## 5\.[\s\S]*$/, '');
   return result.trimEnd() + '\n';
 }
 

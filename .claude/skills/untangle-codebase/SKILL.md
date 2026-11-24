@@ -2,6 +2,8 @@
 name: untangle-codebase
 description: "Untangle a whole codebase in one pass by removing hidden links, needless coupling, and special cases. Use when refactoring tangled modules or reducing complexity."
 license: MIT
+disable-model-invocation: true
+argument-hint: "[optional area or concern to focus on]"
 ---
 
 Start a thorough refactor of this codebase and complete it to the end.

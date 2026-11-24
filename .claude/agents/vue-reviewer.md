@@ -4,8 +4,7 @@ description: "Expert Vue.js code reviewer specializing in Composition API correc
 tools: Read, Grep, Glob, Bash
 tier: brain
 model: opus
-target_model: "opus-5.5-high/xhigh/max"
-reasoning_effort: "high/xhigh/max"
+effort: high
 ---
 
 ## Prompt Defense Baseline

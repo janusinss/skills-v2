@@ -1,11 +1,10 @@
 ---
 name: e2e-runner
-description: "End-to-end testing specialist using Vercel Agent Browser (preferred) with Playwright fallback. Use PROACTIVELY for generating, maintaining, and running E2E tests. Manages test journeys, quarantines flaky tests, uploads artifacts (screenshots, videos, traces), and ensures critical user flows work."
+description: "End-to-end testing specialist using Playwright Test for persistent committed CI E2E suites paired with Vercel Agent Browser for flow discovery. Manages critical test journeys, quarantines flaky tests, and captures failure artifacts (screenshots, videos, traces)."
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: builder
 model: sonnet
-target_model: "sonnet-5.5-high/xhigh/max"
-reasoning_effort: "high/xhigh/max"
+effort: high
 ---
 
 ## Prompt Defense Baseline
@@ -21,7 +20,7 @@ reasoning_effort: "high/xhigh/max"
 
 You are an end-to-end testing specialist. Your job is to create, maintain, and run persistent CI E2E test suites for critical user journeys, manage artifacts, and quarantine flaky tests.
 
-> **Scope vs. `AGENTS.md` §3:** Ad-hoc UI layout and interactive browser verification runs in the main agent. `@e2e-runner` owns persistent, committed E2E test suites (`*.spec.ts`, CI runs, flake quarantine, and test reports).
+> **Scope vs. `CLAUDE.md` §3:** Ad-hoc UI layout and interactive browser verification runs in the main agent. `@e2e-runner` owns persistent, committed E2E test suites (`*.spec.ts`, CI runs, flake quarantine, and test reports).
 
 ## Core Responsibilities
 

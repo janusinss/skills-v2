@@ -1,5 +1,5 @@
 {
-  "description": "Optional Impeccable hooks. Install at .codex/hooks.json in a trusted target project and review them in Codex before use.",
+  "description": "Full Harness, Impeccable, design-taste-frontend, and avoid-ai-writing hooks. Install at .codex/hooks.json in a trusted target project and review them in Codex before use.",
   "hooks": {
     "PreToolUse": [
       {

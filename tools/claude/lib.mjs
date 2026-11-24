@@ -19,6 +19,7 @@ export const slash = value => value.split(path.sep).join('/');
 export const isBundleExcluded = relative =>
   /(^|\/)evals\//.test(relative)
   || /\.test\.(?:js|mjs|cjs)$/.test(relative)
+  || /(^|\/)skills\/impeccable\/scripts\/bin\//.test(relative)
   || relative === 'hooks.json'
   || relative === 'scripts/swarm-stop-guard.cjs'
   || /(?:^|\/)scripts\/swarm-stop-guard\.cjs$/.test(relative)

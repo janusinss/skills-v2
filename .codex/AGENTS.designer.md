@@ -1,99 +1,71 @@
 # AGENTS.md
 
-Instructions, operating rules, and skill mappings for AI agents (Codex, Antigravity, and compatible harnesses).
+Instructions, operating rules, and workspace routing for OpenAI Codex.
 
 ---
 
 ## 1. Operating Rules (ADHD Mode & Action-First Execution)
 
-- **Lead with Action**: Place the command, file path, diff, or tool call on Line 1. Zero conversational throat-clearing, intro explanations, or restating the prompt.
-- **Numbered Bounded Steps**: Break multi-step work into atomic steps. Maximum one verb/action per step. Zero compound steps (ban "and then", "afterward", "while").
-- **Agent Tool Autonomy**: Inside an agent harness, execute tool calls directly rather than asking permission or instructing the user to run commands manually.
-- **Concrete Time & Scale**: Never use vague qualifiers ("in a bit", "takes a while"). Ballpark in concrete units ("~10 minutes", "2 files").
-- **Visible Wins**: Immediately demonstrate what works and how to verify it (e.g., test commands, curl endpoints).
-- **Neutral Error Reporting**: Report strictly: **Location**, **Cause**, and **Fix**. No emotional padding.
-- **Cap Lists to 5 Items**: Display at most 5 items per group in user-facing output to prevent cognitive overload.
+- **Lead with Action**: Put the command, file path, diff, or tool call on Line 1. Zero throat-clearing, intros, or restating the prompt.
+- **Numbered Bounded Steps**: Break multi-step work into atomic steps (one verb/action per step; ban "and then", "afterward", "while").
+- **Tool Autonomy**: Execute tool calls directly instead of asking permission or telling the user to run commands.
+- **Concrete Time & Scale**: Ban vague qualifiers ("in a bit", "takes a while"); use concrete units ("~10 minutes", "2 files").
+- **Visible Wins**: Immediately show what works and how to verify it (test commands, curl endpoints).
+- **Neutral Error Reporting**: Report strictly **Location**, **Cause**, and **Fix**. Zero emotional padding.
+- **Cap Lists to 5 Items**: Show at most 5 items per group in user-facing output.
 - **Compounding Invariants**: Read [.codex/rules/learned-invariants.md](.codex/rules/learned-invariants.md) (when present) before editing code to enforce project-specific guardrails and prevent known regressions.
 - **2-Strike Escalation & 3-Strike Circuit Breaker**:
-  - **Strike 2 (Model / Architect Escalation)**: After 2 consecutive failed verification checks or audits on the same issue, escalate from `builder` tier to `brain` tier ([.codex/agents/code-architect.md](.codex/agents/code-architect.md) or higher-reasoning model) for root-cause re-architecture.
-  - **Strike 3 (Circuit Breaker)**: After 3 failed attempts to fix the same issue, STOP modifying code. Ask before reverting anything; never discard uncommitted work. Output strictly:
-    1. **Invalid Assumption**: 1 sentence on what failed.
-    2. **Diagnostic Check**: 1 concrete question or a 2-option choice (A/B) to unblock.
-- **Blacklist (Zero Filler)**:
+  - **Strike 2 (Architect Escalation)**: After 2 consecutive failed verification checks or audits on the same issue, escalate from `builder` to `brain` ([.codex/agents/code-architect.md](.codex/agents/code-architect.md) or higher-reasoning model) for root-cause re-architecture.
+  - **Strike 3 (Circuit Breaker)**: After 3 failed attempts on the same issue, STOP editing. Ask before reverting; never discard uncommitted work. Output strictly: (1) **Invalid Assumption** (1 sentence on what failed) and (2) **Diagnostic Check** (1 concrete question or A/B choice).
+- **Zero-Filler Blacklist**:
   - **Forbidden Openers**: "Sure!", "Great question", "Let me...", "I'll...", "Looking at your...", "To answer your question...", "Certainly".
   - **Forbidden Closers**: "Hope this helps!", "Let me know if you need anything else", "Happy coding!", "Feel free to ask".
-  - **Forbidden Recaps**: Do not narrate what code was just written if the diff or edit already shows it.
-  - **Prune on Send**: Delete hedging adverbs ("perhaps", "might", "could possibly") and idioms.
+  - **Forbidden Recaps & Hedges**: Do not narrate diffs; cut hedging adverbs ("perhaps", "might", "could possibly") and idioms.
 
 ---
 
-## 2. Design, Architecture & Security: Mandatory Workspace Rule Selection
+## 2. Mandatory Workspace Rule Routing
 
-Read and apply the active workspace's local rules before choosing generic skills:
+Read and apply the matching workspace rule before selecting generic skills:
 
-- **Frontend, UI/UX & Motion**:
-  - **Brand New Web App / Greenfield**: [.codex/rules/starting-brandnew.md](.codex/rules/starting-brandnew.md)
-  - **Existing App / Redesign / Refactor**: [.codex/rules/starting-existing.md](.codex/rules/starting-existing.md)
-  - **Active UI Implementation**: [.codex/rules/frontend.md](.codex/rules/frontend.md)
-  - **Layout & CSS Hygiene**: [.codex/rules/UI_Always.md](.codex/rules/UI_Always.md)
-  - **Motion, Physics & Micro-Interactions**: [.codex/rules/MOTION.md](.codex/rules/MOTION.md) (and [.codex/skills/3d-web-experience/SKILL.md](.codex/skills/3d-web-experience/SKILL.md) for 3D/WebGL)
-  - **Anti-AI-Slop Enforcement**: [.codex/skills/anti-ai-slop/SKILL.md](.codex/skills/anti-ai-slop/SKILL.md) (paired with [.codex/skills/avoid-ai-writing/SKILL.md](.codex/skills/avoid-ai-writing/SKILL.md), [.codex/skills/impeccable/SKILL.md](.codex/skills/impeccable/SKILL.md), and [.codex/skills/design-taste-frontend/SKILL.md](.codex/skills/design-taste-frontend/SKILL.md))
-  - **SEO, Content & Comparison Pages**: [.codex/skills/seo-audit/SKILL.md](.codex/skills/seo-audit/SKILL.md), [.codex/skills/programmatic-seo/SKILL.md](.codex/skills/programmatic-seo/SKILL.md), [.codex/skills/competitor-alternatives/SKILL.md](.codex/skills/competitor-alternatives/SKILL.md), and [.codex/skills/content-creator/SKILL.md](.codex/skills/content-creator/SKILL.md)
-- **Backend, Security & QA**:
-  - **Backend Architecture, Data Layer & APIs**: [.codex/rules/backend.md](.codex/rules/backend.md)
-  - **Application Security & Exploit Defense**: [.codex/rules/security.md](.codex/rules/security.md)
-  - **Penetration Testing, Strix & Functional Flow QA**: [.codex/rules/penetrating-and-testing.md](.codex/rules/penetrating-and-testing.md)
-  - **Compounding Guardrails & Learned Invariants**: [.codex/rules/learned-invariants.md](.codex/rules/learned-invariants.md)
-  - **Architecture Diagrams & ERDs**: [.codex/skills/archify/SKILL.md](.codex/skills/archify/SKILL.md)
-  - **Codebase Untangling & Refactoring**: [.codex/skills/untangle-codebase/SKILL.md](.codex/skills/untangle-codebase/SKILL.md)
+| Surface / Task | Mandatory Rule / Skill |
+| --- | --- |
+| Brand New Web App / Greenfield | [.codex/rules/starting-brandnew.md](.codex/rules/starting-brandnew.md) |
+| Existing App / Redesign / Refactor | [.codex/rules/starting-existing.md](.codex/rules/starting-existing.md) |
+| Active UI Implementation | [.codex/rules/frontend.md](.codex/rules/frontend.md) ([design-taste-frontend](.codex/skills/design-taste-frontend/SKILL.md) visual/typography/palette + [impeccable](.codex/skills/impeccable/SKILL.md) layout/craft-floor/audit) |
+| Layout & CSS Hygiene | [.codex/rules/UI_Always.md](.codex/rules/UI_Always.md) |
+| Native HTML/CSS/DOM & Baseline APIs | [modern-web-guidance](.codex/skills/modern-web-guidance/SKILL.md) (query `search`->`retrieve` first for dialogs, popovers, anchor positioning, View Transitions, Scroll-Driven Animations, forms, CWV, Passkeys; skip backend/infra; degrade gracefully offline) |
+| Motion, Physics & 3D | [.codex/rules/MOTION.md](.codex/rules/MOTION.md) + [interaction-catalog.md](.codex/resources/creative-libraries/interaction-catalog.md) + [3d-web-experience](.codex/skills/3d-web-experience/SKILL.md) |
+| Anti-AI-Slop & Copy | [anti-ai-slop](.codex/skills/anti-ai-slop/SKILL.md) (always-on rules & gates) + [unslop](.codex/skills/unslop/SKILL.md) (9-pass screen redline, live URLs, RTL) + [avoid-ai-writing](.codex/skills/avoid-ai-writing/SKILL.md) |
+| Backend Architecture & Data | [.codex/rules/backend.md](.codex/rules/backend.md) |
+| Application Security & Defense | [.codex/rules/security.md](.codex/rules/security.md) |
+| Penetration Testing & Critical QA | [.codex/rules/penetrating-and-testing.md](.codex/rules/penetrating-and-testing.md) |
+| Learned Invariants & Guardrails | [.codex/rules/learned-invariants.md](.codex/rules/learned-invariants.md) |
 
 ---
 
-## 3. Playwright & Browser Verification Policy
+## 3. Browser Verification Policy
 
-Follow [.codex/rules/UI_Always.md](.codex/rules/UI_Always.md#7-browser-verification-policy) for visual, responsive, and interactive checks:
+Follow [UI_Always.md](.codex/rules/UI_Always.md#7-browser-verification-policy) for visual, responsive, and interactive checks:
 
-- **Combined Engines**: Pair [playwright-skill](.codex/skills/playwright-skill/SKILL.md) (`node .codex/skills/playwright-skill/run.js --audit`, inline `-e`, or Windows PowerShell-safe `--stdin`/`-b`) for deterministic viewport, overflow, `--a11y`, HTTP `>=400` network, console, and screenshot checks with [agent-browser](.codex/skills/agent-browser/SKILL.md) (`open`, `snapshot -i`, `click @e1`, `fill @e2`, `errors`, `console`, `close`) for token-efficient semantic navigation, `@eN` accessibility-tree interaction, and multi-step flow testing. Create no scratch `.js` files and do not delegate ad-hoc UI browser verification to subagents (main agent runs ad-hoc checks; `@e2e-runner` is reserved for authoring and running persistent CI E2E test suites).
-- **Target URL**: Resolve the running application via `node .codex/skills/playwright-skill/run.js --detect-url` or `helpers.resolveTargetUrl()`. Respect a user-provided URL or project configuration; do not guess a port.
-- **Layout, Network & A11y Audits**: Run `node .codex/skills/playwright-skill/run.js --audit --screenshots scratch --touch-targets --a11y` to verify 375px, 768px, and 1280px for accidental horizontal overflow (`document.documentElement.scrollWidth > window.innerWidth`), mobile `< 44x44px` interactive targets (with WCAG 2.5.8 inline link exemption), HTTP `>=400` / `requestfailed` network errors, `--a11y`, page exceptions, and console errors.
-- **Interactive Flows & CDP Handoff**: Run isolated `agent-browser` sessions (`agent-browser session id --scope worktree --prefix ui`, `--session <sid>`, `open`, `snapshot -i`, `fill`/`click @eN`, trailing `errors` and `console`, `close`) or hand the live session into `node .codex/skills/playwright-skill/run.js --audit --session <sid>` to audit authenticated routes without launching Chromium twice.
-- **Artifacts**: Save screenshots and temporary browser diagnostics in the project's git-ignored `scratch/` directory.
+- **Combined Engines**: Pair [playwright-skill](.codex/skills/playwright-skill/SKILL.md) (`--audit`, `-e`, or Windows-safe `--stdin`/`-b`) for layout, overflow, `--a11y`, network, console, and screenshots with [agent-browser](.codex/skills/agent-browser/SKILL.md) (`open`, `snapshot -i`, `click`/`fill @eN`, `errors`, `console`, `close`) for semantic flows. Create zero scratch `.js` files; the main agent runs ad-hoc checks (`e2e-runner` is strictly for persistent CI suites).
+- **Canonical Commands & CDP Handoff**: Resolve URLs via `node .codex/skills/playwright-skill/run.js --detect-url` (never guess ports), audit via `--audit --screenshots scratch --touch-targets --a11y` (375/768/1280px), and pass authenticated `agent-browser` sessions into `--audit --session <sid>`.
+- **Artifacts**: Store screenshots and temporary diagnostics in git-ignored `scratch/`.
 
 ---
 
-## 4. Subagents & Specialized Roles (3-Tier Cognitive Routing)
+## 4. Subagents & 3-Tier Cognitive Routing
 
-Delegate specialized lifecycle tasks to the agents defined under [.codex/agents/](.codex/agents):
+- **Invocation**: Read and apply `.codex/agents/<agent>.md` (`model_tier` + `reasoning_effort` frontmatter).
 
-- **Cognitive Routing Tiers (`tier:`, `model_tier:` & `reasoning_effort:` frontmatter)**:
-  - **`reflex`** (Fast/Read-Only Reconnaissance — **GPT / Codex**: `6.1 Terra` (`medium`) (`model_tier: mini`, `reasoning_effort: medium`)): [.codex/agents/explorer.md](.codex/agents/explorer.md) — locates files, symbols, and call-sites rapidly; never concludes, plans, or edits files.
-  - **`builder`** (Scoped Workhorse Implementation & Repair — **GPT / Codex**: `6.1 Sol` (`medium` / `high`) or `6.1 Terra` (`high` / `xhigh` / `max`) (`model_tier: codex`, `reasoning_effort: high`)): `tdd-guide`, `e2e-runner`, `code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `penetration-tester`, and `*-build-resolver` agents.
-  - **`brain`** (High-Reasoning Architecture, Audit & Cold-Context Skepticism — **GPT / Codex**: `6.1 Sol` (`max`) (`model_tier: reasoning`, `reasoning_effort: max`)): `planner`, `architect`, `code-architect`, `a11y-architect`, `spec-miner`, `skeptic`, `security-auditor`, `silent-failure-hunter`, `agent-evaluator`, and `*-reviewer` agents (all reviewers, auditors, and skeptics are strictly read-only).
-- **Proactive Subagent Dispatch Triggers (Harness Mode, Designer Mode & `/swarm`)**:
-  - **Invocation by Edition**: **AGY / Gemini** `invoke_subagent{TypeName: "<agent>", Model: "<tier-model>"}` (in `/swarm`, use direct coordinator task briefs for implementation workers and attach `.agents/agents/<agent>.md` selectively for specialist review/audit workers per `.agents/rules/swarm.md`); **Claude Code** `@<agent>` (or `/plan`, `/tdd`, `/audit`, `/review`, `/eval`, `/contract`, `/verify`, `/flywheel`); **GPT / Codex** read and apply `.codex/agents/<agent>.md` (`model_tier` + `reasoning_effort`).
-  - **Mandatory Lifecycle Triggers**:
-    1. Multi-file discovery (`>= 3` files) -> `explorer`
-    2. Non-trivial feature or refactor design -> `planner` + `code-architect` / `architect` (plus `a11y-architect` for UI)
-    3. Implementation, cleanup, or build failures -> `tdd-guide`, `code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `e2e-runner`, or `*-build-resolver`
-    4. Post-edit verification -> matching stack `*-reviewer` + `silent-failure-hunter` (plus `security-auditor` / `penetration-tester` on auth, API, or input changes, and `skeptic` / `agent-evaluator` before final delivery)
-- **Reconnaissance, Planning & Architecture**:
-  - Fast Codebase Reconnaissance (`reflex`): [.codex/agents/explorer.md](.codex/agents/explorer.md)
-  - Implementation Planning (`brain`): [.codex/agents/planner.md](.codex/agents/planner.md)
-  - Domain & System Architecture (`brain`): [.codex/agents/code-architect.md](.codex/agents/code-architect.md)
-  - Web Accessibility (WCAG 2.2) (`brain`): [.codex/agents/a11y-architect.md](.codex/agents/a11y-architect.md)
-  - Test-Driven Specification (`builder`): [.codex/agents/tdd-guide.md](.codex/agents/tdd-guide.md)
-- **Quality Gates, Cold-Context Skeptic & Failure Hunting**:
-  - Cold-Context Adversarial Skeptic (`brain`, read-only): [.codex/agents/skeptic.md](.codex/agents/skeptic.md)
-  - Swallowed Exception & Fallback Audits (`brain`, read-only): [.codex/agents/silent-failure-hunter.md](.codex/agents/silent-failure-hunter.md)
-  - Code Simplification & Dead Weight Removal (`builder`): [.codex/agents/code-simplifier.md](.codex/agents/code-simplifier.md)
-  - Pre-Delivery Verification (`brain`, read-only): [.codex/agents/agent-evaluator.md](.codex/agents/agent-evaluator.md)
-- **Security & Penetration Testing**:
-  - Pre-Commit Security & Invariant Audits (`brain`, read-only): [.codex/agents/security-auditor.md](.codex/agents/security-auditor.md)
-  - Exploit Validation & Penetration QA (`builder`): [.codex/agents/penetration-tester.md](.codex/agents/penetration-tester.md)
-- **Code Review Specialists (`brain`, read-only)**:
-  - TypeScript / JS: [.codex/agents/typescript-reviewer.md](.codex/agents/typescript-reviewer.md) · React: [.codex/agents/react-reviewer.md](.codex/agents/react-reviewer.md)
-  - Backend & Databases: [.codex/agents/database-reviewer.md](.codex/agents/database-reviewer.md) · FastAPI: [.codex/agents/fastapi-reviewer.md](.codex/agents/fastapi-reviewer.md)
-  - Systems & Stacks: [.codex/agents/go-reviewer.md](.codex/agents/go-reviewer.md) · [.codex/agents/rust-reviewer.md](.codex/agents/rust-reviewer.md) · [.codex/agents/php-reviewer.md](.codex/agents/php-reviewer.md) · [.codex/agents/vue-reviewer.md](.codex/agents/vue-reviewer.md)
-- **Closed-Loop Build & Error Repair (`builder`)**:
-  - TypeScript & Generic Build Repair: [.codex/agents/build-error-resolver.md](.codex/agents/build-error-resolver.md)
-  - Framework Resolvers: [.codex/agents/react-build-resolver.md](.codex/agents/react-build-resolver.md), [.codex/agents/go-build-resolver.md](.codex/agents/go-build-resolver.md), [.codex/agents/rust-build-resolver.md](.codex/agents/rust-build-resolver.md), [.codex/agents/django-build-resolver.md](.codex/agents/django-build-resolver.md), [.codex/agents/cpp-build-resolver.md](.codex/agents/cpp-build-resolver.md), [.codex/agents/pytorch-build-resolver.md](.codex/agents/pytorch-build-resolver.md)
+| Tier | GPT / Codex Routing | Agents ([.codex/agents/](.codex/agents/)) |
+| :--- | :--- | :--- |
+| `reflex` | `6.1 Terra` (`medium`) (`model_tier: mini`, `reasoning_effort: medium`) | `explorer` (fast read-only recon; never plans or edits) |
+| `builder` | `6.1 Sol` (`medium`/`high`) or `6.1 Terra` (`high`/`xhigh`/`max`) (`model_tier: codex`, `reasoning_effort: high`) | `tdd-guide`, `e2e-runner`, `code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `penetration-tester`, `build-error-resolver`, `{react,go,rust,django,cpp,pytorch}-build-resolver` |
+| `brain` *(read-only auditors/reviewers)* | `6.1 Sol` (`max`) (`model_tier: reasoning`, `reasoning_effort: max`) | `planner`, `architect`, `code-architect`, `a11y-architect`, `spec-miner`, `code-reviewer`, `{typescript,react,vue,go,rust,php,fastapi,database}-reviewer`, `silent-failure-hunter`, `security-auditor`, `agent-evaluator` |
+
+- **Mandatory Lifecycle Triggers**:
+  1. Multi-file discovery (`>= 3` files) -> `explorer`
+  2. Non-trivial feature or refactor design -> `planner` + `code-architect` / `architect` (plus `a11y-architect` for UI)
+  3. Implementation, cleanup, or build failures -> `tdd-guide`, `code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `e2e-runner`, or `*-build-resolver`
+  4. Post-edit verification -> matching stack `*-reviewer` + `silent-failure-hunter` (plus `security-auditor` / `penetration-tester` on auth, API, or input changes, and `agent-evaluator` before final delivery)
