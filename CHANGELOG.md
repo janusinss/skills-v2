@@ -10,7 +10,7 @@ All notable changes are recorded here. Format follows [Keep a Changelog](https:/
 - `tools/claude/templates/rules/install.md` rule template and `.claude/resources/` export in `tools/claude/export.mjs`.
 
 ### Changed
-- Unified Gemini pool routing in `.agents/rules/swarm.md` (Carbon High / Neon XHigh coordinator lock, 4-rung worker pinning, zero Argon) and hardened `swarm-stop-guard.cjs`.
+- Unified Gemini pool routing in `.agents/rules/swarm.md` (Carbon High / Neon XHigh coordinator lock, plus user-chosen Hydrogen XHigh coordinator mode capping all workers strictly to Hydrogen High only; 4-rung worker pinning, zero Argon) and hardened `swarm-stop-guard.cjs`.
 - Refactored `.agents/rules/frontend.md` with `design-taste-frontend` as primary visual, typography, and palette director and `impeccable` for layout and craft-floor audits, paired with `MOTION.md` and `interaction-catalog.md`.
 - Streamlined `AGENTS.md` and `CLAUDE.md` policy sections by ~48% while keeping all workspace rules and routing tables intact.
 - Migrated Claude hook templates to the native Claude Code hook schema (removed `commandWindows`).

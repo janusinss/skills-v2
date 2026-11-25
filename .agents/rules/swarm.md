@@ -1,6 +1,6 @@
 ---
 trigger: model_decision
-description: AGY-only /swarm and Orchestrator routing under the unified Gemini pool: Carbon High or Neon XHigh coordinator lock, 4-rung worker pinning, zero Argon.
+description: AGY-only /swarm and Orchestrator routing under the unified Gemini pool: Carbon High, Neon XHigh, or user-chosen Hydrogen XHigh (workers capped to Hydrogen High only) coordinator lock, 4-rung worker pinning, zero Argon.
 ---
 
 # Swarm Orchestration & Model Routing Policy (AGY Only)
@@ -12,24 +12,37 @@ Apply whenever running `/swarm`, choosing between single-session `Orchestrator` 
 - **AGY-Only**: `/swarm` is restricted to AGY (Antigravity / Gemini). Exclude `.agents/rules/swarm.md` from **CLAUDE** (`tools/claude/lib.mjs`) and **CODEX** (`tools/codex/lib.mjs`) via `isBundleExcluded`.
 - **Single-Session Outside `/swarm`**: Prefer `Orchestrator (Carbon)` (`gemini-pro-orchestrator`), fallback `Orchestrator (Neon)` (`gemini-pro-orchestrator-neon`).
   - Carbon/Neon plans and reviews while `Gemini 4 Hydrogen` runs routine edits and commands, saving unified `Gemini Models` (`5h` + `Weekly`) quota.
-- **No `Orchestrator (*)` Inside `/swarm`**: Cross-turn swaps break coordinator prompt-cache continuity. Run `/swarm` coordinators on standalone `gemini-4-carbon-high` or `gemini-4-neon-xhigh`.
+- **No `Orchestrator (*)` Inside `/swarm`**: Cross-turn swaps break coordinator prompt-cache continuity. Run `/swarm` coordinators on standalone `gemini-4-carbon-high`, `gemini-4-neon-xhigh`, or user-selected `gemini-4-hydrogen-xhigh`.
 
-## 2. `/swarm` Coordinator Policy (Carbon High or Neon XHigh Only)
+## 2. `/swarm` Coordinator Policy (Carbon High, Neon XHigh, or User-Selected Hydrogen XHigh)
 
 1. **Inspect First**: Call `swarm{action:"models", all:true}` and `swarm{action:"status"}` at `/swarm` start.
-   - **Unified `Gemini Models` Pool (`5h` + `Weekly`)**: All Gemini 4, `gemini-3.8-flash-*`, `gemini-pro-orchestrator*`, and `gemini-4-argon-*` share one pool (`carbon-high` heaviest, `neon-*` moderate, `hydrogen-high` lightest).
+   - **Unified `Gemini Models` Pool (`5h` + `Weekly`)**: All Gemini 4, `gemini-3.8-flash-*`, `gemini-pro-orchestrator*`, and `gemini-4-argon-*` share one pool (`carbon-high` heaviest, `neon-*` moderate, `hydrogen-*` lightest).
    - **Separate Pool**: Only `Claude and GPT models` draw from a non-Gemini pool.
    - **Zero Argon**: `gemini-4-argon-*` and `gemini-pro-orchestrator-argon` burn the same pool with weaker capability. Never use Argon anywhere.
-2. **Preserve UI Choice**: Keep `Gemini 4 Carbon (High)` (`gemini-4-carbon-high`) or `Gemini 4 Neon (XHigh)` (`gemini-4-neon-xhigh`) if already active.
+2. **Preserve UI Choice**:
+   - **Standard Mode**: Keep `Gemini 4 Carbon (High)` (`gemini-4-carbon-high`) or `Gemini 4 Neon (XHigh)` (`gemini-4-neon-xhigh`) if already active.
+   - **Hydrogen Mode (User-Selected `gemini-4-hydrogen-xhigh`)**: Keep `Gemini 4 Hydrogen (XHigh)` (`gemini-4-hydrogen-xhigh`) as the `/swarm` coordinator / orchestrator when the user selects it. Do **not** redirect it to Carbon or Neon; instead activate the strict **Hydrogen-Only Worker Cap** in Section 3 (every worker pinned to `gemini-4-hydrogen-high` ONLY).
 3. **Redirect Any Other Model Immediately**: Before spawning or messaging workers, call `swarm{action:"model", model:"<target>"}` (omit `name` or pass `"coordinator"`):
-   - **Disallowed**: `gemini-pro-orchestrator*`, `gemini-4-carbon-medium/low`, `gemini-4-neon-high/medium/low`, `gemini-4-hydrogen-*`, `gemini-4-argon-*`, `gemini-3.8-flash-*`, `claude-*`, `gpt-oss-*`.
+   - **Disallowed**: `gemini-pro-orchestrator*`, `gemini-4-carbon-medium/low`, `gemini-4-neon-high/medium/low`, `gemini-4-hydrogen-high/medium/low`, `gemini-4-argon-*`, `gemini-3.8-flash-*`, `claude-*`, `gpt-oss-*`.
    - **Priority 1**: `gemini-4-carbon-high` (`"Gemini 4 Carbon (High)"`).
    - **Priority 2 (Fallback)**: `gemini-4-neon-xhigh` (`"Gemini 4 Neon (XHigh)"`) only if `gemini-4-carbon-high` is unavailable or errors.
-   - No third coordinator model is allowed. State the policy reason when switching.
+   - `gemini-4-hydrogen-xhigh` is UI-opt-in only (never an automatic redirect target unless explicitly requested by the user). No fourth coordinator model is allowed. State the policy reason when switching.
 
-## 3. Worker & Specialist 4-Rung Pinning
+## 3. Worker & Specialist Pinning (Standard 4-Rung vs Hydrogen-Capped Mode)
 
 Pass explicit `model: "<worker-model>"` on every coordinator `swarm{action:"add"}` call (worker-spawned same-rung helpers may omit `model:` to inherit their parent's pinned model):
+
+### Hydrogen Mode Override (`coordinator` = `gemini-4-hydrogen-xhigh`)
+
+When the user runs `/swarm` with `gemini-4-hydrogen-xhigh` as coordinator / orchestrator, this override **supersedes** the 4-rung table below:
+
+- **Strict Single-Model Worker Cap**: Pin **every** spawned worker across all roles (`monitor`, `explorer`, builders, verifiers, reviewers, `security-auditor`, `skeptic`, `planner`/`architect`, and any helpers) strictly to `gemini-4-hydrogen-high` (`"Gemini 4 Hydrogen (High)"`) ONLY.
+- **Explicit `model:` Mandatory**: Always pass `model: "gemini-4-hydrogen-high"` on every `swarm{action:"add"}` call so no worker inherits `gemini-4-hydrogen-xhigh`.
+- **No Other Models Allowed**: Never spawn or escalate any worker to `gemini-4-carbon-*`, `gemini-4-neon-*`, `gemini-4-hydrogen-xhigh`, `gemini-4-hydrogen-medium/low`, `gemini-4-argon-*`, `gemini-3.8-flash-*`, `claude-*`, or `gpt-oss-*`.
+- **Escalation Boundary**: Keep high-reasoning planning, Strike-2 root-cause re-architecture, and final verification judgment on the `gemini-4-hydrogen-xhigh` coordinator rather than escalating workers above `gemini-4-hydrogen-high`.
+
+### Standard Mode 4-Rung Pinning (`coordinator` = `gemini-4-carbon-high` or `gemini-4-neon-xhigh`)
 
 - **Rung 1 (`brain` Planners & Architects)**:
   - Roles: `planner`, `architect`, `code-architect`, `a11y-architect`, `spec-miner`.
@@ -45,8 +58,8 @@ Pass explicit `model: "<worker-model>"` on every coordinator `swarm{action:"add"
   - Roles: `monitor` (`swarm_monitor`), `explorer` (`reflex`), mechanical single-file slices, docs/config sync, test-suite runners.
   - Models: `gemini-4-hydrogen-high` ONLY.
 - **Forbidden Models**:
-  - Everywhere: `gemini-4-argon-*`, `gemini-pro-orchestrator-argon`, `gemini-pro-orchestrator*` (in `/swarm`), `gemini-4-carbon-medium/low`, `gemini-4-neon-low`, `gemini-4-hydrogen-xhigh/medium/low`, `gemini-3.8-flash-*`, `claude-*`, `gpt-oss-*`.
-  - Role-restricted: `gemini-4-neon-xhigh` outside Rung 1; `gemini-4-carbon-high` on Rung 3/4 workers.
+  - Everywhere: `gemini-4-argon-*`, `gemini-pro-orchestrator-argon`, `gemini-pro-orchestrator*` (in `/swarm`), `gemini-4-carbon-medium/low`, `gemini-4-neon-low`, `gemini-4-hydrogen-medium/low`, `gemini-3.8-flash-*`, `claude-*`, `gpt-oss-*`.
+  - Role-restricted: `gemini-4-hydrogen-xhigh` is coordinator-only when selected by the user (never a worker, and caps all workers to `gemini-4-hydrogen-high` ONLY); `gemini-4-neon-xhigh` outside Standard Rung 1; `gemini-4-carbon-high` on Rung 3/4 workers; all `gemini-4-carbon-*` and `gemini-4-neon-*` models on workers in Hydrogen mode.
 - **Quota Hard Stop**: At `0%` on the unified `Gemini Models` (`5h` or `Weekly`) pool, stop immediately and report to the user. Never switch to Argon, Flash, or non-Gemini models unless asked.
 
 ## 4. Hybrid Briefs, Selective Specialists & Subagents
@@ -54,7 +67,7 @@ Pass explicit `model: "<worker-model>"` on every coordinator `swarm{action:"add"
 - **Implementation Workers**: Use direct coordinator `brief` instructions (file ownership, concrete edits, acceptance checks) instead of loading generic `.agents/agents/<role>.md` files.
 - **Review & Audit Workers**: Attach `.agents/agents/<role>.md` selectively in the `brief` for dedicated reviewers, auditors, or skeptics:
   - [skeptic.md](.agents/agents/skeptic.md), [security-auditor.md](.agents/agents/security-auditor.md), [silent-failure-hunter.md](.agents/agents/silent-failure-hunter.md), [a11y-architect.md](.agents/agents/a11y-architect.md), or stack `*-reviewer.md`.
-- **Worker `invoke_subagent`**: Always pass `Model: "inherit"`. Never pass `"flash"`, `"flash_lite"`, or escalate Rung 3/4 workers to `"pro"`.
+- **Worker `invoke_subagent`**: Always pass `Model: "inherit"`. Never pass `"flash"`, `"flash_lite"`, or escalate Rung 3/4 or Hydrogen-mode workers to `"pro"`.
 
 ## 5. Monitor, Restart Recovery, Waits & Stop Guard
 
@@ -62,7 +75,7 @@ Pass explicit `model: "<worker-model>"` on every coordinator `swarm{action:"add"
 - **Restart Cron Recovery**: Server restarts clear cron timers while `monitor` waits on `mentions_only: true`. Post `@<monitor> resume` after any restart so `swarm_monitor` re-schedules its 3-minute cron.
 - **Coordinator `swarm_wait` Mode**:
   - Default to `swarm_wait{since: <last_seq>, mentions_only: false}` for unaddressed posts or single-hop worker updates.
-  - Use `swarm_wait{since: <last_seq>, mentions_only: true}` ONLY when an active `monitor` is running AND workers perform explicit peer-to-peer handoffs (avoids `Carbon High` quota burn on intermediate peer messages while `monitor` guards against stalls).
+  - Use `swarm_wait{since: <last_seq>, mentions_only: true}` ONLY when an active `monitor` is running AND workers perform explicit peer-to-peer handoffs (avoids coordinator quota burn on intermediate peer messages while `monitor` guards against stalls).
 - **Explicit Closure**: Check `swarm{action:"status"}` and `read_board`, post `[done] <summary>` via `post_message` so `monitor` goes dormant, and `kill` completed workers (kill `monitor` only for full teardown).
 - **`Stop` Hook**: [swarm-stop-guard.cjs](.agents/scripts/swarm-stop-guard.cjs) inspects `transcriptPath` at turn end and returns `{"decision":"continue"}` when:
   - Workers remain open without `[done]`/`kill` or `swarm_wait`, or Wave 1 ends / waits without an active `monitor` (`monitor` is required for `mentions_only: true` waits).

@@ -2,9 +2,9 @@
   "generatedBy": "tools/claude/build.mjs",
   "formatVersion": 1,
   "hashing": "sha256-lf-text",
-  "checkedOn": "2026-11-24",
+  "checkedOn": "2026-11-25",
   "originalSnapshot": {
-    "digest": "7536773c78c14eda4329e3f35b40f2babe68e57ed7eddd2a26d03fe6b26cddcb",
+    "digest": "510acbbed1416c8aad8a178728cf9e915683b0190ddffa5177d1e2f050acccb2",
     "files": {
       ".agents/agents/a11y-architect.md": "944a665705954fc9a05e3a97907500e3ee57de8d72ebb81de961c866a3eb03ae",
       ".agents/agents/agent-evaluator.md": "a868cea4487b3252c87f9a1262cb13c667510337ae8d45d33a2479b7d80c1d33",
@@ -343,7 +343,7 @@
       ".agents/rules/security.md": "1a0e99d17acb5f5434a3b9f189f5c293e22bd51f68f35b68c980c4435cd1203f",
       ".agents/rules/starting-brandnew.md": "48aa052d52d113a365632c6a57cd59a7d98239340131eb28fc6a8522104f44e1",
       ".agents/rules/starting-existing.md": "54505586a1e7ec4c268003501b76acfd5e142f8c0f9ab5f784afd9a97bd6beae",
-      ".agents/rules/swarm.md": "27c9d04fd115ca7562bd5872515e6db648488af49830f1773d180884fe4d4b2d",
+      ".agents/rules/swarm.md": "cf9b7af3924abc11627fe948500701aac4e678ad5fb311278de93fb65945f299",
       ".agents/scripts/swarm-stop-guard.cjs": "862b089079ce3077f616201cf9d0687c94d1f76797947029304009e0ffd86061",
       ".agents/skills/3d-web-experience/SKILL.md": "ccdf216cc836ed8e339f8bafb78001d1deb6bb3a2d9a5beb705407fdd8300d10",
       ".agents/skills/agent-browser/SKILL.md": "6690c34e8fa0b872096d4b0e1de7106108eb45be2b231cbd90536648523466c2",
@@ -3611,7 +3611,7 @@
       ".agents/skills/untangle-codebase/LICENSE": "cbe11503c54a6eeecf65772e66fbbca7a37750bff9812c742b11dca47ceb539c",
       ".agents/skills/untangle-codebase/SKILL.md": "eace3de7a56a4acb964a132917d52a78719f74ddd2e2cb19f6701f8ca8832569",
       ".gitignore": "d3c49db2599c7418e4f5c0edb62d7f994bedc6d39c0307d4b4e1546fc761c006",
-      "AGENTS.md": "cb19184903ca0cc49ffe56b4d29b0b8a8804573b67c4ba93cfd31088d6d667b0",
+      "AGENTS.md": "0a6f0e010aa8cc401c17ccef9fc54d118b177f4652a139c905b0a9bc4e6da60c",
       "skills-lock.json": "7d488ac96b3de3bf1f1fd76a55bf3c4813866e75265597c9cf0786622ae19708"
     }
   },
@@ -19472,12 +19472,12 @@
     },
     "CLAUDE.md": {
       "source": "AGENTS.md",
-      "sourceHash": "cb19184903ca0cc49ffe56b4d29b0b8a8804573b67c4ba93cfd31088d6d667b0",
+      "sourceHash": "0a6f0e010aa8cc401c17ccef9fc54d118b177f4652a139c905b0a9bc4e6da60c",
       "outputHash": "97d47fd39504d9ba9c9dbd27fbd473c3d3b728233f4bc8f7f8a4c4935c60c686"
     },
     "CLAUDE.designer.md": {
       "source": "AGENTS.md",
-      "sourceHash": "cb19184903ca0cc49ffe56b4d29b0b8a8804573b67c4ba93cfd31088d6d667b0",
+      "sourceHash": "0a6f0e010aa8cc401c17ccef9fc54d118b177f4652a139c905b0a9bc4e6da60c",
       "outputHash": "2c3d2f714346fc10481db635d8934b171f6ce6261986efc524ce8fbb74960d41"
     }
   }

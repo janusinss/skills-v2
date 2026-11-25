@@ -149,7 +149,7 @@ In Claude Code, engineering phases are triggered directly via native slash comma
 | [`security.md`](.agents/rules/security.md) | Auth & APIs | 8 defensive hardening phases (Phases 0–7), Argon2id/bcrypt, CSRF tokens, strict CORS, error suppression. |
 | [`penetrating-and-testing.md`](.agents/rules/penetrating-and-testing.md) | Pentest & QA | Strix autonomous exploit verification with PoCs, vulnerabilities.json remediation, 8-state UI + Empty/403 & agent-browser flows. |
 | [`learned-invariants.md`](.agents/rules/learned-invariants.md) | Memory Flywheel | Calibrated dual-store promoted root-cause invariants and anti-regression guardrails. |
-| [`swarm.md`](.agents/rules/swarm.md) | AGY-only `/swarm` | Unified Gemini pool coordinator lock (Carbon High / Neon XHigh), 4-rung worker pinning, zero Argon, `swarm-stop-guard.cjs`. |
+| [`swarm.md`](.agents/rules/swarm.md) | AGY-only `/swarm` | Unified Gemini pool coordinator lock (Carbon High / Neon XHigh, or user-chosen Hydrogen XHigh with all workers capped to Hydrogen High only), 4-rung worker pinning, zero Argon, `swarm-stop-guard.cjs`. |
 | [`install.md`](.agents/rules/install.md) | Onboarding | Interactive setup router (AGY / Codex / Claude + HARNESS MODE / DESIGNER MODE). |
 
 ---
