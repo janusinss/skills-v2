@@ -3,8 +3,8 @@ name: code-simplifier
 description: "Simplifies and refines code for clarity, consistency, and maintainability while preserving behavior. Focus on recently modified code unless instructed otherwise."
 tier: builder
 model_tier: codex
-reasoning_effort: high
-target_model: "6.1-sol-medium/high | 6.1-terra-high/xhigh/max"
+reasoning_effort: medium
+target_model: "gpt-6.2-sol (medium)"
 tools:
   - read_file
   - grep_search

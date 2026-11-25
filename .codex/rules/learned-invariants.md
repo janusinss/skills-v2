@@ -9,7 +9,7 @@ Core project invariants loaded before planning, code edits, or verification gate
 
 - **Tier 1 (`.harness/evals/regressions.jsonl`)**: Captures failures from `verify run`, [skeptic.md](../agents/skeptic.md), or user corrections via `harness.mjs flywheel record`.
 - **Tier 2 (This file)**: First-time automated findings stage in Section 4; user corrections, `--promote`, or recurring causes (`>= 2` hits) promote to Section 3 as `- **[<Domain>]**: <Single-sentence invariant>` (optional trailing `(Source: ...)` tags are ignored during dedup).
-- **Tier 3 (`.codex/skills/project-<domain>/SKILL.md`)**: Graduate recurring clusters (`>= 3` hits) via `AGY /learn`, `Claude /flywheel`, or `harness.mjs flywheel digest --graduate <domain>`, then prune superseded Section 3 bullets.
+- **Tier 3 (`.codex/skills/project-<domain>/SKILL.md`)**: Graduate recurring clusters (`>= 3` hits) via `harness.mjs flywheel digest --graduate <domain>`, then prune superseded Section 3 bullets.
 - **Budget & Scope**: Run `harness.mjs flywheel digest` at `>= 20` promoted bullets, near `12 KB` (`12,288` bytes; `24 KB` cap), or `>= 3` hits per domain. Keep project invariants and `project-*` skills local to target repos; commit only universal workflow invariants in the `Skills` source repo.
 
 ## 2. Core Baseline Invariants

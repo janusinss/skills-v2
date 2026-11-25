@@ -3,7 +3,7 @@ import path from 'node:path';
 import readline from 'node:readline/promises';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { exportBundle, normalizeMode, parseArgs as parseExportArgs, resolveTarget } from './export.mjs';
+import { exportBundle, normalizeMode, parseArgs as parseExportArgs, resolveTarget, planCodexConfigToml, applyCodexConfigToml } from './export.mjs';
 import { bundleRoot, assertNoSymlinkAncestors, within, payloadHash, json, isRecord } from './lib.mjs';
 import { planGitignore, applyGitignore } from './gitignore.mjs';
 
@@ -195,6 +195,7 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
     const ignorePlan = planGitignore(target, root);
     gitignore = options.dryRun ? { ...ignorePlan.record, action: ignorePlan.action } : applyGitignore(ignorePlan);
   }
+  const configToml = exported?.configToml ?? (options.dryRun ? (() => { const plan = planCodexConfigToml(target, root); return { path: plan.path, action: plan.action }; })() : applyCodexConfigToml(target, root));
   const ignoreRecord = { path: gitignore.path, entries: gitignore.entries };
   if (!options.dryRun && json(manifest.gitignore) !== json(ignoreRecord)) {
     if (json(JSON.parse(fs.readFileSync(manifestPath, 'utf8'))) !== json(manifest)) throw new Error('Installation record changed during .gitignore setup');
@@ -206,7 +207,7 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
     finally { if (fs.existsSync(temporary)) fs.unlinkSync(temporary); }
     manifest = updated;
   }
-  if (options.dryRun || manifest.setup?.status === 'complete') return { target, profile: manifest.profile, mode: installedMode, hookSet: installedHookSet, topLevelSkills: manifest.topLevelSkills, files: Object.keys(manifest.files).length + 2, gitignore, dryRun: Boolean(options.dryRun), setup: manifest.setup?.status || 'pending' };
+  if (options.dryRun || manifest.setup?.status === 'complete') return { target, profile: manifest.profile, mode: installedMode, hookSet: installedHookSet, topLevelSkills: manifest.topLevelSkills, files: Object.keys(manifest.files).length + 2, gitignore, configToml, dryRun: Boolean(options.dryRun), setup: manifest.setup?.status || 'pending' };
   let playwright = 'not included in selected profile';
   let agentBrowser = 'not included in selected profile';
   try {
@@ -250,7 +251,7 @@ export function installBundle(options, root = bundleRoot, execute = spawnSync) {
     const gitHook = installGitPreCommitHook(execute, target, manifest);
     const completed = finishSetup(target, manifestPath, manifest, playwright, gitHook, agentBrowser);
     const resolvedCompletedMode = normalizeMode(completed.mode || 'harness');
-    return { target, profile: completed.profile, mode: resolvedCompletedMode, hookSet: completed.hookSet || (completed.hooksIncluded === false ? 'none' : resolvedCompletedMode === 'designer' ? 'impeccable' : 'all'), topLevelSkills: completed.topLevelSkills, files: Object.keys(completed.files).length + 2, gitignore, dryRun: false, setup: completed.setup };
+    return { target, profile: completed.profile, mode: resolvedCompletedMode, hookSet: completed.hookSet || (completed.hooksIncluded === false ? 'none' : resolvedCompletedMode === 'designer' ? 'impeccable' : 'all'), topLevelSkills: completed.topLevelSkills, files: Object.keys(completed.files).length + 2, gitignore, configToml, dryRun: false, setup: completed.setup };
   } catch (error) {
     throw new Error(`${error.message}\nSetup is incomplete; the installed ${installRule} is retained. Retry from the source checkout with node tools/codex/install.mjs --target ${JSON.stringify(target)} --resume.`, { cause: error });
   }

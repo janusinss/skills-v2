@@ -61,5 +61,5 @@ Follow [frontend.md](frontend.md) Stage 2 to align Visitor Mode, Page Type, Audi
 ## Phase 6: Cleanup, Audit & Browser Verification
 1. **Cleanup:** Run [refactor-cleaner](../agents/refactor-cleaner.md) to remove dead code and unused imports.
 2. **Static & Copy Gates:** Run `.claude/skills/impeccable/scripts/impeccable detect .` (Windows: `impeccable.cmd`) plus [frontend.md](frontend.md) Stage 3 gates. Fix findings in one bounded pass and re-verify.
-3. **Real-Browser Verification:** Run Chromium checks (`375x667`, `768x1024`, `1280x800`) directly per [frontend.md](frontend.md) Stage 4 and [UI_Always.md](UI_Always.md#7-browser-verification-policy). Reserve `@e2e-runner` for persistent CI E2E suites only.
+3. **Real-Browser Verification:** Run Chromium checks (`375x667`, `768x1024`, `1280x800`) directly per [frontend.md](frontend.md) Stage 4 and [UI_Always.md](UI_Always.md#7-browser-verification-policy). Reserve `e2e-runner` for persistent CI E2E suites only.
 4. **Git Hygiene:** Confirm `.gitignore` covers `node_modules/`, `scratch/`, `test-results/`, `tests/screenshots/`, `.impeccable/*.png`, `.impeccable/live/`, and `.impeccable/config.local.json`. Never run `git commit` unless requested.

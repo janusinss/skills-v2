@@ -3,8 +3,8 @@ name: e2e-runner
 description: "End-to-end testing specialist using Playwright Test for persistent committed CI E2E suites paired with Vercel Agent Browser for flow discovery. Manages critical test journeys, quarantines flaky tests, and captures failure artifacts (screenshots, videos, traces)."
 tier: builder
 model_tier: codex
-reasoning_effort: high
-target_model: "6.1-sol-medium/high | 6.1-terra-high/xhigh/max"
+reasoning_effort: medium
+target_model: "gpt-6.2-sol (medium)"
 tools:
   - read_file
   - grep_search

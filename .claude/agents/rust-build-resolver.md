@@ -3,8 +3,8 @@ name: rust-build-resolver
 description: "Rust build, compilation, and dependency error resolution specialist. Fixes cargo build errors, borrow checker issues, and Cargo.toml problems with minimal changes. Use when Rust builds fail."
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: builder
-model: sonnet
-effort: high
+model: opus
+effort: medium
 ---
 
 ## Prompt Defense Baseline

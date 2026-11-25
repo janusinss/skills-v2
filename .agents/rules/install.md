@@ -27,7 +27,7 @@ Use only without `node install.mjs`. Manual copies skip `.agents/agy-install.jso
 
 ### Step 1: Copy Files & Merge `.gitignore`
 - Copy `.agents/`, `skills-lock.json`, and `AGENTS.md` (before `<!-- source-repository-only -->`) into the target.
-- In **DESIGNER MODE**, also omit Section 5 and `.harness/PROGRESS.md` / Strike-2 Harness references (matching `formatDesignerPolicy`).
+- In **DESIGNER MODE**, also omit Section 5 and `.harness/PROGRESS.md` / Strike-2 Harness references (matching `formatAgyPolicy(..., 'designer')`).
 - Merge root `.gitignore` plus all 8 AGY entries:
   `/.agents/*`, `!/.agents/rules/`, `!/.agents/agents/`, `/AGENTS.md`, `/scratch/`, `/.impeccable/`, `/.harness/`, `/.agent_worktrees/`.
 

@@ -3,8 +3,8 @@ name: agent-evaluator
 description: "Evaluates agent output against 5-axis quality rubric (accuracy, completeness, clarity, actionability, conciseness). Use after any non-trivial task when the user wants a quality assessment, or when the agent-self-evaluation skill is active. Produces structured scorecard with evidence and improvement suggestions."
 tier: brain
 model_tier: reasoning
-reasoning_effort: max
-target_model: "6.1-sol-max"
+reasoning_effort: high
+target_model: "gpt-6.2-sol (high)"
 tools:
   - read_file
   - grep_search

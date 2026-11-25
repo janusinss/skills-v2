@@ -53,22 +53,107 @@ export function openaiMetadata(original, skill) {
   return result;
 }
 
-const codexTierMap = {
-  reflex: { model_tier: 'mini', reasoning_effort: 'medium', target_model: '6.1-terra-medium' },
-  builder: { model_tier: 'codex', reasoning_effort: 'high', target_model: '6.1-sol-medium/high | 6.1-terra-high/xhigh/max' },
-  brain: { model_tier: 'reasoning', reasoning_effort: 'max', target_model: '6.1-sol-max' },
-};
+const rung1Agents = new Set(['a11y-architect', 'architect', 'code-architect', 'planner', 'spec-miner']);
+const rung2ReadOnlyAgents = new Set([
+  'security-auditor', 'skeptic', 'agent-evaluator', 'code-reviewer',
+  'database-reviewer', 'fastapi-reviewer', 'go-reviewer', 'php-reviewer',
+  'react-reviewer', 'rust-reviewer', 'silent-failure-hunter', 'typescript-reviewer',
+  'vue-reviewer',
+]);
+const rung2WritableAgents = new Set(['tdd-guide', 'performance-optimizer', 'penetration-tester']);
+const rung3Agents = new Set([
+  'code-simplifier', 'refactor-cleaner', 'e2e-runner',
+  'build-error-resolver', 'cpp-build-resolver', 'django-build-resolver',
+  'go-build-resolver', 'pytorch-build-resolver', 'react-build-resolver',
+  'rust-build-resolver',
+]);
+const rung4Agents = new Set(['explorer']);
+
+export function resolveCodexAgentConfig(name, tier) {
+  if (rung1Agents.has(name)) {
+    return {
+      model: 'gpt-6.2-sol',
+      model_tier: 'reasoning',
+      reasoning_effort: 'high',
+      target_model: 'gpt-6.2-sol (high/xhigh)',
+      sandbox_mode: 'read-only',
+    };
+  }
+  if (rung2ReadOnlyAgents.has(name)) {
+    return {
+      model: 'gpt-6.2-sol',
+      model_tier: 'reasoning',
+      reasoning_effort: 'high',
+      target_model: 'gpt-6.2-sol (high)',
+      sandbox_mode: 'read-only',
+    };
+  }
+  if (rung2WritableAgents.has(name)) {
+    return {
+      model: 'gpt-6.2-sol',
+      model_tier: 'codex',
+      reasoning_effort: 'high',
+      target_model: 'gpt-6.2-sol (high)',
+      sandbox_mode: 'workspace-write',
+    };
+  }
+  if (rung3Agents.has(name)) {
+    return {
+      model: 'gpt-6.2-sol',
+      model_tier: 'codex',
+      reasoning_effort: 'medium',
+      target_model: 'gpt-6.2-sol (medium)',
+      sandbox_mode: 'workspace-write',
+    };
+  }
+  if (rung4Agents.has(name)) {
+    return {
+      model: 'gpt-6.2-sol',
+      model_tier: 'mini',
+      reasoning_effort: 'medium',
+      target_model: 'gpt-6.2-sol (medium)',
+      sandbox_mode: 'read-only',
+    };
+  }
+  if (tier === 'reflex') {
+    return {
+      model: 'gpt-6.2-sol',
+      model_tier: 'mini',
+      reasoning_effort: 'medium',
+      target_model: 'gpt-6.2-sol (medium)',
+      sandbox_mode: 'read-only',
+    };
+  }
+  if (tier === 'builder') {
+    return {
+      model: 'gpt-6.2-sol',
+      model_tier: 'codex',
+      reasoning_effort: 'medium',
+      target_model: 'gpt-6.2-sol (medium)',
+      sandbox_mode: 'workspace-write',
+    };
+  }
+  return {
+    model: 'gpt-6.2-sol',
+    model_tier: 'reasoning',
+    reasoning_effort: 'high',
+    target_model: 'gpt-6.2-sol (high)',
+    sandbox_mode: 'read-only',
+  };
+}
 
 const codexSubtitle = 'Instructions, operating rules, and workspace routing for OpenAI Codex.';
 
 const codexRoutingBlock = [
-  '- **Invocation**: Read and apply `.codex/agents/<agent>.md` (`model_tier` + `reasoning_effort` frontmatter).',
+  '- **Invocation & Multi-Agent V2 (`$swarm`)**: Configure `[features.multi_agent_v2]` in `.codex/config.toml` and spawn specialists from `.codex/agents/<role>.toml` with `fork_turns: "none"` and native parent `wait` (`default_wait_timeout_ms = 30000`, no polling worker). Follow [.codex/rules/swarm.md](.codex/rules/swarm.md) and `$swarm` for parallel execution.',
+  '- **Coordinator**: Preserve user-selected `gpt-6.2-astra` (`xhigh`/`max`) or `gpt-6.2-sol` (`xhigh`/`max`) in UI/config; never auto-escalate.',
   '',
-  '| Tier | GPT / Codex Routing | Agents ([.codex/agents/](.codex/agents/)) |',
+  '| Rung / Tier | GPT / Codex Routing | Agents ([.codex/agents/](.codex/agents/)) |',
   '| :--- | :--- | :--- |',
-  '| `reflex` | `6.1 Terra` (`medium`) (`model_tier: mini`, `reasoning_effort: medium`) | `explorer` (fast read-only recon; never plans or edits) |',
-  '| `builder` | `6.1 Sol` (`medium`/`high`) or `6.1 Terra` (`high`/`xhigh`/`max`) (`model_tier: codex`, `reasoning_effort: high`) | `tdd-guide`, `e2e-runner`, `code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `penetration-tester`, `build-error-resolver`, `{react,go,rust,django,cpp,pytorch}-build-resolver` |',
-  '| `brain` *(read-only auditors/reviewers)* | `6.1 Sol` (`max`) (`model_tier: reasoning`, `reasoning_effort: max`) | `planner`, `architect`, `code-architect`, `a11y-architect`, `spec-miner`, `code-reviewer`, `{typescript,react,vue,go,rust,php,fastapi,database}-reviewer`, `silent-failure-hunter`, `security-auditor`, `skeptic`, `agent-evaluator` |',
+  '| **Rung 1** (`brain` architects/planners) | `gpt-6.2-sol` (`high`; `xhigh` for complex multi-module architecture), `read-only` (`model_tier: reasoning`) | `a11y-architect`, `architect`, `code-architect`, `planner`, `spec-miner` |',
+  '| **Rung 2** (`brain` reviewers/security + complex `builder`) | `gpt-6.2-sol` (`high`): `read-only` reviewers (`model_tier: reasoning`), `workspace-write` builders (`model_tier: codex`) | Read-only: `code-reviewer`, `{typescript,react,vue,go,rust,php,fastapi,database}-reviewer`, `silent-failure-hunter`, `security-auditor`, `skeptic`, `agent-evaluator`; Writable: `tdd-guide`, `performance-optimizer`, `penetration-tester` |',
+  '| **Rung 3** (routine `builder` & build resolvers) | `gpt-6.2-sol` (`medium`), `workspace-write` (`model_tier: codex`) | `code-simplifier`, `refactor-cleaner`, `e2e-runner`, `build-error-resolver`, `{react,go,rust,django,cpp,pytorch}-build-resolver` |',
+  '| **Rung 4** (`reflex` explorer/recon) | `gpt-6.2-sol` (`medium`), `read-only` (`model_tier: mini`) | `explorer` (fast read-only recon; never plans or edits) |',
   '',
   '- **Mandatory Lifecycle Triggers**:',
   '  1. Multi-file discovery (`>= 3` files) -> `explorer`',
@@ -77,7 +162,7 @@ const codexRoutingBlock = [
   '  4. Post-edit verification -> matching stack `*-reviewer` + `silent-failure-hunter` (plus `security-auditor` / `penetration-tester` on auth, API, or input changes, and `skeptic` / `agent-evaluator` before final delivery)',
 ].join('\n');
 
-function adaptCodexAgentFrontmatter(text) {
+function adaptCodexAgentFrontmatter(text, agentName) {
   return text.replace(/^(---\r?\n[\s\S]*?\r?\n---)/, fm => {
     let cleaned = fm
       .replace(/\r?\nmainAgent:\s*.+/g, '')
@@ -91,8 +176,9 @@ function adaptCodexAgentFrontmatter(text) {
     const tierMatch = /^tier:\s*(reflex|builder|brain)\s*$/m.exec(cleaned);
     if (!tierMatch) return cleaned;
     const tier = tierMatch[1];
-    const mapped = codexTierMap[tier];
-    if (!mapped) return cleaned;
+    const nameMatch = /^name:\s*["']?([^\s"']+)["']?\s*$/m.exec(cleaned);
+    const resolvedName = agentName || nameMatch?.[1] || '';
+    const mapped = resolveCodexAgentConfig(resolvedName, tier);
     cleaned = cleaned
       .replace(/\r?\nmodel:\s*\S+/g, '')
       .replace(/\r?\nmodel_tier:\s*\S+/g, '')
@@ -103,6 +189,41 @@ function adaptCodexAgentFrontmatter(text) {
       `tier: ${tier}\nmodel_tier: ${mapped.model_tier}\nreasoning_effort: ${mapped.reasoning_effort}\ntarget_model: "${mapped.target_model}"`
     );
   });
+}
+
+function tomlBasicString(value) {
+  return JSON.stringify(String(value));
+}
+
+function tomlMultilineString(value) {
+  const normalized = String(value).replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim();
+  const escaped = normalized
+    .replace(/\\/g, '\\\\')
+    .replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, ch => `\\u${ch.charCodeAt(0).toString(16).padStart(4, '0')}`)
+    .replace(/"{3,}/g, match => match.replace(/"/g, '\\"'))
+    .replace(/"+$/, match => match.replace(/"/g, '\\"'));
+  return `"""\n${escaped}\n"""`;
+}
+
+export function generateCodexAgentToml(adaptedMdText, agentName) {
+  const { frontmatter, body } = parseSkill(adaptedMdText, agentName ? `${agentName}.md` : 'agent.md');
+  const resolvedName = agentName || frontmatter.name;
+  if (!resolvedName || typeof resolvedName !== 'string') {
+    throw new Error('Cannot generate Codex agent TOML without a valid name');
+  }
+  const description = typeof frontmatter.description === 'string' && frontmatter.description.trim()
+    ? frontmatter.description.trim()
+    : `Codex specialist role: ${resolvedName}`;
+  const config = resolveCodexAgentConfig(resolvedName, frontmatter.tier);
+  return [
+    `name = ${tomlBasicString(resolvedName)}`,
+    `description = ${tomlBasicString(description)}`,
+    `model = ${tomlBasicString(config.model)}`,
+    `model_reasoning_effort = ${tomlBasicString(config.reasoning_effort)}`,
+    `sandbox_mode = ${tomlBasicString(config.sandbox_mode)}`,
+    `developer_instructions = ${tomlMultilineString(body)}`,
+    '',
+  ].join('\n');
 }
 
 function adaptCodexPolicy(text) {
@@ -131,7 +252,7 @@ export function adaptMarkdown(text, sourceFile, duplicatePaths = new Map()) {
   const relativeSource = sourceFile ? slash(path.relative(sourceRoot, sourceFile)) : '';
   const isAgentsPolicy = Boolean(sourceFile && path.basename(sourceFile) === 'AGENTS.md');
   if (relativeSource.startsWith('agents/')) {
-    result = adaptCodexAgentFrontmatter(result);
+    result = adaptCodexAgentFrontmatter(result, path.basename(sourceFile, '.md'));
   }
   result = result
     .replaceAll('${CLAUDE_PLUGIN_ROOT}/.claude/skills/', '.codex/skills/')
@@ -143,8 +264,10 @@ export function adaptMarkdown(text, sourceFile, duplicatePaths = new Map()) {
   }
   result = result
     .replaceAll('via `view_file`', 'using the available file-reading tool or shell')
+    .replaceAll('via `read_file`', 'using the file-reading tool')
     .replaceAll('`read_file`, `view_file`', '`read_file`')
-    .replaceAll('`view_file`', 'file-reading tool');
+    .replaceAll('`view_file`', 'file-reading tool')
+    .replaceAll('via `AGY /learn`, `Claude /flywheel`, or `harness.mjs flywheel digest --graduate <domain>`', 'via `harness.mjs flywheel digest --graduate <domain>`');
   result = result
     .replaceAll('(`ask_question` when unspecified)', '(when unspecified)')
     .replaceAll('(`ask_question`)', '(when the existing user instructions leave a material choice unresolved)')
@@ -182,11 +305,11 @@ export function adaptMarkdown(text, sourceFile, duplicatePaths = new Map()) {
     result = result.replaceAll(slash(path.relative(path.dirname(sourceRoot), from)), slash(path.relative(path.dirname(sourceRoot), to)));
   }
   // Rewrite project-root command examples after rebasing local links. Preserve
-  // user-scoped ~/.agents paths and AGY-only rules/swarm.md.
+  // user-scoped ~/.agents paths.
   const rewriteAgentsPathsToCodex = value =>
     value
-      .replace(/(^|[\s"'`(=:\[!]|!\/|\.\/)\.agents\/(skills|rules(?!\/swarm\.md\b)|resources|agents)(\/|[)\]#\s]|$)/gm, '$1.codex/$2$3')
-      .replace(/(^|[\s"'`(=:\[!]|!\\|\.\\)\.agents\\(skills|rules(?!\\swarm\.md\b)|resources|agents)(\\|[)\]#\s]|$)/gm, '$1.codex\\$2$3');
+      .replace(/(^|[\s"'`(=:\[!]|!\/|\.\/)\.agents\/(skills|rules|resources|agents)(\/|[)\]#\s]|$)/gm, '$1.codex/$2$3')
+      .replace(/(^|[\s"'`(=:\[!]|!\\|\.\\)\.agents\\(skills|rules|resources|agents)(\\|[)\]#\s]|$)/gm, '$1.codex\\$2$3');
   result = rewriteAgentsPathsToCodex(result);
   if (isAgentsPolicy) {
     result = adaptCodexPolicy(result);

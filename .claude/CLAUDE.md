@@ -41,6 +41,7 @@ Read and apply the matching workspace rule before selecting generic skills:
 | Application Security & Defense | [.claude/rules/security.md](.claude/rules/security.md) |
 | Penetration Testing & Critical QA | [.claude/rules/penetrating-and-testing.md](.claude/rules/penetrating-and-testing.md) |
 | Learned Invariants & Guardrails | [.claude/rules/learned-invariants.md](.claude/rules/learned-invariants.md) |
+| Parallel Multi-Agent / Swarm | [.claude/rules/swarm.md](.claude/rules/swarm.md) |
 
 ---
 
@@ -56,17 +57,20 @@ Follow [UI_Always.md](.claude/rules/UI_Always.md#7-browser-verification-policy) 
 
 ## 4. Subagents & 3-Tier Cognitive Routing
 
-Delegate specialized lifecycle tasks to the agents defined under [.claude/agents/](.claude/agents/) using `@<agent>`:
+Delegate specialized lifecycle tasks to the agents defined under [.claude/agents/](.claude/agents/) using `@<agent>`, or coordinate parallel non-CLI subagents with `/swarm` per [.claude/rules/swarm.md](.claude/rules/swarm.md):
 
-- **Invocation**: Invoke specialists via `@<agent>` (or slash commands `/plan`, `/tdd`, `/audit`, `/review`, `/eval`, `/contract`, `/verify`, `/flywheel`).
-- **Cognitive Routing Tiers (`tier:`, `model:`, `effort:` frontmatter)**:
+- **Invocation**: Invoke specialists via `@<agent>` (or slash commands `/swarm`, `/plan`, `/tdd`, `/audit`, `/review`, `/eval`, `/contract`, `/verify`, `/flywheel`).
+- **Coordinator (UI Lead)**: Run `/swarm` orchestration on `opus` (`xhigh` or `max` when chosen in the UI; preserve the user's choice and never auto-escalate `xhigh` to `max`). Use parallel `Agent` subagents with `isolation: "worktree"` for parallel writers.
+- **4-Rung Model Routing (`model:`, `effort:` frontmatter)**:
 
-| Tier | Claude Code Model | Agents ([.claude/agents/](.claude/agents/)) |
+| Rung | Claude Code Model & Effort | Agents ([.claude/agents/](.claude/agents/)) |
 | :--- | :--- | :--- |
-| `reflex` | `model: haiku` (`effort: medium`) | `explorer` (fast read-only recon; never plans or edits) |
-| `builder` | `model: sonnet` (`effort: high`) | `tdd-guide`, `e2e-runner`, `code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `penetration-tester`, `build-error-resolver`, `{react,go,rust,django,cpp,pytorch}-build-resolver` |
-| `brain` *(read-only auditors/reviewers)* | `model: opus` (`effort: high`) | `planner`, `architect`, `code-architect`, `a11y-architect`, `spec-miner`, `code-reviewer`, `{typescript,react,vue,go,rust,php,fastapi,database}-reviewer`, `silent-failure-hunter`, `security-auditor`, `skeptic`, `agent-evaluator` |
+| **Rung 1** *(Architects & Planners)* | `model: opus` (`effort: high`) | `planner`, `architect`, `code-architect`, `a11y-architect`, `spec-miner` |
+| **Rung 2** *(Reviewers, Security & Complex Builders)* | `model: sonnet` (`effort: high`); `model: opus` (`effort: high`) on `security-auditor`, `skeptic`, and Strike-2 escalations | `agent-evaluator`, `code-reviewer`, `{typescript,react,vue,go,rust,php,fastapi,database}-reviewer`, `silent-failure-hunter`, `tdd-guide`, `performance-optimizer`, `penetration-tester`, `security-auditor`, `skeptic` |
+| **Rung 3** *(Routine Builders & Build Resolvers)* | `model: opus` (`effort: medium`) | `code-simplifier`, `refactor-cleaner`, `e2e-runner`, `build-error-resolver`, `{react,go,rust,django,cpp,pytorch}-build-resolver` |
+| **Rung 4** *(Explorer / Recon)* | `model: haiku` (`effort: high`) | `explorer` (fast read-only recon; never plans or edits) |
 
+- **Closure Guard**: Native `SubagentStop` hook (`node .claude/scripts/swarm-subagent-guard.cjs`) verifies every subagent reports modified files or verified findings before closing (no polling monitor worker).
 - **Mandatory Lifecycle Triggers**:
   1. Multi-file discovery (`>= 3` files) -> `@explorer`
   2. Non-trivial feature or refactor design -> `@planner` + `@code-architect` / `@architect` (plus `@a11y-architect` for UI)

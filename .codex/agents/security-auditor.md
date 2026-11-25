@@ -3,8 +3,8 @@ name: security-auditor
 description: "Specialist subagent for conducting adversarial pre-commit security audits, vulnerability detection, and exploit defense reviews based on security.md."
 tier: brain
 model_tier: reasoning
-reasoning_effort: max
-target_model: "6.1-sol-max"
+reasoning_effort: high
+target_model: "gpt-6.2-sol (high)"
 tools:
   - read_file
   - grep_search

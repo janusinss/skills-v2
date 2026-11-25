@@ -117,7 +117,7 @@ export function planExport({ target, profile = 'all', includeHooks = true, mode 
   add(claudeMdSource, 'CLAUDE.md');
   const harnessOnlyCommands = new Set(['contract.md', 'verify.md', 'flywheel.md']);
   const includeHarnessCommands = resolvedMode !== 'designer' && selected.includes('continuous-agent-loop');
-  for (const area of ['rules', 'agents', 'commands', 'resources']) {
+  for (const area of ['rules', 'agents', 'commands', 'resources', 'scripts']) {
     const dir = path.join(root, area);
     if (fs.existsSync(dir)) {
       for (const source of filesIn(dir)) {

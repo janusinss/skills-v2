@@ -31,8 +31,8 @@ const toolMap = {
 function rewritePathsToClaude(text, { preserveInvocationLine = false } = {}) {
   const rewrite = value =>
     value
-      .replace(/(^|[\s"'`(=:\[!]|!\/|\.\/)\.(?:agents|codex)\/(skills|rules(?!\/swarm\.md\b)|resources|agents)(\/|[)\]#\s]|$)/gm, '$1.claude/$2$3')
-      .replace(/(^|[\s"'`(=:\[!]|!\\|\.\\)\.(?:agents|codex)\\(skills|rules(?!\\swarm\.md\b)|resources|agents)(\\|[)\]#\s]|$)/gm, '$1.claude\\$2$3');
+      .replace(/(^|[\s"'`(=:\[!]|!\/|\.\/)\.(?:agents|codex)\/(skills|rules|resources|agents)(\/|[)\]#\s]|$)/gm, '$1.claude/$2$3')
+      .replace(/(^|[\s"'`(=:\[!]|!\\|\.\\)\.(?:agents|codex)\\(skills|rules|resources|agents)(\\|[)\]#\s]|$)/gm, '$1.claude\\$2$3');
   if (!preserveInvocationLine) return rewrite(text);
   return text
     .split(/(\r?\n)/)
@@ -144,11 +144,56 @@ export function convertSkill(text, sourceFile) {
   };
 }
 
-const tierConfigMap = {
-  reflex: { model: 'haiku', effort: 'medium' },
-  builder: { model: 'sonnet', effort: 'high' },
-  brain: { model: 'opus', effort: 'high' }
+const claudeAgentConfigMap = {
+  // Rung 1 — Architects & Planners
+  'a11y-architect': { model: 'opus', effort: 'high' },
+  'architect': { model: 'opus', effort: 'high' },
+  'code-architect': { model: 'opus', effort: 'high' },
+  'planner': { model: 'opus', effort: 'high' },
+  'spec-miner': { model: 'opus', effort: 'high' },
+  // Rung 2 — High-Stakes Security & Skeptic
+  'security-auditor': { model: 'opus', effort: 'high' },
+  'skeptic': { model: 'opus', effort: 'high' },
+  // Rung 2 — Reviewers, Evaluators & Complex Builders
+  'agent-evaluator': { model: 'sonnet', effort: 'high' },
+  'code-reviewer': { model: 'sonnet', effort: 'high' },
+  'database-reviewer': { model: 'sonnet', effort: 'high' },
+  'fastapi-reviewer': { model: 'sonnet', effort: 'high' },
+  'go-reviewer': { model: 'sonnet', effort: 'high' },
+  'php-reviewer': { model: 'sonnet', effort: 'high' },
+  'react-reviewer': { model: 'sonnet', effort: 'high' },
+  'rust-reviewer': { model: 'sonnet', effort: 'high' },
+  'silent-failure-hunter': { model: 'sonnet', effort: 'high' },
+  'typescript-reviewer': { model: 'sonnet', effort: 'high' },
+  'vue-reviewer': { model: 'sonnet', effort: 'high' },
+  'tdd-guide': { model: 'sonnet', effort: 'high' },
+  'performance-optimizer': { model: 'sonnet', effort: 'high' },
+  'penetration-tester': { model: 'sonnet', effort: 'high' },
+  // Rung 3 — Routine Builders & Build Resolvers
+  'code-simplifier': { model: 'opus', effort: 'medium' },
+  'refactor-cleaner': { model: 'opus', effort: 'medium' },
+  'e2e-runner': { model: 'opus', effort: 'medium' },
+  'build-error-resolver': { model: 'opus', effort: 'medium' },
+  'cpp-build-resolver': { model: 'opus', effort: 'medium' },
+  'django-build-resolver': { model: 'opus', effort: 'medium' },
+  'go-build-resolver': { model: 'opus', effort: 'medium' },
+  'pytorch-build-resolver': { model: 'opus', effort: 'medium' },
+  'react-build-resolver': { model: 'opus', effort: 'medium' },
+  'rust-build-resolver': { model: 'opus', effort: 'medium' },
+  // Rung 4 — Explorer / Recon / Simple Checks
+  'explorer': { model: 'haiku', effort: 'high' }
 };
+
+export function resolveClaudeAgentConfig(name, tier) {
+  const normalizedName = typeof name === 'string' ? name.trim().toLowerCase() : '';
+  if (claudeAgentConfigMap[normalizedName]) {
+    return claudeAgentConfigMap[normalizedName];
+  }
+  const normalizedTier = typeof tier === 'string' ? tier.trim().toLowerCase() : '';
+  if (normalizedTier === 'reflex') return { model: 'haiku', effort: 'high' };
+  if (normalizedTier === 'brain') return { model: 'sonnet', effort: 'high' };
+  return { model: 'opus', effort: 'medium' };
+}
 
 export function convertAgent(text, sourceFile) {
   const { frontmatter, body } = parseFrontmatter(text, sourceFile);
@@ -169,8 +214,7 @@ export function convertAgent(text, sourceFile) {
   }
 
   const tier = typeof frontmatter.tier === 'string' ? frontmatter.tier.trim().toLowerCase() : '';
-  const tierConfig = tierConfigMap[tier] || tierConfigMap.builder;
-  const { model, effort } = tierConfig;
+  const { model, effort } = resolveClaudeAgentConfig(name, tier);
   const toolsStr = [...mappedTools].join(', ');
   const yamlOut = [
     '---',
@@ -198,17 +242,20 @@ export function convertAgent(text, sourceFile) {
   };
 }
 
-const claudeRoutingBlock = `Delegate specialized lifecycle tasks to the agents defined under [.claude/agents/](.claude/agents/) using \`@<agent>\`:
+const claudeRoutingBlock = `Delegate specialized lifecycle tasks to the agents defined under [.claude/agents/](.claude/agents/) using \`@<agent>\`, or coordinate parallel non-CLI subagents with \`/swarm\` per [.claude/rules/swarm.md](.claude/rules/swarm.md):
 
-- **Invocation**: Invoke specialists via \`@<agent>\` (or slash commands \`/plan\`, \`/tdd\`, \`/audit\`, \`/review\`, \`/eval\`, \`/contract\`, \`/verify\`, \`/flywheel\`).
-- **Cognitive Routing Tiers (\`tier:\`, \`model:\`, \`effort:\` frontmatter)**:
+- **Invocation**: Invoke specialists via \`@<agent>\` (or slash commands \`/swarm\`, \`/plan\`, \`/tdd\`, \`/audit\`, \`/review\`, \`/eval\`, \`/contract\`, \`/verify\`, \`/flywheel\`).
+- **Coordinator (UI Lead)**: Run \`/swarm\` orchestration on \`opus\` (\`xhigh\` or \`max\` when chosen in the UI; preserve the user's choice and never auto-escalate \`xhigh\` to \`max\`). Use parallel \`Agent\` subagents with \`isolation: "worktree"\` for parallel writers.
+- **4-Rung Model Routing (\`model:\`, \`effort:\` frontmatter)**:
 
-| Tier | Claude Code Model | Agents ([.claude/agents/](.claude/agents/)) |
+| Rung | Claude Code Model & Effort | Agents ([.claude/agents/](.claude/agents/)) |
 | :--- | :--- | :--- |
-| \`reflex\` | \`model: haiku\` (\`effort: medium\`) | \`explorer\` (fast read-only recon; never plans or edits) |
-| \`builder\` | \`model: sonnet\` (\`effort: high\`) | \`tdd-guide\`, \`e2e-runner\`, \`code-simplifier\`, \`refactor-cleaner\`, \`performance-optimizer\`, \`penetration-tester\`, \`build-error-resolver\`, \`{react,go,rust,django,cpp,pytorch}-build-resolver\` |
-| \`brain\` *(read-only auditors/reviewers)* | \`model: opus\` (\`effort: high\`) | \`planner\`, \`architect\`, \`code-architect\`, \`a11y-architect\`, \`spec-miner\`, \`code-reviewer\`, \`{typescript,react,vue,go,rust,php,fastapi,database}-reviewer\`, \`silent-failure-hunter\`, \`security-auditor\`, \`skeptic\`, \`agent-evaluator\` |
+| **Rung 1** *(Architects & Planners)* | \`model: opus\` (\`effort: high\`) | \`planner\`, \`architect\`, \`code-architect\`, \`a11y-architect\`, \`spec-miner\` |
+| **Rung 2** *(Reviewers, Security & Complex Builders)* | \`model: sonnet\` (\`effort: high\`); \`model: opus\` (\`effort: high\`) on \`security-auditor\`, \`skeptic\`, and Strike-2 escalations | \`agent-evaluator\`, \`code-reviewer\`, \`{typescript,react,vue,go,rust,php,fastapi,database}-reviewer\`, \`silent-failure-hunter\`, \`tdd-guide\`, \`performance-optimizer\`, \`penetration-tester\`, \`security-auditor\`, \`skeptic\` |
+| **Rung 3** *(Routine Builders & Build Resolvers)* | \`model: opus\` (\`effort: medium\`) | \`code-simplifier\`, \`refactor-cleaner\`, \`e2e-runner\`, \`build-error-resolver\`, \`{react,go,rust,django,cpp,pytorch}-build-resolver\` |
+| **Rung 4** *(Explorer / Recon)* | \`model: haiku\` (\`effort: high\`) | \`explorer\` (fast read-only recon; never plans or edits) |
 
+- **Closure Guard**: Native \`SubagentStop\` hook (\`node .claude/scripts/swarm-subagent-guard.cjs\`) verifies every subagent reports modified files or verified findings before closing (no polling monitor worker).
 - **Mandatory Lifecycle Triggers**:
   1. Multi-file discovery (\`>= 3\` files) -> \`@explorer\`
   2. Non-trivial feature or refactor design -> \`@planner\` + \`@code-architect\` / \`@architect\` (plus \`@a11y-architect\` for UI)
@@ -260,6 +307,9 @@ export function formatDesignerPolicy(text) {
     'After 2 consecutive failed verification checks or audits on the same issue'
   );
   result = result.replace(/, `\/contract`, `\/verify`, `\/flywheel`/g, '');
+  result = result.replace(/,\s*`skeptic`,\s+and\b/g, ' and');
+  result = result.replace(/,\s*`skeptic`(?=,|\s+and\b)/g, '');
+  result = result.replace(/,\s*`skeptic`(?=\s*\|)/g, '');
   result = result.replace(/`skeptic`,\s*/g, '');
   result = result.replace(/`@skeptic`\s*\/\s*/g, '');
   result = result.replace(/\n---\n\n## 5\.[\s\S]*$/, '');

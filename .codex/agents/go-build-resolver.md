@@ -3,8 +3,8 @@ name: go-build-resolver
 description: "Go build, vet, and compilation error resolution specialist. Fixes build errors, go vet issues, and linter warnings with minimal changes. Use when Go builds fail."
 tier: builder
 model_tier: codex
-reasoning_effort: high
-target_model: "6.1-sol-medium/high | 6.1-terra-high/xhigh/max"
+reasoning_effort: medium
+target_model: "gpt-6.2-sol (medium)"
 tools:
   - read_file
   - grep_search

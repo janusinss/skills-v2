@@ -14,7 +14,7 @@ Apply for authorized pentesting, Strix runs, exploit validation, or pre-release 
 - **Main agent**: owns ad-hoc UI browser verification (`playwright-skill` + `agent-browser`). Never delegate ad-hoc UI browser checks to subagents (`AGENTS.md` §3).
 - **[e2e-runner](../agents/e2e-runner.md)**: reserved for persistent CI E2E suites. **[security-auditor](../agents/security-auditor.md)**: read-only static security review.
 
-Inspect only the 1-2 needed skills via `read_file`:
+Inspect only the 1-2 needed skills using the file-reading tool:
 - **Security**: [penetration-testing-with-strix](../skills/penetration-testing-with-strix/SKILL.md) · [ethical-hacking-methodology](../skills/ethical-hacking-methodology/SKILL.md) · [security-audit](../skills/security-audit/SKILL.md) · [fix-security-vulnerabilities-with-strix](../skills/fix-security-vulnerabilities-with-strix/SKILL.md) · [ci-security-scanning-with-strix](../skills/ci-security-scanning-with-strix/SKILL.md)
 - **Browser / E2E**: [playwright-skill](../skills/playwright-skill/SKILL.md) · [agent-browser](../skills/agent-browser/SKILL.md) · [e2e-testing-patterns](../skills/e2e-testing-patterns/SKILL.md)
 

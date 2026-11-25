@@ -4,7 +4,7 @@ description: "Fast Reflex-tier reconnaissance subagent for rapid file discovery,
 tier: reflex
 model_tier: mini
 reasoning_effort: medium
-target_model: "6.1-terra-medium"
+target_model: "gpt-6.2-sol (medium)"
 tools:
   - read_file
   - grep_search

@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-11-25",
   "originalSnapshot": {
-    "digest": "510acbbed1416c8aad8a178728cf9e915683b0190ddffa5177d1e2f050acccb2",
+    "digest": "4c30bc46f0017a784479da68badb5e69ad099181696b643c8e76769ad25c5c11",
     "files": {
       ".agents/agents/a11y-architect.md": "944a665705954fc9a05e3a97907500e3ee57de8d72ebb81de961c866a3eb03ae",
       ".agents/agents/agent-evaluator.md": "a868cea4487b3252c87f9a1262cb13c667510337ae8d45d33a2479b7d80c1d33",
@@ -337,13 +337,13 @@
       ".agents/rules/UI_Always.md": "fb485b29a6430b69b4f1c4c894dd87ae37ffb528229c5bcacfcd818e00e0acf5",
       ".agents/rules/backend.md": "59d2c8ad34ffb9d2eb76cbe4ada3689b0308019bcc1c3cf495ea3ba9fcc23819",
       ".agents/rules/frontend.md": "f89145a353041899bb451c1f07295d31c37f615d3ceb6bc195fc504379c06680",
-      ".agents/rules/install.md": "034936650abf4613abf34f42844022346a10efc6817f44dfe4c52a9e89ae3f3f",
+      ".agents/rules/install.md": "4c9f9640ea33feea125e43448dbd932690275d6a9c634d1923bc38d523860565",
       ".agents/rules/learned-invariants.md": "a6cee79e2692f6962bf3887ee073412424e766fcb20b95351fd739e6b4b81551",
-      ".agents/rules/penetrating-and-testing.md": "3757059d51925ad3549ec097e216a77513c0c77b34f8269cdfbf967244b95e8a",
+      ".agents/rules/penetrating-and-testing.md": "946bad82053f981e18af528db48321a5e788f036c9b2342e4d2d8dbcc905506b",
       ".agents/rules/security.md": "1a0e99d17acb5f5434a3b9f189f5c293e22bd51f68f35b68c980c4435cd1203f",
-      ".agents/rules/starting-brandnew.md": "48aa052d52d113a365632c6a57cd59a7d98239340131eb28fc6a8522104f44e1",
-      ".agents/rules/starting-existing.md": "54505586a1e7ec4c268003501b76acfd5e142f8c0f9ab5f784afd9a97bd6beae",
-      ".agents/rules/swarm.md": "cf9b7af3924abc11627fe948500701aac4e678ad5fb311278de93fb65945f299",
+      ".agents/rules/starting-brandnew.md": "663fb9650417550eb6f3bc11b2c294bc7acebb89ca0d67a143d8dd5bc5dc4e9b",
+      ".agents/rules/starting-existing.md": "47af33dc9034788af71039f77d608557983c63b2a3fe7686b892cf3bc0e3fa22",
+      ".agents/rules/swarm.md": "bfa545626a79d712d9ae29b25495b60956b5dea5b31a9d0ddf6573e3cafc720d",
       ".agents/scripts/swarm-stop-guard.cjs": "862b089079ce3077f616201cf9d0687c94d1f76797947029304009e0ffd86061",
       ".agents/skills/3d-web-experience/SKILL.md": "ccdf216cc836ed8e339f8bafb78001d1deb6bb3a2d9a5beb705407fdd8300d10",
       ".agents/skills/agent-browser/SKILL.md": "6690c34e8fa0b872096d4b0e1de7106108eb45be2b231cbd90536648523466c2",
@@ -3611,7 +3611,7 @@
       ".agents/skills/untangle-codebase/LICENSE": "cbe11503c54a6eeecf65772e66fbbca7a37750bff9812c742b11dca47ceb539c",
       ".agents/skills/untangle-codebase/SKILL.md": "eace3de7a56a4acb964a132917d52a78719f74ddd2e2cb19f6701f8ca8832569",
       ".gitignore": "d3c49db2599c7418e4f5c0edb62d7f994bedc6d39c0307d4b4e1546fc761c006",
-      "AGENTS.md": "0a6f0e010aa8cc401c17ccef9fc54d118b177f4652a139c905b0a9bc4e6da60c",
+      "AGENTS.md": "d890774b4e39cbf0862a6fe4bd060fd9d13b59c44daf00a991170fd074a3d407",
       "skills-lock.json": "7d488ac96b3de3bf1f1fd76a55bf3c4813866e75265597c9cf0786622ae19708"
     }
   },
@@ -3621,9 +3621,9 @@
     "discoverableSkills": 80,
     "duplicatesPreservedAsReferences": 2,
     "discoverableAgents": 32,
-    "rules": 10,
-    "customCommands": 8,
-    "generatedFiles": 3170
+    "rules": 11,
+    "customCommands": 9,
+    "generatedFiles": 3173
   },
   "duplicateReferences": {
     "skills/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "skills/avoid-ai-writing/skills/avoid-ai-writing/REFERENCE.md",
@@ -3638,7 +3638,7 @@
     "agents/agent-evaluator.md": {
       "source": ".agents/agents/agent-evaluator.md",
       "sourceHash": "a868cea4487b3252c87f9a1262cb13c667510337ae8d45d33a2479b7d80c1d33",
-      "outputHash": "83566c1031106c65e14df9ee6ce91ac673a0f7214110192348097f80e8f2cc1c"
+      "outputHash": "07f19ca2de21fe77fec243546118b3d6c5200c2c2b24a5f1fdd0070a2bfa8571"
     },
     "agents/architect.md": {
       "source": ".agents/agents/architect.md",
@@ -3648,7 +3648,7 @@
     "agents/build-error-resolver.md": {
       "source": ".agents/agents/build-error-resolver.md",
       "sourceHash": "9268ffd9694a564ea955df6b0d1d96e21cc10490a320ff5cedc4074b88e180d8",
-      "outputHash": "d7aa4bed529101559a4cbd7de2cef4c89e22613731a4f9fa79ef6dd73bbd0d0c"
+      "outputHash": "44ecb977f7e28527298cd9fe18550bddc37a46023bd6b1d0d6bd2ba41708effc"
     },
     "agents/code-architect.md": {
       "source": ".agents/agents/code-architect.md",
@@ -3658,52 +3658,52 @@
     "agents/code-reviewer.md": {
       "source": ".agents/agents/code-reviewer.md",
       "sourceHash": "5b49fc40723033c01c430406c4b0b4bd09365f60230ecfe9af3c193340ad464e",
-      "outputHash": "16cb6b6cc9581fe0f35d7490a5771f7c0335911ba9ecce282ee9743369b3c499"
+      "outputHash": "60440ba8de4a2a1e83d7c8d389355dbe2c1689c1e22c34dbd487926da2abc08c"
     },
     "agents/code-simplifier.md": {
       "source": ".agents/agents/code-simplifier.md",
       "sourceHash": "cacb8fe34cd77d6aa13c21e57ee8706729159b0db53ee20e82835b9073aa4fd2",
-      "outputHash": "7264eb4ab7d844ad8fa79c3d0afda6ad2a0a26397361ece12ae18efc2365208a"
+      "outputHash": "9a452715e91cb9f6d97a90070f7c18a68524cfd9de582a48d6627d03e4f58710"
     },
     "agents/cpp-build-resolver.md": {
       "source": ".agents/agents/cpp-build-resolver.md",
       "sourceHash": "7593157cb835ee50cfb2d2f0563def3f45476f016c25f3f5b342d3c95824a4cd",
-      "outputHash": "d9f3a78bdbf3b0fc74319980c42164ffe79cd052519fb656e02dd968723f7e4b"
+      "outputHash": "1eb14428d78478c78925f070add4bf0818cc5b1876534ba7c88630ba89bf15de"
     },
     "agents/database-reviewer.md": {
       "source": ".agents/agents/database-reviewer.md",
       "sourceHash": "79faaacbbcf2818a2a033c2d85739008ad56913ebee7fc05755300a1a456c20d",
-      "outputHash": "26ddade14b886b02ffdf9f3b2266763f51ffee9278860d31c97d71d9f700a26f"
+      "outputHash": "60fc9d6b362ea9decb58e130444829743668363136fbf28ea6d38e2d68ba5699"
     },
     "agents/django-build-resolver.md": {
       "source": ".agents/agents/django-build-resolver.md",
       "sourceHash": "4a0161d7f2cad7141358ca5718a4a73180eddfc279b43560f1961d45ce0a6c8a",
-      "outputHash": "0c63fa95dbaa22ceae100f9246e9b6308f541c92278acd2c382fd8f2a2de9fd1"
+      "outputHash": "2140097ad96ac381ce44454b8ed7aae579b46ab39d6c6d2b9caa2f3d0f8e493a"
     },
     "agents/e2e-runner.md": {
       "source": ".agents/agents/e2e-runner.md",
       "sourceHash": "706860efb5463872d1fbed4b55cf701a1cdea054104b9adb09b1417aadcc2df4",
-      "outputHash": "be177d2ff2198e74989133cd5776d1bd38b83ddbe4aa86f240c0e49ae9f08179"
+      "outputHash": "71ce19498efba5694093db4797cdc9e26c1a0fa71333b49c1aa68128c16ed8b4"
     },
     "agents/explorer.md": {
       "source": ".agents/agents/explorer.md",
       "sourceHash": "1323bc7dc2d64a92385df2e86cc2be39f979c023fccc701007231de8df146e5a",
-      "outputHash": "5cb0aa2540a87285c9d84a971374b7138bd6f4a68f96dc505437e948885b09c6"
+      "outputHash": "1bec055c42a67aeb6389b38c40e9eac0fa248bc0ee8f952a1625277bd23da255"
     },
     "agents/fastapi-reviewer.md": {
       "source": ".agents/agents/fastapi-reviewer.md",
       "sourceHash": "7e47bbf405dcba3d8f093f50f83163d1a974c15e5b74087df9f093ec996c2d6d",
-      "outputHash": "2400b7a23fc80ed901f66348cb6ac9ae9fb4eb490f546209e7a561ca40f701e7"
+      "outputHash": "c586682930faaa32f450c33b1a4be6ce12c8e61a25e6ff0ed8bac60e8ccdc0da"
     },
     "agents/go-build-resolver.md": {
       "source": ".agents/agents/go-build-resolver.md",
       "sourceHash": "07be8d86aa7984c518a2905863f8ead1074d6847e718e070ad87301f56e06323",
-      "outputHash": "27b59ed5afcf2186d997b4d60c9a34ec8c31609cd1e9e7182f9db5036fc0bc16"
+      "outputHash": "7aede3a0ff5249e9b06767d87a28fb4dada6a7c27373e022d046b88547203286"
     },
     "agents/go-reviewer.md": {
       "source": ".agents/agents/go-reviewer.md",
       "sourceHash": "5ee2b1811a0e3ab04466f630207d3ddb4a5910fca6d270745363a3321af249d0",
-      "outputHash": "ec8429d5ae8d9c85d688da139db37d30e2ac89bc7475a6662c47938e4c7d0bab"
+      "outputHash": "72ff184ed316668191b3d86e27b5e37cbb9ba3ecdf3b4a4d18b3a8f339b7d38f"
     },
     "agents/penetration-tester.md": {
       "source": ".agents/agents/penetration-tester.md",
@@ -3718,7 +3718,7 @@
     "agents/php-reviewer.md": {
       "source": ".agents/agents/php-reviewer.md",
       "sourceHash": "8fbddd78f63ce3396e462f84103b7ae9f8d0b4fcc94de9dadb898a8779b8a7c4",
-      "outputHash": "1edfb6b6bf10d0e27b7b1394baba79e7bb64adf6cd8a7f639d6b885e556103f3"
+      "outputHash": "64ad6cb736e3bd686f6e64a9070d1e632f670f97f5bf0b3dee0c37149a90ca0b"
     },
     "agents/planner.md": {
       "source": ".agents/agents/planner.md",
@@ -3728,32 +3728,32 @@
     "agents/pytorch-build-resolver.md": {
       "source": ".agents/agents/pytorch-build-resolver.md",
       "sourceHash": "8f116ef1ad31f17fc607a212a70e5c9a10d52170b338563efae12d3ec5a88188",
-      "outputHash": "f5262a989c7924c0e86361d167cdbf1b98880d7a384ea66f3b9ec5f0ac3705ed"
+      "outputHash": "50fc3f936b67cd236c586b100d5476cd0f241f135448f429cbcdd52d12f16525"
     },
     "agents/react-build-resolver.md": {
       "source": ".agents/agents/react-build-resolver.md",
       "sourceHash": "65c25287ee6982671d04c76d90cf00654ac9ac2bef2f9306eb019b33f75ea7b9",
-      "outputHash": "687ebd6b13938355c57e85aa7244be44604c9e9c65b42eef3cf169113606bba3"
+      "outputHash": "4469999b68e1eb2e5fc7ada87b1ead2ebc2cc854831328985279ab808960959c"
     },
     "agents/react-reviewer.md": {
       "source": ".agents/agents/react-reviewer.md",
       "sourceHash": "450e72f7045c012578147fa1df989cb59778089c7c4d18302bbe4be3ea5a9145",
-      "outputHash": "19b51f010b7d07c0e4753c00816057936f75e018e1f5ea07f38bd6ace36c489a"
+      "outputHash": "cfe0a60ae7aeb46b7eb45b179f8f53df23754728f166eae991ee9c691374e26b"
     },
     "agents/refactor-cleaner.md": {
       "source": ".agents/agents/refactor-cleaner.md",
       "sourceHash": "b89e40844ec637be664768a4ebd260c06aa73f0c64f3390bf16ed934b94c1166",
-      "outputHash": "2cc81d87c5ad0660ccac6304f6238ec9e33730015709f5e1f0182d57f32ff62d"
+      "outputHash": "601fe598f209e53122424e595d2077ffaade074e330413629c3c7eddb1ecb4cd"
     },
     "agents/rust-build-resolver.md": {
       "source": ".agents/agents/rust-build-resolver.md",
       "sourceHash": "01da707b040896055cebd168796e825e8be0b6f56685d244d973edf431f8775c",
-      "outputHash": "ae9a70893798be9276198712e82331129e846e01547510f42d43df0fe51a7373"
+      "outputHash": "7e01e8079fca1541b5b6f3decf46744d8a392d0e758bbc25b7cc195cc0ee3177"
     },
     "agents/rust-reviewer.md": {
       "source": ".agents/agents/rust-reviewer.md",
       "sourceHash": "49338608b01511bb329e3937e03679bd280d72b1141616d8851f28aec0ffc709",
-      "outputHash": "9f877262bd32c126a8ea637cba210d0284c9ede53d66d5510343b5d3c9d3f1c7"
+      "outputHash": "a50ed6142cc1c23c6c9e0b4b07b9d3c52695f4e4276e1ea3df81b7418fa4c9f8"
     },
     "agents/security-auditor.md": {
       "source": ".agents/agents/security-auditor.md",
@@ -3763,7 +3763,7 @@
     "agents/silent-failure-hunter.md": {
       "source": ".agents/agents/silent-failure-hunter.md",
       "sourceHash": "7fa43683879e3387739c290953ac4dc54e6e515aaaaeff7035c84cfb8ac14c01",
-      "outputHash": "c6b0a3098a90a1568386006cf802bf0bf618967aba8dcd81d6f26d73d0b7827c"
+      "outputHash": "fd337a3cd489164332056d80efd04f7518a95e736df315158f9d05e74e758970"
     },
     "agents/skeptic.md": {
       "source": ".agents/agents/skeptic.md",
@@ -3783,12 +3783,12 @@
     "agents/typescript-reviewer.md": {
       "source": ".agents/agents/typescript-reviewer.md",
       "sourceHash": "7d21edb2d83e2bb734234706afeda23a06d4698c3667656bad36c07f89117e47",
-      "outputHash": "92c907b201cce8ba2f4ec174ccf2f10b3171bd9f81f7c410d63b45aa18132bf4"
+      "outputHash": "00c27706ca47528e4b7e961ea760d730e6eebe60082a41472b882ee6be1efdad"
     },
     "agents/vue-reviewer.md": {
       "source": ".agents/agents/vue-reviewer.md",
       "sourceHash": "207853031470f6c9c8f256c06de2af428bfba7d8a9159c0bd1e573baa11d0a92",
-      "outputHash": "9faedb3f7baed53ab109a2c3f0bae8c6edcb8944766f70a044d644a27030fae4"
+      "outputHash": "334ec3bcd018ba9e1cce39f39fa13813d5c987b132e37896a4133aa0a14995d7"
     },
     "resources/creative-libraries/components/LenisGsapBridge.tsx": {
       "source": ".agents/resources/creative-libraries/components/LenisGsapBridge.tsx",
@@ -5267,8 +5267,8 @@
     },
     "rules/install.md": {
       "source": "tools/claude/templates/rules/install.md",
-      "sourceHash": "0eedf971102754bdc88be10df93cf7f40bafd57f01dd16b73ad4f6a97b1f9618",
-      "outputHash": "0eedf971102754bdc88be10df93cf7f40bafd57f01dd16b73ad4f6a97b1f9618"
+      "sourceHash": "f05766d00db8f3ce44291c485bea04818d66bb74436f0b92b89ae275c693862c",
+      "outputHash": "f05766d00db8f3ce44291c485bea04818d66bb74436f0b92b89ae275c693862c"
     },
     "rules/learned-invariants.md": {
       "source": ".agents/rules/learned-invariants.md",
@@ -5282,8 +5282,8 @@
     },
     "rules/penetrating-and-testing.md": {
       "source": ".agents/rules/penetrating-and-testing.md",
-      "sourceHash": "3757059d51925ad3549ec097e216a77513c0c77b34f8269cdfbf967244b95e8a",
-      "outputHash": "67579af0c5e2ec60da193a2c01fe784f7a5fd4f9df4d8900bef7fc9b7d20b671"
+      "sourceHash": "946bad82053f981e18af528db48321a5e788f036c9b2342e4d2d8dbcc905506b",
+      "outputHash": "cbce27bf8e3c2d2382af24763215fecdef82f99d25b0b4eac492d135aa323f66"
     },
     "rules/security.md": {
       "source": ".agents/rules/security.md",
@@ -5292,13 +5292,13 @@
     },
     "rules/starting-brandnew.md": {
       "source": ".agents/rules/starting-brandnew.md",
-      "sourceHash": "48aa052d52d113a365632c6a57cd59a7d98239340131eb28fc6a8522104f44e1",
-      "outputHash": "cc8a420005409243c44f7a21e7f41867d1c7459fe66d117d5ad0290770f6028a"
+      "sourceHash": "663fb9650417550eb6f3bc11b2c294bc7acebb89ca0d67a143d8dd5bc5dc4e9b",
+      "outputHash": "d4d5257b317146ee7eb3b590cc12f7ae6f4b796b0337bd6a79c5c8b00da264bf"
     },
     "rules/starting-existing.md": {
       "source": ".agents/rules/starting-existing.md",
-      "sourceHash": "54505586a1e7ec4c268003501b76acfd5e142f8c0f9ab5f784afd9a97bd6beae",
-      "outputHash": "c9407fef8aa895f6c1e35bd5a2e3337522c6caf5e0bcf7c2876c1f8a8ae10f28"
+      "sourceHash": "47af33dc9034788af71039f77d608557983c63b2a3fe7686b892cf3bc0e3fa22",
+      "outputHash": "59e4db97213211289af1e73f1d735dec5f4fb0b5dc67c82bf4cb3f7f7cc9defa"
     },
     "rules/UI_Always.md": {
       "source": ".agents/rules/UI_Always.md",
@@ -19410,6 +19410,11 @@
       "sourceHash": "eace3de7a56a4acb964a132917d52a78719f74ddd2e2cb19f6701f8ca8832569",
       "outputHash": "2427525ba8b3a78b877a451d90939ff77861a41ee0b8be79fa1f4fada40d7201"
     },
+    "commands/swarm.md": {
+      "source": null,
+      "sourceHash": "38cd0d21ec2817f387c62e1518ff64f4dcfe927b4a7fb67be3a110971eb71d43",
+      "outputHash": "38cd0d21ec2817f387c62e1518ff64f4dcfe927b4a7fb67be3a110971eb71d43"
+    },
     "commands/plan.md": {
       "source": null,
       "sourceHash": "0baf6120cd764f117888936f998ad0f3eb91ec3cd2dbd77cdcfb5f1c9a0b8bbf",
@@ -19450,6 +19455,16 @@
       "sourceHash": "ed2255822058fa1985516b610590fb87253f9a4beff3495bd510bbc39dc28cca",
       "outputHash": "ed2255822058fa1985516b610590fb87253f9a4beff3495bd510bbc39dc28cca"
     },
+    "rules/swarm.md": {
+      "source": "tools/claude/templates/rules/swarm.md",
+      "sourceHash": "d5b7c5ba1495a01eb39adad0d760795ee1f775656cb3cd2b4a4ace3bdc5328a1",
+      "outputHash": "01d3f551305204ae37c04ca80432641438b2c0e1262e04e022bbd0f994c1130c"
+    },
+    "scripts/swarm-subagent-guard.cjs": {
+      "source": "tools/claude/templates/scripts/swarm-subagent-guard.cjs",
+      "sourceHash": "2e0474ca830e3be2852b66931681dc5a9c5a0e598f10cb09ed7cdba7bb75f0fe",
+      "outputHash": "2e0474ca830e3be2852b66931681dc5a9c5a0e598f10cb09ed7cdba7bb75f0fe"
+    },
     "profiles.json": {
       "source": "tools/claude/profiles.json",
       "sourceHash": "a15a0821415aa058ada158ee449153d8fbd9e8e88af1b32093dfab6ac8b95df5",
@@ -19463,22 +19478,22 @@
     "hooks.example.json": {
       "source": ".agents/hooks.example.json",
       "sourceHash": "dcd5e4b5f42702a8646d7edc6fea679caf6715d3841f3b0c7fdfbf4ad4a524b7",
-      "outputHash": "e28985aa6731b031109b5428e31d560d1cbeef5d6bda5b84cfa2338113802e02"
+      "outputHash": "16b3bcca63b5927017d6767bfedf99a3016dcb3083d1286b103110256d0f623a"
     },
     "hooks.impeccable.example.json": {
       "source": ".agents/hooks.example.json",
       "sourceHash": "dcd5e4b5f42702a8646d7edc6fea679caf6715d3841f3b0c7fdfbf4ad4a524b7",
-      "outputHash": "fccd3e14d6511ffa763aa2043597df0a986105bbe8faa110cd0f3d776d30af19"
+      "outputHash": "728c04fa99af7d9c673fbd1043c67eece0c917fcff0f13c44588b53bcc0a0642"
     },
     "CLAUDE.md": {
       "source": "AGENTS.md",
-      "sourceHash": "0a6f0e010aa8cc401c17ccef9fc54d118b177f4652a139c905b0a9bc4e6da60c",
-      "outputHash": "97d47fd39504d9ba9c9dbd27fbd473c3d3b728233f4bc8f7f8a4c4935c60c686"
+      "sourceHash": "d890774b4e39cbf0862a6fe4bd060fd9d13b59c44daf00a991170fd074a3d407",
+      "outputHash": "52593feb6e7ae643a50c12a751f651531e4452d51c4bdf48c2c91e39979d8960"
     },
     "CLAUDE.designer.md": {
       "source": "AGENTS.md",
-      "sourceHash": "0a6f0e010aa8cc401c17ccef9fc54d118b177f4652a139c905b0a9bc4e6da60c",
-      "outputHash": "2c3d2f714346fc10481db635d8934b171f6ce6261986efc524ce8fbb74960d41"
+      "sourceHash": "d890774b4e39cbf0862a6fe4bd060fd9d13b59c44daf00a991170fd074a3d407",
+      "outputHash": "13d2e5b0ed89ae496260e3c09e44c6c69eee5aafff09a45dbc6c6ca47424ebfe"
     }
   }
 }

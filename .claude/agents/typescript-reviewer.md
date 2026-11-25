@@ -3,7 +3,7 @@ name: typescript-reviewer
 description: "Expert TypeScript/JavaScript code reviewer specializing in type safety, async correctness, Node/web security, and idiomatic patterns. Use for all TypeScript and JavaScript code changes. MUST BE USED for TypeScript/JavaScript projects."
 tools: Read, Grep, Glob, Bash
 tier: brain
-model: opus
+model: sonnet
 effort: high
 ---
 

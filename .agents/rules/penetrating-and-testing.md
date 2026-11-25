@@ -53,7 +53,7 @@ Inspect only the 1-2 needed skills via `read_file`:
 
 ## 3. Area 2: Pre-Release Critical-Journey QA (Main Agent Only)
 
-Run from the **main agent** (never a subagent; delegate persistent CI suites to `@e2e-runner`):
+Run from the **main agent** (never a subagent; delegate persistent CI suites to `e2e-runner`):
 1. **Bounded Scope**: Test critical journeys (auth/redirects, role/`403` gates, primary mutations, empty/error recovery), not every link on every page.
 2. **States & Viewport Floor**: Follow [UI_Always.md](.agents/rules/UI_Always.md) (§5 8-state primitive standard and §7 browser verification policy).
 3. **Shared-Browser CDP Handoff**:

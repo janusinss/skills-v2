@@ -1,0 +1,4 @@
+interface:
+  display_name: "Swarm"
+  short_description: "Run parallel multi-agent workflows in Codex Desktop App and..."
+  default_prompt: "Use $swarm for the relevant part of this task."

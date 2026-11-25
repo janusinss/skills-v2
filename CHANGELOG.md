@@ -5,7 +5,8 @@ All notable changes are recorded here. Format follows [Keep a Changelog](https:/
 ## [2.2.0] - 2026-11-24
 
 ### Added
-- `modern-web-guidance`, `chrome-extensions`, and `unslop` (`heydamir/unslop`, CC-BY-4.0 — 9-pass UI redlining, live URL snapshots, RTL rules) skills, bringing the catalog to 74 top-level skills (80 discoverable manifests).
+- Non-CLI parallel swarm support across Claude Code (`/swarm` command in `.claude/commands/swarm.md`, `.claude/rules/swarm.md`, `SubagentStop` hook `.claude/scripts/swarm-subagent-guard.cjs`, and Opus/Sonnet/Haiku 4-rung routing) and OpenAI Codex (`$swarm` skill in `.codex/skills/swarm/` across all profiles, `.codex/rules/swarm.md`, 32 `.codex/agents/*.toml` manifests, `.codex/config.toml` Multi-Agent V2 merge, and GPT-6.2 Astra/Sol 4-rung routing).
+- `modern-web-guidance`, `chrome-extensions`, and `unslop` (`heydamir/unslop`, CC-BY-4.0 — 9-pass UI redlining, live URL snapshots, RTL rules) skills, bringing the catalog to 74 top-level skills (80 discoverable manifests; Codex ships 75 top-level / 81 discoverable including `$swarm`).
 - 15-category, 103-pattern `interaction-catalog.md` under `.agents/resources/creative-libraries/`, synced to `.codex/resources/` and `.claude/resources/`.
 - `tools/claude/templates/rules/install.md` rule template and `.claude/resources/` export in `tools/claude/export.mjs`.
 

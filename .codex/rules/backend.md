@@ -6,7 +6,7 @@
 Apply when designing, building, or refactoring server architecture, data access layers, DB connections, and APIs. Defer to [security.md](security.md) for `.env`/secrets, input validation, auth/authz, and production stack-trace suppression.
 
 ## Skill Dispatch Matrix
-Inspect only the 1-2 skills matching the active task via `read_file`:
+Inspect only the 1-2 skills matching the active task using the file-reading tool:
 
 | Domain | Skills / Agents |
 | :--- | :--- |

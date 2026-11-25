@@ -3,8 +3,8 @@ name: django-build-resolver
 description: "Django/Python build, migration, and dependency error resolution specialist. Fixes pip/Poetry errors, migration conflicts, import errors, Django configuration issues, and collectstatic failures with minimal changes. Use when Django setup or startup fails."
 tier: builder
 model_tier: codex
-reasoning_effort: high
-target_model: "6.1-sol-medium/high | 6.1-terra-high/xhigh/max"
+reasoning_effort: medium
+target_model: "gpt-6.2-sol (medium)"
 tools:
   - read_file
   - grep_search

@@ -3,8 +3,8 @@ name: database-reviewer
 description: "PostgreSQL database specialist for query optimization, schema design, security, and performance. Use PROACTIVELY when writing SQL, creating migrations, designing schemas, or troubleshooting database performance. Incorporates Supabase best practices."
 tier: brain
 model_tier: reasoning
-reasoning_effort: max
-target_model: "6.1-sol-max"
+reasoning_effort: high
+target_model: "gpt-6.2-sol (high)"
 tools:
   - read_file
   - grep_search

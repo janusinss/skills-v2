@@ -625,7 +625,7 @@ async function resolveInteractiveCliOptions(options) {
     if (needMode) {
       console.error('\nQuestion 2/2 — Select mode:');
       console.error('  1) HARNESS MODE (default) - Installs all hooks (Harness + Impeccable + design-taste-frontend + avoid-ai-writing), .git/hooks/pre-commit, and full Harness lifecycle in AGENTS.md / CLAUDE.md');
-      console.error('  2) DESIGNER MODE          - Activates non-harness hooks (Impeccable, design-taste-frontend, avoid-ai-writing), skips Harness hooks/.git pre-commit, and installs Designer AGENTS.md / CLAUDE.md');
+      console.error('  2) DESIGNER MODE          - Activates non-harness hooks (Impeccable, design-taste-frontend, avoid-ai-writing; retains swarm-stop-guard.cjs on AGY and SubagentStop swarm-subagent-guard.cjs on Claude), skips Harness hooks/.git pre-commit, and installs Designer AGENTS.md / CLAUDE.md');
       for (;;) {
         const answer = (await rl.question('Select mode [1-2 or harness/designer, default: harness]: ')).trim().toLowerCase();
         if (!answer || answer === '1' || answer === 'harness') { resolved.mode = 'harness'; break; }

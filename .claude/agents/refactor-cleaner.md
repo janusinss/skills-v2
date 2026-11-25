@@ -3,8 +3,8 @@ name: refactor-cleaner
 description: "Dead code cleanup and consolidation specialist. Use PROACTIVELY for removing unused code, duplicates, and refactoring. Runs analysis tools (knip, depcheck, ts-prune) to identify dead code and safely removes it."
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: builder
-model: sonnet
-effort: high
+model: opus
+effort: medium
 ---
 
 ## Prompt Defense Baseline

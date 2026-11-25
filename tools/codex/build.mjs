@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { bundleRoot, sourceRoot, repoRoot, filesIn, parseSkill, snapshotSource, slash, json, sha256, payloadData, payloadHash, writeIfChanged, assertNoSymlinkAncestors, isBundleExcluded } from './lib.mjs';
-import { convertSkill, openaiMetadata, yamlText, readOriginalMetadata, adaptMarkdown, adaptPlaywrightRunner, formatDesignerPolicy } from './convert.mjs';
+import { convertSkill, openaiMetadata, yamlText, readOriginalMetadata, adaptMarkdown, adaptPlaywrightRunner, formatDesignerPolicy, generateCodexAgentToml } from './convert.mjs';
 import { localCodexIgnoreEntries } from './gitignore.mjs';
 
 /** Recursively remove empty subdirectories bottom-up under dir, preserving dir itself. */
@@ -127,6 +127,11 @@ export function buildBundle() {
       if (path.dirname(path.dirname(source)) === path.join(sourceRoot, 'skills')) topLevelSkills++;
     } else if (originalRelative === 'skills/playwright-skill/run.js') {
       add(originalRelative, adaptPlaywrightRunner(fs.readFileSync(source, 'utf8')), source);
+    } else if (originalRelative.startsWith('agents/') && source.endsWith('.md')) {
+      const adapted = adaptMarkdown(fs.readFileSync(source, 'utf8'), source, duplicates);
+      add(originalRelative, adapted, source);
+      const agentName = path.basename(source, '.md');
+      add(`agents/${agentName}.toml`, generateCodexAgentToml(adapted, agentName), source);
     } else if (source.endsWith('.md')) {
       add(originalRelative, adaptMarkdown(fs.readFileSync(source, 'utf8'), source, duplicates), source);
     } else add(originalRelative, fs.readFileSync(source), source);
@@ -143,6 +148,24 @@ export function buildBundle() {
       text = `> Codex guidance for the relevant parts of the requested task. Preserve the user's scope and existing project conventions. Examples require the installed tool's supported syntax; a skill or rule does not grant permissions or install its dependencies.\n\n${body}`;
     }
     add(`rules/${name}`, adaptMarkdown(text, original, duplicates), input);
+  }
+  const swarmRuleTemplate = path.join(templates, 'rules/swarm.md');
+  if (fs.existsSync(swarmRuleTemplate)) {
+    const virtualSwarmRule = path.join(sourceRoot, 'rules/swarm.md');
+    add('rules/swarm.md', adaptMarkdown(fs.readFileSync(swarmRuleTemplate, 'utf8'), virtualSwarmRule, duplicates), swarmRuleTemplate);
+  }
+  const swarmSkillTemplate = path.join(templates, 'skills/swarm/SKILL.md');
+  if (fs.existsSync(swarmSkillTemplate)) {
+    const virtualSwarmSkill = path.join(sourceRoot, 'skills/swarm/SKILL.md');
+    const { text, frontmatter } = convertSkill(fs.readFileSync(swarmSkillTemplate, 'utf8'), virtualSwarmSkill, duplicates);
+    add('skills/swarm/SKILL.md', text, swarmSkillTemplate);
+    add('skills/swarm/agents/openai.yaml', yamlText(openaiMetadata(undefined, frontmatter)), swarmSkillTemplate);
+    discoverableSkills++;
+    topLevelSkills++;
+  }
+  const configExampleTemplate = path.join(templates, 'config.example.toml');
+  if (fs.existsSync(configExampleTemplate)) {
+    add('config.example.toml', fs.readFileSync(configExampleTemplate, 'utf8'), configExampleTemplate);
   }
   const agentsPolicy = path.join(repoRoot, 'AGENTS.md');
   // Keep source-only installation routing and maintenance notes in this
@@ -194,7 +217,7 @@ export function buildBundle() {
   const manifest = {
     generatedBy: 'tools/codex/build.mjs', formatVersion: 2, hashing: 'sha256-lf-text', checkedOn: '2026-10-01',
     originalSnapshot: before, originalPreserved: true,
-    summary: { topLevelSkills, discoverableSkills, duplicatesPreservedAsReferences: duplicates.size, rules: filesIn(path.join(sourceRoot, 'rules')).filter(f => f.endsWith('.md') && !isBundleExcluded(slash(path.relative(sourceRoot, f)))).length, generatedFiles: outputs.size },
+    summary: { topLevelSkills, discoverableSkills, duplicatesPreservedAsReferences: duplicates.size, rules: [...outputs.keys()].filter(k => k.startsWith('rules/') && k.endsWith('.md')).length, generatedFiles: outputs.size },
     duplicateReferences: Object.fromEntries([...duplicates].map(([from, to]) => [slash(path.relative(sourceRoot, from)), slash(path.relative(sourceRoot, to))])),
     files: records,
   };

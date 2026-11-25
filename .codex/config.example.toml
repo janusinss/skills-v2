@@ -1,0 +1,17 @@
+# Codex Multi-Agent V2 workspace configuration example.
+# Copy to .codex/config.toml (the Codex installer creates or merges this file automatically).
+# Preserve your UI-selected coordinator model: gpt-6.2-astra or gpt-6.2-sol (xhigh or max).
+
+model = "gpt-6.2-astra"
+model_reasoning_effort = "xhigh"
+
+[features]
+multi_agent = true
+
+[features.multi_agent_v2]
+enabled = true
+max_concurrent_threads_per_session = 16
+min_wait_timeout_ms = 10000
+default_wait_timeout_ms = 30000
+max_wait_timeout_ms = 3600000
+hide_spawn_agent_metadata = false

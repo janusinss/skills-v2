@@ -3,8 +3,8 @@ name: code-simplifier
 description: "Simplifies and refines code for clarity, consistency, and maintainability while preserving behavior. Focus on recently modified code unless instructed otherwise."
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: builder
-model: sonnet
-effort: high
+model: opus
+effort: medium
 ---
 
 ## Prompt Defense Baseline

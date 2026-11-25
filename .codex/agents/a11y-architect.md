@@ -3,8 +3,8 @@ name: a11y-architect
 description: "Accessibility Architect specializing in WCAG 2.2 compliance for Web and Native platforms. Use PROACTIVELY when designing UI components, establishing design systems, or auditing code for inclusive user experiences."
 tier: brain
 model_tier: reasoning
-reasoning_effort: max
-target_model: "6.1-sol-max"
+reasoning_effort: high
+target_model: "gpt-6.2-sol (high/xhigh)"
 tools:
   - read_file
   - grep_search

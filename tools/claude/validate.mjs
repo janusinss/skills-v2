@@ -48,7 +48,7 @@ function checkLeaks(text, relative, patterns, errors) {
   }
 }
 
-function validateClaudeHooksSchema(parsed, label, errors) {
+function validateClaudeHooksSchema(parsed, label, errors, dataRoot = null) {
   if (!isRecord(parsed.hooks)) {
     errors.push(`${label} must contain hooks`);
     return;
@@ -68,6 +68,14 @@ function validateClaudeHooksSchema(parsed, label, errors) {
         }
         if (typeof entry.command === 'string' && entry.command.includes('apply_patch')) {
           errors.push(`${label}: ${event} hook command contains "apply_patch"`);
+        }
+        if (typeof entry.command === 'string' && dataRoot) {
+          for (const match of entry.command.matchAll(/\.claude\/scripts\/([A-Za-z0-9._-]+)/g)) {
+            const scriptFile = path.join(dataRoot, 'scripts', match[1]);
+            if (!fs.existsSync(scriptFile)) {
+              errors.push(`${label}: ${event} hook references missing script .claude/scripts/${match[1]}`);
+            }
+          }
         }
       }
     }
@@ -169,10 +177,12 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
   for (const file of commandFiles) {
     const relative = slash(path.relative(root, file));
     try {
-      const { frontmatter } = parseFrontmatter(fs.readFileSync(file, 'utf8'), file);
+      const raw = fs.readFileSync(file, 'utf8');
+      const { frontmatter } = parseFrontmatter(raw, file);
       if (!frontmatter.description || typeof frontmatter.description !== 'string') {
         errors.push(`${relative}: command must have a non-empty description`);
       }
+      checkLeaks(raw, relative, crossEditionLeakPatterns, errors);
       commands.push({ name: path.basename(file, '.md'), path: relative });
     } catch (error) {
       errors.push(`${relative}: ${error.message}`);
@@ -284,7 +294,7 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
         } else {
           try {
             const parsed = JSON.parse(fs.readFileSync(hookFile, 'utf8').replace(/^\uFEFF/, ''));
-            validateClaudeHooksSchema(parsed, `.claude/${relHook}`, errors);
+            validateClaudeHooksSchema(parsed, `.claude/${relHook}`, errors, dataRoot);
           } catch (error) {
             errors.push(`.claude/${relHook}: ${error.message}`);
           }
@@ -298,7 +308,7 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
       if (fs.existsSync(hookCandidate)) {
         try {
           const hooks = JSON.parse(fs.readFileSync(hookCandidate, 'utf8').replace(/^\uFEFF/, ''));
-          validateClaudeHooksSchema(hooks, hookName, errors);
+          validateClaudeHooksSchema(hooks, hookName, errors, dataRoot);
         } catch (error) {
           errors.push(`${hookName}: ${error.message}`);
         }

@@ -3,8 +3,8 @@ name: spec-miner
 description: "Extracts behavioral specs from existing codebases for OpenSpec. Produces flat Requirement and Invariant blocks with structured metadata (entities, enforced, id, test anchors). Outputs openspec/specs/<capability>/spec.md. Use when onboarding a brownfield project to spec-driven development."
 tier: brain
 model_tier: reasoning
-reasoning_effort: max
-target_model: "6.1-sol-max"
+reasoning_effort: high
+target_model: "gpt-6.2-sol (high/xhigh)"
 tools:
   - read_file
   - grep_search

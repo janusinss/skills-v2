@@ -9,7 +9,7 @@ Apply whenever running `/swarm`, choosing between single-session `Orchestrator` 
 
 ## 1. Edition Scope & `Orchestrator` vs `/swarm`
 
-- **AGY-Only**: `/swarm` is restricted to AGY (Antigravity / Gemini). Exclude `.agents/rules/swarm.md` from **CLAUDE** (`tools/claude/lib.mjs`) and **CODEX** (`tools/codex/lib.mjs`) via `isBundleExcluded`.
+- **AGY-Only**: This AGY Gemini-pool rule file is excluded from verbatim conversion in `tools/claude/lib.mjs` and `tools/codex/lib.mjs` (`isBundleExcluded`) because Claude Code (`.claude/rules/swarm.md`) and Codex (`.codex/rules/swarm.md`) ship their own edition-native swarm rules.
 - **Single-Session Outside `/swarm`**: Prefer `Orchestrator (Carbon)` (`gemini-pro-orchestrator`), fallback `Orchestrator (Neon)` (`gemini-pro-orchestrator-neon`).
   - Carbon/Neon plans and reviews while `Gemini 4 Hydrogen` runs routine edits and commands, saving unified `Gemini Models` (`5h` + `Weekly`) quota.
 - **No `Orchestrator (*)` Inside `/swarm`**: Cross-turn swaps break coordinator prompt-cache continuity. Run `/swarm` coordinators on standalone `gemini-4-carbon-high`, `gemini-4-neon-xhigh`, or user-selected `gemini-4-hydrogen-xhigh`.

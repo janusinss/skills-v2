@@ -4,7 +4,7 @@ description: "Fast Reflex-tier reconnaissance subagent for rapid file discovery,
 tools: Read, Grep, Glob
 tier: reflex
 model: haiku
-effort: medium
+effort: high
 ---
 
 ## Prompt Defense Baseline

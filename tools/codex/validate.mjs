@@ -198,20 +198,75 @@ export function validateBundle(root = bundleRoot, { checkSource = false, checkMa
   }
   const agentsDir = path.join(dataRoot, 'agents');
   if (fs.existsSync(agentsDir)) {
-    for (const agentFile of filesIn(agentsDir).filter(file => file.endsWith('.md'))) {
+    const mdAgents = filesIn(agentsDir).filter(file => file.endsWith('.md'));
+    const tomlAgents = filesIn(agentsDir).filter(file => file.endsWith('.toml'));
+    const validEfforts = new Set(['low', 'medium', 'high', 'xhigh', 'max']);
+    const validSandboxes = new Set(['read-only', 'workspace-write', 'danger-full-access']);
+    const forbiddenModels = new Set(['haiku', 'sonnet', 'opus']);
+    const tomlLeakChecks = [
+      { pattern: /\binvoke_subagent\b/, message: 'leaks AGY invoke_subagent' },
+      { pattern: /`ask_question`/, message: 'leaks AGY `ask_question` tool name' },
+      { pattern: /`@e2e-runner`/, message: 'leaks Claude `@e2e-runner` mention' },
+    ];
+    for (const agentFile of mdAgents) {
       const rel = slash(path.relative(root, agentFile));
       try {
         const raw = fs.readFileSync(agentFile, 'utf8');
         const { frontmatter, body } = parseSkill(raw, agentFile);
         if (!['mini', 'codex', 'reasoning'].includes(frontmatter.model_tier)) errors.push(`${rel}: missing or invalid Codex model_tier`);
-        if (!['low', 'medium', 'high', 'xhigh', 'max'].includes(frontmatter.reasoning_effort)) errors.push(`${rel}: missing or invalid Codex reasoning_effort`);
-        if (['haiku', 'sonnet', 'opus'].includes(frontmatter.model)) errors.push(`${rel}: Codex agent must not use Claude model name ${frontmatter.model}`);
+        if (!validEfforts.has(frontmatter.reasoning_effort)) errors.push(`${rel}: missing or invalid Codex reasoning_effort`);
+        if (forbiddenModels.has(frontmatter.model)) errors.push(`${rel}: Codex agent must not use Claude model name ${frontmatter.model}`);
         checkLeaks(raw, rel, agentLeakChecks, errors);
         for (const target of missingLinks(body, agentFile, dataRoot)) {
           if (partialProfile && /^(?:\.\.\/|\.codex\/|\.agents\/)?skills\//.test(target)) warnings.push(`${rel}: out-of-profile skill link ${target}`);
           else errors.push(`${rel}: missing agent link ${target}`);
         }
+        const expectedToml = path.join(path.dirname(agentFile), `${path.basename(agentFile, '.md')}.toml`);
+        if (!fs.existsSync(expectedToml)) errors.push(`${rel}: missing paired Codex role file ${path.basename(expectedToml)}`);
       } catch (error) { errors.push(`${rel}: ${error.message}`); }
+    }
+    for (const tomlFile of tomlAgents) {
+      const rel = slash(path.relative(root, tomlFile));
+      try {
+        const raw = fs.readFileSync(tomlFile, 'utf8').replace(/\r\n/g, '\n');
+        const expectedName = path.basename(tomlFile, '.toml');
+        const nameMatch = /^name\s*=\s*"([^"]+)"\s*$/m.exec(raw);
+        const descMatch = /^description\s*=\s*"((?:[^"\\]|\\.)+)"\s*$/m.exec(raw);
+        const modelMatch = /^model\s*=\s*"([^"]+)"\s*$/m.exec(raw);
+        const effortMatch = /^model_reasoning_effort\s*=\s*"([^"]+)"\s*$/m.exec(raw);
+        const sandboxMatch = /^sandbox_mode\s*=\s*"([^"]+)"\s*$/m.exec(raw);
+        const instructionsMatch = /^developer_instructions\s*=\s*"""\n([\s\S]+?)\n"""\s*$/m.exec(raw);
+        if (!nameMatch) errors.push(`${rel}: missing required field name`);
+        else if (nameMatch[1] !== expectedName) errors.push(`${rel}: name ${JSON.stringify(nameMatch[1])} does not match filename ${expectedName}`);
+        if (!descMatch || !descMatch[1].trim()) errors.push(`${rel}: missing required field description`);
+        if (!modelMatch || !modelMatch[1].trim()) errors.push(`${rel}: missing required field model`);
+        else if (forbiddenModels.has(modelMatch[1].toLowerCase())) errors.push(`${rel}: Codex agent TOML must not use Claude model name ${modelMatch[1]}`);
+        if (!effortMatch || !validEfforts.has(effortMatch[1])) errors.push(`${rel}: missing or invalid model_reasoning_effort`);
+        if (!sandboxMatch || !validSandboxes.has(sandboxMatch[1])) errors.push(`${rel}: missing or invalid sandbox_mode`);
+        if (!instructionsMatch || !instructionsMatch[1].trim()) errors.push(`${rel}: missing or malformed developer_instructions`);
+        checkLeaks(raw, rel, tomlLeakChecks, errors);
+      } catch (error) { errors.push(`${rel}: ${error.message}`); }
+    }
+  }
+  const configExampleCandidates = [path.join(root, 'config.example.toml'), path.join(dataRoot, 'config.example.toml')];
+  const configExamplePath = configExampleCandidates.find(candidate => fs.existsSync(candidate));
+  if (!configExamplePath) {
+    errors.push('Missing config.example.toml');
+  } else {
+    const configExampleText = fs.readFileSync(configExamplePath, 'utf8');
+    if (!/^\s*\[features\.multi_agent_v2\]\s*(?:#.*)?$/m.test(configExampleText)) {
+      errors.push(`${slash(path.relative(root, configExamplePath))}: missing [features.multi_agent_v2] section`);
+    }
+  }
+  if (installed) {
+    const targetConfigPath = path.join(dataRoot, 'config.toml');
+    if (!fs.existsSync(targetConfigPath)) {
+      errors.push('Missing installed .codex/config.toml');
+    } else {
+      const targetConfigText = fs.readFileSync(targetConfigPath, 'utf8');
+      if (!/^\s*\[features\.multi_agent_v2\]\s*(?:#.*)?$/m.test(targetConfigText)) {
+        errors.push('.codex/config.toml: missing [features.multi_agent_v2] section');
+      }
     }
   }
   for (const hookName of ['hooks.example.json', 'hooks.impeccable.example.json']) {

@@ -41,6 +41,7 @@ Read and apply the matching workspace rule before selecting generic skills:
 | Application Security & Defense | [.codex/rules/security.md](.codex/rules/security.md) |
 | Penetration Testing & Critical QA | [.codex/rules/penetrating-and-testing.md](.codex/rules/penetrating-and-testing.md) |
 | Learned Invariants & Guardrails | [.codex/rules/learned-invariants.md](.codex/rules/learned-invariants.md) |
+| Parallel Multi-Agent / Swarm | [.codex/rules/swarm.md](.codex/rules/swarm.md) |
 
 ---
 
@@ -56,13 +57,15 @@ Follow [UI_Always.md](.codex/rules/UI_Always.md#7-browser-verification-policy) f
 
 ## 4. Subagents & 3-Tier Cognitive Routing
 
-- **Invocation**: Read and apply `.codex/agents/<agent>.md` (`model_tier` + `reasoning_effort` frontmatter).
+- **Invocation & Multi-Agent V2 (`$swarm`)**: Configure `[features.multi_agent_v2]` in `.codex/config.toml` and spawn specialists from `.codex/agents/<role>.toml` with `fork_turns: "none"` and native parent `wait` (`default_wait_timeout_ms = 30000`, no polling worker). Follow [.codex/rules/swarm.md](.codex/rules/swarm.md) and `$swarm` for parallel execution.
+- **Coordinator**: Preserve user-selected `gpt-6.2-astra` (`xhigh`/`max`) or `gpt-6.2-sol` (`xhigh`/`max`) in UI/config; never auto-escalate.
 
-| Tier | GPT / Codex Routing | Agents ([.codex/agents/](.codex/agents/)) |
+| Rung / Tier | GPT / Codex Routing | Agents ([.codex/agents/](.codex/agents/)) |
 | :--- | :--- | :--- |
-| `reflex` | `6.1 Terra` (`medium`) (`model_tier: mini`, `reasoning_effort: medium`) | `explorer` (fast read-only recon; never plans or edits) |
-| `builder` | `6.1 Sol` (`medium`/`high`) or `6.1 Terra` (`high`/`xhigh`/`max`) (`model_tier: codex`, `reasoning_effort: high`) | `tdd-guide`, `e2e-runner`, `code-simplifier`, `refactor-cleaner`, `performance-optimizer`, `penetration-tester`, `build-error-resolver`, `{react,go,rust,django,cpp,pytorch}-build-resolver` |
-| `brain` *(read-only auditors/reviewers)* | `6.1 Sol` (`max`) (`model_tier: reasoning`, `reasoning_effort: max`) | `planner`, `architect`, `code-architect`, `a11y-architect`, `spec-miner`, `code-reviewer`, `{typescript,react,vue,go,rust,php,fastapi,database}-reviewer`, `silent-failure-hunter`, `security-auditor`, `agent-evaluator` |
+| **Rung 1** (`brain` architects/planners) | `gpt-6.2-sol` (`high`; `xhigh` for complex multi-module architecture), `read-only` (`model_tier: reasoning`) | `a11y-architect`, `architect`, `code-architect`, `planner`, `spec-miner` |
+| **Rung 2** (`brain` reviewers/security + complex `builder`) | `gpt-6.2-sol` (`high`): `read-only` reviewers (`model_tier: reasoning`), `workspace-write` builders (`model_tier: codex`) | Read-only: `code-reviewer`, `{typescript,react,vue,go,rust,php,fastapi,database}-reviewer`, `silent-failure-hunter`, `security-auditor`, `agent-evaluator`; Writable: `tdd-guide`, `performance-optimizer`, `penetration-tester` |
+| **Rung 3** (routine `builder` & build resolvers) | `gpt-6.2-sol` (`medium`), `workspace-write` (`model_tier: codex`) | `code-simplifier`, `refactor-cleaner`, `e2e-runner`, `build-error-resolver`, `{react,go,rust,django,cpp,pytorch}-build-resolver` |
+| **Rung 4** (`reflex` explorer/recon) | `gpt-6.2-sol` (`medium`), `read-only` (`model_tier: mini`) | `explorer` (fast read-only recon; never plans or edits) |
 
 - **Mandatory Lifecycle Triggers**:
   1. Multi-file discovery (`>= 3` files) -> `explorer`

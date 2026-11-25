@@ -20,6 +20,15 @@ import {
 import { convertSkill, convertAgent, adaptMarkdown, generateClaudeMd, formatDesignerPolicy, adaptPlaywrightRunner } from './convert.mjs';
 
 const customCommands = {
+  'swarm.md': `---
+description: Coordinate parallel Agent subagents with disjoint file ownership, worktree isolation, and 4-rung model routing
+---
+Follow [.claude/rules/swarm.md](.claude/rules/swarm.md) to orchestrate parallel \`Agent\` subagents for: $ARGUMENTS.
+1. Preserve the user's UI coordinator effort (\`opus\` \`xhigh\` or \`max\`; never auto-escalate \`xhigh\` to \`max\`).
+2. Decompose the task into disjoint file-ownership slices and launch parallel writers with \`isolation: "worktree"\` (read-only scouts and reviewers run without worktree isolation).
+3. Route specialists by the 4-rung table (\`Rung 1: opus high\`, \`Rung 2: sonnet high\` or \`opus high\` for \`@security-auditor\` / \`@skeptic\` / Strike-2, \`Rung 3: opus medium\`, \`Rung 4: haiku high\`).
+4. Rely on the native \`SubagentStop\` hook (\`node .claude/scripts/swarm-subagent-guard.cjs\`) for completion reporting, integrate completed worktree changes, and run verification before finishing.
+`,
   'plan.md': `---
 description: Deconstruct a feature or refactoring task into atomic steps using @planner
 ---
@@ -122,6 +131,22 @@ function adaptHooksForClaude(hooksMap = {}, excludedSubstrings = []) {
   return filtered;
 }
 
+function injectSubagentStopHook(hooksMap = {}) {
+  const existing = Array.isArray(hooksMap.SubagentStop) ? [...hooksMap.SubagentStop] : [];
+  existing.push({
+    matcher: '',
+    hooks: [
+      {
+        type: 'command',
+        command: 'node .claude/scripts/swarm-subagent-guard.cjs',
+        timeout: 10,
+        statusMessage: 'Validating subagent completion report'
+      }
+    ]
+  });
+  return { ...hooksMap, SubagentStop: existing };
+}
+
 export function buildClaudeBundle() {
   assertNoSymlinkAncestors(bundleRoot);
   const before = snapshotSource();
@@ -210,6 +235,16 @@ export function buildClaudeBundle() {
     add(`commands/${cmdFile}`, cmdContent, null);
   }
 
+  // 2b. Emit Claude-specific swarm rule and SubagentStop closure guard script
+  const swarmRuleSource = path.join(templates, 'rules/swarm.md');
+  if (fs.existsSync(swarmRuleSource)) {
+    add('rules/swarm.md', adaptMarkdown(fs.readFileSync(swarmRuleSource, 'utf8'), path.join(sourceRoot, 'rules/swarm.md')), swarmRuleSource);
+  }
+  const swarmGuardSource = path.join(templates, 'scripts/swarm-subagent-guard.cjs');
+  if (fs.existsSync(swarmGuardSource)) {
+    add('scripts/swarm-subagent-guard.cjs', fs.readFileSync(swarmGuardSource), swarmGuardSource);
+  }
+
   // 3. Add profiles.json and project.gitignore
   const profilesSource = path.join(path.dirname(fileURLToPath(import.meta.url)), 'profiles.json');
   if (fs.existsSync(profilesSource)) {
@@ -227,7 +262,7 @@ export function buildClaudeBundle() {
       json({
         description: 'Optional harness and Impeccable hooks. Install at .claude/hooks.json in a trusted target project and review them in Claude Code before use.',
         ...hooks,
-        hooks: adaptHooksForClaude(hooks.hooks, ['swarm-stop-guard'])
+        hooks: injectSubagentStopHook(adaptHooksForClaude(hooks.hooks, ['swarm-stop-guard']))
       }),
       hooksSource
     );
@@ -236,7 +271,7 @@ export function buildClaudeBundle() {
       json({
         description: 'Optional Impeccable hooks (Designer mode, without Harness hooks). Install at .claude/hooks.json in a trusted target project and review them in Claude Code before use.',
         ...hooks,
-        hooks: adaptHooksForClaude(hooks.hooks, ['harness.mjs', 'swarm-stop-guard'])
+        hooks: injectSubagentStopHook(adaptHooksForClaude(hooks.hooks, ['harness.mjs', 'swarm-stop-guard']))
       }),
       hooksSource
     );
@@ -280,7 +315,7 @@ export function buildClaudeBundle() {
       discoverableSkills,
       duplicatesPreservedAsReferences: duplicates.size,
       discoverableAgents,
-      rules: filesIn(path.join(sourceRoot, 'rules')).filter(f => f.endsWith('.md') && !isBundleExcluded(slash(path.relative(sourceRoot, f)))).length,
+      rules: [...outputs.keys()].filter(k => k.startsWith('rules/') && k.endsWith('.md')).length,
       customCommands: Object.keys(customCommands).length,
       generatedFiles: outputs.size
     },

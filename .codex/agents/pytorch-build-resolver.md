@@ -3,8 +3,8 @@ name: pytorch-build-resolver
 description: "PyTorch runtime, CUDA, and training error resolution specialist. Fixes tensor shape mismatches, device errors, gradient issues, DataLoader problems, and mixed precision failures with minimal changes. Use when PyTorch training or inference crashes."
 tier: builder
 model_tier: codex
-reasoning_effort: high
-target_model: "6.1-sol-medium/high | 6.1-terra-high/xhigh/max"
+reasoning_effort: medium
+target_model: "gpt-6.2-sol (medium)"
 tools:
   - read_file
   - grep_search

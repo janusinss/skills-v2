@@ -6,7 +6,7 @@
 Apply when building or auditing routing, server configs, auth, APIs, data boundaries, uploads, or headers. For dynamic pentesting and Strix runs, see [penetrating-and-testing.md](penetrating-and-testing.md).
 
 ## 1. Security Skill Dispatch Matrix
-Inspect only the 1-2 skills matching the active surface via `read_file`:
+Inspect only the 1-2 skills matching the active surface using the file-reading tool:
 
 | Surface | Skill / Agent |
 | :--- | :--- |

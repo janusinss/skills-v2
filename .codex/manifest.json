@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-10-01",
   "originalSnapshot": {
-    "digest": "510acbbed1416c8aad8a178728cf9e915683b0190ddffa5177d1e2f050acccb2",
+    "digest": "4c30bc46f0017a784479da68badb5e69ad099181696b643c8e76769ad25c5c11",
     "files": {
       ".agents/agents/a11y-architect.md": "944a665705954fc9a05e3a97907500e3ee57de8d72ebb81de961c866a3eb03ae",
       ".agents/agents/agent-evaluator.md": "a868cea4487b3252c87f9a1262cb13c667510337ae8d45d33a2479b7d80c1d33",
@@ -337,13 +337,13 @@
       ".agents/rules/UI_Always.md": "fb485b29a6430b69b4f1c4c894dd87ae37ffb528229c5bcacfcd818e00e0acf5",
       ".agents/rules/backend.md": "59d2c8ad34ffb9d2eb76cbe4ada3689b0308019bcc1c3cf495ea3ba9fcc23819",
       ".agents/rules/frontend.md": "f89145a353041899bb451c1f07295d31c37f615d3ceb6bc195fc504379c06680",
-      ".agents/rules/install.md": "034936650abf4613abf34f42844022346a10efc6817f44dfe4c52a9e89ae3f3f",
+      ".agents/rules/install.md": "4c9f9640ea33feea125e43448dbd932690275d6a9c634d1923bc38d523860565",
       ".agents/rules/learned-invariants.md": "a6cee79e2692f6962bf3887ee073412424e766fcb20b95351fd739e6b4b81551",
-      ".agents/rules/penetrating-and-testing.md": "3757059d51925ad3549ec097e216a77513c0c77b34f8269cdfbf967244b95e8a",
+      ".agents/rules/penetrating-and-testing.md": "946bad82053f981e18af528db48321a5e788f036c9b2342e4d2d8dbcc905506b",
       ".agents/rules/security.md": "1a0e99d17acb5f5434a3b9f189f5c293e22bd51f68f35b68c980c4435cd1203f",
-      ".agents/rules/starting-brandnew.md": "48aa052d52d113a365632c6a57cd59a7d98239340131eb28fc6a8522104f44e1",
-      ".agents/rules/starting-existing.md": "54505586a1e7ec4c268003501b76acfd5e142f8c0f9ab5f784afd9a97bd6beae",
-      ".agents/rules/swarm.md": "cf9b7af3924abc11627fe948500701aac4e678ad5fb311278de93fb65945f299",
+      ".agents/rules/starting-brandnew.md": "663fb9650417550eb6f3bc11b2c294bc7acebb89ca0d67a143d8dd5bc5dc4e9b",
+      ".agents/rules/starting-existing.md": "47af33dc9034788af71039f77d608557983c63b2a3fe7686b892cf3bc0e3fa22",
+      ".agents/rules/swarm.md": "bfa545626a79d712d9ae29b25495b60956b5dea5b31a9d0ddf6573e3cafc720d",
       ".agents/scripts/swarm-stop-guard.cjs": "862b089079ce3077f616201cf9d0687c94d1f76797947029304009e0ffd86061",
       ".agents/skills/3d-web-experience/SKILL.md": "ccdf216cc836ed8e339f8bafb78001d1deb6bb3a2d9a5beb705407fdd8300d10",
       ".agents/skills/agent-browser/SKILL.md": "6690c34e8fa0b872096d4b0e1de7106108eb45be2b231cbd90536648523466c2",
@@ -3611,17 +3611,17 @@
       ".agents/skills/untangle-codebase/LICENSE": "cbe11503c54a6eeecf65772e66fbbca7a37750bff9812c742b11dca47ceb539c",
       ".agents/skills/untangle-codebase/SKILL.md": "eace3de7a56a4acb964a132917d52a78719f74ddd2e2cb19f6701f8ca8832569",
       ".gitignore": "d3c49db2599c7418e4f5c0edb62d7f994bedc6d39c0307d4b4e1546fc761c006",
-      "AGENTS.md": "0a6f0e010aa8cc401c17ccef9fc54d118b177f4652a139c905b0a9bc4e6da60c",
+      "AGENTS.md": "d890774b4e39cbf0862a6fe4bd060fd9d13b59c44daf00a991170fd074a3d407",
       "skills-lock.json": "7d488ac96b3de3bf1f1fd76a55bf3c4813866e75265597c9cf0786622ae19708"
     }
   },
   "originalPreserved": true,
   "summary": {
-    "topLevelSkills": 74,
-    "discoverableSkills": 80,
+    "topLevelSkills": 75,
+    "discoverableSkills": 81,
     "duplicatesPreservedAsReferences": 2,
-    "rules": 10,
-    "generatedFiles": 3232
+    "rules": 11,
+    "generatedFiles": 3268
   },
   "duplicateReferences": {
     "skills/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "skills/avoid-ai-writing/skills/avoid-ai-writing/REFERENCE.md",
@@ -3631,162 +3631,322 @@
     "agents/a11y-architect.md": {
       "source": ".agents/agents/a11y-architect.md",
       "sourceHash": "944a665705954fc9a05e3a97907500e3ee57de8d72ebb81de961c866a3eb03ae",
-      "outputHash": "7b39f421bede0d08070e70c4f9cc46984bb1c612fb904203a8aa3e83edc19c65"
+      "outputHash": "4e82f0ed8241090cd814ed5f4298d1ee0bb4573ce2ae1e6d12d3fa2978effef4"
+    },
+    "agents/a11y-architect.toml": {
+      "source": ".agents/agents/a11y-architect.md",
+      "sourceHash": "944a665705954fc9a05e3a97907500e3ee57de8d72ebb81de961c866a3eb03ae",
+      "outputHash": "723e4f4d274a5481677a9b341806e6832949387d4aedebf82a8fb507b093fbf9"
     },
     "agents/agent-evaluator.md": {
       "source": ".agents/agents/agent-evaluator.md",
       "sourceHash": "a868cea4487b3252c87f9a1262cb13c667510337ae8d45d33a2479b7d80c1d33",
-      "outputHash": "d321c3e8f5ce7241fad7b43ef3ab92d8ef42914ce9b2a12652096d19d673eab6"
+      "outputHash": "05dee6961c9d03126d2b76b2b935ff6ab555a2c1c894eace68b1dbc511dade72"
+    },
+    "agents/agent-evaluator.toml": {
+      "source": ".agents/agents/agent-evaluator.md",
+      "sourceHash": "a868cea4487b3252c87f9a1262cb13c667510337ae8d45d33a2479b7d80c1d33",
+      "outputHash": "3ff95b314eb8084d501dcaf60b946eb92653b424d79b6a21e6fd19b1e13aab61"
     },
     "agents/architect.md": {
       "source": ".agents/agents/architect.md",
       "sourceHash": "2ff199c920ccdfe93bb3006bf5619a1d9cef67e71180026991247bcc902f74f4",
-      "outputHash": "403f7d0fc6133d54eb06a3772de93ef73aa5ba60a24338fce5be73a19e46437d"
+      "outputHash": "520cee3e7ec7787b4b05f100b66836fc8f46e101a41d2105098230c81f9c451a"
+    },
+    "agents/architect.toml": {
+      "source": ".agents/agents/architect.md",
+      "sourceHash": "2ff199c920ccdfe93bb3006bf5619a1d9cef67e71180026991247bcc902f74f4",
+      "outputHash": "0510782480077dcc590b108d0c28e429547bc6a8b41fa626d4d9ff6f618b7d7e"
     },
     "agents/build-error-resolver.md": {
       "source": ".agents/agents/build-error-resolver.md",
       "sourceHash": "9268ffd9694a564ea955df6b0d1d96e21cc10490a320ff5cedc4074b88e180d8",
-      "outputHash": "9356f1376de70e596b26abfe22ba518bc88f411ceb7010c6838ed95d197b85ce"
+      "outputHash": "e348c2d2da2d3fbbbaad7561d347b8e5e22d8b67b55e6cb173b01201a7f4bfbc"
+    },
+    "agents/build-error-resolver.toml": {
+      "source": ".agents/agents/build-error-resolver.md",
+      "sourceHash": "9268ffd9694a564ea955df6b0d1d96e21cc10490a320ff5cedc4074b88e180d8",
+      "outputHash": "1204f8caa31fef322364047b9e34ad9536dacdfd82f3aec64879149fbad9ff93"
     },
     "agents/code-architect.md": {
       "source": ".agents/agents/code-architect.md",
       "sourceHash": "2e5ae2d4cdddf9e6262dcb87c7548c6bc75772f746dcf61b8c99522e894f5577",
-      "outputHash": "1e6491c0f065c9de77fd57fea6799411c5758ff62d2292244667d556dae8d56e"
+      "outputHash": "a284a97e2a077050fa02326feb38250fb239cb2b5ab79eec5e83fe8bd6390c8c"
+    },
+    "agents/code-architect.toml": {
+      "source": ".agents/agents/code-architect.md",
+      "sourceHash": "2e5ae2d4cdddf9e6262dcb87c7548c6bc75772f746dcf61b8c99522e894f5577",
+      "outputHash": "d70afedd0609c00e16e3f410335b0022fd1fdbaee594df240a42676e8f3f1c0f"
     },
     "agents/code-reviewer.md": {
       "source": ".agents/agents/code-reviewer.md",
       "sourceHash": "5b49fc40723033c01c430406c4b0b4bd09365f60230ecfe9af3c193340ad464e",
-      "outputHash": "d1fe081e1a0350efb03dff69ec830aa223f36facc8d617e8eb25f820e321be1c"
+      "outputHash": "fe3a93782beae312f7c50ea14dc5ba244816395de95202fcfe298227c239d81f"
+    },
+    "agents/code-reviewer.toml": {
+      "source": ".agents/agents/code-reviewer.md",
+      "sourceHash": "5b49fc40723033c01c430406c4b0b4bd09365f60230ecfe9af3c193340ad464e",
+      "outputHash": "a79e097d44724b088bfcb21d6d4011ef006a84fb624affbf95ec5c10bf30a287"
     },
     "agents/code-simplifier.md": {
       "source": ".agents/agents/code-simplifier.md",
       "sourceHash": "cacb8fe34cd77d6aa13c21e57ee8706729159b0db53ee20e82835b9073aa4fd2",
-      "outputHash": "e2bbaa1078dbbccdcc624af38aed7e1578952f0d7b9386d34ce0decd65a750ac"
+      "outputHash": "08105a25d30d11f3fb4a42daa9cfc141356f7c8814fa30c6c3224da8a26cbeb8"
+    },
+    "agents/code-simplifier.toml": {
+      "source": ".agents/agents/code-simplifier.md",
+      "sourceHash": "cacb8fe34cd77d6aa13c21e57ee8706729159b0db53ee20e82835b9073aa4fd2",
+      "outputHash": "cc7e94eafe301154cd3cd2841e8e2a37af83e86021766c6ad7d7ef57abc2841e"
     },
     "agents/cpp-build-resolver.md": {
       "source": ".agents/agents/cpp-build-resolver.md",
       "sourceHash": "7593157cb835ee50cfb2d2f0563def3f45476f016c25f3f5b342d3c95824a4cd",
-      "outputHash": "bb4afd05949a8d98abc8a8ab9dd386f3e4b0510331717950eefca244b2419f03"
+      "outputHash": "b223c0658f72a7170859a19352d1534daa3481bc7e7a4534dcf032dae0be65fc"
+    },
+    "agents/cpp-build-resolver.toml": {
+      "source": ".agents/agents/cpp-build-resolver.md",
+      "sourceHash": "7593157cb835ee50cfb2d2f0563def3f45476f016c25f3f5b342d3c95824a4cd",
+      "outputHash": "3020a57eff06d352c44c00a4954b533632ad5406223b0e63df8483d855a9046c"
     },
     "agents/database-reviewer.md": {
       "source": ".agents/agents/database-reviewer.md",
       "sourceHash": "79faaacbbcf2818a2a033c2d85739008ad56913ebee7fc05755300a1a456c20d",
-      "outputHash": "3663f1ef3402f551bbd4120a81ba4f1ea9c6c574671939636804d15bee1e0505"
+      "outputHash": "f1fc5972fb440ffdcfd9e5811aeb3bd12e25171157fbe4fe243f639fdd923c2c"
+    },
+    "agents/database-reviewer.toml": {
+      "source": ".agents/agents/database-reviewer.md",
+      "sourceHash": "79faaacbbcf2818a2a033c2d85739008ad56913ebee7fc05755300a1a456c20d",
+      "outputHash": "2527b0ff455ec3324a463b13eba17391e3d6291cd23270e270f187b2efe8ea62"
     },
     "agents/django-build-resolver.md": {
       "source": ".agents/agents/django-build-resolver.md",
       "sourceHash": "4a0161d7f2cad7141358ca5718a4a73180eddfc279b43560f1961d45ce0a6c8a",
-      "outputHash": "de06e5fc3e1a448be315d9a7f8b4d6390cd502fae9902d660257be4c1d0e2c8f"
+      "outputHash": "98366da52573eba2e1786fdea63044a412063acbec210266737fcd8d6710a352"
+    },
+    "agents/django-build-resolver.toml": {
+      "source": ".agents/agents/django-build-resolver.md",
+      "sourceHash": "4a0161d7f2cad7141358ca5718a4a73180eddfc279b43560f1961d45ce0a6c8a",
+      "outputHash": "67d756c6cb5a47a8b12b3f023e52dedc2e3f8d086f1476775d90ef19eb69fe6e"
     },
     "agents/e2e-runner.md": {
       "source": ".agents/agents/e2e-runner.md",
       "sourceHash": "706860efb5463872d1fbed4b55cf701a1cdea054104b9adb09b1417aadcc2df4",
-      "outputHash": "22b5d8ee9ab0977f78323686c260e79437591dcb9624c7551b7f347476e74bad"
+      "outputHash": "21abd3de75240eb159166932faa0126bd833dd1966c7baed6ba8f2d4f84e22c1"
+    },
+    "agents/e2e-runner.toml": {
+      "source": ".agents/agents/e2e-runner.md",
+      "sourceHash": "706860efb5463872d1fbed4b55cf701a1cdea054104b9adb09b1417aadcc2df4",
+      "outputHash": "337fe9d933bc7b02b1398968ceb6f5f13b6a85b2c1bf9d82a9394b384f331f12"
     },
     "agents/explorer.md": {
       "source": ".agents/agents/explorer.md",
       "sourceHash": "1323bc7dc2d64a92385df2e86cc2be39f979c023fccc701007231de8df146e5a",
-      "outputHash": "2e8c0cfc5faef887ec90f45133ab4a98829cb4ea223e9de470bda41047e2916d"
+      "outputHash": "6f99ded0580c0657deb17fa8681eabaa39f002f5d0e231463bf90e4f46acc15b"
+    },
+    "agents/explorer.toml": {
+      "source": ".agents/agents/explorer.md",
+      "sourceHash": "1323bc7dc2d64a92385df2e86cc2be39f979c023fccc701007231de8df146e5a",
+      "outputHash": "203d84f6c6862eb4f7662e83f1b1bf718ef7bf9749b96b0f5e4349a6b2373d30"
     },
     "agents/fastapi-reviewer.md": {
       "source": ".agents/agents/fastapi-reviewer.md",
       "sourceHash": "7e47bbf405dcba3d8f093f50f83163d1a974c15e5b74087df9f093ec996c2d6d",
-      "outputHash": "c7316991806d23d75d7be2e8b5d2c8a900093a3f8a0020344d4ef537e56bc55f"
+      "outputHash": "e70362375615aa2aa9426e17dd50c22886e2d6d456b09cc8238347e7128bb7f7"
+    },
+    "agents/fastapi-reviewer.toml": {
+      "source": ".agents/agents/fastapi-reviewer.md",
+      "sourceHash": "7e47bbf405dcba3d8f093f50f83163d1a974c15e5b74087df9f093ec996c2d6d",
+      "outputHash": "f1db5053b4b9e022973f5da7fa8f10f11d219f07d965f1a129de5b15c2eeca60"
     },
     "agents/go-build-resolver.md": {
       "source": ".agents/agents/go-build-resolver.md",
       "sourceHash": "07be8d86aa7984c518a2905863f8ead1074d6847e718e070ad87301f56e06323",
-      "outputHash": "1bb186144dbd9b074dd2a0ff9fd165349f5a246e8f414ad8ef66b6f12f6dedb1"
+      "outputHash": "163d4ae670f6fe021dc31778ec082edd8c309fd48f3f857491deff2143cd47a0"
+    },
+    "agents/go-build-resolver.toml": {
+      "source": ".agents/agents/go-build-resolver.md",
+      "sourceHash": "07be8d86aa7984c518a2905863f8ead1074d6847e718e070ad87301f56e06323",
+      "outputHash": "08d018bc13ff19630807845e9f7c451ad11b00cc7eec21dd732c76e432bf2b19"
     },
     "agents/go-reviewer.md": {
       "source": ".agents/agents/go-reviewer.md",
       "sourceHash": "5ee2b1811a0e3ab04466f630207d3ddb4a5910fca6d270745363a3321af249d0",
-      "outputHash": "92f60132a995a6ab54427a2c79bd92355f143301afc55a7e30535eee3c2eb72c"
+      "outputHash": "6cfaf676f67663dfb1249410f39190650dd46d21ca11e31cf9d82c5c7e3c0961"
+    },
+    "agents/go-reviewer.toml": {
+      "source": ".agents/agents/go-reviewer.md",
+      "sourceHash": "5ee2b1811a0e3ab04466f630207d3ddb4a5910fca6d270745363a3321af249d0",
+      "outputHash": "3031e0d534e23c30502a373300113354ea7d316c13f5040f89ab8909fd870222"
     },
     "agents/penetration-tester.md": {
       "source": ".agents/agents/penetration-tester.md",
       "sourceHash": "ed21791ff9dc55d06c10328d0e6a11a6a2f9ea0ccff06f98fdf880923008469f",
-      "outputHash": "915ed4974c12f4a8ac99a5ae7763de67a068b3ed6b5d57dd3478a582e3d5e743"
+      "outputHash": "19d5ef0024e9189064e062e74b8225dff1c69f6bbf8d234af8ca2abe79bfb151"
+    },
+    "agents/penetration-tester.toml": {
+      "source": ".agents/agents/penetration-tester.md",
+      "sourceHash": "ed21791ff9dc55d06c10328d0e6a11a6a2f9ea0ccff06f98fdf880923008469f",
+      "outputHash": "1020a8ee0aaac7e7664e17863ada09d19cc02311afa6d5e889471e251394d149"
     },
     "agents/performance-optimizer.md": {
       "source": ".agents/agents/performance-optimizer.md",
       "sourceHash": "b7273da1884bf2768e48fc687b8bdad8dda260663a236d0213abb7123ebf67a0",
-      "outputHash": "83db6e718de1602a68716d97ef40d52c472f06ed984f83686eae4999d9f9af17"
+      "outputHash": "85636f3196b0461ff99a52a56fbac2bc3202366ff53096d984b999e4a0cbef08"
+    },
+    "agents/performance-optimizer.toml": {
+      "source": ".agents/agents/performance-optimizer.md",
+      "sourceHash": "b7273da1884bf2768e48fc687b8bdad8dda260663a236d0213abb7123ebf67a0",
+      "outputHash": "57bdce511885275dd7d6d9edecdece2427b949362e110d832f7b1f102737f6bc"
     },
     "agents/php-reviewer.md": {
       "source": ".agents/agents/php-reviewer.md",
       "sourceHash": "8fbddd78f63ce3396e462f84103b7ae9f8d0b4fcc94de9dadb898a8779b8a7c4",
-      "outputHash": "31778272bc5a62aceab3c57d4383765ebc3db2a433a2c896293de184294f3ddb"
+      "outputHash": "eb1c225957021d427a30d3e0a92fedd2fb4c98f78d79dfadb8b9979d87759c44"
+    },
+    "agents/php-reviewer.toml": {
+      "source": ".agents/agents/php-reviewer.md",
+      "sourceHash": "8fbddd78f63ce3396e462f84103b7ae9f8d0b4fcc94de9dadb898a8779b8a7c4",
+      "outputHash": "8f09c833776e04a060a5558c80e2a26cfd4ae3776e47d16b24f0e5631a77d6c2"
     },
     "agents/planner.md": {
       "source": ".agents/agents/planner.md",
       "sourceHash": "b056dd51593097e9c61622f99401736d77dbe0c8731b072da60d40fc265eb9ac",
-      "outputHash": "ba064d2f87529e1f5ebad9a9f88a01692923a4696ab9901f5f67bd61bbc3debf"
+      "outputHash": "42f88cc1eda9c7f677865b51051272d618b8e12f273aea14b27d83dab5b3619f"
+    },
+    "agents/planner.toml": {
+      "source": ".agents/agents/planner.md",
+      "sourceHash": "b056dd51593097e9c61622f99401736d77dbe0c8731b072da60d40fc265eb9ac",
+      "outputHash": "75a4cea5c42cee878cc9774b4c4b97e988a561d537433d8dee94e7d9adaec45f"
     },
     "agents/pytorch-build-resolver.md": {
       "source": ".agents/agents/pytorch-build-resolver.md",
       "sourceHash": "8f116ef1ad31f17fc607a212a70e5c9a10d52170b338563efae12d3ec5a88188",
-      "outputHash": "a1481d159abd52760b6059b6c48057a932a6fc6d213cbae65d37d62729cf4086"
+      "outputHash": "3b6d667b825986dc02ffc3ab6887ad40b123f978c687393afdca5587a085bd89"
+    },
+    "agents/pytorch-build-resolver.toml": {
+      "source": ".agents/agents/pytorch-build-resolver.md",
+      "sourceHash": "8f116ef1ad31f17fc607a212a70e5c9a10d52170b338563efae12d3ec5a88188",
+      "outputHash": "98f791726103b4a1252ec7753d976127b8eb40817893b7ac3c64378e29bc7029"
     },
     "agents/react-build-resolver.md": {
       "source": ".agents/agents/react-build-resolver.md",
       "sourceHash": "65c25287ee6982671d04c76d90cf00654ac9ac2bef2f9306eb019b33f75ea7b9",
-      "outputHash": "122b9eeaef0ff905a49ad1a9d1766e0e9634b16f61eb20e1412c3b29741c4a41"
+      "outputHash": "7ec457336c7aa7df36c765110c84124834db64f80f18c2e9f0b437b5409ad294"
+    },
+    "agents/react-build-resolver.toml": {
+      "source": ".agents/agents/react-build-resolver.md",
+      "sourceHash": "65c25287ee6982671d04c76d90cf00654ac9ac2bef2f9306eb019b33f75ea7b9",
+      "outputHash": "f3f1fc2d04f59da8a5b3d76a55bfb358779227fb798cdd8898a8fa264c3225d5"
     },
     "agents/react-reviewer.md": {
       "source": ".agents/agents/react-reviewer.md",
       "sourceHash": "450e72f7045c012578147fa1df989cb59778089c7c4d18302bbe4be3ea5a9145",
-      "outputHash": "229a554d09dbcbc3981f47bb89a0e4c52dc6bbda88d5ea72d5799525512a8040"
+      "outputHash": "30782667e9d0728d2f4ee5734f1f3c6326896c78fcf44c95db93030b4a6c135b"
+    },
+    "agents/react-reviewer.toml": {
+      "source": ".agents/agents/react-reviewer.md",
+      "sourceHash": "450e72f7045c012578147fa1df989cb59778089c7c4d18302bbe4be3ea5a9145",
+      "outputHash": "d4a88072a2303e7ed50f50128434619a5fba82ee517f2402dd2ac3a957ca5155"
     },
     "agents/refactor-cleaner.md": {
       "source": ".agents/agents/refactor-cleaner.md",
       "sourceHash": "b89e40844ec637be664768a4ebd260c06aa73f0c64f3390bf16ed934b94c1166",
-      "outputHash": "29fefb0b3e0778248e41c71c16b9301ce43d2bb9fabf593d17c9ed9b1de941a2"
+      "outputHash": "b10918319cd5aac791fee7bccd14474e3a215ffb3a2f36b5889752b7e4a727fa"
+    },
+    "agents/refactor-cleaner.toml": {
+      "source": ".agents/agents/refactor-cleaner.md",
+      "sourceHash": "b89e40844ec637be664768a4ebd260c06aa73f0c64f3390bf16ed934b94c1166",
+      "outputHash": "36bb25bc59365166c586088bd81671c5501a8c7e1340ae67daef1949cb0401b5"
     },
     "agents/rust-build-resolver.md": {
       "source": ".agents/agents/rust-build-resolver.md",
       "sourceHash": "01da707b040896055cebd168796e825e8be0b6f56685d244d973edf431f8775c",
-      "outputHash": "53b8f6dc5bb065f0e38d113716209a0fd3eeba770d2cf5eb11065a1a7b83f2d7"
+      "outputHash": "178f234d7c35c7eb1ac71262efba73cb009f47bcd9cde8a70fda71a0c862e69b"
+    },
+    "agents/rust-build-resolver.toml": {
+      "source": ".agents/agents/rust-build-resolver.md",
+      "sourceHash": "01da707b040896055cebd168796e825e8be0b6f56685d244d973edf431f8775c",
+      "outputHash": "3300ddde70101f8d04577cd43578c38021078667dca52722d38078ddf4595a19"
     },
     "agents/rust-reviewer.md": {
       "source": ".agents/agents/rust-reviewer.md",
       "sourceHash": "49338608b01511bb329e3937e03679bd280d72b1141616d8851f28aec0ffc709",
-      "outputHash": "b15a3301570d51d0ffc22dc0c276b6d5f14fd8e235ec48b1ff23e4d32af41b98"
+      "outputHash": "f9052a068e61156cb549b2d9fe7dc6a42071021c5fcc69644b41e2a2f7e68b1b"
+    },
+    "agents/rust-reviewer.toml": {
+      "source": ".agents/agents/rust-reviewer.md",
+      "sourceHash": "49338608b01511bb329e3937e03679bd280d72b1141616d8851f28aec0ffc709",
+      "outputHash": "e486465db7c8ab224ee6bd6289e95c1cd9b1a6ad0e4713b9e0e66f33c8fc9d78"
     },
     "agents/security-auditor.md": {
       "source": ".agents/agents/security-auditor.md",
       "sourceHash": "bfed1d0bb4d22b03894cae0d3aad61173e22e58d540e4db04277ad76bfe48948",
-      "outputHash": "1a218cde725e023b45242d941029a897bc29ac327294bbf2a15474753d90b0dd"
+      "outputHash": "cf00a4e4940080b00fd27edecf35f9569e1f0113996ad5004ae587933276e0c0"
+    },
+    "agents/security-auditor.toml": {
+      "source": ".agents/agents/security-auditor.md",
+      "sourceHash": "bfed1d0bb4d22b03894cae0d3aad61173e22e58d540e4db04277ad76bfe48948",
+      "outputHash": "ef4aeff3b9d00e63560466a7b3dbeb686e70351903e772ab9b9e0453aace4d6a"
     },
     "agents/silent-failure-hunter.md": {
       "source": ".agents/agents/silent-failure-hunter.md",
       "sourceHash": "7fa43683879e3387739c290953ac4dc54e6e515aaaaeff7035c84cfb8ac14c01",
-      "outputHash": "6e7fb2c6d827679c528eb8ab689ce4323e99b7064c76142a0f5c8b0cf5c82ef7"
+      "outputHash": "4903cdfe2a3fd36013006200f76332eddfc3ea56eea27219f0cd0c61926007b0"
+    },
+    "agents/silent-failure-hunter.toml": {
+      "source": ".agents/agents/silent-failure-hunter.md",
+      "sourceHash": "7fa43683879e3387739c290953ac4dc54e6e515aaaaeff7035c84cfb8ac14c01",
+      "outputHash": "3039aa5f02eaae67ccc2b91e0f86b81c4edc9ac37b2a4b62ac4e18ced8f6bb98"
     },
     "agents/skeptic.md": {
       "source": ".agents/agents/skeptic.md",
       "sourceHash": "cdeb385cd74dd32544102feb8a3f3fa6026d24cbaec59c0d0646bf5ca00ad191",
-      "outputHash": "b65bcdfacf51330c203c814a2e30d471bb757d35483fe9f2fcdd7df377d0fd9a"
+      "outputHash": "72aac114f4c1deea42daada059f258756b8db091fe4a444e184643917535c877"
+    },
+    "agents/skeptic.toml": {
+      "source": ".agents/agents/skeptic.md",
+      "sourceHash": "cdeb385cd74dd32544102feb8a3f3fa6026d24cbaec59c0d0646bf5ca00ad191",
+      "outputHash": "5095a2994b576b3da4aea145fe73c98df58033f476e9d0d1d15a75a32bf12b57"
     },
     "agents/spec-miner.md": {
       "source": ".agents/agents/spec-miner.md",
       "sourceHash": "ce9cfeaeebb375c9a19e7279d2f915fc03ad0f5dee070f1d588950d9479bb703",
-      "outputHash": "3d1008482908bdab1cbeae3caaa1b9e47c372dda209e22dd68d5b8118ca1656f"
+      "outputHash": "318083a87408f03ad521cb0298cd7acff0e78efe42e982b89fb00573b458db11"
+    },
+    "agents/spec-miner.toml": {
+      "source": ".agents/agents/spec-miner.md",
+      "sourceHash": "ce9cfeaeebb375c9a19e7279d2f915fc03ad0f5dee070f1d588950d9479bb703",
+      "outputHash": "cc4ad3d989d1171db8e26811b09583d896b277f783d6ea393a8d813016de9192"
     },
     "agents/tdd-guide.md": {
       "source": ".agents/agents/tdd-guide.md",
       "sourceHash": "4cbd051aa1b4d48e13bb1cc1f3dfe0f70970126a049aa36d1a5177b6e64661c5",
-      "outputHash": "6e13c7eb2f3496f0b67d20f3725693079a93895b87ffcc9bbd45ae66699a4ab4"
+      "outputHash": "353f99fa36c4948632e9769d24e2bf0ef6c95e2e84a6f4656d4687429b139bb7"
+    },
+    "agents/tdd-guide.toml": {
+      "source": ".agents/agents/tdd-guide.md",
+      "sourceHash": "4cbd051aa1b4d48e13bb1cc1f3dfe0f70970126a049aa36d1a5177b6e64661c5",
+      "outputHash": "6e5420ff763cbdf1887e478071334e9e003ce1d17de122714d0e82d09c6c65e8"
     },
     "agents/typescript-reviewer.md": {
       "source": ".agents/agents/typescript-reviewer.md",
       "sourceHash": "7d21edb2d83e2bb734234706afeda23a06d4698c3667656bad36c07f89117e47",
-      "outputHash": "421012abcd90b85561487363096ffad767a2550b8bb46446051a9f3cec9f5b58"
+      "outputHash": "4f78d814d3e0ef3af372a356fe97ec3a0944b576976b76861e331158ddbbcef5"
+    },
+    "agents/typescript-reviewer.toml": {
+      "source": ".agents/agents/typescript-reviewer.md",
+      "sourceHash": "7d21edb2d83e2bb734234706afeda23a06d4698c3667656bad36c07f89117e47",
+      "outputHash": "4de4329e17ab8198f5e380c7992bbf75085f528b18bb5971ac91df87dc43674b"
     },
     "agents/vue-reviewer.md": {
       "source": ".agents/agents/vue-reviewer.md",
       "sourceHash": "207853031470f6c9c8f256c06de2af428bfba7d8a9159c0bd1e573baa11d0a92",
-      "outputHash": "57c97fc8d6d260107944b2005d0410bb1b2ffca424204d3725d68473f11c6929"
+      "outputHash": "d2f69c9e897163b9a414e03ce351fde69ec2e971cba1a1f510ea8e0ddd3c9ddb"
+    },
+    "agents/vue-reviewer.toml": {
+      "source": ".agents/agents/vue-reviewer.md",
+      "sourceHash": "207853031470f6c9c8f256c06de2af428bfba7d8a9159c0bd1e573baa11d0a92",
+      "outputHash": "87ed36a57fac727e86d12b61a09f8d40b692b869bb312a752ccdfb0d1048fdca"
     },
     "resources/creative-libraries/components/LenisGsapBridge.tsx": {
       "source": ".agents/resources/creative-libraries/components/LenisGsapBridge.tsx",
@@ -19716,7 +19876,7 @@
     "rules/backend.md": {
       "source": ".agents/rules/backend.md",
       "sourceHash": "59d2c8ad34ffb9d2eb76cbe4ada3689b0308019bcc1c3cf495ea3ba9fcc23819",
-      "outputHash": "7b2a29e34ca75fbda35d924fe42efb88068bd7d7318ee5551790bbb7328e9c90"
+      "outputHash": "a917974dec370a1ce34687927c28000455e75df134964bd3986b8f8eaa2b34ea"
     },
     "rules/frontend.md": {
       "source": "tools/codex/templates/rules/frontend.md",
@@ -19725,13 +19885,13 @@
     },
     "rules/install.md": {
       "source": "tools/codex/templates/rules/install.md",
-      "sourceHash": "81b822123b66852889853e1ed5cb7910b1bd06ee304a553757d1d30ee14cd80c",
-      "outputHash": "81b822123b66852889853e1ed5cb7910b1bd06ee304a553757d1d30ee14cd80c"
+      "sourceHash": "8092b912d00326e5cdf18750b1da457cffb94e9dce141b395ff6d316bf99e363",
+      "outputHash": "8092b912d00326e5cdf18750b1da457cffb94e9dce141b395ff6d316bf99e363"
     },
     "rules/learned-invariants.md": {
       "source": ".agents/rules/learned-invariants.md",
       "sourceHash": "a6cee79e2692f6962bf3887ee073412424e766fcb20b95351fd739e6b4b81551",
-      "outputHash": "b1d91136f616ec73a2f909049a69c57fc03f369e305ec5971a31e961646a04f9"
+      "outputHash": "3ad904f3102bf7776f4bb9d3b1e6402912cc2fa493c2555ce579cc6c6027de54"
     },
     "rules/MOTION.md": {
       "source": ".agents/rules/MOTION.md",
@@ -19740,22 +19900,22 @@
     },
     "rules/penetrating-and-testing.md": {
       "source": ".agents/rules/penetrating-and-testing.md",
-      "sourceHash": "3757059d51925ad3549ec097e216a77513c0c77b34f8269cdfbf967244b95e8a",
-      "outputHash": "6882c65f2f997c609451a62a8686c85606035d78c1a1b845ca6d63178be105c1"
+      "sourceHash": "946bad82053f981e18af528db48321a5e788f036c9b2342e4d2d8dbcc905506b",
+      "outputHash": "9b3c2e69e28f0f65f273ac7ddcd5aacb2e74f8eef80007d30b197be352bd5f73"
     },
     "rules/security.md": {
       "source": ".agents/rules/security.md",
       "sourceHash": "1a0e99d17acb5f5434a3b9f189f5c293e22bd51f68f35b68c980c4435cd1203f",
-      "outputHash": "378554661e4e2ed58385db34116c2625aec7aee0a47c63a27ac00db0d9212ef6"
+      "outputHash": "cb22419d8c58c5cfc5c877fa5aa7df8fd4bc3793ea89eb0087dc0c3bd90889fa"
     },
     "rules/starting-brandnew.md": {
       "source": ".agents/rules/starting-brandnew.md",
-      "sourceHash": "48aa052d52d113a365632c6a57cd59a7d98239340131eb28fc6a8522104f44e1",
+      "sourceHash": "663fb9650417550eb6f3bc11b2c294bc7acebb89ca0d67a143d8dd5bc5dc4e9b",
       "outputHash": "c8f59a9140bfd890ff800fdd49bdcafefbc9010364f7c7050dad47cd4db91b3b"
     },
     "rules/starting-existing.md": {
       "source": ".agents/rules/starting-existing.md",
-      "sourceHash": "54505586a1e7ec4c268003501b76acfd5e142f8c0f9ab5f784afd9a97bd6beae",
+      "sourceHash": "47af33dc9034788af71039f77d608557983c63b2a3fe7686b892cf3bc0e3fa22",
       "outputHash": "6a7a5071d334a1d148f4ca94ad27020d2f25bfcdb90233441eeb3d62c5dfa9b2"
     },
     "rules/UI_Always.md": {
@@ -19763,15 +19923,35 @@
       "sourceHash": "51a6a430466c70a60998f8ffcaf48cdec210fd5980d9b2ac67b36dc1561812a3",
       "outputHash": "1533fce508d4bf86beee065bf6f4b4e2d210f73c35f9aab40ce9a39e7a6fcc55"
     },
+    "rules/swarm.md": {
+      "source": "tools/codex/templates/rules/swarm.md",
+      "sourceHash": "23855bc560fe905d779ce587b094acea648c89896dca5500f1cb55a378a5e10b",
+      "outputHash": "23855bc560fe905d779ce587b094acea648c89896dca5500f1cb55a378a5e10b"
+    },
+    "skills/swarm/SKILL.md": {
+      "source": "tools/codex/templates/skills/swarm/SKILL.md",
+      "sourceHash": "8211c5a80b8585211cf95871f2e66312fa9beed0c6af80aa4d1b55b0a7a961b7",
+      "outputHash": "b9027b235675b7f6573c823f80a21fba8c485ab4997ae40727f8d2baacba1fa2"
+    },
+    "skills/swarm/agents/openai.yaml": {
+      "source": "tools/codex/templates/skills/swarm/SKILL.md",
+      "sourceHash": "8211c5a80b8585211cf95871f2e66312fa9beed0c6af80aa4d1b55b0a7a961b7",
+      "outputHash": "aafde8dc9200fa8c8c1793639faaa304d9070eac08a5342b0bd33efd9c2cbee0"
+    },
+    "config.example.toml": {
+      "source": "tools/codex/templates/config.example.toml",
+      "sourceHash": "122fc837977694571f3d419bb8b84c5c6140dff142495ad9315a01fea6141aff",
+      "outputHash": "122fc837977694571f3d419bb8b84c5c6140dff142495ad9315a01fea6141aff"
+    },
     "AGENTS.md": {
       "source": "AGENTS.md",
-      "sourceHash": "0a6f0e010aa8cc401c17ccef9fc54d118b177f4652a139c905b0a9bc4e6da60c",
-      "outputHash": "655c333812b9d0f745963a6fbdf6e228da5b5160bc123c8c0c15a0af5fc59503"
+      "sourceHash": "d890774b4e39cbf0862a6fe4bd060fd9d13b59c44daf00a991170fd074a3d407",
+      "outputHash": "12fe03f055bebc06eb1745253f1397c9fc33f9a1fce8dc7d36ffcee9cbd869eb"
     },
     "AGENTS.designer.md": {
       "source": "AGENTS.md",
-      "sourceHash": "0a6f0e010aa8cc401c17ccef9fc54d118b177f4652a139c905b0a9bc4e6da60c",
-      "outputHash": "f666653254bcbaf6512f4050c82eeee1f6f385ab1a81668c3ab60daeee102152"
+      "sourceHash": "d890774b4e39cbf0862a6fe4bd060fd9d13b59c44daf00a991170fd074a3d407",
+      "outputHash": "b3d206f9f6aab008c085fdb11602f7c1eb90badcf4d0ebbcce496aa178acdaba"
     },
     "project.gitignore": {
       "source": ".gitignore",

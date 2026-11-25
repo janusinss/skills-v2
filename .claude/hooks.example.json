@@ -62,6 +62,19 @@
           }
         ]
       }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/scripts/swarm-subagent-guard.cjs",
+            "timeout": 10,
+            "statusMessage": "Validating subagent completion report"
+          }
+        ]
+      }
     ]
   }
 }

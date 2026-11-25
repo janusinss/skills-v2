@@ -280,7 +280,7 @@ async function resolveInteractiveCliOptions(options) {
     if (needMode) {
       console.error('\nSelect hook mode:');
       console.error('  1) HARNESS MODE (default) - Installs all hooks (Harness + Impeccable + design-taste-frontend + avoid-ai-writing), .git/hooks/pre-commit, and full Harness lifecycle in CLAUDE.md');
-      console.error('  2) DESIGNER MODE          - Activates non-harness hooks (Impeccable, design-taste-frontend, avoid-ai-writing), skips Harness hooks/.git pre-commit, and installs Designer CLAUDE.md');
+      console.error('  2) DESIGNER MODE          - Activates non-harness hooks (Impeccable, design-taste-frontend, avoid-ai-writing + SubagentStop), skips Harness hooks/.git pre-commit, and installs Designer CLAUDE.md');
       for (;;) {
         const answer = (await rl.question('Enter choice [1-2 or harness/designer, default: harness]: ')).trim().toLowerCase();
         if (!answer || answer === '1' || answer === 'harness') { resolved.mode = 'harness'; break; }
