@@ -77,9 +77,17 @@ Respond with a single deterministic JSON object matching this exact schema so `h
       "fix_required": "Restore exact timestamp comparison and add expired-token unit test.",
       "proposed_flywheel_rule": "Never replace explicit timestamp expiration comparisons with truthy checks in session validators."
     }
+  ],
+  "verified_exemplars": [
+    {
+      "domain": "Harness-Tests",
+      "pattern": "Parameterized boundary test covering expired, clock-skewed, and valid session tokens in a single deterministic table.",
+      "evidence_cmd": "npm test -- tests/auth/session.test.ts"
+    }
   ]
 }
 ```
 
-- When `"verdict": "APPROVE"`, `"blocking_issues"` MUST be `[]`.
-- When `"verdict": "REJECT"`, every blocking issue MUST include a concrete, reusable `"proposed_flywheel_rule"` for the Calibrated Dual-Store Memory Flywheel.
+- When `"verdict": "APPROVE"`, `"blocking_issues"` MUST be `[]`. Include `"verified_exemplars"` only when a novel, reusable verification or engineering win stands out (default `[]` when routine).
+- When `"verdict": "REJECT"`, every blocking issue MUST include a concrete, reusable `"proposed_flywheel_rule"` for the Calibrated 3-Tier Memory Flywheel, and `"verified_exemplars"` MUST be `[]`.
+- Coordinators pass this JSON directly into `harness.mjs stamp-skeptic --task <id> --from-json -` to record Strike-2/3 state and auto-stage `proposed_flywheel_rule` and `verified_exemplars` for `/learn`.

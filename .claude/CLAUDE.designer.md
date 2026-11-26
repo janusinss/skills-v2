@@ -13,7 +13,7 @@ Instructions, operating rules, and workspace routing for Anthropic Claude Code.
 - **Visible Wins**: Immediately show what works and how to verify it (test commands, curl endpoints).
 - **Neutral Error Reporting**: Report strictly **Location**, **Cause**, and **Fix**. Zero emotional padding.
 - **Cap Lists to 5 Items**: Show at most 5 items per group in user-facing output.
-- **Compounding Invariants**: Read [.claude/rules/learned-invariants.md](.claude/rules/learned-invariants.md) (when present) before editing code to enforce project-specific guardrails and prevent known regressions.
+- **Compounding Invariants**: Read [.claude/rules/learned-invariants.md](.claude/rules/learned-invariants.md) (when present) before editing code to enforce project-specific guardrails and prevent known regressions; use `/learn` to record bidirectional exemplars and anti-patterns.
 - **2-Strike Escalation & 3-Strike Circuit Breaker**:
   - **Strike 2 (Architect Escalation)**: After 2 consecutive failed verification checks or audits on the same issue, escalate from `builder` to `brain` ([.claude/agents/code-architect.md](.claude/agents/code-architect.md) or higher-reasoning model) for root-cause re-architecture.
   - **Strike 3 (Circuit Breaker)**: After 3 failed attempts on the same issue, STOP editing. Ask before reverting; never discard uncommitted work. Output strictly: (1) **Invalid Assumption** (1 sentence on what failed) and (2) **Diagnostic Check** (1 concrete question or A/B choice).
@@ -40,7 +40,7 @@ Read and apply the matching workspace rule before selecting generic skills:
 | Backend Architecture & Data | [.claude/rules/backend.md](.claude/rules/backend.md) |
 | Application Security & Defense | [.claude/rules/security.md](.claude/rules/security.md) |
 | Penetration Testing & Critical QA | [.claude/rules/penetrating-and-testing.md](.claude/rules/penetrating-and-testing.md) |
-| Learned Invariants & Guardrails | [.claude/rules/learned-invariants.md](.claude/rules/learned-invariants.md) |
+| Learned Invariants & Guardrails | [.claude/rules/learned-invariants.md](.claude/rules/learned-invariants.md) + [learn](.claude/skills/learn/SKILL.md) (bidirectional positive + negative learning across Harness & Designer modes) |
 | Parallel Multi-Agent / Swarm | [.claude/rules/swarm.md](.claude/rules/swarm.md) |
 
 ---
@@ -59,7 +59,7 @@ Follow [UI_Always.md](.claude/rules/UI_Always.md#7-browser-verification-policy) 
 
 Delegate specialized lifecycle tasks to the agents defined under [.claude/agents/](.claude/agents/) using `@<agent>`, or coordinate parallel non-CLI subagents with `/swarm` per [.claude/rules/swarm.md](.claude/rules/swarm.md):
 
-- **Invocation**: Invoke specialists via `@<agent>` (or slash commands `/swarm`, `/plan`, `/tdd`, `/audit`, `/review`, `/eval`).
+- **Invocation**: Invoke specialists via `@<agent>` (or slash commands `/swarm`, `/learn`, `/plan`, `/tdd`, `/audit`, `/review`, `/eval`).
 - **Coordinator (UI Lead)**: Run `/swarm` orchestration on `opus` (`xhigh` or `max` when chosen in the UI; preserve the user's choice and never auto-escalate `xhigh` to `max`). Use parallel `Agent` subagents with `isolation: "worktree"` for parallel writers.
 - **4-Rung Model Routing (`model:`, `effort:` frontmatter)**:
 

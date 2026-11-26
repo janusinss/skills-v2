@@ -48,7 +48,7 @@ function checkLeaks(text, relative, patterns, errors) {
   }
 }
 
-function validateClaudeHooksSchema(parsed, label, errors, dataRoot = null) {
+function validateClaudeHooksSchema(parsed, label, errors, dataRoot = null, { partialProfile = false, warnings = [] } = {}) {
   if (!isRecord(parsed.hooks)) {
     errors.push(`${label} must contain hooks`);
     return;
@@ -70,10 +70,18 @@ function validateClaudeHooksSchema(parsed, label, errors, dataRoot = null) {
           errors.push(`${label}: ${event} hook command contains "apply_patch"`);
         }
         if (typeof entry.command === 'string' && dataRoot) {
-          for (const match of entry.command.matchAll(/\.claude\/scripts\/([A-Za-z0-9._-]+)/g)) {
-            const scriptFile = path.join(dataRoot, 'scripts', match[1]);
-            if (!fs.existsSync(scriptFile)) {
-              errors.push(`${label}: ${event} hook references missing script .claude/scripts/${match[1]}`);
+          const refs = new Set();
+          for (const match of entry.command.matchAll(/\.claude\/((?:skills|scripts|rules|agents|resources)\/[A-Za-z0-9._/-]+)/g)) {
+            refs.add(match[1]);
+          }
+          for (const rel of refs) {
+            const target = path.join(dataRoot, rel);
+            if (!fs.existsSync(target)) {
+              if (partialProfile && rel.startsWith('skills/')) {
+                warnings.push(`${label}: ${event} hook references out-of-profile script .claude/${rel}`);
+              } else {
+                errors.push(`${label}: ${event} hook references missing script .claude/${rel}`);
+              }
             }
           }
         }
@@ -294,7 +302,7 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
         } else {
           try {
             const parsed = JSON.parse(fs.readFileSync(hookFile, 'utf8').replace(/^\uFEFF/, ''));
-            validateClaudeHooksSchema(parsed, `.claude/${relHook}`, errors, dataRoot);
+            validateClaudeHooksSchema(parsed, `.claude/${relHook}`, errors, dataRoot, { partialProfile, warnings });
           } catch (error) {
             errors.push(`.claude/${relHook}: ${error.message}`);
           }
@@ -308,7 +316,7 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
       if (fs.existsSync(hookCandidate)) {
         try {
           const hooks = JSON.parse(fs.readFileSync(hookCandidate, 'utf8').replace(/^\uFEFF/, ''));
-          validateClaudeHooksSchema(hooks, hookName, errors, dataRoot);
+          validateClaudeHooksSchema(hooks, hookName, errors, dataRoot, { partialProfile, warnings });
         } catch (error) {
           errors.push(`${hookName}: ${error.message}`);
         }

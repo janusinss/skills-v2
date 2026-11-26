@@ -68,10 +68,10 @@ export function adaptMarkdown(text, sourceFile) {
 
   // Clean AGY/Codex cross-edition prose in shared harness/flywheel docs
   result = result
-    .replaceAll('via `AGY /learn`, `Claude /flywheel`, or `harness.mjs flywheel digest --graduate <domain>`', 'via `/flywheel` or `harness.mjs flywheel digest --graduate <domain>`')
+    .replaceAll('via `AGY /learn`, `Claude /flywheel`, or `harness.mjs flywheel digest --graduate <domain>`', 'via `/learn`, `/flywheel`, or `harness.mjs flywheel digest --graduate <domain>`')
     .replaceAll(' (using `.codex/` or `.claude/` in those editions)', '')
     .replaceAll("(under AGY's `24 KB` cap and `20,000`-token rules budget)", '(under the `24 KB` cap and `20,000`-token rules budget)')
-    .replaceAll('Graduate recurring clusters via AGY `/learn` or `/flywheel` (or `/flywheel` in Claude / skill authoring in Codex)', 'Graduate recurring clusters via `/flywheel`')
+    .replaceAll('Graduate recurring clusters via AGY `/learn` or `/flywheel` (or `/flywheel` in Claude / skill authoring in Codex)', 'Graduate recurring clusters via `/learn` or `/flywheel`')
     .replaceAll(' (or the `.codex/` / `.claude/` equivalent)', '');
 
   // Rebase internal relative links if needed
@@ -244,7 +244,7 @@ export function convertAgent(text, sourceFile) {
 
 const claudeRoutingBlock = `Delegate specialized lifecycle tasks to the agents defined under [.claude/agents/](.claude/agents/) using \`@<agent>\`, or coordinate parallel non-CLI subagents with \`/swarm\` per [.claude/rules/swarm.md](.claude/rules/swarm.md):
 
-- **Invocation**: Invoke specialists via \`@<agent>\` (or slash commands \`/swarm\`, \`/plan\`, \`/tdd\`, \`/audit\`, \`/review\`, \`/eval\`, \`/contract\`, \`/verify\`, \`/flywheel\`).
+- **Invocation**: Invoke specialists via \`@<agent>\` (or slash commands \`/swarm\`, \`/learn\`, \`/plan\`, \`/tdd\`, \`/audit\`, \`/review\`, \`/eval\`, \`/contract\`, \`/verify\`, \`/flywheel\`).
 - **Coordinator (UI Lead)**: Run \`/swarm\` orchestration on \`opus\` (\`xhigh\` or \`max\` when chosen in the UI; preserve the user's choice and never auto-escalate \`xhigh\` to \`max\`). Use parallel \`Agent\` subagents with \`isolation: "worktree"\` for parallel writers.
 - **4-Rung Model Routing (\`model:\`, \`effort:\` frontmatter)**:
 
@@ -300,8 +300,9 @@ export function formatDesignerPolicy(text) {
   let result = text.replace(/\r\n/g, '\n');
   result = result.replace(
     /^- \*\*Compounding Invariants & Progress Ledger\*\*: Read \[\.(agents|codex|claude)\/rules\/learned-invariants\.md\]\(\.\1\/rules\/learned-invariants\.md\)[^\n]*$/m,
-    (_, dir) => `- **Compounding Invariants**: Read [.${dir}/rules/learned-invariants.md](.${dir}/rules/learned-invariants.md) (when present) before editing code to enforce project-specific guardrails and prevent known regressions.`
+    (_, dir) => `- **Compounding Invariants**: Read [.${dir}/rules/learned-invariants.md](.${dir}/rules/learned-invariants.md) (when present) before editing code to enforce project-specific guardrails and prevent known regressions; use \`/learn\` to record bidirectional exemplars and anti-patterns.`
   );
+  result = result.replace(/\s*\(`harness\.mjs`[^)\n]*\)/g, '');
   result = result.replace(
     /After 2 consecutive failed verification receipts or Skeptic rejections on the same issue/g,
     'After 2 consecutive failed verification checks or audits on the same issue'

@@ -23,7 +23,7 @@
       "commit": "d2ef2680594f9a17526a6e1a2e18b3d242c5d17b",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "05c334699ad440485c8b5114bb322bbd087edff57e138dd489f5c874511cefb3"
+      "contentHash": "83b60686a74e6affd6cbced7d11b5382332f8df5ba283d10aac4ba78276c1f06"
     },
     "anti-ai-slop": {
       "source": "original",
@@ -183,7 +183,7 @@
       "commit": "d2ef2680594f9a17526a6e1a2e18b3d242c5d17b",
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
-      "contentHash": "b6e93d477eff4a9e7ca8557119c3a49e7f52860a9c7ca07e59adeebd03a38937"
+      "contentHash": "b270349e3923c2f7a1321dd42e6118e597334750327d4db12a966d4be83968c3"
     },
     "database-design": {
       "source": "sickn33/antigravity-awesome-skills",
@@ -336,6 +336,14 @@
       "license": "MIT",
       "modified": "description/references updated in skills-v2",
       "contentHash": "3f9bc970bad90ac745a6b33c52bc207e303d7160b37a8dcfb26caea23db324d1"
+    },
+    "learn": {
+      "source": "original",
+      "sourceType": "original",
+      "commit": null,
+      "license": "MIT",
+      "modified": null,
+      "contentHash": "a5f952c7932d8c2efa647002ce3bef8248db08ac675d009182423a2f5b93c53b"
     },
     "lint-and-validate": {
       "source": "sickn33/antigravity-awesome-skills",

@@ -109,6 +109,13 @@ VERDICT: [Deliver as-is / Fix N issues then deliver / Redo from scratch]
 
 Always include the structured report above, matching the `scripts/evaluate.py` output format exactly. The report title is "AGENT SELF-EVALUATION REPORT".
 
+### Structured JSON Handoff to `/learn`
+
+When feeding evaluation results into the Memory Flywheel, run `scripts/evaluate.py --json` and pipe its output into `harness.mjs eval ingest --from-json -`:
+
+- Any axis scoring `<= 2` emits a `regression` lesson staged for `/learn`.
+- A verified delivery scoring `>= 4.5` overall (with no axis `<= 2`) emits an `exemplar` lesson staged for `/learn`.
+
 ## Examples
 
 ### Example: Strong Output

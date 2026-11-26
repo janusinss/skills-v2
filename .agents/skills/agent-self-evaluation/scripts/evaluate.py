@@ -20,6 +20,7 @@ For production use, pair with an LLM judge for semantic understanding.
 
 import argparse
 import errno
+import json
 import re
 import sys
 from dataclasses import dataclass, field
@@ -301,6 +302,66 @@ def evaluate(task: Optional[str], output: str) -> list[AxisScore]:
     ]
 
 
+def _compute_verdict(scores: list[AxisScore], avg: float) -> str:
+    """Compute the final verdict string from 5-axis scores."""
+    min_score = min(s.score for s in scores)
+    if min_score <= 2:
+        return f"Redo with specific fixes. Weakest axis: {min(scores, key=lambda s: s.score).name} ({min_score}/5)."
+    if any(s.score <= 3 for s in scores):
+        weak = [s.name for s in scores if s.score <= 3]
+        return f"Fix {'/'.join(weak)} issues, then deliver."
+    if avg >= 4.5:
+        return "Deliver as-is. No changes needed."
+    return "Deliver as-is. Minor improvements noted above."
+
+
+def build_json_payload(scores: list[AxisScore]) -> dict:
+    """Build structured JSON payload for Memory Flywheel ingestion."""
+    avg = round(sum(s.score for s in scores) / len(scores), 1)
+    verdict = _compute_verdict(scores, avg)
+    score_map = {s.name.lower(): s.score for s in scores}
+
+    lessons: list[dict[str, str]] = []
+    for s in scores:
+        if s.score <= 2:
+            negatives = [e[2:].strip() for e in s.evidence if e.startswith("- ")]
+            cause = "; ".join(negatives) if negatives else f"{s.name} scored {s.score}/5."
+            rule = s.improvement or f"Resolve critical {s.name.lower()} gaps before delivery."
+            lessons.append({
+                "kind": "regression",
+                "domain": f"eval-{s.name.lower()}",
+                "cause": cause,
+                "rule": rule,
+            })
+
+    if not lessons and avg >= 4.5:
+        positives = [
+            e[2:].strip()
+            for s in scores
+            for e in s.evidence
+            if e.startswith("+ ")
+        ][:3]
+        cause = f"Verified delivery scored {avg:.1f}/5 across all 5 quality axes."
+        rule = (
+            f"Replicate verified delivery traits: {'; '.join(positives)}."
+            if positives
+            else "Pair explicit verification evidence with clear structure and concrete next actions."
+        )
+        lessons.append({
+            "kind": "exemplar",
+            "domain": "delivery-quality",
+            "cause": cause,
+            "rule": rule,
+        })
+
+    return {
+        "average": avg,
+        "verdict": verdict,
+        "scores": score_map,
+        "lessons": lessons,
+    }
+
+
 def format_report(scores: list[AxisScore]) -> str:
     """Format scores into a readable evaluation report."""
     avg = sum(s.score for s in scores) / len(scores)
@@ -347,16 +408,7 @@ def format_report(scores: list[AxisScore]) -> str:
     lines.append("")
 
     # Verdict
-    min_score = min(s.score for s in scores)
-    if min_score <= 2:
-        verdict = f"Redo with specific fixes. Weakest axis: {min(scores, key=lambda s: s.score).name} ({min_score}/5)."
-    elif any(s.score <= 3 for s in scores):
-        weak = [s.name for s in scores if s.score <= 3]
-        verdict = f"Fix {'/'.join(weak)} issues, then deliver."
-    elif avg >= 4.5:
-        verdict = "Deliver as-is. No changes needed."
-    else:
-        verdict = "Deliver as-is. Minor improvements noted above."
+    verdict = _compute_verdict(scores, avg)
     lines.append(f"VERDICT: {verdict}")
 
     return "\n".join(lines)
@@ -401,6 +453,7 @@ def main() -> None:
     parser.add_argument("--task", help="Task description (file path or inline text)")
     parser.add_argument("--output", help="Agent output to evaluate (file path)")
     parser.add_argument("--interactive", action="store_true", help="Prompt for task and read output from stdin")
+    parser.add_argument("--json", action="store_true", help="Emit structured JSON output for harness ingestion")
     args = parser.parse_args()
 
     task, output = _read_input(args)
@@ -409,7 +462,10 @@ def main() -> None:
         sys.exit(1)
 
     scores = evaluate(task, output)
-    print(format_report(scores))
+    if args.json:
+        print(json.dumps(build_json_payload(scores), indent=2))
+    else:
+        print(format_report(scores))
 
 
 if __name__ == "__main__":

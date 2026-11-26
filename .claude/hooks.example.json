@@ -1,6 +1,19 @@
 {
   "description": "Optional harness and Impeccable hooks. Install at .claude/hooks.json in a trusted target project and review them in Claude Code before use.",
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ ! -f \".claude/skills/continuous-agent-loop/scripts/harness.mjs\" ] || node \".claude/skills/continuous-agent-loop/scripts/harness.mjs\" memory brief --hook claude",
+            "timeout": 10,
+            "statusMessage": "Loading active memory brief"
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Edit|Write|MultiEdit|NotebookEdit",

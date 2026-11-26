@@ -97,10 +97,11 @@ export function planExport({ target, profile = 'all', includeHooks = true, mode 
     .map(entry => entry.name);
 
   let selected;
-  if (profile === 'all') selected = all;
+  if (profile === 'all') selected = [...all];
   else if (profile === 'fullstack') selected = [...new Set([...(profiles.frontend || []), ...(profiles.backend || [])])];
-  else if (profiles[profile]) selected = profiles[profile];
+  else if (profiles[profile]) selected = [...profiles[profile]];
   else throw new Error(`Unknown profile ${profile}. Choose all, minimal, frontend, backend, security, or fullstack.`);
+  if (all.includes('learn') && !selected.includes('learn')) selected.push('learn');
 
   const entries = [];
   const add = (source, relative) => {

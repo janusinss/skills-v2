@@ -38,8 +38,9 @@ export function formatAgyPolicy(rawAgents, mode = 'harness') {
     result = result
       .replace(
         /^- \*\*Compounding Invariants & Progress Ledger\*\*: Read \[\.agents\/rules\/learned-invariants\.md\]\(\.agents\/rules\/learned-invariants\.md\)[^\n]*$/m,
-        '- **Compounding Invariants**: Read [.agents/rules/learned-invariants.md](.agents/rules/learned-invariants.md) (when present) before editing code to enforce project guardrails and prevent known regressions.'
+        '- **Compounding Invariants**: Read [.agents/rules/learned-invariants.md](.agents/rules/learned-invariants.md) (when present) before editing code to enforce project guardrails and prevent known regressions; use `/learn` to capture bidirectional exemplars and anti-patterns.'
       )
+      .replace(/\s*\(`harness\.mjs`[^)\n]*\)/g, '')
       .replace(
         /After 2 consecutive failed verification receipts or Skeptic rejections on the same issue/g,
         'After 2 consecutive failed verification checks or audits on the same issue'
@@ -625,7 +626,7 @@ async function resolveInteractiveCliOptions(options) {
     if (needMode) {
       console.error('\nQuestion 2/2 — Select mode:');
       console.error('  1) HARNESS MODE (default) - Installs all hooks (Harness + Impeccable + design-taste-frontend + avoid-ai-writing), .git/hooks/pre-commit, and full Harness lifecycle in AGENTS.md / CLAUDE.md');
-      console.error('  2) DESIGNER MODE          - Activates non-harness hooks (Impeccable, design-taste-frontend, avoid-ai-writing; retains swarm-stop-guard.cjs on AGY and SubagentStop swarm-subagent-guard.cjs on Claude), skips Harness hooks/.git pre-commit, and installs Designer AGENTS.md / CLAUDE.md');
+      console.error('  2) DESIGNER MODE          - Activates non-harness hooks (Impeccable, design-taste-frontend, avoid-ai-writing, plus SessionStart memory brief, AGY swarm-stop-guard.cjs, and Claude SubagentStop swarm-subagent-guard.cjs), skips Harness hooks/.git pre-commit, and installs Designer AGENTS.md / CLAUDE.md');
       for (;;) {
         const answer = (await rl.question('Select mode [1-2 or harness/designer, default: harness]: ')).trim().toLowerCase();
         if (!answer || answer === '1' || answer === 'harness') { resolved.mode = 'harness'; break; }

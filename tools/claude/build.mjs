@@ -68,11 +68,19 @@ Execute deterministic receipt verification and cold-context Skeptic review for: 
 3. Invoke the @skeptic subagent on \`.harness/context/<id>-brief.json\` (Contract + Raw Diff + Receipt only, zero author commentary) and stamp its verdict via \`node .claude/skills/continuous-agent-loop/scripts/harness.mjs stamp-skeptic --task <id> --verdict <APPROVE|REJECT>\`.
 `,
   'flywheel.md': `---
-description: Record a root-cause invariant into the Calibrated Dual-Store Memory Flywheel and checkpoint progress
+description: Record a regression guardrail or positive exemplar into the Calibrated Dual-Store Memory Flywheel and checkpoint progress
 ---
-Record a failure root cause or invariant and checkpoint task progress for: $ARGUMENTS.
-1. Execute \`node .claude/skills/continuous-agent-loop/scripts/harness.mjs flywheel record --task <id> --source <skeptic|verify|user> --domain <domain> --cause "<root_cause>" --rule "<guardrail_rule>" --promote\` to stage into \`.harness/evals/regressions.jsonl\` and promote deduplicated guardrails to \`.claude/rules/learned-invariants.md\`.
+Record a failure root cause, positive exemplar, or invariant and checkpoint task progress for: $ARGUMENTS (or use \`/learn\` for quick bidirectional insight capture in both Harness and Designer modes).
+1. Execute \`node .claude/skills/continuous-agent-loop/scripts/harness.mjs flywheel record --task <id> --kind <regression|exemplar> --source <skeptic|verify|user> --domain <domain> --cause "<root_cause_or_context>" --rule "<guardrail_or_exemplar_rule>" --promote\` to stage into \`.harness/evals/regressions.jsonl\` (or \`exemplars.jsonl\`) and promote deduplicated rules to \`.claude/rules/learned-invariants.md\`.
 2. Update \`.harness/PROGRESS.md\` via \`node .claude/skills/continuous-agent-loop/scripts/harness.mjs checkpoint --task <id> --step "<completed_step>"\`.
+`,
+  'learn.md': `---
+description: Record a bidirectional positive exemplar or negative anti-pattern into the Memory Flywheel
+---
+Follow [.claude/skills/learn/SKILL.md](.claude/skills/learn/SKILL.md) to capture a reusable insight for: $ARGUMENTS.
+1. Classify the insight as a positive **exemplar** (verified technique, pattern, or workflow to repeat) or negative **regression** (bug root cause, user correction, or guardrail to prevent).
+2. Record it via \`node .claude/skills/continuous-agent-loop/scripts/harness.mjs flywheel record --kind <regression|exemplar> --source user --domain <domain> --cause "<context>" --rule "<actionable_rule>" --promote\` (or directly into \`.claude/rules/learned-invariants.md\` when running without the harness script).
+3. Run \`flywheel digest\` when a domain reaches 3+ related learnings to graduate recurring clusters into a dedicated project skill.
 `
 };
 
@@ -94,57 +102,120 @@ function pruneEmptyDirs(dir, isRoot = true) {
   return false;
 }
 
-/** Filter excluded hooks and adapt matchers/commands to native Claude Code settings.json schema. */
-function adaptHooksForClaude(hooksMap = {}, excludedSubstrings = []) {
-  const filtered = {};
-  for (const [event, groups] of Object.entries(hooksMap)) {
-    if (!Array.isArray(groups)) continue;
-    const keptGroups = [];
-    for (const group of groups) {
-      if (!group || typeof group !== 'object' || !Array.isArray(group.hooks)) continue;
-      const keptHooks = [];
-      for (const entry of group.hooks) {
-        if (!entry || typeof entry !== 'object') continue;
-        const commands = `${entry.command ?? ''}\n${entry.commandWindows ?? ''}`;
-        if (excludedSubstrings.some(needle => commands.includes(needle))) continue;
-        const { commandWindows: _commandWindows, ...rest } = entry;
-        if (typeof rest.command === 'string') {
-          rest.command = rest.command
-            .replaceAll('.agents/', '.claude/')
-            .replaceAll('--hook antigravity', '--hook claude')
-            .replace("const dec=('--hook claude').endsWith('antigravity')?'continue':'block';", "const dec='block';");
-        }
-        keptHooks.push(rest);
-      }
-      if (keptHooks.length > 0) {
-        const adaptedGroup = { ...group, hooks: keptHooks };
-        if (typeof adaptedGroup.matcher === 'string') {
-          adaptedGroup.matcher = adaptedGroup.matcher
-            .replaceAll('Edit|Write|apply_patch', 'Edit|Write|MultiEdit|NotebookEdit')
-            .replaceAll('apply_patch', 'MultiEdit|NotebookEdit');
-        }
-        keptGroups.push(adaptedGroup);
-      }
-    }
-    if (keptGroups.length > 0) filtered[event] = keptGroups;
-  }
-  return filtered;
-}
+const CLAUDE_AVOID_AI_WRITING_CMD = "node -e \"const fs=require('fs'),path=require('path'),cp=require('child_process'),g='.claude/skills/avoid-ai-writing/bin/avoid-ai-writing-gate.js';function run(raw){let d={};try{const t=(raw.charCodeAt(0)===65279?raw.slice(1):raw).trim();if(t)d=JSON.parse(t);}catch(e){}if(d&&(d.stop_hook_active||d.continuationActive))process.exit(0);const b=(d&&typeof d.cwd==='string'&&d.cwd)?d.cwd:process.cwd();const top=cp.spawnSync('git',['rev-parse','--show-toplevel'],{cwd:b,encoding:'utf8'});if(top.status===0&&top.stdout.trim()){}else{process.exit(0);}const root=path.resolve(top.stdout.trim()),gate=fs.existsSync(path.join(root,g))?path.join(root,g):path.resolve(b,g);if(fs.existsSync(gate)===false)process.exit(0);const st=cp.spawnSync('git',['-c','core.quotepath=false','status','--porcelain','--untracked-files=all'],{cwd:root,encoding:'utf8'});if(st.status===0){}else{process.exit(0);}const files=st.stdout.split(String.fromCharCode(10)).map(l=>l.replaceAll(String.fromCharCode(13),'').slice(3).split(' -> ').pop().trim().replaceAll(String.fromCharCode(34),'')).filter(p=>{const n=p.split(path.sep).join('/'),lo=n.toLowerCase();return p&&(lo.endsWith('.md')||lo.endsWith('.mdx'))&&['.agents','.codex','.claude'].some(x=>n.startsWith(x+'/'))===false&&fs.existsSync(path.join(root,p));});if(files.length===0)process.exit(0);const r=cp.spawnSync(process.execPath,[gate,'--json','--context','technical','--source-mode','rendered-markdown','--threshold','6','--',...files],{cwd:root,encoding:'utf8'});if(r.status===0)process.exit(0);let reason=(r.stderr||r.stdout||'avoid-ai-writing gate failed').trim();try{const j=JSON.parse(r.stdout);const bad=(j.files||[]).filter(x=>x.pass===false).map(x=>x.path+' ('+x.findings+' findings: '+(x.types||[]).join(', ')+')');if(bad.length)reason='avoid-ai-writing failed threshold '+j.threshold+': '+bad.join('; ')+' — rewrite AI-ism prose before finishing.';}catch(e){}const dec='block';process.stdout.write(JSON.stringify({decision:dec,reason})+String.fromCharCode(10));process.exit(0);}if(process.stdin.isTTY){run('');}else{let raw='',done=false;const fin=()=>{if(done)return;done=true;clearTimeout(tm);try{process.stdin.pause();process.stdin.destroy();}catch(e){}run(raw);};const tm=setTimeout(fin,500);process.stdin.setEncoding('utf8');process.stdin.on('data',c=>{raw+=c;if(raw.length>1048576)fin();});process.stdin.on('end',fin);process.stdin.on('error',fin);}\"";
 
-function injectSubagentStopHook(hooksMap = {}) {
-  const existing = Array.isArray(hooksMap.SubagentStop) ? [...hooksMap.SubagentStop] : [];
-  existing.push({
-    matcher: '',
-    hooks: [
+/** Build native Claude Code hooks JSON independently of AGY's hooks.md schema. */
+function buildClaudeHooks({ designer = false } = {}) {
+  const description = designer
+    ? 'Optional Impeccable hooks (Designer mode, without Harness hooks). Install at .claude/hooks.json in a trusted target project and review them in Claude Code before use.'
+    : 'Optional harness and Impeccable hooks. Install at .claude/hooks.json in a trusted target project and review them in Claude Code before use.';
+
+  const postToolUseHooks = [
+    {
+      type: 'command',
+      command: '[ ! -f ".claude/skills/impeccable/scripts/impeccable" ] || ".claude/skills/impeccable/scripts/impeccable" hook',
+      timeout: 5,
+      statusMessage: 'Checking UI changes'
+    }
+  ];
+  if (!designer) {
+    postToolUseHooks.push({
+      type: 'command',
+      command: '[ ! -f ".claude/skills/continuous-agent-loop/scripts/harness.mjs" ] || node ".claude/skills/continuous-agent-loop/scripts/harness.mjs" sensor check-file',
+      timeout: 5,
+      statusMessage: 'Auditing post-edit scope boundary'
+    });
+  }
+
+  const stopHooks = [
+    {
+      type: 'command',
+      command: '[ ! -f ".claude/skills/impeccable/scripts/impeccable" ] || ".claude/skills/impeccable/scripts/impeccable" hook',
+      timeout: 30,
+      statusMessage: 'Design deep pass'
+    },
+    {
+      type: 'command',
+      command: '[ ! -f ".claude/skills/design-taste-frontend/scripts/gate.mjs" ] || node ".claude/skills/design-taste-frontend/scripts/gate.mjs" --hook claude',
+      timeout: 600,
+      statusMessage: 'Running tasteskill frontend gate'
+    },
+    {
+      type: 'command',
+      command: CLAUDE_AVOID_AI_WRITING_CMD,
+      timeout: 15,
+      statusMessage: 'Checking modified Markdown prose (avoid-ai-writing)'
+    }
+  ];
+  if (!designer) {
+    stopHooks.push({
+      type: 'command',
+      command: '[ ! -f ".claude/skills/continuous-agent-loop/scripts/harness.mjs" ] || node ".claude/skills/continuous-agent-loop/scripts/harness.mjs" verify status-check --hook claude',
+      timeout: 10,
+      statusMessage: 'Verifying harness receipt & progress checkpoint'
+    });
+  }
+
+  const hooks = {
+    SessionStart: [
       {
-        type: 'command',
-        command: 'node .claude/scripts/swarm-subagent-guard.cjs',
-        timeout: 10,
-        statusMessage: 'Validating subagent completion report'
+        matcher: '',
+        hooks: [
+          {
+            type: 'command',
+            command: '[ ! -f ".claude/skills/continuous-agent-loop/scripts/harness.mjs" ] || node ".claude/skills/continuous-agent-loop/scripts/harness.mjs" memory brief --hook claude',
+            timeout: 10,
+            statusMessage: 'Loading active memory brief'
+          }
+        ]
       }
     ]
-  });
-  return { ...hooksMap, SubagentStop: existing };
+  };
+
+  if (!designer) {
+    hooks.PreToolUse = [
+      {
+        matcher: 'Edit|Write|MultiEdit|NotebookEdit',
+        hooks: [
+          {
+            type: 'command',
+            command: '[ ! -f ".claude/skills/continuous-agent-loop/scripts/harness.mjs" ] || node ".claude/skills/continuous-agent-loop/scripts/harness.mjs" sensor check-file',
+            timeout: 5,
+            statusMessage: 'Checking harness contract scope'
+          }
+        ]
+      }
+    ];
+  }
+
+  hooks.PostToolUse = [
+    {
+      matcher: 'Edit|Write|MultiEdit|NotebookEdit',
+      hooks: postToolUseHooks
+    }
+  ];
+
+  hooks.Stop = [
+    {
+      hooks: stopHooks
+    }
+  ];
+
+  hooks.SubagentStop = [
+    {
+      matcher: '',
+      hooks: [
+        {
+          type: 'command',
+          command: 'node .claude/scripts/swarm-subagent-guard.cjs',
+          timeout: 10,
+          statusMessage: 'Validating subagent completion report'
+        }
+      ]
+    }
+  ];
+
+  return { description, hooks };
 }
 
 export function buildClaudeBundle() {
@@ -256,25 +327,8 @@ export function buildClaudeBundle() {
   }
   const hooksSource = path.join(sourceRoot, 'hooks.example.json');
   if (fs.existsSync(hooksSource)) {
-    const hooks = JSON.parse(fs.readFileSync(hooksSource, 'utf8'));
-    add(
-      'hooks.example.json',
-      json({
-        description: 'Optional harness and Impeccable hooks. Install at .claude/hooks.json in a trusted target project and review them in Claude Code before use.',
-        ...hooks,
-        hooks: injectSubagentStopHook(adaptHooksForClaude(hooks.hooks, ['swarm-stop-guard']))
-      }),
-      hooksSource
-    );
-    add(
-      'hooks.impeccable.example.json',
-      json({
-        description: 'Optional Impeccable hooks (Designer mode, without Harness hooks). Install at .claude/hooks.json in a trusted target project and review them in Claude Code before use.',
-        ...hooks,
-        hooks: injectSubagentStopHook(adaptHooksForClaude(hooks.hooks, ['harness.mjs', 'swarm-stop-guard']))
-      }),
-      hooksSource
-    );
+    add('hooks.example.json', json(buildClaudeHooks({ designer: false })), hooksSource);
+    add('hooks.impeccable.example.json', json(buildClaudeHooks({ designer: true })), hooksSource);
   }
 
   // 4. Generate root CLAUDE.md and CLAUDE.designer.md from AGENTS.md

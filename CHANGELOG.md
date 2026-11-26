@@ -2,16 +2,20 @@
 
 All notable changes are recorded here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [Semantic Versioning](https://semver.org/).
 
-## [2.2.0] - 2026-11-24
+## [2.2.0] - 2026-11-26
 
 ### Added
+- Bidirectional `/learn` skill (`learn`, `original`, MIT) and universal commands/skills across all editions and both Harness & Designer modes: AGY `/learn`, Claude Code `/learn` (bringing `.claude/commands/` to 10 commands), and Codex `$learn` (included across all profiles, bringing `.codex/` to 76 top-level / 82 discoverable manifests). Captures both `regression` anti-patterns and verified `exemplar` playbooks with ACE `helpful`/`harmful` counters.
 - Non-CLI parallel swarm support across Claude Code (`/swarm` command in `.claude/commands/swarm.md`, `.claude/rules/swarm.md`, `SubagentStop` hook `.claude/scripts/swarm-subagent-guard.cjs`, and Opus/Sonnet/Haiku 4-rung routing) and OpenAI Codex (`$swarm` skill in `.codex/skills/swarm/` across all profiles, `.codex/rules/swarm.md`, 32 `.codex/agents/*.toml` manifests, `.codex/config.toml` Multi-Agent V2 merge, and GPT-6.2 Astra/Sol 4-rung routing).
-- `modern-web-guidance`, `chrome-extensions`, and `unslop` (`heydamir/unslop`, CC-BY-4.0 — 9-pass UI redlining, live URL snapshots, RTL rules) skills, bringing the catalog to 74 top-level skills (80 discoverable manifests; Codex ships 75 top-level / 81 discoverable including `$swarm`).
+- `modern-web-guidance`, `chrome-extensions`, `unslop` (`heydamir/unslop`, CC-BY-4.0 — 9-pass UI redlining, live URL snapshots, RTL rules), and `learn` skills, bringing the catalog to 75 top-level skills (81 discoverable manifests; Codex ships 76 top-level / 82 discoverable including `$swarm`).
+- Cross-platform `.agents/scripts/agy-hook-runner.cjs` and `SessionStart` Active Memory Brief (`harness.mjs memory brief --max-bytes 600`) across AGY, Claude (`SessionStart` + `SubagentStop` in both Harness & Designer modes), and Codex.
+- Worktree-scoped active contracts (`.harness/worktree-tasks/<hash>.json`), `diff_sha256` freshness check in `verify status-check`, programmatic `consecutive_failures` Strike-2/3 counters (`[STRIKE 2]` / `[STRIKE 3]`), Skeptic JSON (`stamp-skeptic --from-json`) & Evaluator JSON (`evaluate.py --json` + `eval ingest --from-json`) ingestion, `flywheel digest --graduate` skill scaffolder (`project-<domain>/SKILL.md` + bullet pruning), `flywheel test` replay, `flywheel prune` (Jaccard dedup + decay), and orchestration telemetry (`telemetry record` / `telemetry summary` in `.harness/evals/orchestration-metrics.jsonl`).
 - 15-category, 103-pattern `interaction-catalog.md` under `.agents/resources/creative-libraries/`, synced to `.codex/resources/` and `.claude/resources/`.
 - `tools/claude/templates/rules/install.md` rule template and `.claude/resources/` export in `tools/claude/export.mjs`.
 
 ### Changed
-- Unified Gemini pool routing in `.agents/rules/swarm.md` (Carbon High / Neon XHigh coordinator lock, plus user-chosen Hydrogen XHigh coordinator mode capping all workers strictly to Hydrogen High only; 4-rung worker pinning, zero Argon) and hardened `swarm-stop-guard.cjs`.
+- Rewrote `.agents/hooks.example.json` and `.agents/hooks.impeccable.example.json` to AGY's native `hooks.md` schema (top-level named hook map, `edit_file|write_file` matchers, flat `SessionStart` + `Stop` arrays, zero `commandWindows`).
+- Unified Gemini pool routing in `.agents/rules/swarm.md` (Carbon High / Neon XHigh coordinator lock, plus user-chosen Hydrogen XHigh coordinator mode capping all workers strictly to Hydrogen High only; 4-rung worker pinning, zero Argon) and wired conditional orchestration telemetry into `swarm-stop-guard.cjs`.
 - Refactored `.agents/rules/frontend.md` with `design-taste-frontend` as primary visual, typography, and palette director and `impeccable` for layout and craft-floor audits, paired with `MOTION.md` and `interaction-catalog.md`.
 - Streamlined `AGENTS.md` and `CLAUDE.md` policy sections by ~48% while keeping all workspace rules and routing tables intact.
 - Migrated Claude hook templates to the native Claude Code hook schema (removed `commandWindows`).

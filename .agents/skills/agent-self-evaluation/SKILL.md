@@ -79,13 +79,18 @@ Use the template from `templates/evaluation-report.md`. The report must include:
 - Self-check: "Would the user agree with this assessment?"
 ```
 
-### Step 4: Apply the Improvement
+### Step 4: Apply the Improvement & Feed `/learn`
 
 If any axis scored 3 or below:
 
 1. State what you would do differently
 2. If the gap is fixable in < 30 seconds (missing link, unclear phrasing), fix it now
 3. If the gap requires rework, flag it explicitly: "This axis scored [reason] because [evidence]. Re-running with [specific fix] would likely raise it to [score]."
+
+To hand off structured lessons into the 3-tier Memory Flywheel, run `scripts/evaluate.py --json` and pipe the JSON into `harness.mjs eval ingest --from-json -`:
+
+- Critical axis gaps (`<= 2`) become staged `regression` candidates.
+- Verified high-score deliveries (`>= 4.5` average with no axis `<= 2`) become staged `exemplar` candidates for [learn](../learn/SKILL.md).
 
 ## Code Examples
 

@@ -3,7 +3,7 @@
 Use this guidance after the ANTHROPIC / CLAUDE CODE edition has been selected (or when asked to install this skills repository into another workspace). For a generic request without explicit choices, ask these two sequential questions in order and wait for each answer before proceeding:
 
 1. **Question 1 — Edition**: "Which edition would you like to install: **AGY** (`AGY / GEMINI`), **CODEX** (`GPT / CODEX`), or **CLAUDE** (`ANTHROPIC / CLAUDE CODE`)?"
-2. **Question 2 — Hook Mode**: "Which hook mode would you like to install: **HARNESS MODE** (full Harness + Impeccable + `design-taste-frontend` + `avoid-ai-writing` hooks, `.git/hooks/pre-commit` receipt gate, and full Harness lifecycle in `CLAUDE.md`) or **DESIGNER MODE** (Impeccable, `design-taste-frontend`, `avoid-ai-writing`, and `SubagentStop` `swarm-subagent-guard.cjs` hooks, no Harness hooks or git pre-commit, and Designer `CLAUDE.md`)?"
+2. **Question 2 — Hook Mode**: "Which hook mode would you like to install: **HARNESS MODE** (full Harness + `SessionStart` Active Memory Brief + Impeccable + `design-taste-frontend` + `avoid-ai-writing` + `SubagentStop` hooks, `.git/hooks/pre-commit` receipt gate, and full Harness lifecycle in `CLAUDE.md`) or **DESIGNER MODE** (Impeccable, `design-taste-frontend`, `avoid-ai-writing`, `SessionStart` Active Memory Brief, and `SubagentStop` `swarm-subagent-guard.cjs` hooks, no Harness hooks or git pre-commit, and Designer `CLAUDE.md`)?"
 
 Reuse explicit choices already given for this installation. If **AGY** or **CODEX** is selected instead, follow its branch in the source checkout's `INSTALL.md` (or run `node install.mjs` interactively in a TTY) rather than the Claude-only steps below. Routine dependency setup in an existing Claude Code installation does not require re-asking these questions.
 
@@ -19,7 +19,7 @@ node install.mjs --edition claude --mode harness --target "C:/Projects/my-projec
 # or directly:
 node tools/claude/install.mjs --target "C:/Projects/my-project" --profile all --mode harness
 
-# Designer mode (Impeccable, design-taste-frontend, avoid-ai-writing, and SubagentStop swarm-subagent-guard.cjs hooks; merged into .claude/settings.json; Designer CLAUDE.md; disables all Harness hooks and skips .git/hooks/pre-commit)
+# Designer mode (Impeccable, design-taste-frontend, avoid-ai-writing, SessionStart Active Memory Brief, and SubagentStop swarm-subagent-guard.cjs hooks; merged into .claude/settings.json; Designer CLAUDE.md; disables all Harness hooks and skips .git/hooks/pre-commit)
 node install.mjs --edition claude --mode designer --target "C:/Projects/my-project" --profile all
 # or directly:
 node tools/claude/install.mjs --target "C:/Projects/my-project" --profile all --mode designer
@@ -44,6 +44,6 @@ If a bundle integrity check fails before copying, use a fresh complete checkout.
 
 ## Finish the installation request
 
-Report the selected edition, selected hook mode (`HARNESS MODE` or `DESIGNER MODE`), absolute target, hook activation (`.claude/hooks.json`, `.claude/settings.json`, and `.git/hooks/pre-commit` status), dependency and browser verification results, and the installed rule removed. In Claude Code, skills are discoverable via `/skill-name`, agents via `@agent-name`, and custom commands via `/plan`, `/tdd`, `/audit`, `/review`, `/eval`, `/contract`, `/verify`, `/flywheel`, and `/swarm`.
+Report the selected edition, selected hook mode (`HARNESS MODE` or `DESIGNER MODE`), absolute target, hook activation (`.claude/hooks.json`, `.claude/settings.json`, and `.git/hooks/pre-commit` status), dependency and browser verification results, and the installed rule removed. In Claude Code, skills are discoverable via `/skill-name`, agents via `@agent-name`, and 10 custom commands via `/plan`, `/tdd`, `/audit`, `/review`, `/eval`, `/contract`, `/verify`, `/flywheel`, `/swarm`, and `/learn`.
 
-Lifecycle hooks (`.claude/hooks.json`, `.claude/settings.json`, and in Harness mode `.git/hooks/pre-commit`) are installed and activated by default (`includeHooks = true`; pass `--mode designer` for Impeccable, `design-taste-frontend`, `avoid-ai-writing`, and `SubagentStop` `swarm-subagent-guard.cjs` hooks without Harness hooks, or `--no-hooks` to disable all hooks). Set up other external services when their workflows need them. Preserve existing user configuration and global policy; this local installer does not create global Claude Code instructions or configure external accounts.
+Lifecycle hooks (`.claude/hooks.json`, `.claude/settings.json`, and in Harness mode `.git/hooks/pre-commit`) are installed and activated by default (`includeHooks = true`; pass `--mode designer` for Impeccable, `design-taste-frontend`, `avoid-ai-writing`, `SessionStart` Active Memory Brief, and `SubagentStop` `swarm-subagent-guard.cjs` hooks without Harness hooks, or `--no-hooks` to disable all hooks). Both modes retain `SessionStart` Active Memory Brief and `SubagentStop` hooks. Set up other external services when their workflows need them. Preserve existing user configuration and global policy; this local installer does not create global Claude Code instructions or configure external accounts.

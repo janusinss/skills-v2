@@ -3,14 +3,14 @@
 
 # Learned Invariants & Memory Flywheel Guardrails
 
-Core project invariants loaded before planning, code edits, or verification gates. See [continuous-agent-loop](../skills/continuous-agent-loop/SKILL.md) for full CLI flags and schemas.
+Core project invariants and winning playbooks loaded before planning, code edits, or verification gates. See [learn](../skills/learn/SKILL.md) for the `/learn` workflow and [continuous-agent-loop](../skills/continuous-agent-loop/SKILL.md) for full CLI flags and schemas.
 
 ## 1. 3-Tier Memory Flywheel & Budget
 
-- **Tier 1 (`.harness/evals/regressions.jsonl`)**: Captures failures from `verify run`, [skeptic.md](../agents/skeptic.md), or user corrections via `harness.mjs flywheel record`.
-- **Tier 2 (This file)**: First-time automated findings stage in Section 4; user corrections, `--promote`, or recurring causes (`>= 2` hits) promote to Section 3 as `- **[<Domain>]**: <Single-sentence invariant>` (optional trailing `(Source: ...)` tags are ignored during dedup).
-- **Tier 3 (`.codex/skills/project-<domain>/SKILL.md`)**: Graduate recurring clusters (`>= 3` hits) via `harness.mjs flywheel digest --graduate <domain>`, then prune superseded Section 3 bullets.
-- **Budget & Scope**: Run `harness.mjs flywheel digest` at `>= 20` promoted bullets, near `12 KB` (`12,288` bytes; `24 KB` cap), or `>= 3` hits per domain. Keep project invariants and `project-*` skills local to target repos; commit only universal workflow invariants in the `Skills` source repo.
+- **Tier 1 (`.harness/evals/`)**: Append-only raw ledgers—`regressions.jsonl` (failures from `verify run`, [skeptic.md](../agents/skeptic.md), `evaluate.py`, or user corrections), `exemplars.jsonl` (verified winning patterns), and `orchestration-metrics.jsonl` (run telemetry).
+- **Tier 2 (This file)**: Promoted Project Invariants (Section 3, `<= 20` soft cap), Promoted Positive Exemplars (Section 4, `<= 8` soft cap), and Staged Candidates (Section 5). Promotion is gated on explicit `/learn` approval or `flywheel test` replay PASS—never auto-append raw reflections to root policy files. At `SessionStart`, a compact `<= 600 B` domain-matched brief is injected.
+- **Tier 3 (`.codex/skills/project-<domain>/SKILL.md`)**: Graduate recurring clusters (`>= 3` verified hits) or relieve size pressure near `12 KB` (`12,288` bytes; `24 KB` cap) via `harness.mjs flywheel digest --graduate <domain>`, then prune superseded bullets. Run `harness.mjs flywheel prune` to expire stale 1-hit staged items.
+- **Repo Scope**: Keep project invariants, exemplars, and `project-*` skills local to target repos; commit only universal workflow invariants in the `Skills` source repo.
 
 ## 2. Core Baseline Invariants
 
@@ -26,7 +26,12 @@ Core project invariants loaded before planning, code edits, or verification gate
 <!-- flywheel-promoted-rules-start -->
 <!-- flywheel-promoted-rules-end -->
 
-## 4. Staged Candidates (Pending Promotion)
+## 4. Promoted Positive Exemplars
+
+<!-- flywheel-exemplars-start -->
+<!-- flywheel-exemplars-end -->
+
+## 5. Staged Candidates (Pending Promotion)
 
 <!-- flywheel-staged-rules-start -->
 <!-- flywheel-staged-rules-end -->

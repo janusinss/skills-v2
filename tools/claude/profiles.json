@@ -1,11 +1,11 @@
 {
   "minimal": [
-    "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
+    "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate", "learn",
     "ui-styling", "anti-ai-slop", "backend-dev-guidelines", "api-security-best-practices", "playwright-skill", "agent-browser",
     "continuous-agent-loop", "archify", "untangle-codebase", "git-pushing"
   ],
   "frontend": [
-    "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
+    "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate", "learn",
     "prompt-enhancer", "prompt-enhancer-frontend", "3d-web-experience",
     "frontend-developer", "frontend-security-coder", "impeccable", "ui-ux-pro-max", "ui-styling",
     "anti-ai-slop", "unslop", "design-taste-frontend", "design-system", "awesome-design-md", "brandkit", "tailwind-patterns", "react-best-practices",
@@ -14,7 +14,7 @@
     "archify", "untangle-codebase", "seo-audit", "programmatic-seo", "competitor-alternatives", "content-creator", "modern-web-guidance", "chrome-extensions"
   ],
   "backend": [
-    "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
+    "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate", "learn",
     "prompt-enhancer", "prompt-enhancer-backend", "backend-dev-guidelines", "api-patterns", "api-security-best-practices",
     "architecture-patterns", "architecture-decision-records", "database-design",
     "postgres-best-practices", "auth-implementation-patterns", "nodejs-best-practices", "typescript-expert",
@@ -24,7 +24,7 @@
     "archify", "untangle-codebase", "mcp-builder", "git-pushing"
   ],
   "security": [
-    "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate",
+    "concise-planning", "systematic-debugging", "code-review-checklist", "lint-and-validate", "learn",
     "security-audit", "frontend-security-coder", "api-security-best-practices",
     "auth-implementation-patterns", "ethical-hacking-methodology", "top-web-vulnerabilities",
     "penetration-testing-with-strix", "application-security-testing",

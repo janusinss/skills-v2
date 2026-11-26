@@ -161,6 +161,7 @@ function analyzeTranscript(transcriptPath) {
   const shardedGroups = new Set();
   let lastWaitCall = null;
   let turnHadAdd = false;
+  let turnHadDone = false;
   let seenBoardToolsInWave = false;
 
   for (const line of lines) {
@@ -171,6 +172,7 @@ function analyzeTranscript(transcriptPath) {
     if (step.type === 'USER_INPUT') {
       lastWaitCall = null;
       turnHadAdd = false;
+      turnHadDone = false;
       continue;
     }
 
@@ -235,6 +237,7 @@ function analyzeTranscript(transcriptPath) {
           activeWorkers.clear();
           shardedGroups.clear();
           seenBoardToolsInWave = false;
+          turnHadDone = true;
         }
         lastWaitCall = null;
       } else if (name === 'swarm_wait') {
@@ -258,8 +261,52 @@ function analyzeTranscript(transcriptPath) {
     shardedGroups: [...shardedGroups],
     lastWaitCall,
     turnHadAdd,
+    turnHadDone,
     seenBoardToolsInWave,
   };
+}
+
+/** Resolve workspace root from hook stdin payload if available. */
+function resolveMetricWorkspaceRoot(input) {
+  const candidate =
+    (typeof input?.cwd === 'string' && input.cwd.trim())
+      ? input.cwd.trim()
+      : (Array.isArray(input?.workspacePaths) &&
+          typeof input.workspacePaths[0] === 'string' &&
+          input.workspacePaths[0].trim())
+        ? input.workspacePaths[0].trim()
+        : null;
+  if (!candidate) return null;
+  let curr = path.resolve(candidate);
+  while (true) {
+    if (fs.existsSync(path.join(curr, '.harness'))) return curr;
+    if (fs.existsSync(path.join(curr, '.git'))) return curr;
+    const parent = path.dirname(curr);
+    if (parent === curr) break;
+    curr = parent;
+  }
+  return path.resolve(candidate);
+}
+
+/** Non-blockingly append orchestration telemetry ONLY if `.harness/` already exists. */
+function appendSwarmMetricIfHarnessExists(input, record) {
+  try {
+    const root = resolveMetricWorkspaceRoot(input);
+    if (!root) return;
+    const harnessDir = path.join(root, '.harness');
+    if (!fs.existsSync(harnessDir)) return;
+    const evalsDir = path.join(harnessDir, 'evals');
+    fs.mkdirSync(evalsDir, { recursive: true });
+    const metricsFile = path.join(evalsDir, 'orchestration-metrics.jsonl');
+    const payload = {
+      timestamp: new Date().toISOString(),
+      workflow: 'swarm',
+      ...record,
+    };
+    fs.appendFileSync(metricsFile, JSON.stringify(payload) + '\n', 'utf8');
+  } catch {
+    // Telemetry must never block or trap Stop
+  }
 }
 
 /** Decide whether a Stop event requires forcing a continuation re-check. */
@@ -274,7 +321,20 @@ function evaluateStop(input) {
   }
 
   const state = analyzeTranscript(transcriptPath);
-  if (!state || state.activeWorkers.length === 0) return null;
+  if (!state) return null;
+  if (state.activeWorkers.length === 0) {
+    if (state.turnHadDone) {
+      appendSwarmMetricIfHarnessExists(input, {
+        event: 'swarm_done',
+        strikes: 0,
+        rework: 0,
+        stalls: 0,
+        scope_blocks: 0,
+        outcome: 'ok',
+      });
+    }
+    return null;
+  }
 
   const workerList = state.activeWorkers.slice(0, 5).join(', ');
   const suffix = state.activeWorkers.length > 5 ? ` (+${state.activeWorkers.length - 5} more)` : '';
@@ -284,10 +344,20 @@ function evaluateStop(input) {
       const waitNote = state.lastWaitCall.mentionsOnly !== false
         ? ' with mentions_only!=false and no monitor worker'
         : ' with no monitor worker';
-      return {
+      const verdict = {
         decision: 'continue',
         reason: `Swarm guard: entering swarm_wait${waitNote} while active workers (${workerList}${suffix}) remain open. Check swarm{action:"status"} / read_board and spawn a monitor (swarm_monitor) before sleeping so the swarm cannot deadlock idle.`,
       };
+      appendSwarmMetricIfHarnessExists(input, {
+        event: 'stop_guard_block',
+        strikes: 0,
+        rework: 0,
+        stalls: 1,
+        scope_blocks: 0,
+        outcome: 'fail',
+        active_workers: state.activeWorkers.length,
+      });
+      return verdict;
     }
     return null;
   }
@@ -295,18 +365,38 @@ function evaluateStop(input) {
   // Turn 1 spawns workers before post_message/read_board/swarm_wait exist in the toolset; allow clean turn end when a monitor is active.
   if (state.turnHadAdd && !state.seenBoardToolsInWave) {
     if (state.monitors.length === 0) {
-      return {
+      const verdict = {
         decision: 'continue',
         reason: `Swarm guard: spawned workers (${workerList}${suffix}) without a monitor worker. Spawn a monitor (swarm_monitor) so idle stalls auto-wake before ending Turn 1.`,
       };
+      appendSwarmMetricIfHarnessExists(input, {
+        event: 'stop_guard_block',
+        strikes: 0,
+        rework: 0,
+        stalls: 1,
+        scope_blocks: 0,
+        outcome: 'fail',
+        active_workers: state.activeWorkers.length,
+      });
+      return verdict;
     }
     return null;
   }
 
-  return {
+  const verdict = {
     decision: 'continue',
     reason: `Swarm guard: ending turn without [done] while workers (${workerList}${suffix}) remain active in transcript. Run swarm{action:"status"} and read_board to verify whether workers are done or stalled sleeping, wake/wait cleanly, or post [done] and kill finished workers.`,
   };
+  appendSwarmMetricIfHarnessExists(input, {
+    event: 'stop_guard_block',
+    strikes: 0,
+    rework: 0,
+    stalls: 1,
+    scope_blocks: 0,
+    outcome: 'fail',
+    active_workers: state.activeWorkers.length,
+  });
+  return verdict;
 }
 
 async function main() {
@@ -314,11 +404,10 @@ async function main() {
     const raw = await readStdin(1500);
     const input = parseJsonSafe(raw);
     const verdict = evaluateStop(input);
-    if (verdict) {
-      process.stdout.write(JSON.stringify(verdict) + '\n');
-    }
+    process.stdout.write(JSON.stringify(verdict || {}) + '\n');
   } catch {
     // Hook errors must never trap termination
+    process.stdout.write('{}\n');
   }
 }
 

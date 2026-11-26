@@ -23,6 +23,8 @@ export const isBundleExcluded = relative =>
   || relative === 'hooks.json'
   || relative === 'scripts/swarm-stop-guard.cjs'
   || /(?:^|\/)scripts\/swarm-stop-guard\.cjs$/.test(relative)
+  || relative === 'scripts/agy-hook-runner.cjs'
+  || /(?:^|\/)scripts\/agy-hook-runner\.cjs$/.test(relative)
   || relative === 'rules/swarm.md'
   || /(?:^|\/)rules\/swarm\.md$/.test(relative);
 export const sha256 = value => crypto.createHash('sha256').update(value).digest('hex');

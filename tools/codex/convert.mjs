@@ -145,7 +145,7 @@ export function resolveCodexAgentConfig(name, tier) {
 const codexSubtitle = 'Instructions, operating rules, and workspace routing for OpenAI Codex.';
 
 const codexRoutingBlock = [
-  '- **Invocation & Multi-Agent V2 (`$swarm`)**: Configure `[features.multi_agent_v2]` in `.codex/config.toml` and spawn specialists from `.codex/agents/<role>.toml` with `fork_turns: "none"` and native parent `wait` (`default_wait_timeout_ms = 30000`, no polling worker). Follow [.codex/rules/swarm.md](.codex/rules/swarm.md) and `$swarm` for parallel execution.',
+  '- **Invocation & Multi-Agent V2 (`$swarm`, `$learn`)**: Configure `[features.multi_agent_v2]` in `.codex/config.toml` and spawn specialists from `.codex/agents/<role>.toml` with `fork_turns: "none"` and native parent `wait` (`default_wait_timeout_ms = 30000`, no polling worker). Follow [.codex/rules/swarm.md](.codex/rules/swarm.md) and `$swarm` for parallel execution, and use `$learn` for bidirectional positive + negative learning into `.codex/rules/learned-invariants.md`.',
   '- **Coordinator**: Preserve user-selected `gpt-6.2-astra` (`xhigh`/`max`) or `gpt-6.2-sol` (`xhigh`/`max`) in UI/config; never auto-escalate.',
   '',
   '| Rung / Tier | GPT / Codex Routing | Agents ([.codex/agents/](.codex/agents/)) |',
@@ -244,6 +244,7 @@ function adaptCodexPolicy(text) {
       codexRoutingBlock + '\n'
     );
   }
+  result = result.replace(/via bidirectional `\/learn`/g, 'via bidirectional `$learn`');
   return result.replace(/<!--\s*edition-[a-z0-9_-]+\s*-->\r?\n?/gi, '');
 }
 
@@ -267,7 +268,14 @@ export function adaptMarkdown(text, sourceFile, duplicatePaths = new Map()) {
     .replaceAll('via `read_file`', 'using the file-reading tool')
     .replaceAll('`read_file`, `view_file`', '`read_file`')
     .replaceAll('`view_file`', 'file-reading tool')
-    .replaceAll('via `AGY /learn`, `Claude /flywheel`, or `harness.mjs flywheel digest --graduate <domain>`', 'via `harness.mjs flywheel digest --graduate <domain>`');
+    .replaceAll('via `AGY /learn`, `Claude /flywheel`, or `harness.mjs flywheel digest --graduate <domain>`', 'via `$learn` or `harness.mjs flywheel digest --graduate <domain>`')
+    .replaceAll('Graduate recurring clusters via AGY `/learn` or `/flywheel` (or `/flywheel` in Claude / skill authoring in Codex)', 'Graduate recurring clusters via `$learn` or `harness.mjs flywheel digest --graduate <domain>`')
+    .replaceAll('AGY `/learn`', '`$learn`')
+    .replaceAll('`AGY /learn`', '`$learn`')
+    .replaceAll('AGY /learn', '`$learn`')
+    .replaceAll('Claude `/flywheel`', '`harness.mjs flywheel digest --graduate <domain>`')
+    .replaceAll('`Claude /flywheel`', '`harness.mjs flywheel digest --graduate <domain>`')
+    .replaceAll('Claude /flywheel', '`harness.mjs flywheel digest --graduate <domain>`');
   result = result
     .replaceAll('(`ask_question` when unspecified)', '(when unspecified)')
     .replaceAll('(`ask_question`)', '(when the existing user instructions leave a material choice unresolved)')
@@ -284,7 +292,7 @@ export function adaptMarkdown(text, sourceFile, duplicatePaths = new Map()) {
       .replace(/\s*\(or the `\.codex\/` \/ `\.claude\/` equivalent\)/g, '')
       .replace(
         /^- \*\*Tier 2 -> Tier 3 \(`flywheel digest` -> `\/learn` or `\/flywheel` -> prune\)\*\*:[^\n]*$/m,
-        '- **Tier 2 -> Tier 3 (`flywheel digest` -> skill graduation -> prune)**: `flywheel digest [--json] [--graduate <domain>]` sets `curation_recommended: true` when promoted rules reach `>= 20`, file size approaches `12 KB`, or a domain hits `>= 3` ungraduated regressions. Graduate recurring clusters via skill authoring into `.codex/skills/project-<domain>/SKILL.md`, run `flywheel digest --graduate <domain>`, and prune superseded rules.'
+        '- **Tier 2 -> Tier 3 (`flywheel digest` -> `$learn` -> prune)**: `flywheel digest [--json] [--graduate <domain>]` sets `curation_recommended: true` when promoted rules reach `>= 20`, file size approaches `12 KB`, or a domain hits `>= 3` ungraduated regressions. Graduate recurring clusters via `$learn` into `.codex/skills/project-<domain>/SKILL.md`, run `flywheel digest --graduate <domain>`, and prune superseded rules.'
       );
   }
   // Repair repository-root links into relative links that work in both the
@@ -314,6 +322,7 @@ export function adaptMarkdown(text, sourceFile, duplicatePaths = new Map()) {
   if (isAgentsPolicy) {
     result = adaptCodexPolicy(result);
   }
+  result = result.replace(/via bidirectional `\/learn`/g, 'via bidirectional `$learn`');
   return result.replace(/<!--\s*edition-[a-z0-9_-]+\s*-->\r?\n?/gi, '');
 }
 
@@ -342,8 +351,9 @@ export function formatDesignerPolicy(text) {
   const dir = result.includes('.codex/') ? 'codex' : result.includes('.claude/') ? 'claude' : 'agents';
   result = result.replace(
     /^- \*\*Compounding Invariants[^*\n]*\*\*:[^\n]*$/m,
-    `- **Compounding Invariants**: Read [.${dir}/rules/learned-invariants.md](.${dir}/rules/learned-invariants.md) (when present) before editing code to enforce project-specific guardrails and prevent known regressions.`
+    `- **Compounding Invariants**: Read [.${dir}/rules/learned-invariants.md](.${dir}/rules/learned-invariants.md) (when present) before editing code to enforce project-specific guardrails and prevent known regressions; use \`$learn\` to record bidirectional exemplars and anti-patterns.`
   );
+  result = result.replace(/\s*\(`harness\.mjs`[^)\n]*\)/g, '');
   result = result.replace(
     /After 2 consecutive failed verification receipts or Skeptic rejections on the same issue/gi,
     'After 2 consecutive failed verification checks or audits on the same issue'

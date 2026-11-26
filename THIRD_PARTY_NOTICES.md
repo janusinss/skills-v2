@@ -12,7 +12,7 @@ Per-skill provenance lives in [provenance.json](provenance.json) (`source`, `sou
 | Upstream Source | Skill Count | License | Representative Skills |
 | :--- | ---: | :--- | :--- |
 | `sickn33/antigravity-awesome-skills` | 39 | MIT | Representative active skills: `api-patterns`, `architecture-patterns`, `database-design`, `docker-expert`, `ethical-hacking-methodology`, `python-patterns`, `react-patterns`, `tailwind-patterns`, `top-web-vulnerabilities`, `seo-audit` |
-| `original` (`janusinss/skills-v2`) | 4 | MIT | `anti-ai-slop`, `prompt-enhancer`, `prompt-enhancer-backend`, `prompt-enhancer-frontend` |
+| `original` (`janusinss/skills-v2`) | 5 | MIT | `anti-ai-slop`, `learn`, `prompt-enhancer`, `prompt-enhancer-backend`, `prompt-enhancer-frontend` |
 | `usestrix/strix` | 4 | Apache-2.0 | `application-security-testing`, `ci-security-scanning-with-strix`, `fix-security-vulnerabilities-with-strix`, `penetration-testing-with-strix` |
 | `nextlevelbuilder/ui-ux-pro-max-skill` | 4 | MIT | `ui-ux-pro-max`, plus `design`, `design-system`, `ui-styling` (derived from `mrgoonie/claudekit-skills`) |
 | `Leonxlnx/imagegen-skills` | 3 | MIT | `brandkit`, `image-to-code`, `imagegen-frontend-web` |

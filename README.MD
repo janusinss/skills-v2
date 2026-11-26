@@ -1,7 +1,7 @@
 # Agent Skills & Workspace Configurations
 
 <!-- generated:counts -->
-A curated collection of **74 top-level AI agent skills**, 32 specialized subagents, 11 architectural rules and 9 Claude Code slash commands, with multi-profile installers across three editions: **AGY / Gemini**, **GPT / Codex** and **Anthropic / Claude Code**.
+A curated collection of **75 top-level AI agent skills**, 32 specialized subagents, 11 architectural rules and 10 Claude Code slash commands, with multi-profile installers across three editions: **AGY / Gemini**, **GPT / Codex** and **Anthropic / Claude Code**.
 <!-- /generated:counts -->
 
 ---
@@ -69,12 +69,12 @@ Both the Codex and Claude Code installers accept `--profile <name>` to install t
 <!-- generated:profiles -->
 | Profile | Skills | Contents |
 | :--- | :---: | :--- |
-| **`all`** | 74 | Every skill, rule and subagent. |
-| **`minimal`** | 14 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `ui-styling`, +9 more |
-| **`frontend`** | 41 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +36 more |
-| **`backend`** | 34 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +29 more |
-| **`security`** | 16 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `security-audit`, +11 more |
-| **`fullstack`** | 64 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `prompt-enhancer`, +59 more |
+| **`all`** | 75 | Every skill, rule and subagent. |
+| **`minimal`** | 15 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `learn`, +10 more |
+| **`frontend`** | 42 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `learn`, +37 more |
+| **`backend`** | 35 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `learn`, +30 more |
+| **`security`** | 17 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `learn`, +12 more |
+| **`fullstack`** | 65 | `concise-planning`, `systematic-debugging`, `code-review-checklist`, `lint-and-validate`, `learn`, +60 more |
 <!-- /generated:profiles -->
 
 ---
@@ -131,6 +131,7 @@ In Claude Code, engineering phases are triggered directly via native slash comma
 - `/contract <task>`: Initialize a pre-flight task contract and adaptive worktree via `harness.mjs`.
 - `/verify <task>`: Run deterministic receipt verification (`harness.mjs`) and cold-context `@skeptic` evaluation.
 - `/flywheel <task>`: Record a root-cause invariant into the Calibrated Dual-Store Memory Flywheel and checkpoint progress.
+- `/learn <insight>`: Run bidirectional self-improvement (stage positive exemplars or failure regressions, replay-gate promotions, graduate recurring domains into skills) in Harness or Designer mode.
 - `/swarm <task>`: Run a non-CLI parallel Agent swarm (VS Code / Desktop) with worktree isolation and role-pinned Opus/Sonnet/Haiku routing.
 
 ---
@@ -149,13 +150,13 @@ In Claude Code, engineering phases are triggered directly via native slash comma
 | [`backend.md`](.agents/rules/backend.md) | Data Layer | Backend Skill Dispatch Matrix, service/repository layers, connection pooling, archify ERDs, transactions. |
 | [`security.md`](.agents/rules/security.md) | Auth & APIs | 8 defensive hardening phases (Phases 0–7), Argon2id/bcrypt, CSRF tokens, strict CORS, error suppression. |
 | [`penetrating-and-testing.md`](.agents/rules/penetrating-and-testing.md) | Pentest & QA | Strix autonomous exploit verification with PoCs, vulnerabilities.json remediation, 8-state UI + Empty/403 & agent-browser flows. |
-| [`learned-invariants.md`](.agents/rules/learned-invariants.md) | Memory Flywheel | Calibrated dual-store promoted root-cause invariants and anti-regression guardrails. |
+| [`learned-invariants.md`](.agents/rules/learned-invariants.md) | Memory Flywheel | Dual-polarity (`regression` + `exemplar`) flywheel, `SessionStart` brief, `flywheel test`/`prune`/`--graduate`, and universal `/learn` (`$learn`). |
 | [`swarm.md`](.agents/rules/swarm.md) | `/swarm` / `$swarm` | Edition-native parallel orchestration: AGY Gemini pool (Carbon High / Neon XHigh, or Hydrogen XHigh capped to Hydrogen High; `swarm-stop-guard.cjs`), Claude Code parallel Agent worktrees (Opus/Sonnet/Haiku, `SubagentStop` `swarm-subagent-guard.cjs`), and Codex Multi-Agent V2 (GPT-6.2 Astra/Sol, `.codex/agents/*.toml`, `.codex/config.toml`). |
 | [`install.md`](.agents/rules/install.md) | Onboarding | Interactive setup router (AGY / Codex / Claude + HARNESS MODE / DESIGNER MODE). |
 
 ---
 
-## 🛠️ Included Skill Domains (74 Skills)
+## 🛠️ Included Skill Domains (75 Skills)
 
 | Domain | Count | Key Skills |
 | :--- | :---: | :--- |
@@ -165,7 +166,7 @@ In Claude Code, engineering phases are triggered directly via native slash comma
 | **🧪 Testing, Browser & QA** | 8 | `agent-browser`, `e2e-testing-patterns`, `lint-and-validate`, `playwright-skill`, `python-testing-patterns`, `systematic-debugging`, `test-driven-development`, `test-fixing` |
 | **📈 SEO, Content & Product Specs** | 8 | `seo-audit`, `programmatic-seo`, `competitor-alternatives`, `content-creator`, `avoid-ai-writing`, `prompt-enhancer`, `prompt-enhancer-backend`, `prompt-enhancer-frontend` |
 | **🎮 Creative, Motion, 3D & Diagrams** | 4 | `archify`, `3d-web-experience`, `scroll-experience`, `scrollytelling` |
-| **🛠️ Core Engineering, Ops & Harness** | 9 | `untangle-codebase`, `concise-planning`, `code-review-checklist`, `architecture-decision-records`, `continuous-agent-loop`, `agent-self-evaluation`, `git-pushing`, `docker-expert`, `observability-engineer` |
+| **🛠️ Core Engineering, Ops & Harness** | 10 | `agent-self-evaluation`, `architecture-decision-records`, `code-review-checklist`, `concise-planning`, `continuous-agent-loop`, `docker-expert`, `git-pushing`, `learn`, `observability-engineer`, `untangle-codebase` |
 
 ---
 

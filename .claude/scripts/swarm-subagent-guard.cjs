@@ -1,5 +1,8 @@
 'use strict';
 
+const fs = require('node:fs');
+const path = require('node:path');
+
 const STDIN_TIMEOUT_MS = 1500;
 const MAX_STDIN_BYTES = 1024 * 1024;
 const MISSING_REPORT_MESSAGE = 'Report files modified or findings verified before closing this subagent.\n';
@@ -15,6 +18,36 @@ function evaluateSubagentStop(input) {
     return { exitCode: 2, stderr: MISSING_REPORT_MESSAGE };
   }
   return { exitCode: 0, stderr: '' };
+}
+
+function recordOrchestrationMetric(input, result) {
+  try {
+    const baseCwd = input && typeof input.cwd === 'string' && input.cwd.trim()
+      ? input.cwd
+      : process.cwd();
+    const harnessDir = path.join(baseCwd, '.harness');
+    if (!fs.existsSync(harnessDir) || !fs.statSync(harnessDir).isDirectory()) {
+      return;
+    }
+    const evalsDir = path.join(harnessDir, 'evals');
+    fs.mkdirSync(evalsDir, { recursive: true });
+    const blocked = Boolean(result && result.exitCode === 2);
+    const agentType = input && typeof input.agent_type === 'string' && input.agent_type.trim()
+      ? input.agent_type.trim()
+      : (input && typeof input.subagent_type === 'string' && input.subagent_type.trim()
+        ? input.subagent_type.trim()
+        : 'unknown');
+    const record = {
+      timestamp: new Date().toISOString(),
+      workflow: 'claude-swarm',
+      event: blocked ? 'subagent_incomplete' : 'subagent_done',
+      agent_type: agentType,
+      outcome: blocked ? 'blocked' : 'completed'
+    };
+    fs.appendFileSync(path.join(evalsDir, 'orchestration-metrics.jsonl'), JSON.stringify(record) + '\n', 'utf8');
+  } catch {
+    // non-blocking telemetry
+  }
 }
 
 function main() {
@@ -52,6 +85,7 @@ function main() {
     }
 
     const result = evaluateSubagentStop(parsed);
+    recordOrchestrationMetric(parsed, result);
     if (result.stderr) {
       process.stderr.write(result.stderr);
     }
@@ -70,7 +104,7 @@ function main() {
   process.stdin.on('error', finish);
 }
 
-module.exports = { evaluateSubagentStop, main };
+module.exports = { evaluateSubagentStop, recordOrchestrationMetric, main };
 
 if (require.main === module) {
   main();

@@ -23,23 +23,96 @@ function pruneEmptyDirs(dir, isRoot = true) {
   return false;
 }
 
-/** Drop hook entries matching any excluded command substring, plus empty groups and events. */
-function filterHookEntries(hooksMap = {}, excludedSubstrings = []) {
-  const filtered = {};
-  for (const [event, groups] of Object.entries(hooksMap)) {
-    if (!Array.isArray(groups)) continue;
-    const keptGroups = [];
-    for (const group of groups) {
-      if (!group || typeof group !== 'object' || !Array.isArray(group.hooks)) continue;
-      const keptHooks = group.hooks.filter(entry => {
-        const commands = `${entry?.command ?? ''}\n${entry?.commandWindows ?? ''}`;
-        return !excludedSubstrings.some(needle => commands.includes(needle));
-      });
-      if (keptHooks.length > 0) keptGroups.push({ ...group, hooks: keptHooks });
+const CODEX_AVOID_AI_WRITING_CMD = "node -e \"const fs=require('fs'),path=require('path'),cp=require('child_process'),g='.codex/skills/avoid-ai-writing/bin/avoid-ai-writing-gate.js';function run(raw){let d={};try{const t=(raw.charCodeAt(0)===65279?raw.slice(1):raw).trim();if(t)d=JSON.parse(t);}catch(e){}if(d&&(d.stop_hook_active||d.continuationActive))process.exit(0);const b=(d&&typeof d.cwd==='string'&&d.cwd)?d.cwd:process.cwd();const top=cp.spawnSync('git',['rev-parse','--show-toplevel'],{cwd:b,encoding:'utf8'});if(top.status===0&&top.stdout.trim()){}else{process.exit(0);}const root=path.resolve(top.stdout.trim()),gate=fs.existsSync(path.join(root,g))?path.join(root,g):path.resolve(b,g);if(fs.existsSync(gate)===false)process.exit(0);const st=cp.spawnSync('git',['-c','core.quotepath=false','status','--porcelain','--untracked-files=all'],{cwd:root,encoding:'utf8'});if(st.status===0){}else{process.exit(0);}const files=st.stdout.split(String.fromCharCode(10)).map(l=>l.replaceAll(String.fromCharCode(13),'').slice(3).split(' -> ').pop().trim().replaceAll(String.fromCharCode(34),'')).filter(p=>{const n=p.split(path.sep).join('/'),lo=n.toLowerCase();return p&&(lo.endsWith('.md')||lo.endsWith('.mdx'))&&['.agents','.codex','.claude'].some(x=>n.startsWith(x+'/'))===false&&fs.existsSync(path.join(root,p));});if(files.length===0)process.exit(0);const r=cp.spawnSync(process.execPath,[gate,'--json','--context','technical','--source-mode','rendered-markdown','--threshold','6','--',...files],{cwd:root,encoding:'utf8'});if(r.status===0)process.exit(0);let reason=(r.stderr||r.stdout||'avoid-ai-writing gate failed').trim();try{const j=JSON.parse(r.stdout);const bad=(j.files||[]).filter(x=>x.pass===false).map(x=>x.path+' ('+x.findings+' findings: '+(x.types||[]).join(', ')+')');if(bad.length)reason='avoid-ai-writing failed threshold '+j.threshold+': '+bad.join('; ')+' — rewrite AI-ism prose before finishing.';}catch(e){}const dec='block';process.stdout.write(JSON.stringify({decision:dec,reason})+String.fromCharCode(10));process.exit(0);}if(process.stdin.isTTY){run('');}else{let raw='',done=false;const fin=()=>{if(done)return;done=true;clearTimeout(tm);try{process.stdin.pause();process.stdin.destroy();}catch(e){}run(raw);};const tm=setTimeout(fin,500);process.stdin.setEncoding('utf8');process.stdin.on('data',c=>{raw+=c;if(raw.length>1048576)fin();});process.stdin.on('end',fin);process.stdin.on('error',fin);}\"";
+
+/** Build native Codex hooks JSON independently of AGY's hooks.md schema. */
+function buildCodexHooks({ designer = false } = {}) {
+  const description = designer
+    ? 'Optional Impeccable hooks (Designer mode, without Harness hooks). Install at .codex/hooks.json in a trusted target project and review them in Codex before use.'
+    : 'Full Harness, Impeccable, design-taste-frontend, and avoid-ai-writing hooks. Install at .codex/hooks.json in a trusted target project and review them in Codex before use.';
+
+  const postToolUseHooks = [
+    {
+      type: 'command',
+      command: '[ ! -f ".codex/skills/impeccable/scripts/impeccable" ] || ".codex/skills/impeccable/scripts/impeccable" hook',
+      commandWindows: 'if exist ".codex/skills/impeccable/scripts/impeccable.cmd" (".codex/skills/impeccable/scripts/impeccable.cmd" hook & exit /b)',
+      timeout: 5,
+      statusMessage: 'Checking UI changes'
     }
-    if (keptGroups.length > 0) filtered[event] = keptGroups;
+  ];
+  if (!designer) {
+    postToolUseHooks.push({
+      type: 'command',
+      command: '[ ! -f ".codex/skills/continuous-agent-loop/scripts/harness.mjs" ] || node ".codex/skills/continuous-agent-loop/scripts/harness.mjs" sensor check-file',
+      commandWindows: 'if exist ".codex/skills/continuous-agent-loop/scripts/harness.mjs" (node ".codex/skills/continuous-agent-loop/scripts/harness.mjs" sensor check-file & exit /b)',
+      timeout: 5,
+      statusMessage: 'Auditing post-edit scope boundary'
+    });
   }
-  return filtered;
+
+  const stopHooks = [
+    {
+      type: 'command',
+      command: '[ ! -f ".codex/skills/impeccable/scripts/impeccable" ] || ".codex/skills/impeccable/scripts/impeccable" hook',
+      commandWindows: 'if exist ".codex/skills/impeccable/scripts/impeccable.cmd" (".codex/skills/impeccable/scripts/impeccable.cmd" hook & exit /b)',
+      timeout: 30,
+      statusMessage: 'Design deep pass'
+    },
+    {
+      type: 'command',
+      command: '[ ! -f ".codex/skills/design-taste-frontend/scripts/gate.mjs" ] || node ".codex/skills/design-taste-frontend/scripts/gate.mjs" --hook codex',
+      commandWindows: 'if exist ".codex/skills/design-taste-frontend/scripts/gate.mjs" (node ".codex/skills/design-taste-frontend/scripts/gate.mjs" --hook codex & exit /b)',
+      timeout: 600,
+      statusMessage: 'Running tasteskill frontend gate'
+    },
+    {
+      type: 'command',
+      command: CODEX_AVOID_AI_WRITING_CMD,
+      commandWindows: CODEX_AVOID_AI_WRITING_CMD,
+      timeout: 15,
+      statusMessage: 'Checking modified Markdown prose (avoid-ai-writing)'
+    }
+  ];
+  if (!designer) {
+    stopHooks.push({
+      type: 'command',
+      command: '[ ! -f ".codex/skills/continuous-agent-loop/scripts/harness.mjs" ] || node ".codex/skills/continuous-agent-loop/scripts/harness.mjs" verify status-check --hook codex',
+      commandWindows: 'if exist ".codex/skills/continuous-agent-loop/scripts/harness.mjs" (node ".codex/skills/continuous-agent-loop/scripts/harness.mjs" verify status-check --hook codex & exit /b)',
+      timeout: 10,
+      statusMessage: 'Verifying harness receipt & progress checkpoint'
+    });
+  }
+
+  const hooks = {};
+  if (!designer) {
+    hooks.PreToolUse = [
+      {
+        matcher: 'Edit|Write|apply_patch',
+        hooks: [
+          {
+            type: 'command',
+            command: '[ ! -f ".codex/skills/continuous-agent-loop/scripts/harness.mjs" ] || node ".codex/skills/continuous-agent-loop/scripts/harness.mjs" sensor check-file',
+            commandWindows: 'if exist ".codex/skills/continuous-agent-loop/scripts/harness.mjs" (node ".codex/skills/continuous-agent-loop/scripts/harness.mjs" sensor check-file & exit /b)',
+            timeout: 5,
+            statusMessage: 'Checking harness contract scope'
+          }
+        ]
+      }
+    ];
+  }
+  hooks.PostToolUse = [
+    {
+      matcher: 'Edit|Write|apply_patch',
+      hooks: postToolUseHooks
+    }
+  ];
+  hooks.Stop = [
+    {
+      hooks: stopHooks
+    }
+  ];
+
+  return { description, hooks };
 }
 
 /** Build project.gitignore from localCodexIgnoreEntries + root .gitignore without AGY leaks or duplicate entries. */
@@ -177,9 +250,8 @@ export function buildBundle() {
   const projectIgnore = path.join(repoRoot, '.gitignore');
   add('project.gitignore', buildProjectGitignore(fs.readFileSync(projectIgnore, 'utf8')), projectIgnore);
   const hooksSource = path.join(sourceRoot, 'hooks.example.json');
-  const hooks = JSON.parse(fs.readFileSync(hooksSource, 'utf8'));
-  add('hooks.example.json', json({ description: 'Full Harness, Impeccable, design-taste-frontend, and avoid-ai-writing hooks. Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks, hooks: filterHookEntries(hooks.hooks, ['swarm-stop-guard']) }).replaceAll('.agents/skills/', '.codex/skills/').replaceAll('--hook antigravity', '--hook codex'), hooksSource);
-  add('hooks.impeccable.example.json', json({ description: 'Optional Impeccable hooks (Designer mode, without Harness hooks). Install at .codex/hooks.json in a trusted target project and review them in Codex before use.', ...hooks, hooks: filterHookEntries(hooks.hooks, ['harness.mjs', 'swarm-stop-guard']) }).replaceAll('.agents/skills/', '.codex/skills/').replaceAll('--hook antigravity', '--hook codex'), hooksSource);
+  add('hooks.example.json', json(buildCodexHooks({ designer: false })), hooksSource);
+  add('hooks.impeccable.example.json', json(buildCodexHooks({ designer: true })), hooksSource);
 
   // Preflight every generated destination before writing any files. Refuse to
   // overwrite manually edited generated files. The retired instruction

@@ -37,7 +37,9 @@ export function planExport({ target, profile = 'all', includeHooks = true, mode 
   else if (profile === 'fullstack') selected = [...new Set([...profiles.frontend, ...profiles.backend])];
   else if (profiles[profile]) selected = [...profiles[profile]];
   else throw new Error(`Unknown profile ${profile}. Choose all, minimal, frontend, backend, security, or fullstack.`);
-  if (all.includes('swarm') && !selected.includes('swarm')) selected.push('swarm');
+  for (const core of ['swarm', 'learn']) {
+    if (all.includes(core) && !selected.includes(core)) selected.push(core);
+  }
   const entries = [];
   const add = (source, relative) => {
     const output = path.resolve(destination, relative);

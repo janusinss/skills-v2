@@ -13,7 +13,7 @@ Instructions, operating rules, and workspace routing for OpenAI Codex.
 - **Visible Wins**: Immediately show what works and how to verify it (test commands, curl endpoints).
 - **Neutral Error Reporting**: Report strictly **Location**, **Cause**, and **Fix**. Zero emotional padding.
 - **Cap Lists to 5 Items**: Show at most 5 items per group in user-facing output.
-- **Compounding Invariants**: Read [.codex/rules/learned-invariants.md](.codex/rules/learned-invariants.md) (when present) before editing code to enforce project-specific guardrails and prevent known regressions.
+- **Compounding Invariants**: Read [.codex/rules/learned-invariants.md](.codex/rules/learned-invariants.md) (when present) before editing code to enforce project-specific guardrails and prevent known regressions; use `$learn` to record bidirectional exemplars and anti-patterns.
 - **2-Strike Escalation & 3-Strike Circuit Breaker**:
   - **Strike 2 (Architect Escalation)**: After 2 consecutive failed verification checks or audits on the same issue, escalate from `builder` to `brain` ([.codex/agents/code-architect.md](.codex/agents/code-architect.md) or higher-reasoning model) for root-cause re-architecture.
   - **Strike 3 (Circuit Breaker)**: After 3 failed attempts on the same issue, STOP editing. Ask before reverting; never discard uncommitted work. Output strictly: (1) **Invalid Assumption** (1 sentence on what failed) and (2) **Diagnostic Check** (1 concrete question or A/B choice).
@@ -40,7 +40,7 @@ Read and apply the matching workspace rule before selecting generic skills:
 | Backend Architecture & Data | [.codex/rules/backend.md](.codex/rules/backend.md) |
 | Application Security & Defense | [.codex/rules/security.md](.codex/rules/security.md) |
 | Penetration Testing & Critical QA | [.codex/rules/penetrating-and-testing.md](.codex/rules/penetrating-and-testing.md) |
-| Learned Invariants & Guardrails | [.codex/rules/learned-invariants.md](.codex/rules/learned-invariants.md) |
+| Learned Invariants & Guardrails | [.codex/rules/learned-invariants.md](.codex/rules/learned-invariants.md) + [learn](.codex/skills/learn/SKILL.md) (bidirectional positive + negative learning across Harness & Designer modes) |
 | Parallel Multi-Agent / Swarm | [.codex/rules/swarm.md](.codex/rules/swarm.md) |
 
 ---
@@ -57,7 +57,7 @@ Follow [UI_Always.md](.codex/rules/UI_Always.md#7-browser-verification-policy) f
 
 ## 4. Subagents & 3-Tier Cognitive Routing
 
-- **Invocation & Multi-Agent V2 (`$swarm`)**: Configure `[features.multi_agent_v2]` in `.codex/config.toml` and spawn specialists from `.codex/agents/<role>.toml` with `fork_turns: "none"` and native parent `wait` (`default_wait_timeout_ms = 30000`, no polling worker). Follow [.codex/rules/swarm.md](.codex/rules/swarm.md) and `$swarm` for parallel execution.
+- **Invocation & Multi-Agent V2 (`$swarm`, `$learn`)**: Configure `[features.multi_agent_v2]` in `.codex/config.toml` and spawn specialists from `.codex/agents/<role>.toml` with `fork_turns: "none"` and native parent `wait` (`default_wait_timeout_ms = 30000`, no polling worker). Follow [.codex/rules/swarm.md](.codex/rules/swarm.md) and `$swarm` for parallel execution, and use `$learn` for bidirectional positive + negative learning into `.codex/rules/learned-invariants.md`.
 - **Coordinator**: Preserve user-selected `gpt-6.2-astra` (`xhigh`/`max`) or `gpt-6.2-sol` (`xhigh`/`max`) in UI/config; never auto-escalate.
 
 | Rung / Tier | GPT / Codex Routing | Agents ([.codex/agents/](.codex/agents/)) |

@@ -1,79 +1,66 @@
 {
-  "hooks": {
+  "skills-v2-harness": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "node skills/continuous-agent-loop/scripts/harness.mjs memory brief --hook antigravity",
+        "timeout": 10
+      }
+    ],
     "PreToolUse": [
       {
-        "matcher": "Edit|Write|apply_patch",
+        "matcher": "edit_file|write_file",
         "hooks": [
           {
             "type": "command",
-            "command": "[ ! -f \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" ] || node \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" sensor check-file",
-            "commandWindows": "if exist \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" (node \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" sensor check-file & exit /b)",
-            "timeout": 5,
-            "statusMessage": "Checking harness contract scope"
+            "command": "node skills/continuous-agent-loop/scripts/harness.mjs sensor check-file --hook antigravity",
+            "timeout": 5
           }
         ]
       }
     ],
     "PostToolUse": [
       {
-        "matcher": "Edit|Write|apply_patch",
+        "matcher": "edit_file|write_file",
         "hooks": [
           {
             "type": "command",
-            "command": "[ ! -f \".agents/skills/impeccable/scripts/impeccable\" ] || \".agents/skills/impeccable/scripts/impeccable\" hook",
-            "commandWindows": "if exist \".agents/skills/impeccable/scripts/impeccable.cmd\" (\".agents/skills/impeccable/scripts/impeccable.cmd\" hook & exit /b)",
-            "timeout": 5,
-            "statusMessage": "Checking UI changes"
+            "command": "node scripts/agy-hook-runner.cjs impeccable",
+            "timeout": 5
           },
           {
             "type": "command",
-            "command": "[ ! -f \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" ] || node \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" sensor check-file",
-            "commandWindows": "if exist \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" (node \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" sensor check-file & exit /b)",
-            "timeout": 5,
-            "statusMessage": "Auditing post-edit scope boundary"
+            "command": "node skills/continuous-agent-loop/scripts/harness.mjs sensor check-file --hook antigravity",
+            "timeout": 5
           }
         ]
       }
     ],
     "Stop": [
       {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[ ! -f \".agents/skills/impeccable/scripts/impeccable\" ] || \".agents/skills/impeccable/scripts/impeccable\" hook",
-            "commandWindows": "if exist \".agents/skills/impeccable/scripts/impeccable.cmd\" (\".agents/skills/impeccable/scripts/impeccable.cmd\" hook & exit /b)",
-            "timeout": 30,
-            "statusMessage": "Design deep pass"
-          },
-          {
-            "type": "command",
-            "command": "[ ! -f \".agents/skills/design-taste-frontend/scripts/gate.mjs\" ] || node \".agents/skills/design-taste-frontend/scripts/gate.mjs\" --hook antigravity",
-            "commandWindows": "if exist \".agents/skills/design-taste-frontend/scripts/gate.mjs\" (node \".agents/skills/design-taste-frontend/scripts/gate.mjs\" --hook antigravity & exit /b)",
-            "timeout": 600,
-            "statusMessage": "Running tasteskill frontend gate"
-          },
-          {
-            "type": "command",
-            "command": "node -e \"const fs=require('fs'),path=require('path'),cp=require('child_process'),g='.agents/skills/avoid-ai-writing/bin/avoid-ai-writing-gate.js';function run(raw){let d={};try{const t=(raw.charCodeAt(0)===65279?raw.slice(1):raw).trim();if(t)d=JSON.parse(t);}catch(e){}if(d&&(d.stop_hook_active||d.continuationActive))process.exit(0);const b=(d&&typeof d.cwd==='string'&&d.cwd)?d.cwd:process.cwd();const top=cp.spawnSync('git',['rev-parse','--show-toplevel'],{cwd:b,encoding:'utf8'});if(top.status===0&&top.stdout.trim()){}else{process.exit(0);}const root=path.resolve(top.stdout.trim()),gate=fs.existsSync(path.join(root,g))?path.join(root,g):path.resolve(b,g);if(fs.existsSync(gate)===false)process.exit(0);const st=cp.spawnSync('git',['-c','core.quotepath=false','status','--porcelain','--untracked-files=all'],{cwd:root,encoding:'utf8'});if(st.status===0){}else{process.exit(0);}const files=st.stdout.split(String.fromCharCode(10)).map(l=>l.replaceAll(String.fromCharCode(13),'').slice(3).split(' -> ').pop().trim().replaceAll(String.fromCharCode(34),'')).filter(p=>{const n=p.split(path.sep).join('/'),lo=n.toLowerCase();return p&&(lo.endsWith('.md')||lo.endsWith('.mdx'))&&['.agents','.codex','.claude'].some(x=>n.startsWith(x+'/'))===false&&fs.existsSync(path.join(root,p));});if(files.length===0)process.exit(0);const r=cp.spawnSync(process.execPath,[gate,'--json','--context','technical','--source-mode','rendered-markdown','--threshold','6','--',...files],{cwd:root,encoding:'utf8'});if(r.status===0)process.exit(0);let reason=(r.stderr||r.stdout||'avoid-ai-writing gate failed').trim();try{const j=JSON.parse(r.stdout);const bad=(j.files||[]).filter(x=>x.pass===false).map(x=>x.path+' ('+x.findings+' findings: '+(x.types||[]).join(', ')+')');if(bad.length)reason='avoid-ai-writing failed threshold '+j.threshold+': '+bad.join('; ')+' — rewrite AI-ism prose before finishing.';}catch(e){}const dec=('--hook antigravity').endsWith('antigravity')?'continue':'block';process.stdout.write(JSON.stringify({decision:dec,reason})+String.fromCharCode(10));process.exit(0);}if(process.stdin.isTTY){run('');}else{let raw='',done=false;const fin=()=>{if(done)return;done=true;clearTimeout(tm);try{process.stdin.pause();process.stdin.destroy();}catch(e){}run(raw);};const tm=setTimeout(fin,500);process.stdin.setEncoding('utf8');process.stdin.on('data',c=>{raw+=c;if(raw.length>1048576)fin();});process.stdin.on('end',fin);process.stdin.on('error',fin);}\"",
-            "commandWindows": "node -e \"const fs=require('fs'),path=require('path'),cp=require('child_process'),g='.agents/skills/avoid-ai-writing/bin/avoid-ai-writing-gate.js';function run(raw){let d={};try{const t=(raw.charCodeAt(0)===65279?raw.slice(1):raw).trim();if(t)d=JSON.parse(t);}catch(e){}if(d&&(d.stop_hook_active||d.continuationActive))process.exit(0);const b=(d&&typeof d.cwd==='string'&&d.cwd)?d.cwd:process.cwd();const top=cp.spawnSync('git',['rev-parse','--show-toplevel'],{cwd:b,encoding:'utf8'});if(top.status===0&&top.stdout.trim()){}else{process.exit(0);}const root=path.resolve(top.stdout.trim()),gate=fs.existsSync(path.join(root,g))?path.join(root,g):path.resolve(b,g);if(fs.existsSync(gate)===false)process.exit(0);const st=cp.spawnSync('git',['-c','core.quotepath=false','status','--porcelain','--untracked-files=all'],{cwd:root,encoding:'utf8'});if(st.status===0){}else{process.exit(0);}const files=st.stdout.split(String.fromCharCode(10)).map(l=>l.replaceAll(String.fromCharCode(13),'').slice(3).split(' -> ').pop().trim().replaceAll(String.fromCharCode(34),'')).filter(p=>{const n=p.split(path.sep).join('/'),lo=n.toLowerCase();return p&&(lo.endsWith('.md')||lo.endsWith('.mdx'))&&['.agents','.codex','.claude'].some(x=>n.startsWith(x+'/'))===false&&fs.existsSync(path.join(root,p));});if(files.length===0)process.exit(0);const r=cp.spawnSync(process.execPath,[gate,'--json','--context','technical','--source-mode','rendered-markdown','--threshold','6','--',...files],{cwd:root,encoding:'utf8'});if(r.status===0)process.exit(0);let reason=(r.stderr||r.stdout||'avoid-ai-writing gate failed').trim();try{const j=JSON.parse(r.stdout);const bad=(j.files||[]).filter(x=>x.pass===false).map(x=>x.path+' ('+x.findings+' findings: '+(x.types||[]).join(', ')+')');if(bad.length)reason='avoid-ai-writing failed threshold '+j.threshold+': '+bad.join('; ')+' — rewrite AI-ism prose before finishing.';}catch(e){}const dec=('--hook antigravity').endsWith('antigravity')?'continue':'block';process.stdout.write(JSON.stringify({decision:dec,reason})+String.fromCharCode(10));process.exit(0);}if(process.stdin.isTTY){run('');}else{let raw='',done=false;const fin=()=>{if(done)return;done=true;clearTimeout(tm);try{process.stdin.pause();process.stdin.destroy();}catch(e){}run(raw);};const tm=setTimeout(fin,500);process.stdin.setEncoding('utf8');process.stdin.on('data',c=>{raw+=c;if(raw.length>1048576)fin();});process.stdin.on('end',fin);process.stdin.on('error',fin);}\"",
-            "timeout": 15,
-            "statusMessage": "Checking modified Markdown prose (avoid-ai-writing)"
-          },
-          {
-            "type": "command",
-            "command": "node -e \"const fs=require('fs'),p=require('path');for(const c of ['.agents/scripts/swarm-stop-guard.cjs','scripts/swarm-stop-guard.cjs'])if(fs.existsSync(p.resolve(c))){require(p.resolve(c)).main();break;}\"",
-            "commandWindows": "node -e \"const fs=require('fs'),p=require('path');for(const c of ['.agents/scripts/swarm-stop-guard.cjs','scripts/swarm-stop-guard.cjs'])if(fs.existsSync(p.resolve(c))){require(p.resolve(c)).main();break;}\"",
-            "timeout": 10,
-            "statusMessage": "Checking active /swarm workers and monitor state"
-          },
-          {
-            "type": "command",
-            "command": "[ ! -f \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" ] || node \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" verify status-check --hook antigravity",
-            "commandWindows": "if exist \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" (node \".agents/skills/continuous-agent-loop/scripts/harness.mjs\" verify status-check --hook antigravity & exit /b)",
-            "timeout": 10,
-            "statusMessage": "Verifying harness receipt & progress checkpoint"
-          }
-        ]
+        "type": "command",
+        "command": "node scripts/agy-hook-runner.cjs impeccable",
+        "timeout": 30
+      },
+      {
+        "type": "command",
+        "command": "node scripts/agy-hook-runner.cjs tasteskill-gate",
+        "timeout": 600
+      },
+      {
+        "type": "command",
+        "command": "node scripts/agy-hook-runner.cjs avoid-ai-writing",
+        "timeout": 15
+      },
+      {
+        "type": "command",
+        "command": "node scripts/swarm-stop-guard.cjs",
+        "timeout": 10
+      },
+      {
+        "type": "command",
+        "command": "node skills/continuous-agent-loop/scripts/harness.mjs verify status-check --hook antigravity",
+        "timeout": 10
       }
     ]
   }

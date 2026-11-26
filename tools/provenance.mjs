@@ -12,6 +12,7 @@ const KNOWN_UPSTREAMS = {
   'design': { source: 'nextlevelbuilder/ui-ux-pro-max-skill', sourceType: 'github', license: 'MIT' },
   'design-system': { source: 'nextlevelbuilder/ui-ux-pro-max-skill', sourceType: 'github', license: 'MIT' },
   'impeccable': { source: 'pbakaus/impeccable', sourceType: 'github', license: 'Apache-2.0' },
+  'learn': { source: 'original', sourceType: 'original', license: 'MIT' },
   'mcp-builder': { source: 'anthropics/skills', sourceType: 'github', license: 'Apache-2.0' },
   'modern-web-guidance': { source: 'GoogleChrome/modern-web-guidance', sourceType: 'github', license: 'Apache-2.0' },
   'playwright-skill': { source: 'lackeyjb/playwright-skill', sourceType: 'github', license: 'MIT' },

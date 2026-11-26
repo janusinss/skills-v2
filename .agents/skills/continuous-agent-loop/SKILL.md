@@ -1,30 +1,33 @@
 ---
 name: continuous-agent-loop
-description: "Run autonomous agent loops with quality gates, evaluation checkpoints, and failure recovery. Use when orchestrating self-checking multi-step agent loops."
+description: "Run autonomous agent loops with quality gates, evaluation checkpoints, dual-polarity ACE memory flywheel, and failure recovery. Use when orchestrating self-checking multi-step agent loops."
 metadata:
   origin: ECC
 ---
 
 # Continuous Agent Loop (Self-Improving 6-Stage Harness)
 
-This skill orchestrates the **Compounding Self-Improving Agent Harness** using the zero-dependency CLI at `.agents/skills/continuous-agent-loop/scripts/harness.mjs`. Every non-trivial task progresses through six deterministic gates so agents cannot widen scope silently, rationalize broken tests, or repeat prior root-cause failures after context compaction.
+This skill orchestrates the **Compounding Self-Improving Agent Harness** using the zero-dependency CLI at `.agents/skills/continuous-agent-loop/scripts/harness.mjs`. Every non-trivial task progresses through six deterministic gates with worktree-scoped pointers, live diff-freshness verification, Strike-2/3 escalation, and a dual-polarity ACE memory flywheel.
 
 ---
 
 ## 1. Architecture & Runtime State Layout
 
-All runtime state lives inside the git-ignored `.harness/` directory. Stage 6 routes durable guardrails through `.agents/rules/learned-invariants.md` and graduates recurring clusters into on-demand `.agents/skills/project-<domain>/SKILL.md` (using `.codex/` or `.claude/` in those editions):
+All runtime state lives inside the git-ignored `.harness/` directory. Stage 6 routes curated guardrails and positive exemplars through `.agents/rules/learned-invariants.md` and graduates recurring clusters into on-demand `.agents/skills/project-<domain>/SKILL.md` (using `.codex/` or `.claude/` in those editions):
 
 ```text
 <workspace-root>/
 ├── .harness/                                # Git-ignored runtime state
 │   ├── contracts/<task_id>.json             # Stage 1: Pre-flight task contract (allowed_paths, acceptance_commands)
+│   ├── worktree-tasks/<hash>.json           # Worktree-scoped active task pointer (parallel swarm safe)
 │   ├── worktrees/<task_id>/                 # Stage 2: Ephemeral git worktree (branch agent/<task_id>)
-│   ├── receipts/<task_id>.json              # Stage 4: Deterministic verifier output + diff_sha256 + Skeptic stamp
+│   ├── receipts/<task_id>.json              # Stage 4: Verifier output + diff_sha256 + Strike counter + Skeptic stamp
 │   ├── context/<task_id>-brief.json         # Stage 5: Cold-context packet (contract + raw git_diff + receipt ONLY)
-│   ├── evals/regressions.jsonl              # Stage 6 (Tier 1): Structured failure ledger & repro commands
+│   ├── evals/regressions.jsonl              # Stage 6 (Tier 1): Negative failure ledger & repro commands
+│   ├── evals/exemplars.jsonl                # Stage 6 (Tier 1): Verified positive playbooks & evidence commands
+│   ├── evals/orchestration-metrics.jsonl    # Run telemetry (strikes, rework, stalls, scope blocks)
 │   └── PROGRESS.md                          # Cross-session compaction ledger (checkpoints + failed hypotheses)
-├── .agents/rules/learned-invariants.md      # Stage 6 (Tier 2): Staged & promoted guardrails
+├── .agents/rules/learned-invariants.md      # Stage 6 (Tier 2): Promoted invariants (<=20), exemplars (<=8), staged
 └── .agents/skills/project-<domain>/SKILL.md # Stage 6 (Tier 3): Graduated on-demand domain skills
 ```
 
@@ -33,13 +36,13 @@ All runtime state lives inside the git-ignored `.harness/` directory. Stage 6 ro
 ## 2. The 6-Stage Self-Improving Lifecycle
 
 ```text
-[1. Contract Init] --> [2. Adaptive Worktree] --> [3. Scoped Builder + PreToolUse Sensor]
-                                                            |
-[6. Memory Flywheel & Checkpoint] <-- [5. Cold-Context Skeptic] <-- [4. Deterministic Verify Receipt]
+[SessionStart Memory Brief] --> [1. Contract Init] --> [2. Adaptive Worktree] --> [3. Scoped Builder + Sensor]
+                                                                                           |
+[6. Dual-Polarity Flywheel & Checkpoint] <-- [5. Cold-Context Skeptic] <-- [4. Deterministic Verify Receipt]
 ```
 
 ### Stage 1: Pre-Flight Contract (`contract init`)
-Lock file scope (`allowed_paths`), acceptance commands (`acceptance_commands`), turn budget, and isolation mode before editing any code:
+Lock file scope (`allowed_paths`), acceptance commands (`acceptance_commands`), turn budget, and isolation mode before editing code:
 
 ```bash
 node .agents/skills/continuous-agent-loop/scripts/harness.mjs contract init \
@@ -50,116 +53,123 @@ node .agents/skills/continuous-agent-loop/scripts/harness.mjs contract init \
   --mode adaptive
 ```
 
-- Writes `.harness/contracts/<task_id>.json` and initializes `.harness/PROGRESS.md`.
-- **Modes**:
-  - `adaptive` (default): Single-file edits under 20 changed lines may run in-tree; multi-file or parallel work spawns an isolated worktree.
-  - `worktree`: Strictly requires `.harness/worktrees/<task_id>`.
-  - `in-tree`: Runs directly in the working tree while still enforcing `allowed_paths`.
+- Stores active task pointers per git worktree in `.harness/worktree-tasks/<hash>.json` (with `.harness/active-task.json` fallback for single-worktree setups) so parallel swarm shards never clobber one another.
+- **Modes**: `adaptive` (default; single-file under 20 lines in-tree, multi-file in worktree), `worktree` (strict isolation), `in-tree` (in-place with scope enforcement).
 
 ### Stage 2: Adaptive Worktree Isolation (`worktree spawn|merge|abort`)
 Isolate multi-file or parallel builder mutations on branch `agent/<task_id>`:
 
 ```bash
-# Spawn isolated worktree at .harness/worktrees/<task_id>
 node .agents/skills/continuous-agent-loop/scripts/harness.mjs worktree spawn --task feat-auth-rate-limit
-
-# Merge back ONLY after receipt status === PASS and skeptic_verdict === APPROVE
 node .agents/skills/continuous-agent-loop/scripts/harness.mjs worktree merge --task feat-auth-rate-limit
-
-# Discard failed experiment cleanly without polluting the main tree
 node .agents/skills/continuous-agent-loop/scripts/harness.mjs worktree abort --task feat-auth-rate-limit
 ```
 
-### Stage 3: Builder Execution & Sub-Second Boundary Sensor (`sensor check-file`)
-During implementation (`tdd-guide`, `build-error-resolver`), the `PreToolUse` hook runs `sensor check-file` in `<50ms`:
+### Stage 3: Builder Execution & Boundary Sensor (`sensor check-file`)
+During implementation, the `PreToolUse` / `PostToolUse` hook runs `sensor check-file` in `<50ms`:
 
 ```bash
 node .agents/skills/continuous-agent-loop/scripts/harness.mjs sensor check-file --file src/auth/limiter.ts --task feat-auth-rate-limit
+node .agents/skills/continuous-agent-loop/scripts/harness.mjs sensor check-file --hook antigravity
 ```
 
-- Exits `2` (blocking tool execution) if `<file>` falls outside `contract.allowed_paths` or attempts to tamper with `.harness/receipts/**`, `.harness/contracts/**`, or `.git/hooks/**`.
-- **2-Strike Escalation**: If the Builder (`tier: builder`) fails verification twice on the same issue, escalate to a Brain-tier agent (`code-architect` or `planner`) before hitting the 3-strike circuit breaker.
+- Resolves workspace root from stdin `cwd` or `workspacePaths[0]` and extracts file targets from `toolCall.args` (`Path`, `TargetFile`, `file_path`, `path`, `File`, `paths`) alongside `tool_input`/`input`.
+- Under `--hook antigravity`, outputs JSON `{"decision":"allow"}` or `{"decision":"deny","reason":"..."}` and exits `0`. Under Claude/Codex or CLI mode, prints to stderr and exits `2` on scope or protected-path violations.
 
-### Stage 4: Deterministic Model-Free Verification Receipt (`verify run`)
-Never trust self-rated prose. Generate a cryptographic verification receipt:
+### Stage 4: Deterministic Receipt, Strike Counter & Freshness Gate (`verify run` & `verify status-check`)
+Generate a cryptographic verification receipt and track consecutive failures:
 
 ```bash
 node .agents/skills/continuous-agent-loop/scripts/harness.mjs verify run --task feat-auth-rate-limit
+node .agents/skills/continuous-agent-loop/scripts/harness.mjs verify status-check --hook antigravity
 ```
 
-- Checks `git status --porcelain` against `allowed_paths`.
-- Executes every command in `acceptance_commands` and records exit codes, durations, and `stdout_sha256` / `stderr_sha256`.
-- Hashes `git diff HEAD` (`diff_sha256`) and writes `.harness/receipts/<task_id>.json` (`status: "PASS" | "FAIL"`).
+- `verify run`: Validates `allowed_paths`, executes every `acceptance_commands` entry, hashes `git diff HEAD` (`diff_sha256`), tracks `consecutive_failures` (`strike` / `escalation_action`), auto-stages a local regression entry on `FAIL`, and prints `[STRIKE 2: ESCALATE TO ARCHITECT/BRAIN]` at 2 or `[STRIKE 3: CIRCUIT BREAKER — STOP & ASK USER]` at `>= 3`.
+- `verify status-check`: Verifies `receipt.status === "PASS"`, `skeptic_verdict !== "REJECT"`, and recomputes live `git diff HEAD` SHA-256 against `receipt.diff_sha256` (blocks if files were edited after `PASS`).
 
-### Stage 5: Cold-Context Adversarial Skeptic (`skeptic-packet` & `stamp-skeptic`)
-Strip all builder chain-of-thought and excuses before adversarial review:
+### Stage 5: Cold-Context Adversarial Skeptic & Evaluator Ingestion (`skeptic-packet`, `stamp-skeptic`, `eval ingest`)
+Strip all builder prose before adversarial review and ingest structured verdicts:
 
 ```bash
 # 1. Build sanitized brief containing ONLY { contract, git_diff, receipt }
 node .agents/skills/continuous-agent-loop/scripts/harness.mjs skeptic-packet --task feat-auth-rate-limit
 
-# 2. Invoke read-only @skeptic (tier: brain) on .harness/context/feat-auth-rate-limit-brief.json
-# 3. Stamp Skeptic verdict into .harness/receipts/<task_id>.json
-node .agents/skills/continuous-agent-loop/scripts/harness.mjs stamp-skeptic \
-  --task feat-auth-rate-limit \
-  --verdict APPROVE \
-  --reason "All contract invariants and rate-limit edge cases verified."
+# 2. Stamp Skeptic verdict from JSON (auto-stages blocking_issues & verified_exemplars) or manual flags
+node .agents/skills/continuous-agent-loop/scripts/harness.mjs stamp-skeptic --task feat-auth-rate-limit --from-json -
+node .agents/skills/continuous-agent-loop/scripts/harness.mjs stamp-skeptic --task feat-auth-rate-limit --verdict APPROVE --reason "All invariants verified."
+
+# 3. Ingest agent-evaluator scorecard JSON (axes <= 2 stage regressions; verified avg >= 4.5 stage exemplars)
+node .agents/skills/continuous-agent-loop/scripts/harness.mjs eval ingest --from-json - --task feat-auth-rate-limit
 ```
 
-If `@skeptic` returns `REJECT`, run `stamp-skeptic --verdict REJECT --reason "..."` and immediately record the failure in Stage 6.
+- `stamp-skeptic` increments `consecutive_failures` on `REJECT` and resets to `0` on `PASS` + `APPROVE`.
 
-### Stage 6: 3-Tier Memory Flywheel & Compaction (`flywheel record`, `flywheel digest`, & `checkpoint`)
-Convert every verify failure, Skeptic rejection, or user correction through the 3-tier pipeline without bloating always-loaded rules:
+### Stage 6: Dual-Polarity ACE Memory Flywheel, Rule Lifecycle & Compaction
+Prevent context bloat by staging all new findings locally until explicitly promoted or verified by replay:
 
 ```bash
-# 1. Record failure in .harness/evals/regressions.jsonl and stage/promote rule in learned-invariants.md
+# 1. Record negative regression or positive exemplar (NEVER auto-promotes unless --promote is passed)
 node .agents/skills/continuous-agent-loop/scripts/harness.mjs flywheel record \
-  --task feat-auth-rate-limit \
-  --source skeptic \
-  --domain auth \
-  --cause "Rate limiter bypassed when X-Forwarded-For header contains comma-separated IPs" \
-  --rule "Parse and validate the client IP from the trusted hop in X-Forwarded-For before rate-limiting." \
-  --cmd "npm test -- tests/auth/limiter.spec.ts" \
-  --promote
+  --kind regression --source skeptic --domain auth \
+  --cause "X-Forwarded-For spoofing bypassed rate limiter" \
+  --rule "Parse client IP from the trusted hop in X-Forwarded-For before rate-limiting." \
+  --repro "npm test -- tests/auth/limiter.spec.ts"
 
-# 2. Check rule budget and domain clusters (use --graduate <domain> after moving a cluster to a skill)
-node .agents/skills/continuous-agent-loop/scripts/harness.mjs flywheel digest --json
-node .agents/skills/continuous-agent-loop/scripts/harness.mjs flywheel digest --graduate auth
+node .agents/skills/continuous-agent-loop/scripts/harness.mjs flywheel record \
+  --kind exemplar --source evaluator --domain auth \
+  --cause "Zero-regression proxy IP parser with table-driven tests" \
+  --rule "Table-drive trusted-hop header parsing against single, chained, and malformed IPs." \
+  --repro "npm test -- tests/auth/limiter.spec.ts" --trigger "Editing HTTP proxy headers" --score 4.8
 
-# 3. Checkpoint atomic progress and negative knowledge into .harness/PROGRESS.md
+# 2. Explicitly promote a staged entry by ID & vote ACE counters
+node .agents/skills/continuous-agent-loop/scripts/harness.mjs flywheel promote --id reg-1234567890
+node .agents/skills/continuous-agent-loop/scripts/harness.mjs flywheel feedback --id ex-1234567890 --vote helpful
+
+# 3. Replay recorded repro/evidence commands, prune stale/duplicate items, and graduate domain clusters
+node .agents/skills/continuous-agent-loop/scripts/harness.mjs flywheel test --domain auth --timeout 30
+node .agents/skills/continuous-agent-loop/scripts/harness.mjs flywheel prune --max-age-days 30 --dry-run
+node .agents/skills/continuous-agent-loop/scripts/harness.mjs flywheel digest --graduate auth --edition agents
+
+# 4. Checkpoint atomic progress and failed hypotheses into .harness/PROGRESS.md
 node .agents/skills/continuous-agent-loop/scripts/harness.mjs checkpoint \
   --task feat-auth-rate-limit \
   --step "Verified IP extraction and stamped Skeptic approval" \
-  --failed-hypothesis "Splitting X-Forwarded-For on index 0 trusted spoofed client headers"
+  --failed-hypothesis "Splitting X-Forwarded-For on index 0 trusted spoofed headers"
 ```
 
-- **Tier 1 -> Tier 2 (`flywheel record`)**: Appends to `.harness/evals/regressions.jsonl`. First-time automated findings (`verify`, `skeptic`) stage inside `<!-- flywheel-staged-rules-start -->` in `.agents/rules/learned-invariants.md`; user corrections (`--source user`), `--promote`, or `>= 2` matching occurrences promote into `<!-- flywheel-promoted-rules-start -->`.
-- **Tier 2 -> Tier 3 (`flywheel digest` -> `/learn` or `/flywheel` -> prune)**: `flywheel digest [--json] [--graduate <domain>]` sets `curation_recommended: true` when promoted rules reach `>= 20`, file size approaches `12 KB` (under AGY's `24 KB` cap and `20,000`-token rules budget), or a domain hits `>= 3` ungraduated regressions. Graduate recurring clusters via AGY `/learn` or `/flywheel` (or `/flywheel` in Claude / skill authoring in Codex) into `.agents/skills/project-<domain>/SKILL.md`, run `flywheel digest --graduate <domain>`, and prune superseded rules.
-- **Git tracking & repo scope**: Target repos keep `learned-invariants.md` and `project-*` skills local; add `!/.agents/skills/project-*/` (or the `.codex/` / `.claude/` equivalent) to `.gitignore` if team-shared. The `Skills` source checkout accepts only universal harness invariants.
+- **Anti-Bloat Promotion Gate**: `flywheel record` writes to `.harness/evals/regressions.jsonl` (`reg-...`) or `.harness/evals/exemplars.jsonl` (`ex-...`) and stages in `learned-invariants.md` Staged Candidates. Only `--promote` or `flywheel promote --id <id>` moves entries into Promoted Project Invariants (`<= 20` cap) or Promoted Positive Exemplars (`<= 8` cap). Only regressions are logged under `Failed Hypotheses` in `PROGRESS.md`.
+- **Automated Graduation (`--graduate <domain>`)**: Scaffolds `.<edition>/skills/project-<domain>/SKILL.md` (`Pitfalls & Anti-Patterns`, `Verified Playbooks & Exemplars`, `Verification Commands`), prunes superseded `<domain>` bullets from `learned-invariants.md`, and marks matching JSONL entries `graduated: true`.
+- **Pruning (`flywheel prune`)**: Merges duplicates with Jaccard token overlap `>= 0.75`, expires stale 1-hit unpromoted items older than `--max-age-days`, and removes net-harmful entries (`harmful > helpful + 1`).
 
 ---
 
-## 3. Optional Pre-Commit Git Hook
+## 3. Just-in-Time Memory Brief & Orchestration Telemetry
 
-Enforce that no commit lands while an active harness task lacks a `PASS` + `APPROVE` receipt matching the current `diff_sha256`:
+```bash
+# SessionStart active memory brief (hard-capped <= 600 bytes; emits {} on clean workspaces)
+node .agents/skills/continuous-agent-loop/scripts/harness.mjs memory brief --hook antigravity --max-bytes 600
+
+# Record and summarize orchestration telemetry (.harness/evals/orchestration-metrics.jsonl)
+node .agents/skills/continuous-agent-loop/scripts/harness.mjs telemetry record \
+  --workflow swarm --event wave_complete --strikes 0 --rework 1 --stalls 0 --scope-blocks 0 --outcome ok
+node .agents/skills/continuous-agent-loop/scripts/harness.mjs telemetry summary
+```
+
+---
+
+## 4. Optional Pre-Commit Git Hook & Loop Recovery
 
 ```bash
 node .agents/skills/continuous-agent-loop/scripts/harness.mjs install-git-hook
 node .agents/skills/continuous-agent-loop/scripts/harness.mjs pre-commit-check
 ```
 
----
-
-## 4. Loop Topology Selection & Failure Recovery
-
 | Loop Pattern | When to Use | Harness Configuration |
 | :--- | :--- | :--- |
-| **Single-File Fast Path** | `<20` lines in 1 file | `--mode adaptive` (executes in-tree with `sensor` + `verify`) |
+| **Single-File Fast Path** | `<20` lines in 1 file | `--mode adaptive` (in-tree with `sensor` + `verify`) |
 | **Standard Feature / Bugfix** | Multi-file feature or refactor | `--mode worktree` + full 6-stage Skeptic & Flywheel gate |
-| **Parallel Swarm Shards** | Independent module slices | One contract + worktree per shard (`--task shard-1`, `--task shard-2`) |
+| **Parallel Swarm Shards** | Independent module slices | One contract + worktree pointer per shard (`--task shard-1`, `--task shard-2`) |
 
-### Recovery Protocol on Loop Stall
-1. Run `harness.mjs checkpoint` with `--failed-hypothesis` so negative knowledge is preserved before `/compact`.
-2. Inspect `.harness/receipts/<task_id>.json` and `.harness/evals/regressions.jsonl`.
-3. On 2 consecutive failures, escalate from `tier: builder` to `tier: brain` (`code-architect`).
-4. On 3 failures, trigger the **3-Strike Circuit Breaker** (`AGENTS.md` §1) or run `harness.mjs worktree abort --task <id>`.
+1. Run `harness.mjs checkpoint` with `--failed-hypothesis` before compaction or escalation.
+2. On **Strike 2**, escalate from Builder tier to Brain tier (`code-architect`) for root-cause re-architecture.
+3. On **Strike 3**, trigger the Circuit Breaker: stop editing and present the invalid assumption plus a diagnostic choice, or run `harness.mjs worktree abort --task <id>`.
