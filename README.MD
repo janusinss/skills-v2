@@ -132,7 +132,7 @@ In Claude Code, engineering phases are triggered directly via native slash comma
 - `/verify <task>`: Run deterministic receipt verification (`harness.mjs`) and cold-context `@skeptic` evaluation.
 - `/flywheel <task>`: Record a root-cause invariant into the Calibrated Dual-Store Memory Flywheel and checkpoint progress.
 - `/learn <insight>`: Run bidirectional self-improvement (stage positive exemplars or failure regressions, replay-gate promotions, graduate recurring domains into skills) in Harness or Designer mode.
-- `/swarm <task>`: Run a non-CLI parallel Agent swarm (VS Code / Desktop) with worktree isolation and role-pinned Opus/Sonnet/Haiku routing.
+- `/swarm <task>`: Run a non-CLI parallel Agent swarm (VS Code / Desktop) with worktree isolation and Advisor-First Sonnet/Haiku + Opus advisor routing (Strike-2 `opus` escalation).
 
 ---
 
@@ -151,7 +151,7 @@ In Claude Code, engineering phases are triggered directly via native slash comma
 | [`security.md`](.agents/rules/security.md) | Auth & APIs | 8 defensive hardening phases (Phases 0–7), Argon2id/bcrypt, CSRF tokens, strict CORS, error suppression. |
 | [`penetrating-and-testing.md`](.agents/rules/penetrating-and-testing.md) | Pentest & QA | Strix autonomous exploit verification with PoCs, vulnerabilities.json remediation, 8-state UI + Empty/403 & agent-browser flows. |
 | [`learned-invariants.md`](.agents/rules/learned-invariants.md) | Memory Flywheel | Dual-polarity (`regression` + `exemplar`) flywheel, `SessionStart` brief, `flywheel test`/`prune`/`--graduate`, and universal `/learn` (`$learn`). |
-| [`swarm.md`](.agents/rules/swarm.md) | `/swarm` / `$swarm` | Edition-native parallel orchestration: AGY Gemini pool (Carbon High / Neon XHigh, or Hydrogen XHigh capped to Hydrogen High; `swarm-stop-guard.cjs`), Claude Code parallel Agent worktrees (Opus/Sonnet/Haiku, `SubagentStop` `swarm-subagent-guard.cjs`), and Codex Multi-Agent V2 (GPT-6.2 Astra/Sol, `.codex/agents/*.toml`, `.codex/config.toml`). |
+| [`swarm.md`](.agents/rules/swarm.md) | `/swarm` / `$swarm` | Edition-native parallel orchestration: AGY Gemini pool (Carbon High / Neon XHigh, or Hydrogen XHigh capped to Hydrogen High; `swarm-stop-guard.cjs`), Claude Code parallel Agent worktrees (Advisor-First Sonnet/Haiku + Opus advisor routing, Strike-2 `opus`, `SubagentStop` `swarm-subagent-guard.cjs`), and Codex Multi-Agent V2 (GPT-6.2 Astra/Sol, `.codex/agents/*.toml`, `.codex/config.toml`). |
 | [`install.md`](.agents/rules/install.md) | Onboarding | Interactive setup router (AGY / Codex / Claude + HARNESS MODE / DESIGNER MODE). |
 
 ---

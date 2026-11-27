@@ -2,7 +2,7 @@
   "generatedBy": "tools/claude/build.mjs",
   "formatVersion": 1,
   "hashing": "sha256-lf-text",
-  "checkedOn": "2026-11-26",
+  "checkedOn": "2026-11-27",
   "originalSnapshot": {
     "digest": "53a91803381aaf0730b38333e5fde7a67c72b1aff51ff3f5c737af28e582ec66",
     "files": {
@@ -3635,7 +3635,7 @@
     "agents/a11y-architect.md": {
       "source": ".agents/agents/a11y-architect.md",
       "sourceHash": "944a665705954fc9a05e3a97907500e3ee57de8d72ebb81de961c866a3eb03ae",
-      "outputHash": "9cb5cc3db16d3b180145ca5491030aad73ad1ab5b75b9fefa577005f86a19cfe"
+      "outputHash": "e34df8517ad11c1d36ea306f1f6463014c349c6d67605fd6cc8dda23fdd5245e"
     },
     "agents/agent-evaluator.md": {
       "source": ".agents/agents/agent-evaluator.md",
@@ -3645,17 +3645,17 @@
     "agents/architect.md": {
       "source": ".agents/agents/architect.md",
       "sourceHash": "2ff199c920ccdfe93bb3006bf5619a1d9cef67e71180026991247bcc902f74f4",
-      "outputHash": "cf653fcc9426011419209657d74040edf65785721e2ca09953802841beb71cf1"
+      "outputHash": "8e0a1a7634dc64a3b5af33bee15c84f6c090ad18041a8470ab2d0b74dd6b54ff"
     },
     "agents/build-error-resolver.md": {
       "source": ".agents/agents/build-error-resolver.md",
       "sourceHash": "9268ffd9694a564ea955df6b0d1d96e21cc10490a320ff5cedc4074b88e180d8",
-      "outputHash": "44ecb977f7e28527298cd9fe18550bddc37a46023bd6b1d0d6bd2ba41708effc"
+      "outputHash": "92a599d9fcd6de4fbf8af883b62a8fee8493236cd1b7cf7f00c705b8ab504bfa"
     },
     "agents/code-architect.md": {
       "source": ".agents/agents/code-architect.md",
       "sourceHash": "2e5ae2d4cdddf9e6262dcb87c7548c6bc75772f746dcf61b8c99522e894f5577",
-      "outputHash": "bf27ee217b2c26a8626e13b54b46040cce32e80d095efdee0e78b6751d1e515d"
+      "outputHash": "5487025628e3f1f576be8657888cc40d06bc8922a3ac51fe8d8b1ebea2203742"
     },
     "agents/code-reviewer.md": {
       "source": ".agents/agents/code-reviewer.md",
@@ -3665,12 +3665,12 @@
     "agents/code-simplifier.md": {
       "source": ".agents/agents/code-simplifier.md",
       "sourceHash": "cacb8fe34cd77d6aa13c21e57ee8706729159b0db53ee20e82835b9073aa4fd2",
-      "outputHash": "9a452715e91cb9f6d97a90070f7c18a68524cfd9de582a48d6627d03e4f58710"
+      "outputHash": "7a49e05700493670738da11d4175f3769f60b980b469b2c1a14ccdd0f4548f13"
     },
     "agents/cpp-build-resolver.md": {
       "source": ".agents/agents/cpp-build-resolver.md",
       "sourceHash": "7593157cb835ee50cfb2d2f0563def3f45476f016c25f3f5b342d3c95824a4cd",
-      "outputHash": "1eb14428d78478c78925f070add4bf0818cc5b1876534ba7c88630ba89bf15de"
+      "outputHash": "5d2a680f042356299f089c87e6dc8af9a8888b852c123b6c945feb1966753e75"
     },
     "agents/database-reviewer.md": {
       "source": ".agents/agents/database-reviewer.md",
@@ -3680,12 +3680,12 @@
     "agents/django-build-resolver.md": {
       "source": ".agents/agents/django-build-resolver.md",
       "sourceHash": "4a0161d7f2cad7141358ca5718a4a73180eddfc279b43560f1961d45ce0a6c8a",
-      "outputHash": "2140097ad96ac381ce44454b8ed7aae579b46ab39d6c6d2b9caa2f3d0f8e493a"
+      "outputHash": "4010ee4bb4af6c4dc7608f8f22e7607932939b3ea3fcb15b4bddbf57f608aa05"
     },
     "agents/e2e-runner.md": {
       "source": ".agents/agents/e2e-runner.md",
       "sourceHash": "706860efb5463872d1fbed4b55cf701a1cdea054104b9adb09b1417aadcc2df4",
-      "outputHash": "71ce19498efba5694093db4797cdc9e26c1a0fa71333b49c1aa68128c16ed8b4"
+      "outputHash": "7a726366b25fb617e0f248ca65a18331f95c06622ef2183205757ca83793672d"
     },
     "agents/explorer.md": {
       "source": ".agents/agents/explorer.md",
@@ -3700,7 +3700,7 @@
     "agents/go-build-resolver.md": {
       "source": ".agents/agents/go-build-resolver.md",
       "sourceHash": "07be8d86aa7984c518a2905863f8ead1074d6847e718e070ad87301f56e06323",
-      "outputHash": "7aede3a0ff5249e9b06767d87a28fb4dada6a7c27373e022d046b88547203286"
+      "outputHash": "e544aa5216876b6865ad1629e4d8113667f8547c89a43aa805f51ac9489ab339"
     },
     "agents/go-reviewer.md": {
       "source": ".agents/agents/go-reviewer.md",
@@ -3725,17 +3725,17 @@
     "agents/planner.md": {
       "source": ".agents/agents/planner.md",
       "sourceHash": "b056dd51593097e9c61622f99401736d77dbe0c8731b072da60d40fc265eb9ac",
-      "outputHash": "6a73528765c38e6ca89761bfcc4e1cb74ff35caefbbb55cafcea17a488d33df2"
+      "outputHash": "4bf75723c14803ae4e8e06255f38e24c0e454846dda0fc7313615bec99437a12"
     },
     "agents/pytorch-build-resolver.md": {
       "source": ".agents/agents/pytorch-build-resolver.md",
       "sourceHash": "8f116ef1ad31f17fc607a212a70e5c9a10d52170b338563efae12d3ec5a88188",
-      "outputHash": "50fc3f936b67cd236c586b100d5476cd0f241f135448f429cbcdd52d12f16525"
+      "outputHash": "c0af0f4ba266db3228fe488300564816380b7466cc56d21b77268c44672d579f"
     },
     "agents/react-build-resolver.md": {
       "source": ".agents/agents/react-build-resolver.md",
       "sourceHash": "65c25287ee6982671d04c76d90cf00654ac9ac2bef2f9306eb019b33f75ea7b9",
-      "outputHash": "4469999b68e1eb2e5fc7ada87b1ead2ebc2cc854831328985279ab808960959c"
+      "outputHash": "b99ef4a4ab971e4564e0fc0de58015d857a5e86cb4272c21c49ce8f91413bbe4"
     },
     "agents/react-reviewer.md": {
       "source": ".agents/agents/react-reviewer.md",
@@ -3745,12 +3745,12 @@
     "agents/refactor-cleaner.md": {
       "source": ".agents/agents/refactor-cleaner.md",
       "sourceHash": "b89e40844ec637be664768a4ebd260c06aa73f0c64f3390bf16ed934b94c1166",
-      "outputHash": "601fe598f209e53122424e595d2077ffaade074e330413629c3c7eddb1ecb4cd"
+      "outputHash": "a6fb519614ef6fe629b224ed40aed71041ad02d789533bec87fb8bb4247efd2c"
     },
     "agents/rust-build-resolver.md": {
       "source": ".agents/agents/rust-build-resolver.md",
       "sourceHash": "01da707b040896055cebd168796e825e8be0b6f56685d244d973edf431f8775c",
-      "outputHash": "7e01e8079fca1541b5b6f3decf46744d8a392d0e758bbc25b7cc195cc0ee3177"
+      "outputHash": "a563de4ad2da0cc30b587643eda9ab1024ceedbb0e5cfa014342c61c0cdbbad9"
     },
     "agents/rust-reviewer.md": {
       "source": ".agents/agents/rust-reviewer.md",
@@ -3760,7 +3760,7 @@
     "agents/security-auditor.md": {
       "source": ".agents/agents/security-auditor.md",
       "sourceHash": "bfed1d0bb4d22b03894cae0d3aad61173e22e58d540e4db04277ad76bfe48948",
-      "outputHash": "b730a76c16b25b553c5e02033d179c1757534ce46a07135503caad1b60c884af"
+      "outputHash": "aea72460c89dbb1bd4ea4e992ddf3b32fadfe0c849ac5a2328785d12b3d341dd"
     },
     "agents/silent-failure-hunter.md": {
       "source": ".agents/agents/silent-failure-hunter.md",
@@ -3770,12 +3770,12 @@
     "agents/skeptic.md": {
       "source": ".agents/agents/skeptic.md",
       "sourceHash": "cfd46e7595066a8a86f5c57bb808d625725ed504cb1158783dbcdde4c2e6f9ba",
-      "outputHash": "47cc221b9a678076e43592589b507bdbf26c01731163c350bda0c36bcff56222"
+      "outputHash": "aac3c33c7c71df4a6303a8829aa617b8fa740bd9b2c61f5225f0ac1cc3be479c"
     },
     "agents/spec-miner.md": {
       "source": ".agents/agents/spec-miner.md",
       "sourceHash": "ce9cfeaeebb375c9a19e7279d2f915fc03ad0f5dee070f1d588950d9479bb703",
-      "outputHash": "be31b4fa7f2ddb3e76e9295af85b739f03b6ca2e7d728e5f4b72395b271466e0"
+      "outputHash": "88043080396ceb456c0d0e843459c80c7a3c5eb0fe89e89f512e5096004a5c11"
     },
     "agents/tdd-guide.md": {
       "source": ".agents/agents/tdd-guide.md",
@@ -19419,8 +19419,8 @@
     },
     "commands/swarm.md": {
       "source": null,
-      "sourceHash": "38cd0d21ec2817f387c62e1518ff64f4dcfe927b4a7fb67be3a110971eb71d43",
-      "outputHash": "38cd0d21ec2817f387c62e1518ff64f4dcfe927b4a7fb67be3a110971eb71d43"
+      "sourceHash": "b5daf334f5e0ff5b308e5c0c58ddee3c1296f801dc7b43f9ebcd7e1999cf9082",
+      "outputHash": "b5daf334f5e0ff5b308e5c0c58ddee3c1296f801dc7b43f9ebcd7e1999cf9082"
     },
     "commands/plan.md": {
       "source": null,
@@ -19469,8 +19469,8 @@
     },
     "rules/swarm.md": {
       "source": "tools/claude/templates/rules/swarm.md",
-      "sourceHash": "d5b7c5ba1495a01eb39adad0d760795ee1f775656cb3cd2b4a4ace3bdc5328a1",
-      "outputHash": "01d3f551305204ae37c04ca80432641438b2c0e1262e04e022bbd0f994c1130c"
+      "sourceHash": "668f3c6436b1b3cd02b083369d1d213ee5e60d98ad5e986a71ab9b30d91738af",
+      "outputHash": "a8c60e3842ceed874d8c0a4e14fe224570fd3f5452cbceb083bf45b79483444e"
     },
     "scripts/swarm-subagent-guard.cjs": {
       "source": "tools/claude/templates/scripts/swarm-subagent-guard.cjs",
@@ -19500,12 +19500,12 @@
     "CLAUDE.md": {
       "source": "AGENTS.md",
       "sourceHash": "6f8cc15567e64f99701de699842222bc1db5426d280924eb342a69ff30e38e54",
-      "outputHash": "2ee336394ed9f9b95e70834cad3be1fd2f7906267c8328dde29e9795b65eb2e4"
+      "outputHash": "ffb177f3a6a67fc624629fd7a6ab3a92ed79a1237e78317451ab6e9c8d158391"
     },
     "CLAUDE.designer.md": {
       "source": "AGENTS.md",
       "sourceHash": "6f8cc15567e64f99701de699842222bc1db5426d280924eb342a69ff30e38e54",
-      "outputHash": "2b2ab4cea1160b775aa258fc327265c472f3ce5befe03315ee109c459825fca7"
+      "outputHash": "92a5349023827f0d0f266a0f96baea6e55cbd1aef4b11ce92034e59f6f1780d1"
     }
   }
 }

@@ -3,7 +3,7 @@ name: skeptic
 description: "Cold-Context Adversarial Skeptic for independent pre-merge verification. Evaluates strictly sanitized context packets (.harness/context/<task_id>-brief.json: Contract + Raw Diff + Receipt) with zero author rationalization, outputting structured APPROVE/REJECT JSON and Memory Flywheel invariants."
 tools: Read, Grep, Glob
 tier: brain
-model: opus
+model: sonnet
 effort: high
 ---
 

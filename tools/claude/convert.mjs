@@ -145,16 +145,15 @@ export function convertSkill(text, sourceFile) {
 }
 
 const claudeAgentConfigMap = {
-  // Rung 1 — Architects & Planners
-  'a11y-architect': { model: 'opus', effort: 'high' },
-  'architect': { model: 'opus', effort: 'high' },
-  'code-architect': { model: 'opus', effort: 'high' },
-  'planner': { model: 'opus', effort: 'high' },
-  'spec-miner': { model: 'opus', effort: 'high' },
-  // Rung 2 — High-Stakes Security & Skeptic
-  'security-auditor': { model: 'opus', effort: 'high' },
-  'skeptic': { model: 'opus', effort: 'high' },
-  // Rung 2 — Reviewers, Evaluators & Complex Builders
+  // Rung 1 — Architects & Planners (Advisor-First: sonnet high + inherited Opus advisor)
+  'a11y-architect': { model: 'sonnet', effort: 'high' },
+  'architect': { model: 'sonnet', effort: 'high' },
+  'code-architect': { model: 'sonnet', effort: 'high' },
+  'planner': { model: 'sonnet', effort: 'high' },
+  'spec-miner': { model: 'sonnet', effort: 'high' },
+  // Rung 2 — Security, Skeptic, Reviewers, Evaluators & Complex Builders (Advisor-First: sonnet high + inherited Opus advisor)
+  'security-auditor': { model: 'sonnet', effort: 'high' },
+  'skeptic': { model: 'sonnet', effort: 'high' },
   'agent-evaluator': { model: 'sonnet', effort: 'high' },
   'code-reviewer': { model: 'sonnet', effort: 'high' },
   'database-reviewer': { model: 'sonnet', effort: 'high' },
@@ -169,17 +168,17 @@ const claudeAgentConfigMap = {
   'tdd-guide': { model: 'sonnet', effort: 'high' },
   'performance-optimizer': { model: 'sonnet', effort: 'high' },
   'penetration-tester': { model: 'sonnet', effort: 'high' },
-  // Rung 3 — Routine Builders & Build Resolvers
-  'code-simplifier': { model: 'opus', effort: 'medium' },
-  'refactor-cleaner': { model: 'opus', effort: 'medium' },
-  'e2e-runner': { model: 'opus', effort: 'medium' },
-  'build-error-resolver': { model: 'opus', effort: 'medium' },
-  'cpp-build-resolver': { model: 'opus', effort: 'medium' },
-  'django-build-resolver': { model: 'opus', effort: 'medium' },
-  'go-build-resolver': { model: 'opus', effort: 'medium' },
-  'pytorch-build-resolver': { model: 'opus', effort: 'medium' },
-  'react-build-resolver': { model: 'opus', effort: 'medium' },
-  'rust-build-resolver': { model: 'opus', effort: 'medium' },
+  // Rung 3 — Routine Builders & Build Resolvers (Advisor-First: sonnet medium + inherited Opus advisor)
+  'code-simplifier': { model: 'sonnet', effort: 'medium' },
+  'refactor-cleaner': { model: 'sonnet', effort: 'medium' },
+  'e2e-runner': { model: 'sonnet', effort: 'medium' },
+  'build-error-resolver': { model: 'sonnet', effort: 'medium' },
+  'cpp-build-resolver': { model: 'sonnet', effort: 'medium' },
+  'django-build-resolver': { model: 'sonnet', effort: 'medium' },
+  'go-build-resolver': { model: 'sonnet', effort: 'medium' },
+  'pytorch-build-resolver': { model: 'sonnet', effort: 'medium' },
+  'react-build-resolver': { model: 'sonnet', effort: 'medium' },
+  'rust-build-resolver': { model: 'sonnet', effort: 'medium' },
   // Rung 4 — Explorer / Recon / Simple Checks
   'explorer': { model: 'haiku', effort: 'high' }
 };
@@ -192,7 +191,7 @@ export function resolveClaudeAgentConfig(name, tier) {
   const normalizedTier = typeof tier === 'string' ? tier.trim().toLowerCase() : '';
   if (normalizedTier === 'reflex') return { model: 'haiku', effort: 'high' };
   if (normalizedTier === 'brain') return { model: 'sonnet', effort: 'high' };
-  return { model: 'opus', effort: 'medium' };
+  return { model: 'sonnet', effort: 'medium' };
 }
 
 export function convertAgent(text, sourceFile) {
@@ -245,15 +244,16 @@ export function convertAgent(text, sourceFile) {
 const claudeRoutingBlock = `Delegate specialized lifecycle tasks to the agents defined under [.claude/agents/](.claude/agents/) using \`@<agent>\`, or coordinate parallel non-CLI subagents with \`/swarm\` per [.claude/rules/swarm.md](.claude/rules/swarm.md):
 
 - **Invocation**: Invoke specialists via \`@<agent>\` (or slash commands \`/swarm\`, \`/learn\`, \`/plan\`, \`/tdd\`, \`/audit\`, \`/review\`, \`/eval\`, \`/contract\`, \`/verify\`, \`/flywheel\`).
-- **Coordinator (UI Lead)**: Run \`/swarm\` orchestration on \`opus\` (\`xhigh\` or \`max\` when chosen in the UI; preserve the user's choice and never auto-escalate \`xhigh\` to \`max\`). Use parallel \`Agent\` subagents with \`isolation: "worktree"\` for parallel writers.
-- **4-Rung Model Routing (\`model:\`, \`effort:\` frontmatter)**:
+- **Coordinator (UI Lead)**: Run \`/swarm\` orchestration on \`sonnet\` (preserving user UI effort; omit command \`model:\` frontmatter to protect prompt cache) with recommended user-global \`"advisorModel": "opus"\` in \`~/.claude/settings.json\`. Use parallel \`Agent\` subagents with \`isolation: "worktree"\` for parallel writers.
+- **Advisor-First Model Routing (\`model:\`, \`effort:\` frontmatter; zero \`model: opus\` frontmatter)**:
 
 | Rung | Claude Code Model & Effort | Agents ([.claude/agents/](.claude/agents/)) |
 | :--- | :--- | :--- |
-| **Rung 1** *(Architects & Planners)* | \`model: opus\` (\`effort: high\`) | \`planner\`, \`architect\`, \`code-architect\`, \`a11y-architect\`, \`spec-miner\` |
-| **Rung 2** *(Reviewers, Security & Complex Builders)* | \`model: sonnet\` (\`effort: high\`); \`model: opus\` (\`effort: high\`) on \`security-auditor\`, \`skeptic\`, and Strike-2 escalations | \`agent-evaluator\`, \`code-reviewer\`, \`{typescript,react,vue,go,rust,php,fastapi,database}-reviewer\`, \`silent-failure-hunter\`, \`tdd-guide\`, \`performance-optimizer\`, \`penetration-tester\`, \`security-auditor\`, \`skeptic\` |
-| **Rung 3** *(Routine Builders & Build Resolvers)* | \`model: opus\` (\`effort: medium\`) | \`code-simplifier\`, \`refactor-cleaner\`, \`e2e-runner\`, \`build-error-resolver\`, \`{react,go,rust,django,cpp,pytorch}-build-resolver\` |
-| **Rung 4** *(Explorer / Recon)* | \`model: haiku\` (\`effort: high\`) | \`explorer\` (fast read-only recon; never plans or edits) |
+| **Rung 1** *(Architects & Planners)* | \`model: sonnet\`, \`effort: high\` (+ inherited Opus advisor) | \`planner\`, \`architect\`, \`code-architect\`, \`a11y-architect\`, \`spec-miner\` |
+| **Rung 2** *(Reviewers, Security & Complex Builders)* | \`model: sonnet\`, \`effort: high\` (+ inherited Opus advisor) | \`security-auditor\`, \`skeptic\`, \`agent-evaluator\`, \`code-reviewer\`, \`{typescript,react,vue,go,rust,php,fastapi,database}-reviewer\`, \`silent-failure-hunter\`, \`tdd-guide\`, \`performance-optimizer\`, \`penetration-tester\` |
+| **Rung 3** *(Routine Builders & Build Resolvers)* | \`model: sonnet\`, \`effort: medium\` (+ inherited Opus advisor) | \`code-simplifier\`, \`refactor-cleaner\`, \`e2e-runner\`, \`build-error-resolver\`, \`{react,go,rust,django,cpp,pytorch}-build-resolver\` |
+| **Rung 4** *(Explorer / Recon)* | \`model: haiku\`, \`effort: high\` | \`explorer\` (fast read-only recon; never plans or edits) |
+| **Strike-2 Exception** *(Per-Invocation Escalation)* | \`Agent(model: "opus")\` only after Opus advisor fails twice | Any specialist escalated on Strike-2 after two failed attempts with Opus advisor guidance |
 
 - **Closure Guard**: Native \`SubagentStop\` hook (\`node .claude/scripts/swarm-subagent-guard.cjs\`) verifies every subagent reports modified files or verified findings before closing (no polling monitor worker).
 - **Mandatory Lifecycle Triggers**:

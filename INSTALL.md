@@ -111,7 +111,7 @@ Running `node tools/claude/install.mjs` directly in an interactive TTY without `
 
 The installer verifies and copies the committed bundle into the target workspace:
 - `.claude/skills/`: Skills automatically discoverable via `/skill-name` inside Claude Code.
-- `.claude/agents/`: Subagents with native Claude tools (`Read`, `Write`, `Edit`, `Bash`, `Grep`, `Glob`) and tiered models (`haiku`, `sonnet`, `opus`) for isolated tasks.
+- `.claude/agents/`: Subagents with native Claude tools (`Read`, `Write`, `Edit`, `Bash`, `Grep`, `Glob`) and Advisor-First model defaults (`sonnet` for Rungs 1–3, `haiku` for `explorer`, Strike-2 `opus` escalation; compatible with user-global `advisorModel: "opus"`).
 - `.claude/commands/`: 10 custom workflow commands (`/plan`, `/tdd`, `/audit`, `/review`, `/eval`, `/contract`, `/verify`, `/flywheel`, `/learn`, `/swarm`; `/learn` stays active in both Harness and Designer modes).
 - `.claude/rules/`: Workspace development rules and architecture policies (including `.claude/rules/swarm.md`).
 - `.claude/resources/`: Shared creative libraries and reference catalogs (including `creative-libraries/interaction-catalog.md`).
@@ -120,6 +120,7 @@ The installer verifies and copies the committed bundle into the target workspace
   - In **HARNESS MODE**: copies `.claude/hooks.example.json` to `.claude/hooks.json`, merges all hooks (including `SessionStart` Active Memory Brief and `SubagentStop` `swarm-subagent-guard.cjs`) into `.claude/settings.json` (preserving existing settings), and installs/chains `.git/hooks/pre-commit` when `.git` is present.
   - In **DESIGNER MODE**: copies `.claude/hooks.impeccable.example.json` to `.claude/hooks.json`, merges **only** `hooks.impeccable.example.json` (including `SessionStart` and `SubagentStop` `swarm-subagent-guard.cjs`) into `.claude/settings.json`, and skips `.git/hooks/pre-commit`.
   - Pass `--no-hooks` to skip all hook activation.
+  - Personal preferences (`model`, `advisorModel`, `env`, `statusLine`, `modelSettings`) belong in user-global `~/.claude/settings.json` and remain untouched (project `.claude/settings.json` merges hooks non-destructively).
 - `CLAUDE.md`: Root configuration and memory loaded on every Claude Code session (`CLAUDE.md` in `harness` mode; `CLAUDE.designer.md` without Harness lifecycle in `designer` mode).
 
 It creates or merges the root `.gitignore` using `.claude/project.gitignore`, protecting `.claude/*` while preserving rules, agents, commands, and `CLAUDE.md`. Mode (`harness` or `designer`) and `hookSet` are recorded in `.claude/claude-install.json`. When the profile includes `playwright-skill` or `agent-browser`, it installs local Playwright and Chromium dependencies, verifies headless browser execution, and checks or installs the `agent-browser` CLI and its browser runtime non-fatally. On failure, retry with `--resume` to complete setup without re-copying existing files.

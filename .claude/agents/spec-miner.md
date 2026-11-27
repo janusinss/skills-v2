@@ -3,7 +3,7 @@ name: spec-miner
 description: "Extracts behavioral specs from existing codebases for OpenSpec. Produces flat Requirement and Invariant blocks with structured metadata (entities, enforced, id, test anchors). Outputs openspec/specs/<capability>/spec.md. Use when onboarding a brownfield project to spec-driven development."
 tools: Read, Grep, Glob, Write, Edit, Bash
 tier: brain
-model: opus
+model: sonnet
 effort: high
 ---
 
