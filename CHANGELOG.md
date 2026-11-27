@@ -19,7 +19,7 @@ All notable changes are recorded here. Format follows [Keep a Changelog](https:/
 - Refactored `.agents/rules/frontend.md` with `design-taste-frontend` as primary visual, typography, and palette director and `impeccable` for layout and craft-floor audits, paired with `MOTION.md` and `interaction-catalog.md`.
 - Streamlined `AGENTS.md` and `CLAUDE.md` policy sections by ~48% while keeping all workspace rules and routing tables intact.
 - Migrated Claude hook templates to the native Claude Code hook schema (removed `commandWindows`).
-- Migrated Claude Code subagents and `/swarm` to Pure Advisor-First routing (`sonnet` for Rungs 1–3 and `haiku` for `explorer` in frontmatter defaults, omitted `model:` in `.claude/commands/swarm.md` to protect prompt caching, user-global `advisorModel: "opus"` pairing, and Strike-2 `Agent(model: "opus")` escalation).
+- Migrated Claude Code subagents and `/swarm` to Pure Advisor-First routing (`sonnet` for Rungs 1–3 and `haiku` for `explorer` in frontmatter defaults, omitted `model:` in `.claude/commands/swarm.md` to protect prompt caching, user-global `advisorModel: "opus"` pairing, Strike-2 `Agent(model: "opus")` escalation, and non-destructive `"outputStyle": "Concise"` default in installed `.claude/settings.json`).
 
 ### Fixed
 - Fixed `tools/codex/export.mjs` minimal-profile resource filtering and eliminated edition path leaks.

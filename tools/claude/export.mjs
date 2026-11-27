@@ -82,7 +82,11 @@ export function applyClaudeSettingsHooks(target, root = bundleRoot, modeOrOption
     }
     existingHooks[event] = currentList;
   }
-  const merged = { ...existing, hooks: existingHooks };
+  const merged = {
+    outputStyle: 'Concise',
+    ...existing,
+    hooks: existingHooks
+  };
   fs.writeFileSync(settingsPath, json(merged), 'utf8');
   return { path: '.claude/settings.json', action };
 }
