@@ -106,6 +106,9 @@ export function planExport({ target, profile = 'all', includeHooks = true, mode 
   else if (profiles[profile]) selected = [...profiles[profile]];
   else throw new Error(`Unknown profile ${profile}. Choose all, minimal, frontend, backend, security, or fullstack.`);
   if (all.includes('learn') && !selected.includes('learn')) selected.push('learn');
+  if (resolvedMode === 'designer') {
+    selected = selected.filter(skill => skill !== 'continuous-agent-loop');
+  }
 
   const entries = [];
   const add = (source, relative) => {
@@ -122,12 +125,27 @@ export function planExport({ target, profile = 'all', includeHooks = true, mode 
   add(claudeMdSource, 'CLAUDE.md');
   const harnessOnlyCommands = new Set(['contract.md', 'verify.md', 'flywheel.md']);
   const includeHarnessCommands = resolvedMode !== 'designer' && selected.includes('continuous-agent-loop');
+  const designerLearnedInvariants = path.join(root, 'learned-invariants.designer.md');
+  const designerSecurityRule = path.join(root, 'security.designer.md');
+  const designerLearnCmd = path.join(root, 'learn.designer.md');
   for (const area of ['rules', 'agents', 'commands', 'resources', 'scripts']) {
     const dir = path.join(root, area);
     if (fs.existsSync(dir)) {
       for (const source of filesIn(dir)) {
-        if (area === 'commands' && !includeHarnessCommands && harnessOnlyCommands.has(path.basename(source))) continue;
-        add(source, slash(path.join('.claude', area, path.relative(dir, source))));
+        const base = path.basename(source);
+        if (area === 'commands' && !includeHarnessCommands && harnessOnlyCommands.has(base)) continue;
+        if (resolvedMode === 'designer' && area === 'agents' && base === 'skeptic.md') continue;
+        let effectiveSource = source;
+        if (resolvedMode === 'designer') {
+          if (area === 'rules' && base === 'learned-invariants.md' && fs.existsSync(designerLearnedInvariants)) {
+            effectiveSource = designerLearnedInvariants;
+          } else if (area === 'rules' && base === 'security.md' && fs.existsSync(designerSecurityRule)) {
+            effectiveSource = designerSecurityRule;
+          } else if (area === 'commands' && base === 'learn.md' && fs.existsSync(designerLearnCmd)) {
+            effectiveSource = designerLearnCmd;
+          }
+        }
+        add(effectiveSource, slash(path.join('.claude', area, path.relative(dir, source))));
       }
     }
   }
@@ -140,7 +158,9 @@ export function planExport({ target, profile = 'all', includeHooks = true, mode 
     }
   }
 
-  add(path.join(root, 'hooks.example.json'), '.claude/hooks.example.json');
+  if (resolvedMode !== 'designer') {
+    add(path.join(root, 'hooks.example.json'), '.claude/hooks.example.json');
+  }
   const impeccableHooksExample = path.join(root, 'hooks.impeccable.example.json');
   if (fs.existsSync(impeccableHooksExample)) {
     add(impeccableHooksExample, '.claude/hooks.impeccable.example.json');

@@ -40,6 +40,14 @@ const designerLeakPatterns = [
   { label: '/flywheel', regex: /\/flywheel\b/ }
 ];
 
+const designerInvariantsLeakPatterns = [
+  { label: '[Harness-*]', regex: /\[Harness-[A-Za-z]+\]/ },
+  { label: '.harness/', regex: /\.harness\// },
+  { label: 'harness.mjs', regex: /\bharness\.mjs\b/ },
+  { label: 'skeptic', regex: /\bskeptic\b/i },
+  { label: 'continuous-agent-loop', regex: /\bcontinuous-agent-loop\b/ }
+];
+
 function checkLeaks(text, relative, patterns, errors) {
   for (const { label, regex } of patterns) {
     if (regex.test(text)) {
@@ -202,10 +210,21 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
         errors.push(`Designer installation must not include harness-only command .claude/commands/${harnessCmd}`);
       }
     }
+    if (fs.existsSync(path.join(skillsRoot, 'continuous-agent-loop'))) {
+      errors.push('Designer installation must not include harness-only skill .claude/skills/continuous-agent-loop');
+    }
+    if (fs.existsSync(path.join(agentsRoot, 'skeptic.md'))) {
+      errors.push('Designer installation must not include harness-only agent .claude/agents/skeptic.md');
+    }
+    const installedLearnCmd = path.join(commandsRoot, 'learn.md');
+    if (fs.existsSync(installedLearnCmd) && /\bharness\.mjs\b/.test(fs.readFileSync(installedLearnCmd, 'utf8'))) {
+      errors.push('Designer .claude/commands/learn.md must not reference harness.mjs');
+    }
   }
 
   // 4. Validate Rules and Instruction Files
   const designerClaudeMd = path.join(root, 'CLAUDE.designer.md');
+  const designerLearnedInvariants = path.join(root, 'learned-invariants.designer.md');
   const instructionFiles = [
     ...filesIn(path.join(dataRoot, 'rules')).filter(file => file.endsWith('.md')),
     path.join(root, 'CLAUDE.md'),
@@ -222,12 +241,24 @@ export function validateClaudeBundle(root = bundleRoot, { checkSource = false, c
     if (file === designerClaudeMd || (path.basename(file) === 'CLAUDE.md' && installed?.mode === 'designer')) {
       checkLeaks(text, relative, designerLeakPatterns, errors);
     }
+    if (path.basename(file) === 'learned-invariants.md' && installed?.mode === 'designer') {
+      checkLeaks(text, relative, designerInvariantsLeakPatterns, errors);
+    }
     for (const target of missingLinks(text, file, dataRoot)) {
       if (partialProfile && /^(?:\.\.\/|\.claude\/|\.codex\/|\.agents\/)?skills\//.test(target)) {
         warnings.push(`${relative}: out-of-profile skill link ${target}`);
       } else {
         errors.push(`${relative}: missing instruction link ${target}`);
       }
+    }
+  }
+  if (fs.existsSync(designerLearnedInvariants)) {
+    const relative = slash(path.relative(root, designerLearnedInvariants));
+    const text = fs.readFileSync(designerLearnedInvariants, 'utf8');
+    checkLeaks(text, relative, crossEditionLeakPatterns, errors);
+    checkLeaks(text, relative, designerInvariantsLeakPatterns, errors);
+    for (const target of missingLinks(text, path.join(dataRoot, 'rules', 'learned-invariants.md'), dataRoot)) {
+      errors.push(`${relative}: missing instruction link ${target}`);
     }
   }
 

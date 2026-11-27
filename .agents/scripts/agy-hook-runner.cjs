@@ -241,10 +241,80 @@ function runAvoidAiWriting(agentsDir, workspaceRoot, stdinObj) {
   process.stdout.write(JSON.stringify({ decision: 'continue', reason }) + '\n');
 }
 
+function truncateUtf8Bytes(text, maxBytes) {
+  if (Buffer.byteLength(text, 'utf8') <= maxBytes) return text;
+  let out = '';
+  for (const ch of text) {
+    if (Buffer.byteLength(out + ch + '...', 'utf8') > maxBytes) break;
+    out += ch;
+  }
+  return `${out}...`;
+}
+
+function extractMarkerEntries(raw, startMarker, endMarker, label) {
+  const lines = raw.split(/\r?\n/);
+  const start = lines.findIndex(line => line.includes(startMarker));
+  const end = start >= 0 ? lines.findIndex((line, idx) => idx > start && line.includes(endMarker)) : -1;
+  if (start < 0 || end < 0) return [];
+  const entries = [];
+  for (let i = start + 1; i < end; i++) {
+    const trimmed = lines[i].trim();
+    const match = /^-\s+\*\*\[([^\]]+)\]\*\*:\s*(.+)$/.exec(trimmed);
+    if (!match) continue;
+    const domain = match[1].trim();
+    const rule = match[2].replace(/\s*\(Source:[^)]+\)\s*\.?$/, '').trim();
+    if (rule) entries.push({ label, domain, rule });
+  }
+  return entries;
+}
+
+function readDesignerMemoryBrief(agentsDir, workspaceRoot, maxBytes = 600) {
+  const invPath = path.join(agentsDir, 'rules', 'learned-invariants.md');
+  if (!fs.existsSync(invPath)) return '';
+  const raw = fs.readFileSync(invPath, 'utf8');
+  const entries = [
+    ...extractMarkerEntries(raw, '<!-- flywheel-promoted-rules-start -->', '<!-- flywheel-promoted-rules-end -->', 'Rule'),
+    ...extractMarkerEntries(raw, '<!-- flywheel-exemplars-start -->', '<!-- flywheel-exemplars-end -->', 'Exemplar'),
+  ];
+  if (entries.length === 0) return '';
+  const gitTokens = new Set();
+  const gitRes = spawnSync('git', ['status', '--porcelain'], { cwd: workspaceRoot, encoding: 'utf8' });
+  if (gitRes.status === 0 && gitRes.stdout) {
+    for (const part of gitRes.stdout.toLowerCase().split(/[^a-z0-9]+/)) {
+      if (part.length >= 3) gitTokens.add(part);
+    }
+  }
+  const scored = entries.map((entry, idx) => {
+    let score = 0;
+    const dom = entry.domain.toLowerCase();
+    if (gitTokens.has(dom)) score += 100;
+    for (const tok of `${dom} ${entry.rule.toLowerCase()}`.split(/[^a-z0-9]+/)) {
+      if (tok.length >= 3 && gitTokens.has(tok)) score += 20;
+    }
+    return { entry, score, idx };
+  });
+  scored.sort((a, b) => b.score - a.score || a.idx - b.idx);
+  const parts = scored.slice(0, 3).map(({ entry }) => `${entry.label}[${entry.domain}]: ${entry.rule}`);
+  return truncateUtf8Bytes(`[Project Memory] ${parts.join(' | ')}`, maxBytes);
+}
+
 function runMemoryBrief(agentsDir, workspaceRoot, rawStdin) {
   const harnessPath = path.join(agentsDir, 'skills', 'continuous-agent-loop', 'scripts', 'harness.mjs');
   if (!fs.existsSync(harnessPath)) {
-    process.stdout.write('{}\n');
+    const brief = readDesignerMemoryBrief(agentsDir, workspaceRoot, 600);
+    if (!brief) {
+      process.stdout.write('{}\n');
+      return;
+    }
+    process.stdout.write(JSON.stringify({
+      injectSteps: [
+        {
+          systemMessage: {
+            systemMessage: brief,
+          },
+        },
+      ],
+    }) + '\n');
     return;
   }
 

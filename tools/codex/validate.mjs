@@ -72,6 +72,14 @@ const designerLeakChecks = [
   { pattern: /\bharness\.mjs\b/, message: 'Designer policy must not mention harness.mjs' },
 ];
 
+const designerInvariantsLeakChecks = [
+  { pattern: /\[Harness-[A-Za-z]+\]/, message: 'Designer learned-invariants must not include [Harness-*] baseline rules' },
+  { pattern: /\.harness\//, message: 'Designer learned-invariants must not reference .harness/' },
+  { pattern: /\bharness\.mjs\b/, message: 'Designer learned-invariants must not mention harness.mjs' },
+  { pattern: /\bskeptic\b/i, message: 'Designer learned-invariants must not mention skeptic' },
+  { pattern: /\bcontinuous-agent-loop\b/, message: 'Designer learned-invariants must not reference continuous-agent-loop' },
+];
+
 const ruleLeakChecks = [
   { pattern: /\binvoke_subagent\b/, message: 'leaks AGY invoke_subagent' },
   { pattern: /`ask_question`/, message: 'leaks AGY `ask_question` tool name' },
@@ -130,6 +138,7 @@ export function validateBundle(root = bundleRoot, { checkSource = false, checkMa
   const partialProfile = Boolean(installed?.profile && installed.profile !== 'all');
   const instruction = path.join(root, 'AGENTS.md');
   const designerInstruction = path.join(root, 'AGENTS.designer.md');
+  const designerLearnedInvariants = path.join(root, 'learned-invariants.designer.md');
   const ruleFiles = filesIn(path.join(dataRoot, 'rules')).filter(file => file.endsWith('.md'));
   for (const file of [...ruleFiles, instruction]) {
     if (!fs.existsSync(file)) { errors.push(`Missing instructions: ${file}`); continue; }
@@ -144,6 +153,9 @@ export function validateBundle(root = bundleRoot, { checkSource = false, checkMa
       if (installed?.mode === 'designer') checkLeaks(text, rel, designerLeakChecks, errors);
     } else {
       checkLeaks(text, rel, ruleLeakChecks, errors);
+      if (path.basename(file) === 'learned-invariants.md' && installed?.mode === 'designer') {
+        checkLeaks(text, rel, designerInvariantsLeakChecks, errors);
+      }
     }
   }
   if (fs.existsSync(designerInstruction)) {
@@ -154,6 +166,24 @@ export function validateBundle(root = bundleRoot, { checkSource = false, checkMa
       else errors.push(`${rel}: missing instruction link ${target}`);
     }
     checkLeaks(text, rel, [...policyLeakChecks, ...designerLeakChecks], errors);
+  }
+  if (fs.existsSync(designerLearnedInvariants)) {
+    const rel = slash(path.relative(root, designerLearnedInvariants));
+    const text = fs.readFileSync(designerLearnedInvariants, 'utf8');
+    checkLeaks(text, rel, [...ruleLeakChecks, ...designerInvariantsLeakChecks], errors);
+    for (const target of missingLinks(text, path.join(dataRoot, 'rules', 'learned-invariants.md'), dataRoot)) {
+      errors.push(`${rel}: missing instruction link ${target}`);
+    }
+  }
+  if (installed?.mode === 'designer') {
+    if (fs.existsSync(path.join(skillsRoot, 'continuous-agent-loop'))) {
+      errors.push('Designer installation must not include harness-only skill .codex/skills/continuous-agent-loop');
+    }
+    for (const skepticFile of ['skeptic.md', 'skeptic.toml']) {
+      if (fs.existsSync(path.join(dataRoot, 'agents', skepticFile))) {
+        errors.push(`Designer installation must not include harness-only agent .codex/agents/${skepticFile}`);
+      }
+    }
   }
   const projectIgnorePath = path.join(root, 'project.gitignore');
   if (fs.existsSync(projectIgnorePath)) {

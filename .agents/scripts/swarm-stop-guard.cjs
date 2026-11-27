@@ -4,12 +4,11 @@
  *
  * Inspects the documented conversation transcript (`transcriptPath` on stdin)
  * to detect unclosed `/swarm` sessions (workers added via `swarm` without `[done]`
- * or `kill`) or missing `monitor` (`swarm_monitor`) workers when spawning Wave 1
- * or entering `swarm_wait`. Allows coordinator `swarm_wait` with
- * `mentions_only: true` only when an active `monitor` is present to guard
- * against stalls. Returns `{"decision":"continue"}` so the coordinator
- * re-checks `swarm{action:"status"}` and `read_board` instead of leaving
- * workers asleep.
+ * or `kill`) or sleeping on `swarm_wait{mentions_only: true}` without an active
+ * `monitor` (`swarm_monitor`) worker. Allows Turn-1 spawns and
+ * `swarm_wait{mentions_only: false}` without a polling monitor so small
+ * single-hop swarms incur zero monitor cron quota burn. Returns
+ * `{"decision":"continue"}` when workers would otherwise be abandoned asleep.
  *
  * Respects `continuationActive`, `USER_CANCELED`, `ERROR`, and invocation-cap exits,
  * and silently allows exit (`0`) outside AGY or when no transcript is available.
@@ -340,13 +339,10 @@ function evaluateStop(input) {
   const suffix = state.activeWorkers.length > 5 ? ` (+${state.activeWorkers.length - 5} more)` : '';
 
   if (state.lastWaitCall) {
-    if (state.monitors.length === 0) {
-      const waitNote = state.lastWaitCall.mentionsOnly !== false
-        ? ' with mentions_only!=false and no monitor worker'
-        : ' with no monitor worker';
+    if (state.lastWaitCall.mentionsOnly !== false && state.monitors.length === 0) {
       const verdict = {
         decision: 'continue',
-        reason: `Swarm guard: entering swarm_wait${waitNote} while active workers (${workerList}${suffix}) remain open. Check swarm{action:"status"} / read_board and spawn a monitor (swarm_monitor) before sleeping so the swarm cannot deadlock idle.`,
+        reason: `Swarm guard: entering swarm_wait with mentions_only!=false and no monitor worker while active workers (${workerList}${suffix}) remain open. Either switch to swarm_wait{mentions_only:false} (zero monitor quota burn for single-hop waves) or spawn one monitor on gemini-4-hydrogen-medium (*/6 * * * *, MaxIterations: 12, starting from current wave seq) before sleeping.`,
       };
       appendSwarmMetricIfHarnessExists(input, {
         event: 'stop_guard_block',
@@ -362,24 +358,8 @@ function evaluateStop(input) {
     return null;
   }
 
-  // Turn 1 spawns workers before post_message/read_board/swarm_wait exist in the toolset; allow clean turn end when a monitor is active.
+  // Turn 1 spawns workers before post_message/read_board/swarm_wait exist in the toolset; allow clean turn end without forcing a polling monitor.
   if (state.turnHadAdd && !state.seenBoardToolsInWave) {
-    if (state.monitors.length === 0) {
-      const verdict = {
-        decision: 'continue',
-        reason: `Swarm guard: spawned workers (${workerList}${suffix}) without a monitor worker. Spawn a monitor (swarm_monitor) so idle stalls auto-wake before ending Turn 1.`,
-      };
-      appendSwarmMetricIfHarnessExists(input, {
-        event: 'stop_guard_block',
-        strikes: 0,
-        rework: 0,
-        stalls: 1,
-        scope_blocks: 0,
-        outcome: 'fail',
-        active_workers: state.activeWorkers.length,
-      });
-      return verdict;
-    }
     return null;
   }
 

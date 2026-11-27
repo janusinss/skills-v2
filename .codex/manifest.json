@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-10-01",
   "originalSnapshot": {
-    "digest": "53a91803381aaf0730b38333e5fde7a67c72b1aff51ff3f5c737af28e582ec66",
+    "digest": "0b6d1fec8e792fe03ed0fb441b77763ba2d388d2e942277501740bffd858065d",
     "files": {
       ".agents/agents/a11y-architect.md": "944a665705954fc9a05e3a97907500e3ee57de8d72ebb81de961c866a3eb03ae",
       ".agents/agents/agent-evaluator.md": "5dda4f49234a5336c748256230a1faa76de5f8638a7b8522d8df1ee876420876",
@@ -343,9 +343,9 @@
       ".agents/rules/security.md": "1a0e99d17acb5f5434a3b9f189f5c293e22bd51f68f35b68c980c4435cd1203f",
       ".agents/rules/starting-brandnew.md": "663fb9650417550eb6f3bc11b2c294bc7acebb89ca0d67a143d8dd5bc5dc4e9b",
       ".agents/rules/starting-existing.md": "47af33dc9034788af71039f77d608557983c63b2a3fe7686b892cf3bc0e3fa22",
-      ".agents/rules/swarm.md": "bfa545626a79d712d9ae29b25495b60956b5dea5b31a9d0ddf6573e3cafc720d",
-      ".agents/scripts/agy-hook-runner.cjs": "a6a21ed7bf33329b691071902e26328c6c58953b8bcfb572b58a933b9cfa44e6",
-      ".agents/scripts/swarm-stop-guard.cjs": "070d259f53864c8bf6e3ffb6e372ea405da1f7237ff2c28b163360e38d6c90fd",
+      ".agents/rules/swarm.md": "6d7fe4ad5b6309a3d58f7f2d1e8f5c325ccfbc16abb408b7af2972cf6dda5f25",
+      ".agents/scripts/agy-hook-runner.cjs": "a9db8181d70bea8b0457629287cbca9b07f13533e153d31d3abb6feb864f771d",
+      ".agents/scripts/swarm-stop-guard.cjs": "1e09d0220b6fbde83951dfc7931d716cec7c42073601d8dd5b01a578e3080206",
       ".agents/skills/3d-web-experience/SKILL.md": "ccdf216cc836ed8e339f8bafb78001d1deb6bb3a2d9a5beb705407fdd8300d10",
       ".agents/skills/agent-browser/SKILL.md": "6690c34e8fa0b872096d4b0e1de7106108eb45be2b231cbd90536648523466c2",
       ".agents/skills/agent-browser/references/authentication.md": "590d5b4b53e3088243cceca79ada5c4bebb36633d1e7b2f8baa3076269641a9f",
@@ -3303,7 +3303,7 @@
       ".agents/skills/impeccable/scripts/live-browser.js": "718d8cef65b92222219a45ffd024230ffad7273ff368f80e41e9f4d56d3cbd96",
       ".agents/skills/impeccable/scripts/modern-screenshot.umd.js": "bb36665889124a0b6e15f16045265737449c3bdcf2712cdb08af3cfa01563e2b",
       ".agents/skills/javascript-pro/SKILL.md": "21acacadd090f65f962126588a67bbfedb41fb897ab7a4a5a360c93a49d1f996",
-      ".agents/skills/learn/SKILL.md": "4a4197e1763f57c31f86856ed4a1bb5be422255408019fc4036fcb22b838f145",
+      ".agents/skills/learn/SKILL.md": "1d6b7893b33780afd943ccff9eae50afe52df73748a8e7d64a8ca9934435cea8",
       ".agents/skills/lint-and-validate/SKILL.md": "35e558822862f3386c3f5ba221684b7a7d492f3b56789bff224c9ff50a99a440",
       ".agents/skills/lint-and-validate/scripts/lint_runner.py": "fe1230c95c7a38c11fd330b8b2ba57ab4e2744dc423e84637d3ca31c4562a20d",
       ".agents/skills/lint-and-validate/scripts/type_coverage.py": "e77b76f87e56ccdc805fb6a042828bd83fcb7f9f06c2fe19742ea829d6158a55",
@@ -3623,7 +3623,7 @@
     "discoverableSkills": 82,
     "duplicatesPreservedAsReferences": 2,
     "rules": 11,
-    "generatedFiles": 3270
+    "generatedFiles": 3272
   },
   "duplicateReferences": {
     "skills/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "skills/avoid-ai-writing/skills/avoid-ai-writing/REFERENCE.md",
@@ -18192,12 +18192,12 @@
     },
     "skills/learn/SKILL.md": {
       "source": ".agents/skills/learn/SKILL.md",
-      "sourceHash": "4a4197e1763f57c31f86856ed4a1bb5be422255408019fc4036fcb22b838f145",
-      "outputHash": "02095af39517102a4e53e0cb0bbf94a8520a1afc320f1fdea318dad3a04896ae"
+      "sourceHash": "1d6b7893b33780afd943ccff9eae50afe52df73748a8e7d64a8ca9934435cea8",
+      "outputHash": "00f65991b975145bbfa65ba7821d983629ac60970d3e9505206737bc6d0aafe0"
     },
     "skills/learn/agents/openai.yaml": {
       "source": ".agents/skills/learn/SKILL.md",
-      "sourceHash": "4a4197e1763f57c31f86856ed4a1bb5be422255408019fc4036fcb22b838f145",
+      "sourceHash": "1d6b7893b33780afd943ccff9eae50afe52df73748a8e7d64a8ca9934435cea8",
       "outputHash": "a0e3c677d07211d0f97afee68e458325104f6e41817cf0aafcca22bd2d190203"
     },
     "skills/lint-and-validate/scripts/lint_runner.py": {
@@ -19905,6 +19905,11 @@
       "sourceHash": "0602152cd995180f167db9a986aff30ba731703bbf6ad1b1a8abd7dbbe48bd88",
       "outputHash": "93bae2fb3e11e59c8273fd0a850761cd93ad6c88a3e67f9427b7196abb3b5686"
     },
+    "learned-invariants.designer.md": {
+      "source": ".agents/rules/learned-invariants.md",
+      "sourceHash": "0602152cd995180f167db9a986aff30ba731703bbf6ad1b1a8abd7dbbe48bd88",
+      "outputHash": "9e2fe144fba4ec4459e2e46c5c2a5b326611678e916f91392868dd1c12b23b55"
+    },
     "rules/MOTION.md": {
       "source": ".agents/rules/MOTION.md",
       "sourceHash": "94bf0fa193a78573a35af9a9223fb982612bf82000ec3e39703b007078a0d4e2",
@@ -19919,6 +19924,11 @@
       "source": ".agents/rules/security.md",
       "sourceHash": "1a0e99d17acb5f5434a3b9f189f5c293e22bd51f68f35b68c980c4435cd1203f",
       "outputHash": "cb22419d8c58c5cfc5c877fa5aa7df8fd4bc3793ea89eb0087dc0c3bd90889fa"
+    },
+    "security.designer.md": {
+      "source": ".agents/rules/security.md",
+      "sourceHash": "1a0e99d17acb5f5434a3b9f189f5c293e22bd51f68f35b68c980c4435cd1203f",
+      "outputHash": "8dcaa3d1d7a7f6da7c2682633f2a590ca94c70acce080639db42fbd1ce8bd334"
     },
     "rules/starting-brandnew.md": {
       "source": ".agents/rules/starting-brandnew.md",

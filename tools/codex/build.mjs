@@ -2,7 +2,18 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { bundleRoot, sourceRoot, repoRoot, filesIn, parseSkill, snapshotSource, slash, json, sha256, payloadData, payloadHash, writeIfChanged, assertNoSymlinkAncestors, isBundleExcluded } from './lib.mjs';
-import { convertSkill, openaiMetadata, yamlText, readOriginalMetadata, adaptMarkdown, adaptPlaywrightRunner, formatDesignerPolicy, generateCodexAgentToml } from './convert.mjs';
+import {
+  convertSkill,
+  openaiMetadata,
+  yamlText,
+  readOriginalMetadata,
+  adaptMarkdown,
+  adaptPlaywrightRunner,
+  formatDesignerPolicy,
+  formatDesignerLearnedInvariants,
+  formatDesignerSecurityRule,
+  generateCodexAgentToml
+} from './convert.mjs';
 import { localCodexIgnoreEntries } from './gitignore.mjs';
 
 /** Recursively remove empty subdirectories bottom-up under dir, preserving dir itself. */
@@ -220,7 +231,13 @@ export function buildBundle() {
       const { body } = parseSkill(text, input);
       text = `> Codex guidance for the relevant parts of the requested task. Preserve the user's scope and existing project conventions. Examples require the installed tool's supported syntax; a skill or rule does not grant permissions or install its dependencies.\n\n${body}`;
     }
-    add(`rules/${name}`, adaptMarkdown(text, original, duplicates), input);
+    const adaptedRule = adaptMarkdown(text, original, duplicates);
+    add(`rules/${name}`, adaptedRule, input);
+    if (name === 'learned-invariants.md') {
+      add('learned-invariants.designer.md', formatDesignerLearnedInvariants(adaptedRule), input);
+    } else if (name === 'security.md') {
+      add('security.designer.md', formatDesignerSecurityRule(adaptedRule), input);
+    }
   }
   const swarmRuleTemplate = path.join(templates, 'rules/swarm.md');
   if (fs.existsSync(swarmRuleTemplate)) {

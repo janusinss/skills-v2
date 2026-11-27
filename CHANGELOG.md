@@ -22,6 +22,8 @@ All notable changes are recorded here. Format follows [Keep a Changelog](https:/
 - Migrated Claude Code subagents and `/swarm` to Pure Advisor-First routing (`sonnet` for Rungs 1–3 and `haiku` for `explorer` in frontmatter defaults, omitted `model:` in `.claude/commands/swarm.md` to protect prompt caching, user-global `advisorModel: "opus"` pairing, Strike-2 `Agent(model: "opus")` escalation, and non-destructive `"outputStyle": "Concise"` default in installed `.claude/settings.json`).
 
 ### Fixed
+- Eliminated AGY `/swarm` monitor quota spam: pinned optional `monitor` (`swarm_monitor`) strictly to `gemini-4-hydrogen-medium`, updated `.agents/scripts/swarm-stop-guard.cjs` to require `monitor` only on `swarm_wait{mentions_only: true}` peer-to-peer handoffs (not Turn-1 spawns or `mentions_only: false` waves), and added anti-spam monitor brief overrides (`since: <wave_start_seq>`, `*/6 * * * *`, `MaxIterations: 12`, and `kill` on final teardown).
+- Eliminated Harness leakage in Designer Mode across AGY, Claude Code, and Codex installs: emit Designer-clean `learned-invariants.md` (zero `[Harness-*]` baselines, `.harness/`, or `skeptic`), `security.md`, and Claude `/learn` command; exclude `continuous-agent-loop`, `skeptic`, and `hooks.example.json` in Designer installs; and keep `SessionStart` project memory injection working without `harness.mjs` via `agy-hook-runner.cjs` and `.claude/scripts/memory-brief.cjs`.
 - Fixed `tools/codex/export.mjs` minimal-profile resource filtering and eliminated edition path leaks.
 - Excluded `evals/` directories and `*.test.*` files from AGY installs in `install.mjs`.
 

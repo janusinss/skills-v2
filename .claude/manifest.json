@@ -4,7 +4,7 @@
   "hashing": "sha256-lf-text",
   "checkedOn": "2026-11-27",
   "originalSnapshot": {
-    "digest": "53a91803381aaf0730b38333e5fde7a67c72b1aff51ff3f5c737af28e582ec66",
+    "digest": "0b6d1fec8e792fe03ed0fb441b77763ba2d388d2e942277501740bffd858065d",
     "files": {
       ".agents/agents/a11y-architect.md": "944a665705954fc9a05e3a97907500e3ee57de8d72ebb81de961c866a3eb03ae",
       ".agents/agents/agent-evaluator.md": "5dda4f49234a5336c748256230a1faa76de5f8638a7b8522d8df1ee876420876",
@@ -343,9 +343,9 @@
       ".agents/rules/security.md": "1a0e99d17acb5f5434a3b9f189f5c293e22bd51f68f35b68c980c4435cd1203f",
       ".agents/rules/starting-brandnew.md": "663fb9650417550eb6f3bc11b2c294bc7acebb89ca0d67a143d8dd5bc5dc4e9b",
       ".agents/rules/starting-existing.md": "47af33dc9034788af71039f77d608557983c63b2a3fe7686b892cf3bc0e3fa22",
-      ".agents/rules/swarm.md": "bfa545626a79d712d9ae29b25495b60956b5dea5b31a9d0ddf6573e3cafc720d",
-      ".agents/scripts/agy-hook-runner.cjs": "a6a21ed7bf33329b691071902e26328c6c58953b8bcfb572b58a933b9cfa44e6",
-      ".agents/scripts/swarm-stop-guard.cjs": "070d259f53864c8bf6e3ffb6e372ea405da1f7237ff2c28b163360e38d6c90fd",
+      ".agents/rules/swarm.md": "6d7fe4ad5b6309a3d58f7f2d1e8f5c325ccfbc16abb408b7af2972cf6dda5f25",
+      ".agents/scripts/agy-hook-runner.cjs": "a9db8181d70bea8b0457629287cbca9b07f13533e153d31d3abb6feb864f771d",
+      ".agents/scripts/swarm-stop-guard.cjs": "1e09d0220b6fbde83951dfc7931d716cec7c42073601d8dd5b01a578e3080206",
       ".agents/skills/3d-web-experience/SKILL.md": "ccdf216cc836ed8e339f8bafb78001d1deb6bb3a2d9a5beb705407fdd8300d10",
       ".agents/skills/agent-browser/SKILL.md": "6690c34e8fa0b872096d4b0e1de7106108eb45be2b231cbd90536648523466c2",
       ".agents/skills/agent-browser/references/authentication.md": "590d5b4b53e3088243cceca79ada5c4bebb36633d1e7b2f8baa3076269641a9f",
@@ -3303,7 +3303,7 @@
       ".agents/skills/impeccable/scripts/live-browser.js": "718d8cef65b92222219a45ffd024230ffad7273ff368f80e41e9f4d56d3cbd96",
       ".agents/skills/impeccable/scripts/modern-screenshot.umd.js": "bb36665889124a0b6e15f16045265737449c3bdcf2712cdb08af3cfa01563e2b",
       ".agents/skills/javascript-pro/SKILL.md": "21acacadd090f65f962126588a67bbfedb41fb897ab7a4a5a360c93a49d1f996",
-      ".agents/skills/learn/SKILL.md": "4a4197e1763f57c31f86856ed4a1bb5be422255408019fc4036fcb22b838f145",
+      ".agents/skills/learn/SKILL.md": "1d6b7893b33780afd943ccff9eae50afe52df73748a8e7d64a8ca9934435cea8",
       ".agents/skills/lint-and-validate/SKILL.md": "35e558822862f3386c3f5ba221684b7a7d492f3b56789bff224c9ff50a99a440",
       ".agents/skills/lint-and-validate/scripts/lint_runner.py": "fe1230c95c7a38c11fd330b8b2ba57ab4e2744dc423e84637d3ca31c4562a20d",
       ".agents/skills/lint-and-validate/scripts/type_coverage.py": "e77b76f87e56ccdc805fb6a042828bd83fcb7f9f06c2fe19742ea829d6158a55",
@@ -3625,7 +3625,7 @@
     "discoverableAgents": 32,
     "rules": 11,
     "customCommands": 10,
-    "generatedFiles": 3175
+    "generatedFiles": 3179
   },
   "duplicateReferences": {
     "skills/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md": "skills/avoid-ai-writing/skills/avoid-ai-writing/REFERENCE.md",
@@ -5277,6 +5277,11 @@
       "sourceHash": "0602152cd995180f167db9a986aff30ba731703bbf6ad1b1a8abd7dbbe48bd88",
       "outputHash": "c3835fe43722c778f661725a70b7e7473385094f38f9856838e6fe5a1b529f04"
     },
+    "learned-invariants.designer.md": {
+      "source": ".agents/rules/learned-invariants.md",
+      "sourceHash": "0602152cd995180f167db9a986aff30ba731703bbf6ad1b1a8abd7dbbe48bd88",
+      "outputHash": "46220a399a5833f3ad05d0f74b28e50c95b55aabc20a2e8042788e71781816b6"
+    },
     "rules/MOTION.md": {
       "source": ".agents/rules/MOTION.md",
       "sourceHash": "94bf0fa193a78573a35af9a9223fb982612bf82000ec3e39703b007078a0d4e2",
@@ -5291,6 +5296,11 @@
       "source": ".agents/rules/security.md",
       "sourceHash": "1a0e99d17acb5f5434a3b9f189f5c293e22bd51f68f35b68c980c4435cd1203f",
       "outputHash": "3da440790cf0335e049e443033979f9e7e1e864b270b24510f1b72a915789290"
+    },
+    "security.designer.md": {
+      "source": ".agents/rules/security.md",
+      "sourceHash": "1a0e99d17acb5f5434a3b9f189f5c293e22bd51f68f35b68c980c4435cd1203f",
+      "outputHash": "cfa2d957a5a04ab30aa2de2973f48e04f0868a5201ceaadd4b0a3811de570988"
     },
     "rules/starting-brandnew.md": {
       "source": ".agents/rules/starting-brandnew.md",
@@ -17884,8 +17894,8 @@
     },
     "skills/learn/SKILL.md": {
       "source": ".agents/skills/learn/SKILL.md",
-      "sourceHash": "4a4197e1763f57c31f86856ed4a1bb5be422255408019fc4036fcb22b838f145",
-      "outputHash": "4a4197e1763f57c31f86856ed4a1bb5be422255408019fc4036fcb22b838f145"
+      "sourceHash": "1d6b7893b33780afd943ccff9eae50afe52df73748a8e7d64a8ca9934435cea8",
+      "outputHash": "1d6b7893b33780afd943ccff9eae50afe52df73748a8e7d64a8ca9934435cea8"
     },
     "skills/lint-and-validate/scripts/lint_runner.py": {
       "source": ".agents/skills/lint-and-validate/scripts/lint_runner.py",
@@ -19477,6 +19487,16 @@
       "sourceHash": "8b5b8ed9fa119acff56e8fa6e4b2f3e2463331fab7f4a088b092e7f608d7fc83",
       "outputHash": "8b5b8ed9fa119acff56e8fa6e4b2f3e2463331fab7f4a088b092e7f608d7fc83"
     },
+    "scripts/memory-brief.cjs": {
+      "source": "tools/claude/templates/scripts/memory-brief.cjs",
+      "sourceHash": "27583b407b38c8c4e8ccab9dbc1cb8e3eb5c829c5c2ef827721c16010f017916",
+      "outputHash": "27583b407b38c8c4e8ccab9dbc1cb8e3eb5c829c5c2ef827721c16010f017916"
+    },
+    "learn.designer.md": {
+      "source": null,
+      "sourceHash": "e508e9522a4e3261503f94beec4a58c2f7d9931dfa5c95ff0a009f0ec874222d",
+      "outputHash": "e508e9522a4e3261503f94beec4a58c2f7d9931dfa5c95ff0a009f0ec874222d"
+    },
     "profiles.json": {
       "source": "tools/claude/profiles.json",
       "sourceHash": "8f3cf848a5a712196d3efc10645bb0e9b422054e913466e70f068df9936fbca5",
@@ -19490,12 +19510,12 @@
     "hooks.example.json": {
       "source": ".agents/hooks.example.json",
       "sourceHash": "89d59514587b20635749f390a66ede38cfbe15b832c29ea6e86adbd6cc77d1dc",
-      "outputHash": "c7f181592b88ab05cc3a9b2947712abdb162bfaa1a3b253a7c30e12ee9bbd7d6"
+      "outputHash": "6feb8b9871e40c249b952c3832430d898bf75ceb35c2e64afc3221cc80f03536"
     },
     "hooks.impeccable.example.json": {
       "source": ".agents/hooks.example.json",
       "sourceHash": "89d59514587b20635749f390a66ede38cfbe15b832c29ea6e86adbd6cc77d1dc",
-      "outputHash": "74d25733f95f0901fd84db3b1ae6265748d555e04848e6e77b40a9118937a540"
+      "outputHash": "19c0a23bfdcad1ce0e2e3b23553fd74d9a2420e47f4164394e41c44f5fad8f90"
     },
     "CLAUDE.md": {
       "source": "AGENTS.md",

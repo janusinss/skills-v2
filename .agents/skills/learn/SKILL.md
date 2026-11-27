@@ -6,7 +6,7 @@ license: MIT
 
 # Bidirectional Self-Improvement (`/learn`)
 
-Capture both verified winning playbooks (`exemplar`) and root-cause failure guardrails (`regression`) without bloating root policy files. This workflow applies across Harness Mode and Designer Mode, pairing [learned-invariants.md](../../rules/learned-invariants.md) with [continuous-agent-loop](../continuous-agent-loop/SKILL.md) and [agent-self-evaluation](../agent-self-evaluation/SKILL.md).
+Capture both verified winning playbooks (`exemplar`) and root-cause failure guardrails (`regression`) without bloating root policy files. This workflow applies across Harness Mode and Designer Mode, pairing [learned-invariants.md](../../rules/learned-invariants.md) with `continuous-agent-loop` (in Harness Mode) and [agent-self-evaluation](../agent-self-evaluation/SKILL.md).
 
 All `harness.mjs` commands below invoke `node ../continuous-agent-loop/scripts/harness.mjs` from this skill's directory (or the equivalent workspace path for your edition).
 

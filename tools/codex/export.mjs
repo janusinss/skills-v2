@@ -40,6 +40,9 @@ export function planExport({ target, profile = 'all', includeHooks = true, mode 
   for (const core of ['swarm', 'learn']) {
     if (all.includes(core) && !selected.includes(core)) selected.push(core);
   }
+  if (resolvedMode === 'designer') {
+    selected = selected.filter(skill => skill !== 'continuous-agent-loop');
+  }
   const entries = [];
   const add = (source, relative) => {
     const output = path.resolve(destination, relative);
@@ -52,10 +55,24 @@ export function planExport({ target, profile = 'all', includeHooks = true, mode 
     ? path.join(root, 'AGENTS.designer.md')
     : path.join(root, 'AGENTS.md');
   add(agentsSource, 'AGENTS.md');
+  const designerLearnedInvariants = path.join(root, 'learned-invariants.designer.md');
+  const designerSecurityRule = path.join(root, 'security.designer.md');
   for (const area of ['rules', 'agents', 'resources']) {
     const dir = path.join(root, area);
     if (fs.existsSync(dir)) {
-      for (const source of filesIn(dir)) add(source, slash(path.join('.codex', area, path.relative(dir, source))));
+      for (const source of filesIn(dir)) {
+        const base = path.basename(source);
+        if (resolvedMode === 'designer' && area === 'agents' && (base === 'skeptic.md' || base === 'skeptic.toml')) continue;
+        let effectiveSource = source;
+        if (resolvedMode === 'designer') {
+          if (area === 'rules' && base === 'learned-invariants.md' && fs.existsSync(designerLearnedInvariants)) {
+            effectiveSource = designerLearnedInvariants;
+          } else if (area === 'rules' && base === 'security.md' && fs.existsSync(designerSecurityRule)) {
+            effectiveSource = designerSecurityRule;
+          }
+        }
+        add(effectiveSource, slash(path.join('.codex', area, path.relative(dir, source))));
+      }
     }
   }
   for (const skill of selected) {
@@ -65,7 +82,9 @@ export function planExport({ target, profile = 'all', includeHooks = true, mode 
   }
   const configExample = path.join(root, 'config.example.toml');
   if (fs.existsSync(configExample)) add(configExample, '.codex/config.example.toml');
-  add(path.join(root, 'hooks.example.json'), '.codex/hooks.example.json');
+  if (resolvedMode !== 'designer') {
+    add(path.join(root, 'hooks.example.json'), '.codex/hooks.example.json');
+  }
   const impeccableHooksExample = path.join(root, 'hooks.impeccable.example.json');
   if (fs.existsSync(impeccableHooksExample)) add(impeccableHooksExample, '.codex/hooks.impeccable.example.json');
   if (includeHooks) {

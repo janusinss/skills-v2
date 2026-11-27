@@ -317,6 +317,55 @@ export function formatDesignerPolicy(text) {
   return result.trimEnd() + '\n';
 }
 
+export function formatDesignerLearnedInvariants(text) {
+  const normalized = text.replace(/^\uFEFF/, '').replace(/\r\n/g, '\n');
+  const section3Idx = normalized.indexOf('## 3. Promoted Project Invariants');
+  const tail = section3Idx >= 0
+    ? normalized.slice(section3Idx).trimEnd()
+    : [
+        '## 3. Promoted Project Invariants',
+        '',
+        '<!-- flywheel-promoted-rules-start -->',
+        '<!-- flywheel-promoted-rules-end -->',
+        '',
+        '## 4. Promoted Positive Exemplars',
+        '',
+        '<!-- flywheel-exemplars-start -->',
+        '<!-- flywheel-exemplars-end -->',
+        '',
+        '## 5. Staged Candidates (Pending Promotion)',
+        '',
+        '<!-- flywheel-staged-rules-start -->',
+        '<!-- flywheel-staged-rules-end -->',
+      ].join('\n');
+
+  return [
+    '# Learned Invariants & Project Memory',
+    '',
+    'Core project invariants and winning playbooks loaded before planning or code edits. See [learn](../skills/learn/SKILL.md) for the `/learn` workflow.',
+    '',
+    '## 1. Project Memory Tiers & Budget',
+    '',
+    '- **Tier 2 (This file)**: Promoted Project Invariants (Section 3, `<= 20` soft cap), Promoted Positive Exemplars (Section 4, `<= 8` soft cap), and Staged Candidates (Section 5). Stage new lessons here first and promote only after user approval—never auto-append raw reflections to root policy files. At `SessionStart`, a compact `<= 600 B` domain-matched brief is injected.',
+    '- **Tier 3 (`.claude/skills/project-<domain>/SKILL.md`)**: Graduate recurring clusters (`>= 3` verified hits) or relieve size pressure near `12 KB` into a dedicated project skill, then prune superseded bullets.',
+    '- **Repo Scope**: Keep project invariants, exemplars, and `project-*` skills local to target repos; commit only universal workflow invariants in a shared skills source repo.',
+    '',
+    '## 2. Core Baseline Invariants',
+    '',
+    '- **[Security-Boundary]**: Reviewers and auditors ([security-auditor.md](../agents/security-auditor.md)) must stay strictly read-only and never mutate workspace files during audits (Source: baseline-readonly-audit).',
+    '',
+    tail,
+    '',
+  ].join('\n');
+}
+
+export function formatDesignerSecurityRule(text) {
+  return text
+    .replace(/\r\n/g, '\n')
+    .replace(/\s*·\s*\[skeptic\]\([^\n)]*skeptic\.md\)/g, '')
+    .trimEnd() + '\n';
+}
+
 export function adaptPlaywrightRunner(text) {
   if (text.includes('centralSkills') || text.includes('execSync(')) {
     throw new Error('Playwright runner adaptation no longer matches its upstream source');
